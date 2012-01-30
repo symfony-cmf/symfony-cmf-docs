@@ -1,4 +1,5 @@
 
+
 Setting up the CMF bundles in your own project
 ==============================================
 The Symfony CMF project makes it easier for developers to add CMS functionality to applications built with the Symfony2 PHP framework. Key development principles for the provided set of bundles are scalability, usability, documentation and testing.
@@ -7,26 +8,25 @@ The goal of this tutorial is to create an Symfony2 application using all the CMF
 
 If this is your first encounter with the Symfony CMF it would be a good idea to first take a look at `the big picture <http://slides.liip.ch/static/2012-01-17_symfony_cmf_big_picture.html#1>`_ and/or the `CMF sandbox environment <https://github.com/symfony-cmf/symfony-cmf>`_ which is a pre-installed Symfony / CMF application containing all CMF components.
 
-Documentation TODO
-------------------
-- Describe project structure (and dependencies)
-- Installation phpcr-odm
-- Configs
-- Examples
+Setting up a content repository
+-------------------------------
+As a backend content repository we're going to install Apache Jackrabbit:
 
-Project structure
------------------
-Before we start with this tutorial it would be good to understand the structure of the different bundles, how they are spread over different Github repositories and how they are (in)dependent on each other:
+- Make sure you have Java Virtual Machine installed on your box. If not, you can grab one from here: http://www.java.com/en/download/manual.jsp
+- Download the latest version from the `Jackrabbit Downloads page <http://jackrabbit.apache.org/downloads.html>`_
+- Run the server. Go to the folder where you downloaded the .jar file and launch it::
 
-DoctrinePHPCRBundle
-symfony-cmf
-ChainRoutingBundle
-TreeBundle
-SonataDoctrinePHPCRAdminBundle
+    java -jar jackrabbit-standalone-*.jar
 
+Going to http://localhost:8080/ should now display a Apache Jackrabbit page.
 
-Installation
-------------
+More information about `running a Jackrabbit server <https://github.com/jackalope/jackalope/wiki/Running-a-jackrabbit-server>`_
+can be found on the Jackalope wiki.
+
+As we are using Jackalope as our PHPCR implementation we could also chose other storage backends like relational databases but for this tutorial we're going to use Jackrabbit.
+
+Installation of the CMF
+-----------------------
 
 Download the bundles
 ~~~~~~~~~~~~~~~~~~~~
@@ -71,10 +71,10 @@ Download the CMF bundles (and depencies) to the vendor folder. Add the following
 And run the vendors script to download the bundles::
 
     php bin/vendors install
-    
+
 After every vendor install/update make sure to run the following command in the symfony-cmf folder ``vendor/symfony-cmf/``::
 
-    ``git submodule update --recursive --init``
+    git submodule update --recursive --init
 
 
 Register namespaces
@@ -106,7 +106,7 @@ Next step is to add the autoloader entries in ``app/autoload.php``::
 
 Register annotations
 ~~~~~~~~~~~~~~~~~~~~
-Add autoloader entries in ``app/autoload.php`` for the ODM annotations right after the last ``AnnotationRegistry::registerFile`` line:
+Add autoloader entries in ``app/autoload.php`` for the ODM annotations right after the last ``AnnotationRegistry::registerFile`` line::
 
     // ...
     AnnotationRegistry::registerFile(__DIR__.'/../vendor/symfony-cmf/vendor/doctrine-phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php');
@@ -114,7 +114,7 @@ Add autoloader entries in ``app/autoload.php`` for the ODM annotations right aft
 
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
-Finally, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method::
+Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method::
 
     public function registerBundles()
     {
@@ -145,28 +145,29 @@ Finally, initialize the bundles in ``app/AppKernel.php`` by adding them to the `
         // ...
     }
 
-Config
-------
-Now that we installed and registered our bundles, we're almost ready to go. But first take a look at some basic configuration we need to add to our ``app/config.yml``:
+Configuration
+-------------
+Next step is to configure the bundles.
 
 Doctrine PHPCR ODM
 ~~~~~~~~~~~~~~~~~~
-Basic configuration::
+Basic configuration, add to ``app/config/config.yml``::
 
     doctrine_phpcr:
         session:
             backend:
                 type: jackrabbit
+                # replace localhost if you're not running the server locally
                 url: http://localhost:8080/server/
             workspace: default
             username: admin
             password: admin
 
-TODO: link to reference
+More information on configuring this bundle can be found `here <https://github.com/doctrine/DoctrinePHPCRBundle#readme>`_.
 
 SymfonyCmfChainRoutingBundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Basic configuration::
+Basic configuration, add to ``app/config/config.yml``::
 
     symfony_cmf_chain_routing:
         chain:
@@ -177,3 +178,19 @@ Basic configuration::
             enabled: true
 
 TODO: link to reference
+
+SonataAdminBundle
+~~~~~~~~~~~~~~~~~
+Add route in ``app/config/routing.yml`` ::
+
+    admin:
+        resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+        prefix: /admin
+
+TODO: link to reference
+
+Registering system node types
+----------------------------
+PHPCR ODM uses a `custom node type <https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged>`_ to track meta information without interfering with your content. There is a command that makes it trivial to register this type and the phpcr namespace::
+
+    php app/console doctrine:phpcr:register-system-node-types
