@@ -1,8 +1,19 @@
-Installation of the CMF
------------------------
+Creating a CMS using CMF and Sonata
+===================================
+The goal of this tutorial is to create a simple content management system using the CMF and the Sonata admin bundle.
+
+Documentation TODO
+------------------
+- expand intro and add steps to take
+- describe prerequisites
+- describe steps to make a CMS
+
+Installation
+------------
 
 Download the bundles
 ~~~~~~~~~~~~~~~~~~~~
+Add the following to your ``deps`` file::
 
     [SonatajQueryBundle]
         git=http://github.com/sonata-project/SonatajQueryBundle.git
@@ -19,6 +30,10 @@ Download the bundles
     [TreeBundle]
         git=git://github.com/symfony-cmf/TreeBundle.git
         target=/bundles/Symfony/Cmf/Bundle/TreeBundle
+        
+And run the vendors script to download the bundles::
+
+    php bin/vendors install
 
 Register namespaces
 ~~~~~~~~~~~~~~~~~~~
