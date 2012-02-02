@@ -1,5 +1,11 @@
 Installing and configuring Doctrine PHPCR ODM
 =============================================
+The goal of this tutorial is to install and configure Doctrine PHPCR ODM.
+
+Documentation TODO
+------------------
+- expand intro and add steps to take
+- add Jackalope/DBAL installation/setup
 
 Setting up a content repository
 -------------------------------
