@@ -56,6 +56,14 @@ Next step is to add the autoloader entries in ``app/autoload.php``::
                                                    ),
         // ...
     ));
+
+Register annotations
+~~~~~~~~~~~~~~~~~~~~
+Add file to annotation registry in ``app/autoload.php`` for the ODM annotations right after the last ``AnnotationRegistry::registerFile`` line::
+
+    // ...
+    AnnotationRegistry::registerFile(__DIR__.'/../vendor/symfony-cmf/vendor/doctrine-phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php');
+    // ...
     
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
