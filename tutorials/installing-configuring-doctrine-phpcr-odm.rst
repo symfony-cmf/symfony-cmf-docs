@@ -1,6 +1,7 @@
 Installing and configuring Doctrine PHPCR ODM
 =============================================
 The goal of this tutorial is to install and configure Doctrine PHPCR ODM.
+Note that Symfony2.1 (currenly master) is required for the CMF to work.
 
 Documentation TODO
 ------------------
