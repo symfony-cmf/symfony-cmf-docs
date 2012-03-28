@@ -1,9 +1,14 @@
 SymfonyCmfContentBundle
 =======================
+This bundle provides a document for static content and the controller to render it.
+
+Dependencies
+------------
+This bundle is shipped within the symfony-cmf git repository and is normally not used independently. 
 
 Configuration
 -------------
-Configuration of this bundle
+The configuration key for this bundle is ``symfony_cmf_content``
 
 document_class
 ~~~~~~~~~~~~~~~~~
