@@ -29,6 +29,14 @@ Looking for some in depth information about a specific part of the CMF? Want a l
 	reference/multilang
 	reference/routing
 	reference/phpcr_browser
-	
+
 .. _`Document planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
 .. _`CMF website`: http://cmf.symfony.com/get-involved
+
+
+Indices and tables
+==================
+
+# * :ref:`genindex`
+# * :ref:`modindex`
+* :ref:`search`
