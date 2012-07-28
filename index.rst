@@ -1,4 +1,9 @@
-﻿Symfony CMF Documentation
+﻿.. Symfony CMF documentation master file, created by
+   sphinx-quickstart on Sat Jul 28 21:58:57 2012.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Symfony CMF Documentation
 =========================
 
 Welcome to the official documentation of the **Symfony Content Management Framework**.
@@ -40,3 +45,4 @@ Indices and tables
 # * :ref:`genindex`
 # * :ref:`modindex`
 * :ref:`search`
+
