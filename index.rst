@@ -42,7 +42,6 @@ Looking for some in depth information about a specific part of the CMF? Want a l
 Indices and tables
 ==================
 
-# * :ref:`genindex`
-# * :ref:`modindex`
-# * :ref:`search`
+* :ref:`genindex`
+* :ref:`search`
 
