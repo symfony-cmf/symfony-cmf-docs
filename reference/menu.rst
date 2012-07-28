@@ -35,7 +35,7 @@ Configuration
 		menu_basepath: /phpcr/path/to/menutree
 		document_manager: doctrine_phpcr.odm.default_document_manager
 		menu_document_class: null
-		content_url_generator: symfony_cmf_chain_routing.doctrine_router
+		content_url_generator: symfony_cmf_routing_extra.dynamic_router
 		content_key: null (resolves to DoctrineRouter::CONTENT_KEY)
 		route_name: null
 
@@ -72,7 +72,7 @@ Dependencies
 
 Unless you change defaults and provide your own implementations, also depends on
 
-* SymfonyCmfChainRoutingBundle for the doctrine router service symfony_cmf_chain_routing.doctrine_router
+* SymfonyRoutingExtraBundle for the doctrine router service symfony_cmf_chain_routing.doctrine_router
     Note that you need to explicitly enable the doctrine router as per default it is not loaded.
-    See the documentation of the chain routing bundle for how to do this.
+    See the documentation of the routing extra bundle for how to do this.
 * Doctrine PHPCR-ODM to load route documents from the content repository

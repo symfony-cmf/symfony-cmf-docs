@@ -10,16 +10,16 @@ Welcome to the official documentation of the **Symfony Content Management Framew
 
 This documentation is currently in development and far from complete. See `Document planning`_ for an overview of the work to do. Want to help? Thank you, all help greatly appreciated! See the `CMF website`_ how to get involved.
 
-Book
-----
+Tutorials
+---------
 Learning or want to learn the CMF? Want to know if the CMF fits your project? The book tells you all.
 
 .. toctree::
 	:maxdepth: 1
 
-	book/why
-	book/big_picture
-	book/installation
+	tutorials/creating-cms-using-cmf-and-sonata
+	tutorials/installing-configuring-cmf
+	tutorials/installing-configuring-doctrine-phpcr-odm
 
 Reference
 ---------

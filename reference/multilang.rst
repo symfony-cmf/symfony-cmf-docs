@@ -49,7 +49,7 @@ Language redirection controller
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This controller decides on the correct page to show for the browser preference
-language. It is working with the RouteAwareInterface from the ChainRoutingBundle.
+language. It is working with the RouteAwareInterface from the RoutingExtraBundle.
 
 The idea is that you put a MultilangLanguageSelectRoute at the route where
 language should be automatically detected (e.g. /)

@@ -5,7 +5,7 @@ The goal of this tutorial is to get you up and running with an application build
 This does include the following bundles:
 - SymfonyCmfCoreBundle
 - SymfonyCmfContentBundle
-- SymfonyCmfChainRoutingBundle
+- SymfonyRoutingExtraBundle
 - SymfonyCmfMenuBundle
 
 This tutorial does not include the installation and configuration of the following bundles:
@@ -24,15 +24,15 @@ Installation
 
 Download the bundles
 ~~~~~~~~~~~~~~~~~~~~
-Download the CMF bundles (and depencies) to the vendor folder. Add the following to your ``deps`` file::
+Download the CMF bundles (and dependencies) to the vendor folder. Add the following to your ``deps`` file::
 
     [symfony-cmf]
         git=http://github.com/symfony-cmf/symfony-cmf.git
         git_command=submodule update --init --recursive
 
-    [ChainRoutingBundle]
-        git=git://github.com/symfony-cmf/ChainRoutingBundle.git
-        target=/bundles/Symfony/Cmf/Bundle/ChainRoutingBundle
+    [RoutingExtraBundle]
+        git=git://github.com/symfony-cmf/RoutingExtraBundle.git
+        target=/bundles/Symfony/Cmf/Bundle/RoutingExtraBundle
 
     ;== Dependencies of the SymfonyCmfMenuBundle
     [knp-menu]
@@ -76,7 +76,7 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
         $bundles = array(
             // ...
 
-            new Symfony\Cmf\Bundle\ChainRoutingBundle\SymfonyCmfChainRoutingBundle(),
+            new Symfony\Cmf\Bundle\RoutingExtraBundle\SymfonyRoutingExtraBundle(),
             new Symfony\Cmf\Bundle\CoreBundle\SymfonyCmfCoreBundle(),
             new Symfony\Cmf\Bundle\ContentBundle\SymfonyCmfContentBundle(),
             new Symfony\Cmf\Bundle\MenuBundle\SymfonyCmfMenuBundle(),
@@ -94,7 +94,7 @@ To get your application running very little configuration is needed. But because
 
 To enable the doctrine router and to add the router to the routing chain add the following to ``app/config/config.yml``::
 
-    symfony_cmf_chain_routing:
+    symfony_cmf_routing_extra:
         chain:
             routers_by_id:
                 symfony_cmf_chain_routing.doctrine_router: 200
