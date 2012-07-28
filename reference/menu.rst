@@ -23,9 +23,8 @@ The currently highlighted entry is determined by checking if the content
 associated with a menu document is the same as the content DoctrineRouter
 has put into the request.
 
-Until we have a decent tutorial, you can look into the
-[cmf-sandbox](https://github.com/symfony-cmf/cmf-sandbox) and specifically
-the [menu fixtures](https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/Resources/data/fixtures/030_LoadMenuData.php)
+Until we have a decent tutorial, you can look into the `cmf-sandbox <https://github.com/symfony-cmf/cmf-sandbox>`_
+and specifically the 'menu fixtures <https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/Resources/data/fixtures/030_LoadMenuData.php>'
 
 Configuration
 -------------

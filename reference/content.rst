@@ -4,7 +4,7 @@ This bundle provides a document for static content and the controller to render 
 
 Dependencies
 ------------
-This bundle is shipped within the symfony-cmf git repository and is normally not used independently. 
+
 
 Configuration
 -------------

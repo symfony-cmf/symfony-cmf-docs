@@ -3,15 +3,15 @@ Installing and configuring CMF
 The goal of this tutorial is to get you up and running with an application build on top of (some of the bundles of) the Symfony Content Management Framework.
 
 This does include the following bundles:
-- SymfonyCmfCoreBundle
-- SymfonyCmfContentBundle
-- SymfonyRoutingExtraBundle
-- SymfonyCmfMenuBundle
+* SymfonyCmfCoreBundle
+* SymfonyCmfContentBundle
+* SymfonyRoutingExtraBundle
+* SymfonyCmfMenuBundle
 
 This tutorial does not include the installation and configuration of the following bundles:
-- SymfonyCmfMultilangContentBundle
-- SymfonyCmfPHPCRBrowserBundle
-- SymfonyCmfTreeBundle
+* SymfonyCmfMultilangContentBundle
+* SymfonyCmfPHPCRBrowserBundle
+* SymfonyCmfTreeBundle
 
 If this is your first encounter with the Symfony CMF it would be a good idea to first take a look at `the big picture <http://slides.liip.ch/static/2012-01-17_symfony_cmf_big_picture.html#1>`_ and/or the `CMF sandbox environment <https://github.com/symfony-cmf/symfony-cmf>`_ which is a pre-installed Symfony / CMF application containing all CMF components.
     

@@ -4,7 +4,7 @@ This is the core bundle for the Symfony2 content management framework. This bund
 
 Dependencies
 ------------
-This bundle is shipped within the symfony-cmf git repository and is normally not used independently. 
+
 
 Configuration
 -------------
