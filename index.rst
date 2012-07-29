@@ -17,9 +17,10 @@ Learning or want to learn the CMF? Want to know if the CMF fits your project? Th
 .. toctree::
 	:maxdepth: 1
 
-	tutorials/creating-cms-using-cmf-and-sonata
 	tutorials/installing-configuring-cmf
 	tutorials/installing-configuring-doctrine-phpcr-odm
+	tutorials/installing-configuring-simple-cms-bundle
+	tutorials/creating-cms-using-cmf-and-sonata
 
 Reference
 ---------
@@ -32,7 +33,6 @@ Looking for some in depth information about a specific part of the CMF? Want a l
 	reference/core
 	reference/menu
 	reference/multilang
-	reference/routing
 	reference/phpcr_browser
 
 .. _`Document planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning

@@ -1,68 +1,54 @@
 Installing and configuring Doctrine PHPCR ODM
 =============================================
 The goal of this tutorial is to install and configure Doctrine PHPCR ODM.
-Note that Symfony2.1 (currenly master) is required for the CMF to work.
-
-Documentation TODO
-------------------
-- expand intro and add steps to take
-- add Jackalope/DBAL installation/setup
+Note that Symfony2.1 (currently master) is required for the CMF to work.
 
 Preconditions
 -------------
 - php >= 5.3
 - libxml version >= 2.7.0 (due to a bug in libxml http://bugs.php.net/bug.php?id=36501)
-- phpunit >= 3.5 (if you want to run the tests)
+- phpunit >= 3.6 (if you want to run the tests)
 
-Setting up a content repository
--------------------------------
-As a backend content repository we're going to install Apache Jackrabbit:
-
-- Make sure you have Java Virtual Machine installed on your box. If not, you can grab one from here: http://www.java.com/en/download/manual.jsp
-- Download the latest version from the `Jackrabbit Downloads page <http://jackrabbit.apache.org/downloads.html>`_
-- Run the server. Go to the folder where you downloaded the .jar file and launch it::
-
-    java -jar jackrabbit-standalone-*.jar
-
-Going to http://localhost:8080/ should now display a Apache Jackrabbit page.
-
-More information about `running a Jackrabbit server <https://github.com/jackalope/jackalope/wiki/Running-a-jackrabbit-server>`_
-can be found on the Jackalope wiki.
-
-As we are using Jackalope as our PHPCR implementation we could also chose other storage backends like relational databases but for this tutorial we're going to use Jackrabbit.
 
 Installation
 ------------
 
+Choosing a content repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The first thing to decide is what content repository to use. A content repository is essentially
+a database that will be responsible for storing all the content you want to persist. It provides
+and API that is optimized for the needs of a CMS (tree structures, references, versioning, full
+text search etc.). While every content repository can have very different requirements and
+performance characteristics, the API is the same for all of them.
+
+Furthermore since the API defines an export/import format, you can always switch to a different
+content repository implementation later on.
+
+These are the available choices:
+
+* Jackalope with Jackrabbit (Jackrabbit requires Java, it can persist into the file system, a database etc.)
+* Jackalope with Doctrine DBAL (requires an RDBMS like MySQL, PostgreSQL or SQLite)
+* Midgard (requires an RDBMS like MySQL, PostgreSQL or SQLite)
+
+Depending on your choice you can omit certain steps in the following documentation.
+
 Download the bundles
 ~~~~~~~~~~~~~~~~~~~~
-Add the following to your ``deps`` file::
+Add the following to your ``composer.json`` file::
 
-    [DoctrinePHPCRBundle]
-    git=http://github.com/doctrine/DoctrinePHPCRBundle.git
-    target=/bundles/Doctrine/Bundle/PHPCRBundle
-    
-    [symfony-cmf]
-    git=http://github.com/symfony-cmf/symfony-cmf.git
-    git_command=submodule update --init --recursive
+    "require": {
+        ...
+        "jackalope/jackalope-jackrabbit": "1.0.*"
+        "jackalope/jackalope-doctrine-dbal": "dev-master"
+        "midgard/phpcr": "dev-master"
+        "doctrine/phpcr-bundle": "1.0.*",
+        "doctrine/phpcr-odm": "1.0.*",
+    }
 
-Register namespaces
-~~~~~~~~~~~~~~~~~~~
-Next step is to add the autoloader entries in ``app/autoload.php``::
+And then run::
 
-    $loader->registerNamespaces(array(
-        // ...
-
-        'Doctrine\\Bundle'                      => __DIR__.'/../vendor/bundles',
-        'Doctrine\\ODM\\PHPCR'                  => __DIR__.'/../vendor/symfony-cmf/vendor/doctrine-phpcr-odm/lib',
-        'Doctrine\\Common'                      => __DIR__.'/../vendor/symfony-cmf/vendor/doctrine-phpcr-odm/lib/vendor/doctrine-common/lib',
-        'Jackalope'                             => __DIR__.'/../vendor/symfony-cmf/vendor/doctrine-phpcr-odm/lib/vendor/jackalope/src',
-        'PHPCR'                                 => array(
-                                                     __DIR__.'/../vendor/symfony-cmf/vendor/doctrine-phpcr-odm/lib/vendor/jackalope/lib/phpcr/src',
-                                                     __DIR__.'/../vendor/symfony-cmf/vendor/doctrine-phpcr-odm/lib/vendor/jackalope/lib/phpcr-utils/src'
-                                                   ),
-        // ...
-    ));
+    php composer.phar update
 
 Register annotations
 ~~~~~~~~~~~~~~~~~~~~
@@ -87,7 +73,8 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
         );
         // ...
     }
-    
+
+
 Configuration
 -------------
 Next step is to configure the bundles.
@@ -99,18 +86,74 @@ Basic configuration, add to ``app/config/config.yml``::
     doctrine_phpcr:
         session:
             backend:
+                # Jackalope Jackrabbit
                 type: jackrabbit
-                # replace localhost if you're not running the server locally
                 url: http://localhost:8080/server/
+                # Jackalope Doctrine DBAL (make sure to also configure the DoctrineBundle accordingly)
+                type: doctrinedbal
+                connection: doctrine.dbal.default_connection
+                # Midgard
+                type: midgard2
+                db_type: MySQL
+                db_name: midgard2_test
+                db_host: "0.0.0.0"
+                db_port: 3306
+                db_username: ""
+                db_password: ""
+                db_init: true
+                blobdir: /tmp/cmf-blobs
             workspace: default
             username: admin
             password: admin
-            
+
 More information on configuring this bundle can be found `here <https://github.com/doctrine/DoctrinePHPCRBundle#readme>`_.
 
+Setting up the content repository
+---------------------------------
+
+Jackalope Jackrabbit
+~~~~~~~~~~~~~~~~~~~~
+
+These are the steps necessary to install Apache Jackrabbit:
+
+- Make sure you have Java Virtual Machine installed on your box. If not, you can grab one from here: http://www.java.com/en/download/manual.jsp
+- Download the latest version from the `Jackrabbit Downloads page <http://jackrabbit.apache.org/downloads.html>`_
+- Run the server. Go to the folder where you downloaded the .jar file and launch it::
+
+    java -jar jackrabbit-standalone-*.jar
+
+Going to http://localhost:8080/ should now display a Apache Jackrabbit page.
+
+More information about `running a Jackrabbit server <https://github.com/jackalope/jackalope/wiki/Running-a-jackrabbit-server>`_
+can be found on the Jackalope wiki.
+
+As we are using Jackalope as our PHPCR implementation we could also chose other storage backends
+like relational databases but for this tutorial we're going to use Jackrabbit.
+
+Jackalope Doctrine DBAL
+~~~~~~~~~~~~~~~~~~~~~~~
+
+In order to setup the database run the following steps to create the database and setup a default schema::
+
+    app/console doctrine:database:create
+    app/console doctrine:phpcr:init:dbal
+
+Midgard
+~~~~~~~
+
+TODO
 
 Registering system node types
 ----------------------------
-PHPCR ODM uses a `custom node type <https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged>`_ to track meta information without interfering with your content. There is a command that makes it trivial to register this type and the phpcr namespace::
+PHPCR ODM uses a `custom node type <https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged>`_
+to track meta information without interfering with your content. There is a command that makes it trivial to
+register this type and the phpcr namespace::
 
     php app/console doctrine:phpcr:register-system-node-types
+
+Creating a new workspace
+------------------------
+
+This step is optional since there is always a workspace "default" available::
+
+    app/console doctrine:phpcr:workspace:create my_workspace

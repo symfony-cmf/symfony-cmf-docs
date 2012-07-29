@@ -8,43 +8,25 @@ Documentation TODO
 - describe prerequisites
 - describe steps to make a CMS
 
+Preconditions
+-------------
+- Installation of Symfony CMF
+
 Installation
 ------------
 
 Download the bundles
 ~~~~~~~~~~~~~~~~~~~~
-Add the following to your ``deps`` file::
+Add the following to your ``composer.json`` file::
 
-    [SonatajQueryBundle]
-        git=http://github.com/sonata-project/SonatajQueryBundle.git
-        target=/bundles/Sonata/jQueryBundle
+    "require": {
+        ...
+        "sonata-project/doctrine-phpcr-admin-bundle": "1.0.*",
+    }
 
-    [SonataAdminBundle]
-        git=https://github.com/sonata-project/SonataAdminBundle.git
-        target=/bundles/Sonata/AdminBundle
+And then run::
 
-    [SonataDoctrinePHPCRAdminBundle]
-        git=https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle.git
-        target=/bundles/Sonata/DoctrinePHPCRAdminBundle
-
-    [TreeBundle]
-        git=git://github.com/symfony-cmf/TreeBundle.git
-        target=/bundles/Symfony/Cmf/Bundle/TreeBundle
-        
-And run the vendors script to download the bundles::
-
-    php bin/vendors install
-
-Register namespaces
-~~~~~~~~~~~~~~~~~~~
-Next step is to add the autoloader entries in ``app/autoload.php``::
-
-    $loader->registerNamespaces(array(
-        // ...
-        'Sonata'           => __DIR__.'/../vendor/bundles',
-        // ...
-    ));
-
+    php composer.phar update
         
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~

@@ -30,13 +30,13 @@ Configuration
 -------------
 ::
 
-	symfony_cmf_menu:
-		menu_basepath: /phpcr/path/to/menutree
-		document_manager: doctrine_phpcr.odm.default_document_manager
-		menu_document_class: null
-		content_url_generator: symfony_cmf_routing_extra.dynamic_router
-		content_key: null (resolves to DoctrineRouter::CONTENT_KEY)
-		route_name: null
+    symfony_cmf_menu:
+        menu_basepath: /phpcr/path/to/menutree
+        document_manager: doctrine_phpcr.odm.default_document_manager
+        menu_document_class: null
+        content_url_generator: symfony_cmf_routing_extra.dynamic_router
+        content_key: null (resolves to DoctrineRouter::CONTENT_KEY)
+        route_name: null
 
 How to use non-default other components
 ---------------------------------------
