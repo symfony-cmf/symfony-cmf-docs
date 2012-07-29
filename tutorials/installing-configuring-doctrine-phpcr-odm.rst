@@ -46,6 +46,8 @@ Add the following to your ``composer.json`` file::
         "doctrine/phpcr-odm": "1.0.*",
     }
 
+Notice: Remember to check if you are using "doctrine/orm": "2.2.*" (Symofony 2.1 default) and switch to "2.3.*" before updating.
+
 And then run::
 
     php composer.phar update
