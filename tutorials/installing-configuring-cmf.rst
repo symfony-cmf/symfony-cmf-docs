@@ -75,6 +75,16 @@ To enable the dynamic router and to add the router to the routing chain add the 
         dynamic:
             enabled: true
 
+For a basic functionality for the BlockBundle (required)::
+
+    sonata_block:
+        default_contexts: [cms]
+
+If you are *NOT* unsing Sonata Admin Bundle the following configuration is needed::
+
+   symfony_cmf_menu:
+      use_sonata_admin: false
+
 For now this is the only configuration we need. Mastering the configuration of the different
 bundles will be handled in further tutorials. If you're looking for the configuration of a
 specific bundle take a look at the reference (TODO link).
