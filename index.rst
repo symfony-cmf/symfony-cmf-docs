@@ -1,14 +1,11 @@
-﻿.. Symfony CMF documentation master file, created by
-   sphinx-quickstart on Sat Jul 28 21:58:57 2012.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Symfony CMF Documentation
+﻿Symfony CMF Documentation
 =========================
 
 Welcome to the official documentation of the **Symfony Content Management Framework**.
 
-This documentation is currently in development and far from complete. See `Document planning`_ for an overview of the work to do. Want to help? Thank you, all help greatly appreciated! See the `CMF website`_ how to get involved.
+This documentation is currently in development and far from complete. See `Document planning`_ for an
+overview of the work to do. Want to help? Thank you, all help greatly appreciated! See the
+`CMF website`_ how to get involved.
 
 Tutorials
 ---------
@@ -25,7 +22,9 @@ Learning or want to learn the CMF? Want to know if the CMF fits your project? Th
 
 Reference
 ---------
-Looking for some in depth information about a specific part of the CMF? Want a list of all the configuration options of a bundle? Want to know if you can use a bundle independently and how to do it? The reference is the right place to search.
+Looking for some in depth information about a specific part of the CMF? Want a list of all the
+configuration options of a bundle? Want to know if you can use a bundle independently and how
+to do it? The reference is the right place to search.
 
 .. toctree::
 	:maxdepth: 1
@@ -38,6 +37,8 @@ Looking for some in depth information about a specific part of the CMF? Want a l
 	reference/phpcr_browser
 	reference/routing-extra
 	reference/search
+	reference/tree
+	reference/tree-browser
 
 .. _`Document planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
 .. _`CMF website`: http://cmf.symfony.com/get-involved
