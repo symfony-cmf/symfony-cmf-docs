@@ -30,11 +30,14 @@ Looking for some in depth information about a specific part of the CMF? Want a l
 .. toctree::
 	:maxdepth: 1
 
+	reference/block
 	reference/content
 	reference/core
 	reference/menu
 	reference/multilang
 	reference/phpcr_browser
+	reference/routing
+	reference/search
 
 .. _`Document planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
 .. _`CMF website`: http://cmf.symfony.com/get-involved

@@ -8,8 +8,8 @@ based on a single content structure in the content repository.
 
 Preconditions
 -------------
-- Installation of Symfony CMF
-- Or SymfonyCmfRoutingExtraBundle, SymfonyCmfMenuBundle and SymfonyCmfBlockBundle need to be installed manually
+- :doc:`/tutorials/installing-configuring-cmf`
+- Or - :doc:`/reference/routing-extra`, :doc:`/reference/menu` and :doc:`/reference/block` need to be installed manually
 
 Installation
 ------------

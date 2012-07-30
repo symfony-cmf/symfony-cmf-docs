@@ -10,8 +10,8 @@ pre-installed Symfony / CMF application containing all CMF components.
 
 Preconditions
 -------------
-- Installation of Symfony2
-- Installation of Doctrine PHPCR ODM
+- `Installation of Symfony2 <http://symfony.com/doc/master/index.html>`_
+- :doc:`/tutorials/installing-configuring-doctrine-phpcr-odm`
 
 Installation
 ------------
