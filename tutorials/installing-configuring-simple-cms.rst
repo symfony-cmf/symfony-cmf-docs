@@ -6,6 +6,8 @@ Note that Symfony2.1 (currently master) is required for the CMF to work.
 The SimpleCmsBundle provides a solution to easily map content, routes and menu items
 based on a single content structure in the content repository.
 
+For more information for now see the documentation of the `SymfonyCmfSimpleCmsBundle <https://github.com/symfony-cmf/SimpleCmsBundle#readme>`_
+
 Preconditions
 -------------
 - :doc:`/tutorials/installing-configuring-cmf`
@@ -52,5 +54,3 @@ Basic configuration, add to ``app/config/config.yml``::
         routing:
             templates_by_class:
                 Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page:  SymfonyCmfSimpleCmsBundle:Page:index.html.twig
-            
-More information on configuring this bundle can be found `here <https://github.com/symfony-cmf/SimpleCmsBundle#readme>`_.

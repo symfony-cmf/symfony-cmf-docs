@@ -4,6 +4,9 @@ The goal of this tutorial is to install and configure Doctrine PHPCR ODM.
 Note that Symfony2.1 (currently master) is required for the CMF to work.
 
 For more details see the `official PHPCR ODM documentation <http://www.doctrine-project.org/projects/phpcr-odm.html>`_
+Some additional information can be found on the
+`DoctrinePhpcrBundle github.com project <https://github.com/doctrine/DoctrinePHPCRBundle>`_
+which for the most part mimics the standard `DoctrineBundle <https://github.com/doctrine/DoctrineBundle>`_.
 
 Preconditions
 -------------
@@ -142,10 +145,13 @@ In order to setup the database run the following steps to create the database an
     app/console doctrine:database:create
     app/console doctrine:phpcr:init:dbal
 
+For more information of how to configure Doctrine DBAL with Symfony2 see the
+`official Symfony2 documentation <http://symfony.com/doc/current/book/doctrine.html>`_.
+
 Midgard
 ~~~~~~~
 
-TODO
+See `official Midgard PHPCR documentation <http://midgard-project.org/phpcr/>`_
 
 Registering system node types
 ----------------------------

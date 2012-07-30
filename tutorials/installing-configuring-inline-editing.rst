@@ -3,8 +3,8 @@ Installing and configuring inline editing
 The goal of this tutorial is to install and configure the inline editing support.
 Note that Symfony2.1 (currently master) is required for the CMF to work.
 
-This provides a solution to easily integrate with VIE.js and create.js to provide inline editing
-based on RDFa output.
+This provides a solution to easily integrate with `VIE.js <http://viejs.org>`_ and `create.js <http://createjs.org>`_
+to provide inline editing based on `RDFa <http://rdfa.info>`_ output.
 
 For more information for now see the documentation of the `LiipVieBundle <https://github.com/liip/LiipVieBundle#readme>`_
 
@@ -69,5 +69,3 @@ Basic configuration, add to ``app/config/config.yml``::
         use_coffee: %liip_vie.use_coffee%
         base_path: /cms/routes
         cms_path: /cms/content/static
-            
-More information on configuring this bundle can be found `here <https://github.com/symfony-cmf/SimpleCmsBundle#readme>`_.
