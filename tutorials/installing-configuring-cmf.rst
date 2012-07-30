@@ -24,16 +24,6 @@ Add the following to your ``composer.json`` file::
         ...
         "symfony-cmf/symfony-cmf": "1.0.*"
     }
-    "scripts": {
-        "post-install-cmd": [
-            "Liip\\VieBundle\\Composer\\ScriptHandler::initSubmodules",
-            ...
-        ],
-        "post-update-cmd": [
-            "Liip\\VieBundle\\Composer\\ScriptHandler::initSubmodules",
-            ...
-        ]
-    },
 
 And then run::
 

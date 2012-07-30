@@ -19,7 +19,8 @@ Learning or want to learn the CMF? Want to know if the CMF fits your project? Th
 
 	tutorials/installing-configuring-cmf
 	tutorials/installing-configuring-doctrine-phpcr-odm
-	tutorials/installing-configuring-simple-cms-bundle
+	tutorials/installing-configuring-simple-cms
+	tutorials/installing-configuring-inline-editing
 	tutorials/creating-cms-using-cmf-and-sonata
 
 Reference
