@@ -6,6 +6,8 @@ Note that Symfony2.1 (currently master) is required for the CMF to work.
 This provides a solution to easily integrate with VIE.js and create.js to provide inline editing
 based on RDFa output.
 
+For more information for now see the documentation of the `LiipVieBundle <https://github.com/liip/LiipVieBundle#readme>`_
+
 Preconditions
 -------------
 - :doc:`/tutorials/installing-configuring-cmf`

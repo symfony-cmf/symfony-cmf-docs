@@ -36,7 +36,7 @@ Looking for some in depth information about a specific part of the CMF? Want a l
 	reference/menu
 	reference/multilang
 	reference/phpcr_browser
-	reference/routing
+	reference/routing-extra
 	reference/search
 
 .. _`Document planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning

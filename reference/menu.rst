@@ -6,6 +6,9 @@ Symfony CMF Menu Bundle to tie KnpMenuBundle into symfony cmf
 This bundle provides menus from a doctrine object manager with the help of
 KnpMenuBundle.
 
+For more information for now see the documentation of the `SymfonyCmfMenuBundle <https://github.com/symfony-cmf/MenuBundle#readme>`_
+
+
 Menu entries
 ------------
 
