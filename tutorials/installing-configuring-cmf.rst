@@ -10,8 +10,8 @@ pre-installed Symfony / CMF application containing all CMF components.
 
 Preconditions
 -------------
-- Installation of Symfony2
-- Installation of Doctrine PHPCR ODM
+- `Installation of Symfony2 <http://symfony.com/doc/master/index.html>`_
+- :doc:`/tutorials/installing-configuring-doctrine-phpcr-odm`
 
 Installation
 ------------
@@ -24,16 +24,6 @@ Add the following to your ``composer.json`` file::
         ...
         "symfony-cmf/symfony-cmf": "1.0.*"
     }
-    "scripts": {
-        "post-install-cmd": [
-            "Liip\\VieBundle\\Composer\\ScriptHandler::initSubmodules",
-            ...
-        ],
-        "post-update-cmd": [
-            "Liip\\VieBundle\\Composer\\ScriptHandler::initSubmodules",
-            ...
-        ]
-    },
 
 And then run::
 

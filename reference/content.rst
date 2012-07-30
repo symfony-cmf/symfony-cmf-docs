@@ -2,6 +2,8 @@ SymfonyCmfContentBundle
 =======================
 This bundle provides a document for static content and the controller to render it.
 
+For more information for now see the documentation of the `SymfonyCmfContentBundle <https://github.com/symfony-cmf/ContenteBundle#readme>`_
+
 Dependencies
 ------------
 

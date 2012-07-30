@@ -10,7 +10,7 @@ Documentation TODO
 
 Preconditions
 -------------
-- Installation of Symfony CMF
+- :doc:`/tutorials/installing-configuring-cmf`
 
 Installation
 ------------

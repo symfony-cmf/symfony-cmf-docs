@@ -1,6 +1,6 @@
-Installing and configuring SimpleCmsBundle
-==========================================
-The goal of this tutorial is to install and configure SimpleCmsBundle.
+Installing and configuring simple CMS
+=====================================
+The goal of this tutorial is to install and configure simple CMS.
 Note that Symfony2.1 (currently master) is required for the CMF to work.
 
 The SimpleCmsBundle provides a solution to easily map content, routes and menu items
@@ -8,7 +8,8 @@ based on a single content structure in the content repository.
 
 Preconditions
 -------------
-- Installation of Doctrine PHPCR ODM
+- :doc:`/tutorials/installing-configuring-cmf`
+- Or - :doc:`/reference/routing-extra`, :doc:`/reference/menu` and :doc:`/reference/block` need to be installed manually
 
 Installation
 ------------
