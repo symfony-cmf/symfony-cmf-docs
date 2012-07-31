@@ -167,3 +167,15 @@ Creating a new workspace
 This step is optional since there is always a workspace "default" available::
 
     app/console doctrine:phpcr:workspace:create my_workspace
+
+Other useful commands
+---------------------
+
+With the following command its possible to dump the (partial) structure in a PHPCR repository::
+
+    app/console doctrine:phpcr:dump
+
+Its also possible to issue an `SQL2 query <http://www.h2database.com/jcr/grammar.html>`_ against the repository::
+
+    app/console doctrine:phpcr:query "SELECT routeContent FROM [nt:unstructured] WHERE NAME() = 'home'"
+
