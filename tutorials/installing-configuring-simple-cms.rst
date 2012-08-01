@@ -57,7 +57,7 @@ Basic configuration, add to ``app/config/config.yml``::
             templates_by_class:
                 Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page:  SymfonyCmfSimpleCmsBundle:Page:index.html.twig
 
-If you are *NOT* using Sonata Admin Bundle please also add the following configuration::
+If you are *NOT* using `SonataAdmin Bundle <https://github.com/sonata-project/SonataAdminBundle>`_ please also add the following configuration::
 
     symfony_cmf_simple_cms:
         use_sonata_admin: false

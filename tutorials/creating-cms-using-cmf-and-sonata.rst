@@ -1,11 +1,11 @@
 Creating a CMS using CMF and Sonata
 ===================================
-The goal of this tutorial is to create a simple content management system using the CMF and the Sonata admin bundle.
+The goal of this tutorial is to create a simple content management system using the CMF and the
+`SonataAdmin Bundle <https://github.com/sonata-project/SonataAdminBundle>`_.
 
 Documentation TODO
 ------------------
 - expand intro and add steps to take
-- describe prerequisites
 - describe steps to make a CMS
 
 Preconditions
