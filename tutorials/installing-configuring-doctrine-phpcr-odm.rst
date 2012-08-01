@@ -154,7 +154,7 @@ Midgard
 See `official Midgard PHPCR documentation <http://midgard-project.org/phpcr/>`_
 
 Registering system node types
-----------------------------
+-----------------------------
 PHPCR ODM uses a `custom node type <https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged>`_
 to track meta information without interfering with your content. There is a command that makes it trivial to
 register this type and the phpcr namespace::

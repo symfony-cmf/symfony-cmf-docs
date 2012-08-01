@@ -80,7 +80,7 @@ For a basic functionality for the BlockBundle (required)::
     sonata_block:
         default_contexts: [cms]
 
-If you are *NOT* using `SonataAdmin Bundle <https://github.com/sonata-project/SonataAdminBundle>`_ the following configuration is needed::
+If you are *NOT* using `SonataAdminBundle <https://github.com/sonata-project/SonataAdminBundle>`_ the following configuration is needed::
 
     symfony_cmf_menu:
         use_sonata_admin: false

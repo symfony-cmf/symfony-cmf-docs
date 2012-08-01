@@ -1,5 +1,6 @@
 ﻿SymfonyCmfMenuBundle
-=======================
+====================
+
 Symfony CMF Menu Bundle to tie KnpMenuBundle into symfony cmf
 -------------------------------------------------------------
 

@@ -1,9 +1,10 @@
 SymfonyCmfBlockBundle
-=======================
+=====================
 This bundle provides integration with SonataBlockBundle.
 
 For more information for now see the documentation of the `SymfonyCmfBlockBundle <https://github.com/symfony-cmf/BlockBundle#readme>`_
 
+.. index:: BlockBundle
 
 Dependencies
 ------------
