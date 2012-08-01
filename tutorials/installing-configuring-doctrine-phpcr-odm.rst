@@ -1,12 +1,13 @@
 Installing and configuring Doctrine PHPCR ODM
 =============================================
 The goal of this tutorial is to install and configure Doctrine PHPCR ODM.
-Note that Symfony2.1 (currently master) is required for the CMF to work.
 
 For more details see the `official PHPCR ODM documentation <http://www.doctrine-project.org/projects/phpcr-odm.html>`_
 Some additional information can be found on the
 `DoctrinePhpcrBundle github.com project <https://github.com/doctrine/DoctrinePHPCRBundle>`_
 which for the most part mimics the standard `DoctrineBundle <https://github.com/doctrine/DoctrineBundle>`_.
+
+Finally for information about PHPCR see the `official PHPCR website <http://phpcr.githb.com>`_.
 
 .. index:: PHPCR, ODM
 
@@ -15,7 +16,7 @@ Preconditions
 - php >= 5.3
 - libxml version >= 2.7.0 (due to a bug in libxml http://bugs.php.net/bug.php?id=36501)
 - phpunit >= 3.6 (if you want to run the tests)
-
+- Symfony2.1 (currently master)
 
 Installation
 ------------
@@ -144,7 +145,7 @@ like relational databases but for this tutorial we're going to use Jackrabbit.
 Jackalope Doctrine DBAL
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-.. index:: Doctrine, DBAL
+.. index:: Doctrine, DBAL, RDBMS
 
 In order to setup the database run the following steps to create the database and setup a default schema::
 
@@ -157,7 +158,9 @@ For more information of how to configure Doctrine DBAL with Symfony2 see the
 Midgard
 ~~~~~~~
 
-.. index:: Midgard
+.. index:: Midgard, RDBMS
+
+Midgard is a C extension that implements the PHPCR API on top of a standard RDBMS.
 
 See `official Midgard PHPCR documentation <http://midgard-project.org/phpcr/>`_
 
@@ -165,7 +168,7 @@ Registering system node types
 -----------------------------
 PHPCR ODM uses a `custom node type <https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged>`_
 to track meta information without interfering with your content. There is a command that makes it trivial to
-register this type and the phpcr namespace::
+register this type and the PHPCR namespace::
 
     php app/console doctrine:phpcr:register-system-node-types
 
