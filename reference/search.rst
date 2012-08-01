@@ -4,6 +4,8 @@ This bundle provides integration with LiipSearchBundle to handle a site wide sea
 
 For more information for now see the documentation of the `SymfonyCmfSearchBundle <https://github.com/symfony-cmf/SearchBundle#readme>`_
 
+.. index:: SearchBundle
+
 Dependencies
 ------------
 

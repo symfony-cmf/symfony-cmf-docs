@@ -8,6 +8,8 @@ Some additional information can be found on the
 `DoctrinePhpcrBundle github.com project <https://github.com/doctrine/DoctrinePHPCRBundle>`_
 which for the most part mimics the standard `DoctrineBundle <https://github.com/doctrine/DoctrineBundle>`_.
 
+.. index:: PHPCR, ODM, Jackrabbit, Midgard, Doctrine, DBAL
+
 Preconditions
 -------------
 - php >= 5.3

@@ -4,6 +4,8 @@ This bundle provides integration with jQuery tree
 
 For more information for now see the documentation of the `SymfonyCmfTreeBundle <https://github.com/symfony-cmf/TreeBundle#readme>`_
 
+.. index:: TreeBundle
+
 Dependencies
 ------------
 

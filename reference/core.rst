@@ -4,6 +4,7 @@ This is the core bundle for the Symfony2 content management framework. This bund
 
 For more information for now see the documentation of the `SymfonyCmfCoreBundle <https://github.com/symfony-cmf/CoreBundle#readme>`_
 
+.. index:: CoreBundle
 
 Dependencies
 ------------

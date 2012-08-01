@@ -4,6 +4,8 @@ This bundle integrates dynamic routing into Symfony
 
 For more information for now see the documentation of the `SymfonyCmfRoutingExtraBundle <https://github.com/symfony-cmf/RoutingExtraBundle#readme>`_
 
+.. index:: RoutingExtraBundle
+
 Dependencies
 ------------
 

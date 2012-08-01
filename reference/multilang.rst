@@ -8,6 +8,8 @@ bundles and a helper service to render a language chooser.
 
 For more information for now see the documentation of the `SymfonyCmfMultilangContentBundle <https://github.com/symfony-cmf/MultilangContentBundle#readme>`_
 
+.. index:: MultilangContentBundle
+
 Features
 --------
 

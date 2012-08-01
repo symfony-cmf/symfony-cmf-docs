@@ -8,6 +8,8 @@ to provide inline editing based on `RDFa <http://rdfa.info>`_ output.
 
 For more information for now see the documentation of the `LiipVieBundle <https://github.com/liip/LiipVieBundle#readme>`_
 
+.. index:: VIE.js, LiipVieBundle, FOSRestBundle, JMSSerializerBundle, RDFa, create.js, hallo.js
+
 Installation
 ------------
 

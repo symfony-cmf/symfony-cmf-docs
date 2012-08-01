@@ -3,6 +3,8 @@ Creating a CMS using CMF and Sonata
 The goal of this tutorial is to create a simple content management system using the CMF as well as
 `SonataBlockBundle <https://github.com/sonata-project/SonataBlockBundle>`_ and `SonataAdminBundle <https://github.com/sonata-project/SonataAdminBundle>`_.
 
+.. index:: Sonata, SonataAdminBundle, SonataDoctrinePHPCRAdminBundle, SonatajQueryBundle, FOSJsRoutingBundle, TreeBundle, TreeBrowserBundle
+
 Documentation TODO
 ------------------
 - expand intro and add steps to take

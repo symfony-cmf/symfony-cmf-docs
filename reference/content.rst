@@ -4,6 +4,8 @@ This bundle provides a document for static content and the controller to render 
 
 For more information for now see the documentation of the `SymfonyCmfContentBundle <https://github.com/symfony-cmf/ContenteBundle#readme>`_
 
+.. index:: ContentBundle
+
 Dependencies
 ------------
 

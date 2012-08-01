@@ -10,6 +10,8 @@ For more information for now see the documentation of the `SymfonyCmfSimpleCmsBu
 
 For a simple example installation of check out the `Symfony CMF Standard Edition <https://github.com/symfony-cmf/symfony-cmf-standard>`_
 
+.. index:: SimpleCmsBundle
+
 Preconditions
 -------------
 - :doc:`/tutorials/installing-configuring-cmf`

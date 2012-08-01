@@ -4,6 +4,8 @@ This bundle provides integration with :doc:`/reference/tree` to provide a tree n
 
 For more information for now see the documentation of the `SymfonyCmfTreeBrowserBundle <https://github.com/symfony-cmf/TreeBrowserBundle#readme>`_
 
+.. index:: TreeBrowserBundle
+
 Dependencies
 ------------
 

@@ -9,6 +9,7 @@ KnpMenuBundle.
 
 For more information for now see the documentation of the `SymfonyCmfMenuBundle <https://github.com/symfony-cmf/MenuBundle#readme>`_
 
+.. index:: MenuBundle
 
 Menu entries
 ------------
