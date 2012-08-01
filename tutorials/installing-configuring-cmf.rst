@@ -8,6 +8,8 @@ look at `the big picture <http://slides.liip.ch/static/2012-01-17_symfony_cmf_bi
 and/or the `CMF sandbox environment <https://github.com/symfony-cmf/symfony-cmf>`_ which is a
 pre-installed Symfony / CMF application containing all CMF components.
 
+.. index:: RoutingExtraBundle, CoreBundle, MultilangContentBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle
+
 Preconditions
 -------------
 - `Installation of Symfony2 <http://symfony.com/doc/master/index.html>`_

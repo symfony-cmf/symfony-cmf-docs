@@ -8,7 +8,7 @@ Some additional information can be found on the
 `DoctrinePhpcrBundle github.com project <https://github.com/doctrine/DoctrinePHPCRBundle>`_
 which for the most part mimics the standard `DoctrineBundle <https://github.com/doctrine/DoctrineBundle>`_.
 
-.. index:: PHPCR, ODM, Jackrabbit, Midgard, Doctrine, DBAL
+.. index:: PHPCR, ODM
 
 Preconditions
 -------------
@@ -123,6 +123,8 @@ Setting up the content repository
 Jackalope Jackrabbit
 ~~~~~~~~~~~~~~~~~~~~
 
+.. index:: Jackrabbit
+
 These are the steps necessary to install Apache Jackrabbit:
 
 - Make sure you have Java Virtual Machine installed on your box. If not, you can grab one from here: http://www.java.com/en/download/manual.jsp
@@ -142,6 +144,8 @@ like relational databases but for this tutorial we're going to use Jackrabbit.
 Jackalope Doctrine DBAL
 ~~~~~~~~~~~~~~~~~~~~~~~
 
+.. index:: Doctrine, DBAL
+
 In order to setup the database run the following steps to create the database and setup a default schema::
 
     app/console doctrine:database:create
@@ -152,6 +156,8 @@ For more information of how to configure Doctrine DBAL with Symfony2 see the
 
 Midgard
 ~~~~~~~
+
+.. index:: Midgard
 
 See `official Midgard PHPCR documentation <http://midgard-project.org/phpcr/>`_
 

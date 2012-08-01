@@ -1,7 +1,7 @@
 Creating a CMS using CMF and Sonata
 ===================================
 The goal of this tutorial is to create a simple content management system using the CMF as well as
-`SonataBlockBundle <https://github.com/sonata-project/SonataBlockBundle>`_ and `SonataAdminBundle <https://github.com/sonata-project/SonataAdminBundle>`_.
+`SonataAdminBundle <https://github.com/sonata-project/SonataAdminBundle>`_.
 
 .. index:: Sonata, SonataAdminBundle, SonataDoctrinePHPCRAdminBundle, SonatajQueryBundle, FOSJsRoutingBundle, TreeBundle, TreeBrowserBundle
 
@@ -16,9 +16,6 @@ Preconditions
 
 Installation
 ------------
-
-Note that the SonataBlockBundle can be used in the UI to construct pages from reusable content blocks.
-The SonataBlockBundle is however also a prerequisite for the SonataAdminBundle.
 
 Download the bundles
 ~~~~~~~~~~~~~~~~~~~~
@@ -41,10 +38,6 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
     {
         $bundles = array(
             // ...
-
-            // support for blocks
-            new Sonata\CacheBundle\SonataCacheBundle(),
-            new Sonata\BlockBundle\SonataBlockBundle(),
 
             // support for the admin
             new Symfony\Cmf\Bundle\TreeBundle\SymfonyCmfTreeBundle(),
