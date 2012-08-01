@@ -8,11 +8,6 @@ to provide inline editing based on `RDFa <http://rdfa.info>`_ output.
 
 For more information for now see the documentation of the `LiipVieBundle <https://github.com/liip/LiipVieBundle#readme>`_
 
-Preconditions
--------------
-- :doc:`/tutorials/installing-configuring-cmf`
-- Or - :doc:`/reference/routing-extra`, :doc:`/reference/menu` and :doc:`/reference/block` need to be installed manually
-
 Installation
 ------------
 

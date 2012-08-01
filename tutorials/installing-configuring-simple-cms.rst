@@ -13,7 +13,7 @@ For a simple example installation of check out the `Symfony CMF Standard Edition
 Preconditions
 -------------
 - :doc:`/tutorials/installing-configuring-cmf`
-- Or - :doc:`/reference/routing-extra`, :doc:`/reference/menu` and :doc:`/reference/block` need to be installed manually
+- Or - :doc:`/reference/routing-extra` needs to be installed manually, optionally also :doc:`/reference/menu` and :doc:`/reference/block`
 
 Installation
 ------------
@@ -33,7 +33,7 @@ And then run::
 
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
-Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method::
+Next, initialize the bundle in ``app/AppKernel.php`` by adding it to the ``registerBundle`` method::
 
     public function registerBundles()
     {
@@ -56,3 +56,8 @@ Basic configuration, add to ``app/config/config.yml``::
         routing:
             templates_by_class:
                 Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page:  SymfonyCmfSimpleCmsBundle:Page:index.html.twig
+
+If you are *NOT* using Sonata Admin Bundle please also add the following configuration::
+
+    symfony_cmf_simple_cms:
+        use_sonata_admin: false
