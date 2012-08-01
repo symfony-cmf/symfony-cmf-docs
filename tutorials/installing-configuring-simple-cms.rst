@@ -8,6 +8,8 @@ based on a single content structure in the content repository.
 
 For more information for now see the documentation of the `SymfonyCmfSimpleCmsBundle <https://github.com/symfony-cmf/SimpleCmsBundle#readme>`_
 
+For a simple example installation of check out the `Symfony CMF Standard Edition <https://github.com/symfony-cmf/symfony-cmf-standard>`_
+
 Preconditions
 -------------
 - :doc:`/tutorials/installing-configuring-cmf`
