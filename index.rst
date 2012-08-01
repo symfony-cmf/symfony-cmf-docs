@@ -34,7 +34,6 @@ to do it? The reference is the right place to search.
 	reference/core
 	reference/menu
 	reference/multilang
-	reference/phpcr_browser
 	reference/routing-extra
 	reference/search
 	reference/tree
