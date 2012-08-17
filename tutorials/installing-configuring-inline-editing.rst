@@ -19,7 +19,7 @@ Add the following to your ``composer.json`` file::
 
     "require": {
         ...
-        "symfony-cmf/liip-vie-bundle": "1.0.*"
+        "liip/vie-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
