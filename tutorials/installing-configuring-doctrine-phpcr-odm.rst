@@ -7,7 +7,7 @@ Some additional information can be found on the
 `DoctrinePhpcrBundle github.com project <https://github.com/doctrine/DoctrinePHPCRBundle>`_
 which for the most part mimics the standard `DoctrineBundle <https://github.com/doctrine/DoctrineBundle>`_.
 
-Finally for information about PHPCR see the `official PHPCR website <http://phpcr.githb.com>`_.
+Finally for information about PHPCR see the `official PHPCR website <http://phpcr.github.com>`_.
 
 .. index:: PHPCR, ODM
 
