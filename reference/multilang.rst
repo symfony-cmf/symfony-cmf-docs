@@ -66,12 +66,4 @@ MultilangLanguageSelectRoute by default specifies the explicit controller
 
     symfony_cmf_multilang_content.languageSelectorController:defaultLanguageAction
 
-
-History
--------
-
-This bundle contained a user space implementation of multilanguage annotations.
-Those where `ported to become part of phpcr-odm`_.
-
-.. _`ported to become part of phpcr-odm`: https://github.com/doctrine/phpcr-odm/pull/81
 .. _`phpcr-odm`: https://github.com/doctrine/phpcr-odm
