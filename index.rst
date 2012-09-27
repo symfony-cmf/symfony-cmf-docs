@@ -36,6 +36,7 @@ to do it? The reference is the right place to search.
 	reference/menu
 	reference/multilang
 	reference/routing-extra
+	reference/routing
 	reference/search
 	reference/tree
 	reference/tree-browser
