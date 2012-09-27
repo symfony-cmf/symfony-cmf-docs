@@ -32,6 +32,7 @@ to do it? The reference is the right place to search.
 	reference/block
 	reference/content
 	reference/core
+	reference/create
 	reference/menu
 	reference/multilang
 	reference/routing-extra

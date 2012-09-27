@@ -1,12 +1,11 @@
 ﻿SymfonyCmfMultilangContentBundle
 ================================
 
-This is the multilanguage bundle for the Symfony2 content management framework.
+The `SymfonyCmfMultilangContentBundle <https://github.com/symfony-cmf/MultilangContentBundle#readme>`_
+provides multi language capabilities for the Symfony2 content management framework.
 
 This bundle provides translated versions of the documents in the other cmf
 bundles and a helper service to render a language chooser.
-
-For more information for now see the documentation of the `SymfonyCmfMultilangContentBundle <https://github.com/symfony-cmf/MultilangContentBundle#readme>`_
 
 .. index:: MultilangContentBundle
 

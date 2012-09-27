@@ -1,8 +1,7 @@
 SymfonyCmfBlockBundle
 =====================
-This bundle provides integration with SonataBlockBundle.
 
-For more information for now see the documentation of the `SymfonyCmfBlockBundle <https://github.com/symfony-cmf/BlockBundle#readme>`_
+The `SymfonyCmfBlockBundle <https://github.com/symfony-cmf/BlockBundle#readme>`_ provides integration with SonataBlockBundle.
 
 .. index:: BlockBundle
 
@@ -13,4 +12,5 @@ Dependencies
 
 Configuration
 -------------
+
 The configuration key for this bundle is ``symfony_cmf_block``

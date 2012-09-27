@@ -6,12 +6,9 @@ For more information for now see the documentation of the `SymfonyCmfContentBund
 
 .. index:: ContentBundle
 
-Dependencies
-------------
-
-
 Configuration
 -------------
+
 The configuration key for this bundle is ``symfony_cmf_content``
 
 document_class

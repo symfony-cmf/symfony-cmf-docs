@@ -1,7 +1,8 @@
 SymfonyCmfRoutingExtraBundle
 ============================
 
-This bundle integrates the `CMF Routing component`_ into Symfony2 as a bundle.
+The `SymfonyCmfRoutingExtraBundle <https://github.com/symfony-cmf/RoutingExtraBundle#readme>`_
+integrates dynamic routing into Symfony.
 
 The *ChainRouter* is meant to replace the default Symfony Router. All it does
 is collect a prioritized list of routers and try to match requests and generate
@@ -19,8 +20,6 @@ application configuration.
 
 Finally this bundles provides route documents for Doctrine `PHPCR ODM`_ and a
 controller for redirection routes.
-
-For more information for now see the documentation of the `SymfonyCmfRoutingExtraBundle <https://github.com/symfony-cmf/RoutingExtraBundle#readme>`_
 
 .. index:: RoutingExtraBundle
 .. index:: Routing
