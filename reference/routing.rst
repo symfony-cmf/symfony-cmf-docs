@@ -5,7 +5,7 @@ The `Symfony2 CMF Routing component <https://github.com/symfony-cmf/Routing>`_
 library extends the Symfony2 core routing component. Even though it has Symfony
 in its name, it does not need the full Symfony2 framework and can be used in
 standalone projects. For integration with Symfony we  provide
-:doc:`/reference/reference-extra`.
+:doc:`/reference/routing-extra`.
 
 This component provides a ``ChainRouter`` that can chain several RouterInterface
 instances one after the other. It uses a list of routers, ordered by a priority
