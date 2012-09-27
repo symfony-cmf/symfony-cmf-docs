@@ -7,8 +7,6 @@ Symfony CMF Menu Bundle to tie KnpMenuBundle into symfony cmf
 This bundle provides menus from a doctrine object manager with the help of
 KnpMenuBundle.
 
-For more information for now see the documentation of the `SymfonyCmfMenuBundle <https://github.com/symfony-cmf/MenuBundle#readme>`_
-
 .. index:: MenuBundle
 
 Menu entries
@@ -29,11 +27,16 @@ associated with a menu document is the same as the content DoctrineRouter
 has put into the request.
 
 Until we have a decent tutorial, you can look into the `cmf-sandbox <https://github.com/symfony-cmf/cmf-sandbox>`_
-and specifically the `menu fixtures <https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/Resources/data/fixtures/030_LoadMenuData.php>`_
+and specifically the `menu fixtures <https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/Resources/data/fixtures/030_LoadMenuData.php>`_.
+
+The `CMF website <http://cmf.symfony.com>`_ is another application using the CMF and the MenuBundle. 
 
 Configuration
 -------------
 ::
+
+    knp_menu:
+        twig: true
 
     symfony_cmf_menu:
         menu_basepath: /phpcr/path/to/menutree
@@ -42,6 +45,28 @@ Configuration
         content_url_generator: symfony_cmf_routing_extra.dynamic_router
         content_key: null (resolves to DoctrineRouter::CONTENT_KEY)
         route_name: null
+        use_sonata_admin: auto|true|false 
+        content_basepath: /phpcr/path/to/content (used for the menu admin)
+
+If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the composer require,
+the MenuBundle can be used inside the SonataDoctrinePhpcrAdminBundle. But then, 
+the SonataDoctrinePhpcrAdminBundle has to be instantiated in your application's kernel.
+
+By default, ``use_sonata_admin`` is automatically set based on whether
+SonataDoctrinePhpcrAdminBundle is available.
+
+Usage
+-----
+
+Adjust your twig template to load the menu.
+
+    {{ knp_menu_render('simple') }}
+
+
+The menu name is the name of the node under ``menu_basepath``. For example if your
+repository stores the menu nodes under ``/cms/menu`` , rendering "main" would mean
+to render the menu that is at ``/cms/menu/main``
+
 
 How to use non-default other components
 ---------------------------------------
