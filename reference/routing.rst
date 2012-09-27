@@ -1,7 +1,8 @@
 Symfony CMF Routing Component
 =============================
 
-This library extends the Symfony2 Routing component. Even though it has Symfony
+The `Symfony2 CMF Routing component <https://github.com/symfony-cmf/Routing>`_
+library extends the Symfony2 core routing component. Even though it has Symfony
 in its name, it does not need the full Symfony2 framework and can be used in
 standalone projects. For integration with Symfony we  provide the
 `Symfony2 bundle <https://github.com/symfony-cmf/RoutingExtraBundle>`_.
