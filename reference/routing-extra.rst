@@ -2,15 +2,15 @@ SymfonyCmfRoutingExtraBundle
 ============================
 
 The `SymfonyCmfRoutingExtraBundle <https://github.com/symfony-cmf/RoutingExtraBundle#readme>`_
-integrates dynamic routing into Symfony.
+integrates dynamic routing into Symfony using :doc:`/reference/routing`.
 
-The *ChainRouter* is meant to replace the default Symfony Router. All it does
+The ``ChainRouter`` is meant to replace the default Symfony Router. All it does
 is collect a prioritized list of routers and try to match requests and generate
 urls with all of them. One of the routers in that chain can of course be the
 default router so you can still use the standard way for some of your routes.
 
 Additionally, this bundle delivers useful router implementations. Currently,
-there is the *DynamicRouter* that routes based on a implemented repository that
+there is the ``DynamicRouter`` that routes based on a implemented repository that
 provide Symfony2 Route objects. The repository can be implemented using a
 database, for example with Doctrine `PHPCR ODM`_ or Doctrine ORM. The bundle
 provides a default implementation for Doctrine `PHPCR ODM`_.
