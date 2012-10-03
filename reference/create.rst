@@ -187,6 +187,7 @@ Finally add the relevant routing to your configuration
 
         create:
             resource: "@SymfonyCmfCreateBundle/Resources/config/routing/rest.xml"
+        create_iamge:
             resource: "@SymfonyCmfCreateBundle/Resources/config/routing/image.xml"
 
     .. code-block:: xml
