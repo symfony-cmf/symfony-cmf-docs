@@ -37,11 +37,11 @@ Then create a scripts section or add to the existing one::
 
     "scripts": {
         "post-install-cmd": [
-            "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::initSubmodules",
+            "Symfony\\Cmf\\Bundle\\SymfonyCmfCreateBundle\\Composer\\ScriptHandler::initSubmodules",
             ...
         ],
         "post-update-cmd": [
-            "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::initSubmodules",
+            "Symfony\\Cmf\\Bundle\\SymfonyCmfCreateBundle\\Composer\\ScriptHandler::initSubmodules",
             ...
         ]
     },
@@ -57,7 +57,7 @@ application's kernel::
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new FOS\RestBundle\FOSRestBundle(),
-            new Symfony\Cmf\Bundle\CreateBundle\SymfonyCmfCreateBundle(),
+            new Symfony\Cmf\Bundle\SymfonyCmfCreateBundle\SymfonyCmfCreateBundle(),
             // ...
         );
     }
@@ -185,12 +185,14 @@ Finally add the relevant routing to your configuration
 
     .. code-block:: yaml
 
-        createjs:
+        create:
             resource: "@SymfonyCmfCreateBundle/Resources/config/routing/rest.xml"
+            resource: "@SymfonyCmfCreateBundle/Resources/config/routing/image.xml"
 
     .. code-block:: xml
 
-        <import resource="symfony_cmf_create.rest.controller" type="rest" />
+        <import resource="@SymfonyCmfCreateBundle/Resources/config/routing/rest.xml" type="rest" />
+        <import resource="@SymfonyCmfCreateBundle/Resources/config/routing/image.xml" type="rest" />
 
 
 Alternative: Aloha Editor
