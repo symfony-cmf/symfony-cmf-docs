@@ -18,6 +18,8 @@ import sys, os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
+sys.path.append(os.path.abspath('_exts'))
+
 # -- General configuration -----------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -25,7 +27,8 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = []
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.todo',
+    'sensio.sphinx.refinclude', 'sensio.sphinx.configurationblock', 'sensio.sphinx.phpcode']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -85,6 +88,22 @@ pygments_style = 'sphinx'
 
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
+
+# -- Settings for symfony doc extension ---------------------------------------------------
+
+# enable highlighting for PHP code not between ``<?php ... ?>`` by default
+
+# TODO: python does not like these settings. error in the doc?
+# http://symfony.com/doc/current/contributing/documentation/format.html#installing-the-sphinx-extensions
+
+#lexers['php'] = PhpLexer(startinline=True)
+#lexers['php-annotations'] = PhpLexer(startinline=True)
+
+# use PHP as the primary domain
+primary_domain = 'php'
+
+# set url for API links
+api_url = 'http://api.symfony.com/master/%s'
 
 
 # -- Options for HTML output ---------------------------------------------------
