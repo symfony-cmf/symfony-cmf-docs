@@ -1,7 +1,7 @@
 SymfonyCmfCreateBundle
 ======================
 
-The `SymfonyCmfCreateBundle <https://github.com/symfony-cmf/CreateBundle#readme>`_
+The `SymfonyCmfCreateBundle <https://github.com/symfony-cmf/CreateBundle>`_
 integrates create.js and the createphp helper library into Symfony2.
 
 Create.js is a comprehensive web editing interface for Content Management
@@ -33,21 +33,29 @@ Installation
 This bundle is best included using Composer.
 
 Edit your project composer file to add a new require for symfony-cmf/create-bundle.
-Then create a scripts section or add to the existing one::
+Then create a scripts section or add to the existing one:
 
-    "scripts": {
-        "post-install-cmd": [
-            "Symfony\\Cmf\\Bundle\\SymfonyCmfCreateBundle\\Composer\\ScriptHandler::initSubmodules",
-            ...
-        ],
-        "post-update-cmd": [
-            "Symfony\\Cmf\\Bundle\\SymfonyCmfCreateBundle\\Composer\\ScriptHandler::initSubmodules",
-            ...
-        ]
-    },
+
+.. code-block:: yaml
+
+    {
+        "scripts": {
+            "post-install-cmd": [
+                "Symfony\\Cmf\\Bundle\\SymfonyCmfCreateBundle\\Composer\\ScriptHandler::initSubmodules",
+                ...
+            ],
+            "post-update-cmd": [
+                "Symfony\\Cmf\\Bundle\\SymfonyCmfCreateBundle\\Composer\\ScriptHandler::initSubmodules",
+                ...
+            ]
+        }
+    }
+
 
 Add this bundle (and its dependencies, if they are not already there) to your
-application's kernel::
+application's kernel:
+
+.. code-block:: php
 
     // application/ApplicationKernel.php
     public function registerBundles()
@@ -65,10 +73,12 @@ application's kernel::
 You also need to configure FOSRestBundle to handle json:
 
 
-fos_rest:
-    view:
-        formats:
-            json: true
+.. code-block:: yaml
+
+    fos_rest:
+        view:
+            formats:
+                json: true
 
 Concept
 -------
@@ -95,39 +105,41 @@ image location.
 Configuration
 -------------
 
-Add the settings to the ``app/config/config.yml``::
+Add the settings to the ``app/config/config.yml``:
 
-        symfony_cmf_create:
-            # metadata loading
+.. code-block:: yaml
 
-            # directory list to look for metadata
-            rdf_config_dirs:
-                - "%kernel.root_dir%/Resources/rdf-mappings"
-            # look for mappings in <Bundle>/Resources/rdf-mappings
-            # auto_mapping: true
+    symfony_cmf_create:
+        # metadata loading
 
-            # use a different class for the REST handler
-            # rest_controller_class: FQN\Classname
-            # enable hallo development mode (see the end of this chapter)
-            # use_coffee: false
+        # directory list to look for metadata
+        rdf_config_dirs:
+            - "%kernel.root_dir%/Resources/rdf-mappings"
+        # look for mappings in <Bundle>/Resources/rdf-mappings
+        # auto_mapping: true
 
-            # image handling
-            image:
-                model_class: ~
-                controller_class: ~
+        # use a different class for the REST handler
+        # rest_controller_class: FQN\Classname
+        # enable hallo development mode (see the end of this chapter)
+        # use_coffee: false
 
-            # access check role for js inclusion, default REST and image controllers
-            # role: IS_AUTHENTICATED_ANONYMOUSLY
+        # image handling
+        image:
+            model_class: ~
+            controller_class: ~
 
-            # enable the doctrine phpcr-odm mapper
-            phpcr_odm: true
+        # access check role for js inclusion, default REST and image controllers
+        # role: IS_AUTHENTICATED_ANONYMOUSLY
 
-            # mapping from rdf type name => class name used when adding items to collections
-            map:
-                rdfname: FQN\Classname
+        # enable the doctrine phpcr-odm mapper
+        phpcr_odm: true
 
-            # stanbol url for semantic enhancement, otherwise defaults to the demo install
-            # stanbol_url: http://dev.iks-project.eu:8081
+        # mapping from rdf type name => class name used when adding items to collections
+        map:
+            rdfname: FQN\Classname
+
+        # stanbol url for semantic enhancement, otherwise defaults to the demo install
+        # stanbol_url: http://dev.iks-project.eu:8081
 
 Metadata
 ++++++++
@@ -235,18 +247,22 @@ content is editable.
 
 Create XML metadata mappings in <Bundle>/Resources/rdf-mappings or a path you
 configured in rdf_config_dirs named after the full classname of your model
-classes with ``\\`` replaced by ``.``, i.e.
+classes with ``\\`` replaced by a dot (``.``), i.e.
 Symfony.Cmf.Bundle.SimpleCmsBundle.Document.MultilangPage.xml.
 For an example mapping see the files in the cmf-sandbox. Reference documentation is in the
-[createphp library repository](https://github.com/flack/createphp).
+`createphp library repository <https://github.com/flack/createphp>`_.
 
-To render your model, use the createphp twig tag::
+To render your model, use the createphp twig tag:
+
+.. code-block:: html
 
     {% createphp page as="rdf" %}
     {{ rdf|raw }}
     {% endcreatephp %}
 
-Or if you need more control over the generated HTML::
+Or if you need more control over the generated HTML:
+
+.. code-block:: html
 
     {% createphp page as="rdf" %}
     <div {{ createphp_attributes(rdf) }}>
@@ -271,9 +287,9 @@ jsloader to include the coffee script files from
 ``Resources/public/vendor/hallo/src`` with assetic, rather than the precompiled
 javascript from ``Resources/public/vendor/create/deps/hallo-min.js``.
 This also means that you need to add a mapping for coffeescript in your assetic
-configuration and you need the [coffee compiler set up correctly](http://coffeescript.org/#installation).
+configuration and you need the `coffee compiler set up correctly <http://coffeescript.org/#installation>`_.
 
-::
+.. code-block:: yaml
 
     assetic:
         filters:
@@ -295,6 +311,8 @@ anything else like ``\.nocoffee`` then you do not need the coffee compiler
 installed.
 
 The default values for the three parameters are::
+
+.. code-block:: yaml
 
     coffee.bin: /usr/local/bin/coffee
     coffee.node: /usr/local/bin/node
