@@ -62,6 +62,13 @@ application's kernel::
         );
     }
 
+You also need to configure FOSRestBundle to handle json:
+
+
+fos_rest:
+    view:
+        formats:
+            json: true
 
 Concept
 -------
