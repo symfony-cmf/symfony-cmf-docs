@@ -94,9 +94,12 @@ You will want to configure the controller mappers that decide what controller
 will be used to handle the request, to avoid hardcoding controller names into
 your route documents.
 
-The minimum configuration required to load the dynamic router is to have
-``enabled: true`` in your config.yml (without this, the dynamic router service
-will not be loaded at all and you can use the chain router with your own routers)::
+The minimum configuration required to load the dynamic router as service
+``symfony_cmf_routing_extra.dynamic_router`` is to have ``enabled: true`` in
+your config.yml (the router is automatically enabled as soon as you add any
+other configuration to the `dynamic` entry). Without enabling it, the dynamic
+router service will not be loaded at all, allowing you to use the ChainRouter
+with your own routers::
 
     symfony_cmf_routing_extra:
         dynamic:
@@ -158,7 +161,6 @@ The possible mappings are (in order of precedence):
 
     symfony_cmf_routing_extra:
         dynamic:
-            enabled: true
             generic_controller: symfony_cmf_content.controller:indexAction
             controllers_by_alias:
                 editablestatic: sandbox_main.controller:indexAction

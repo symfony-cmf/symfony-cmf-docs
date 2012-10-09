@@ -77,6 +77,9 @@ To enable the dynamic router and to add the router to the routing chain add the 
         dynamic:
             enabled: true
 
+You might want to configure more on the dynamic router, i.e. to automatically choose controllers based on content.
+See :doc:`/reference/routing-extra`
+
 For a basic functionality for the BlockBundle (required)::
 
     sonata_block:
