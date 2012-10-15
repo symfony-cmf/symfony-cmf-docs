@@ -6,6 +6,7 @@ provides menus from a doctrine object manager with the help of KnpMenuBundle.
 
 .. index:: MenuBundle
 
+
 Menu entries
 ------------
 
@@ -13,52 +14,62 @@ Document\MenuItem defines menu entries. You can build menu items based on
 symfony routes, absolute or relative urls or referenceable phpcr-odm content
 documents.
 
-The menu tree is built from documents under [menu_basepath]/[menuname]. To
-prevent accidentally exposing nodes, only nodes ending on -item are considered
-menu items.
-You can use different document classes for menu items, as long as they implement
-Knp\Menu\NodeInterface to integrate with KnpMenuBundle.
+The menu tree is built from documents under [menu_basepath]/[menuname]. You can
+use different document classes for menu items, as long as they implement
+``Knp\Menu\NodeInterface`` to integrate with KnpMenuBundle. The default MenuItem
+Document discards children that do not implement this interface.
 
 The currently highlighted entry is determined by checking if the content
-associated with a menu document is the same as the content DoctrineRouter
+associated with a menu document is the same as the content the DynamicRouter
 has put into the request.
 
-Until we have a decent tutorial, you can look into the `cmf-sandbox <https://github.com/symfony-cmf/cmf-sandbox>`_
-and specifically the `menu fixtures <https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/Resources/data/fixtures/030_LoadMenuData.php>`_.
+Setup
+-----
 
-The `CMF website <http://cmf.symfony.com>`_ is another application using the CMF and the MenuBundle. 
+See `/tutorials/installing-configuring-cmf`.
 
 Configuration
 -------------
-::
 
-    knp_menu:
-        twig: true
+If you want to use default configurations, you do not need to change anything.
+The values are:
 
-    symfony_cmf_menu:
-        menu_basepath: /phpcr/path/to/menutree
-        document_manager: doctrine_phpcr.odm.default_document_manager
-        menu_document_class: null
-        content_url_generator: symfony_cmf_routing_extra.dynamic_router
-        content_key: null (resolves to DoctrineRouter::CONTENT_KEY)
-        route_name: null
-        use_sonata_admin: auto|true|false 
-        content_basepath: /phpcr/path/to/content (used for the menu admin)
+.. configuration-block::
 
-If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the composer require,
-the MenuBundle can be used inside the SonataDoctrinePhpcrAdminBundle. But then, 
-the SonataDoctrinePhpcrAdminBundle has to be instantiated in your application's kernel.
+    .. code-block:: yaml
+
+        symfony_cmf_menu:
+            menu_basepath: /cms/menu
+            document_manager: default
+            menu_document_class: ~ # autodetected from stored content
+            content_url_generator: router
+            content_key: ~ # (resolves to DynamicRouter::CONTENT_KEY)
+            route_name: ~ # cmf routes are created by content instead of name
+            use_sonata_admin: auto # use true/false to force using / not using sonata admin
+            content_basepath: ~ # defaults to symfony_cmf_core.content_basepath
+
+If you want to render the menu from twig, make sure you have not disabled twig
+in the ``knp_menu`` configuration section.
+
+If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the composer.json
+require section, the MenuBundle can be used inside the SonataDoctrinePhpcrAdminBundle.
+Don't forget to instantiate ``SonataDoctrinePhpcrAdminBundle`` in your kernel in
+this case.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
-SonataDoctrinePhpcrAdminBundle is available.
+SonataDoctrinePhpcrAdminBundle is available but you can explicitly disable it
+to not have it even if sonata is enabled, or explicitly enable to get an error
+if sonata becomes unavailable.
+
 
 Usage
 -----
 
 Adjust your twig template to load the menu.
 
-    {{ knp_menu_render('simple') }}
+.. code-block:: jinja
 
+    {{ knp_menu_render('simple') }}
 
 The menu name is the name of the node under ``menu_basepath``. For example if your
 repository stores the menu nodes under ``/cms/menu`` , rendering "main" would mean
@@ -69,17 +80,19 @@ How to use non-default other components
 ---------------------------------------
 
 If you use the cmf menu with phpcr-odm, you just need to store Route documents
-unter ``menu_basepath``. If you use a different object manager, you need to
-make sure that the route root document is found with
+untdr ``menu_basepath``. If you use a different object manager, you need to
+make sure that the menu root document is found with
 
-    $dm->find(route_document_class, menu_basepath . menu_name)
+.. code-block:: php
+
+    $dm->find($menu_document_class, $menu_basepath . $menu_name)
 
 The route document must implement ``Knp\Menu\NodeInterface`` - see
 Document/MenuItem.php for an example. You probably need to specify
 menu_document_class too, as only phpcr-odm can determine the document from the
 database content.
 
-If you use the cmf menu with the DoctrineRouter, you need no route name as the
+If you use the cmf menu with the DynamicRouter, you need no route name as the
 menu document just needs to provide a field content_key in the options.
 If you want to use a different service to generate URLs, you need to make sure
 your menu entries provide information in your selected content_key that the url
@@ -94,11 +107,11 @@ the route name and eventual routeParameters.
 Dependencies
 ------------
 
-* KnpMenuBundle
+This bundle is extending the `KnpMenuBundle <https://github.com/knplabs/KnpMenuBundle>`_.
 
-Unless you change defaults and provide your own implementations, also depends on
+Unless you change defaults and provide your own implementations, this bundle also depends on
 
-* SymfonyRoutingExtraBundle for the doctrine router service symfony_cmf_chain_routing.doctrine_router
-    Note that you need to explicitly enable the doctrine router as per default it is not loaded.
-    See the documentation of the routing extra bundle for how to do this.
-* Doctrine PHPCR-ODM to load route documents from the content repository
+* ``SymfonyRoutingExtraBundle`` for the router service ``symfony_cmf_routing_extra.dynamic_router``.
+  Note that you need to explicitly enable the dynamic router as per default it is not loaded.
+  See the :doc:`documentation of the routing extra bundle</reference/routing-extra>` for how to do this.
+* :doc:`/reference/phpcr-odm` to load route documents from the content repository

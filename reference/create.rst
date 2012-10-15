@@ -105,10 +105,9 @@ image location.
 Configuration
 -------------
 
-Add the settings to the ``app/config/config.yml``:
-
 .. code-block:: yaml
 
+    # app/config/config.yml
     symfony_cmf_create:
         # metadata loading
 
@@ -160,7 +159,7 @@ default IS_AUTHENTICATED_ANONYMOUSLY to the bundle.
 If you specify a different role, create.js will only be loaded if the user has that role
 and the REST handler (and image handler if enabled) will check the role.
 
-If you need more fine grained access control, look into the mapper `isEditable` method.
+If you need more fine grained access control, look into the mapper ``isEditable`` method.
 You can extend the mapper you use and overwrite isEditable to answer whether the
 passed domain object is editable.
 
@@ -230,14 +229,14 @@ Usage
 
 Adjust your template to load the editor js files if the current session is allowed to edit content.
 
-::
+.. code-block:: jinja
 
     {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" %}
 
 Plus make sure that assetic is rewriting paths in your css files, then  include
 the base css files (and customize with your css as needed) with
 
-::
+.. code-block:: jinja
 
     {% include "SymfonyCmfCreateBundle::includecssfiles.html.twig" %}
 
@@ -254,7 +253,7 @@ For an example mapping see the files in the cmf-sandbox. Reference documentation
 
 To render your model, use the createphp twig tag:
 
-.. code-block:: html
+.. code-block:: html+jinja
 
     {% createphp page as="rdf" %}
     {{ rdf|raw }}
@@ -262,7 +261,7 @@ To render your model, use the createphp twig tag:
 
 Or if you need more control over the generated HTML:
 
-.. code-block:: html
+.. code-block:: html+jinja
 
     {% createphp page as="rdf" %}
     <div {{ createphp_attributes(rdf) }}>
@@ -280,6 +279,8 @@ version of hallo that is bundled with create is used. To develop the actual code
 you will need to checkout the full hallo repository first. You can do this by running
 the following commenad from the command line:
 
+.. code-block:: bash
+
     app/console cmf:create:init-hallo-devel
 
 Then, set the ``symfony_cmf_create > use_coffee`` option to true in config.yml. This tells the
@@ -289,19 +290,21 @@ javascript from ``Resources/public/vendor/create/deps/hallo-min.js``.
 This also means that you need to add a mapping for coffeescript in your assetic
 configuration and you need the `coffee compiler set up correctly <http://coffeescript.org/#installation>`_.
 
-.. code-block:: yaml
+.. configuration-block::
 
-    assetic:
-        filters:
-            cssrewrite: ~
-            coffee:
-                bin: %coffee.bin%
-                node: %coffee.node%
-                apply_to: %coffee.extension%
+    .. code-block:: yaml
 
-    symfony_cmf_create:
-        # set this to true if you want to develop hallo and edit the coffee files
-        use_coffee: true|false
+        assetic:
+            filters:
+                cssrewrite: ~
+                coffee:
+                    bin: %coffee.bin%
+                    node: %coffee.node%
+                    apply_to: %coffee.extension%
+
+        symfony_cmf_create:
+            # set this to true if you want to develop hallo and edit the coffee files
+            use_coffee: true|false
 
 In the cmf sandbox we did a little hack to not trigger coffee script compiling.
 In config.yml we make the coffee extension configurable. Now if the
@@ -312,8 +315,10 @@ installed.
 
 The default values for the three parameters are::
 
-.. code-block:: yaml
+.. configuration-block::
 
-    coffee.bin: /usr/local/bin/coffee
-    coffee.node: /usr/local/bin/node
-    coffee.extension: \.coffee
+    .. code-block:: yaml
+
+        coffee.bin: /usr/local/bin/coffee
+        coffee.node: /usr/local/bin/node
+        coffee.extension: \.coffee

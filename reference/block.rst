@@ -8,7 +8,8 @@ The `SymfonyCmfBlockBundle <https://github.com/symfony-cmf/BlockBundle#readme>`_
 Dependencies
 ------------
 
-* `SonataBlockBundle <https://github.com/sonata-project/SonataBlockBundle#readme>`_
+This bundle is based on the `SonataBlockBundle <https://github.com/sonata-project/SonataBlockBundle#readme>`_
+
 
 Configuration
 -------------

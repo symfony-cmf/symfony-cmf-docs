@@ -52,17 +52,21 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
         );
         // ...
     }
-    
+
 Configuration
 -------------
 Next step is to configure the bundles.
 
 Basic configuration, add to ``app/config/config.yml``::
 
-    liip_vie:
+    symfony_cmf_create:
         phpcr_odm: true
         map:
             '<http://rdfs.org/sioc/ns#Post>': 'Sandbox\MainBundle\Document\EditableStaticContent'
-        use_coffee: %liip_vie.use_coffee%
-        base_path: /cms/routes
-        cms_path: /cms/content/static
+        rdf_config_dirs:
+            - %kernel.root_dir%/Resources/rdf-mappings
+
+Reference
+---------
+
+See :doc:`/reference/create`

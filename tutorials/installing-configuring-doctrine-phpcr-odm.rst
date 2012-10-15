@@ -67,7 +67,7 @@ Add file to annotation registry in ``app/autoload.php`` for the ODM annotations 
     // ...
     AnnotationRegistry::registerFile(__DIR__.'/../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php');
     // ...
-    
+
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
 Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method::
@@ -121,8 +121,11 @@ More information on configuring this bundle can be found `here <https://github.c
 Setting up the content repository
 ---------------------------------
 
+.. _tutorials-installing-phpcr-jackrabbit:
+
 Jackalope Jackrabbit
 ~~~~~~~~~~~~~~~~~~~~
+
 
 .. index:: Jackrabbit
 
@@ -142,18 +145,27 @@ can be found on the Jackalope wiki.
 As we are using Jackalope as our PHPCR implementation we could also chose other storage backends
 like relational databases but for this tutorial we're going to use Jackrabbit.
 
+
+.. _tutorials-installing-phpcr-doctrinedbal:
+
 Jackalope Doctrine DBAL
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 .. index:: Doctrine, DBAL, RDBMS
 
-In order to setup the database run the following steps to create the database and setup a default schema::
+In order to setup the database, run the following commands to create the
+database and setup a default schema
+
+.. code-block:: bash
 
     app/console doctrine:database:create
     app/console doctrine:phpcr:init:dbal
 
 For more information of how to configure Doctrine DBAL with Symfony2 see the
-`official Symfony2 documentation <http://symfony.com/doc/current/book/doctrine.html>`_.
+`Doctrine chapter in the Symfony2 documentation <http://symfony.com/doc/current/book/doctrine.html>`_
+and the explanations in the :ref:`PHPCR reference chapter <reference-phpcr-doctrinedbal>`).
+
+.. _tutorials-installing-phpcr-midgard:
 
 Midgard
 ~~~~~~~
@@ -168,25 +180,8 @@ Registering system node types
 -----------------------------
 PHPCR ODM uses a `custom node type <https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged>`_
 to track meta information without interfering with your content. There is a command that makes it trivial to
-register this type and the PHPCR namespace::
+register this type and the PHPCR namespace
+
+.. code-block:: bash
 
     php app/console doctrine:phpcr:register-system-node-types
-
-Creating a new workspace
-------------------------
-
-This step is optional since there is always a workspace "default" available::
-
-    app/console doctrine:phpcr:workspace:create my_workspace
-
-Other useful commands
----------------------
-
-With the following command its possible to dump the (partial) structure in a PHPCR repository::
-
-    app/console doctrine:phpcr:dump
-
-Its also possible to issue an `SQL2 query <http://www.h2database.com/jcr/grammar.html>`_ against the repository::
-
-    app/console doctrine:phpcr:query "SELECT routeContent FROM [nt:unstructured] WHERE NAME() = 'home'"
-
