@@ -38,7 +38,7 @@ through all chained routers. To handle standard configured symfony routes, the
 symfony default router can be put into the chain.
 
 Configuration
-~~~~~~~~~~~~~
+-------------
 
 In your app/config/config.yml, you can specify which router services you want
 to use. If you do not specify the routers_by_id map at all, by default the
@@ -49,17 +49,22 @@ want the Symfony2 router (that reads the routes from app/config/routing.yml).
 The format is ``service_name: priority`` - the higher the priority number the
 earlier this router service is asked to match a route or to generate a url::
 
-    symfony_cmf_routing_extra:
-        chain:
-            routers_by_id:
-                # enable the DynamicRouter with high priority to allow overwriting configured routes with content
-                symfony_cmf_routing_extra.dynamic_router: 200
-                # enable the symfony default router with a lower priority
-                router.default: 100
-            # whether the chain router should replace the default router. defaults to true
-            # if you set this to false, the router is just available as service
-            # symfony_cmf_routing_extra.router and you  need to do somthing to trigger it
-            # replace_symfony_router: true
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_routing_extra:
+            chain:
+                routers_by_id:
+                    # enable the DynamicRouter with high priority to allow overwriting configured routes with content
+                    symfony_cmf_routing_extra.dynamic_router: 200
+                    # enable the symfony default router with a lower priority
+                    router.default: 100
+                # whether the chain router should replace the default router. defaults to true
+                # if you set this to false, the router is just available as service
+                # symfony_cmf_routing_extra.router and you  need to do somthing to trigger it
+                # replace_symfony_router: true
 
 Loading routers with tagging
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,9 +106,14 @@ other configuration to the `dynamic` entry). Without enabling it, the dynamic
 router service will not be loaded at all, allowing you to use the ChainRouter
 with your own routers::
 
-    symfony_cmf_routing_extra:
-        dynamic:
-            enabled: true
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_routing_extra:
+            dynamic:
+                enabled: true
 
 PHPCR ODM integration
 ~~~~~~~~~~~~~~~~~~~~~
@@ -159,28 +169,32 @@ The possible mappings are (in order of precedence):
 
 ::
 
-    symfony_cmf_routing_extra:
-        dynamic:
-            generic_controller: symfony_cmf_content.controller:indexAction
-            controllers_by_alias:
-                editablestatic: sandbox_main.controller:indexAction
-            controllers_by_class:
-                Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: symfony_cmf_content.controller::indexAction
-            templates_by_class:
-                Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: SymfonyCmfContentBundle:StaticContent:index.html.twig
+.. configuration-block::
 
-            # the repository is responsible to load routes
-            # for `PHPCR ODM`_, we mainly use this because it can map from url to repository path
-            # an orm repository might need different logic. look at cmf_routing.xml for an example if you
-            # need to define your own service
-            manager_registry: doctrine_phpcr
-            manager_name: default
+    .. code-block:: yaml
+        # app/config/config.yml
+        symfony_cmf_routing_extra:
+            dynamic:
+                generic_controller: symfony_cmf_content.controller:indexAction
+                controllers_by_alias:
+                    editablestatic: sandbox_main.controller:indexAction
+                controllers_by_class:
+                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: symfony_cmf_content.controller::indexAction
+                templates_by_class:
+                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: SymfonyCmfContentBundle:StaticContent:index.html.twig
 
-            # if you use the default doctrine route repository servie, you can use this to customize
-            # the root path for the `PHPCR ODM`_ RouteRepository
-            # this base path will be injected by the Listener\IdPrefix - but only to routes
-            # matching the prefix, to allow for more than one route source.
-            routing_repositoryroot: /cms/routes
+                # the repository is responsible to load routes
+                # for `PHPCR ODM`_, we mainly use this because it can map from url to repository path
+                # an orm repository might need different logic. look at cmf_routing.xml for an example if you
+                # need to define your own service
+                manager_registry: doctrine_phpcr
+                manager_name: default
+
+                # if you use the default doctrine route repository servie, you can use this to customize
+                # the root path for the `PHPCR ODM`_ RouteRepository
+                # this base path will be injected by the Listener\IdPrefix - but only to routes
+                # matching the prefix, to allow for more than one route source.
+                routing_repositoryroot: /cms/routes
 
 To see some examples, please look at the `CMF sandbox`_ and specifically the routing fixtures loading.
 
@@ -213,8 +227,13 @@ TODO: see DependencyInjection/Configuration.php of this bundle. I could not figu
 this mapping as a default mapping. Meanwhile, in order to do redirections, you
 need to add an entry to your mapping in config.yml::
 
-    controllers_by_class:
-        Symfony\Cmf\Component\Routing\RedirectRouteInterface:  symfony_cmf_routing_extra.redirect_controller:redirectAction
+.. configuration-block::
+
+    .. code-block:: yaml
+        # app/config/config.yml
+        symfony_cmf_routing_extra:
+            controllers_by_class:
+                Symfony\Cmf\Component\Routing\RedirectRouteInterface:  symfony_cmf_routing_extra.redirect_controller:redirectAction
 
 Customize
 ---------

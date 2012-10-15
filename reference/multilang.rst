@@ -7,7 +7,7 @@ provides multi language capabilities for the Symfony2 content management framewo
 This bundle provides translated versions of the documents in the other cmf
 bundles and a helper service to render a language chooser.
 
-.. index:: MultilangContentBundle
+.. index:: MultilangContentBundle, i18n
 
 Features
 --------
@@ -18,6 +18,25 @@ Features
     current page, based on the doctrine router.
 * A controller to decide on the language based on the browser request, to redirect
     to the correct home page.
+
+
+Configuration
+-------------
+
+The configuration key for this bundle is ``symfony_cmf_multilang_content``
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_multilang_content:
+            document_manager_name:  default
+            default_lang:         en
+            lang_meta:
+                name:                 []
+            use_sonata_admin:     auto
+            content_basepath:     ~
 
 Usage
 -----

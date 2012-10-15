@@ -11,14 +11,12 @@ Configuration
 
 The configuration key for this bundle is ``symfony_cmf_content``
 
-document_class
-~~~~~~~~~~~~~~~~~
-**type**: ``string``  **default**: ``Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent``
+.. configuration-block::
 
-default_template
-~~~~~~~~~~~~~~~~~
-**type**: ``string``  **default**: ``SymfonyCmfContentBundle:StaticContent:index.html.twig``
+    .. code-block:: yaml
 
-static_basepath
-~~~~~~~~~~~~~~~~~
-**type**: ``string``  **default**: ``/cms/content/static``
+        # app/config/config.yml
+        symfony_cmf_content:
+            document_class: Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent
+            default_template: SymfonyCmfContentBundle:StaticContent:index.html.twig
+            static_basepath: /cms/content/static

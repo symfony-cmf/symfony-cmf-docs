@@ -15,3 +15,11 @@ Configuration
 -------------
 
 The configuration key for this bundle is ``symfony_cmf_block``
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_block:
+            document_manager_name:  default

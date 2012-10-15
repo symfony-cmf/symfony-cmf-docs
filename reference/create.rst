@@ -105,40 +105,42 @@ image location.
 Configuration
 -------------
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    symfony_cmf_create:
-        # metadata loading
+    .. code-block:: yaml
 
-        # directory list to look for metadata
-        rdf_config_dirs:
-            - "%kernel.root_dir%/Resources/rdf-mappings"
-        # look for mappings in <Bundle>/Resources/rdf-mappings
-        # auto_mapping: true
+        # app/config/config.yml
+        symfony_cmf_create:
+            # metadata loading
 
-        # use a different class for the REST handler
-        # rest_controller_class: FQN\Classname
-        # enable hallo development mode (see the end of this chapter)
-        # use_coffee: false
+            # directory list to look for metadata
+            rdf_config_dirs:
+                - "%kernel.root_dir%/Resources/rdf-mappings"
+            # look for mappings in <Bundle>/Resources/rdf-mappings
+            # auto_mapping: true
 
-        # image handling
-        image:
-            model_class: ~
-            controller_class: ~
+            # use a different class for the REST handler
+            # rest_controller_class: FQN\Classname
+            # enable hallo development mode (see the end of this chapter)
+            # use_coffee: false
 
-        # access check role for js inclusion, default REST and image controllers
-        # role: IS_AUTHENTICATED_ANONYMOUSLY
+            # image handling
+            image:
+                model_class: ~
+                controller_class: ~
 
-        # enable the doctrine phpcr-odm mapper
-        phpcr_odm: true
+            # access check role for js inclusion, default REST and image controllers
+            # role: IS_AUTHENTICATED_ANONYMOUSLY
 
-        # mapping from rdf type name => class name used when adding items to collections
-        map:
-            rdfname: FQN\Classname
+            # enable the doctrine phpcr-odm mapper
+            phpcr_odm: true
 
-        # stanbol url for semantic enhancement, otherwise defaults to the demo install
-        # stanbol_url: http://dev.iks-project.eu:8081
+            # mapping from rdf type name => class name used when adding items to collections
+            map:
+                rdfname: FQN\Classname
+
+            # stanbol url for semantic enhancement, otherwise defaults to the demo install
+            # stanbol_url: http://dev.iks-project.eu:8081
 
 Metadata
 ++++++++

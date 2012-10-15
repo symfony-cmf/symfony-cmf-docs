@@ -17,6 +17,8 @@ Download the bundles
 ~~~~~~~~~~~~~~~~~~~~
 Add the following to your ``composer.json`` file::
 
+.. code-block:: javascript
+
     "require": {
         ...
         "liip/vie-bundle": "dev-master"
@@ -34,11 +36,15 @@ Add the following to your ``composer.json`` file::
 
 And then run::
 
+.. code-block:: bash
+
     php composer.phar update
 
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
 Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method::
+
+.. code-block:: php
 
     public function registerBundles()
     {
@@ -57,14 +63,19 @@ Configuration
 -------------
 Next step is to configure the bundles.
 
-Basic configuration, add to ``app/config/config.yml``::
+Basic configuration, add to your application configuration::
 
-    symfony_cmf_create:
-        phpcr_odm: true
-        map:
-            '<http://rdfs.org/sioc/ns#Post>': 'Sandbox\MainBundle\Document\EditableStaticContent'
-        rdf_config_dirs:
-            - %kernel.root_dir%/Resources/rdf-mappings
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_create:
+            phpcr_odm: true
+            map:
+                '<http://rdfs.org/sioc/ns#Post>': 'Sandbox\MainBundle\Document\EditableStaticContent'
+            rdf_config_dirs:
+                - %kernel.root_dir%/Resources/rdf-mappings
 
 Reference
 ---------

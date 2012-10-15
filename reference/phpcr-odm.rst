@@ -5,7 +5,7 @@ The `DoctrinePHPCRBundle <https://github.com/doctrine/phpcr-bundle>`_
 provides integration with the PHP content repository and optionally with
 Doctrine PHPCR ODM to provide the ODM document manager in symfony.
 
-.. index:: DoctrinePHPCRBundle
+.. index:: DoctrinePHPCRBundle, PHPCR, ODM
 
 .. Tip::
 
@@ -26,7 +26,7 @@ Configuration
 .. tip::
 
     If you want to only use plain PHPCR without the PHPCR-ODM, you can simply not
-    configure the `odm` section to avoid loading the services at all. Note that most
+    configure the ``odm`` section to avoid loading the services at all. Note that most
     CMF bundles by default use PHPCR-ODM documents.
 
 

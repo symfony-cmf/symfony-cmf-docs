@@ -82,32 +82,41 @@ the doctrine router as per default it is not loaded.
 
 To enable the dynamic router and to add the router to the routing chain add the following to ``app/config/config.yml``::
 
-.. code-block:: yaml
+.. configuration-block::
 
-    symfony_cmf_routing_extra:
-        chain:
-            routers_by_id:
-                symfony_cmf_routing_extra.dynamic_router: 20
-                router.default: 100
-        dynamic:
-            enabled: true
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_routing_extra:
+            chain:
+                routers_by_id:
+                    symfony_cmf_routing_extra.dynamic_router: 20
+                    router.default: 100
+            dynamic:
+                enabled: true
 
 You might want to configure more on the dynamic router, i.e. to automatically choose controllers based on content.
 See :doc:`/reference/routing-extra`
 
 For a basic functionality for the BlockBundle (required)::
 
-.. code-block:: yaml
+.. configuration-block::
 
-    sonata_block:
-        default_contexts: [cms]
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_block:
+            default_contexts: [cms]
 
 If you are *NOT* using `SonataAdminBundle <https://github.com/sonata-project/SonataAdminBundle>`_ the following configuration is needed::
 
-.. code-block:: yaml
+.. configuration-block::
 
-    symfony_cmf_menu:
-        use_sonata_admin: false
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_menu:
+            use_sonata_admin: false
 
 For now this is the only configuration we need. Mastering the configuration of the different
 bundles will be handled in further tutorials. If you're looking for the configuration of a

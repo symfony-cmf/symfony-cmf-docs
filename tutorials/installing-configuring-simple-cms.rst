@@ -68,7 +68,7 @@ Next step is to configure the bundles.
 
 .. configuration-block::
 
-    .. code-block: yaml
+    .. code-block:: yaml
 
         # app/config/config.yml
         symfony_cmf_simple_cms:

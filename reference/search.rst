@@ -15,3 +15,11 @@ Configuration
 -------------
 
 The configuration key for this bundle is ``symfony_cmf_search``
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_search:
+            document_manager_name:  default

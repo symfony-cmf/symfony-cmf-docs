@@ -12,4 +12,4 @@ Dependencies
 Configuration
 -------------
 
-The configuration key for this bundle is ``symfony_cmf_tree``
+There is no configuration for this bundle.

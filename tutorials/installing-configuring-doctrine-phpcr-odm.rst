@@ -45,6 +45,8 @@ Download the bundles
 ~~~~~~~~~~~~~~~~~~~~
 Add the following to your ``composer.json`` file::
 
+.. code-block:: javascript
+
     "require": {
         ...
         "jackalope/jackalope-jackrabbit": "1.0.*"
@@ -64,6 +66,8 @@ Register annotations
 ~~~~~~~~~~~~~~~~~~~~
 Add file to annotation registry in ``app/autoload.php`` for the ODM annotations right after the last ``AnnotationRegistry::registerFile`` line::
 
+.. code-block:: php
+
     // ...
     AnnotationRegistry::registerFile(__DIR__.'/../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php');
     // ...
@@ -71,6 +75,8 @@ Add file to annotation registry in ``app/autoload.php`` for the ODM annotations 
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
 Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method::
+
+.. code-block:: php
 
     public function registerBundles()
     {
@@ -91,30 +97,36 @@ Next step is to configure the bundles.
 
 Doctrine PHPCR ODM
 ~~~~~~~~~~~~~~~~~~
-Basic configuration, add to ``app/config/config.yml``::
 
-    doctrine_phpcr:
-        session:
-            backend:
-                # Jackalope Jackrabbit
-                type: jackrabbit
-                url: http://localhost:8080/server/
-                # Jackalope Doctrine DBAL (make sure to also configure the DoctrineBundle accordingly)
-                type: doctrinedbal
-                connection: doctrine.dbal.default_connection
-                # Midgard
-                type: midgard2
-                db_type: MySQL
-                db_name: midgard2_test
-                db_host: "0.0.0.0"
-                db_port: 3306
-                db_username: ""
-                db_password: ""
-                db_init: true
-                blobdir: /tmp/cmf-blobs
-            workspace: default
-            username: admin
-            password: admin
+Basic configuration, add to your application configuration::
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        doctrine_phpcr:
+            session:
+                backend:
+                    # Jackalope Jackrabbit
+                    type: jackrabbit
+                    url: http://localhost:8080/server/
+                    # Jackalope Doctrine DBAL (make sure to also configure the DoctrineBundle accordingly)
+                    type: doctrinedbal
+                    connection: doctrine.dbal.default_connection
+                    # Midgard
+                    type: midgard2
+                    db_type: MySQL
+                    db_name: midgard2_test
+                    db_host: "0.0.0.0"
+                    db_port: 3306
+                    db_username: ""
+                    db_password: ""
+                    db_init: true
+                    blobdir: /tmp/cmf-blobs
+                workspace: default
+                username: admin
+                password: admin
 
 More information on configuring this bundle can be found `here <https://github.com/doctrine/DoctrinePHPCRBundle#readme>`_.
 
@@ -134,6 +146,8 @@ These are the steps necessary to install Apache Jackrabbit:
 - Make sure you have Java Virtual Machine installed on your box. If not, you can grab one from here: http://www.java.com/en/download/manual.jsp
 - Download the latest version from the `Jackrabbit Downloads page <http://jackrabbit.apache.org/downloads.html>`_
 - Run the server. Go to the folder where you downloaded the .jar file and launch it::
+
+.. code-block:: bash
 
     java -jar jackrabbit-standalone-*.jar
 
