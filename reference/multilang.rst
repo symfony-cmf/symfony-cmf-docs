@@ -1,4 +1,4 @@
-﻿SymfonyCmfMultilangContentBundle
+SymfonyCmfMultilangContentBundle
 ================================
 
 The `SymfonyCmfMultilangContentBundle <https://github.com/symfony-cmf/MultilangContentBundle#readme>`_

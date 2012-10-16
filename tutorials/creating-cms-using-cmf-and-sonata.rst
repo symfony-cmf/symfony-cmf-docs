@@ -33,7 +33,7 @@ Add the following to your ``composer.json`` file::
 And then run::
 
     php composer.phar update
-        
+
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
 Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method::
@@ -55,7 +55,7 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
         );
         // ...
     }
-    
+
 Configuration
 -------------
 
