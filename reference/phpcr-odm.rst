@@ -23,7 +23,7 @@ See :doc:`/tutorials/installing-configuring-doctrine-phpcr-odm`
 Configuration
 -------------
 
-.. tip::
+.. Tip::
 
     If you want to only use plain PHPCR without the PHPCR-ODM, you can simply not
     configure the ``odm`` section to avoid loading the services at all. Note that most

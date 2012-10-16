@@ -43,7 +43,7 @@ Depending on your choice you can omit certain steps in the following documentati
 
 Download the bundles
 ~~~~~~~~~~~~~~~~~~~~
-Add the following to your ``composer.json`` file::
+Add the following to your ``composer.json`` file
 
 .. code-block:: javascript
 
@@ -56,15 +56,22 @@ Add the following to your ``composer.json`` file::
         "doctrine/phpcr-odm": "1.0.*",
     }
 
-Notice: Remember to check if you are using "doctrine/orm": "2.2.*" (Symfony 2.1 default) and switch to "2.3.*" before updating.
+.. Note::
 
-And then run::
+    Remember to check if you are using "doctrine/orm": "2.2.*" (Symfony 2.1
+    default) and switch to "2.3.*" before updating.
+
+And then run
+
+.. code-block:: bash
 
     php composer.phar update
 
+
 Register annotations
 ~~~~~~~~~~~~~~~~~~~~
-Add file to annotation registry in ``app/autoload.php`` for the ODM annotations right after the last ``AnnotationRegistry::registerFile`` line::
+Add file to annotation registry in ``app/autoload.php`` for the ODM annotations
+right after the last ``AnnotationRegistry::registerFile`` line
 
 .. code-block:: php
 
@@ -74,7 +81,8 @@ Add file to annotation registry in ``app/autoload.php`` for the ODM annotations 
 
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
-Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method::
+Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the
+``registerBundle`` method
 
 .. code-block:: php
 
@@ -98,7 +106,7 @@ Next step is to configure the bundles.
 Doctrine PHPCR ODM
 ~~~~~~~~~~~~~~~~~~
 
-Basic configuration, add to your application configuration::
+Basic configuration, add to your application configuration
 
 .. configuration-block::
 
@@ -128,7 +136,8 @@ Basic configuration, add to your application configuration::
                 username: admin
                 password: admin
 
-More information on configuring this bundle can be found `here <https://github.com/doctrine/DoctrinePHPCRBundle#readme>`_.
+More information on configuring this bundle can be found
+`here <https://github.com/doctrine/DoctrinePHPCRBundle#readme>`_.
 
 Setting up the content repository
 ---------------------------------
@@ -143,9 +152,10 @@ Jackalope Jackrabbit
 
 These are the steps necessary to install Apache Jackrabbit:
 
-- Make sure you have Java Virtual Machine installed on your box. If not, you can grab one from here: http://www.java.com/en/download/manual.jsp
+- Make sure you have Java Virtual Machine installed on your box. If not, you can
+  grab one from here: http://www.java.com/en/download/manual.jsp
 - Download the latest version from the `Jackrabbit Downloads page <http://jackrabbit.apache.org/downloads.html>`_
-- Run the server. Go to the folder where you downloaded the .jar file and launch it::
+- Run the server. Go to the folder where you downloaded the .jar file and launch it
 
 .. code-block:: bash
 

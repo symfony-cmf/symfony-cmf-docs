@@ -80,7 +80,8 @@ To get your application running very little configuration is needed. But because
 SymfonyCmfMenuBundle is dependent of the doctrine router you need to explicitly enable
 the doctrine router as per default it is not loaded.
 
-To enable the dynamic router and to add the router to the routing chain add the following to ``app/config/config.yml``::
+To enable the dynamic router and to add the router to the routing chain add the
+following to your project configuration
 
 .. configuration-block::
 
@@ -98,7 +99,7 @@ To enable the dynamic router and to add the router to the routing chain add the 
 You might want to configure more on the dynamic router, i.e. to automatically choose controllers based on content.
 See :doc:`/reference/routing-extra`
 
-For a basic functionality for the BlockBundle (required)::
+For a basic functionality for the BlockBundle (required)
 
 .. configuration-block::
 
@@ -107,16 +108,6 @@ For a basic functionality for the BlockBundle (required)::
         # app/config/config.yml
         sonata_block:
             default_contexts: [cms]
-
-If you are *NOT* using `SonataAdminBundle <https://github.com/sonata-project/SonataAdminBundle>`_ the following configuration is needed::
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        symfony_cmf_menu:
-            use_sonata_admin: false
 
 For now this is the only configuration we need. Mastering the configuration of the different
 bundles will be handled in further tutorials. If you're looking for the configuration of a

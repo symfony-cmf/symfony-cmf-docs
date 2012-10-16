@@ -55,7 +55,7 @@ You can render a language selection list in your templates using the language
 selector controller. The idea is to have links to all language versions of the
 current page.
 
-::
+.. code-block:: jinja
 
     {% render "symfony_cmf_multilang_content.languageSelectorController:languagesAction"
             with {"id" : page.path, "languageUrls": languageUrls|default(false) } %}
@@ -80,7 +80,7 @@ This route will make the DoctrineRouter::generate() get all child routes.
 ``generate`` then chooses the route with the best available locale.
 MultilangLanguageSelectRoute by default specifies the explicit controller
 
-::
+.. code-block:: jinja
 
     symfony_cmf_multilang_content.languageSelectorController:defaultLanguageAction
 

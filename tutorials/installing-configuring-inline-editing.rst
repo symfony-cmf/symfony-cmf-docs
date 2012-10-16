@@ -15,7 +15,7 @@ Installation
 
 Download the bundles
 ~~~~~~~~~~~~~~~~~~~~
-Add the following to your ``composer.json`` file::
+Add the following to your ``composer.json`` file
 
 .. code-block:: javascript
 
@@ -34,7 +34,7 @@ Add the following to your ``composer.json`` file::
         ]
     },
 
-And then run::
+And then run
 
 .. code-block:: bash
 
@@ -42,7 +42,7 @@ And then run::
 
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
-Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method::
+Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method
 
 .. code-block:: php
 
@@ -63,7 +63,7 @@ Configuration
 -------------
 Next step is to configure the bundles.
 
-Basic configuration, add to your application configuration::
+Basic configuration, add to your application configuration
 
 .. configuration-block::
 

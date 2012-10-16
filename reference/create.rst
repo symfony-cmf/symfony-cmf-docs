@@ -315,7 +315,7 @@ compiled and the coffee compiler needs to be installed. If you set it to
 anything else like ``\.nocoffee`` then you do not need the coffee compiler
 installed.
 
-The default values for the three parameters are::
+The default values for the three parameters are
 
 .. configuration-block::
 

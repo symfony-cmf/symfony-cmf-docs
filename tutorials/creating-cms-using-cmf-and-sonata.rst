@@ -21,7 +21,7 @@ Installation
 
 Download the bundles
 ~~~~~~~~~~~~~~~~~~~~
-Add the following to your ``composer.json`` file::
+Add the following to your ``composer.json`` file
 
 .. code-block:: javascript
 
@@ -30,13 +30,15 @@ Add the following to your ``composer.json`` file::
         "sonata-project/doctrine-phpcr-admin-bundle": "1.0.*",
     }
 
-And then run::
+And then run
+
+.. code-block:: bash
 
     php composer.phar update
 
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
-Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method::
+Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method
 
 .. code-block:: php
 
@@ -59,7 +61,7 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
 Configuration
 -------------
 
-Add the sonata bundles to your application configuration ::
+Add the sonata bundles to your application configuration
 
 .. configuration-block::
 
@@ -139,7 +141,7 @@ Add the sonata bundles to your application configuration ::
                 - sonata.admin.doctrine_phpcr.phpcrodm_children
                 - sonata.admin.doctrine_phpcr.phpcrodm_move
 
-Add route in to your routing configuration ::
+Add route in to your routing configuration
 
 .. configuration-block::
 

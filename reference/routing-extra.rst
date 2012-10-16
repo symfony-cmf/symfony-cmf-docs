@@ -47,7 +47,7 @@ routers_by_id list, you need to have an entry for ``router.default`` if you
 want the Symfony2 router (that reads the routes from app/config/routing.yml).
 
 The format is ``service_name: priority`` - the higher the priority number the
-earlier this router service is asked to match a route or to generate a url::
+earlier this router service is asked to match a route or to generate a url
 
 .. configuration-block::
 
@@ -73,12 +73,24 @@ Your routers can automatically register, just add it as a service tagged with `r
 The higher the priority, the earlier your router will be asked to match the route. If you do not specify the priority,
 your router will come last.
 If there are several routers with the same priority, the order between them is undetermined.
-The tagged service will look like this::
+The tagged service will look like this
 
-    <service id="my_namespace.my_router" class="%my_namespace.my_router_class%">
-        <tag name="router" priority="300" />
-        ..
-    </service>
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            my_namespace.my_router:
+                class: %my_namespace.my_router_class%
+                tags:
+                    - { name: router, priority: 300 }
+
+    .. code-block:: xml
+
+        <service id="my_namespace.my_router" class="%my_namespace.my_router_class%">
+            <tag name="router" priority="300" />
+            ..
+        </service>
 
 See also official Symfony2 `documentation for DependencyInjection tags`_
 
@@ -104,7 +116,7 @@ The minimum configuration required to load the dynamic router as service
 your config.yml (the router is automatically enabled as soon as you add any
 other configuration to the `dynamic` entry). Without enabling it, the dynamic
 router service will not be loaded at all, allowing you to use the ChainRouter
-with your own routers::
+with your own routers
 
 .. configuration-block::
 
@@ -167,11 +179,10 @@ The possible mappings are (in order of precedence):
     class names in the map and if matched that template will be set as
     '_template' in the $defaults and return the configured generic controller
 
-::
-
 .. configuration-block::
 
     .. code-block:: yaml
+
         # app/config/config.yml
         symfony_cmf_routing_extra:
             dynamic:
@@ -201,13 +212,17 @@ To see some examples, please look at the `CMF sandbox`_ and specifically the rou
 Form Type
 ---------
 
-The bundle defines a form type that can be used for classical "accept terms" checkboxes where you place urls in the label. Simply
-specify `symfony_cmf_routing_extra_terms_form_type` as the form type name and specify a label and an array with content_ids in the options::
+The bundle defines a form type that can be used for classical "accept terms"
+checkboxes where you place urls in the label. Simply specify
+`symfony_cmf_routing_extra_terms_form_type` as the form type name and specify a
+label and an array with content_ids in the options
 
-    add('terms', 'symfony_cmf_routing_extra_terms_form_type', array(
+.. code-block:: php
+
+    $form->add('terms', 'symfony_cmf_routing_extra_terms_form_type', array(
         'label' => 'I have seen the <a href="%team%">Team</a> and <a href="%more%">More</a> pages ...',
         'content_ids' => array('%team%' => '/cms/content/static/team', '%more%' => '/cms/content/static/more')
-    ))
+    ));
 
 The form type automatically generates the routes for the specified content and passes the routes to the trans twig helper for replacement
 in the label.
@@ -225,11 +240,12 @@ Notes:
 
 TODO: see DependencyInjection/Configuration.php of this bundle. I could not figure out how to set
 this mapping as a default mapping. Meanwhile, in order to do redirections, you
-need to add an entry to your mapping in config.yml::
+need to add an entry to your mapping in the project configuration
 
 .. configuration-block::
 
     .. code-block:: yaml
+
         # app/config/config.yml
         symfony_cmf_routing_extra:
             controllers_by_class:
