@@ -50,8 +50,8 @@ See the section below for multilanguage support.
                     # ...
                 templates_by_class:
                     # ...
-                multilang:
-                    locales:              []
+            multilang:
+                locales:              []
 
 .. Tip::
 
@@ -70,7 +70,7 @@ Multi-language support
 ----------------------
 
 The multi-language-mode is enabled by providing the list of allowed locales in
-the ``routing > multilang > locales`` field.
+the ``multilang > locales`` field.
 
 In multi-language-mode the Bundle will automatically use the
 ``Symfony\Cmf\Bundle\SimpleCmsBundle\Document\MultilangPage`` as the ``document_class``
