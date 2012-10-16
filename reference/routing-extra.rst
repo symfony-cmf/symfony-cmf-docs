@@ -154,6 +154,8 @@ Your controllers can (and should) declare the parameter $contentDocument in thei
 ``Action`` methods if they are supposed to work with content referenced by the routes.
 See ``Symfony\Cmf\Bundle\ContentBundle\Controller\ContentController`` for an example.
 
+.. _routing-controller-mapper
+
 Configuration
 ~~~~~~~~~~~~~
 
@@ -178,6 +180,7 @@ The possible mappings are (in order of precedence):
     getRouteContent(). The content document is checked for being instanceof the
     class names in the map and if matched that template will be set as
     '_template' in the $defaults and return the configured generic controller
+
 
 .. configuration-block::
 
@@ -207,7 +210,40 @@ The possible mappings are (in order of precedence):
                 # matching the prefix, to allow for more than one route source.
                 routing_repositoryroot: /cms/routes
 
+
 To see some examples, please look at the `CMF sandbox`_ and specifically the routing fixtures loading.
+
+
+Sonata Admin Configuration
+""""""""""""""""""""""""""
+
+If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the composer.json
+require section, the route documents are exposed in the SonataDoctrinePhpcrAdminBundle.
+Don't forget to instantiate ``SonataDoctrinePhpcrAdminBundle`` in your kernel in
+this case.
+
+By default, ``use_sonata_admin`` is automatically set based on whether
+SonataDoctrinePhpcrAdminBundle is available but you can explicitly disable it
+to not have it even if sonata is enabled, or explicitly enable to get an error
+if Sonata becomes unavailable.
+
+You have a couple of configuration options for the admin. The ``content_basepath``
+points to the root of your content documents. ``content_class`` is used by Sonata
+to provide the list of documents. Note that this will actually display other
+document types as well, but Sonata needs an explicit name to know which admin class
+to use to render the tree entries.
+
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_routing_extra:
+            use_sonata_admin: auto # use true/false to force using / not using sonata admin
+            content_basepath: ~ # used with sonata admin to manage content, defaults to symfony_cmf_core.content_basepath
+            content_class:    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent
+
 
 Form Type
 ---------
