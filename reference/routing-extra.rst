@@ -154,7 +154,7 @@ Your controllers can (and should) declare the parameter $contentDocument in thei
 ``Action`` methods if they are supposed to work with content referenced by the routes.
 See ``Symfony\Cmf\Bundle\ContentBundle\Controller\ContentController`` for an example.
 
-.. _routing-controller-mapper
+.. _routing-controller-mapper:
 
 Configuration
 ~~~~~~~~~~~~~
