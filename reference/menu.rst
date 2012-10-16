@@ -52,14 +52,14 @@ If you want to render the menu from twig, make sure you have not disabled twig
 in the ``knp_menu`` configuration section.
 
 If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the composer.json
-require section, the MenuBundle can be used inside the SonataDoctrinePhpcrAdminBundle.
+require section, the menu documents are exposed in the SonataDoctrinePhpcrAdminBundle.
 Don't forget to instantiate ``SonataDoctrinePhpcrAdminBundle`` in your kernel in
 this case.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
 SonataDoctrinePhpcrAdminBundle is available but you can explicitly disable it
 to not have it even if sonata is enabled, or explicitly enable to get an error
-if sonata becomes unavailable.
+if Sonata becomes unavailable.
 
 
 Usage
