@@ -228,10 +228,7 @@ to not have it even if sonata is enabled, or explicitly enable to get an error
 if Sonata becomes unavailable.
 
 You have a couple of configuration options for the admin. The ``content_basepath``
-points to the root of your content documents. ``content_class`` is used by Sonata
-to provide the list of documents. Note that this will actually display other
-document types as well, but Sonata needs an explicit name to know which admin class
-to use to render the tree entries.
+points to the root of your content documents.
 
 
 .. configuration-block::
@@ -242,7 +239,6 @@ to use to render the tree entries.
         symfony_cmf_routing_extra:
             use_sonata_admin: auto # use true/false to force using / not using sonata admin
             content_basepath: ~ # used with sonata admin to manage content, defaults to symfony_cmf_core.content_basepath
-            content_class:    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent
 
 
 Form Type
