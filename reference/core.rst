@@ -22,7 +22,7 @@ Configuration
 
         # app/config/config.yml
         symfony_cmf_core:
-            content_basepath: /cms/content # used by several Bundles as the root path to store content
+            document_manager: default
             role``: IS_AUTHENTICATED_ANONYMOUSLY # used by the publish workflow checker
 
 Publish workflow checker

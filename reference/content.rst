@@ -19,4 +19,5 @@ The configuration key for this bundle is ``symfony_cmf_content``
         symfony_cmf_content:
             document_class: Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent
             default_template: SymfonyCmfContentBundle:StaticContent:index.html.twig
-            static_basepath: /cms/content/static
+            content_basepath: /cms/content # used by several Bundles as the root path to store content
+            static_basepath: /cms/content/static # used by several Bundles as the root path to store static content
