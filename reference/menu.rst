@@ -39,14 +39,20 @@ The values are:
     .. code-block:: yaml
 
         symfony_cmf_menu:
-            menu_basepath: /cms/menu
-            document_manager: default
-            menu_document_class: ~ # autodetected from stored content
-            content_url_generator: router
-            content_key: ~ # (resolves to DynamicRouter::CONTENT_KEY)
-            route_name: ~ # cmf routes are created by content instead of name
-            use_sonata_admin: auto # use true/false to force using / not using sonata admin
-            content_basepath: ~ # defaults to symfony_cmf_core.content_basepath
+            menu_basepath:        /cms/menu
+            document_manager_name:  default
+            admin_class:          ~
+            document_class:       ~
+            content_url_generator:  router
+            content_key:          ~ # (resolves to DynamicRouter::CONTENT_KEY)
+            route_name:           ~ # cmf routes are created by content instead of name
+            content_basepath:     ~ # defaults to symfony_cmf_core.content_basepath
+            use_sonata_admin:     auto # use true/false to force using / not using sonata admin
+            multilang:
+                use_sonata_admin:     auto # use true/false to force using / not using sonata admin
+                admin_class:          ~
+                document_class:       ~
+                locales:              []
 
 If you want to render the menu from twig, make sure you have not disabled twig
 in the ``knp_menu`` configuration section.

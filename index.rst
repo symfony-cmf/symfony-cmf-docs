@@ -34,7 +34,6 @@ to do it? The reference is the right place to search.
 	reference/core
 	reference/create
 	reference/menu
-	reference/multilang
 	reference/routing-extra
 	reference/routing
 	reference/search

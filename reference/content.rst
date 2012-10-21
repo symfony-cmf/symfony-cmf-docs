@@ -17,7 +17,14 @@ The configuration key for this bundle is ``symfony_cmf_content``
 
         # app/config/config.yml
         symfony_cmf_content:
-            document_class: Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent
-            default_template: SymfonyCmfContentBundle:StaticContent:index.html.twig
-            content_basepath: /cms/content # used by several Bundles as the root path to store content
-            static_basepath: /cms/content/static # used by several Bundles as the root path to store static content
+            admin_class:          ~
+            document_class:       ~
+            default_template:     ~
+            content_basepath:     /cms/content
+            static_basepath:      /cms/content/static
+            use_sonata_admin:     auto
+            multilang:
+                admin_class:          ~
+                document_class:       ~
+                use_sonata_admin:     auto
+                locales:              []
