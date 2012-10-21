@@ -100,18 +100,14 @@ Add the sonata bundles to your application configuration
                         - Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute
                 Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute:
                     valid_children: []
-                Symfony\Cmf\Bundle\MultilangContentBundle\Document\MultilangLanguageSelectRoute:
+                Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem:
                     valid_children:
-                        - Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route
-                        - Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute
-                Symfony\Cmf\Bundle\MenuItem\Document\MenuItem:
+                        - Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem
+                        - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem
+                Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem:
                     valid_children:
-                        - Symfony\Cmf\Bundle\MenuItem\Document\MenuItem
-                        - Symfony\Cmf\Bundle\MultilangContentBundle\Document\MultilangMenuItem
-                Symfony\Cmf\Bundle\MultilangContentBundle\Document\MultilangMenuItem:
-                    valid_children:
-                        - Symfony\Cmf\Bundle\MenuItem\Document\MenuItem
-                        - Symfony\Cmf\Bundle\MultilangContentBundle\Document\MultilangMenuItem
+                        - Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem
+                        - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem
 
         fos_js_routing:
             routes_to_expose:
@@ -121,15 +117,12 @@ Add the sonata bundles to your application configuration
                 - admin_bundle_menu_menuitem_create
                 - admin_bundle_menu_menuitem_delete
                 - admin_bundle_menu_menuitem_edit
-                - admin_bundle_multilangcontent_multilangmenuitem_create
-                - admin_bundle_multilangcontent_multilangmenuitem_delete
-                - admin_bundle_multilangcontent_multilangmenuitem_edit
-                - admin_bundle_multilangcontent_multilangstaticcontent_create
-                - admin_bundle_multilangcontent_multilangstaticcontent_delete
-                - admin_bundle_multilangcontent_multilangstaticcontent_edit
-                - admin_bundle_multilangcontent_multilanglanguageselectroute_create
-                - admin_bundle_multilangcontent_multilanglanguageselectroute_delete
-                - admin_bundle_multilangcontent_multilanglanguageselectroute_edit
+                - admin_bundle_menu_multilangmenuitem_create
+                - admin_bundle_menu_multilangmenuitem_delete
+                - admin_bundle_menu_multilangmenuitem_edit
+                - admin_bundle_content_multilangstaticcontent_create
+                - admin_bundle_content_multilangstaticcontent_delete
+                - admin_bundle_content_multilangstaticcontent_edit
                 - admin_bundle_routingextra_route_create
                 - admin_bundle_routingextra_route_delete
                 - admin_bundle_routingextra_route_edit

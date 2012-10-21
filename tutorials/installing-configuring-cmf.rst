@@ -11,7 +11,7 @@ at `cmf.liip.ch<http://cmf.liip.ch>`.
 
 If you want to create content in scripts, have a look at the `fixtures loading code <https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/DataFixtures/PHPCR/>`_..
 
-.. index:: RoutingExtraBundle, CoreBundle, MultilangContentBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle
+.. index:: RoutingExtraBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle
 
 Preconditions
 -------------
@@ -53,7 +53,6 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
 
             new Symfony\Cmf\Bundle\RoutingExtraBundle\SymfonyCmfRoutingExtraBundle(),
             new Symfony\Cmf\Bundle\CoreBundle\SymfonyCmfCoreBundle(),
-            new Symfony\Cmf\Bundle\MultilangContentBundle\SymfonyCmfMultilangContentBundle(),
             new Symfony\Cmf\Bundle\MenuBundle\SymfonyCmfMenuBundle(),
             new Symfony\Cmf\Bundle\ContentBundle\SymfonyCmfContentBundle(),
             new Symfony\Cmf\Bundle\BlockBundle\SymfonyCmfBlockBundle(),
