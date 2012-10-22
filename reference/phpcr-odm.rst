@@ -227,12 +227,12 @@ languages. For more information on multilingual documents, see the
         doctrine_phpcr:
             odm:
                 locales:
-                    en:
-                        - en
-                        - de
-                    de:
-                        - de
-                        - en
+                    en: [de, fr]
+                    de: [en, fr]
+                    fr: [en, de]
+
+This block defines the order of alternative locales to look up if a document is
+not translated to the requested locale.
 
 
 General Settings
