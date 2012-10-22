@@ -21,15 +21,15 @@ Add the following to your ``composer.json`` file
 
     "require": {
         ...
-        "liip/vie-bundle": "dev-master"
+        "symfony-cmf/create-bundle": "1.0.*"
     },
     "scripts": {
         "post-install-cmd": [
-            "Liip\\VieBundle\\Composer\\ScriptHandler::initSubmodules",
+            "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::initSubmodules",
             ...
         ],
         "post-update-cmd": [
-            "Liip\\VieBundle\\Composer\\ScriptHandler::initSubmodules",
+            "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::initSubmodules",
             ...
         ]
     },
@@ -38,7 +38,7 @@ And then run
 
 .. code-block:: bash
 
-    php composer.phar update
+    php composer.phar update symfony-cmf/create-bundle
 
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
@@ -51,10 +51,9 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
         $bundles = array(
             // ...
 
-            new Liip\VieBundle\LiipVieBundle(),
+            new Symfony\Cmf\Bundle\CreateBundle\SymfonyCmfCreateBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
-
         );
         // ...
     }
@@ -73,9 +72,17 @@ Basic configuration, add to your application configuration
         symfony_cmf_create:
             phpcr_odm: true
             map:
-                '<http://rdfs.org/sioc/ns#Post>': 'Sandbox\MainBundle\Document\EditableStaticContent'
-            rdf_config_dirs:
-                - %kernel.root_dir%/Resources/rdf-mappings
+                '<http://rdfs.org/sioc/ns#Post>': 'Symfony\Cmf\Bundle\MultilangContentBundle\Document\MultilangStaticContent'
+            image:
+                model_class: Symfony\Cmf\Bundle\CreateBundle\Document\Image
+                controller_class: Symfony\Cmf\Bundle\CreateBundle\Controller\PHPCRImageController
+
+If you have your own documents, add them to the mapping and place the RDFa mappings
+in Resources/rdf-mappings. The filename is the full class name including namespace
+with the backslashes ``\\`` replaced by a dot ``.``.
+
+If you want image support, configure the model and controller for images.
+
 
 Reference
 ---------
