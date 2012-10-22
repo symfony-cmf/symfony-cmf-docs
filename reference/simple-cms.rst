@@ -94,3 +94,46 @@ for the matched route.
     as an anchor. So for example ``http://foo.com/de/1#my title`` and ``http://foo.com/de/1#mein titel``.
     If you need language specific URLs, you want to use the CMF routing bundle and content bundle
     directly to have a separate route document per language.
+
+
+Rendering
+---------
+
+You can specify the template to render a SimpleCms page, or use a controller
+where you then give the page document to the template. A simple example for such
+a template is
+
+
+.. code-block:: jinja
+
+    {% block content %}
+
+        <h1>{{ page.title }}</h1>
+
+        <div>{{ page.body|raw }}</div>
+
+        <ul>
+        {% foreach tag in page.tags %}
+            <li>{{ tag }}</li>
+        {% endforeach %}
+        </ul>
+
+    {% endblock %}
+
+
+If you have the CreateBundle enabled, you can also output the document with
+RDFa annotations, allowing you to edit the content as well as the tags in the
+frontend. The most simple form is the following twig block:
+
+.. code-block:: jinja
+
+    {% block content %}
+
+        {% createphp page as="rdf" %}
+            {{ rdf|raw }}
+        {% endcreatephp %}
+
+    {% endblock %}
+
+If you want to control more detailed what should be shown with RDFa, see
+chapter :doc:`/reference/create`.
