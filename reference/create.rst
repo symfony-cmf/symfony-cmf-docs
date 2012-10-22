@@ -142,6 +142,13 @@ Configuration
             # stanbol url for semantic enhancement, otherwise defaults to the demo install
             # stanbol_url: http://dev.iks-project.eu:8081
 
+The provided javascript file configures create.js and the hallo editor. It
+enables some plugins like the tag editor to edit ``skos:related`` collections of
+attributes. We hope to add some configuration options to tweak the
+configuration of create.js but you can also use the file as a template and do
+your own if you need larger customizations.
+
+
 Metadata
 ++++++++
 
@@ -150,6 +157,8 @@ default, the create bundle uses the XML metadata driver and looks for metadata
 in the enabled bundles at <Bundle>/Resources/rdf-mappings. If you use a bundle
 that has no RDFa mapping, you can specify a list of rdf_config_dirs that will
 additionally be checked for metadata.
+
+See the documentation of createphp for the format of the XML metadata format.
 
 
 Access control
@@ -179,8 +188,8 @@ ImageController and override the ``symfony_cmf_create.image.controller``
 service with it.
 
 
-Mapping
-+++++++
+Mapping requests to objects
++++++++++++++++++++++++++++
 
 For now, the bundle only provides a service to map to doctrine phpcr-odm. Enable it
 by setting `phpcr_odm` to true. If you need something else, you need to provide a
