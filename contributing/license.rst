@@ -1,5 +1,18 @@
-Symfony2 CMF Documentation License
-==================================
+Symfony2 CMF License
+====================
+
+The Symfony2 CMF aims to provide liberal open source licenses for its entire stack.
+
+Code
+----
+
+The code stack is covered by the Apache license for Jackalope and PHPCR,
+the rest of the stack, notably the Symfony2 code, PHPCR ODM, create.js and
+Hallo.js are MIT licensed. Please refer to the relevant LICENSE files in
+the given source packages.
+
+Documentation
+-------------
 
 The Symfony2 documentation is licensed under a Creative Commons
 Attribution-Share Alike 3.0 Unported `License`_.
