@@ -1,5 +1,5 @@
-Contributing to the Symfony2 CMF
-================================
+Contributing
+============
 
 The Symfony2 CMF team follows all the rules and guidelines of the core Symfony2
 `development process <http://symfony.com/doc/current/contributing/index.html>`_.

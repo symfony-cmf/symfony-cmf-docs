@@ -1,5 +1,5 @@
-Symfony2 CMF License
-====================
+Licenses
+========
 
 The Symfony2 CMF aims to provide liberal open source licenses for its entire stack.
 
