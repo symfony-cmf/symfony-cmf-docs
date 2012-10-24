@@ -42,9 +42,14 @@ to do it? The reference is the right place to search.
 	reference/tree-browser
 	reference/phpcr-odm
 
-.. _`Document planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
-.. _`CMF website`: http://cmf.symfony.com/get-involved
+Contributing
+------------
 
+.. toctree::
+	:maxdepth: 1
+
+	contributing/code
+	contributing/license
 
 Indices and tables
 ==================
@@ -52,3 +57,5 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`search`
 
+.. _`Document planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
+.. _`CMF website`: http://cmf.symfony.com/get-involved
