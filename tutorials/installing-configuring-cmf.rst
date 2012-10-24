@@ -9,7 +9,11 @@ and/or the `CMF sandbox environment <https://github.com/symfony-cmf/cmf-sandbox>
 pre-installed Symfony / CMF application containing all CMF components. It is also available online
 at `cmf.liip.ch<http://cmf.liip.ch>`.
 
-If you want to create content in scripts, have a look at the `fixtures loading code <https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/DataFixtures/PHPCR/>`_..
+If you want to create content in scripts, have a look at the
+`fixtures loading code <https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/DataFixtures/PHPCR/>`_..
+
+If you just want to get started with a minimal installation it is recommended to use the
+``Symfony2 CMF standard edition <https://github.com/symfony-cmf/symfony-cmf-standard>`_..
 
 .. index:: RoutingExtraBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle
 

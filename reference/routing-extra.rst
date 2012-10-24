@@ -223,7 +223,7 @@ Don't forget to instantiate ``SonataDoctrinePhpcrAdminBundle`` in your kernel in
 this case.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
-SonataDoctrinePhpcrAdminBundle is available but you can explicitly disable it
+``SonataDoctrinePhpcrAdminBundle`` is available but you can explicitly disable it
 to not have it even if sonata is enabled, or explicitly enable to get an error
 if Sonata becomes unavailable.
 

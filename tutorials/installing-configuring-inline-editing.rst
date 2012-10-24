@@ -78,10 +78,8 @@ Basic configuration, add to your application configuration
                 controller_class: Symfony\Cmf\Bundle\CreateBundle\Controller\PHPCRImageController
 
 If you have your own documents, add them to the mapping and place the RDFa mappings
-in Resources/rdf-mappings. The filename is the full class name including namespace
-with the backslashes ``\\`` replaced by a dot ``.``.
-
-If you want image support, configure the model and controller for images.
+in ``Resources/rdf-mappings`` either inside the ``app`` directory or inside any Bundle.
+The filename is the full class name including namespace with the backslashes ``\\`` replaced by a dot ``.``.
 
 
 Reference
