@@ -99,8 +99,9 @@ Have a look at the BlockBundle in the Sandbox. It also shows you how to make blo
 Relation to Sonata Block Bundle
 -------------------------------
 
-The SymfonyCmfBlockBundle makes heavy use of the `SonataBlockBundle <https://github.com/sonata-project/SonataBlockBundle>`_.
-We replace components of the bundle where needed to be compatible with PHPCR. The following picture shows where we use
-our own components (blue)::
+The BlockBundle is based on the `SonataBlockBundle <https://github.com/sonata-project/SonataBlockBundle>`_.
+It replaces components of the bundle where needed to be compatible with PHPCR.
 
-.. image:: bundles/classdiagram.jpg
+The following picture shows where we use our own components (blue)::
+
+.. image:: /images/bundles/classdiagram.jpg
