@@ -259,3 +259,23 @@ texinfo_documents = [
 
 # How to display URL addresses: 'footnote', 'no', or 'inline'.
 #texinfo_show_urls = 'footnote'
+
+def image(name, arguments, options, content, lineno,
+          content_offset, block_text, state, state_machine):
+    reference = ''.join(arguments[0].split('\n'))
+    if reference.find(' ') != -1:
+        error = state_machine.reporter.error(
+              'Image URI contains whitespace.', '',
+              nodes.literal_block(block_text, block_text),
+              line=lineno)
+        return [error]
+    options['uri'] = reference
+    image_node = nodes.image(block_text, **options)
+    return [image_node]
+
+image.arguments = (1, 0, 1)
+image.options = {'alt': directives.unchanged,
+                 'height': directives.nonnegative_int,
+                 'width': directives.nonnegative_int,
+                 'scale': directives.nonnegative_int,
+                 'align': align}
