@@ -44,7 +44,7 @@ to do it? The reference is the right place to search.
 	bundles/phpcr-odm
 
 Components
----------
+----------
 
 Looking for some for information about the low level components of the CMF?
 

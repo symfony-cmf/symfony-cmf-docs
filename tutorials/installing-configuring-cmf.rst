@@ -13,7 +13,7 @@ If you want to create content in scripts, have a look at the
 `fixtures loading code <https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/DataFixtures/PHPCR/>`_..
 
 If you just want to get started with a minimal installation it is recommended to use the
-``Symfony2 CMF standard edition <https://github.com/symfony-cmf/symfony-cmf-standard>`_..
+`Symfony2 CMF standard edition <https://github.com/symfony-cmf/symfony-cmf-standard>`_..
 
 .. index:: RoutingExtraBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle
 
@@ -114,4 +114,4 @@ For a basic functionality for the BlockBundle (required)
 
 For now this is the only configuration we need. Mastering the configuration of the different
 bundles will be handled in further tutorials. If you're looking for the configuration of a
-specific bundle take a look at the corresponding :doc:`reference entry</index>`.
+specific bundle take a look at the corresponding :doc:`bundles entry</index>`.

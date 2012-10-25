@@ -43,7 +43,6 @@ Server must reply in JSON format, this is an example:
             ]
         }
     ]
-```
 
 More info on setup available on `jsTree's website <http://www.jstree.com/documentation>`_.
 

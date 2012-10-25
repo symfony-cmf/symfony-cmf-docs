@@ -14,7 +14,7 @@ on how making blocks editable in the `Symfony CMF Sandbox <https://github.com/sy
 Dependencies
 ------------
 
-This bundle is based on the `SonataBlockBundle <https://github.com/sonata-project/SonataBlockBundle#readme>`_
+This bundle is based on the `SonataBlockBundle <https://github.com/sonata-project/SonataBlockBundle>`_
 
 
 Configuration
