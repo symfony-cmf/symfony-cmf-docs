@@ -1,7 +1,7 @@
-SymfonyCmfSimpleCmsBundle
-=========================
+SimpleCmsBundle
+===============
 
-The `SymfonyCmfSimpleCmsBundle <https://github.com/symfony-cmf/SimpleCmsBundle#readme>`_
+The `SimpleCmsBundle <https://github.com/symfony-cmf/SimpleCmsBundle#readme>`_
 provides a simplistic CMS on top of the CMF components and bundles.
 
 While the core CMF components focus on flexibility, the simple CMS trades
@@ -136,4 +136,4 @@ frontend. The most simple form is the following twig block:
     {% endblock %}
 
 If you want to control more detailed what should be shown with RDFa, see
-chapter :doc:`/reference/create`.
+chapter :doc:`/bundles/create`.

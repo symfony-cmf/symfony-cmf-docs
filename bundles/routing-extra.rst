@@ -1,8 +1,8 @@
-SymfonyCmfRoutingExtraBundle
+RoutingExtraBundle
 ============================
 
-The `SymfonyCmfRoutingExtraBundle <https://github.com/symfony-cmf/RoutingExtraBundle#readme>`_
-integrates dynamic routing into Symfony using :doc:`/reference/routing`.
+The `RoutingExtraBundle <https://github.com/symfony-cmf/RoutingExtraBundle#readme>`_
+integrates dynamic routing into Symfony using :doc:`/components/routing`.
 
 The ``ChainRouter`` is meant to replace the default Symfony Router. All it does
 is collect a prioritized list of routers and try to match requests and generate

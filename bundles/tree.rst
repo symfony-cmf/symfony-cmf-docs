@@ -1,7 +1,7 @@
-SymfonyCmfTreeBundle
-====================
+TreeBundle
+==========
 
-The `SymfonyCmfTreeBundle <https://github.com/symfony-cmf/TreeBundle#readme>`_
+The `TreeBundle <https://github.com/symfony-cmf/TreeBundle#readme>`_
 provides integration with jQuery tree.
 
 .. index:: TreeBundle

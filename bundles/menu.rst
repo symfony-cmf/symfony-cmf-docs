@@ -1,7 +1,7 @@
-﻿SymfonyCmfMenuBundle
+﻿MenuBundle
 ====================
 
-The `SymfonyCmfMenuBundle <https://github.com/symfony-cmf/MenuBundle#readme>`_
+The `MenuBundle <https://github.com/symfony-cmf/MenuBundle#readme>`_
 provides menus from a doctrine object manager with the help of KnpMenuBundle.
 
 .. index:: MenuBundle
@@ -120,4 +120,4 @@ Unless you change defaults and provide your own implementations, this bundle als
 * ``SymfonyRoutingExtraBundle`` for the router service ``symfony_cmf_routing_extra.dynamic_router``.
   Note that you need to explicitly enable the dynamic router as per default it is not loaded.
   See the :doc:`documentation of the routing extra bundle</reference/routing-extra>` for how to do this.
-* :doc:`/reference/phpcr-odm` to load route documents from the content repository
+* :doc:`/bundles/phpcr-odm` to load route documents from the content repository

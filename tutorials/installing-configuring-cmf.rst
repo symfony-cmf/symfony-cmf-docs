@@ -100,7 +100,7 @@ following to your project configuration
                 enabled: true
 
 You might want to configure more on the dynamic router, i.e. to automatically choose controllers based on content.
-See :doc:`/reference/routing-extra`
+See :doc:`/bundles/routing-extra`
 
 For a basic functionality for the BlockBundle (required)
 

@@ -1,7 +1,7 @@
-SymfonyCmfSearchBundle
-======================
+SearchBundle
+============
 
-The `SymfonyCmfSearchBundle <https://github.com/symfony-cmf/SearchBundle#readme>`_
+The `SearchBundle <https://github.com/symfony-cmf/SearchBundle#readme>`_
 provides integration with LiipSearchBundle to handle a site wide search.
 
 .. index:: SearchBundle

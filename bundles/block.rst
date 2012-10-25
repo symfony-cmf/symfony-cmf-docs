@@ -1,7 +1,7 @@
-SymfonyCmfBlockBundle
+BlockBundle
 =====================
 
-The `SymfonyCmfBlockBundle <https://github.com/symfony-cmf/BlockBundle#readme>`_ provides integration with SonataBlockBundle.
+The `BlockBundle <https://github.com/symfony-cmf/BlockBundle#readme>`_ provides integration with SonataBlockBundle.
 
 .. index:: BlockBundle
 

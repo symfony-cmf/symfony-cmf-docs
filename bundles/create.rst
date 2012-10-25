@@ -1,7 +1,7 @@
-SymfonyCmfCreateBundle
+CreateBundle
 ======================
 
-The `SymfonyCmfCreateBundle <https://github.com/symfony-cmf/CreateBundle>`_
+The `CreateBundle <https://github.com/symfony-cmf/CreateBundle>`_
 integrates create.js and the createphp helper library into Symfony2.
 
 Create.js is a comprehensive web editing interface for Content Management

@@ -9,6 +9,7 @@ overview of the work to do. Want to help? Thank you, all help greatly appreciate
 
 Tutorials
 ---------
+
 Learning or want to learn the CMF? Want to know if the CMF fits your project? The book tells you all.
 
 .. toctree::
@@ -20,27 +21,37 @@ Learning or want to learn the CMF? Want to know if the CMF fits your project? Th
 	tutorials/installing-configuring-inline-editing
 	tutorials/creating-cms-using-cmf-and-sonata
 
-Reference
+Bundles
 ---------
-Looking for some in depth information about a specific part of the CMF? Want a list of all the
+
+Looking for some in depth information about a CMF Bundle? Want a list of all the
 configuration options of a bundle? Want to know if you can use a bundle independently and how
 to do it? The reference is the right place to search.
 
 .. toctree::
 	:maxdepth: 1
 
-	reference/block
-	reference/content
-	reference/core
-	reference/create
-	reference/menu
-	reference/routing-extra
-	reference/routing
-	reference/search
-	reference/simple-cms
-	reference/tree
-	reference/tree-browser
-	reference/phpcr-odm
+	bundles/block
+	bundles/content
+	bundles/core
+	bundles/create
+	bundles/menu
+	bundles/routing-extra
+	bundles/search
+	bundles/simple-cms
+	bundles/tree
+	bundles/tree-browser
+	bundles/phpcr-odm
+
+Components
+---------
+
+Looking for some for information about the low level components of the CMF?
+
+.. toctree::
+	:maxdepth: 1
+
+	components/routing
 
 Contributing
 ------------

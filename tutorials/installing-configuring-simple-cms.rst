@@ -22,7 +22,7 @@ another application using the SimpleCmsBundle.
 Preconditions
 -------------
 - :doc:`/tutorials/installing-configuring-cmf` (TODO: make this tutorial more self-contained)
-- Or :doc:`/reference/routing-extra` needs to be installed manually, optionally also :doc:`/reference/menu` and :doc:`/reference/block`
+- Or :doc:`/bundles/routing-extra` needs to be installed manually, optionally also :doc:`/bundles/menu` and :doc:`/bundles/block`
 
 Installation
 ------------
@@ -76,4 +76,4 @@ Next step is to configure the bundles.
                 templates_by_class:
                     Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page:  SymfonyCmfSimpleCmsBundle:Page:index.html.twig
 
-For the full reference, see :doc:`/reference/simple-cms`.
+For the full reference, see :doc:`/bundles/simple-cms`.
