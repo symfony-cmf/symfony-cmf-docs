@@ -23,3 +23,9 @@ The configuration key for this bundle is ``symfony_cmf_search``
         # app/config/config.yml
         symfony_cmf_search:
             document_manager_name:  default
+            translation_strategy: child # can also be set to an empty string or attribute
+            translation_strategy: attribute
+            search_path: /cms/content
+            search_fields:
+                title: title
+                summary: body
