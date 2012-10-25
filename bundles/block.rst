@@ -103,4 +103,4 @@ The SymfonyCmfBlockBundle makes heavy use of the `SonataBlockBundle <https://git
 We replace components of the bundle where needed to be compatible with PHPCR. The following picture shows where we use
 our own components (blue)::
 
-    .. image:: ./classdiagram.jpg
+.. image:: ./classdiagram.jpg
