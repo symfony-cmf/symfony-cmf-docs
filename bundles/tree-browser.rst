@@ -2,7 +2,7 @@ TreeBrowserBundle
 =================
 
 The `TreeBrowserBundle <https://github.com/symfony-cmf/TreeBrowserBundle#readme>`_
-provides integration with :doc:`/bundles/tree` to provide a tree navigation on top of a PHPCR repository.
+provides integration with :doc:`tree` to provide a tree navigation on top of a PHPCR repository.
 
 This bundle consists of two parts:
 

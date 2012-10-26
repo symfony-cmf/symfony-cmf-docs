@@ -14,7 +14,7 @@ Documentation TODO
 Preconditions
 -------------
 
-- :doc:`/tutorials/installing-configuring-cmf`
+- :doc:`installing-configuring-cmf`
 
 Installation
 ------------

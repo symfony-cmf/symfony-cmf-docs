@@ -20,7 +20,7 @@ If you just want to get started with a minimal installation it is recommended to
 Preconditions
 -------------
 - `Installation of Symfony2 <http://symfony.com/doc/master/index.html>`_
-- :doc:`/tutorials/installing-configuring-doctrine-phpcr-odm`
+- :doc:`installing-configuring-doctrine-phpcr-odm`
 
 Installation
 ------------
@@ -100,7 +100,7 @@ following to your project configuration
                 enabled: true
 
 You might want to configure more on the dynamic router, i.e. to automatically choose controllers based on content.
-See :doc:`/bundles/routing-extra`
+See :doc:`../bundles/routing-extra`
 
 For a basic functionality for the BlockBundle (required)
 
@@ -114,4 +114,4 @@ For a basic functionality for the BlockBundle (required)
 
 For now this is the only configuration we need. Mastering the configuration of the different
 bundles will be handled in further tutorials. If you're looking for the configuration of a
-specific bundle take a look at the corresponding :doc:`bundles entry</index>`.
+specific bundle take a look at the corresponding :doc:`bundles entry<../index>`.

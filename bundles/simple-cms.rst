@@ -136,4 +136,4 @@ frontend. The most simple form is the following twig block:
     {% endblock %}
 
 If you want to control more detailed what should be shown with RDFa, see
-chapter :doc:`/bundles/create`.
+chapter :doc:`create`.
