@@ -58,8 +58,9 @@ Add the following to your ``composer.json`` file
 
 .. Note::
 
-    Remember to check if you are using "doctrine/orm": "2.2.*" (Symfony 2.1
-    default) and switch to "2.3.*" before updating.
+    If you are also using Doctrine ORM, make sure to use ``"doctrine/orm": "2.3.*"``,
+    otherwise composer can't resolve the dependencies as Doctrine PHPCR-ODM depends on
+    the newer 2.3 Doctrine Commons. (Symfony 2.1 standard edition uses "2.2.*".
 
 And then run
 
