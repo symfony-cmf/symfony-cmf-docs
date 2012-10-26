@@ -85,4 +85,4 @@ The filename is the full class name including namespace with the backslashes ``\
 Reference
 ---------
 
-See :doc:`/bundles/create`
+See :doc:`../bundles/create`

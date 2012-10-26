@@ -119,5 +119,5 @@ Unless you change defaults and provide your own implementations, this bundle als
 
 * ``SymfonyRoutingExtraBundle`` for the router service ``symfony_cmf_routing_extra.dynamic_router``.
   Note that you need to explicitly enable the dynamic router as per default it is not loaded.
-  See the :doc:`documentation of the routing extra bundle</bundles/routing-extra>` for how to do this.
-* :doc:`/bundles/phpcr-odm` to load route documents from the content repository
+  See the :doc:`documentation of the routing extra bundle<routing-extra>` for how to do this.
+* :doc:`phpcr-odm` to load route documents from the content repository
