@@ -17,7 +17,7 @@ Doctrine PHPCR ODM to provide the ODM document manager in symfony.
 Setup
 -----
 
-See :doc:`/tutorials/installing-configuring-doctrine-phpcr-odm`
+See :doc:`../tutorials/installing-configuring-doctrine-phpcr-odm`
 
 
 Configuration
