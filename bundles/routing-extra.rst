@@ -1,5 +1,5 @@
 RoutingExtraBundle
-============================
+==================
 
 The `RoutingExtraBundle <https://github.com/symfony-cmf/RoutingExtraBundle#readme>`_
 integrates dynamic routing into Symfony using :doc:`../components/routing`.

@@ -1,5 +1,5 @@
 CreateBundle
-======================
+============
 
 The `CreateBundle <https://github.com/symfony-cmf/CreateBundle>`_
 integrates create.js and the createphp helper library into Symfony2.

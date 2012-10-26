@@ -20,7 +20,7 @@ Configuration
 The configuration key for this bundle is ``symfony_cmf_simple_cms``
 
 The ``use_menu`` option automatically enables a service to provide menues out
-of the simple cms if the SymfonyCmfMenuBundle is enabled. You can also explicitly
+of the simple cms if the MenuBundle is enabled. You can also explicitly
 disable it if you have the menu bundle but do not want to use the default service,
 or explicitly enable to get an error if the menu bundle becomes unavailable.
 

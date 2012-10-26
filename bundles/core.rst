@@ -1,5 +1,5 @@
 CoreBundle
-====================
+==========
 
 This is the `CoreBundle <https://github.com/symfony-cmf/CoreBundle#readme>`_
 for the Symfony2 content management framework. This bundle provides common functionality,

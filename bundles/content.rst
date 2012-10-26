@@ -1,5 +1,6 @@
 ContentBundle
-=======================
+=============
+
 This bundle provides a document for static content and the controller to render it.
 
 For more information for now see the documentation of the `ContentBundle <https://github.com/symfony-cmf/ContentBundle#readme>`_

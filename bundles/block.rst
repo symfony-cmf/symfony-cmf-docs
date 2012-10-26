@@ -1,8 +1,8 @@
 BlockBundle
-=====================
+===========
 
 The `BlockBundle <https://github.com/symfony-cmf/BlockBundle#readme>`_ provides integration with SonataBlockBundle.
-It assists you in managing fragments of contents, so called blocks. What the SymfonyCmfBlockBundle does is similar
+It assists you in managing fragments of contents, so called blocks. What the BlockBundle does is similar
 to what Twig does, but for blocks that are persisted in a DB. Thus the blocks can be made editable for an editor.
 Also the BlockBundle provides the logic to determine which block should be rendered on which pages.
 
@@ -35,7 +35,7 @@ Block rendering
 
 Before you can render a block, you need to create a data object representing your block in the repository.
 You can do so with the following code snippet (Note that ``$parentPage`` needs to be an instance of
-age defined by the `SymfonyCmfContentBundle <https://github.com/symfony-cmf/ContentBundle>`_):
+a page defined by the `ContentBundle <https://github.com/symfony-cmf/ContentBundle>`_):
 
 .. code-block:: php
 
@@ -55,12 +55,12 @@ Now to have this block actually rendered, you just add the following code to you
 
     {{ sonata_block_render({'name': 'sidebarBlock'}) }}
 
-This will make the SymfonyCmfBlockBundle rendering the according block on every page that has a block named 'sidebarBlock'. Of course, the actual page needs to be rendered by the template that contains the snippet above.
+This will make the BlockBundle rendering the according block on every page that has a block named 'sidebarBlock'. Of course, the actual page needs to be rendered by the template that contains the snippet above.
 
 Block types
 -----------
 
-The SymfonyCmfBlockBundle comes with four general purpose blocks:
+The BlockBundle comes with four general purpose blocks:
  * SimpleBlock: A simple block with nothing but a title and a field of hypertext. This would usually be what an editor edits directly, for example contact information
  * ContainerBlock: A block that contains 0 to n child blocks
  * ReferenceBlock: A block that references a block stored somewhere else in the content tree. For example you might want to refer parts of the contact information from the homepage

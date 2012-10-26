@@ -1,5 +1,5 @@
 ﻿MenuBundle
-====================
+==========
 
 The `MenuBundle <https://github.com/symfony-cmf/MenuBundle#readme>`_
 provides menus from a doctrine object manager with the help of KnpMenuBundle.
