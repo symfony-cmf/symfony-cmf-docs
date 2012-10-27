@@ -3,7 +3,7 @@ DoctrinePHPCRBundle
 
 The `DoctrinePHPCRBundle <https://github.com/doctrine/phpcr-bundle>`_
 provides integration with the PHP content repository and optionally with
-Doctrine PHPCR ODM to provide the ODM document manager in symfony.
+Doctrine PHPCR-ODM to provide the ODM document manager in symfony.
 
 .. index:: DoctrinePHPCRBundle, PHPCR, ODM
 

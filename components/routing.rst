@@ -17,11 +17,11 @@ your routes.
 Additionally, this component is meant to provide useful router implementations.
 Currently, there is the ``DynamicRouter`` that routes based on a implemented
 repository that provide Symfony2 Route objects. The repository can be
-implemented using a database, for example with doctrine phpcr-odm or doctrine
+implemented using a database, for example with doctrine PHPCR-ODM or doctrine
 orm.
 
 Note: To use this component outside of the Symfony2 framework context, have
-a look at the `Symfony2 Routing component <https://github.com/symfony/Routing>`_
+a look at the core Symfony2 `Routing <https://github.com/symfony/Routing>`_
 to get a fundamental understanding of the component. CMF Routing just extends
 the basic behaviour.
 
@@ -55,7 +55,7 @@ The router works with the base UrlMatcher and UrlGenerator classes and only
 adds loading routes from the database and the concept of referenced content.
 
 To instantiate a DynamicRouter, you need an implementation of the
-RouteRepositoryInterface. See the `Symfony2 RoutingExtraBundle <https://github.com/symfony-cmf/RoutingExtraBundle>`_
+RouteRepositoryInterface. See the `RoutingExtraBundle <https://github.com/symfony-cmf/RoutingExtraBundle>`_
 document classes for an example.
 
 You will want to create controller mappers that decide what controller will

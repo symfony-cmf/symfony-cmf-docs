@@ -1,11 +1,11 @@
 ﻿Symfony CMF Documentation
 =========================
 
-Welcome to the official documentation of the **Symfony Content Management Framework**.
+Welcome to the official documentation of the **`Symfony Content Management Framework`_**.
 
 This documentation is currently in development and far from complete. See `Document planning`_ for an
-overview of the work to do. Want to help? Thank you, all help greatly appreciated! See the
-`CMF website`_ how to get involved.
+overview of the work left to do. Want to help? Thank you, all help greatly appreciated! The source of
+the `documentation is hosted here`_.
 
 Tutorials
 ---------
@@ -39,6 +39,7 @@ to do it? The reference is the right place to search.
 	bundles/routing-extra
 	bundles/search
 	bundles/simple-cms
+	bundles/doctrine_phpcr_admin
 	bundles/tree
 	bundles/tree-browser
 	bundles/phpcr-odm
@@ -62,11 +63,6 @@ Contributing
 	contributing/code
 	contributing/license
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`search`
-
 .. _`Document planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
-.. _`CMF website`: http://cmf.symfony.com/get-involved
+.. _`Symfony Content Management Framework`: http://cmf.symfony.com
+.. _`documentation is hosted here`: https://github.com/symfony-cmf/symfony-cmf-docs

@@ -12,13 +12,13 @@ default router so you can still use the standard way for some of your routes.
 Additionally, this bundle delivers useful router implementations. Currently,
 there is the ``DynamicRouter`` that routes based on a implemented repository that
 provide Symfony2 Route objects. The repository can be implemented using a
-database, for example with Doctrine `PHPCR ODM`_ or Doctrine ORM. The bundle
-provides a default implementation for Doctrine `PHPCR ODM`_.
+database, for example with Doctrine `PHPCR-ODM`_ or Doctrine ORM. The bundle
+provides a default implementation for Doctrine `PHPCR-ODM`_.
 
 The DynamicRouter service is only made available when explicitly enabled in the
 application configuration.
 
-Finally this bundles provides route documents for Doctrine `PHPCR ODM`_ and a
+Finally this bundles provides route documents for Doctrine `PHPCR-ODM`_ and a
 controller for redirection routes.
 
 .. index:: RoutingExtraBundle
@@ -105,7 +105,7 @@ adds loading routes from the database and the concept of referenced content.
 
 The DynamicRouter service is set up with a repository. See the configuration
 section for how to change the route_repository_service and the following
-section on more details for the default `PHPCR ODM`_ based implementation.
+section on more details for the default `PHPCR-ODM`_ based implementation.
 
 You will want to configure the controller mappers that decide what controller
 will be used to handle the request, to avoid hardcoding controller names into
@@ -127,11 +127,11 @@ with your own routers
             dynamic:
                 enabled: true
 
-PHPCR ODM integration
+PHPCR-ODM integration
 ~~~~~~~~~~~~~~~~~~~~~
 
-This bundle comes with a route repository implementation for `PHPCR ODM`_.
-PHPCR is well suited to the tree nature of the data. If you use `PHPCR ODM`_
+This bundle comes with a route repository implementation for `PHPCR-ODM`_.
+PHPCR is well suited to the tree nature of the data. If you use `PHPCR-ODM`_
 with a route document like the one provided, you can just leave the repository
 service at the default.
 
@@ -198,14 +198,14 @@ The possible mappings are (in order of precedence):
                     Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: SymfonyCmfContentBundle:StaticContent:index.html.twig
 
                 # the repository is responsible to load routes
-                # for `PHPCR ODM`_, we mainly use this because it can map from url to repository path
+                # for `PHPCR-ODM`_, we mainly use this because it can map from url to repository path
                 # an orm repository might need different logic. look at cmf_routing.xml for an example if you
                 # need to define your own service
                 manager_registry: doctrine_phpcr
                 manager_name: default
 
                 # if you use the default doctrine route repository servie, you can use this to customize
-                # the root path for the `PHPCR ODM`_ RouteRepository
+                # the root path for the `PHPCR-ODM`_ RouteRepository
                 # this base path will be injected by the Listener\IdPrefix - but only to routes
                 # matching the prefix, to allow for more than one route source.
                 routing_repositoryroot: /cms/routes
@@ -219,8 +219,7 @@ Sonata Admin Configuration
 
 If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the composer.json
 require section, the route documents are exposed in the SonataDoctrinePhpcrAdminBundle.
-Don't forget to instantiate ``SonataDoctrinePhpcrAdminBundle`` in your kernel in
-this case.
+For instructions on how to configure this Bundle see :doc:`doctrine_phpcr_admin`.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
 ``SonataDoctrinePhpcrAdminBundle`` is available but you can explicitly disable it
@@ -289,12 +288,12 @@ Customize
 You can add more ControllerMapperInterface implementations if you have a case
 not handled by the provided ones.
 
-If you use an ODM / ORM different to `PHPCR ODM`_, you probably need to specify
-the class for the route entity (in `PHPCR ODM`_, the class is automatically
+If you use an ODM / ORM different to `PHPCR-ODM`_, you probably need to specify
+the class for the route entity (in `PHPCR-ODM`_, the class is automatically
 detected). For more specific needs, have a look at DynamicRouter and see if you want to
 extend it. You can also write your own routers to hook into the chain.
 
 .. _`documentation for DependencyInjection tags`: http://symfony.com/doc/2.1/reference/dic_tags.html
 .. _`CMF sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`CMF Routing component`: https://github.com/symfony-cmf/Routing
-.. _`PHPCR ODM`: https://github.com/doctrine/phpcr-odm
+.. _`PHPCR-ODM`: https://github.com/doctrine/phpcr-odm

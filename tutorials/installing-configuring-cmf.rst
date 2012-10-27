@@ -1,5 +1,6 @@
-Installing and configuring CMF
-==============================
+Installing and configuring the CMF
+==================================
+
 The goal of this tutorial is to get you up and running with an application build on top of
 (some of the bundles of) the Symfony Content Management Framework.
 
@@ -72,7 +73,7 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
         // ...
     }
 
-Note that this also installs the PHPCR ODM and related dependencies, setup instructions
+Note that this also installs the PHPCR-ODM and related dependencies, setup instructions
 can be found in the dedicated documentation.
 
 

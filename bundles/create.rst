@@ -132,7 +132,7 @@ Configuration
             # access check role for js inclusion, default REST and image controllers
             # role: IS_AUTHENTICATED_ANONYMOUSLY
 
-            # enable the doctrine phpcr-odm mapper
+            # enable the doctrine PHPCR-ODM mapper
             phpcr_odm: true
 
             # mapping from rdf type name => class name used when adding items to collections
@@ -179,7 +179,7 @@ Image Handling
 ++++++++++++++
 
 Enable the default simplistic image handler with the image > model_class | controller_class
-settings. This image handler just throws images into the phpcr-odm repository
+settings. This image handler just throws images into the PHPCR-ODM repository
 and also serves them in requests.
 
 If you need different image handling, you can either overwrite
@@ -191,7 +191,7 @@ service with it.
 Mapping requests to objects
 +++++++++++++++++++++++++++
 
-For now, the bundle only provides a service to map to doctrine phpcr-odm. Enable it
+For now, the bundle only provides a service to map to doctrine PHPCR-ODM. Enable it
 by setting `phpcr_odm` to true. If you need something else, you need to provide a
 service `symfony_cmf_create.object_mapper`. (If you need a wrapper for doctrine ORM,
 look at the mappers in the createphp library and do a pull request on that library,

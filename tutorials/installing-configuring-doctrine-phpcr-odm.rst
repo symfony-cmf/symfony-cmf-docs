@@ -1,8 +1,8 @@
-Installing and configuring Doctrine PHPCR ODM
+Installing and configuring Doctrine PHPCR-ODM
 =============================================
-The goal of this tutorial is to install and configure Doctrine PHPCR ODM.
+The goal of this tutorial is to install and configure Doctrine PHPCR-ODM.
 
-For more details see the `official PHPCR ODM documentation <http://www.doctrine-project.org/projects/phpcr-odm.html>`_
+For more details see the `official PHPCR-ODM documentation <http://www.doctrine-project.org/projects/phpcr-odm.html>`_
 Some additional information can be found on the
 `DoctrinePhpcrBundle github.com project <https://github.com/doctrine/DoctrinePHPCRBundle>`_
 which for the most part mimics the standard `DoctrineBundle <https://github.com/doctrine/DoctrineBundle>`_.
@@ -103,7 +103,7 @@ Configuration
 -------------
 Next step is to configure the bundles.
 
-Doctrine PHPCR ODM
+Doctrine PHPCR-ODM
 ~~~~~~~~~~~~~~~~~~
 
 Basic configuration, add to your application configuration
@@ -202,7 +202,7 @@ See `official Midgard PHPCR documentation <http://midgard-project.org/phpcr/>`_
 
 Registering system node types
 -----------------------------
-PHPCR ODM uses a `custom node type <https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged>`_
+PHPCR-ODM uses a `custom node type <https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged>`_
 to track meta information without interfering with your content. There is a command that makes it trivial to
 register this type and the PHPCR namespace
 

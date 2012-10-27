@@ -1,5 +1,5 @@
-Installing and configuring simple CMS
-=====================================
+Installing and configuring a simple CMS setup
+=============================================
 
 The goal of this tutorial is to install and configure simple CMS.
 Note that Symfony2.1 is required for the CMF to work.
@@ -21,8 +21,8 @@ another application using the SimpleCmsBundle.
 
 Preconditions
 -------------
-- :doc:`installing-configuring-cmf` (TODO: make this tutorial more self-contained)
-- Or :doc:`../bundles/routing-extra` needs to be installed manually, optionally also :doc:`../bundles/menu` and :doc:`../bundles/block`
+
+- :doc:`installing-configuring-cmf`
 
 Installation
 ------------
