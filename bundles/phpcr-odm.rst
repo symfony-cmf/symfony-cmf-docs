@@ -253,6 +253,7 @@ You can tune the output of the `doctrine:phpcr:dump` command with
             jackrabbit_jar:       /path/to/jackrabbit.jar
             dump_max_line_length:  120
 
+.. _multiple-phpcr-sessions:
 
 Configuring Multiple Sessions
 -----------------------------
@@ -284,6 +285,7 @@ to use as ``default_session``.
 If you are using the ODM, you will also want to configure multiple document managers.
 
 Inside the odm section, you can add named entries in the ``document_managers``.
+To use the non-default session, specify the session attribute.
 
 .. configuration-block::
 
@@ -294,8 +296,71 @@ Inside the odm section, you can add named entries in the ``document_managers``.
             document_managers:
                 <name>:
                     # same options as directly in odm, see above.
-                    # you want to set a different session
+                    session: <sessionname>
 
+
+A full example looks as follows:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        doctrine_phpcr:
+            # configure the PHPCR sessions
+            session:
+                sessions:
+
+                    default:
+                        backend: %phpcr_backend%
+                        workspace: %phpcr_workspace%
+                        username: %phpcr_user%
+                        password: %phpcr_pass%
+
+                    website:
+                        backend:
+                            type: jackrabbit
+                            url: %magnolia_url%
+                        workspace: website
+                        username: %magnolia_user%
+                        password: %magnolia_pass%
+
+                    dms:
+                        backend:
+                            type: jackrabbit
+                            url: %magnolia_url%
+                        workspace: dms
+                        username: %magnolia_user%
+                        password: %magnolia_pass%
+            # enable the ODM layer
+            odm:
+                document_managers:
+                    default:
+                        session: default
+                        mappings:
+                            SandboxMainBundle: ~
+                            SymfonyCmfContentBundle: ~
+                            SymfonyCmfMenuBundle: ~
+                            SymfonyCmfRoutingExtraBundle: ~
+
+                    website:
+                        session: website
+                        configuration_id: sandbox_magnolia.odm_configuration
+                        mappings:
+                            SandboxMagnoliaBundle: ~
+
+                    dms:
+                        session: dms
+                        configuration_id: sandbox_magnolia.odm_configuration
+                        mappings:
+                            SandboxMagnoliaBundle: ~
+
+                auto_generate_proxy_classes: %kernel.debug%
+
+.. tip::
+
+    This example also uses different configurations per repository (see the
+    ``repository_id`` attribute). This case is explained in
+    :doc:`../cookbook/phpcr-odm-custom-documentclass-mapper`.
 
 .. _reference-phpcr-commands:
 

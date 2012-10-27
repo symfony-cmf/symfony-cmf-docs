@@ -22,7 +22,7 @@ Learning or want to learn the CMF? Want to know if the CMF fits your project? Th
 	tutorials/creating-cms-using-cmf-and-sonata
 
 Bundles
----------
+-------
 
 Looking for some in depth information about a CMF Bundle? Want a list of all the
 configuration options of a bundle? Want to know if you can use a bundle independently and how
@@ -43,6 +43,16 @@ to do it? The reference is the right place to search.
 	bundles/tree
 	bundles/tree-browser
 	bundles/phpcr-odm
+
+Cookbook
+--------
+
+Special solutions for special needs that go beyond standard usage.
+
+.. toctree::
+	:maxdepth: 1
+
+	cookbook/phpcr-odm-custom-documentclass-mapper
 
 Components
 ----------
