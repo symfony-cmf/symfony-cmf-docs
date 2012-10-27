@@ -1,9 +1,9 @@
 ﻿Symfony CMF Documentation
 =========================
 
-Welcome to the official documentation of the **`Symfony Content Management Framework`_**.
+Welcome to the official documentation of the `Symfony Content Management Framework`_.
 
-This documentation is currently in development and far from complete. See `Document planning`_ for an
+This documentation is currently in development and far from complete. See `Documentation planning`_ for an
 overview of the work left to do. Want to help? Thank you, all help greatly appreciated! The source of
 the `documentation is hosted here`_.
 
@@ -63,6 +63,6 @@ Contributing
 	contributing/code
 	contributing/license
 
-.. _`Document planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
+.. _`Documentation planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
 .. _`Symfony Content Management Framework`: http://cmf.symfony.com
 .. _`documentation is hosted here`: https://github.com/symfony-cmf/symfony-cmf-docs
