@@ -49,11 +49,11 @@ Add the following to your ``composer.json`` file
 
     "require": {
         ...
-        "jackalope/jackalope-jackrabbit": "1.0.*"
-        "jackalope/jackalope-doctrine-dbal": "dev-master"
-        "midgard/phpcr": "dev-master"
+        "jackalope/jackalope-jackrabbit": "1.0.*",
+        "jackalope/jackalope-doctrine-dbal": "dev-master",
+        "midgard/phpcr": "dev-master",
         "doctrine/phpcr-bundle": "1.0.*",
-        "doctrine/phpcr-odm": "1.0.*",
+        "doctrine/phpcr-odm": "1.0.*"
     }
 
 .. Note::
