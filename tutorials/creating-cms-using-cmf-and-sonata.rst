@@ -141,3 +141,15 @@ Add route in to your routing configuration
         admin:
             resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
             prefix: /admin
+
+        fos_js_routing:
+            resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+        
+        phpcrbrowser:
+            resource: @SymfonyCmfTreeBrowserBundle/Resources/config/routing/phpcrbrowser.xml
+            prefix: /admin/browser
+        
+        phpcrodmbrowser:
+            resource: @SonataDoctrinePHPCRAdminBundle/Resources/config/routing/phpcrodmbrowser.xml
+            prefix: /admin/browser
+
