@@ -43,7 +43,6 @@ And then run
     php composer.phar update
 
 
-
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
 
@@ -89,7 +88,7 @@ Minimum configuration
 These steps are needed to ensure your AppKernel still runs.
 
 If you haven't done so already, make sure you have followed these steps from
-:doc:`installing-configuring-doctrine-phpcr-odm` (see the guide for details):
+:doc:`installing-configuring-doctrine-phpcr-odm`:
 
 - Initialise ``DoctrinePHPCRBundle`` in ``app/AppKernel.php``
 - Ensure there is a ``doctrine_phpcr:`` section in ``app/config/config.yml``
@@ -105,9 +104,8 @@ Configure the BlockBundle in your ``config.yml``:
         sonata_block:
             default_contexts: [cms]
 
-
-SymfonyCmfMenuBundle
-~~~~~~~~~~~~~~~~~~~~
+Additional configuration
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Because the SymfonyCmfMenuBundle is dependent on the Doctrine router, which by default is not loaded, you will need
 to enable it as follows:
