@@ -46,7 +46,7 @@ And then run
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
 
-Next, initialize the bundles in ``AppKernel.php`` by adding them to the ``registerBundle`` method
+Next, initialize the bundles in ``AppKernel.php`` by adding them to the ``registerBundles`` method
 
 .. code-block:: php
 

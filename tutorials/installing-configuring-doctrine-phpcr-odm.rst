@@ -39,8 +39,7 @@ content repository implementation later on.
 
 These are the available choices:
 
-* **Jackalope with Jackrabbit** (Jackrabbit requires Java, it can persist into the file system,
-a database etc.)
+* **Jackalope with Jackrabbit** (Jackrabbit requires Java, it can persist into the file system, a database etc.)
 * **Jackalope with Doctrine DBAL** (requires an RDBMS like MySQL, PostgreSQL or SQLite)
 * **Midgard** (requires the midgard2 PHP extension and an RDBMS like MySQL, PostgreSQL or SQLite)
 
