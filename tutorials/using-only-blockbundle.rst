@@ -294,18 +294,20 @@ Now load the fixtures using the console:
 
 The content in your database should now look something like this:
 
-.. code-block:: text
 
-    mysql localhost.symfony > SELECT path, parent, local_name FROM phpcr_nodes;
-    +-------------------+---------+------------+
-    | path              | parent  | local_name |
-    +-------------------+---------+------------+
-    | /                 |         |            |
-    | /blocks           | /       | blocks     |
-    | /blocks/testBlock | /blocks | testBlock  |
-    +-------------------+---------+------------+
-    3 rows in set (0.00 sec)
+.. code-block:: sql
 
+    SELECT path, parent, local_name FROM phpcr_nodes;
+
++-------------------+---------+------------+
+| path              | parent  | local_name |
++===================+=========+============+
+| /                 |         |            |
++-------------------+---------+------------+
+| /blocks           | /       | blocks     |
++-------------------+---------+------------+
+| /blocks/testBlock |/ blocks | testBlock  |
++-------------------+---------+------------+
 
 Troubleshooting
 ---------------
