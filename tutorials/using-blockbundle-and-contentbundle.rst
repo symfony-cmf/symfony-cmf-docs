@@ -5,15 +5,19 @@ The goal of this tutorial is to demonstrate how the CMF
 :doc:`../bundles/block`  and :doc:`../bundles/content` can be used as stand-alone
 components, and to show how they fit into the PHPCR.
 
-Once you are familiar with basic usage, the in-depth documentation of both bundles (linked above)
-will help you to adapt these basic examples to serve more advanced use cases.
+This tutorial demonstrates the simplest possible usage, to get you up and running
+quickly. Once you are familiar with basic usage, the in-depth documentation of both bundles will
+help you to adapt these basic examples to serve more advanced use cases.
 
 We will begin with using only BlockBundle, with content blocks linked directly into the PHPCR.
-Having shown this, we will introduce the ContentBundle to show how it can represent content pages.
+Next, we will introduce the ContentBundle to show how it can represent content pages containing
+blocks.
 
-Although not a requirement for using BlockBundle or ContentBundle, this tutorial will also make use
-of `DoctrineFixturesBundle <http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_.
-This is because it provides an easy way to load in some test content.
+.. note::
+
+    Although not a requirement for using BlockBundle or ContentBundle, this tutorial will also make
+    use of `DoctrineFixturesBundle <http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_.
+    This is because it provides an easy way to load in some test content.
 
 
 Preconditions
@@ -27,54 +31,12 @@ Preconditions
     database. It should be easy to adapt this to work with one of the other PHPCR options documented
     in :doc:`installing-configuring-doctrine-phpcr-odm`.
 
-Install the needed Symfony CMF components
------------------------------------------
-
-Add the following to composer.json:
-
-.. code-block:: javascript
-
-    "symfony-cmf/block-bundle": "dev-master"
-
-To install the above dependencies, run:
-
-.. code-block:: bash
-
-    php composer.phar update
-
-Add the following lines to AppKernel.php:
-
-.. code-block:: php
-
-    // app/AppKernel.php
-
-    public function registerBundles()
-    {
-        $bundles = array(
-            // ...
-            new Sonata\BlockBundle\SonataBlockBundle(),
-            new Symfony\Cmf\Bundle\BlockBundle\SymfonyCmfBlockBundle(),
-        );
-
-        // ...
-    }
-
-SonataBlockBundle is a dependency of the CMF BlockBundle and needs to be configured. Add the
-following to your ``config.yml``:
-
-.. code-block:: yaml
-
-    # app/config/config.yml
-    sonata_block:
-        default_contexts: [cms]
-
 
 Create and configure the database
 ---------------------------------
 
-You can use an existing database, or create one now to help you follow this tutorial.
-
-Run these commands in MySQL:
+You can use an existing database, or create one now to help you follow this tutorial. For a new
+database, run these commands in MySQL:
 
 .. code-block:: sql
 
@@ -104,6 +66,24 @@ Configure the Doctrine PHPCR component
 .. note::
 
     If you have followed :doc:`installing-configuring-doctrine-phpcr-odm`, you can skip this section.
+
+You need to install the PHPCR-ODM components. Add the following to your ``composer.json`` file:
+
+.. code-block:: javascript
+
+    "require": {
+        ...
+        "jackalope/jackalope-jackrabbit": "1.0.*",
+        "jackalope/jackalope-doctrine-dbal": "dev-master",
+        "doctrine/phpcr-bundle": "1.0.*",
+        "doctrine/phpcr-odm": "1.0.*"
+    }
+
+To install the above, run:
+
+.. code-block:: bash
+
+    php composer.phar update
 
 In your ``config.yml`` file, add following configuration for `doctrine_phpcr`:
 
@@ -158,6 +138,51 @@ Create the database schema and register the PHPCR node types using the following
 Now you should have a number of tables in your MySQL database with the ``phpcr_`` prefix.
 
 
+Install the needed Symfony CMF components
+-----------------------------------------
+
+Add the following to ``composer.json``:
+
+.. code-block:: javascript
+
+    "require": {
+        ...
+        "symfony-cmf/block-bundle": "dev-master"
+    }
+
+To install the above dependencies, run:
+
+.. code-block:: bash
+
+    php composer.phar update
+
+Add the following lines to AppKernel.php:
+
+.. code-block:: php
+
+    // app/AppKernel.php
+
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Symfony\Cmf\Bundle\BlockBundle\SymfonyCmfBlockBundle(),
+        );
+
+        // ...
+    }
+
+SonataBlockBundle is a dependency of the CMF BlockBundle and needs to be configured. Add the
+following to your ``config.yml``:
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+    sonata_block:
+        default_contexts: [cms]
+
+
 Install DoctrineFixturesBundle
 ------------------------------
 
@@ -166,11 +191,14 @@ Install DoctrineFixturesBundle
     As mentioned at the start, this is not a requirement for BlockBundle or ContentBundle; nevertheless
     it is a good way to manage example or default content.
 
-Add the following to composer.json:
+Add the following to ``composer.json``:
 
 .. code-block:: javascript
 
-    "doctrine/doctrine-fixtures-bundle": "dev-master"
+    "require": {
+        ...
+        "doctrine/doctrine-fixtures-bundle": "dev-master"
+    }
 
 To install the above dependencies, run:
 
@@ -202,9 +230,9 @@ Based on the
 `DoctrineFixturesBundle documentation <http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_,
 you will need to create a fixtures class.
 
-To start with, create a ``DataFixtures`` directory inside your bundle, and inside there, create a
-directory named ``PHPCR``. As you follow the examples further below, the DoctrineFixturesBundle will
-automatically load the fixtures classes placed here.
+To start with, create a ``DataFixtures`` directory inside your own bundle (e.g. "MainBundle"), and
+inside there, create a directory named ``PHPCR``. As you follow the examples further below, the
+DoctrineFixturesBundle will automatically load the fixtures classes placed here.
 
 Within a fixtures loader, an example of creating a content block might look like this:
 
@@ -219,23 +247,23 @@ Within a fixtures loader, an example of creating a content block might look like
     $documentManager->persist($myBlock);
 
 The above on its own will not be enough however, because there is no parent (``$parentPage``) to link
-the blocks to. There are several possible options for what you can use as the parent:
+the blocks to. There are several possible options that you can use as the parent:
 
 - Link the blocks directly to the root document (not shown)
-- Create a document from the PHPCR bundle (shown below using the Generic document type)
-- Create a document from the CMF ContentBundle (shown below using StaticContent document type)
+- Create a document from the PHPCR bundle (shown below using the ``Generic`` document type)
+- Create a document from the CMF ContentBundle (shown below using ``StaticContent`` document type)
 
 
 Using the PHPCR
 ---------------
 
-Create the following class inside your ``DataFixtures/PHPCR`` directory:
+To store a CMF block directly in the PHPCR, create the following class inside your
+``DataFixtures/PHPCR`` directory:
 
 .. code-block:: html+php
 
     <?php
     // src/Acme/MainBundle/DataFixtures/PHPCR/LoadBlockWithPhpcrParent.php
-
     namespace Acme\MainBundle\DataFixtures\ORM;
 
     use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -245,12 +273,6 @@ Create the following class inside your ``DataFixtures/PHPCR`` directory:
     use Symfony\Component\DependencyInjection\ContainerInterface;
     use Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock;
 
-    /**
-     * Load an example content block using the CMF BlockBundle (without needing any other CMF bundle).
-     *
-     * To ensure the block has a home in the repository, this loader also creates a 'blocks' document within the PHPCR,
-     * to use as the parent.
-     */
     class LoadBlockWithPhpcrParent extends AbstractFixture implements ContainerAwareInterface
     {
         public function load(ObjectManager $manager)
@@ -258,15 +280,13 @@ Create the following class inside your ``DataFixtures/PHPCR`` directory:
             // Get the root document from the PHPCR
             $rootDocument = $manager->find(null, '/');
 
-            // Create a generic PHPCR document under the root, to use as a kind of category for the blocks;
-            // we could just use $rootDocument, but that's potentially messy.
+            // Create a generic PHPCR document under the root, to use as a kind of category for the blocks
             $document = new Generic();
             $document->setParent($rootDocument);
             $document->setNodename('blocks');
             $manager->persist($document);
 
-            // Create a new SimpleBlock from the SymfonyCmfBlockBundle
-            // (see http://symfony.com/doc/master/cmf/bundles/block.html#block-types)
+            // Create a new SimpleBlock (see http://symfony.com/doc/master/cmf/bundles/block.html#block-types)
             $myBlock = new SimpleBlock();
             $myBlock->setParentDocument($document);
             $myBlock->setName('testBlock');
@@ -278,14 +298,15 @@ Create the following class inside your ``DataFixtures/PHPCR`` directory:
             $manager->flush();
         }
 
-        /**
-         * {@inheritDoc}
-         */
         public function setContainer(ContainerInterface $container = null)
         {
             $this->container = $container;
         }
     }
+
+This class loads an example content block using the CMF BlockBundle (without needing any other CMF
+bundle). To ensure the block has a parent in the repository, the loader also creates a ``Generic``
+document named 'blocks' within the PHPCR.
 
 Now load the fixtures using the console:
 
@@ -314,21 +335,26 @@ The content in your database should now look something like this:
 Using the CMF ContentBundle
 ---------------------------
 
+Follow this example to use both the CMF Block and Content components together.
+
 The ContentBundle also requires RoutingExtraBundle, so to save time you can install both together.
-Add the following to composer.json:
+Add the following to ``composer.json``:
 
 .. code-block:: javascript
 
-    "symfony-cmf/content-bundle": "dev-master",
-    "symfony-cmf/routing-extra-bundle": "dev-master"
+    "require": {
+        ...
+        "symfony-cmf/content-bundle": "dev-master",
+        "symfony-cmf/routing-extra-bundle": "dev-master"
+    }
 
 Install as before:
 
 .. code-block:: bash
 
-    php composer.phar update symfony-cmf/content-bundle
+    php composer.phar update
 
-Add the following lines to AppKernel.php:
+Add the following line to AppKernel.php:
 
 .. code-block:: php
 
@@ -338,23 +364,19 @@ Add the following lines to AppKernel.php:
     {
         $bundles = array(
             // ...
-            new Symfony\Cmf\Bundle\BlockBundle\SymfonyCmfBlockBundle(),
             new Symfony\Cmf\Bundle\ContentBundle\SymfonyCmfContentBundle(),
-            new Symfony\Cmf\Bundle\RoutingExtraBundle\SymfonyCmfRoutingExtraBundle(),
         );
 
         // ...
     }
 
-Now you should have everything needed to load a sample content page with a sample block.
-
-Create the LoadBlockWithCmfParent.php class with the following use statements and load method:
+Now you should have everything needed to load a sample content page with a sample block, so create
+the ``LoadBlockWithCmfParent.php`` class:
 
 .. code-block:: html+php
 
     <?php
     // src/Acme/Bundle/MainBundle/DataFixtures/PHPCR/LoadBlockWithCmfParent.php
-
     namespace Acme\MainBundle\DataFixtures\ORM;
 
     use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -365,13 +387,7 @@ Create the LoadBlockWithCmfParent.php class with the following use statements an
     use Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock;
     use Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent;
 
-    /**
-     * Load an example content block using the CMF BlockBundle (without needing any other CMF bundle).
-     *
-     * To ensure the block has a home in the repository, this loader also creates a 'blocks' document within the PHPCR,
-     * to use as the parent.
-     */
-    class LoadBlockWithPhpcrParent extends AbstractFixture implements ContainerAwareInterface
+    class LoadBlockWithCmfParent extends AbstractFixture implements ContainerAwareInterface
     {
         public function load(ObjectManager $manager)
         {
@@ -387,8 +403,7 @@ Create the LoadBlockWithCmfParent.php class with the following use statements an
             $document->setPath($basepath . '/blocks');
             $manager->persist($document);
 
-            // Create a new SimpleBlock from the SymfonyCmfBlockBundle
-            // (see http://symfony.com/doc/master/cmf/bundles/block.html#block-types)
+            // Create a new SimpleBlock (see http://symfony.com/doc/master/cmf/bundles/block.html#block-types)
             $myBlock = new SimpleBlock();
             $myBlock->setParentDocument($document);
             $myBlock->setName('testBlock');
@@ -400,14 +415,14 @@ Create the LoadBlockWithCmfParent.php class with the following use statements an
             $manager->flush();
         }
 
-        /**
-         * {@inheritDoc}
-         */
         public function setContainer(ContainerInterface $container = null)
         {
             $this->container = $container;
         }
     }
+
+This class creates an example content page using the CMF ContentBundle. It then loads our example
+block as before, using the new content page as its parent.
 
 By default, the base path for the content is /cms/content/static. To show how it can be configured
 to any path, add the following, optional entry to your config.yml:
@@ -420,10 +435,12 @@ to any path, add the following, optional entry to your config.yml:
 
 Now it should be possible to load in the above fixtures:
 
+.. code:: bash
+
     php app/console doctrine:phpcr:fixtures:load
 
 All being well, the content in your database should look something like this (if you also followed
-the LoadBlockWithPhpcrParent example, you should still have two /blocks entries as well):
+the ``LoadBlockWithPhpcrParent`` example, you should still have two ``/blocks`` entries as well):
 
 .. code:: sql
 
@@ -449,18 +466,19 @@ This is handled by the Sonata BlockBundle. ``sonata_block_render`` is already re
 extension by including ``SonataBlockBundle`` in ``AppKernel.php``. Therefore, you can render any
 block within any template by referring to its path.
 
-The following code shows the rendering of both ``testBlock`` instances from the examples above:
+The following code shows the rendering of both ``testBlock`` instances from the examples above.
+If you only followed one of the examples, make sure to only include that block:
 
 .. code::
 
     {# src/Acme/Bundle/MainBundle/resources/views/Default/index.html.twig #}
 
+    {# include this if you followed the BlockBundle with PHPCR example #}
     {{ sonata_block_render({
         'name': '/blocks/testBlock'
     }) }}
 
-    <hr />
-
+    {# include this if you followed the BlockBundle with ContentBundle example #}
     {{ sonata_block_render({
         'name': '/content/blocks/testBlock'
     }) }}
@@ -475,6 +493,18 @@ Now your index page should show the following (assuming you followed both exampl
     CMF BlockBundle and ContentBundle
     Block from CMF BlockBundle, parent from CMF ContentBundle (StaticContent).
 
+
+Next steps
+----------
+
+You should now be ready to use the BlockBundle and/or the ContentBundle in your application, or to
+explore the other available CMF bundles.
+
+- See the :doc:`../bundles/block` and :doc:`../bundles/content` documentation to learn about more advanced usage of these bundles
+- To see a better way of loading fixtures, look at the `fixtures in the CMF Sandbox <https://github.com/symfony-cmf/cmf-sandbox/tree/master/src/Sandbox/MainBundle/DataFixtures/PHPCR>`_
+- Take a look at the `PHPCR Tutorial <https://github.com/phpcr/phpcr-docs/blob/master/tutorial/Tutorial.md>`_ for a better understanding of the underlying content repository
+
+
 Troubleshooting
 ---------------
 
@@ -482,8 +512,8 @@ If you run into problems, it might be easiest to start with a fresh Symfony2 ins
 also try running and modifying the code in the external
 `CMF Block Sandbox <https://github.com/fazy/cmf-block-sandbox>`_ working example.
 
-Doctrine configuration
-~~~~~~~~~~~~~~~~~~~~~~
+**Doctrine configuration**
+
 If you started with the standard Symfony2 distribution (version 2.1.x), this should already be
 configured correctly in your ``config.yml`` file. If not, try using the following section:
 
@@ -505,8 +535,8 @@ configured correctly in your ``config.yml`` file. If not, try using the followin
                 auto_generate_proxy_classes: "%kernel.debug%"
                 auto_mapping: true
 
-"No commands defined" when loading fixtures
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**"No commands defined" when loading fixtures**
+
 .. code::
 
     [InvalidArgumentException]
@@ -519,8 +549,8 @@ Make sure AppKernel.php contains the following lines:
     new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
     new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
 
-"You did not configure a session" when loading fixtures
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**"You did not configure a session"**
+
 .. code::
 
     [InvalidArgumentException]
@@ -539,8 +569,8 @@ Make sure you have the following in your app/config.yml:
         odm:
             auto_mapping: true
 
-"Annotation does not exist, or could not be auto-loaded"
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**"Annotation does not exist"**
+
 .. code::
 
     [Doctrine\Common\Annotations\AnnotationException]
@@ -553,8 +583,7 @@ AnnotationRegistry::registerLoader line):
 
     AnnotationRegistry::registerFile(__DIR__.'/../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php');
 
-"Class 'Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock' was not found"
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**SimpleBlock class not found**
 
 .. code::
 
@@ -566,3 +595,22 @@ Make sure the CMF BlockBundle is installed and loaded in app/AppKernel.php:
 .. code:: php
 
     new Symfony\Cmf\Bundle\BlockBundle\SymfonyCmfBlockBundle(),
+
+**RouteAwareInterface not found**
+
+.. code::
+
+    Fatal error: Interface 'Symfony\Cmf\Component\Routing\RouteAwareInterface' not found in /var/www/your-site/vendor/symfony-cmf/content-bundle/Symfony/Cmf/Bundle/ContentBundle/Document/StaticContent.php on line 15
+
+If you are using ContentBundle, make sure you have also installed the RoutingExtraBundle:
+
+.. code:: javascript
+
+    // composer.json
+    "symfony-cmf/routing-extra-bundle": "dev-master"
+
+...and install:
+
+.. code:: bash
+
+    php composer.phar update
