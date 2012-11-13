@@ -1,9 +1,9 @@
 Installing and configuring Doctrine PHPCR-ODM
 =============================================
 
-The Symfony2 CMF makes extensive use of the PHP Content Repository ODM; in fact, it is required by
-the following CMF bundles: BlockBundle, ContentBundle, MenuBundle, RoutingExtraBundle,
-SimpleCmsBundle and TreeBrowserBundle.
+The Symfony2 CMF makes extensive use of the PHP Content Repository - Object Document Mapper
+(PHPCR-ODM); in fact, it is required by the following CMF bundles: BlockBundle, ContentBundle,
+MenuBundle, RoutingExtraBundle, SimpleCmsBundle and TreeBrowserBundle.
 
 The goal of this tutorial is to install and configure Doctrine PHPCR-ODM, ready for you to get
 started with the CMF.
@@ -50,8 +50,8 @@ The following documentation includes examples for all of the above options.
     If you are just getting started with the CMF, it is best to choose a content repository based
     on a storage engine that you are already familiar with. For example,
     **Jackalope with Doctrine DBAL** will work with your existing RDBMS and does not require you
-    to install Java or any PHP extension. Once you have a working application it should be easy
-    to explore, and switch to, another option.
+    to install Java or the midgard2 PHP extension. Once you have a working application it should be
+    easy to switch to another option.
 
 
 Download the bundles
