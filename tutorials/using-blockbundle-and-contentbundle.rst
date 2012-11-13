@@ -176,11 +176,13 @@ Add the following lines to AppKernel.php:
 SonataBlockBundle is a dependency of the CMF BlockBundle and needs to be configured. Add the
 following to your ``config.yml``:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    sonata_block:
-        default_contexts: [cms]
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_block:
+            default_contexts: [cms]
 
 
 Install DoctrineFixturesBundle
@@ -427,22 +429,24 @@ block as before, using the new content page as its parent.
 By default, the base path for the content is /cms/content/static. To show how it can be configured
 to any path, add the following, optional entry to your config.yml:
 
-.. code:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    symfony_cmf_content:
-        static_basepath: /content
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_content:
+            static_basepath: /content
 
 Now it should be possible to load in the above fixtures:
 
-.. code:: bash
+.. code-block:: bash
 
     php app/console doctrine:phpcr:fixtures:load
 
 All being well, the content in your database should look something like this (if you also followed
 the ``LoadBlockWithPhpcrParent`` example, you should still have two ``/blocks`` entries as well):
 
-.. code:: sql
+.. code-block:: sql
 
     SELECT path, parent, local_name FROM phpcr_nodes;
 
@@ -469,7 +473,7 @@ block within any template by referring to its path.
 The following code shows the rendering of both ``testBlock`` instances from the examples above.
 If you only followed one of the examples, make sure to only include that block:
 
-.. code::
+.. code-block:: text
 
     {# src/Acme/Bundle/MainBundle/resources/views/Default/index.html.twig #}
 
@@ -485,7 +489,7 @@ If you only followed one of the examples, make sure to only include that block:
 
 Now your index page should show the following (assuming you followed both examples):
 
-.. code::
+.. code-block:: text
 
     CMF BlockBundle only
     Block from CMF BlockBundle, parent from the PHPCR (Generic document).
@@ -537,41 +541,43 @@ configured correctly in your ``config.yml`` file. If not, try using the followin
 
 **"No commands defined" when loading fixtures**
 
-.. code::
+.. code-block:: text
 
     [InvalidArgumentException]
     There are no commands defined in the "doctrine:phpcr:fixtures" namespace.
 
 Make sure AppKernel.php contains the following lines:
 
-.. code:: php
+.. code-block:: php
 
     new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
     new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
 
 **"You did not configure a session"**
 
-.. code::
+.. code-block:: text
 
     [InvalidArgumentException]
     You did not configure a session for the document managers
 
 Make sure you have the following in your app/config.yml:
 
-.. code:: yaml
+.. configuration-block::
 
-    doctrine_phpcr:
-        session:
-            backend:
-                type: doctrinedbal
-                connection: doctrine.dbal.default_connection
-            workspace: default
-        odm:
-            auto_mapping: true
+    .. code-block:: yaml
+
+        doctrine_phpcr:
+            session:
+                backend:
+                    type: doctrinedbal
+                    connection: doctrine.dbal.default_connection
+                workspace: default
+            odm:
+                auto_mapping: true
 
 **"Annotation does not exist"**
 
-.. code::
+.. code-block:: text
 
     [Doctrine\Common\Annotations\AnnotationException]
     [Semantical Error] The annotation "@Doctrine\ODM\PHPCR\Mapping\Annotations\Document" in class Doctrine\ODM\PHPCR\Document\Generic does not exist, or could not be auto-loaded.
@@ -579,38 +585,38 @@ Make sure you have the following in your app/config.yml:
 Make sure you add this line to your app/autoload.php (immediately after the
 AnnotationRegistry::registerLoader line):
 
-.. code:: php
+.. code-block:: php
 
     AnnotationRegistry::registerFile(__DIR__.'/../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php');
 
 **SimpleBlock class not found**
 
-.. code::
+.. code-block:: text
 
     [Doctrine\Common\Persistence\Mapping\MappingException]
     The class 'Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock' was not found in the chain configured namespaces Doctrine\ODM\PHPCR\Document, Sonata\UserBundle\Document, FOS\UserBundle\Document
 
 Make sure the CMF BlockBundle is installed and loaded in app/AppKernel.php:
 
-.. code:: php
+.. code-block:: php
 
     new Symfony\Cmf\Bundle\BlockBundle\SymfonyCmfBlockBundle(),
 
 **RouteAwareInterface not found**
 
-.. code::
+.. code-block:: text
 
     Fatal error: Interface 'Symfony\Cmf\Component\Routing\RouteAwareInterface' not found in /var/www/your-site/vendor/symfony-cmf/content-bundle/Symfony/Cmf/Bundle/ContentBundle/Document/StaticContent.php on line 15
 
 If you are using ContentBundle, make sure you have also installed the RoutingExtraBundle:
 
-.. code:: javascript
+.. code-block:: javascript
 
     // composer.json
     "symfony-cmf/routing-extra-bundle": "dev-master"
 
 ...and install:
 
-.. code:: bash
+.. code-block:: bash
 
     php composer.phar update

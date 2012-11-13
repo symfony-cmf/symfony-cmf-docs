@@ -1,7 +1,7 @@
 Installing and configuring the CMF
 ==================================
 
-The goal of this tutorial is to install all the CMF components into your application with the minimum necessary
+The goal of this tutorial is to install all the CMF components with the minimum necessary
 configuration. From there, you can begin incorporating CMF functionality into your application as needed.
 
 If this is your first encounter with the Symfony CMF it would be a good idea to first take a
@@ -11,7 +11,7 @@ look at:
 - The `CMF sandbox environment <https://github.com/symfony-cmf/cmf-sandbox>`_, a pre-installed Symfony / CMF application containing all CMF components.
 - The online sandbox demo at `cmf.liip.ch <http://cmf.liip.ch>`_
 
-For a more minimal install see:
+For a minimal install see:
 
 - `Symfony2 CMF standard edition <https://github.com/symfony-cmf/symfony-cmf-standard>`_
 

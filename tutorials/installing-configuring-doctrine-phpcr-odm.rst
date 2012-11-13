@@ -141,8 +141,6 @@ Basic configuration for each content repository is shown below; add the appropri
 ``app/config/config.yml``. More information on configuring this bundle can be found
 `on the Doctrine PHPCR project page <https://github.com/doctrine/DoctrinePHPCRBundle#readme>`_.
 
-
-
 **Jackalope with Jackrabbit**
 
 .. configuration-block::
