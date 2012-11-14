@@ -107,8 +107,8 @@ Configure the BlockBundle in your ``config.yml``:
 Additional configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Because the SymfonyCmfMenuBundle is dependent on the Doctrine router, which by default is not loaded, you will need
-to enable it as follows:
+Because most CMF components use the DynamicRouter from the RoutingExtraBundle, which by default is
+not loaded, you will need to enable it as follows:
 
 .. configuration-block::
 

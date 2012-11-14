@@ -1,9 +1,10 @@
 Installing and configuring Doctrine PHPCR-ODM
 =============================================
 
-The Symfony2 CMF makes extensive use of the PHP Content Repository - Object Document Mapper
-(PHPCR-ODM); in fact, it is required by the following CMF bundles: BlockBundle, ContentBundle,
-MenuBundle, RoutingExtraBundle, SimpleCmsBundle and TreeBrowserBundle.
+The Symfony2 CMF needs somewhere to store the content. Many of the bundles provide documents and
+mappings for the PHP Content Repository - Object Document Mapper (PHPCR-ODM), and the documentation
+is currently based around using this. However, it should also be possible to use another form of
+content storage, such as another ORM/ODM or MongoDB.
 
 The goal of this tutorial is to install and configure Doctrine PHPCR-ODM, ready for you to get
 started with the CMF.
@@ -59,23 +60,26 @@ Download the bundles
 Add the following to your ``composer.json`` file, depending on your chosen content repository.
 
 | **Jackalope with Jackrabbit**
-| **Jackalope with Doctrine DBAL**
 
 .. code-block:: javascript
 
     "require": {
         ...
         "jackalope/jackalope-jackrabbit": "1.0.*",
-        "jackalope/jackalope-doctrine-dbal": "dev-master",
         "doctrine/phpcr-bundle": "1.0.*",
         "doctrine/phpcr-odm": "1.0.*"
     }
 
-.. Note::
+| **Jackalope with Doctrine DBAL**
 
-    If you are also using Doctrine ORM, make sure to use ``"doctrine/orm": "2.3.*"``,
-    otherwise composer can't resolve the dependencies as Doctrine PHPCR-ODM depends on
-    the newer 2.3 Doctrine Commons. (Symfony 2.1 standard edition uses "2.2.*".)
+.. code-block:: javascript
+
+    "require": {
+        ...
+        "jackalope/jackalope-doctrine-dbal": "dev-master",
+        "doctrine/phpcr-bundle": "1.0.*",
+        "doctrine/phpcr-odm": "1.0.*"
+    }
 
 **Midgard**
 
@@ -87,6 +91,12 @@ Add the following to your ``composer.json`` file, depending on your chosen conte
         "doctrine/phpcr-bundle": "1.0.*",
         "doctrine/phpcr-odm": "1.0.*"
     }
+
+.. Note::
+
+    For all of the above, if you are also using Doctrine ORM, make sure to use
+    ``"doctrine/orm": "2.3.*"``, otherwise composer can't resolve the dependencies as Doctrine
+    PHPCR-ODM depends on the newer 2.3 Doctrine Commons. (Symfony 2.1 standard edition uses "2.2.*".)
 
 To install the above dependencies, run:
 
