@@ -1,26 +1,25 @@
 Installing and configuring the CMF
 ==================================
 
-The goal of this tutorial is to get you up and running with an application build on top of
-(some of the bundles of) the Symfony Content Management Framework.
+The goal of this tutorial is to install all the CMF components with the minimum necessary
+configuration. From there, you can begin incorporating CMF functionality into your application as needed.
 
 If this is your first encounter with the Symfony CMF it would be a good idea to first take a
-look at `the big picture <http://slides.liip.ch/static/2012-01-17_symfony_cmf_big_picture.html#1>`_
-and/or the `CMF sandbox environment <https://github.com/symfony-cmf/cmf-sandbox>`_ which is a
-pre-installed Symfony / CMF application containing all CMF components. It is also available online
-at `cmf.liip.ch<http://cmf.liip.ch>`.
+look at:
 
-If you want to create content in scripts, have a look at the
-`fixtures loading code <https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/DataFixtures/PHPCR/>`_..
+- `The Big Picture <http://slides.liip.ch/static/2012-01-17_symfony_cmf_big_picture.html#1>`_
+- The `CMF sandbox environment <https://github.com/symfony-cmf/cmf-sandbox>`_, a pre-installed Symfony / CMF application containing all CMF components.
+- The online sandbox demo at `cmf.liip.ch <http://cmf.liip.ch>`_
 
-If you just want to get started with a minimal installation it is recommended to use the
-`Symfony2 CMF standard edition <https://github.com/symfony-cmf/symfony-cmf-standard>`_..
+For a minimal install see:
+
+- `Symfony2 CMF standard edition <https://github.com/symfony-cmf/symfony-cmf-standard>`_
 
 .. index:: RoutingExtraBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle
 
 Preconditions
 -------------
-- `Installation of Symfony2 <http://symfony.com/doc/master/index.html>`_
+- `Installation of Symfony2 <http://symfony.com/doc/2.1/book/installation.html>`_ (2.1.x)
 - :doc:`installing-configuring-doctrine-phpcr-odm`
 
 Installation
@@ -47,9 +46,11 @@ And then run
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
 
-Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method
+Next, initialize the bundles in ``AppKernel.php`` by adding them to the ``registerBundles`` method
 
 .. code-block:: php
+
+    // app/AppKernel.php
 
     public function registerBundles()
     {
@@ -66,26 +67,48 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
             // Dependencies of the SymfonyCmfBlockBundle
-            new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
-
         );
+
         // ...
     }
 
-Note that this also installs the PHPCR-ODM and related dependencies, setup instructions
+Note that this also enables the PHPCR-ODM and related dependencies; setup instructions
 can be found in the dedicated documentation.
 
 
 Configuration
 -------------
 
-To get your application running very little configuration is needed. But because the
-SymfonyCmfMenuBundle is dependent of the doctrine router you need to explicitly enable
-the doctrine router as per default it is not loaded.
+To get your application running very little configuration is needed.
 
-To enable the dynamic router and to add the router to the routing chain add the
-following to your project configuration
+Minimum configuration
+~~~~~~~~~~~~~~~~~~~~~
+
+These steps are needed to ensure your AppKernel still runs.
+
+If you haven't done so already, make sure you have followed these steps from
+:doc:`installing-configuring-doctrine-phpcr-odm`:
+
+- Initialise ``DoctrinePHPCRBundle`` in ``app/AppKernel.php``
+- Ensure there is a ``doctrine_phpcr:`` section in ``app/config/config.yml``
+- Add the ``AnnotationRegistry::registerFile`` line to ``app/autoload.php``
+
+Configure the BlockBundle in your ``config.yml``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_block:
+            default_contexts: [cms]
+
+Additional configuration
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Because most CMF components use the DynamicRouter from the RoutingExtraBundle, which by default is
+not loaded, you will need to enable it as follows:
 
 .. configuration-block::
 
@@ -101,17 +124,7 @@ following to your project configuration
                 enabled: true
 
 You might want to configure more on the dynamic router, i.e. to automatically choose controllers based on content.
-See :doc:`../bundles/routing-extra`
-
-For a basic functionality for the BlockBundle (required)
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        sonata_block:
-            default_contexts: [cms]
+See :doc:`../bundles/routing-extra` for details.
 
 For now this is the only configuration we need. Mastering the configuration of the different
 bundles will be handled in further tutorials. If you're looking for the configuration of a

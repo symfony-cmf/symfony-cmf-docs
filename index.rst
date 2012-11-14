@@ -20,6 +20,7 @@ Learning or want to learn the CMF? Want to know if the CMF fits your project? Th
 	tutorials/installing-configuring-simple-cms
 	tutorials/installing-configuring-inline-editing
 	tutorials/creating-cms-using-cmf-and-sonata
+	tutorials/using-blockbundle-and-contentbundle
 
 Bundles
 -------
