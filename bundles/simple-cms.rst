@@ -19,7 +19,7 @@ Configuration
 
 The configuration key for this bundle is ``symfony_cmf_simple_cms``
 
-The ``use_menu`` option automatically enables a service to provide menues out
+The ``use_menu`` option automatically enables a service to provide menus out
 of the simple cms if the MenuBundle is enabled. You can also explicitly
 disable it if you have the menu bundle but do not want to use the default service,
 or explicitly enable to get an error if the menu bundle becomes unavailable.
@@ -91,7 +91,7 @@ for the matched route.
     node name for all languages. So a url ``http://foo.com/en/bar`` for english content will
     look like ``http://foo.com/de/bar`` for german content. At times it might be most feasible
     to use integers as the node names and simple append the title of the node in the given locale
-    as an anchor. So for example ``http://foo.com/de/1#my title`` and ``http://foo.com/de/1#mein titel``.
+    as an anchor. So for example ``http://foo.com/de/1#my title`` and ``http://foo.com/de/1#mein title``.
     If you need language specific URLs, you want to use the CMF routing bundle and content bundle
     directly to have a separate route document per language.
 

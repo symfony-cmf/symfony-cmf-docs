@@ -92,7 +92,7 @@ How to use non-default other components
 ---------------------------------------
 
 If you use the cmf menu with PHPCR-ODM, you just need to store Route documents
-untdr ``menu_basepath``. If you use a different object manager, you need to
+under ``menu_basepath``. If you use a different object manager, you need to
 make sure that the menu root document is found with
 
 .. code-block:: php
