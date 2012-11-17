@@ -37,6 +37,7 @@ to do it? The reference is the right place to search.
 	bundles/content
 	bundles/core
 	bundles/create
+	bundles/phpcr-odm
 	bundles/menu
 	bundles/routing-extra
 	bundles/search
@@ -44,7 +45,6 @@ to do it? The reference is the right place to search.
 	bundles/doctrine_phpcr_admin
 	bundles/tree
 	bundles/tree-browser
-	bundles/phpcr-odm
 
 Cookbook
 --------
