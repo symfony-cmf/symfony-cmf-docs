@@ -63,7 +63,7 @@ earlier this router service is asked to match a route or to generate a url
                     router.default: 100
                 # whether the chain router should replace the default router. defaults to true
                 # if you set this to false, the router is just available as service
-                # symfony_cmf_routing_extra.router and you  need to do somthing to trigger it
+                # symfony_cmf_routing_extra.router and you  need to do something to trigger it
                 # replace_symfony_router: true
 
 Loading routers with tagging
