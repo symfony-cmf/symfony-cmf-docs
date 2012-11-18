@@ -65,7 +65,7 @@ tree structure and the data schema.
 
 Another popular need is limiting read and/or write access of content to specific users
 or groups. Ideally this solution would also integrate with the tree structure. So it would
-be useful if *a CMS should provides capabilities to define access controls* that leverage the
+be useful if *a CMS provides capabilities to define access controls* that leverage the
 tree structure to quickly manage access for entire subtrees.
 
 Finally not all steps in the content authoring process will be done by the same person.
@@ -138,10 +138,10 @@ what works best for them, their available resources, their expertise and their s
 
 So for the simplest use cases there is for example a Doctrine DBAL based solution provided by the
 `Jackalope <https://github.com/jackalope/jackalope>`_ PHPCR implementation that can use the SQLite
-RDBMS shipped with PHP itself. On the other  end of the spectrum Jackalope also supports
+RDBMS shipped with PHP itself. At the other end of the spectrum Jackalope also supports
 `Jackrabbit <http://jackrabbit.apache.org>`_ which supports clustering and can efficiently
-handle data into the hundreds of gigabytes. Jackrabbit by defaults simply uses the file system for
-persistence, but can also use an RDBMS. However future versions will support MongoDB and support for
+handle data into the hundreds of gigabytes. By default Jackrabbit simply uses the file system for
+persistence, but it can also use an RDBMS. However future versions will support MongoDB and support for
 other NoSQL solutions like CouchDB or Cassandra are entirely possible. Again switching the persistence
 solution would require no code changes as the business logic is only bound to the PHPCR interfaces.
 
