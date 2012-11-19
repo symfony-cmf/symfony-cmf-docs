@@ -19,13 +19,13 @@ Requirements for a CMS storage layer
 At the most fundamental level a CMS is about storing, so the first requirement
 is that *a CMS must provide means to store content with different properties*.
 
-A CMS has very different storage needs than f.e. a system for processing orders.
+A CMS has very different storage needs than for example a system for processing orders.
 Do note however that its entirely possible and very intended of the CMF initiative
 to enable developers to combine the CMF with a system for processing orders. So
-f.e. one could create a shopping solution using the CMF for storing the product
+for example one could create a shopping solution using the CMF for storing the product
 catalog, while using another system for maintaining the inventory, customer data
 and orders. This leads to the second requirement, *a CMS must provide means to reference content*,
-both content stored inside the CMS, but also in other sysytems.
+both content stored inside the CMS, but also in other systems.
 
 The actual content in a CMS tends to be organized in a tree like structure, mimicking
 a file system. Note that content authors might want to use different structures for how
@@ -70,7 +70,7 @@ tree structure to quickly manage access for entire subtrees.
 
 Finally not all steps in the content authoring process will be done by the same person.
 As a matter of fact there might be multiple steps all of which might not even be done
-by a person. Instead some of the steps might even be executed by a machine. So f.e.
+by a person. Instead some of the steps might even be executed by a machine. So for example
 a photographer might upload a new image, a content author might attach the photo
 to some text, then the system automatically generates thumbnails and web optimized
 renditions and finally an editor decides on the final publication. Therefore
@@ -120,6 +120,12 @@ also tightly bind your business logic to a particular RDBMS and/or algorithm eve
 of them can be abstracted. So again using an ORM one could create a pluggable system for
 mangaging tree structures with different algorithms which prevent binding the business logic
 of the CMS to a particular algorithm.
+
+However it should be said once more, that all Bundles and Components in the CMF are developed
+to enable any persistent storage API and we welcome contributions for adding implementations
+for other storage systems. So for example RoutingExtraBundle currently only provides Document
+classes for PHPCR ODM, but the interfaces defined in the Routing component are storage
+agnostic and we would accept a contribution to add Doctrine ORM support.
 
 PHPCR
 ~~~~~
