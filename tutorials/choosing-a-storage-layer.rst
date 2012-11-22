@@ -30,7 +30,7 @@ both content stored inside the CMS, but also in other systems.
 The actual content in a CMS tends to be organized in a tree like structure, mimicking
 a file system. Note that content authors might want to use different structures for how
 to organize the content and how to organize other aspects like the menu and the routing.
-This leads to the third requirement, *a CMS must provide means be represent the content as a tree structure*.
+This leads to the third requirement, *a CMS must provide means to represent the content as a tree structure*.
 Furthermore a fourth requirement is that *a CMS should allow maintaining several independent tree structures*.
 
 In general data inside a CMS tends to be unstructured. So while several pages inside
@@ -99,7 +99,7 @@ you might prioritize features differently:
 RDBMS
 ~~~~~
 
-Looking at the above requirements it becomes apparent that ouf the box an RDBMS is
+Looking at the above requirements it becomes apparent that out the box an RDBMS is
 ill-suited to address the needs of a CMS. RDBMS were never intended to store
 tree structures of unstructured content. Really the only requirement RDBMS cover from
 the above list is the ability to store content, some way to reference content,
@@ -118,7 +118,7 @@ and retrieval of tree structures for different use cases.
 The point is however that these all require algorithms and code on top of an RDBMS which
 also tightly bind your business logic to a particular RDBMS and/or algorithm even if some
 of them can be abstracted. So again using an ORM one could create a pluggable system for
-mangaging tree structures with different algorithms which prevent binding the business logic
+managing tree structures with different algorithms which prevent binding the business logic
 of the CMS to a particular algorithm.
 
 However it should be said once more, that all Bundles and Components in the CMF are developed
@@ -138,7 +138,7 @@ CMS needs, therefore cleanly separating the entire business logic of your CMS fr
 choice. As a matter of fact the only feature above not natively supported by PHPCR is support
 for translations.
 
-Thanks to the availability of several PHPCR implementations supporting various kinda of persistence
+Thanks to the availability of several PHPCR implementations supporting various kinds of persistence
 choices, creating a CMS on top of PHPCR means that end users are enabled to pick and choose
 what works best for them, their available resources, their expertise and their scalability requirements.
 
