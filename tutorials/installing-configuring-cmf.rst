@@ -80,7 +80,7 @@ can be found in the dedicated documentation.
 Configuration
 -------------
 
-To get your application running very little configuration is needed.
+To get your application running, very little configuration is needed.
 
 Minimum configuration
 ~~~~~~~~~~~~~~~~~~~~~

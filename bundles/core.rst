@@ -9,7 +9,7 @@ One of the provided features is an interface and implementation of a publish wor
 with an accompanying interface that models can implement that want to support this checker.
 
 Furthermore it provides a twig helper exposing several useful functions for twig templates
-to interact with PHPCR-ODM documents
+to interact with PHPCR-ODM documents.
 
 .. index:: CoreBundle, PHPCR, ODM, publish workflow
 

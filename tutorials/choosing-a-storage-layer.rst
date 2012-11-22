@@ -148,7 +148,7 @@ RDBMS shipped with PHP itself. At the other end of the spectrum Jackalope also s
 `Jackrabbit <http://jackrabbit.apache.org>`_ which supports clustering and can efficiently
 handle data into the hundreds of gigabytes. By default Jackrabbit simply uses the file system for
 persistence, but it can also use an RDBMS. However future versions will support MongoDB and support for
-other NoSQL solutions like CouchDB or Cassandra are entirely possible. Again switching the persistence
+other NoSQL solutions like CouchDB or Cassandra is entirely possible. Again, switching the persistence
 solution would require no code changes as the business logic is only bound to the PHPCR interfaces.
 
 Please see :doc:`installing-configuring-doctrine-phpcr-odm` for more details on the all available
@@ -157,10 +157,10 @@ PHPCR implementations and their requirements and how to setup the Symfony2 with 
 PHPCR ODM
 ~~~~~~~~~
 
-As mentioned above using PHPCR does not mean giving up on RDBMS. In many ways PHPCR can be considered
+As mentioned above using PHPCR does not mean giving up on RDBMS. In many ways, PHPCR can be considered
 a specialized ORM solution for CMS. However while PHPCR works with so called *nodes*, in an ORM
 people expect to be able to map class instances to a persistence layer. This is exactly what PHPCR ODM
 provides. It follows the same interface classes as Doctrine ORM while also exposing all the additional
-capabilities of PHPCR, like trees and versioning. Furthermore it also provides native support for
+capabilities of PHPCR, like trees and versioning. Furthermore, it also provides native support for
 translations, covering the only omission of PHPCR for the above mentioned requirements list of a CMS
 storage solution.
