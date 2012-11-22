@@ -9,7 +9,7 @@ the necessary extension points to ensure the **CMF remains storage layer agnosti
 The goal of this tutorial is to explain the considerations and why we suggest
 `PHPCR <http://phpcr.github.com>`_  and `PHPCR-ODM <http://www.doctrine-project.org/projects/phpcr-odm.html>`_
 as the ideal basis for a CMS. However all components and Bundles can be
-integrate with other solutions with a fairly small amount of work.
+integrated with other solutions with a fairly small amount of work.
 
 .. index:: PHPCR, ODM, ORM
 
