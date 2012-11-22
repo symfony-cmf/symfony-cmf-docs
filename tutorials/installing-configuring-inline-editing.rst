@@ -62,7 +62,7 @@ Configuration
 -------------
 Next step is to configure the bundles.
 
-Basic configuration, add to your application configuration
+Basic configuration, add to your application configuration:
 
 .. configuration-block::
 
