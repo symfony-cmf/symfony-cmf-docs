@@ -20,7 +20,7 @@ At the most fundamental level a CMS is about storing, so the first requirement
 is that *a CMS must provide means to store content with different properties*.
 
 A CMS has very different storage needs than for example a system for processing orders.
-Do note however that its entirely possible and very intended of the CMF initiative
+Do note however that it is entirely possible and very intended of the CMF initiative
 to enable developers to combine the CMF with a system for processing orders. So
 for example one could create a shopping solution using the CMF for storing the product
 catalog, while using another system for maintaining the inventory, customer data
@@ -43,9 +43,9 @@ meaning. So *a CMS must provide means to optionally define a schema for content 
 
 This requirement actually also relates to another need, in that a CMS must make it easy
 for content authors to prepare a series of changes in a staging environment that then
-need to go online in a single step. This means another requirement is that its necessary
-that the *a CMS should support moving and exporting content between independent tree structures*.
-Note that exporting can be useful also for backup.
+needs to go online in a single step. This means another requirement is that it is necessary
+that *a CMS should support moving and exporting content between independent tree structures*.
+Note that exporting can be useful also for backups.
 
 When making changes it would however also be useful to be able to version the change sets,
 so that they remain available for historical purposes, but also to be able to revert whenever
@@ -109,7 +109,7 @@ This is not a failing of RDBMS in the sense that they were simply designed for a
 use case: the ability to store, manipulate and aggregate structured data. This makes them
 ideal for storing inventory and orders.
 
-That is not to say that its impossible to build a system on top of an RDBMS that address
+That is not to say that it is impossible to build a system on top of an RDBMS that addresses
 more or even all of the above topics. Some RDBMS natively support recursive queries, which
 can be useful for retrieving tree structures. Even if such native support is missing, there
 are algorithms like materialized path and nested sets that can enable efficient storage
@@ -131,7 +131,7 @@ PHPCR
 ~~~~~
 
 PHPCR essentially is a set of interfaces addressing most of the requirements from the above list.
-This means that PHPCR is totally storage agnostic in the sense that its possible to really
+This means that PHPCR is totally storage agnostic in the sense that it is possible to really
 put any persistence solution behind PHPCR. So in the same way as an ORM can support different
 tree storage algorithms via some plugin, PHPCR aims to provide an API for the entire breath of
 CMS needs, therefore cleanly separating the entire business logic of your CMS from the persistence
