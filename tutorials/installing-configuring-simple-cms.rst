@@ -1,7 +1,7 @@
 Installing and configuring a simple CMS setup
 =============================================
 
-The goal of this tutorial is to install and configure simple CMS.
+The goal of this tutorial is to install and configure a simple CMS.
 Note that Symfony2.1 is required for the CMF to work.
 
 The SimpleCmsBundle provides a solution to easily map content, routes and menu

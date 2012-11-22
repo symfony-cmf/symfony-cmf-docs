@@ -151,8 +151,8 @@ persistence, but it can also use an RDBMS. However future versions will support 
 other NoSQL solutions like CouchDB or Cassandra is entirely possible. Again, switching the persistence
 solution would require no code changes as the business logic is only bound to the PHPCR interfaces.
 
-Please see :doc:`installing-configuring-doctrine-phpcr-odm` for more details on the all available
-PHPCR implementations and their requirements and how to setup the Symfony2 with one of them.
+Please see :doc:`installing-configuring-doctrine-phpcr-odm` for more details on the available
+PHPCR implementations and their requirements and how to setup Symfony2 with one of them.
 
 PHPCR ODM
 ~~~~~~~~~
