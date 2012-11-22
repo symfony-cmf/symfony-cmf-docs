@@ -142,6 +142,11 @@ Add route in to your routing configuration
             resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
             prefix: /admin
 
+        _sonata_admin:
+            resource: .
+            type: sonata_admin
+            prefix: /admin
+
         fos_js_routing:
             resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
         
