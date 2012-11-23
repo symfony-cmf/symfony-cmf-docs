@@ -184,6 +184,8 @@ Basic configuration for each content repository is shown below; add the appropri
                 workspace: default
                 username: admin
                 password: admin
+        odm:
+            auto_mapping: true
 
 .. note::
 
@@ -212,6 +214,8 @@ Basic configuration for each content repository is shown below; add the appropri
                 workspace: default
                 username: admin
                 password: admin
+        odm:
+            auto_mapping: true
 
 Setting up the content repository
 ---------------------------------
