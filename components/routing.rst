@@ -79,7 +79,15 @@ The match method of the DynamicRouter does the following steps
 RouteObjectInterface
 ~~~~~~~~~~~~~~~~~~~~
 
-Routes that implement this interface are linked to a content document.
+Routes that implement this interface can be linked to a content document using 
+the ``getRouteContent`` method. If non-null, this content is passed to the 
+controller. If there is no specific content for this route this may return null.
+
+Furthermore, routes that implement this interface can also provide a custom route
+name. The key returned by ``getRouteKey`` will be used as route name instead of 
+the Symfony core compatible route name and can contain any characters. This allows
+you, for example, to set a path as the route name.
+
 All routes still need to extend the base class ``Symfony\Component\Routing\Route``
 
 Redirections

@@ -266,7 +266,8 @@ redirections and locales.
 
 Notes:
 
-* RouteObjectInterface: The provided documents implement this interface to map content to routes
+* RouteObjectInterface: The provided documents implement this interface to map content to routes and to (optional) provide 
+    a custom route name instead of the symfony core compatible route name. 
 * Redirections: This bundle provides a RedirectController.
 
 TODO: see DependencyInjection/Configuration.php of this bundle. I could not figure out how to set
