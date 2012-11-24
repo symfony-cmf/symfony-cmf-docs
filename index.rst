@@ -55,6 +55,7 @@ Special solutions for special needs that go beyond standard usage.
 	:maxdepth: 1
 
 	cookbook/phpcr-odm-custom-documentclass-mapper
+	cookbook/using-a-custom-route-repository
 
 Components
 ----------
