@@ -204,12 +204,16 @@ The possible mappings are (in order of precedence):
                 manager_registry: doctrine_phpcr
                 manager_name: default
 
-                # if you use the default doctrine route repository servie, you can use this to customize
+                # if you use the default doctrine route repository service, you can use this to customize
                 # the root path for the `PHPCR-ODM`_ RouteRepository
                 # this base path will be injected by the Listener\IdPrefix - but only to routes
                 # matching the prefix, to allow for more than one route source.
                 routing_repositoryroot: /cms/routes
 
+                # If you want to replace the default route or content reposititories
+                # you can specify their service IDs here.
+                route_repository_service_id: my_bundle.repository.endpoint
+                content_repository_service_id: my_bundle.repository.endpoint
 
 To see some examples, please look at the `CMF sandbox`_ and specifically the routing fixtures loading.
 
@@ -297,3 +301,8 @@ extend it. You can also write your own routers to hook into the chain.
 .. _`CMF sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`CMF Routing component`: https://github.com/symfony-cmf/Routing
 .. _`PHPCR-ODM`: https://github.com/doctrine/phpcr-odm
+
+Learn more from the Cookbook
+----------------------------
+
+* :doc:`../cookbook/using-a-custom-route-repository`

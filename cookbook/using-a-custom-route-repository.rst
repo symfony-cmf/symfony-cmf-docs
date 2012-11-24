@@ -8,13 +8,8 @@ Route objects.
 Creating the route repository
 -----------------------------
 
-The route repository must implement the `RouteRepositoryInterface` and in 
-addition should return instances of the Symfony Route class. The 
-following class provides a simple solution using an ODM Repository. For the
-purpose of example we create the Symfony Route object and map the pattern
-to it directly.
-
-Why return multiple routes? .. @todo explain that here.
+The route repository must implement the `RouteRepositoryInterface` The 
+following class provides a simple solution using an ODM Repository.
 
 .. code-block:: php
 
@@ -29,67 +24,71 @@ Why return multiple routes? .. @todo explain that here.
     class RouteRepository extends DocumentRepository implements RouteRepositoryInterface
 
     {
+        // this method is used to find routes matching the given URL
         public function findManyByUrl($url)
         {
+            // for simplicity we retrieve one route
             $myDocument = $this->findOneBy(array(
-                'path' => $url,
+                'url' => $url,
             ));
 
-            $pattern = $myDocument->getUrl(); // e.g. "/this/is/a/route"
+            $pattern = $myDocument->getUrl(); // e.g. "/this/is/a/url"
 
-            $route = new SymfonyRoute($pattern);
-            $collection = new RouteCollection(array($route));
+            $collection = new RouteCollection();
+
+            // create a new Route and set our document as
+            // a default (so that we can retrieve it from the request)
+            $route = new SymfonyRoute($ep->getPath(), array(
+                'document' => $document,
+            ));
+
+            // add the route to the RouteCollection using
+            // a unique ID as the key.
+            $collection->add('my_route_'.uniqid(), $route);
 
             return $collection;
         }
 
+        // this method is used to generate URLs, e.g. {{ path('foobar') }}
         public function getRouteByName($name, $params = array())
         {
-            $route = $this->findOneBy(array(
+            $document = $this->findOneBy(array(
                 'name' => $name,
             ));
+
+            if ($route) {
+                $route = new SymfonyRoute($route->getPattern(), array(
+                    'document' => $document,
+                ));
+            }
 
             return $route;
         }
     }
 
-The route class
----------------
+.. tip::
 
-As noted above, the route classes provided by the route repository must  
-be instances of `Symfony\Component\Routing\Route`. A good pattern is to
-have your ODM/ORM/Other Document extend the Symfony Route class.
-
-.. code-block:: php
-
-    <?php
-
-    namespace MyVendor\Bundle\MyBundle\Document;
-    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
-    use DCMS\Bundle\CoreBundle\Validation\Constraints as RoutingValidation;
-    use Symfony\Component\Routing\Route as SymfonyRoute;
-
-    /**
-     * @PHPCR\Document(repositoryClass="MyVendor\Bundle\MyBundle\Repository\RouteRepository")
-     */
-    class Route extends SymfonyRoute
-    {
-        // @todo: Fill this out
-    }
+    As you may have noticed we return a `RouteCollection` object - why not return 
+    a single `Route`? The Dynamic Router allows us to return many *candidate* routes,
+    in other words, routes that *might* match the incoming URL. This is important to
+    enable the possibility of matching *dynamic* routes, `/page/{page_id}/edit` for example.
+    In our example we match the given URL exactly and only ever return a single `Route`.
 
 Replacing the default CMF repository
 ------------------------------------
 
-The final step is to replace the default CMF routing repository service with 
-your own. This is easily accomplished using the application configuration:
+To replace the default `RouteRepository` it is necessary to modify your configuration
+as follows:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    symfony_cmf_routing_extra:
-        dynamic:
-            enabled: true
-            route_repository_service_id: my_bundle.repository.endpoint
+   .. code-block:: yaml
+
+       # app/config/config.yml
+       symfony_cmf_routing_extra:
+           dynamic:
+               enabled: true
+               route_repository_service_id: my_bundle.repository.endpoint
    
 Where `my_bundle.repository.endpoint` is the service ID of your repository. 
 See `Creating and configuring services in the container <http://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container/>`_ 
