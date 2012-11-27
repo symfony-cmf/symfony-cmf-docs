@@ -47,8 +47,8 @@ Learning or want to learn the CMF? Want to know if the CMF fits your project? Th
 .. toctree::
 	:maxdepth: 1
 
-	tutorials/choosing-a-storage-layer
 	tutorials/installing-configuring-cmf
+	tutorials/choosing-a-storage-layer
 	tutorials/installing-configuring-doctrine-phpcr-odm
 	tutorials/installing-configuring-simple-cms
 	tutorials/installing-configuring-inline-editing
