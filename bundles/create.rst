@@ -158,7 +158,7 @@ in the enabled bundles at <Bundle>/Resources/rdf-mappings. If you use a bundle
 that has no RDFa mapping, you can specify a list of rdf_config_dirs that will
 additionally be checked for metadata.
 
-See the documentation of createphp for the format of the XML metadata format.
+See the `documentation of createphp <https://github.com/flack/createphp>` for the format of the XML metadata format.
 
 
 Access control
@@ -288,7 +288,7 @@ Developing the hallo wysiwyg editor
 You can develop the hallo editor inside the Create bundle. By default, a minimized
 version of hallo that is bundled with create is used. To develop the actual code,
 you will need to checkout the full hallo repository first. You can do this by running
-the following commenad from the command line:
+the following command from the command line:
 
 .. code-block:: bash
 
