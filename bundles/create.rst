@@ -158,7 +158,7 @@ in the enabled bundles at <Bundle>/Resources/rdf-mappings. If you use a bundle
 that has no RDFa mapping, you can specify a list of rdf_config_dirs that will
 additionally be checked for metadata.
 
-See the `documentation of createphp <https://github.com/flack/createphp>` for the format of the XML metadata format.
+See the `documentation of createphp <https://github.com/flack/createphp>`_ for the format of the XML metadata format.
 
 
 Access control
