@@ -35,7 +35,7 @@ an API that is optimized for the needs of a CMS (tree structures, references, ve
 text search etc.). While every content repository can have very different requirements and
 performance characteristics, the API is the same for all of them.
 
-Furthermore since the API defines an export/import format, you can always switch to a different
+Furthermore, since the API defines an export/import format, you can always switch to a different
 content repository implementation later on.
 
 These are the available choices:
@@ -166,6 +166,8 @@ Basic configuration for each content repository is shown below; add the appropri
                 workspace: default
                 username: admin
                 password: admin
+            odm:
+                auto_mapping: true
 
 **Jackalope with Doctrine DBAL**
 
@@ -182,6 +184,8 @@ Basic configuration for each content repository is shown below; add the appropri
                 workspace: default
                 username: admin
                 password: admin
+        odm:
+            auto_mapping: true
 
 .. note::
 
@@ -210,6 +214,8 @@ Basic configuration for each content repository is shown below; add the appropri
                 workspace: default
                 username: admin
                 password: admin
+        odm:
+            auto_mapping: true
 
 Setting up the content repository
 ---------------------------------

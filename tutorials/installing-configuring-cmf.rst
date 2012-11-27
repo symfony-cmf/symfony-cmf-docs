@@ -80,7 +80,7 @@ can be found in the dedicated documentation.
 Configuration
 -------------
 
-To get your application running very little configuration is needed.
+To get your application running, very little configuration is needed.
 
 Minimum configuration
 ~~~~~~~~~~~~~~~~~~~~~
@@ -90,7 +90,7 @@ These steps are needed to ensure your AppKernel still runs.
 If you haven't done so already, make sure you have followed these steps from
 :doc:`installing-configuring-doctrine-phpcr-odm`:
 
-- Initialise ``DoctrinePHPCRBundle`` in ``app/AppKernel.php``
+- Initialize ``DoctrinePHPCRBundle`` in ``app/AppKernel.php``
 - Ensure there is a ``doctrine_phpcr:`` section in ``app/config/config.yml``
 - Add the ``AnnotationRegistry::registerFile`` line to ``app/autoload.php``
 

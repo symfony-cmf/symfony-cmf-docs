@@ -9,7 +9,7 @@ One of the provided features is an interface and implementation of a publish wor
 with an accompanying interface that models can implement that want to support this checker.
 
 Furthermore it provides a twig helper exposing several useful functions for twig templates
-to interact with PHPCR-ODM documents
+to interact with PHPCR-ODM documents.
 
 .. index:: CoreBundle, PHPCR, ODM, publish workflow
 
@@ -49,7 +49,7 @@ Implements the following functions:
 * ``cmf_prev``: returns the previous published document by examining the child nodes of the parent of the provided
 * ``cmf_next``: returns the next published document by examining the child nodes of the parent of the provided
 * ``cmf_children``: returns an array of all the children documents of the provided documents that are published
-* ``cmf_document_locales``: get the locales of the provided document
+* ``cmf_document_locales``: gets the locales of the provided document
 
 .. code-block:: jinja
 

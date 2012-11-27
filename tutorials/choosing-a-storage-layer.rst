@@ -9,7 +9,7 @@ the necessary extension points to ensure the **CMF remains storage layer agnosti
 The goal of this tutorial is to explain the considerations and why we suggest
 `PHPCR <http://phpcr.github.com>`_  and `PHPCR-ODM <http://www.doctrine-project.org/projects/phpcr-odm.html>`_
 as the ideal basis for a CMS. However all components and Bundles can be
-integrate with other solutions with a fairly small amount of work.
+integrated with other solutions with a fairly small amount of work.
 
 .. index:: PHPCR, ODM, ORM
 
@@ -20,7 +20,7 @@ At the most fundamental level a CMS is about storing, so the first requirement
 is that *a CMS must provide means to store content with different properties*.
 
 A CMS has very different storage needs than for example a system for processing orders.
-Do note however that its entirely possible and very intended of the CMF initiative
+Do note however that it is entirely possible and very intended of the CMF initiative
 to enable developers to combine the CMF with a system for processing orders. So
 for example one could create a shopping solution using the CMF for storing the product
 catalog, while using another system for maintaining the inventory, customer data
@@ -30,7 +30,7 @@ both content stored inside the CMS, but also in other systems.
 The actual content in a CMS tends to be organized in a tree like structure, mimicking
 a file system. Note that content authors might want to use different structures for how
 to organize the content and how to organize other aspects like the menu and the routing.
-This leads to the third requirement, *a CMS must provide means be represent the content as a tree structure*.
+This leads to the third requirement, *a CMS must provide means to represent the content as a tree structure*.
 Furthermore a fourth requirement is that *a CMS should allow maintaining several independent tree structures*.
 
 In general data inside a CMS tends to be unstructured. So while several pages inside
@@ -43,9 +43,9 @@ meaning. So *a CMS must provide means to optionally define a schema for content 
 
 This requirement actually also relates to another need, in that a CMS must make it easy
 for content authors to prepare a series of changes in a staging environment that then
-need to go online in a single step. This means another requirement is that its necessary
-that the *a CMS should support moving and exporting content between independent tree structures*.
-Note that exporting can be useful also for backup.
+needs to go online in a single step. This means another requirement is that it is necessary
+that *a CMS should support moving and exporting content between independent tree structures*.
+Note that exporting can be useful also for backups.
 
 When making changes it would however also be useful to be able to version the change sets,
 so that they remain available for historical purposes, but also to be able to revert whenever
@@ -99,7 +99,7 @@ you might prioritize features differently:
 RDBMS
 ~~~~~
 
-Looking at the above requirements it becomes apparent that ouf the box an RDBMS is
+Looking at the above requirements it becomes apparent that out the box an RDBMS is
 ill-suited to address the needs of a CMS. RDBMS were never intended to store
 tree structures of unstructured content. Really the only requirement RDBMS cover from
 the above list is the ability to store content, some way to reference content,
@@ -109,7 +109,7 @@ This is not a failing of RDBMS in the sense that they were simply designed for a
 use case: the ability to store, manipulate and aggregate structured data. This makes them
 ideal for storing inventory and orders.
 
-That is not to say that its impossible to build a system on top of an RDBMS that address
+That is not to say that it is impossible to build a system on top of an RDBMS that addresses
 more or even all of the above topics. Some RDBMS natively support recursive queries, which
 can be useful for retrieving tree structures. Even if such native support is missing, there
 are algorithms like materialized path and nested sets that can enable efficient storage
@@ -118,7 +118,7 @@ and retrieval of tree structures for different use cases.
 The point is however that these all require algorithms and code on top of an RDBMS which
 also tightly bind your business logic to a particular RDBMS and/or algorithm even if some
 of them can be abstracted. So again using an ORM one could create a pluggable system for
-mangaging tree structures with different algorithms which prevent binding the business logic
+managing tree structures with different algorithms which prevent binding the business logic
 of the CMS to a particular algorithm.
 
 However it should be said once more, that all Bundles and Components in the CMF are developed
@@ -131,14 +131,14 @@ PHPCR
 ~~~~~
 
 PHPCR essentially is a set of interfaces addressing most of the requirements from the above list.
-This means that PHPCR is totally storage agnostic in the sense that its possible to really
+This means that PHPCR is totally storage agnostic in the sense that it is possible to really
 put any persistence solution behind PHPCR. So in the same way as an ORM can support different
 tree storage algorithms via some plugin, PHPCR aims to provide an API for the entire breath of
 CMS needs, therefore cleanly separating the entire business logic of your CMS from the persistence
 choice. As a matter of fact the only feature above not natively supported by PHPCR is support
 for translations.
 
-Thanks to the availability of several PHPCR implementations supporting various kinda of persistence
+Thanks to the availability of several PHPCR implementations supporting various kinds of persistence
 choices, creating a CMS on top of PHPCR means that end users are enabled to pick and choose
 what works best for them, their available resources, their expertise and their scalability requirements.
 
@@ -148,19 +148,19 @@ RDBMS shipped with PHP itself. At the other end of the spectrum Jackalope also s
 `Jackrabbit <http://jackrabbit.apache.org>`_ which supports clustering and can efficiently
 handle data into the hundreds of gigabytes. By default Jackrabbit simply uses the file system for
 persistence, but it can also use an RDBMS. However future versions will support MongoDB and support for
-other NoSQL solutions like CouchDB or Cassandra are entirely possible. Again switching the persistence
+other NoSQL solutions like CouchDB or Cassandra is entirely possible. Again, switching the persistence
 solution would require no code changes as the business logic is only bound to the PHPCR interfaces.
 
-Please see :doc:`installing-configuring-doctrine-phpcr-odm` for more details on the all available
-PHPCR implementations and their requirements and how to setup the Symfony2 with one of them.
+Please see :doc:`installing-configuring-doctrine-phpcr-odm` for more details on the available
+PHPCR implementations and their requirements and how to setup Symfony2 with one of them.
 
 PHPCR ODM
 ~~~~~~~~~
 
-As mentioned above using PHPCR does not mean giving up on RDBMS. In many ways PHPCR can be considered
+As mentioned above using PHPCR does not mean giving up on RDBMS. In many ways, PHPCR can be considered
 a specialized ORM solution for CMS. However while PHPCR works with so called *nodes*, in an ORM
 people expect to be able to map class instances to a persistence layer. This is exactly what PHPCR ODM
 provides. It follows the same interface classes as Doctrine ORM while also exposing all the additional
-capabilities of PHPCR, like trees and versioning. Furthermore it also provides native support for
+capabilities of PHPCR, like trees and versioning. Furthermore, it also provides native support for
 translations, covering the only omission of PHPCR for the above mentioned requirements list of a CMS
 storage solution.
