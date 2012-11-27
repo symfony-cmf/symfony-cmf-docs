@@ -8,8 +8,8 @@ Resources / Links
 -----------------
 
 * `GitHub <https://github.com/symfony-cmf>`_
-* `Website <http://cmf.symfony-project.org/>`_
-* `Wiki <http://wiki.github.com/symfony-cmf/symfony-cmf/>`_
+* `Website <http://cmf.symfony.com/>`_
+* `Wiki <https://github.com/symfony-cmf/symfony-cmf/wiki>`_
 * `Issue Tracker <http://github.com/symfony-cmf/symfony-cmf/issues>`_
 * `IRC channel <irc://freenode/#symfony-cmf>`_
 * `Users mailing list <http://groups.google.com/group/symfony-cmf-users>`_
