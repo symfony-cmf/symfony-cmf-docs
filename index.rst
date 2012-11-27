@@ -34,9 +34,9 @@ What is our target audience?
 
 There are basically to main target audiences:
 
- * Developers that have build a custom application with Symfony2 and just need to also
+#. Developers that have build a custom application with Symfony2 and just need to also
    support a few content pages for things like the about/contact pages or a news section
- * Developers that need to build a highly customized authoring and content delivery
+#. Developers that need to build a highly customized authoring and content delivery
    solution that no out of the box CMS can properly provide through customization.
 
 Tutorials
