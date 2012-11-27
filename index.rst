@@ -3,10 +3,10 @@
 
 Welcome to the official documentation of the `Symfony Content Management Framework`_.
 
-The Symfony2 Content Management Framework  project is organized by the Symfony
+The Symfony2 Content Management Framework project is organized by the Symfony
 community and has several sponsoring companies and prominent open source leaders
 implementing the philosophy of the decoupled CMS. You can read learn more about the
-project on the about page.
+project on the `about`_ page.
 
 This documentation is currently in development and far from complete. See `Documentation planning`_ for an
 overview of the work left to do. Want to help? Thank you, all help greatly appreciated! The source of
@@ -109,6 +109,7 @@ Contributing
 	contributing/license
 
 .. _`Symfony2`: http://symfony.com
+.. _`about`: http://cmf.symfony.com/about
 .. _`Documentation planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
 .. _`Symfony Content Management Framework`: http://cmf.symfony.com
 .. _`documentation is hosted here`: https://github.com/symfony-cmf/symfony-cmf-docs
