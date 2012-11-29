@@ -18,7 +18,7 @@ setup, please refer to:
 Preconditions
 -------------
 
-As Symfony CMF Sandbox is based on Symfony 2, you should make sure you
+As Symfony CMF Sandbox is based on Symfony2, you should make sure you
 meet the `Requirements for running Symfony2 <http://symfony.com/doc/current/reference/requirements.html>`_.
 `Git 1.6+ <http://git-scm.com/>`_, `Curl <http://curl.haxx.se/>`_ and PHP Intl are
 also needed to follow the installation steps listed below.
@@ -66,7 +66,7 @@ Move into the folder and copy the default configuration files
 
 .. code-block:: bash
 
-    cd symfony-cmf-standard
+    cd cmf-sandbox
     cp app/config/parameters.yml.dist app/config/parameters.yml
     cp app/config/phpcr_jackrabbit.yml.dist app/config/phpcr.yml
     
@@ -175,7 +175,7 @@ Doctrine DBAL setup:
 
 .. code-block:: bash
 
-    cd symfony-cmf-standard
+    cd cmf-sandbox
     cp app/config/phpcr_doctrine_dbal.yml.dist app/config/phpcr.yml
     
 Next, you need to install the actual Doctrine DBAL bundle required by jackalope:
@@ -192,8 +192,6 @@ And create and init your database:
     app/console doctrine:phpcr:init:dbal
 
 After this, your should follow the steps in `Preparing the PHPCR repository`_.
-Notice that, using this setup, no default workspace exists, so you need to explicitly
-create it using the instructions given in the above mentioned section.
 
 Doctrine caching
 ++++++++++++++++
