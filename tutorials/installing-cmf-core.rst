@@ -9,8 +9,8 @@ This is aimed at experienced user who want to know all about the Symfony CMF
 details. If this is your first encounter with the Symfony CMF it would be a
 good idea to start with:
 
-- :doc:`/getting-started/installing-symfony-cmf` page for instructions on how to quickly install the CMF (recommended for development)
-- :doc:`/cookbook/installing-cmf-sandbox` for instructions on how to install a demonstration sandbox.
+- :doc:`../getting-started/installing-symfony-cmf` page for instructions on how to quickly install the CMF (recommended for development)
+- :doc:`../cookbook/installing-cmf-sandbox` for instructions on how to install a demonstration sandbox.
 
 .. index:: RoutingExtraBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle, install
 

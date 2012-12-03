@@ -35,7 +35,7 @@ installed, since it's used as the default storage medium.
     you can use one of several available data storage mechanisms without
     having to rewrite your code. For more information on the different
     available mechanisms and how to install and configure them, refer to
-    :doc:`/tutorials/installing-configuring-doctrine-phpcr-odm`
+    :doc:`../tutorials/installing-configuring-doctrine-phpcr-odm`
 
 `Git <http://git-scm.com/>`_ and `Curl <http://curl.haxx.se/>`_ are also needed to follow the installation steps listed below.
 
