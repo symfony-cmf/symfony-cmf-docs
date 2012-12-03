@@ -23,7 +23,7 @@ another application using the SimpleCmsBundle.
 Preconditions
 -------------
 
-- :doc:`installing-configuring-cmf`
+- :doc:`installing-cmf-core`
 
 Installation
 ------------

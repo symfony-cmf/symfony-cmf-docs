@@ -1,19 +1,16 @@
-Installing and configuring the CMF
-==================================
+Installing and configuring the CMF core
+=======================================
 
-The goal of this tutorial is to install all the CMF components with the minimum necessary
-configuration. From there, you can begin incorporating CMF functionality into your application as needed.
+The goal of this tutorial is to install the minimal CMF components ("core")
+with the minimum necessary configuration. From there, you can begin incorporating
+CMF functionality into your application as needed.
 
-If this is your first encounter with the Symfony CMF it would be a good idea to first take a
-look at:
+This is aimed at experienced user who want to know all about the Symfony CMF
+details. If this is your first encounter with the Symfony CMF it would be a
+good idea to start with:
 
-- `The Big Picture <http://slides.liip.ch/static/2012-01-17_symfony_cmf_big_picture.html#1>`_
-- The `CMF sandbox environment <https://github.com/symfony-cmf/cmf-sandbox>`_, a pre-installed Symfony / CMF application containing all CMF components.
-- The online sandbox demo at `cmf.liip.ch <http://cmf.liip.ch>`_
-
-For a minimal install see:
-
-- `Symfony2 CMF standard edition <https://github.com/symfony-cmf/symfony-cmf-standard>`_
+- :doc:`/getting-started/installing-symfony-cmf` page for instructions on how to quickly install the CMF (recommended for development)
+- :doc:`/cookbook/installing-cmf-sandbox` for instructions on how to install a demonstration sandbox.
 
 .. index:: RoutingExtraBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle
 
