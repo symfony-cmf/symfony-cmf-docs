@@ -1,4 +1,4 @@
-Using a custom route repository with Dynmaic Router
+Using a custom route repository with Dynamic Router
 ===================================================
 
 The Dynamic Router allows you to customize the route Repository (i.e. the class 
