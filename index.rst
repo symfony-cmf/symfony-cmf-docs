@@ -22,12 +22,12 @@ Mission Statement
 Why another CMS?
 ----------------
 
-Actually we consider this project to be a CMF, a *content management framework*, rather
-than a CMS, a content management system. The reason is that we are only *providing tools
-to build a custom CMS*. There are obviously many CMS solutions available today already,
+Actually we consider this project to be a CMF, a **content management framework**, rather
+than a CMS, a content management system. The reason is that we are only **providing tools
+to build a custom CMS**. There are obviously many CMS solutions available today already,
 but they tend to be tailored first and foremost towards end users and also many tend
-to carry a lot of legacy baggage which make them less than *ideal for developing highly
-custom applications* like what is possible with `Symfony2`_.
+to carry a lot of legacy baggage which make them less than **ideal for developing highly
+custom applications** like what is possible with `Symfony2`_.
 
 What is our target audience?
 ----------------------------
