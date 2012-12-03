@@ -1,16 +1,16 @@
-Symfony CMF Documentation
+﻿Symfony CMF Documentation
 =========================
 
 Welcome to the official documentation of the `Symfony Content Management Framework`_.
 
 The Symfony2 Content Management Framework project is organized by the Symfony
 community and has several sponsoring companies and prominent open source leaders
-implementing the philosophy of the decoupled CMS. You can read learn more about the
+implementing the philosophy of the `decoupled CMS`_. You can read learn more about the
 project on the `about`_ page.
 
-This documentation is currently in development and far from complete. See `Documentation planning`_ for an
-overview of the work left to do. Want to help? Thank you, all help greatly appreciated! The source of
-the `documentation is hosted here`_.
+This documentation is currently in development and far from complete. See `Documentation planning`_
+for an overview of the work left to do. Want to help? Thank you, all help greatly appreciated!
+The source of the `documentation is hosted on github`_.
 
 Mission Statement
 -----------------
@@ -22,12 +22,12 @@ Mission Statement
 Why another CMS?
 ----------------
 
-Actually we consider this project to be a CMF, a content management framework, rather
-than a CMS, a content management system. The reason is that we are only providing tools
-to build a custom CMS. There are obviously many CMS solutions available today already,
+Actually we consider this project to be a CMF, a *content management framework*, rather
+than a CMS, a content management system. The reason is that we are only *providing tools
+to build a custom CMS*. There are obviously many CMS solutions available today already,
 but they tend to be tailored first and foremost towards end users and also many tend
-to carry a lot of legacy baggage which make them less than ideal for truly custom
-development like what is possible with `Symfony2`_.
+to carry a lot of legacy baggage which make them less than *ideal for developing highly
+custom applications* like what is possible with `Symfony2`_.
 
 What is our target audience?
 ----------------------------
@@ -124,8 +124,9 @@ Contributing
 	contributing/code
 	contributing/license
 
+.. _`decoupled CMS`: http://http://decoupledcms.org
 .. _`Symfony2`: http://symfony.com
 .. _`about`: http://cmf.symfony.com/about
 .. _`Documentation planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
 .. _`Symfony Content Management Framework`: http://cmf.symfony.com
-.. _`documentation is hosted here`: https://github.com/symfony-cmf/symfony-cmf-docs
+.. _`documentation is hosted on github`: https://github.com/symfony-cmf/symfony-cmf-docs
