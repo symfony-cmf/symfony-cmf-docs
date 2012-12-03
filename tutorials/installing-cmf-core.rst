@@ -12,7 +12,7 @@ good idea to start with:
 - :doc:`/getting-started/installing-symfony-cmf` page for instructions on how to quickly install the CMF (recommended for development)
 - :doc:`/cookbook/installing-cmf-sandbox` for instructions on how to install a demonstration sandbox.
 
-.. index:: RoutingExtraBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle
+.. index:: RoutingExtraBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle, install
 
 Preconditions
 -------------

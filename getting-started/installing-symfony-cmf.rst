@@ -17,14 +17,14 @@ look at:
     - The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for instructions on how to install a more complete demo instance of Symfony CMF.
     - :doc:`../tutorials/installing-cmf-core` for step-by-step installation and configuration details of just the core components into an existing Symfony application.
 
-.. index:: RoutingExtraBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle
+.. index:: Standard Edition, install
 
 Preconditions
 -------------
 
 As Symfony CMF is based on Symfony 2, you should make sure you
 meet the `Requirements for running Symfony2 <http://symfony.com/doc/current/reference/requirements.html>`_.
-Aditionally, you need to have `Sqlite <http://www.sqlite.org/>`_ 
+Additionally, you need to have `Sqlite <http://www.sqlite.org/>`_
 installed, since it's used as the default storage medium. 
 
 .. note::
@@ -55,7 +55,10 @@ and then get the Symfony CMF code with it (this may take a while)
 
     php composer.phar create-project symfony-cmf/standard-edition <path-to-install>
     cd <path-to-install>
-    
+
+The path ``<path-to-install>`` should either inside your web server doc root or configure
+a virtual host for ``<path-to-install>``.
+
 Install all the required bundles (this may take a while)
 
 .. code-block:: bash
@@ -74,9 +77,16 @@ Once you have downloaded the necessary resources, it's time to setup the databas
 This will create a file called app.sqlite inside your app folder, containing
 the database content needed by the sandbox.
 
-The sandbox should now be accessible on your web server.
+The sandbox should now be accessible on your web server. If you have PHP 5.4 installed
+you can alternatively use the PHP internal web server:
+
+.. code-block:: bash
+
+    app/console server:run
+
+And then access the CMF via:
 
 .. code-block:: text
 
-    http://localhost/
+    http://localhost:8000
     

@@ -13,7 +13,7 @@ setup, please refer to:
 - :doc:`../getting-started/installing-symfony-cmf` page for instructions on how to quickly install the CMF (recommended for development)
 - :doc:`../tutorials/installing-cmf-core` for step-by-step installation and configuration details (if you want to know all the details)
 
-.. In the future, split between fast and detailed installations.
+.. index:: sandbox, install
 
 Preconditions
 -------------
