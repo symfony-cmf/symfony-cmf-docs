@@ -42,15 +42,27 @@ There are basically to main target audiences:
 #. Developers that need to build a highly customized authoring and content delivery
    solution that no out of the box CMS can properly provide through customization.
 
+
+Getting started
+---------------
+
+Just started learning about the CMF? Want to know if the CMF fits your project? Start here.
+
+.. toctree::
+	:maxdepth: 1
+	
+	getting-started/installing-symfony-cmf
+
+
 Tutorials
 ---------
 
-Learning or want to learn the CMF? Want to know if the CMF fits your project? The book tells you all.
+Want to know more about the CMF and how each part can be configured? There's a tutorial for each one.
 
 .. toctree::
 	:maxdepth: 1
 
-	tutorials/installing-configuring-cmf
+	tutorials/installing-cmf-core
 	tutorials/choosing-a-storage-layer
 	tutorials/installing-configuring-doctrine-phpcr-odm
 	tutorials/installing-configuring-simple-cms

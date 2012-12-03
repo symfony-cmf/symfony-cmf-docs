@@ -10,7 +10,7 @@ The goal of this tutorial is to create a simple content management system using 
 Preconditions
 -------------
 
-- :doc:`installing-configuring-cmf`
+- :doc:`installing-cmf-core`
 
 Installation
 ------------
