@@ -3,7 +3,8 @@ Installing the Symfony CMF Standard Edition
 
 The goal of this tutorial is to install all the CMF components with the minimum necessary
 configuration and some very simple examples into a working Symfony2 application. This can
-be used to familiarize with the CMF or to begin a custom application.
+be used to familiarize yourself with the CMF or to be used as a starting point for a new
+custom application.
 
 If this is your first encounter with the Symfony CMF it would be a good idea to first take a
 look at:
@@ -22,7 +23,7 @@ look at:
 Preconditions
 -------------
 
-As Symfony CMF is based on Symfony 2, you should make sure you
+As Symfony CMF is based on Symfony2, you should make sure you
 meet the `Requirements for running Symfony2 <http://symfony.com/doc/current/reference/requirements.html>`_.
 Additionally, you need to have `Sqlite <http://www.sqlite.org/>`_
 installed, since it's used as the default storage medium. 

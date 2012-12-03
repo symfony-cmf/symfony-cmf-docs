@@ -1,7 +1,10 @@
 Installing and configuring inline editing
 =========================================
 The goal of this tutorial is to install and configure the inline editing support.
-Note that Symfony2.1 (currently master) is required for the CMF to work.
+
+.. note::
+
+    Symfony2.1 (currently master) is required for the CMF to work.
 
 This provides a solution to easily integrate with `VIE.js <http://viejs.org>`_ and `create.js <http://createjs.org>`_
 to provide inline editing based on `RDFa <http://rdfa.info>`_ output.

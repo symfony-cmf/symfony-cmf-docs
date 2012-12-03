@@ -70,8 +70,10 @@ Next, initialize the bundles in ``AppKernel.php`` by adding them to the ``regist
         // ...
     }
 
-Note that this also enables the PHPCR-ODM and related dependencies; setup instructions
-can be found in the dedicated documentation.
+.. note::
+
+    This also enables the PHPCR-ODM and related dependencies; setup instructions
+    can be found in the dedicated documentation.
 
 
 Configuration

@@ -92,11 +92,11 @@ Add the following to your ``composer.json`` file, depending on your chosen conte
         "doctrine/phpcr-odm": "1.0.*"
     }
 
-.. Note::
+.. note::
 
     For all of the above, if you are also using Doctrine ORM, make sure to use
     ``"doctrine/orm": "2.3.*"``, otherwise composer can't resolve the dependencies as Doctrine
-    PHPCR-ODM depends on the newer 2.3 Doctrine Commons. (Symfony 2.1 standard edition uses "2.2.*".)
+    PHPCR-ODM depends on the newer 2.3 Doctrine Commons. (Symfony2.1 standard edition uses "2.2.*".)
 
 To install the above dependencies, run:
 

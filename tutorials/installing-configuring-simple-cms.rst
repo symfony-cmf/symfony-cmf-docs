@@ -3,7 +3,10 @@ Installing and configuring the SimpleCmsBundle
 
 The goal of this tutorial is to install and configure a simple CMS with the
 help of the SimpleCmsBundle.
-Note that Symfony 2.1 is required for the CMF to work.
+
+.. note::
+
+    Symfony2.1 (currently master) is required for the CMF to work.
 
 The SimpleCmsBundle provides a solution to easily map content, routes and menu
 items based on a single tree structure in the content repository.
