@@ -118,7 +118,7 @@ not loaded, you will need to enable it as follows:
         symfony_cmf_routing_extra:
             chain:
                 routers_by_id:
-                    symfony_cmf_routing_extra.dynamic_router: 20
+                    symfony_cmf_routing_extra.dynamic_router: 200
                     router.default: 100
             dynamic:
                 enabled: true
