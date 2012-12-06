@@ -55,7 +55,13 @@ and then get the Symfony CMF code with it (this may take a while)
 .. code-block:: bash
 
     php composer.phar create-project symfony-cmf/standard-edition <path-to-install> --stability=dev
+    mv composer.phar <path-to-install>/.
     cd <path-to-install>
+
+.. note::
+
+    It is actually recommended to move `composer.phar` into the bin directory of your filesystem,
+    so that you can access the command from any directory.
 
 The path `<path-to-install>` should either inside your web server doc root or configure
 a virtual host for `<path-to-install>`.
@@ -64,9 +70,17 @@ This will clone the standard edition and install all the dependencies and run so
 These commands require write permissions to the `app/cache` and `app/logs` directory. In case
 the final commands end up giving permissions errors, please follow the `guidelines in the official
 documentation <http://symfony.com/doc/master/book/installation.html#configuration-and-setup>`_ for
-configuring the permissions.
+configuring the permissions and then run the `install` command mentioned below.
 
-Then run the following command, to re-run the initial commands:
+If you prefer you can also just clone the project:
+
+.. code-block:: bash
+
+    git clone git://github.com/symfony-cmf/symfony-cmf-standard.git <dir-name>
+    cd <dir-name>
+
+If there were problems during the `create-project` command, or if you use `git clone` or if you
+updated the checkout later always run the following command to update the dependencies:
 
 .. code-block:: bash
 
