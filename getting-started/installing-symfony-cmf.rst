@@ -60,17 +60,17 @@ and then get the Symfony CMF code with it (this may take a while)
 
 .. note::
 
-    It is actually recommended to move `composer.phar` into the bin directory of your filesystem,
+    It is actually recommended to move ``composer.phar`` into the bin directory of your filesystem,
     so that you can access the command from any directory.
 
-The path `<path-to-install>` should either inside your web server doc root or configure
-a virtual host for `<path-to-install>`.
+The path ``<path-to-install>`` should either inside your web server doc root or configure
+a virtual host for ``<path-to-install>``.
 
 This will clone the standard edition and install all the dependencies and run some initial commands.
-These commands require write permissions to the `app/cache` and `app/logs` directory. In case
+These commands require write permissions to the ``app/cache`` and ``app/logs`` directory. In case
 the final commands end up giving permissions errors, please follow the `guidelines in the official
 documentation <http://symfony.com/doc/master/book/installation.html#configuration-and-setup>`_ for
-configuring the permissions and then run the `install` command mentioned below.
+configuring the permissions and then run the ``composer.phar install`` command mentioned below.
 
 If you prefer you can also just clone the project:
 
@@ -79,7 +79,7 @@ If you prefer you can also just clone the project:
     git clone git://github.com/symfony-cmf/symfony-cmf-standard.git <dir-name>
     cd <dir-name>
 
-If there were problems during the `create-project` command, or if you use `git clone` or if you
+If there were problems during the ``create-project`` command, or if you use ``git clone`` or if you
 updated the checkout later always run the following command to update the dependencies:
 
 .. code-block:: bash
@@ -111,6 +111,6 @@ And then access the CMF via:
     http://localhost:8000
 
 If you prefer to use another database backend, for example MySQL, run the configurator (point your browser
-to `/web/config.php`) or set your database connection parameters in `app/config/parameters.yml`. Make sure you
-leave the `database_path` property at `null` in order to use another driver than SQLite. Leaving the field blank
-in the web-configurator should set it to `null`.
+to ``/web/config.php``) or set your database connection parameters in ``app/config/parameters.yml``. Make sure you
+leave the ``database_path`` property at ``null`` in order to use another driver than SQLite. Leaving the field blank
+in the web-configurator should set it to ``null``.
