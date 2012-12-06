@@ -54,7 +54,7 @@ and then get the Symfony CMF code with it (this may take a while)
 
 .. code-block:: bash
 
-    php composer.phar create-project symfony-cmf/standard-edition <path-to-install>
+    php composer.phar create-project symfony-cmf/standard-edition <path-to-install> --stability=dev
     cd <path-to-install>
 
 The path ``<path-to-install>`` should either inside your web server doc root or configure

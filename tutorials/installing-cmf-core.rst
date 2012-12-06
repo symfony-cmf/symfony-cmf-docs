@@ -28,6 +28,7 @@ Add the following to your ``composer.json`` file
 
 .. code-block:: javascript
 
+    "minimum-stability": "dev",
     "require": {
         ...
         "symfony-cmf/symfony-cmf": "1.0.*"

@@ -63,6 +63,7 @@ Add the following to your ``composer.json`` file, depending on your chosen conte
 
 .. code-block:: javascript
 
+    "minimum-stability": "dev",
     "require": {
         ...
         "jackalope/jackalope-jackrabbit": "1.0.*",
@@ -74,6 +75,7 @@ Add the following to your ``composer.json`` file, depending on your chosen conte
 
 .. code-block:: javascript
 
+    "minimum-stability": "dev",
     "require": {
         ...
         "jackalope/jackalope-doctrine-dbal": "dev-master",
@@ -85,6 +87,7 @@ Add the following to your ``composer.json`` file, depending on your chosen conte
 
 .. code-block:: javascript
 
+    "minimum-stability": "dev",
     "require": {
         ...
         "midgard/phpcr": "dev-master",
