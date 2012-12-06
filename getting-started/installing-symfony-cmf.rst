@@ -23,10 +23,10 @@ look at:
 Preconditions
 -------------
 
-As Symfony CMF is based on Symfony2, you should make sure you
-meet the `Requirements for running Symfony2 <http://symfony.com/doc/current/reference/requirements.html>`_.
+As Symfony CMF is based on Symfony2, you should make sure you meet the
+`Requirements for running Symfony2 <http://symfony.com/doc/current/reference/requirements.html>`_.
 Additionally, you need to have `SQLite <http://www.sqlite.org/>`_ PDO extension (pdo_sqlite)
-installed, since it's used as the default storage medium.
+installed, since it is used as the default storage medium.
 
 .. note::
 
@@ -81,10 +81,9 @@ The next step is to setup the database, if you want to use SQLite as your databa
     app/console doctrine:phpcr:register-system-node-types
     app/console doctrine:phpcr:fixtures:load
 
-This will create a file called app.sqlite inside your app folder, containing
-the database content needed by the sandbox.
+This will create a file called app.sqlite inside your app folder, containing the database content.
 
-The sandbox should now be accessible on your web server. If you have PHP 5.4 installed
+The project should now be accessible on your web server. If you have PHP 5.4 installed
 you can alternatively use the PHP internal web server:
 
 .. code-block:: bash
@@ -97,7 +96,7 @@ And then access the CMF via:
 
     http://localhost:8000
 
-If you prefer to use another database backend, for example MySQL, run the Symfony configurator (point your browser
+If you prefer to use another database backend, for example MySQL, run the configurator (point your browser
 to `/web/config.php`) or set your database connection parameters in `app/config/parameters.yml`. Make sure you
 leave the `database_path` property at `null` in order to use another driver than SQLite. Leaving the field blank
 in the web-configurator should set it to `null`.
