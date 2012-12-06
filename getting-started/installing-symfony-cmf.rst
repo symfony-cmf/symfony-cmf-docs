@@ -79,8 +79,8 @@ If you prefer you can also just clone the project:
     git clone git://github.com/symfony-cmf/symfony-cmf-standard.git <dir-name>
     cd <dir-name>
 
-If there were problems during the ``create-project`` command, or if you use ``git clone`` or if you
-updated the checkout later always run the following command to update the dependencies:
+If there were problems during the ``create-project`` command, or if you used ``git clone`` or if you
+updated the checkout later, always run the following command to update the dependencies:
 
 .. code-block:: bash
 
