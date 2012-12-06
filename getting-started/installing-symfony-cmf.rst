@@ -25,12 +25,12 @@ Preconditions
 
 As Symfony CMF is based on Symfony2, you should make sure you
 meet the `Requirements for running Symfony2 <http://symfony.com/doc/current/reference/requirements.html>`_.
-Additionally, you need to have `Sqlite <http://www.sqlite.org/>`_
-installed, since it's used as the default storage medium. 
+Additionally, you need to have `SQLite <http://www.sqlite.org/>`_ PDO extension (pdo_sqlite)
+installed, since it's used as the default storage medium.
 
 .. note::
 
-    By default, Symfony CMF uses Jackalope + Doctrine DBAL, and Sqlite as
+    By default, Symfony CMF uses Jackalope + Doctrine DBAL, and SQLite as
     the underlying DB. However, Symfony CMF is storage agnostic, which means
     you can use one of several available data storage mechanisms without
     having to rewrite your code. For more information on the different
@@ -57,11 +57,11 @@ and then get the Symfony CMF code with it (this may take a while)
     php composer.phar create-project symfony-cmf/standard-edition <path-to-install> --stability=dev
     cd <path-to-install>
 
-The path ``<path-to-install>`` should either inside your web server doc root or configure
-a virtual host for ``<path-to-install>``.
+The path `<path-to-install>` should either inside your web server doc root or configure
+a virtual host for `<path-to-install>`.
 
 This will clone the standard edition and install all the dependencies and run some initial commands.
-These commands require write permissions to the ``app/cache`` and ``app/logs`` directory. In case
+These commands require write permissions to the `app/cache` and `app/logs` directory. In case
 the final commands end up giving permissions errors, please follow the `guidelines in the official
 documentation <http://symfony.com/doc/master/book/installation.html#configuration-and-setup>`_ for
 configuring the permissions.
@@ -98,6 +98,6 @@ And then access the CMF via:
     http://localhost:8000
 
 If you prefer to use another database backend, for example MySQL, run the Symfony configurator (point your browser
-to ``/web/config.php`) or set your database connection parameters in ``app/config/parameters.yml``. Make sure you
-leave the ``database_path` property at ``null`` in order to use another driver than SQLite. Leaving the field blank
-in the web-configurator should set it to ``null``.
+to `/web/config.php`) or set your database connection parameters in `app/config/parameters.yml`. Make sure you
+leave the `database_path` property at `null` in order to use another driver than SQLite. Leaving the field blank
+in the web-configurator should set it to `null`.
