@@ -60,13 +60,19 @@ and then get the Symfony CMF code with it (this may take a while)
 The path ``<path-to-install>`` should either inside your web server doc root or configure
 a virtual host for ``<path-to-install>``.
 
-Install all the required bundles (this may take a while)
+This will clone the standard edition and install all the dependencies and run some initial commands.
+These commands require write permissions to the ``app/cache`` and ``app/logs`` directory. In case
+the final commands end up giving permissions errors, please follow the `guidelines in the official
+documentation <http://symfony.com/doc/master/book/installation.html#configuration-and-setup>`_ for
+configuring the permissions.
+
+Then run the following command, to re-run the initial commands:
 
 .. code-block:: bash
 
     php composer.phar install
 
-Once you have downloaded the necessary resources, it's time to setup the database:
+The next step is to setup the database, if you want to use SQLite as your database backend just go ahead and run the following:
 
 .. code-block:: bash
 
@@ -90,4 +96,8 @@ And then access the CMF via:
 .. code-block:: text
 
     http://localhost:8000
-    
+
+If you prefer to use another database backend, for example MySQL, run the Symfony configurator (point your browser
+to ``/web/config.php`) or set your database connection parameters in ``app/config/parameters.yml``. Make sure you
+leave the ``database_path` property at ``null`` in order to use another driver than SQLite. Leaving the field blank
+in the web-configurator should set it to ``null``.
