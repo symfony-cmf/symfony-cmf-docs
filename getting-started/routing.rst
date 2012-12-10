@@ -198,6 +198,14 @@ your specific needs:
     If you feel like your specific Enhancer or Router can be usefull to others,
     get in touch with us and we'll try to include it in the bundle itself
 
+Symfony2 integration
+--------------------
+
+Like mentioned before, this bundle was designed to only require certain parts
+of Symfony2. However, if you wish to use it as part of your Symfony CMF project,
+an integration bundle is also available. We strongly recommend that you take
+a look at :doc:`../bundles/routing-extra`.
+
 Authors
 -------
 
