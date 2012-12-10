@@ -24,6 +24,7 @@ Add the following to your ``composer.json`` file
     "require": {
         ...
         "sonata-project/doctrine-phpcr-admin-bundle": "1.0.*",
+        "jms/security-extra-bundle": "1.4.*",
     }
 
 And then run
@@ -44,6 +45,9 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
             // ...
 
             // support for the admin
+            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            new JMS\AopBundle\JMSAopBundle(),
+            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Symfony\Cmf\Bundle\TreeBundle\SymfonyCmfTreeBundle(),
             new Symfony\Cmf\Bundle\TreeBrowserBundle\SymfonyCmfTreeBrowserBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
@@ -51,6 +55,7 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            
         );
         // ...
     }
@@ -59,6 +64,14 @@ Configuration
 -------------
 
 Add the sonata bundles to your application configuration
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        imports:
+            - { resource: security.yml }
 
 .. configuration-block::
 
@@ -130,6 +143,47 @@ Add the sonata bundles to your application configuration
                 - symfony_cmf_tree_browser.phpcr_move
                 - sonata.admin.doctrine_phpcr.phpcrodm_children
                 - sonata.admin.doctrine_phpcr.phpcrodm_move
+
+Add the security configuration file:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        jms_security_extra:
+             secure_all_services: false
+             expressions: true
+         
+         security:
+             encoders:
+                 Symfony\Component\Security\Core\User\User: plaintext
+         
+             role_hierarchy:
+                 ROLE_ADMIN:       ROLE_USER
+                 ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+         
+             providers:
+                 in_memory:
+                     memory:
+                         users:
+                             user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                             admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+         
+             firewalls:
+                 dev:
+                     pattern:  ^/(_(profiler|wdt)|css|images|js)/
+                     security: false
+         
+                 main:
+                     pattern: ^/
+                     anonymous: ~
+                     http_basic:
+                         realm: "Secured Demo Area"
+         
+             access_control:
+                 #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+                 #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
 
 Add route in to your routing configuration
 
