@@ -36,8 +36,8 @@ This component uses `composer <http://getcomposer.org>`_. It needs the
 Symfony2 Routing component and the Symfony2 HttpKernel (for the logger
 interface and cache warmup interface).
 
-For the DynamicRouter you will need something to implement the
-RouteRepositoryInterface with. We suggest using Doctrine as this allows to map
+For the ``DynamicRouter`` you will need something to implement the
+``RouteRepositoryInterface`` with. We suggest using Doctrine as this allows to map
 any class into a database.
 
 ChainRouter
@@ -83,7 +83,7 @@ to use the default routing declaration system.
 Dynamic Router
 ~~~~~~~~~~~~~~
 
-The DynamicRouter is capable of loading `Route <http://api.symfony.com/2.1/Symfony/Component/Routing/Route.html>`_
+The ``DynamicRouter`` is capable of loading `Route <http://api.symfony.com/2.1/Symfony/Component/Routing/Route.html>`_
 objects dynamically from a given data source provided to the Router as a
 ``RouteRepositoryInterface`` implementation. Although it can be used in other
 ways, the ``RouteRepositoryInterface``'s main goal is to be easily implementented
@@ -127,22 +127,22 @@ to dynamically assign a controller or template to a ``Route``. Some simple
 Enhancers are already packed with the bundle, documentation can be found
 inside each class file. 
 
-Linking a Route with a Document
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Linking a Route with a Content
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Depending on you application's logic, a requested url may have an associated
-Document from the database. Those Routes should implement the ``RouteObjectInterface``,
-and can optionally return a Document object, that will be bundled in the
+content from the database. Those Routes should implement the ``RouteObjectInterface``,
+and can optionally return a model instance, that will be bundled in the
 returned array, in the ``_content`` key. Notice that a Route can implement
-the above mentioned interface but still not to return any object, in which
-case no associated Document will be returned.
+the above mentioned interface but still not to return any model instance,
+in which case no associated object will be returned.
 
 Furthermore, routes that implement this interface can also provide a custom Route
 name. The key returned by ``getRouteKey`` will be used as route name instead of 
 the Symfony core compatible route name and can contain any characters. This allows
 you, for example, to set a path as the route name.
 
-All routes still need to extend the base class ``Symfony\Component\Routing\Route``
+All routes still need to extend the base class ``Symfony\Component\Routing\Route``.
 
 Redirections
 ^^^^^^^^^^^^
@@ -160,9 +160,9 @@ Routes and locales
 ^^^^^^^^^^^^^^^^^^
 
 You can use the ``_locale`` default value in a Route to create one Route
-per locale that, all referencing the same multilingual content. The ``DynamicRouter``
-respects the ``_locale`` when generating routes from content. When resolving
-the route, the _locale gets into the request and is picked up by the Symfony2
+per locale that, all referencing the same multilingual model instance. The ``DynamicRouter``
+respects the ``_locale`` when generating routes from model instances. When resolving
+the route, the ``_locale`` gets into the request and is picked up by the Symfony2
 locale system.
 
 .. note::
@@ -179,8 +179,8 @@ Url generation
 to handle url generation. You can generate urls for your content in three ways:
 
 * Either pass an implementation of ``RouteObjectInterface`` as ``route`` parameter 
-* Or pass a content object as ``content`` parameter 
-* Or supply an implementation of ``ContentRepositoryInterface`` and the id of the content as parameter ``content_id``
+* Or pass a model instance as ``content`` parameter 
+* Or supply an implementation of ``ContentRepositoryInterface`` and the id of the model instance as parameter ``content_id``
 
 Customization
 -------------

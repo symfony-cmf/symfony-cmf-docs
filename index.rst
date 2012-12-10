@@ -53,7 +53,6 @@ Just started learning about the CMF? Want to know if the CMF fits your project? 
 	
 	getting-started/installing-symfony-cmf
 	getting-started/overview
-	getting-started/routing
 
 
 Tutorials
@@ -106,6 +105,16 @@ Special solutions for special needs that go beyond standard usage.
 	cookbook/phpcr-odm-custom-documentclass-mapper
 	cookbook/using-a-custom-route-repository
 	cookbook/installing-cmf-sandbox
+	
+Components
+----------
+
+Looking for some for information about the low level components of the CMF?
+
+.. toctree::
+	:maxdepth: 1
+
+	components/routing
 
 Contributing
 ------------
