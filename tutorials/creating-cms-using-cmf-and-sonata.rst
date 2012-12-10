@@ -24,7 +24,6 @@ Add the following to your ``composer.json`` file
     "require": {
         ...
         "sonata-project/doctrine-phpcr-admin-bundle": "1.0.*",
-        "jms/security-extra-bundle": "1.4.*",
     }
 
 And then run
@@ -46,8 +45,6 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
 
             // support for the admin
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
-            new JMS\AopBundle\JMSAopBundle(),
-            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Symfony\Cmf\Bundle\TreeBundle\SymfonyCmfTreeBundle(),
             new Symfony\Cmf\Bundle\TreeBrowserBundle\SymfonyCmfTreeBrowserBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
@@ -150,11 +147,7 @@ Add the security configuration file:
 
     .. code-block:: yaml
 
-        # app/config/security.yml
-        jms_security_extra:
-             secure_all_services: false
-             expressions: true
-         
+         # app/config/security.yml
          security:
              encoders:
                  Symfony\Component\Security\Core\User\User: plaintext
