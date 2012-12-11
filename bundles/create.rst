@@ -142,6 +142,12 @@ Configuration
             # stanbol url for semantic enhancement, otherwise defaults to the demo install
             # stanbol_url: http://dev.iks-project.eu:8081
 
+            # fix the Hallo editor toolbar on top of the page
+            # fixed_toolbar: true
+
+            # RDFa type used for the titles. Allows a plain text editing
+            # title_type: 'dcterms:title'
+
 The provided javascript file configures create.js and the hallo editor. It
 enables some plugins like the tag editor to edit ``skos:related`` collections of
 attributes. We hope to add some configuration options to tweak the
