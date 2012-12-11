@@ -126,10 +126,11 @@ Getting the Route
 
 The repository to use can be configured to best suit each implementation's
 needs, and must implement the ``RouteRepositoryInterface``. As part of this
-bundle, an implementation for `PHPCR-ODM`_ is provided, but you can easily
-create your own, as the Router itself is storage agnostic. The default repository
-loads the route at the path in the request and all parent paths to allow for
-some of the path segments being parameters.
+bundle, an implementation for `PHPCR-ODM <https://github.com/doctrine/phpcr-odm>`_
+is provided, but you can easily create your own, as the Router itself is
+storage agnostic. The default repository loads the route at the path in the
+request and all parent paths to allow for some of the path segments being
+parameters.
 
 For more detailed information on this implementation and how you can customize
 or extend it, refer to :doc:`../bundles/routing-extra`.
@@ -146,12 +147,12 @@ The ``DynamicRouter`` uses one of several possible methods to determine it
 (in order of precedence):
 
 - Explicit: The stored Route document itself can explicitly declare the target
-Controller ``getRouteDefaults()``.
+    Controller ``getRouteDefaults()``.
 - By alias: the Route returns a 'type' value in ``getRouteDefaults()``,
-which is then matched against the provided configuration from config.yml
+    which is then matched against the provided configuration from config.yml
 - By class: requires the Route instance to implement ``RouteObjectInterface``
-and return an object for ``getRouteContent()``. The returned class type is
-then matched against the provided configuration from config.yml.
+    and return an object for ``getRouteContent()``. The returned class type is
+    then matched against the provided configuration from config.yml.
 - Default: if configured, a default Controller will be used.
 
 Appart from this, the ``DynamicRouter`` is also capable of dynamically specifying 
@@ -159,10 +160,10 @@ which Template will be used, in a similar way to the one used to determine
 the Controller (in order of precedence):
 
 - Explicit: The stored Route document itself can explicitly declare the target
-Template in ``getRouteDefaults()``.
+    Template in ``getRouteDefaults()``.
 - By class: requires the Route instance to implement ``RouteObjectInterface``
-and return an object for ``getRouteContent()``. The returned class type is
-then matched against the provided configuration from config.yml.
+    and return an object for ``getRouteContent()``. The returned class type is
+    then matched against the provided configuration from config.yml.
 
 
 Here's an example on how to configure the above mentioned options:
@@ -242,7 +243,7 @@ Integrating with SonataAdmin
 
 If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the composer.json
 require section, the route documents are exposed in the SonataDoctrinePhpcrAdminBundle.
-For instructions on how to configure this Bundle see :doc:`doctrine_phpcr_admin`.
+For instructions on how to configure this Bundle see :doc:`../bundles/doctrine_phpcr_admin`.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
 ``SonataDoctrinePhpcrAdminBundle`` is available but you can explicitly disable it
@@ -251,7 +252,6 @@ if Sonata becomes unavailable.
 
 You have a couple of configuration options for the admin. The ``content_basepath``
 points to the root of your content documents.
-
 
 .. configuration-block::
 
