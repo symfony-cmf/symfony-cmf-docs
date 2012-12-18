@@ -145,8 +145,8 @@ Configuration
             # fix the Hallo editor toolbar on top of the page
             # fixed_toolbar: true
 
-            # RDFa type used for the titles. Allows a plain text editing
-            # title_type: 'dcterms:title'
+            # RDFa types used for elements to be edited in plain text
+            # plain_text_types: ['dcterms:title']
 
 The provided javascript file configures create.js and the hallo editor. It
 enables some plugins like the tag editor to edit ``skos:related`` collections of
