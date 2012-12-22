@@ -1,4 +1,4 @@
-﻿Symfony CMF Documentation
+Symfony CMF Documentation
 =========================
 
 Welcome to the official documentation of the `Symfony Content Management Framework`_.
@@ -52,6 +52,7 @@ Just started learning about the CMF? Want to know if the CMF fits your project? 
 	:maxdepth: 1
 	
 	getting-started/installing-symfony-cmf
+	getting-started/overview
 
 
 Tutorials
@@ -104,7 +105,7 @@ Special solutions for special needs that go beyond standard usage.
 	cookbook/phpcr-odm-custom-documentclass-mapper
 	cookbook/using-a-custom-route-repository
 	cookbook/installing-cmf-sandbox
-
+	
 Components
 ----------
 
