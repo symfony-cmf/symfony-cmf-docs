@@ -42,7 +42,7 @@ The values are:
                 use_sonata_admin:     auto # use true/false to force using / not using sonata admin
                 admin_class:          ~
                 document_class:       ~
-                locales:              []
+                locales:              [] # if you use multilang, you have to define at least one locale
 
 If you want to render the menu from twig, make sure you have not disabled twig
 in the ``knp_menu`` configuration section.

@@ -28,4 +28,4 @@ The configuration key for this bundle is ``symfony_cmf_content``
                 admin_class:          ~
                 document_class:       ~
                 use_sonata_admin:     auto
-                locales:              []
+                locales:              [] # if you use multilang, you have to define at least one locale
