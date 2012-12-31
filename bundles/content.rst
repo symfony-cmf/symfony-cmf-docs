@@ -24,8 +24,8 @@ The configuration key for this bundle is ``symfony_cmf_content``
             content_basepath:     /cms/content
             static_basepath:      /cms/content/static
             use_sonata_admin:     auto
-            multilang:
+            multilang:                # the whole multilang section is optionnal
                 admin_class:          ~
                 document_class:       ~
                 use_sonata_admin:     auto
-                locales:              []
+                locales:              [] # if you use multilang, you have to define at least one locale
