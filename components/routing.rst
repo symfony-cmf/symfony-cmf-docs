@@ -97,9 +97,8 @@ towards the configured routing files of Symfony2. This component provides the
 objects on the fly. The matcher is responsible of doing the actual match
 from request to a parameters array.
 
-Its other feature are the ``RouteEnhancerInterface``
-strategies used to infer some routing parameters from the information provided
-by the match (see below).
+Its other feature are the ``RouteEnhancerInterface`` strategies used to infer
+routing parameters from the information provided by the match (see below).
 
 Nested Matcher
 ~~~~~~~~~~~~~~
@@ -147,7 +146,9 @@ Matching
 """"""""
 
 The NestedMatcher can apply user provided ``RouteFilterInterface`` implementations
-to reduce the provided ``Route`` objects, i.e. for doing content negotiation.
+to reduce the provided ``Route`` objects, e.g. for doing content negotiation.
+It is the responsibility of each filter to throw the ResourceNotFoundException if
+no more routes are left in the collection.
 
 The final matcher has to determine exactly one route as the best match or throw
 an exception if nothing matches the request. The default implementation uses the
@@ -160,9 +161,9 @@ Enhancing the route
 Optionally, a set of ``RouteEnhancerInterface`` instances can be declared and
 associated with the DynamicRouter. The aim of these is to allow you to
 manipulate the parameters from the matched route. They can be used, for
-example, to dynamically assign a controller or template to a ``Route``. Some
-simple Enhancers are already packed with the bundle, documentation can be found
-inside each class file.
+example, to dynamically assign a controller or template to a ``Route`` or to
+"upcast" a request parameter to an object. Some simple Enhancers are already
+packed with the bundle, documentation can be found inside each class file.
 
 Linking a Route with a Content
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -201,9 +202,9 @@ implementing that redirection under the full Symfony2 stack, refer to
 Generating URLs
 ---------------
 
-A router is also an ``UrlGeneratorInterface`` to generate an URL from a route.
-The ``ChainRouter`` just asks each of its routes to generate the URL until it
-finds one that can generate the URL.
+A router is also an ``UrlGeneratorInterface`` object, which allows it to
+generate an URL from a route. The ``ChainRouter`` just asks each of its routers
+to generate the URL until it finds one that can generate the URL.
 
 The ``DynamicRouter`` is configured with a generator instance. The CMF routing
 component provides some generators that can handle more than Symfony2 route
