@@ -26,7 +26,7 @@ or explicitly enable to get an error if the menu bundle becomes unavailable.
 
 The routing section is configuring what template or controller to use for a
 content class. This is reusing what routing extra does, please see the corresponding
-:ref:`routing configuration section<routing-controller-mapper>`. It also explains the
+:ref:`routing configuration section<routing-route-enhancer>`. It also explains the
 ``generic_controller``.
 
 See the section below for multilanguage support.
