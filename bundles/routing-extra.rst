@@ -6,13 +6,13 @@ integrates dynamic routing into Symfony using :doc:`../components/routing`.
 
 The ``ChainRouter`` is meant to replace the default Symfony Router. All it does
 is collect a prioritized list of routers and try to match requests and generate
-urls with all of them. One of the routers in that chain can of course be the
+URLs with all of them. One of the routers in that chain can of course be the
 default router so you can still use the standard way for some of your routes.
 
 Additionally, this bundle delivers useful router implementations. Currently,
-there is the ``DynamicRouter`` that routes based on a implemented repository that
-provide Symfony2 Route objects. The repository can be implemented using a
-database, for example with Doctrine `PHPCR-ODM`_ or Doctrine ORM. The bundle
+there is the ``DynamicRouter`` that routes based on a custom loader logic
+for Symfony2 Route objects. The provider can be implemented using a
+database, for example with Doctrine `PHPCR-ODM`_ or Doctrine ORM. This bundle
 provides a default implementation for Doctrine `PHPCR-ODM`_.
 
 The DynamicRouter service is only made available when explicitly enabled in the
@@ -97,19 +97,21 @@ See also official Symfony2 `documentation for DependencyInjection tags`_
 Dynamic Router
 --------------
 
-This implementation of a router loads routes from a RouteRepositoryInterface.
-This interface can be easily implemented with Doctrine.
+This implementation of a router uses the NestedMatcher which loads routes from
+a RouteProviderInterface. The provider interface can be easily implemented with
+Doctrine.
 
-The router works with the base UrlMatcher and UrlGenerator classes and only
-adds loading routes from the database and the concept of referenced content.
+The router works with extended UrlMatcher and UrlGenerator classes that add
+loading routes from the database and the concept of referenced content.
 
-The DynamicRouter service is set up with a repository. See the configuration
-section for how to change the route_repository_service and the following
-section on more details for the default `PHPCR-ODM`_ based implementation.
+The NestedMatcher service is set up with a route provider. See the
+configuration section for how to change the route_repository_service and the
+following section on more details for the default `PHPCR-ODM`_ based
+implementation.
 
-You will want to configure the controller mappers that decide what controller
-will be used to handle the request, to avoid hardcoding controller names into
-your route documents.
+You may want to configure route enhancers to decide what controller is used to
+handle the request, to avoid hardcoding controller names into your route
+documents.
 
 The minimum configuration required to load the dynamic router as service
 ``symfony_cmf_routing_extra.dynamic_router`` is to have ``enabled: true`` in
@@ -154,32 +156,33 @@ Your controllers can (and should) declare the parameter $contentDocument in thei
 ``Action`` methods if they are supposed to work with content referenced by the routes.
 See ``Symfony\Cmf\Bundle\ContentBundle\Controller\ContentController`` for an example.
 
-.. _routing-controller-mapper:
+.. _routing-route-enhancer:
 
 Configuration
 ~~~~~~~~~~~~~
 
-To configure the ControllerMappers, you can specify mappings. Presence of each
-of the mappings makes the DI container inject the respective mapper into the
-DynamicRouter.
+To configure what controller is used for which content, you can specify route
+enhancers. Presence of each of any enhancer configuration makes the DI
+container inject the respective enhancer into the DynamicRouter.
 
-The possible mappings are (in order of precedence):
+The possible enhancements are (in order of precedence):
 
 * (Explicit controller): If there is a _controller set in getRouteDefaults(),
-    it is used and no mapper is asked.
+    no enhancer will overwrite it.
 * Explicit template: requires the route document to return a '_template'
     parameter in getRouteDefaults. The configured generic controller is
-    returned by the mapper.
+    set by the enhancer.
 * Controller by alias: requires the route document to return a 'type' value in
     getRouteDefaults()
 * Controller by class: requires the route document to return an object for
     getRouteContent(). The content document is checked for being instanceof the
-    class names in the map and if matched that controller is returned.
-    Instanceof is used instead of direct lookup to work with proxy classes.
+    class names in the map and if matched that controller is used.
+    Instanceof is used instead of direct comparison to work with proxy classes
+    and other extending classes.
 * Template by class: requires the route document to return an object for
     getRouteContent(). The content document is checked for being instanceof the
     class names in the map and if matched that template will be set as
-    '_template' in the $defaults and return the configured generic controller
+    '_template' in the $defaults and the generic controller used as controller.
 
 
 .. configuration-block::
@@ -197,23 +200,27 @@ The possible mappings are (in order of precedence):
                 templates_by_class:
                     Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: SymfonyCmfContentBundle:StaticContent:index.html.twig
 
-                # the repository is responsible to load routes
-                # for `PHPCR-ODM`_, we mainly use this because it can map from url to repository path
-                # an orm repository might need different logic. look at cmf_routing.xml for an example if you
-                # need to define your own service
+                # the route provider is responsible for loading routes.
                 manager_registry: doctrine_phpcr
                 manager_name: default
 
-                # if you use the default doctrine route repository service, you can use this to customize
-                # the root path for the `PHPCR-ODM`_ RouteRepository
-                # this base path will be injected by the Listener\IdPrefix - but only to routes
-                # matching the prefix, to allow for more than one route source.
+                # if you use the default doctrine route repository service, you
+                # can use this to customize the root path for the `PHPCR-ODM`_
+                # RouteProvider. This base path will be injected by the
+                # Listener\IdPrefix - but only to routes matching the prefix,
+                # to allow for more than one route source.
                 routing_repositoryroot: /cms/routes
 
-                # If you want to replace the default route or content reposititories
+                # If you want to replace the default route provider or content repository
                 # you can specify their service IDs here.
-                route_repository_service_id: my_bundle.repository.endpoint
+                route_provider_service_id: my_bundle.provider.endpoint
                 content_repository_service_id: my_bundle.repository.endpoint
+
+                # an orm provider might need different configuration. look at
+                # cmf_routing.xml for an example if you need to define your own
+                # service
+
+
 
 To see some examples, please look at the `CMF sandbox`_ and specifically the routing fixtures loading.
 
@@ -222,16 +229,17 @@ Sonata Admin Configuration
 """"""""""""""""""""""""""
 
 If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the composer.json
-require section, the route documents are exposed in the SonataDoctrinePhpcrAdminBundle.
+require section and the SonataDoctrinePhpcrAdminBundle is loaded in the
+application kernel, the route documents are exposed in the SonataDoctrinePhpcrAdminBundle.
 For instructions on how to configure this Bundle see :doc:`doctrine_phpcr_admin`.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
-``SonataDoctrinePhpcrAdminBundle`` is available but you can explicitly disable it
+``SonataDoctrinePhpcrAdminBundle`` is available, but you can explicitly disable it
 to not have it even if sonata is enabled, or explicitly enable to get an error
 if Sonata becomes unavailable.
 
-You have a couple of configuration options for the admin. The ``content_basepath``
-points to the root of your content documents.
+If you want to use the admin, you want to configure the ``content_basepath`` to
+point to the root of your content documents.
 
 
 .. configuration-block::
@@ -270,8 +278,8 @@ redirections and locales.
 
 Notes:
 
-* RouteObjectInterface: The provided documents implement this interface to map content to routes and to (optional) provide 
-    a custom route name instead of the symfony core compatible route name. 
+* RouteObjectInterface: The provided documents implement this interface to map content to routes and to (optional) provide
+    a custom route name instead of the symfony core compatible route name.
 * Redirections: This bundle provides a RedirectController.
 
 TODO: see DependencyInjection/Configuration.php of this bundle. I could not figure out how to set
