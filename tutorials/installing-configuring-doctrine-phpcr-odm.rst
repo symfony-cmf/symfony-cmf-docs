@@ -3,17 +3,22 @@ Installing and configuring Doctrine PHPCR-ODM
 
 The Symfony2 CMF needs somewhere to store the content. Many of the bundles provide documents and
 mappings for the PHP Content Repository - Object Document Mapper (PHPCR-ODM), and the documentation
-is currently based around using this. However, it should also be possible to use another form of
+is currently based around using this. However, it should also be possible to use any other form of
 content storage, such as another ORM/ODM or MongoDB.
 
 The goal of this tutorial is to install and configure Doctrine PHPCR-ODM, ready for you to get
 started with the CMF.
 
-For more details see the `official PHPCR-ODM documentation <http://www.doctrine-project.org/projects/phpcr-odm.html>`_.
-Some additional information can be found on the `DoctrinePhpcrBundle github.com project <https://github.com/doctrine/DoctrinePHPCRBundle>`_,
+For more details see the `full PHPCR-ODM documentation <http://www.doctrine-project.org/projects/phpcr-odm.html>`_.
+Some additional information can be found in the :doc:`../bundles/phpcr-odm` reference,
 which for the most part mimics the standard `DoctrineBundle <https://github.com/doctrine/DoctrineBundle>`_.
 
 Finally for information about PHPCR see the `official PHPCR website <http://phpcr.github.com>`_.
+
+.. tip::
+
+    If you just want to use PHPCR but not the PHPCR-ODM, you can skip the step about registering
+    annotations and the part of the configuration section starting with `odm`.
 
 .. index:: PHPCR, ODM
 
@@ -147,12 +152,18 @@ Configuration
 -------------
 Next step is to configure the bundles.
 
-Doctrine PHPCR-ODM
-~~~~~~~~~~~~~~~~~~
+PHPCR Session
+~~~~~~~~~~~~~
 
 Basic configuration for each content repository is shown below; add the appropriate lines to your
-``app/config/config.yml``. More information on configuring this bundle can be found
-`on the Doctrine PHPCR project page <https://github.com/doctrine/DoctrinePHPCRBundle#readme>`_.
+``app/config/config.yml``. More information on configuring this bundle can be found in the reference
+chapter :doc:`../bundles/phpcr-odm`.
+
+The workspace, username and password parameters are for the PHPCR repository and should not be
+confused with possible database credentials. They come from your content repository setup. If you
+want to use a different workspace than *default* you have to create it first in your repository.
+
+If you want to use the PHPCR-ODM as well, please also see the next section.
 
 **Jackalope with Jackrabbit**
 
@@ -169,8 +180,7 @@ Basic configuration for each content repository is shown below; add the appropri
                 workspace: default
                 username: admin
                 password: admin
-            odm:
-                auto_mapping: true
+            # odm configuration see below
 
 **Jackalope with Doctrine DBAL**
 
@@ -187,13 +197,25 @@ Basic configuration for each content repository is shown below; add the appropri
                 workspace: default
                 username: admin
                 password: admin
-            odm:
-                auto_mapping: true
+            # odm configuration see below
 
 .. note::
 
     Make sure you also configure the main ``doctrine:`` section for your chosen RDBMS.
-    See `Databases and Doctrine <http://symfony.com/doc/2.1/book/doctrine.html>`_.
+    If you want to use a different than the default connection, configure it in the dbal
+    section and specify it in the connection parameter. A typical example configuration is:
+
+        doctrine:
+            dbal:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                dbname:   %database_name%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+
+     See `Databases and Doctrine <http://symfony.com/doc/2.1/book/doctrine.html>`_ for more information.
 
 **Midgard**
 
@@ -217,8 +239,30 @@ Basic configuration for each content repository is shown below; add the appropri
                 workspace: default
                 username: admin
                 password: admin
+            # odm configuration see below
+
+
+Doctrine PHPCR-ODM
+~~~~~~~~~~~~~~~~~~
+
+Any of the above configurations will give you a valid PHPCR session. If you want to use the
+Object-Document manager, you need to configure it as well. The simplest is to set
+``auto_mapping: true`` to make the PHPCR bundle recognize documents in the ``<Bundle>/Document``
+folder and look for mappings in ``<Bundle>/Resources/config/doctrine/<Document>.phpcr.xml`` resp.
+``...yml``. Otherwise you need to manually configure the mappings section. See the
+:ref:`PHPCR-ODM configuration reference<reference-phpcr-odm-configuration>` for details.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        doctrine_phpcr:
+            session:
+                ...
             odm:
                 auto_mapping: true
+
 
 Setting up the content repository
 ---------------------------------

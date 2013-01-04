@@ -13,6 +13,8 @@ Doctrine PHPCR-ODM to provide the ODM document manager in symfony.
     To learn how to use PHPCR refer to `the PHPCR website <http://phpcr.github.com/>`_ and for
     Doctrine PHPCR-ODM to the `PHPCR-ODM documentation <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/>`_.
 
+This bundle is based on the AbstractDoctrineBundle and thus is similar to the
+configuration of the Doctrine ORM and MongoDB bundles.
 
 Setup
 -----
@@ -27,8 +29,7 @@ Configuration
 
     If you want to only use plain PHPCR without the PHPCR-ODM, you can simply not
     configure the ``odm`` section to avoid loading the services at all. Note that most
-    CMF bundles by default use PHPCR-ODM documents.
-
+    CMF bundles by default use PHPCR-ODM documents and thus need ODM enabled.
 
 
 PHPCR Session Configuration
@@ -42,13 +43,13 @@ password.
 
 .. Tip::
 
-    Every PHPCR implementation should provide the default workspace, but you
+    Every PHPCR implementation should provide the workspace called *default*, but you
     can choose a different one. There is the ``doctrine:phpcr:workspace:create``
     command to initialize a new workspace. See also :ref:`reference-phpcr-commands`.
 
-This username and password are what is used on the PHPCR layer in the
+The username and password you specify here are what is used on the PHPCR layer in the
 ``PHPCR\SimpleCredentials``. They will usually be different from the username
-and password used by midgard or Doctrine DBAL to connect to the
+and password used by Midgard2 or Doctrine DBAL to connect to the
 underlying RDBMS where the data is actually stored.
 
 If you are using one of the Jackalope backends, you can also specify ``options``.
@@ -68,14 +69,20 @@ pre-fetching nodes by setting ``jackalope.fetch_depth`` to something bigger than
                 workspace: default
                 username: admin
                 password: admin
+                ## tweak options for jackrabbit and doctrinedbal (all jackalope versions)
                 # options:
-                #    key: value
+                #    'jackalope.fetch_depth': 1
+
 
 
 PHPCR Session with Jackalope Jackrabbit
 """""""""""""""""""""""""""""""""""""""
 
 The only setup required is to install Apache Jackrabbit (see :ref:`installing Jackrabbit <tutorials-installing-phpcr-jackrabbit>`).
+
+The configuration needs the ``url`` parameter to point to your jackrabbit. Additionally you can
+tune some other jackrabbit-specific options, for example to use it in a load-balanced setup or to fail
+early for the price of some round trips to the backend.
 
 .. configuration-block::
 
@@ -87,6 +94,16 @@ The only setup required is to install Apache Jackrabbit (see :ref:`installing Ja
                 backend:
                     type: jackrabbit
                     url: http://localhost:8080/server/
+                    ## jackrabbit only, optional. see https://github.com/jackalope/jackalope/blob/master/src/Jackalope/RepositoryFactoryJackrabbit.php
+                    # default_header: ...
+                    # expect: 'Expect: 100-continue'
+                    # enable if you want to have an exception right away if PHPCR login fails
+                    # check_login_on_server: false
+                    # enable if you experience segmentation faults while working with binary data in documents
+                    # disable_stream_wrapper: true
+                    # enable if you do not want to use transactions and you neither want the odm to automatically use transactions
+                    # its highly recommended NOT to disable transactions
+                    # disable_transactions: true
 
 .. _reference-phpcr-doctrinedbal:
 
@@ -110,6 +127,14 @@ the `Symfony2 Doctrine documentation <http://symfony.com/doc/current/book/doctri
                 backend:
                     type: doctrinedbal
                     connection: doctrine.dbal.default_connection
+                    # enable if you want to have an exception right away if PHPCR login fails
+                    # check_login_on_server: false
+                    # enable if you experience segmentation faults while working with binary data in documents
+                    # disable_stream_wrapper: true
+                    # enable if you do not want to use transactions and you neither want the odm to automatically use transactions
+                    # its highly recommended NOT to disable transactions
+                    # disable_transactions: true
+
 
 Once the connection is configured, you can create the database and you *need*
 to initialize the database with the ``doctrine:phpcr:init:dbal`` command.
@@ -137,9 +162,11 @@ PHPCR Session with Midgard2
 Midgard2 is an application that provides a compiled PHP extension. It
 implements the PHPCR API on top of a standard RDBMS.
 
-For installation and the exact meanings and supported values in the configuration
-options, see the `official Midgard PHPCR documentation <http://midgard-project.org/phpcr/>`_
+To use the Midgard2 PHPCR provider, you must have both the [midgard2 PHP extension](http://midgard-project.org/midgard2/#download)
+and [the midgard/phpcr package](http://packagist.org/packages/midgard/phpcr) installed.
+The settings here correspond to Midgard2 repository parameters as explained in [the getting started document](http://midgard-project.org/phpcr/#getting_started).
 
+The session backend configuration looks as follows:
 
 .. configuration-block::
 
@@ -159,6 +186,9 @@ options, see the `official Midgard PHPCR documentation <http://midgard-project.o
                     db_init: true
                     blobdir: /tmp/cmf-blobs
 
+For more information, please refer to the `official Midgard PHPCR documentation <http://midgard-project.org/phpcr/>`_.
+
+.. _reference-phpcr-odm-configuration:
 
 Doctrine PHPCR-ODM Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -167,7 +197,7 @@ This configuration section manages the Doctrine PHPCR-ODM system. If you do not
 configure anything here, the ODM services will not be loaded.
 
 If you enable ``auto_mapping``, you can place your mappings in
-``<Bundle>/Resources/config/doctrine/<Document>.phpcr.xml`` resp. .yml to
+``<Bundle>/Resources/config/doctrine/<Document>.phpcr.xml`` resp. ``...yml`` to
 configure mappings for documents you provide in the ``<Bundle>/Document``
 folder. Otherwise you need to manually configure the mappings section.
 
@@ -226,6 +256,7 @@ languages. For more information on multilingual documents, see the
         # app/config/config.yml
         doctrine_phpcr:
             odm:
+                ...
                 locales:
                     en: [de, fr]
                     de: [en, fr]
@@ -295,7 +326,7 @@ To use the non-default session, specify the session attribute.
             default_document_manager:  ~
             document_managers:
                 <name>:
-                    # same options as directly in odm, see above.
+                    # same keys as directly in odm, see above.
                     session: <sessionname>
 
 
@@ -364,6 +395,53 @@ A full example looks as follows:
 
 .. _reference-phpcr-commands:
 
+
+Services
+--------
+
+You can access the PHPCR services like this:
+
+.. code-block:: php
+
+    <?php
+
+    namespace Acme\DemoBundle\Controller;
+
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+    class DefaultController extends Controller
+    {
+        public function indexAction()
+        {
+            // PHPCR session instance
+            $session = $this->container->get('doctrine_phpcr.default_session');
+            // PHPCR ODM document manager instance
+            $documentManager = $this->container->get('doctrine_phpcr.odm.default_document_manager');
+        }
+    }
+
+
+Events
+------
+
+You can tag services to listen to Doctrine PHPCR events. It works the same way
+as for Doctrine ORM. The only differences are
+
+* use the tag name ``doctrine_phpcr.event_listener`` resp. ``doctrine_phpcr.event_subscriber`` instead of ``doctrine.event_listener``.
+* expect the argument to be of class Doctrine\ODM\PHPCR\Event\LifecycleEventArgs rather than in the ORM namespace.
+
+You can register for the events as described in `the PHPCR-ODM documentation<http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html>`_.
+
+    services:
+        my.listener:
+            class: Acme\SearchBundle\Listener\SearchIndexer
+                tags:
+                    - { name: doctrine_phpcr.event_listener, event: postPersist }
+
+More information on the doctrine event system integration is in this `Symfony cookbook entry<http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html>`_.
+
+
+
 Doctrine PHPCR Commands
 -----------------------
 
@@ -387,6 +465,13 @@ Use ``app/console help <command>`` to see all options each of the commands has.
 - ``doctrine:phpcr:dump``  Dump the content repository
 - ``doctrine:phpcr:query``  Execute a JCR SQL2 statement
 - ``doctrine:phpcr:mapping:info``  Shows basic information about all mapped documents
+
+
+.. note::
+
+    To use the ``doctrine:phpcr:fixtures:load`` command, you additionally need to install the
+    `DoctrineFixturesBundle<http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_
+    and its dependencies. See that documentation page for how to use fixtures.
 
 
 Jackrabbit specific commands
