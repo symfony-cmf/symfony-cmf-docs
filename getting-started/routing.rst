@@ -23,7 +23,7 @@ The solution
 In order to address these issues, a new routing system was developed, that
 takes into account the typical needs of a CMS routing:
 
-- User defined urls.
+- User defined URLs.
 - Multi-site.
 - Multi-language.
 - Tree-like structure for easier management.
@@ -39,7 +39,7 @@ It's used as a replacement for Symfony2's default routing system and, like
 it, is responsible for determining which Controller will handle each request.
 
 The ``ChainRouter`` works by accepting a set of prioritized routing strategies,
-`RouterInterface <http://api.symfony.com/2.1/Symfony/Component/Routing/RouterInterface.html>`_
+`RouterInterface <http://api.symfony.com/master/Symfony/Component/Routing/RouterInterface.html>`_
 implementations, commonly referred to as "Routers". The routers are reponsible
 for matching an incoming request to an actual Controller, and to do so, the
 ``ChainRouter`` iterates over the configured Routers according to their configured
@@ -60,11 +60,11 @@ priority:
                     router.default: 100
 
 You can also load Routers using tagged services, by using the `router` tag
- nd an optional `priority`. The higher the priority, the earlier your router
- will be asked to match the route. If you do not specify the priority, your
- router will come last. If there are several routers with the same priority,
- the order between them is undetermined. The tagged service will look like
- this:
+and an optional `priority`. The higher the priority, the earlier your router
+will be asked to match the route. If you do not specify the priority, your
+router will come last. If there are several routers with the same priority,
+the order between them is undetermined. The tagged service will look like
+this:
 
 .. configuration-block::
 
@@ -97,10 +97,9 @@ files, or as declared by other bundles.
 The DynamicRouter
 -----------------
 
-This Router can dynamically load Route instances from a given repository. It then
-uses a matching process to the incoming requested url to a specific Route,
-which in turn is used to determine which Controller to forward the request
-to.
+This Router can dynamically load Route instances from a given provider. It then
+uses a matching process to the incoming request to a specific Route, which
+in turn is used to determine which Controller to forward the request to.
 
 The bundle's default configuration states that ``DynamicRouter`` is disabled
 by default. However, in Symfony CMF, it comes activated, as stated in the
@@ -124,11 +123,11 @@ Templates.
 Getting the Route
 ~~~~~~~~~~~~~~~~~
 
-The repository to use can be configured to best suit each implementation's
-needs, and must implement the ``RouteRepositoryInterface``. As part of this
+The provider to use can be configured to best suit each implementation's
+needs, and must implement the ``RouteProviderInterface``. As part of this
 bundle, an implementation for `PHPCR-ODM <https://github.com/doctrine/phpcr-odm>`_
 is provided, but you can easily create your own, as the Router itself is
-storage agnostic. The default repository loads the route at the path in the
+storage agnostic. The default provider loads the route at the path in the
 request and all parent paths to allow for some of the path segments being
 parameters.
 
@@ -147,7 +146,7 @@ The ``DynamicRouter`` uses one of several possible methods to determine it
 (in order of precedence):
 
 - Explicit: The stored Route document itself can explicitly declare the target
-    Controller ``getRouteDefaults()``.
+    Controller by specifying the '_controller' value in ``getRouteDefaults()``.
 - By alias: the Route returns a 'type' value in ``getRouteDefaults()``,
     which is then matched against the provided configuration from config.yml
 - By class: requires the Route instance to implement ``RouteObjectInterface``
@@ -187,13 +186,20 @@ Notice that ``enabled: true`` is no longer present. It's only required if
 no other configuration paramenter is provided. The router is automatically
 enabled as soon as you add any other configuration to the `dynamic` entry.
 
+.. note::
+    
+    Internally, the routing component maps these configuration options to
+    several ``RouteEnhancerInterface`` instances. The actual scope of these
+    enhancers in much wider, and you can find more information about them
+    in the :doc:`../components/routing` documentation page.
+
 Linking a Route with a Model instance
 -------------------------------------
 
-Depending on you application's logic, a requested url may have an associated
+Depending on you application's logic, a requested URL may have an associated
 model instance from the database. Those Routes can implement the ``RouteObjectInterface``,
 and optionally return a model instance, that will be automatically passed
-to the Controller as the ``$contentDocument`` variable.
+to the Controller as the ``$contentDocument`` variable, if declared as parameter.
 
 Notice that a Route can implement the above mentioned interface but still
 not to return any model instance, in which case no associated object will
@@ -208,10 +214,10 @@ Redirections
 
 You can build redirections by implementing the ``RedirectRouteInterface``.
 If you are using the default ``PHPCR-ODM`` repository, a ready to use implementation
-is provided in``RedirectRoute`` Document. It can redirect either to an absolute
+is provided in the ``RedirectRoute`` Document. It can redirect either to an absolute
 URI, to a named Route that can be generated by any Router in the chain or
-to another Route object in the repository. The actual redirection is handled
-by a specific Controller, that can be configured like so:
+to another Route object known to the route provider. The actual redirection
+is handled by a specific Controller, that can be configured like so:
 
 .. configuration-block::
 
@@ -227,15 +233,14 @@ by a specific Controller, that can be configured like so:
     The actual configuration for this association exists as a service, not as part of
     a config.yml file. Like discussed before, any of the approaches can be used.
 
-Url generation
+URL generation
 --------------
 
 Symfony CMF's Routing component uses the default Symfony2 components to handle
 route generation, so you can use the default methods for generating your
 urls, with a few added possibilities:
 
-* Either pass an implementation of ``RouteObjectInterface`` as ``route`` parameter 
-* Or pass a model instance as ``content`` parameter 
+* Pass either an implementation of ``RouteObjectInterface`` or a ``RouteAwareInterface`` as ``name`` parameter
 * Or supply an implementation of ``ContentRepositoryInterface`` and the id of the model instance as parameter ``content_id``
 
 Integrating with SonataAdmin
