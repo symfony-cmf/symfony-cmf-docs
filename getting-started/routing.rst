@@ -83,8 +83,8 @@ this:
             ..
         </service>
 
-Currently, Symfony CMF comes with two default routers: ``DynamicRouter``
-and Symfony2's default router.
+The Symfony CMF Routing system adds a new ``DynamicRouter``, which complements
+the default ``Router`` found in Symfony2.
 
 The default Symfony2 router
 ---------------------------
@@ -102,8 +102,8 @@ uses a matching process to the incoming request to a specific Route, which
 in turn is used to determine which Controller to forward the request to.
 
 The bundle's default configuration states that ``DynamicRouter`` is disabled
-by default. However, in Symfony CMF, it comes activated, as stated in the
-configuration file:
+by default. To activate it, just add the following to your configuration
+file:
 
 .. configuration-block::
 
