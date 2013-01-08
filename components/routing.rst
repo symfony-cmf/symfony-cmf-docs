@@ -15,19 +15,22 @@ can be added to this chain, so the standard routing mechanism can still be
 used.
 
 Additionally, this component is meant to provide useful implementations of the
-routing interfaces. Currently, it provides the ``DynamicRouter``, which can use
-a configured matcher and generator and apply ``RouteEnhancerInterface``
-strategies to the match. The ``NestedMatcher`` can dynamically retrieve
-Symfony2 Route objects from a route provider. The provider can be implemented
-using a database, for example with Doctrine PHPCR-ODM or Doctrine ORM.
-The ``ProviderBasedGenerator`` can generate routes loaded from a route provider
-and the ``ContentAwareGenerator`` on top of that tries to determine the route
-object from a content object.
+routing interfaces. Currently, it provides the ``DynamicRouter``, which uses
+a ``RequestMatcherInterface`` to dynamically load Routes, and can apply ``RouteEnhancerInterface``
+strategies in order to manipulate them. The provided ``NestedMatcher`` can
+dynamically retrieve Symfony2 `Route <http://api.symfony.com/master/Symfony/Component/Routing/Route.html>`_
+objects from a ``RouteProviderInterface``. This interfaces abstracts a collection
+of Routes, that can be stored in a database, like Doctrine PHPCR-ODM or Doctrine ORM.
+The ``DynamicRouter`` also uses a ``UrlGenerator`` instance to generate Routes
+and an implementation is provided under ``ProviderBasedGenerator`` that can
+generate routes loaded from a ``RouteProviderInterface`` instance, and the
+``ContentAwareGenerator`` on top of it to determine the route object from
+a content object.
 
 .. note::
 
     To use this component outside of the Symfony2 framework context, have
-    a look at the core Symfony2 `Routing <https://github.com/symfony/Routing>`_
+    a look at the core Symfony2 `Routing <https://github.com/symfony/Routing>`__
     to get a fundamental understanding of the component. CMF Routing just extends
     the basic behaviour.
 
@@ -90,46 +93,49 @@ to use the default routing declaration system.
 Dynamic Router
 ~~~~~~~~~~~~~~
 
-The Symfony2 default router makes many assumptions that are optimized
-towards the configured routing files of Symfony2. This component provides the
-``DynamicRouter`` which accepts a ``RequestMatcherInterface`` or
-``UrlMatcherInterface`` instance in the constructor instead of creating those
-objects on the fly. The matcher is responsible of doing the actual match
-from request to a parameters array.
+The Symfony2 default Router was developed to handle static Route definitions,
+as they are traditionally declared in configuration files, prior to execution.
+This makes it a poor choice to handle dynamically defined routes, and to
+handle those situations, this bundle comes with the ``DynamicRouter``. It
+is capable of handling Routes from more dynamic data sources, like database storage,
+and modify the resulting parameters using a set of enhancers that can be
+easily configured, greatly extending Symfony2's default functionality.
+
+Matcher
+^^^^^^^
+
+The ``DynamicRouter`` uses a ``RequestMatcherInterface`` or ``UrlMatcherInterface``
+instance to match the received Request or URL, respectively, to a parameters array.
+The actual matching logic depends on the underlying implementation you choose.
+You can easily use you own matching strategy by pass it to the ``DynamicRouter``
+constructor. As part of this bundle, a ``NestedMatcher`` is already provided
+which you can use straight away, or as reference for your own implementation.
+
 
 Its other feature are the ``RouteEnhancerInterface`` strategies used to infer
 routing parameters from the information provided by the match (see below).
 
-Nested Matcher
-^^^^^^^^^^^^^^
+NestedMatcher
+^^^^^^^^^^^^^
 
-This matcher uses a multiple step matching process, and is suitable for use with
-the DynamicRouter. The *initial* ``RouteProviderInterface`` is capable of
-loading candidate `Route <http://api.symfony.com/2.1/Symfony/Component/Routing/Route.html>`_
-objects for a request dynamically from its data source. Although it can be used
+The provided ``RequestMatcherInterface`` implementation is ``NestedMatcher``.
+It is suitable for use with ``DynamicRouter``, and it uses a multiple step
+matching process to determine the resulting routing parameters from a given 
+`Request <http://api.symfony.com/master/Symfony/Component/HttpFoundation/Request.html>`_.
+
+It uses a ``RouteProviderInterface`` implementation, which is capable of
+loading candidate `Route <http://api.symfony.com/master/Symfony/Component/Routing/Route.html>`_
+objects for a Request dynamically from a data source. Although it can be used
 in other ways, the ``RouteProviderInterface``'s main goal is to be easily
 implementented on top of Doctrine PHPCR ODM or a relational database,
 effectively allowing you to store and manage routes dynamically from database.
 
-*Intermediate* ``RouteFilterInterface`` implementations can filter the set of
-potential route matches.
+The ``NestedMatcher`` uses a 3-step matching process to determine which Route
+to use when handling the current Request: 
 
-The *final* decision for the match is taken by the ``FinalMatcherInterface``.
-The core Symfony2 UrlMatcher is a good example of a final matcher.
-
-Request handling
-""""""""""""""""
-
-Assuming you use the ``DynamicRouter`` together with the ``NestedMatcher``, incoming
-requests are handled by the ``DynamicRouter``'s  ``match``:
-
-* The configured matcher's match method is called. In case of the ``NestedMatcher``, it does:
-
-  * Ask the ``RouteProviderInterface`` for the collection of ``Route`` instances potentially matching the ``Request``
-  * Apply all ``RouteFilterInterface`` to filter down this collection
-  * Let the ``FinalMatcherInterface`` instance decide on the best match among the remaining ``Route`` instances and transform it into the parameter array.
-  
-* The ``DynamicRouter`` applies all ``RouteEnhancerInterface`` to the matched parameters
+* Ask the ``RouteProviderInterface`` for the collection of ``Route`` instances potentially matching the ``Request``
+* Apply all ``RouteFilterInterface`` to filter down this collection
+* Let the ``FinalMatcherInterface`` instance decide on the best match among the remaining ``Route`` instances and transform it into the parameter array.
 
 RouteProviderInterface
 """"""""""""""""""""""
@@ -144,24 +150,28 @@ The underlying implementation of the ``RouteProviderInterface`` is not in the
 scope of this bundle. Please refer to the interface declaration for more
 information. For a functional example, see `RoutingExtraBundle <https://github.com/symfony-cmf/RoutingExtraBundle>`_.
 
-Matching
-""""""""
+RouteFilterInterface
+""""""""""""""""""""
 
 The ``NestedMatcher`` can apply user provided ``RouteFilterInterface`` implementations
 to reduce the provided ``Route`` objects, e.g. for doing content negotiation.
 It is the responsibility of each filter to throw the ``ResourceNotFoundException`` if
 no more routes are left in the collection.
 
-The final matcher has to determine exactly one route as the best match or throw
-an exception if nothing matches the request. The default implementation uses the
-`UrlMatcher <http://api.symfony.com/2.1/Symfony/Component/Routing/Matcher/UrlMatcher.html>`_
+FinalMatcherInterface
+"""""""""""""""""""""
+
+The ``FinalMatcherInterface`` implementation has to determine exactly one
+Route as the best match or throw an exception if no adequate match could
+be found. The default implementation uses the `UrlMatcher <http://api.symfony.com/2.1/Symfony/Component/Routing/Matcher/UrlMatcher.html>`_
 of the Symfony Routing Component.
 
-Enhancing the route
-"""""""""""""""""""
 
-Optionally, a set of ``RouteEnhancerInterface`` instances can be declared and
-associated with the DynamicRouter. The aim of these is to allow you to
+Route Enhancers
+^^^^^^^^^^^^^^^
+
+Optionally, and following the matching proccess, a set of ``RouteEnhancerInterface``
+instances can be applied by the ``DynamicRouter``. The aim of these is to allow you to
 manipulate the parameters from the matched route. They can be used, for
 example, to dynamically assign a controller or template to a ``Route`` or to
 "upcast" a request parameter to an object. Some simple Enhancers are already
@@ -202,23 +212,28 @@ implementing that redirection under the full Symfony2 stack, refer to
 
 
 Generating URLs
----------------
+~~~~~~~~~~~~~~~
 
-A router is also an ``UrlGeneratorInterface`` object, which allows it to
-generate an URL from a route. The ``ChainRouter`` just asks each of its routers
-to generate the URL until it finds one that can generate the URL.
+Apart from matching an incoming request to a set of parameters, a Router
+is also responsible for generating an URL from a Route and its parameters.
+The ``ChainRouter`` iterates over its known routers until one of them is
+able to generate a matching URL.
 
-The ``DynamicRouter`` is configured with a generator instance. The CMF routing
-component provides some generators that can handle more than Symfony2 route
-names to generate an URL. The ``ProviderBasedGenerator`` extends Symfony2's
-default `UrlGenerator <http://api.symfony.com/2.1/Symfony/Component/Routing/Generator/UrlGenerator.html>`_
-and - if $name is not already a ``Route`` object, loads the route from
-the ``RouteProviderInterface``, then lets the core logic generate the URL from
-that route. The ``ContentAwareGenerator`` extends the ProviderBasedGenerator to
-check if $name is an object implementing ``RouteAwareInterface`` and if so gets
-the route from the content.
 
-Using the ContentAwareGenerator, you can generate urls for your content in
+Apart from using ``RequestMatcherInterface`` or ``UrlMatcherInterface`` to
+match a Request/URL to its corresponding parameters, the ``DynamicRouter``
+also uses an ``UrlGeneratorInterface`` instance, which allows it to
+generate an URL from a Route.
+
+The included ``ProviderBasedGenerator`` extends Symfony2's default `UrlGenerator <http://api.symfony.com/2.1/Symfony/Component/Routing/Generator/UrlGenerator.html>`_
+(which, in turn, implements ``UrlGeneratorInterface``) and - if $name is
+not already a ``Route`` object - loads the route from the ``RouteProviderInterface``.
+It then lets the core logic generate the URL from that Route. 
+
+The bundle also include the ``ContentAwareGenerator``, which extends the
+``ProviderBasedGenerator`` to check if $name is an object implementing
+``RouteAwareInterface`` and, if so, gets the Route from the content.
+Using the ``ContentAwareGenerator``, you can generate urls for your content in
 three ways:
 
 * Either pass a ``Route`` object as $name
@@ -274,7 +289,7 @@ a look at :doc:`../bundles/routing-extra`.
 For a starter's guide to the Routing bundle and its integration with Symfony2,
 refer to :doc:`../getting-started/routing` 
 
-We strongly recommend reading Symfony2's `Routing <http://symfony.com/doc/current/components/routing/introduction.html>`_
+We strongly recommend reading Symfony2's `Routing <http://symfony.com/doc/current/components/routing/introduction.html>`__
 component documentation page, as it's the base of this bundle's implementation.
 
 Authors
