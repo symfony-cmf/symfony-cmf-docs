@@ -15,7 +15,7 @@ can be added to this chain, so the standard routing mechanism can still be
 used.
 
 Additionally, this component is meant to provide useful implementations of the
-routing interfaces. Currently, we provide the ``DynamicRouter`` which can use
+routing interfaces. Currently, it provides the ``DynamicRouter``, which can use
 a configured matcher and generator and apply ``RouteEnhancerInterface``
 strategies to the match. The ``NestedMatcher`` can dynamically retrieve
 Symfony2 Route objects from a route provider. The provider can be implemented
@@ -118,15 +118,17 @@ The *final* decision for the match is taken by the ``FinalMatcherInterface``.
 The core Symfony2 UrlMatcher is a good example of a final matcher.
 
 Request handling
-----------------
+^^^^^^^^^^^^^^^^
 
 Assuming you use the DynamicRouter together with the NestedMatcher, incoming
 requests are handled by the ``DynamicRouter``'s  ``match``:
 
 * The configured matcher's match method is called. In case of the ``NestedMatcher``, it does:
-** Ask the ``RouteProviderInterface`` for the collection of ``Route`` instances potentially matching the ``Request``
-** Apply all ``RouteFilterInterface`` to filter down this collection
-** Let the ``FinalMatcherInterface`` instance decide on the best match among the remaining ``Route``s and transform it into the parameter array.
+
+  * Ask the ``RouteProviderInterface`` for the collection of ``Route`` instances potentially matching the ``Request``
+  * Apply all ``RouteFilterInterface`` to filter down this collection
+  * Let the ``FinalMatcherInterface`` instance decide on the best match among the remaining ``Route`` instances and transform it into the parameter array.
+  
 * The ``DynamicRouter`` applies all ``RouteEnhancerInterface`` to the matched parameters
 
 RouteProviderInterface
