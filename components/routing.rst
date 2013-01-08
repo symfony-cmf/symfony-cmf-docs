@@ -15,7 +15,7 @@ can be added to this chain, so the standard routing mechanism can still be
 used.
 
 Additionally, this component is meant to provide useful implementations of the
-routing interfaces. Currently, we provide the ``DynamicRouter`` which can use
+routing interfaces. Currently, it provides the ``DynamicRouter``, which can use
 a configured matcher and generator and apply ``RouteEnhancerInterface``
 strategies to the match. The ``NestedMatcher`` can dynamically retrieve
 Symfony2 Route objects from a route provider. The provider can be implemented
@@ -101,9 +101,9 @@ Its other feature are the ``RouteEnhancerInterface`` strategies used to infer
 routing parameters from the information provided by the match (see below).
 
 Nested Matcher
-~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^
 
-This matcher uses a multiple step matching process and is suitable for use with
+This matcher uses a multiple step matching process, and is suitable for use with
 the DynamicRouter. The *initial* ``RouteProviderInterface`` is capable of
 loading candidate `Route <http://api.symfony.com/2.1/Symfony/Component/Routing/Route.html>`_
 objects for a request dynamically from its data source. Although it can be used
@@ -118,15 +118,17 @@ The *final* decision for the match is taken by the ``FinalMatcherInterface``.
 The core Symfony2 UrlMatcher is a good example of a final matcher.
 
 Request handling
-----------------
+""""""""""""""""
 
-Assuming you use the DynamicRouter together with the NestedMatcher, incoming
+Assuming you use the ``DynamicRouter`` together with the ``NestedMatcher``, incoming
 requests are handled by the ``DynamicRouter``'s  ``match``:
 
 * The configured matcher's match method is called. In case of the ``NestedMatcher``, it does:
-** Ask the ``RouteProviderInterface`` for the collection of ``Route`` instances potentially matching the ``Request``
-** Apply all ``RouteFilterInterface`` to filter down this collection
-** Let the ``FinalMatcherInterface`` instance decide on the best match among the remaining ``Route``s and transform it into the parameter array.
+
+  * Ask the ``RouteProviderInterface`` for the collection of ``Route`` instances potentially matching the ``Request``
+  * Apply all ``RouteFilterInterface`` to filter down this collection
+  * Let the ``FinalMatcherInterface`` instance decide on the best match among the remaining ``Route`` instances and transform it into the parameter array.
+  
 * The ``DynamicRouter`` applies all ``RouteEnhancerInterface`` to the matched parameters
 
 RouteProviderInterface
@@ -145,9 +147,9 @@ information. For a functional example, see `RoutingExtraBundle <https://github.c
 Matching
 """"""""
 
-The NestedMatcher can apply user provided ``RouteFilterInterface`` implementations
+The ``NestedMatcher`` can apply user provided ``RouteFilterInterface`` implementations
 to reduce the provided ``Route`` objects, e.g. for doing content negotiation.
-It is the responsibility of each filter to throw the ResourceNotFoundException if
+It is the responsibility of each filter to throw the ``ResourceNotFoundException`` if
 no more routes are left in the collection.
 
 The final matcher has to determine exactly one route as the best match or throw
@@ -226,7 +228,7 @@ three ways:
 
 
 ContentAwareGenerator and locales
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can use the ``_locale`` default value in a Route to create one Route
 per locale, all referencing the same multilingual content instance. The ``ContentAwareGenerator``
