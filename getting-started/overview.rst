@@ -1,12 +1,18 @@
 Overview
 ========
 
-This guide will help you understand the basic parts of Symfony CMF and how 
-they work together to provide the default pages you can see when browsing
-the Symfony CMF Standard Edition (SE) installation.
+This guide will help you understand the basic parts of Symfony CMF Standard
+Edition (SE) and how they work together to provide the default pages you
+can see when browsing the Symfony CMF SE installation.
 
-It assumes you have already installed Symfony CMF and have carefully
+It assumes you have already installed Symfony CMF SE and have carefully
 read the Symfony2 book.
+
+.. note::
+
+    For other Symfony CMF installation guides, please read:
+    - The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for instructions on how to install a more complete demo instance of Symfony CMF.
+    - :doc:`../tutorials/installing-cmf-core` for step-by-step installation and configuration details of just the core components into an existing Symfony application.
 
 AcmeMainBundle and SimpleCMSBundle
 ----------------------------------
