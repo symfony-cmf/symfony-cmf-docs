@@ -61,13 +61,16 @@ To handle both content types, a ``Controller`` is also included. Its inner
 workings are pretty straighforward: it accepts a content instance and optionally
 a template to render it. If none is provided, it uses a preconfigured default.
 It also takes into account the document's publishing status and multilanguage.
-
+Both the content instance and the optional template are provided to the Controller
+by the ``RoutingBundle``'s ``DynamicRouter``. More information on this is
+available on the :ref:`Routing system getting started page <routing-linking-a-route-with-a-model-instance>`
+page.
 
 Admin support
 -------------
 
 The last component needed to handle the included content types is an administration
-panel. Symfony CMF can optionally support `Sonata's Doctrine PHPCR Admin Bundle <https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle>`_
+panel. Symfony CMF can optionally support `SonataDoctrinePHPCRAdminBundle <https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle>`_
 , a backoffice generation tool. For more information about it, please refer
 to the bundle's `documentation section <https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle/tree/master/Resources/doc>`_.
 

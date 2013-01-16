@@ -193,6 +193,8 @@ enabled as soon as you add any other configuration to the `dynamic` entry.
     enhancers in much wider, and you can find more information about them
     in the :doc:`../components/routing` documentation page.
 
+.. _routing-linking-a-route-with-a-model-instance:
+
 Linking a Route with a Model instance
 -------------------------------------
 
