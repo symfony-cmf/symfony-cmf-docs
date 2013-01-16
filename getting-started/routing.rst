@@ -1,6 +1,10 @@
 Symfony CMF Routing System
 ==========================
 
+This is an introduction to understand the concepts behind CMF routing. For the
+reference documentation please see :doc:`../components/routing` and
+:doc:`../bundles/routing-extra`.
+
 Concept
 -------
 
@@ -55,7 +59,7 @@ priority:
                 routers_by_id:
                     # enable the DynamicRouter with high priority to allow overwriting configured routes with content
                     symfony_cmf_routing_extra.dynamic_router: 200
-                    
+
                     # enable the symfony default router with a lower priority
                     router.default: 100
 
@@ -120,8 +124,9 @@ you browse the default pages that come with the Symfony CMF SE, it's the
 ``DynamicRouter`` that's matching your requests with the Controllers and
 Templates.
 
-Getting the Route
-~~~~~~~~~~~~~~~~~
+
+Getting the Route object
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 The provider to use can be configured to best suit each implementation's
 needs, and must implement the ``RouteProviderInterface``. As part of this
@@ -137,6 +142,16 @@ or extend it, refer to :doc:`../bundles/routing-extra`.
 The ``DynamicRouter`` is able to match the incoming request to a Route object
 from the underlying provider. The details on how this matching process
 is carried out can be found in the :doc:`../components/routing`.
+
+.. note::
+
+    To have the route provider find routes, you also need to provide the data
+    in your storage. With PHPCR-ODM, this is either done through the admin
+    interface (see at the bottom) or with fixtures.
+
+    However, before we can explain how to do that, you need to understand how
+    the DynamicRouter works. An example will come later in this document.
+
 
 Getting the Controller and Template
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -154,7 +169,7 @@ The ``DynamicRouter`` uses one of several possible methods to determine it
     then matched against the provided configuration from config.yml.
 - Default: if configured, a default Controller will be used.
 
-Appart from this, the ``DynamicRouter`` is also capable of dynamically specifying 
+Appart from this, the ``DynamicRouter`` is also capable of dynamically specifying
 which Template will be used, in a similar way to the one used to determine
 the Controller (in order of precedence):
 
@@ -187,7 +202,7 @@ no other configuration paramenter is provided. The router is automatically
 enabled as soon as you add any other configuration to the `dynamic` entry.
 
 .. note::
-    
+
     Internally, the routing component maps these configuration options to
     several ``RouteEnhancerInterface`` instances. The actual scope of these
     enhancers in much wider, and you can find more information about them
@@ -229,7 +244,7 @@ is handled by a specific Controller, that can be configured like so:
                 Symfony\Cmf\Component\Routing\RedirectRouteInterface:  symfony_cmf_routing_extra.redirect_controller:redirectAction
 
 .. note::
-    
+
     The actual configuration for this association exists as a service, not as part of
     a config.yml file. Like discussed before, any of the approaches can be used.
 
@@ -242,6 +257,43 @@ urls, with a few added possibilities:
 
 * Pass either an implementation of ``RouteObjectInterface`` or a ``RouteAwareInterface`` as ``name`` parameter
 * Or supply an implementation of ``ContentRepositoryInterface`` and the id of the model instance as parameter ``content_id``
+
+
+The PHPCR-ODM route document
+----------------------------
+
+As mentioned above, you can use any route provider. The example in this section
+applies if you use the default PHPCR-ODM route provider.
+
+All routes are located under a configured root path, for example '/cms/routes'.
+A new route can be created in PHP code as follows:
+
+.. code-block:: php
+
+    use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route;
+    $route = new Route;
+    $route->setParent($dm->find(null, '/routes'));
+    $route->setName('projects');
+
+    // link a content to the route
+    $content = new Content('my content');
+    $route->setRouteContent($content);
+
+    // now configure some parameter, do not forget leading slash if you want /projects/{id} and not /projects{id}
+    $route->setVariablePattern('/{id}');
+    $route->setRequirement('id', '\d+');
+    $route->setDefault('id', 1);
+
+This will give you a document that matches the URL /projects/<number> but also
+/projects as there is a default for the id parameter.
+
+Your controller can expect the $id parameter as well as the $contentDocument as
+we set a content on the route. The content could be used to define an intro
+section that is the same for each project or other shared data. If you don't
+need content, you can just not set it in the document.
+
+For more details, see the :ref:`route document section in the RoutingExtraBundle documentation<bundles_routingextra_document>`.
+
 
 Integrating with SonataAdmin
 ----------------------------
@@ -290,6 +342,6 @@ Further notes
 
 For more information on the Routing component of Symfony CMF, please refer to:
 
-- :doc:`../components/routing` for most of the actual functionality implementation 
+- :doc:`../components/routing` for most of the actual functionality implementation
 - :doc:`../bundles/routing-extra` for Symfony2 integration bundle for Routing Bundle
 - Symfony2's `Routing <http://symfony.com/doc/current/components/routing/introduction.html>`_ component page

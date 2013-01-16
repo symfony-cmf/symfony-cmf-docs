@@ -221,12 +221,82 @@ The possible enhancements are (in order of precedence):
                 # service
 
 
-
 To see some examples, please look at the `CMF sandbox`_ and specifically the routing fixtures loading.
+
+.. _bundles_routingextra_document:
+
+Using the PHPCR-ODM route document
+----------------------------------
+
+All route classes must extend the Symfony core ``Route`` class. The documents can
+either be created by code (for example a fixtures script) or with a web interface
+like the one provided for Sonata PHPCR-ODM admin (see below).
+
+PHPCR-ODM maps all features of the core route to the storage, so you can use
+setDefault, setRequirement, setOption and setHostnamePattern like normal.
+Additionally when creating a route, you can define whether .{_format} should be
+appended to the pattern and configure the required _format with a requirements.
+The other constructor option lets you control whether the route should append a
+trailing slash because this can not be expressed with a PHPCR name. The default
+is to have no trailing slash.
+
+All routes are located under a configured root path, for example '/cms/routes'.
+A new route can be created in PHP code as follows:
+
+.. code-block:: php
+
+    use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route;
+    $route = new Route;
+    $route->setParent($dm->find(null, '/routes'));
+    $route->setName('projects');
+    // set explicit controller (both service and Bundle:Name:action syntax work)
+    $route->setDefault('_controller', 'sandbox_main.controller:specialAction');
+
+The above example should probably be done as a route configured in a Symfony
+xml/yml file however, unless the end user is supposed to change the URL or the
+controller.
+
+To link a content to this route, simply set it on the document.
+
+.. code-block:: php
+
+    $content = new Content('my content'); // Content must be a mapped class
+    $route->setRouteContent($content);
+
+This will put the document into the request parameters and if your
+controller specifies a parameter called ``$contentDocument``, it will be passed
+this document.
+
+You can also use variable patterns for the URL and define requirements and
+defaults.
+
+    // do not forget leading slash if you want /projects/{id} and not /projects{id}
+    $route->setVariablePattern('/{id}');
+    $route->setRequirement('id', '\d+');
+    $route->setDefault('id', 1);
+
+This will give you a route that matches the URL /projects/<number> but also
+/projects as there is a default for the id parameter. This will match
+``/projects/7`` as well as ``/projects`` but not ``/projects/x-4``.
+The document is still stored at ``/routes/projects``. This will work because,
+as mentioned above, the route provider will look for route documents at all
+possible paths and pick the first that matches. In our example, if there is a
+route document at /routes/projects/7 that matches (no further parameters) it is
+selected. Otherwise we check if /routes/projects has a pattern that matches. If
+not, the top document at /routes is checked.
+
+Of course you can also have several parameters, like with normal Symfony
+routes. The semantics and rules for patterns, defaults and requirements are
+exactly the same as in core routes.
+
+Your controller can expect the $id parameter as well as the $contentDocument as
+we set a content on the route. The content could be used to define an intro
+section that is the same for each project or other shared data. If you don't
+need content, you can just not set it in the document.
 
 
 Sonata Admin Configuration
-""""""""""""""""""""""""""
+--------------------------
 
 If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the composer.json
 require section and the SonataDoctrinePhpcrAdminBundle is loaded in the
@@ -321,6 +391,6 @@ Further notes
 
 For more information on the Routing component of Symfony CMF, please refer to:
 
-- :doc:`../getting-started/routing` for an introductory guide on Routing bundle 
-- :doc:`../components/routing` for most of the actual functionality implementation 
+- :doc:`../getting-started/routing` for an introductory guide on Routing bundle
+- :doc:`../components/routing` for most of the actual functionality implementation
 - Symfony2's `Routing <http://symfony.com/doc/current/components/routing/introduction.html>`_ component page
