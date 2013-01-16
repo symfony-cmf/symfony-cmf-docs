@@ -332,6 +332,7 @@ Using the ValidPhpcrOdm constraint validator
 The bundle provides a ``ValidPhpcrOdm`` constraint validator you can use to check if your document ``Id`` or ``Nodename`` and ``Parent`` fields are correct :
 
 .. code-block:: php
+
     <?php
 
     namespace Acme\DemoBundle\Document;
