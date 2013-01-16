@@ -270,6 +270,8 @@ this document.
 You can also use variable patterns for the URL and define requirements and
 defaults.
 
+.. code-block:: php
+
     // do not forget leading slash if you want /projects/{id} and not /projects{id}
     $route->setVariablePattern('/{id}');
     $route->setRequirement('id', '\d+');
