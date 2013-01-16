@@ -327,7 +327,7 @@ trivial to register this type and the PHPCR namespace:
     php app/console doctrine:phpcr:register-system-node-types
 
 Using the ValidPhpcrOdm constraint validator
------------------------------
+--------------------------------------------
 
 The bundle provides a ``ValidPhpcrOdm`` constraint validator you can use to check if your document ``Id`` or ``Nodename`` and ``Parent`` fields are correct :
 
