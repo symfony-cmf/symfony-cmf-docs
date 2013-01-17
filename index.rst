@@ -127,7 +127,7 @@ Contributing
 	contributing/code
 	contributing/license
 
-.. _`decoupled CMS`: http://http://decoupledcms.org
+.. _`decoupled CMS`: http://decoupledcms.org
 .. _`Symfony2`: http://symfony.com
 .. _`about`: http://cmf.symfony.com/about
 .. _`Documentation planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
