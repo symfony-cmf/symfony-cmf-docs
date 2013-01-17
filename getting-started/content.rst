@@ -23,9 +23,9 @@ title, body, publishing information and a parent reference, to accommodate
 a tree-like hierarchy. It also includes a Block reference (more on that later).
 
 The two implemented interfaces reveal two of the features included in this
-implementation: 
+implementation:
 
-- ``RouteAwareInterface`` means that the content has associated Routes. 
+- ``RouteAwareInterface`` means that the content has associated Routes.
 
 - ``PublishWorkflowInterface`` means that the content has publishing and
    unpublishing dates, which will be handled by Symfony CMF's core to determine
@@ -45,11 +45,11 @@ It also specifies the translation strategy:
 .. configuration-block::
 
     .. code-block:: php
-    
+
        /**
        * @PHPCRODM\Document(translator="child", referenceable=true)
        */
-       
+
 For information on the available translation strategies, refer to the Doctrine
 page regarding `Multilanguage support in PHPCR-ODM <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html>`_
 
@@ -62,7 +62,7 @@ workings are pretty straighforward: it accepts a content instance and optionally
 a template to render it. If none is provided, it uses a preconfigured default.
 It also takes into account the document's publishing status and multilanguage.
 Both the content instance and the optional template are provided to the Controller
-by the ``RoutingBundle``'s ``DynamicRouter``. More information on this is
+by the ``DynamicRouter`` of the ``RoutingExtraBundle``. More information on this is
 available on the :ref:`Routing system getting started page <routing-linking-a-route-with-a-model-instance>`
 page.
 
@@ -90,6 +90,7 @@ Final thoughts
 --------------
 
 While this small bundle includes some vital components to a fully working
-CMS, it doesn't included all that's needed. The main idea behind it is to
-provide developers with a small and easy to understand starting point, so
-that you can develop your own content types, Controllers and Admin panels.
+CMS, it often will not provide all you need. The main idea behind it is to
+provide developers with a small and easy to understand starting point you can
+extend or use as inspriation to develop your own content types, Controllers and
+Admin panels.
