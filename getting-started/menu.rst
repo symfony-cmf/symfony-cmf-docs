@@ -40,9 +40,9 @@ for more information on the subject, but a basic call would be:
 
     {{ knp_menu_render('simple') }}
 
-The menu name is the name of the node under ``menu_basepath``. This will be
-passed on to the Provider that will, and identifies which menu you want rendered
-in this specific section.
+The provided menu name will be passed on to ``MenuProviderInterface`` implementation,
+which will use it to identify which menu you want rendered in this specific
+section.
 
 
 The Provider
@@ -63,40 +63,53 @@ rendered by the ``MenuFactory``.
 The Factory
 ~~~~~~~~~~~
 
-The ``ContentAwareFactory`` is a ``FactoryInterface`` implementation, meaning
-it's responsible for getting the full menu hierarchy and rendering the respective
-html code from the root node it receives from the ``MenuProviderInterface``
-implementation. ``KnpMenu`` already includes a specific factory targeted at
-Symfony2's Routing component, which this bundle extends, to add support for:
+The ``ContentAwareFactory`` is a ``FactoryInterface`` implementation, which
+generates the full ``MenuItem`` hierarchy from the provided data. The data
+generated this way is later used to generate the actual HTML representation
+of the menu. 
+
+The included implementation focuses on generatind ``MenuItem`` instances
+from ``NodeInterface`` instances, as it is best approach to handle tree-like
+sctructures like the ones typically used by CMS. Other approaches are implemented
+in the extended classes, and their respective documentation pages can be found
+in `KnpMenuBundle <https://github.com/KnpLabs/KnpMenuBundle>`_'s page.
+
+``ContentAwareFactory`` is responsible for getting the full menu hierarchy
+and rendering the respective ``MenuItem`` instances from the root node it
+receives from the ``MenuProviderInterface`` implementation. It is also responsible
+for determining which (if any) menu item is currently being veiwed by the
+user. ``KnpMenu`` already includes a specific factory targeted at Symfony2's
+Routing component, which this bundle extends, to add support for:
 
 - Databased stored ``Route`` instances (refer to :ref:`RoutingBundle's RouteProvider <routing-getting-route-object>` for more details
   on this)
 - ``Route`` instances with associated content (more on this on respective :ref:`RoutingBundle's section <routing-linking-a-route-with-a-model-instance>`)
 
-Like mentioned before, the Factory component is responsible for loading all
-the menu nodes from the provided root element. The actual loaded nodes can
-be of any class, even if it's different from the root's, but all must implement
-``NodeInterface`` in order to be included in the generated menu.
+Like mentioned before, the ``ContentAwareFactory`` is responsible for loading
+all the menu nodes from the provided root element. The actual loaded nodes
+can be of any class, even if it's different from the root's, but all must
+implement ``NodeInterface`` in order to be included in the generated menu.
 
 
-The Menu items
+The Menu Nodes
 ~~~~~~~~~~~~~~
 
-Also included in ``MenuBundle`` come two menu item content types: ``MenuItem``
-and ``MultilangMenuItem``. if you read the documentation page regarding :doc:`content`,
-you'll find this implementation somewhat familiar. ``MenuItem`` implements
-the above mentioned ``NodeInterface``, and holds the information regarding
-a single menu entry: a ``label`` and a ``uri``, a ``children`` list, like
-you would expect, plus some ``attributes`` for himself and its children,
-that will allow the actual rendering proccess to be customized. It also includes
-a ``Route`` field and two references to Contents. These are used to store
-an associated ``Route`` object, plus one (not two, despite the fact that
-two fields exist) Content element. The ``MenuItem`` can have a strong (integrity
-ensured) or weak (integrity not ensured) reference to the actual Content
-element it points to, it's up to you to choose which best fits your scenario.
-You can find more information on references on the `Doctrine PHPCR documentation page <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/association-mapping.html#references>`_.
+Also included in ``MenuBundle`` come two menu node content types: ``MenuNode``
+and ``MultilangMenuNode``. If you have read the documentation page regarding
+:doc:`content`, you'll find this implementation somewhat familiar. ``MenuNode``
+implements the above mentioned ``NodeInterface``, and holds the information
+regarding a single menu entry: a ``label`` and a ``uri``, a ``children``
+list, like you would expect, plus some ``attributes`` for himself and its
+children, that will allow the actual rendering proccess to be customized.
+It also includes a ``Route`` field and two references to Contents. These
+are used to store an associated ``Route`` object, plus one (not two, despite
+the fact that two fields exist) Content element. The ``MenuNode`` can have
+a strong (integrity ensured) or weak (integrity not ensured) reference to
+the actual Content element it points to, it's up to you to choose which best
+fits your scenario. You can find more information on references on the
+`Doctrine PHPCR documentation page <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/association-mapping.html#references>`_.
 
-``MultilangMenuItem`` extends ``MenuItem`` with multilanguage support. It
+``MultilangMenuNode`` extends ``MenuNode`` with multilanguage support. It
 adds a ``locale`` field to identify which translation set it belongs to,
 plus a ``label`` and ``uri`` fields marked as ``translated=true``, meaning
 they will differ between translations, unlike the other fields.
@@ -115,6 +128,11 @@ database:
 For information on the available translation strategies, refer to the Doctrine
 page regarding `Multilanguage support in PHPCR-ODM <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html>`_
 
+.. note::
+
+    The ``MenuItem`` and ``MultilangMenuItem`` content types exist to preserve
+    backwards compatibility with previous versions of the bundle, but they
+    simply extend their Node couterparts.
 
 Admin support
 -------------
