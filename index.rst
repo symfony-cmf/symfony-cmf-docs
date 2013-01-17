@@ -54,6 +54,7 @@ Just started learning about the CMF? Want to know if the CMF fits your project? 
 	getting-started/installing-symfony-cmf
 	getting-started/overview
 	getting-started/routing
+	getting-started/content
 
 
 Tutorials

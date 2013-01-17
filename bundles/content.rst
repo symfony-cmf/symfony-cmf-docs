@@ -3,7 +3,8 @@ ContentBundle
 
 This bundle provides a document for static content and the controller to render it.
 
-For more information for now see the documentation of the `ContentBundle <https://github.com/symfony-cmf/ContentBundle#readme>`_
+For an introduction see the :doc:`../getting-started/content` page on the
+"Getting started" section.
 
 .. index:: ContentBundle
 
