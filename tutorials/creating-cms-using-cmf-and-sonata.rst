@@ -11,6 +11,7 @@ Preconditions
 -------------
 
 - :doc:`installing-cmf-core`
+- `Symfony SecurityBundle <http://symfony.com/doc/master/book/security.html>`_ (required by the SonataAdminBundle default templates)
 
 Installation
 ------------
