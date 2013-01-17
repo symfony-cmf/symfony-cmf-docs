@@ -137,3 +137,50 @@ frontend. The most simple form is the following twig block:
 
 If you want to control more detailed what should be shown with RDFa, see
 chapter :doc:`create`.
+
+Extending the Page class
+------------------------
+
+The default Page document ``Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page`` is relatively simple,
+shipping with a handful of the most common properties for building a typical page. Title, body, tags,
+publish dates etc.
+
+If this is not enough for your project you can easily provide your own document by extending the default
+Page document and explicitly setting the configuration parameter to your own document class:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_simple_cms:
+            ...
+            document_class:       Acme\DemoBundle\Document\MySuperPage
+            ...
+
+
+Alternatively, the default Page document contains an ``extras`` property. This is a key - value
+store (where value must be string or null) which can be used for small trivial additions, without having to
+extend the default Page document.
+
+For example:
+
+.. code-block:: php
+
+    $page = new Page();
+
+    $page->setTitle('Hello World!');
+    $page->setBody('Really interesting stuff...');
+
+    // set extras
+    $extras = array(
+        'subtext' => 'Add CMS functionality to applications built with the Symfony2 PHP framework.',
+        'headline-icon' => 'exclamation.png',
+    );
+
+    $page->setExtras($extras);
+
+    $documentManager->persist($page);
+
+These properties can then be accessed in your controller or templates via the ``getExtras()`` or ``getExtra($key)``
+methods.
