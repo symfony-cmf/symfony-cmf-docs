@@ -142,7 +142,7 @@ Extending the Page class
 ------------------------
 
 The default Page document ``Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page`` is relatively simple,
-shipping with a handful of the most common properties for building a typical page. Title, body, tags,
+shipping with a handful of the most common properties for building a typical page: title, body, tags,
 publish dates etc.
 
 If this is not enough for your project you can easily provide your own document by extending the default
