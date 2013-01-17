@@ -148,6 +148,12 @@ Configuration
             # RDFa types used for elements to be edited in plain text
             # plain_text_types: ['dcterms:title']
 
+            # RDFa types for which to create the corresponding routes after
+            # content of these types has been added with Create.js. This is
+            # not necessary with the SimpleCmsBundle, as the content and the
+            # routes are in the same repository tree.
+            # create_routes_types: ['http://schema.org/NewsArticle']
+
 The provided javascript file configures create.js and the hallo editor. It
 enables some plugins like the tag editor to edit ``skos:related`` collections of
 attributes. We hope to add some configuration options to tweak the
