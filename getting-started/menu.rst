@@ -72,7 +72,7 @@ The included implementation focuses on generating ``MenuItem`` instances
 from ``NodeInterface`` instances, as it is the best approach to handle tree-like
 structures like the ones typically used by CMS. Other approaches are implemented
 in the extended classes, and their respective documentation pages can be found
-in `KnpMenuBundle <https://github.com/KnpLabs/KnpMenuBundle>`_'s page.
+in `KnpMenuBundle`_'s page.
 
 ``ContentAwareFactory`` is responsible for getting the full menu hierarchy
 and rendering the respective ``MenuItem`` instances from the root node it
@@ -160,5 +160,5 @@ Further notes
 For more information on the MenuBundle of Symfony CMF, please refer to:
 
 - :doc:`../bundles/menu` for advanced details and configuration reference
-- `KnpMenuBundle <https://github.com/knplabs/KnpMenuBundle>`_ page for information on the bundle on which ``MenuBundle`` relies 
+- `KnpMenuBundle`_ page for information on the bundle on which ``MenuBundle`` relies 
 - `KnpMenu <https://github.com/knplabs/KnpMenu>`_ page for information on the undelying library used by ``KnpMenuBundle``
