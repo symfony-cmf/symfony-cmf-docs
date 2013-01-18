@@ -52,7 +52,6 @@ Just started learning about the CMF? Want to know if the CMF fits your project? 
 	:maxdepth: 1
 	
 	getting-started/installing-symfony-cmf
-	getting-started/overview
 	getting-started/routing
 	getting-started/content
 	getting-started/menu
@@ -108,7 +107,7 @@ Special solutions for special needs that go beyond standard usage.
 	cookbook/phpcr-odm-custom-documentclass-mapper
 	cookbook/using-a-custom-route-repository
 	cookbook/installing-cmf-sandbox
-	
+
 Components
 ----------
 

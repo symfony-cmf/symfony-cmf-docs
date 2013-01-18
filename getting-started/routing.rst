@@ -1,5 +1,5 @@
-Symfony CMF Routing System
-==========================
+Routing
+=======
 
 This is an introduction to understand the concepts behind CMF routing. For the
 reference documentation please see :doc:`../components/routing` and
