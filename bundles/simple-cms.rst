@@ -7,6 +7,15 @@ provides a simplistic CMS on top of the CMF components and bundles.
 While the core CMF components focus on flexibility, the simple CMS trades
 away some of that flexibility in favor of simplicity.
 
+The SimpleCmsBundle provides a solution to easily map content, routes and menu
+items based on a single tree structure in the content repository.
+
+For a simple example installation of the bundle check out the
+`Symfony CMF Standard Edition <https://github.com/symfony-cmf/symfony-cmf-standard>`_
+
+The `CMF website <https://github.com/symfony-cmf/symfony-cmf-website/>`_ is
+another application using the SimpleCmsBundle.
+
 .. index:: SimpleCmsBundle, i18n
 
 Dependencies

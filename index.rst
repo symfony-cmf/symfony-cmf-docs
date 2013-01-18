@@ -65,10 +65,9 @@ Want to know more about the CMF and how each part can be configured? There's a t
 .. toctree::
 	:maxdepth: 1
 
-	tutorials/installing-cmf-core
 	tutorials/choosing-a-storage-layer
+	tutorials/installing-cmf-core
 	tutorials/installing-configuring-doctrine-phpcr-odm
-	tutorials/installing-configuring-simple-cms
 	tutorials/installing-configuring-inline-editing
 	tutorials/creating-cms-using-cmf-and-sonata
 	tutorials/using-blockbundle-and-contentbundle
