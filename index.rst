@@ -77,7 +77,7 @@ Bundles
 
 Looking for some in depth information about a CMF Bundle? Want a list of all the
 configuration options of a bundle? Want to know if you can use a bundle independently and how
-to do it? The reference is the right place to search.
+to do it? In this case the reference is the right place for you.
 
 .. toctree::
 	:maxdepth: 1
@@ -110,7 +110,7 @@ Special solutions for special needs that go beyond standard usage.
 Components
 ----------
 
-Looking for some for information about the low level components of the CMF?
+Looking for some information about the low level components of the CMF?
 
 .. toctree::
 	:maxdepth: 1

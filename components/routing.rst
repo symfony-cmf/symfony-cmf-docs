@@ -1,5 +1,5 @@
-Routing Component
-=================
+Routing
+=======
 
 The `Symfony CMF Routing component <https://github.com/symfony-cmf/Routing>`_
 library extends the Symfony2 core routing component. Even though it has Symfony
