@@ -98,6 +98,8 @@ you to keep using the existing system. In fact, the default routing is enabled
 by default, so you can keep using the routes you declared in your configuration
 files, or as declared by other bundles.
 
+.. _routing-dynamic-router:
+
 The DynamicRouter
 -----------------
 
@@ -124,6 +126,7 @@ you browse the default pages that come with the Symfony CMF SE, it's the
 ``DynamicRouter`` that's matching your requests with the Controllers and
 Templates.
 
+.. _routing-getting-route-object:
 
 Getting the Route object
 ~~~~~~~~~~~~~~~~~~~~~~~~
