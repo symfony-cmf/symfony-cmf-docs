@@ -68,16 +68,16 @@ generates the full ``MenuItem`` hierarchy from the provided data. The data
 generated this way is later used to generate the actual HTML representation
 of the menu. 
 
-The included implementation focuses on generatind ``MenuItem`` instances
-from ``NodeInterface`` instances, as it is best approach to handle tree-like
-sctructures like the ones typically used by CMS. Other approaches are implemented
+The included implementation focuses on generating ``MenuItem`` instances
+from ``NodeInterface`` instances, as it is the best approach to handle tree-like
+structures like the ones typically used by CMS. Other approaches are implemented
 in the extended classes, and their respective documentation pages can be found
 in `KnpMenuBundle <https://github.com/KnpLabs/KnpMenuBundle>`_'s page.
 
 ``ContentAwareFactory`` is responsible for getting the full menu hierarchy
 and rendering the respective ``MenuItem`` instances from the root node it
 receives from the ``MenuProviderInterface`` implementation. It is also responsible
-for determining which (if any) menu item is currently being veiwed by the
+for determining which (if any) menu item is currently being viewed by the
 user. ``KnpMenu`` already includes a specific factory targeted at Symfony2's
 Routing component, which this bundle extends, to add support for:
 
@@ -132,7 +132,8 @@ page regarding `Multilanguage support in PHPCR-ODM <http://docs.doctrine-project
 
     The ``MenuItem`` and ``MultilangMenuItem`` content types exist to preserve
     backwards compatibility with previous versions of the bundle, but they
-    simply extend their Node couterparts.
+    simply extend their Node counterparts. These classes are deprecated, and
+    will be removed in a later version.
 
 Admin support
 -------------
