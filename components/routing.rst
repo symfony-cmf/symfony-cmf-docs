@@ -166,6 +166,7 @@ Route as the best match or throw an exception if no adequate match could
 be found. The default implementation uses the `UrlMatcher <http://api.symfony.com/2.1/Symfony/Component/Routing/Matcher/UrlMatcher.html>`_
 of the Symfony Routing Component.
 
+.. _routing-enhancers:
 
 Route Enhancers
 ^^^^^^^^^^^^^^^

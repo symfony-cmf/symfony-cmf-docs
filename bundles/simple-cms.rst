@@ -13,6 +13,9 @@ items based on a single tree structure in the content repository.
 For a simple example installation of the bundle check out the
 `Symfony CMF Standard Edition <https://github.com/symfony-cmf/symfony-cmf-standard>`_
 
+You can find an introduction to the bundle in the `Getting started <../getting-started/simplecms>`_
+section.
+
 The `CMF website <https://github.com/symfony-cmf/symfony-cmf-website/>`_ is
 another application using the SimpleCmsBundle.
 

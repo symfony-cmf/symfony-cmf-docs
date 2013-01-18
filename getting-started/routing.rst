@@ -155,6 +155,7 @@ is carried out can be found in the :doc:`../components/routing`.
     However, before we can explain how to do that, you need to understand how
     the DynamicRouter works. An example will come later in this document.
 
+.. _routing-getting-controller-template:
 
 Getting the Controller and Template
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

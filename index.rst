@@ -55,6 +55,7 @@ Just started learning about the CMF? Want to know if the CMF fits your project? 
 	getting-started/routing
 	getting-started/content
 	getting-started/menu
+	getting-started/simplecms
 
 
 Tutorials
