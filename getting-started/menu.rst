@@ -1,5 +1,5 @@
-Symfony CMF Menu System
-=======================
+Menu
+====
 
 Concept
 -------
