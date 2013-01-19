@@ -139,6 +139,11 @@ Configuration
             map:
                 rdfname: FQN\Classname
 
+            # mapping from class name used when adding items to collections => service id of
+            # the specific mapper
+            # rdfmapper:
+            #        'FQN\Classname': service.id
+
             # stanbol url for semantic enhancement, otherwise defaults to the demo install
             # stanbol_url: http://dev.iks-project.eu:8081
 
