@@ -1,8 +1,8 @@
 TreeBundle
 ==========
 
-The `TreeBundle <https://github.com/symfony-cmf/TreeBundle#readme>`_
-provides integration with jQuery tree.
+This bundle is obsolete as its content has been moved to 
+the `TreeBrowserBundle <https://github.com/symfony-cmf/TreeBrowserBundle>`_.
 
 .. index:: TreeBundle
 
