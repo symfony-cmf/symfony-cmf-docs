@@ -497,6 +497,22 @@ Now your index page should show the following (assuming you followed both exampl
     CMF BlockBundle and ContentBundle
     Block from CMF BlockBundle, parent from CMF ContentBundle (StaticContent).
 
+This happens when a block is rendered, see the .. index:: BlockBundle for more details:
+
+- a document is loaded based on the name
+- if caching is configured, the cache is checked and content is returned if found
+- each block document also has a block service, the execute method of it is called:
+
+  - you can put here logic like in a controller
+  - it calls a template
+  - the result is a Response object
+
+.. note::
+
+    A block can also be configured using settings, this allows you to create more advanced blocks and reuse it. The
+    default settings are configured in the block service and can be altered in the twig helper and the block document.
+    An example is an rss reader block, the url and title are stored in the settings of the block document, the maximum
+    amount of items to display is specified when calling ``sonata_block_render``.
 
 Next steps
 ----------
