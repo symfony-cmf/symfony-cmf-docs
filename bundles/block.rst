@@ -266,9 +266,9 @@ your needs. For our rss block we create a service that knows how to handle RSSBl
       public function getDefaultSettings()
       {
           return array(
-              'url'     => false,
-              'title'   => 'Insert the rss title',
-              'maxItems => 10,
+              'url'      => false,
+              'title'    => 'Insert the rss title',
+              'maxItems' => 10,
           );
       }
       // ..
