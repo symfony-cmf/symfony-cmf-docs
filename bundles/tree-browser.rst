@@ -90,7 +90,7 @@ In the same bundle the `PhpcrOdmTree <https://github.com/sonata-project/SonataDo
 
 Define tree elements
 ~~~~~~~~~~~~~~~~~~~~
-The first step, is to defined all the elements allowed in the tree and their children.
+The first step, is to define all the elements allowed in the tree and their children.
 Have a look at the `cmf-sandbox configuration <https://github.com/symfony-cmf/cmf-sandbox/blob/master/app/config/config.yml>`_, the section document_tree in sonata_doctrine_phpcr_admin.
 This configuration is set for all your application trees regardless their type (admin or select).
 
@@ -118,7 +118,7 @@ How to add an admin tree to your page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This can be done either in an action template or in a custom block.
 
-You have to specify the tree root and the selected item, this allow you to have different type of content in your tree.
+You have to specify the tree root and the selected item, this allows you to have different type of content in your tree.
 
 In this exemple, we will have the menu elements :
 
@@ -130,12 +130,12 @@ In this exemple, we will have the menu elements :
 
 How to customize the tree behaviour
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The TreeBrowserBundle is base on `jsTree <http://www.jstree.com/documentation>`_. jsTree works with events, dispatched everytime the user does an action.
+The TreeBrowserBundle is based on `jsTree <http://www.jstree.com/documentation>`_. jsTree works with events, dispatched everytime the user does an action.
 
 A simple way to customize the tree behavior is to bind your actions to those events.
 
-If you have a look at init.js and select.js, you will noticed that that action are already binded. If this is not what you need, JQuery provide the
-unbind function to solve the problem.
+If you have a look at init.js and select.js, you will notice that actions are already bound to some of the tree events. If the default behavior is not
+what you need, JQuery provide the unbind function to solve the problem.
 
 Here is a simple way to remove the context menu from the admin tree :
 
@@ -186,7 +186,7 @@ For exemple, if your want to open a custom action :
                 }
             });
 
-Don't forget to add your custom route to the fos_js_routing > routes_to_expose configuration :
+Don't forget to add your custom route to the fos_js_routing.routes_to_expose configuration :
 
 .. configuration-block::
 
