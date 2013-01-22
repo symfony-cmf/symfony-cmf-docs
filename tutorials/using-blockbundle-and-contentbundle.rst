@@ -379,7 +379,7 @@ the ``LoadBlockWithCmfParent.php`` class:
 
     <?php
     // src/Acme/Bundle/MainBundle/DataFixtures/PHPCR/LoadBlockWithCmfParent.php
-    namespace Acme\MainBundle\DataFixtures\ORM;
+    namespace Acme\MainBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\DataFixtures\AbstractFixture;
     use Doctrine\Common\Persistence\ObjectManager;
