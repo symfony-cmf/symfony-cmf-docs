@@ -87,11 +87,13 @@ Look at the templates in the Sonata Admin Bundle for examples how to build the t
 
 In the same bundle the `PhpcrOdmTree <https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle/blob/master/Tree/PhpcrOdmTree.php>`_ implements the tree interface and gives an example how to implement the methods.
 
+Here are some common tips about TreeBrowser utilization :
 
 Define tree elements
 ~~~~~~~~~~~~~~~~~~~~
 The first step, is to define all the elements allowed in the tree and their children.
 Have a look at the `cmf-sandbox configuration <https://github.com/symfony-cmf/cmf-sandbox/blob/master/app/config/config.yml>`_, the section document_tree in sonata_doctrine_phpcr_admin.
+
 This configuration is set for all your application trees regardless their type (admin or select).
 
 .. configuration-block::
@@ -120,7 +122,7 @@ This can be done either in an action template or in a custom block.
 
 You have to specify the tree root and the selected item, this allows you to have different type of content in your tree.
 
-In this exemple, we will have the menu elements :
+In this example, we will have the menu elements :
 
 .. configuration-block::
 
@@ -170,7 +172,7 @@ If you want to remove it, you just need to call the unbind function on this even
 
 Then you can bind it on another action.
 
-For exemple, if your want to open a custom action :
+For example, if your want to open a custom action :
 
 .. configuration-block::
 
