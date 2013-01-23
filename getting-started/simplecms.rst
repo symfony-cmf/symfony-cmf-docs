@@ -10,8 +10,9 @@ with your :doc:`content`, which users can browse using a :doc:`menu`.
 
 These three components complement each other but are independent: they work
 without each other, allowing you to choose which ones you want to use, extend
-or ignore. To demonstrate how you can combine all of the previous components
-into a simple yet fully functional CMS, the ``SimpleCMSBundle`` was created.
+or ignore. In some cases, however, you might just want a simple implementation
+that gathers all those functionalities in a ready-to-go package. For that
+purpose, the ``SimpleCMSBundle`` was created.
 
 
 SimpleCMSBundle
