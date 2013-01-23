@@ -136,6 +136,7 @@ Add route in to your routing configuration
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         admin:
             resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
             prefix: /admin
@@ -147,10 +148,6 @@ Add route in to your routing configuration
 
         fos_js_routing:
             resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-
-        sonata_doctrine_phpcr_admin_phpcrodmbrowser:
-            resource: @SonataDoctrinePHPCRAdminBundle/Resources/config/routing/phpcrodmbrowser.xml
-            prefix: /admin/browser
 
         symfony_cmf_tree:
             resource: .
