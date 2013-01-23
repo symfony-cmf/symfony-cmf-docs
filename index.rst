@@ -92,7 +92,6 @@ to do it? In this case the reference is the right place for you.
 	bundles/search
 	bundles/simple-cms
 	bundles/doctrine_phpcr_admin
-	bundles/tree
 	bundles/tree-browser
 
 Cookbook
