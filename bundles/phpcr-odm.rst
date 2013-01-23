@@ -430,7 +430,7 @@ as for Doctrine ORM. The only differences are
 * use the tag name ``doctrine_phpcr.event_listener`` resp. ``doctrine_phpcr.event_subscriber`` instead of ``doctrine.event_listener``.
 * expect the argument to be of class Doctrine\ODM\PHPCR\Event\LifecycleEventArgs rather than in the ORM namespace.
 
-You can register for the events as described in `the PHPCR-ODM documentation<http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html>`_.
+You can register for the events as described in `the PHPCR-ODM documentation <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html>`_.
 
     services:
         my.listener:
@@ -438,7 +438,7 @@ You can register for the events as described in `the PHPCR-ODM documentation<htt
                 tags:
                     - { name: doctrine_phpcr.event_listener, event: postPersist }
 
-More information on the doctrine event system integration is in this `Symfony cookbook entry<http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html>`_.
+More information on the doctrine event system integration is in this `Symfony cookbook entry <http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html>`_.
 
 
 
@@ -470,7 +470,7 @@ Use ``app/console help <command>`` to see all options each of the commands has.
 .. note::
 
     To use the ``doctrine:phpcr:fixtures:load`` command, you additionally need to install the
-    `DoctrineFixturesBundle<http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_
+    `DoctrineFixturesBundle <http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_
     and its dependencies. See that documentation page for how to use fixtures.
 
 
