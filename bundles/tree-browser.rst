@@ -99,6 +99,7 @@ This configuration is set for all your application trees regardless their type (
 .. configuration-block::
 
     .. code-block:: yaml
+
         sonata_doctrine_phpcr_admin:
             document_tree_defaults: [locale]
             document_tree:
@@ -127,6 +128,7 @@ In this example, we will have the menu elements :
 .. configuration-block::
 
     .. code-block:: jinja
+
         {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuItemId } %}
 
 
@@ -144,6 +146,7 @@ Here is a simple way to remove the context menu from the admin tree :
 .. configuration-block::
 
     .. code-block:: jinja
+
         {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuItemId } %}
         <script type="text/javascript">
             $(document).ready(function() {
@@ -164,6 +167,7 @@ If you want to remove it, you just need to call the unbind function on this even
 .. configuration-block::
 
     .. code-block:: jinja
+
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#tree').unbind('select_node.jstree');
@@ -177,22 +181,24 @@ For example, if your want to open a custom action :
 .. configuration-block::
 
     .. code-block:: jinja
-            $('#tree').bind("select_node.jstree", function (event, data) {
-                if ((data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Document_MenuNode'
-                    || data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Document_MultilangMenuNode')
-                    && data.rslt.obj.attr("id") != '{{ menuItemId }}'
-                ) {
-                    var routing_defaults = {'locale': '{{ locale }}', '_locale': '{{ _locale }}'};
-                    routing_defaults["id"] = data.rslt.obj.attr("url_safe_id");
-                    window.location = Routing.generate('presta_cms_page_edit', routing_defaults);
-                }
-            });
+
+        $('#tree').bind("select_node.jstree", function (event, data) {
+            if ((data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Document_MenuNode'
+                || data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Document_MultilangMenuNode')
+                && data.rslt.obj.attr("id") != '{{ menuItemId }}'
+            ) {
+                var routing_defaults = {'locale': '{{ locale }}', '_locale': '{{ _locale }}'};
+                routing_defaults["id"] = data.rslt.obj.attr("url_safe_id");
+                window.location = Routing.generate('presta_cms_page_edit', routing_defaults);
+            }
+        });
 
 Don't forget to add your custom route to the fos_js_routing.routes_to_expose configuration :
 
 .. configuration-block::
 
     .. code-block:: yaml
+
         fos_js_routing:
             routes_to_expose:
                 - symfony_cmf_tree_browser.phpcr_children
