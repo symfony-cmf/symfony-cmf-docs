@@ -45,11 +45,9 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
             // ...
 
             // support for the admin
-            new Symfony\Cmf\Bundle\TreeBundle\SymfonyCmfTreeBundle(),
             new Symfony\Cmf\Bundle\TreeBrowserBundle\SymfonyCmfTreeBrowserBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
-            new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
@@ -143,19 +141,36 @@ Add route in to your routing configuration
             resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
             prefix: /admin
 
-        _sonata_admin:
+        sonata_admin:
             resource: .
             type: sonata_admin
             prefix: /admin
 
         fos_js_routing:
             resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-        
-        phpcrbrowser:
-            resource: @SymfonyCmfTreeBrowserBundle/Resources/config/routing/phpcrbrowser.xml
-            prefix: /admin/browser
-        
-        phpcrodmbrowser:
-            resource: @SonataDoctrinePHPCRAdminBundle/Resources/config/routing/phpcrodmbrowser.xml
-            prefix: /admin/browser
 
+        symfony_cmf_tree:
+            resource: .
+            type: 'symfony_cmf_tree'
+
+
+Sonata Assets
+-------------
+
+.. code-block:: bash
+
+    app/console assets:install --symlink
+
+
+Finally
+-------
+
+Now Sonata is configured to work with the PHPCR you can access the dashboard using via /admin/dashboard in your site.
+
+
+Tree Problems
+-------------
+
+If you have not yet added anything to the content repository, the tree view will not load as it cannot find a root node. To fix this, load some data as fixtures by following this doc:
+
+- :doc:`using-blockbundle-and-contentbundle`
