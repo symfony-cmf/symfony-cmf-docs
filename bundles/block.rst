@@ -260,7 +260,7 @@ your needs. For our rss block we create a service that knows how to handle RSSBl
 
 * the method ``getDefaultSettings`` configures a title, url and the maximum amount of items
 
-  .. code:: php
+  .. code-block:: php
 
       // ...
       public function getDefaultSettings()

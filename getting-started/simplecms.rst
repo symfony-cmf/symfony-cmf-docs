@@ -17,11 +17,11 @@ into a simple yet fully functional CMS, the ``SimpleCMSBundle`` was created.
 SimpleCMSBundle
 ---------------
 
-``SimpleCMSBundle`` sits at the top of every other Symfony CMF component,
-combining them into a functional CMS. It's a simple solution, but you will
-find it very useful when you start implementing your own CMS using Symfony
-CMF. Whether you decide to extend or replace it, it's up to you, but in both
-cases, it's a good place to start developing your first CMS.
+``SimpleCMSBundle`` is implemented on top of most of the other Symfony CMF
+Bundles, combining them into a functional CMS. It's a simple solution, but
+you will find it very useful when you start implementing your own CMS using
+Symfony CMF. Whether you decide to extend or replace it, it's up to you,
+but in both cases, it's a good place to start developing your first CMS.
 
 
 Page
@@ -42,19 +42,19 @@ points out many of the features available:
 
 The class itself is similar to the ``StaticContent`` already described in
 the documentation page regarding :doc:`content`, although some key atributes,
-like ``father`` or ``path`` come from the ``Route`` class it extends.
+like ``parent`` or ``path`` come from the ``Route`` class it extends.
 
 
 Three-in-one
 ~~~~~~~~~~~~
 
 Like explained before, this bundle gathers functionality from three distinct
-bundles: :doc:`content`, :doc:`Routing <routing>` and :doc:`menu`. The routing
-component receives a request, that it matches to a ``Route`` instance loaded
-from database. That ``Route`` points to a ``Content`` instance: itself. A
-controller is also specified by the routing component, that renders the ``Content``
-using a template which, in turn, presents the user with a HTML visualization
-of the stored information tree structure, rendered using ``MenuItem`` obtained
+bundles: :doc:`content`, :doc:`routing` and :doc:`menu`. The routing component
+receives a request, that it matches to a ``Route`` instance loaded from database.
+That ``Route`` points to a ``Content`` instance: itself. A controller is
+also determined by the routing component, that renders the ``Content`` using
+a template which, in turn, presents the user with a HTML visualization of
+the stored information tree structure, rendered using ``MenuItem`` obtained
 from equivalent ``NodeInterface`` instances.
 
 ``SimpleCMSBundle`` simplifies this process: ``Content``, ``Route`` and ``NodeInterface``
@@ -75,6 +75,10 @@ mechanism, and will be analysed bellow.
  several translations coexist in the same database entry, and the several
  translated versions of each field are stored as different attributes in
  that same entry.
+ 
+ As the routing is not separated from the content, it is not possible to
+ create different routes for different languages. This is one of the biggest
+ disadvantages of the ``SimpleCmsBundle``.
  
 Configuring the content class
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -130,6 +134,15 @@ When rendering the actual URL from ``Route``, the locale prefix needs to be
 put back, otherwise the resulting addresses wouldn't specify the locale they
 refer to. To do so, ``MultilangPage`` uses the already mentioned ``getStaticPrefix()``
 implementation.
+
+Exemplifying: An incoming request for ``contact`` would be prefixed with
+``/cms/simple`` basepath, and the storage would be queried for ``/cms/simple/contact/``.
+However, in a multilanguage setup, the locale is prefixed to the URI, resulting
+in a query either for ``/cms/simple/en/contact/`` or ``/cms/simple/de/contact/``,
+which would require two independent entries to exist for the same actual
+content. With the above mentioned approach, the ``locale`` is stripped from
+the URI prior to ``basepath`` prepending, resulting in a query for ``/cms/simple/contact/``
+in both cases.
 
 
 Routes and Redirections
