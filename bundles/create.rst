@@ -242,9 +242,9 @@ Alternative: Aloha Editor
 
 Optional: Aloha Editor (create.js ships with the hallo editor, but if you prefer you can also use aloha)
 
-        To use the Aloha editor, download the files here: https://github.com/alohaeditor/Aloha-Editor/downloads/
-        Unzip the contents of the "aloha" subfolder in the zip file as folder vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/vendor/aloha
-        Make sure you have just one aloha folder with the js, not aloha/aloha/... - you should have vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/vendor/aloha/aloha.js
+    To use the Aloha editor, download the files here: https://github.com/alohaeditor/Aloha-Editor/downloads/
+    Unzip the contents of the "aloha" subfolder in the zip file as folder vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/vendor/aloha
+    Make sure you have just one aloha folder with the js, not aloha/aloha/... - you should have vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/vendor/aloha/aloha.js
 
 
 Usage

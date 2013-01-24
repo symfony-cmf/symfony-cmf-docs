@@ -173,7 +173,7 @@ The ``DynamicRouter`` uses one of several possible methods to determine it
     then matched against the provided configuration from config.yml.
 - Default: if configured, a default Controller will be used.
 
-Appart from this, the ``DynamicRouter`` is also capable of dynamically specifying
+Apart from this, the ``DynamicRouter`` is also capable of dynamically specifying
 which Template will be used, in a similar way to the one used to determine
 the Controller (in order of precedence):
 
@@ -194,7 +194,7 @@ Here's an example on how to configure the above mentioned options:
         symfony_cmf_routing_extra:
             dynamic:
                 generic_controller: symfony_cmf_content.controller:indexAction
-                controllers_by_alias:
+                controllers_by_type:
                     editablestatic: sandbox_main.controller:indexAction
                 controllers_by_class:
                     Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: symfony_cmf_content.controller::indexAction
@@ -202,7 +202,7 @@ Here's an example on how to configure the above mentioned options:
                     Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: SymfonyCmfContentBundle:StaticContent:index.html.twig
 
 Notice that ``enabled: true`` is no longer present. It's only required if
-no other configuration paramenter is provided. The router is automatically
+no other configuration parameter is provided. The router is automatically
 enabled as soon as you add any other configuration to the `dynamic` entry.
 
 .. note::

@@ -129,7 +129,7 @@ In this example, we will have the menu elements :
 
     .. code-block:: jinja
 
-        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuItemId } %}
+        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuNodeId } %}
 
 
 How to customize the tree behaviour
@@ -147,7 +147,7 @@ Here is a simple way to remove the context menu from the admin tree :
 
     .. code-block:: jinja
 
-        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuItemId } %}
+        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuNodeId } %}
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#tree').bind("before.jstree", function (e, data) {
@@ -185,7 +185,7 @@ For example, if your want to open a custom action :
         $('#tree').bind("select_node.jstree", function (event, data) {
             if ((data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Document_MenuNode'
                 || data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Document_MultilangMenuNode')
-                && data.rslt.obj.attr("id") != '{{ menuItemId }}'
+                && data.rslt.obj.attr("id") != '{{ menuNodeId }}'
             ) {
                 var routing_defaults = {'locale': '{{ locale }}', '_locale': '{{ _locale }}'};
                 routing_defaults["id"] = data.rslt.obj.attr("url_safe_id");

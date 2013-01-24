@@ -60,14 +60,14 @@ if Sonata becomes unavailable.
 Menu entries
 ------------
 
-Document\MenuItem defines menu entries. You can build menu items based on
+``MenuItem`` document defines menu entries. You can build menu items based on
 symfony routes, absolute or relative urls or referenceable PHPCR-ODM content
 documents.
 
 The menu tree is built from documents under [menu_basepath]/[menuname]. You can
 use different document classes for menu items, as long as they implement
-``Knp\Menu\NodeInterface`` to integrate with KnpMenuBundle. The default MenuItem
-Document discards children that do not implement this interface.
+``Knp\Menu\NodeInterface`` to integrate with KnpMenuBundle. The default ``MenuNode``
+document discards children that do not implement this interface.
 
 The currently highlighted entry is determined by checking if the content
 associated with a menu document is the same as the content the DynamicRouter
@@ -100,7 +100,7 @@ make sure that the menu root document is found with
     $dm->find($menu_document_class, $menu_basepath . $menu_name)
 
 The route document must implement ``Knp\Menu\NodeInterface`` - see
-Document/MenuItem.php for an example. You probably need to specify
+``MenuNode`` document for an example. You probably need to specify
 menu_document_class too, as only PHPCR-ODM can determine the document from the
 database content.
 

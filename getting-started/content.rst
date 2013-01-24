@@ -36,7 +36,7 @@ Multilang Static Content
 ------------------------
 
 The ``MultilangStaticContent`` extends ``StaticContent``, offering the same
-functionality with multilanguage support. It specifies which fields are to
+functionality with multi language support. It specifies which fields are to
 be translated (``title``, ``body`` and ``tags``) as well as a variable to
 declare the locale.
 
@@ -58,9 +58,9 @@ Content Controller
 ------------------
 
 To handle both content types, a ``Controller`` is also included. Its inner
-workings are pretty straighforward: it accepts a content instance and optionally
-a template to render it. If none is provided, it uses a preconfigured default.
-It also takes into account the document's publishing status and multilanguage.
+workings are pretty straightforward: it accepts a content instance and optionally
+a template to render it. If none is provided, it uses a pre-configured default.
+It also takes into account the document's publishing status and multi language.
 Both the content instance and the optional template are provided to the Controller
 by the ``DynamicRouter`` of the ``RoutingExtraBundle``. More information on this is
 available on the :ref:`Routing system getting started page <routing-linking-a-route-with-a-model-instance>`
@@ -71,7 +71,7 @@ Admin support
 
 The last component needed to handle the included content types is an administration
 panel. Symfony CMF can optionally support `SonataDoctrinePHPCRAdminBundle <https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle>`_
-, a backoffice generation tool. For more information about it, please refer
+, a back office generation tool. For more information about it, please refer
 to the bundle's `documentation section <https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle/tree/master/Resources/doc>`_.
 
 In ``ContentBundle``, the required administration panels are already declared
@@ -92,5 +92,5 @@ Final thoughts
 While this small bundle includes some vital components to a fully working
 CMS, it often will not provide all you need. The main idea behind it is to
 provide developers with a small and easy to understand starting point you can
-extend or use as inspriation to develop your own content types, Controllers and
+extend or use as inspiration to develop your own content types, Controllers and
 Admin panels.

@@ -99,8 +99,8 @@ Next, get composer and install and the necessary bundles (this may take a while)
 Preparing the PHPCR repository
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Now that you have all the code, you need to setup your PHPRC repository. 
-PHPRC organizes data in workspaces, and sandbox uses the "default" workspace,
+Now that you have all the code, you need to setup your PHPCR repository. 
+PHPCR organizes data in workspaces, and sandbox uses the "default" workspace,
 which is exists by default in Jackrabbit. If you use other applications that 
 require Jackrabbit, or if you just wish to change the workspace name, you
 can do so in app/config/phpcr.yml. The following command will create
@@ -265,7 +265,7 @@ You also need to download `midgard_tree_node.xml <https://raw.github.com/midgard
 and `midgard_namespace_registry.xml <https://github.com/midgardproject/phpcr-midgard2/raw/master/data/share/schema/midgard_namespace_registry.xml>`_ 
 schema files, and place them into "<your-midgard2-folder>/schema" (defaults to "/usr/share/midgard2/schema")
 
-To have the midgard phpcr implementation installed run the following additional command:
+To have the Midgard2 PHPCR implementation installed run the following additional command:
 
 .. code-block:: bash
 

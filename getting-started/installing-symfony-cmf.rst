@@ -150,5 +150,5 @@ into a browsable website. The overall, simplified process is:
 - As configured, the retrieved content is passed to ContentBundle's ContentController, which will handle it and render AcmeMainBundle's layout.html.twig.
 
  Again, this is simplified view of a very simple CMS built on top of Symfony CMF.
- To fully understand all the possibilities of the CMF, a carefull look into
+ To fully understand all the possibilities of the CMF, a careful look into
  each component is needed.

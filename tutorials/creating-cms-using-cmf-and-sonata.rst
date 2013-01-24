@@ -96,26 +96,26 @@ Add the sonata bundles to your application configuration
                         - Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute
                 Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute:
                     valid_children: []
-                Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem:
+                Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode:
                     valid_children:
-                        - Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem
-                        - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem
-                Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem:
+                        - Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode
+                        - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode
+                Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode:
                     valid_children:
-                        - Symfony\Cmf\Bundle\MenuBundle\Document\MenuItem
-                        - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuItem
+                        - Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode
+                        - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode
 
         fos_js_routing:
             routes_to_expose:
                 - admin_sandbox_main_editablestaticcontent_create
                 - admin_sandbox_main_editablestaticcontent_delete
                 - admin_sandbox_main_editablestaticcontent_edit
-                - admin_bundle_menu_menuitem_create
-                - admin_bundle_menu_menuitem_delete
-                - admin_bundle_menu_menuitem_edit
-                - admin_bundle_menu_multilangmenuitem_create
-                - admin_bundle_menu_multilangmenuitem_delete
-                - admin_bundle_menu_multilangmenuitem_edit
+                - admin_bundle_menu_menunode_create
+                - admin_bundle_menu_menunode_delete
+                - admin_bundle_menu_menunode_edit
+                - admin_bundle_menu_multilangmenunode_create
+                - admin_bundle_menu_multilangmenunode_delete
+                - admin_bundle_menu_multilangmenunode_edit
                 - admin_bundle_content_multilangstaticcontent_create
                 - admin_bundle_content_multilangstaticcontent_delete
                 - admin_bundle_content_multilangstaticcontent_edit
@@ -171,6 +171,7 @@ Now Sonata is configured to work with the PHPCR you can access the dashboard usi
 Tree Problems
 -------------
 
-If you have not yet added anything to the content repository, the tree view will not load as it cannot find a root node. To fix this, load some data as fixtures by following this doc:
+If you have not yet added anything to the content repository, the tree view will not load as it
+cannot find a root node. To fix this, load some data as fixtures by following this doc:
 
 - :doc:`using-blockbundle-and-contentbundle`

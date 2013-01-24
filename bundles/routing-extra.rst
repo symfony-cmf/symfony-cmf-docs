@@ -110,7 +110,7 @@ following section on more details for the default `PHPCR-ODM`_ based
 implementation.
 
 You may want to configure route enhancers to decide what controller is used to
-handle the request, to avoid hardcoding controller names into your route
+handle the request, to avoid hard coding controller names into your route
 documents.
 
 The minimum configuration required to load the dynamic router as service
@@ -175,12 +175,12 @@ The possible enhancements are (in order of precedence):
 * Controller by alias: requires the route document to return a 'type' value in
     getRouteDefaults()
 * Controller by class: requires the route document to return an object for
-    getRouteContent(). The content document is checked for being instanceof the
+    getRouteContent(). The content document is checked for being ``instanceof`` the
     class names in the map and if matched that controller is used.
     Instanceof is used instead of direct comparison to work with proxy classes
     and other extending classes.
 * Template by class: requires the route document to return an object for
-    getRouteContent(). The content document is checked for being instanceof the
+    getRouteContent(). The content document is checked for being ``instanceof`` the
     class names in the map and if matched that template will be set as
     '_template' in the $defaults and the generic controller used as controller.
 
@@ -193,7 +193,7 @@ The possible enhancements are (in order of precedence):
         symfony_cmf_routing_extra:
             dynamic:
                 generic_controller: symfony_cmf_content.controller:indexAction
-                controllers_by_alias:
+                controllers_by_type:
                     editablestatic: sandbox_main.controller:indexAction
                 controllers_by_class:
                     Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: symfony_cmf_content.controller::indexAction
@@ -352,11 +352,7 @@ Notes:
 
 * RouteObjectInterface: The provided documents implement this interface to map content to routes and to (optional) provide
     a custom route name instead of the symfony core compatible route name.
-* Redirections: This bundle provides a RedirectController.
-
-TODO: see DependencyInjection/Configuration.php of this bundle. I could not figure out how to set
-this mapping as a default mapping. Meanwhile, in order to do redirections, you
-need to add an entry to your mapping in the project configuration
+* Redirections: This bundle provides a controller to handle redirections.
 
 .. configuration-block::
 

@@ -37,7 +37,7 @@ PHPCR Session Configuration
 
 The session needs a PHPCR implementation specified in the ``backend`` section
 by the ``type`` field, along with configuration options to bootstrap the
-implementation. Currently we support jackrabbit, doctrinedbal and midgard2.
+implementation. Currently we support ``jackrabbit``, ``doctrinedbal`` and ``midgard2``.
 Regardless of the backend, every PHPCR session needs a workspace, username and
 password.
 
@@ -456,7 +456,7 @@ Use ``app/console help <command>`` to see all options each of the commands has.
 
 - ``doctrine:phpcr:workspace:create``  Create a workspace in the configured repository
 - ``doctrine:phpcr:workspace:list``  List all available workspaces in the configured repository
-- ``doctrine:phpcr:purge``  Remove all content from the repository
+- ``doctrine:phpcr:purge``  Remove content from the repository
 - ``doctrine:phpcr:register-system-node-types``  Register system node types in the PHPCR repository
 - ``doctrine:phpcr:register-node-types``  Register node types in the PHPCR repository
 - ``doctrine:phpcr:fixtures:load``  Load data fixtures to your PHPCR database.
