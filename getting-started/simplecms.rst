@@ -246,7 +246,7 @@ Fixtures
 ``SimpleCMSBundle`` includes a support class for integration with `DoctrineFixturesBundle <http://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html>`_,
 aimed at making loading initial data easier. A working example is provided
 in Symfony CMF SE, that illustrates how you can easily generate ``MultilangPage``
-and ``MultilangMenuItem`` instances from yml files.
+and ``MultilangMenuNode`` instances from yml files.
 
 
 Configuration
