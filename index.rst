@@ -32,15 +32,15 @@ custom applications** like what is possible with `Symfony2`_.
 What is our target audience?
 ----------------------------
 
-There are basically to main target audiences:
+There are basically two main target audiences:
 
-#. Developers that have build a custom application with Symfony2 and just need to also
-   support content management. Be it sophisticated CMS features like semantic content, 
-   inline editing, multi-channel delivery etc. or a few content pages for things like 
-   the about/contact pages.
+#. Developers that have built an existing custom application with Symfony2 and need a fast
+   way to add support for content management. Be it sophisticated CMS features like semantic
+   content, inline editing, multi-channel delivery etc. or just a few content pages for things 
+   like the about/contact pages.
 
 #. Developers that need to build a highly customized authoring and content delivery
-   solution that no out of the box CMS can properly provide through customization.
+   solution that no out-of-the-box CMS can properly provide through customization alone.
 
 
 Getting started
