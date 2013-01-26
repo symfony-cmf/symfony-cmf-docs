@@ -85,7 +85,7 @@ you might prioritize features differently:
 
 * a CMS must provide means to store content with different properties
 * a CMS must provide means to reference content
-* a CMS must provide means be represent the content as a tree structure
+* a CMS must provide means to represent the content as a tree structure
 * a CMS must provide full text search capabilities
 * a CMS must not enforce a singular schema for content
 * a CMS must provide means to optionally define a schema for content elements
