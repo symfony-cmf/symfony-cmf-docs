@@ -41,11 +41,11 @@ Then create a scripts section or add to the existing one:
     {
         "scripts": {
             "post-install-cmd": [
-                "Symfony\\Cmf\\Bundle\\SymfonyCmfCreateBundle\\Composer\\ScriptHandler::initSubmodules",
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::initSubmodules",
                 ...
             ],
             "post-update-cmd": [
-                "Symfony\\Cmf\\Bundle\\SymfonyCmfCreateBundle\\Composer\\ScriptHandler::initSubmodules",
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::initSubmodules",
                 ...
             ]
         }
@@ -65,7 +65,7 @@ application's kernel:
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new FOS\RestBundle\FOSRestBundle(),
-            new Symfony\Cmf\Bundle\SymfonyCmfCreateBundle\SymfonyCmfCreateBundle(),
+            new Symfony\Cmf\Bundle\CreateBundle\SymfonyCmfCreateBundle(),
             // ...
         );
     }
