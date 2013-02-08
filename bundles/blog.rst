@@ -1,7 +1,7 @@
 BlogBundle
 ==========
 
-This bundle aims to provides everything you need to create a full blog or
+This bundle aims to provide everything you need to create a full blog or
 blog-like system. It also includes in-built support for the Sonata Admin
 bundle to help you get up-and-running quickly.
 
@@ -15,6 +15,8 @@ Pending features:
 
  - Full tag support
  - Frontend pagination (using knp-paginator)
+ - RSS/ATOM feed
+ - Comments
 
 Dependencies
 ------------
