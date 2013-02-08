@@ -84,6 +84,7 @@ to do it? In this case the reference is the right place for you.
 	:maxdepth: 1
 
 	bundles/block
+	bundles/blog
 	bundles/content
 	bundles/core
 	bundles/create
