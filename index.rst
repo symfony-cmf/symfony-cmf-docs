@@ -34,6 +34,7 @@ to do it? The reference is the right place to search.
 	:maxdepth: 1
 
 	bundles/block
+	bundles/blog
 	bundles/content
 	bundles/core
 	bundles/create
