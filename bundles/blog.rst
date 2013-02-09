@@ -17,6 +17,7 @@ Pending features:
  - Frontend pagination (using knp-paginator)
  - RSS/ATOM feed
  - Comments
+ - User support (FOSUserBundle)
 
 Dependencies
 ------------
