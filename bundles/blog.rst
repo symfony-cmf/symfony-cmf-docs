@@ -7,30 +7,40 @@ bundle to help you get up-and-running quickly.
 
 Current features:
 
- - Host multiple blogs within a single website.
- - Place blogs anywhere within your route hierarchy.
- - Sonata Admin integration.
+* Host multiple blogs within a single website.
+* Place blogs anywhere within your route hierarchy.
+* Sonata Admin integration.
 
 Pending features:
 
- - Full tag support
- - Frontend pagination (using knp-paginator)
- - RSS/ATOM feed
- - Comments
- - User support (FOSUserBundle)
+* Full tag support
+* Frontend pagination (using knp-paginator)
+* RSS/ATOM feed
+* Comments
+* User support (FOSUserBundle)
 
 Dependencies
 ------------
 
- * ``SymfonyCmfRoutingExtraBundle`` is used to manage the routing.
- * :doc:`PHPCR-ODM<phpcr-odm>` is used to persist the bundles documents.
+* :doc:`SymfonyCmfRoutingExtraBundle<routing-extra>` is used to manage the routing.
+* :doc:`PHPCR-ODM<phpcr-odm>` is used to persist the bundles documents.
 
 Configuration
 -------------
 
-The default configuration will work with the ``cmf-sandbox``, you will probably
-need to cusomize it to fit your own requirements:
+The default configuration will work with the ``cmf-sandbox`` but you will probably
+need to cusomize it to fit your own requirements.
 
+Parameters:
+
+* **routing_post_controller** - specifies which controller to use for showing posts.
+   note that this controller MUST be a service, the method name follows.
+* **routing_post_prefix** - this is the part of the URL which "prefixes" the post slug
+   e.g. with the default value the following post URL might be generated: ``http://example.com/my-blog/posts/this-is-my-post``
+* **blog_basepath** - *required* Specify the path where the blog content should be placed.
+* **routing_basepath** - *required* Specify the basepath for the routing system.
+
+Example:
 
 .. code-block:: yaml
 
@@ -39,16 +49,6 @@ need to cusomize it to fit your own requirements:
         routing_post_prefix: posts
         blog_basepath: /cms/content
         routing_basepath: /cms/routes
-
-Explanation:
-
- * **routing_post_controller** - specifies which controller to use for showing posts.
-   note that this controller MUST be a service, the method name follows.
- * **routing_post_prefix** - this is the part of the URL which "prefixes" the post slug
-   e.g. with the default value the following post URL might be generated: ``http://example.com/my-blog/posts/this-is-my-post``
- * **blog_basepath** - *required* Specify the path where the blog content should be placed.
- * **routing_basepath** - *required* Specify the basepath for the routing system.
-
 
 Routing
 ~~~~~~~
@@ -103,3 +103,30 @@ to enable blog edition from the tree browser. Expose the routes in the
             - admin_bundle_blog_blog_create
             - admin_bundle_blog_blog_delete
             - admin_bundle_blog_blog_edit
+
+Integration
+-----------
+
+Templating
+~~~~~~~~~~
+
+The default templates are marked up for `Twitter Bootstrap <http://twitter.github.com/bootstrap/>`_.
+But it is easy to completely customize the templates by **overriding** them.
+
+The one template you will have to override is the default layout, you will need 
+ to change it and make it extend your applications layout. The easiest way to do 
+this is to create the following file:
+
+.. code-block:: jinja
+
+    {# /app/Resources/SymfonyCmfBlogBundle/views/default_layout.html.twig #}
+
+    {% extends "MyApplicationBundle::my_layout.html.twig" %}
+
+    {% block content %}
+    {% endblock %}
+
+The blog will now use ``MyApplicationBundle::my_layout.html.twig`` instead of
+``SymfonyCmfBlogBundle::default_layout.html.twig``.
+
+See `Overriding Bundle Templates <http://symfony.com/doc/2.0/book/templating.html#overriding-bundle-templates>`_ in the Symfony documentation for more information.
