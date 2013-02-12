@@ -163,6 +163,42 @@ Sonata Assets
     app/console assets:install --symlink
 
 
+Defining own Admin classes
+--------------------------
+
+The CMF bundles come with predefined admin classes which will be activated
+automatically if Sonata PHPCR-ODM Admin is loaded. If you need to write
+different admins and do not want to load the defaults, you can deactivate the
+loading - see the documentation of the respective bundles.
+
+To load your own Admin service, you need to declare it as a service, tag with
+``sonata.admin`` with ``manager_type="doctrine_phpcr"``. For the admin to work
+properly, you need to add a call for method ``setRouteBuilder`` to set it to
+the service ``sonata.admin.route.path_info_slashes``, or your Admin will not
+work.
+
+The constructor expects three arguments, code, document class and controller
+name. You can pass an empty argument for the code, the document class must be
+the fully qualified class name of the document this admin is for and the third
+argument can be used to set a custom controller that does additional operations
+over the default sonata CRUD controller.
+
+.. configuration-block::
+
+    .. code-block:: xml
+
+        <service id="my_bundle.admin" class="%my_bundle.admin_class%">
+            <tag name="sonata.admin" manager_type="doctrine_phpcr" group="dashboard.group_content" label_catalogue="MyBundle" label="dashboard.label_my_admin" label_translator_strategy="sonata.admin.label.strategy.underscore" />
+            <argument/>
+            <argument>%my_bundle.document_class%</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+
+            <call method="setRouteBuilder">
+                <argument type="service" id="sonata.admin.route.path_info_slashes" />
+            </call>
+        </service>
+
+
 Finally
 -------
 
