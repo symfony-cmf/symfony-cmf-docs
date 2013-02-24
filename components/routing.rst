@@ -108,7 +108,7 @@ Matcher
 The ``DynamicRouter`` uses a ``RequestMatcherInterface`` or ``UrlMatcherInterface``
 instance to match the received Request or URL, respectively, to a parameters array.
 The actual matching logic depends on the underlying implementation you choose.
-You can easily use you own matching strategy by pass it to the ``DynamicRouter``
+You can easily use you own matching strategy by passing it to the ``DynamicRouter``
 constructor. As part of this bundle, a ``NestedMatcher`` is already provided
 which you can use straight away, or as reference for your own implementation.
 
