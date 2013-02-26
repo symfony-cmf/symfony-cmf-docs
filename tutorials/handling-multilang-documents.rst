@@ -3,7 +3,11 @@ Handling Multilang Documents
 The goal of the tutorial is to describe all the steps that are needed
 to be taken to use mulitlang documents as clearly as possible.
 
-Something you need to read first: :ref:`coming soon`
+Please read
+-----------
+
+- :doc:`../bundles/phpcr-odm`:
+- :doc:`creating-cms-using-cmf-and-sonata`:
 
 
 Make fields translatable
@@ -83,3 +87,9 @@ The next step is to update the routing.yml with the following content:
 If you now open up the admin dashboard again, the url should be prefixed with your default locale.
 For example: "/de/admin/...". And when clicking on the language switcher the page reloads and displays
 the correct content for the requested language. Happy editing.
+
+
+Further Reading
+---------------
+
+- http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
