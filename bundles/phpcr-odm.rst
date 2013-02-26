@@ -5,6 +5,12 @@ The `DoctrinePHPCRBundle <https://github.com/doctrine/DoctrinePHPCRBundle>`_
 provides integration with the PHP content repository and optionally with
 Doctrine PHPCR-ODM to provide the ODM document manager in symfony.
 
+Out of the box, this bundle supports the following PHPCR implementations:
+
+* `Jackalope <http://jackalope.github.com/>`_ (both jackrabbit and doctrine-dbal transports)
+* `Midgard2 <http://midgard-project.org/phpcr/>`_
+
+
 .. index:: DoctrinePHPCRBundle, PHPCR, ODM
 
 .. Tip::
@@ -162,9 +168,9 @@ PHPCR Session with Midgard2
 Midgard2 is an application that provides a compiled PHP extension. It
 implements the PHPCR API on top of a standard RDBMS.
 
-To use the Midgard2 PHPCR provider, you must have both the [midgard2 PHP extension](http://midgard-project.org/midgard2/#download)
-and [the midgard/phpcr package](http://packagist.org/packages/midgard/phpcr) installed.
-The settings here correspond to Midgard2 repository parameters as explained in [the getting started document](http://midgard-project.org/phpcr/#getting_started).
+To use the Midgard2 PHPCR provider, you must have both the `midgard2 PHP extension <http://midgard-project.org/midgard2/#download>`_
+and `the midgard/phpcr package <http://packagist.org/packages/midgard/phpcr>`_ installed.
+The settings here correspond to Midgard2 repository parameters as explained in `the getting started document <http://midgard-project.org/phpcr/#getting_started>`_.
 
 The session backend configuration looks as follows:
 
@@ -189,6 +195,7 @@ The session backend configuration looks as follows:
 For more information, please refer to the `official Midgard PHPCR documentation <http://midgard-project.org/phpcr/>`_.
 
 .. _reference-phpcr-odm-configuration:
+
 
 Doctrine PHPCR-ODM Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -239,6 +246,7 @@ You can also enable `metadata caching <http://symfony.com/doc/master/reference/c
                     id:                   ~
 
 
+.. _phpcr-odm-multilang-config:
 
 Translation configuration
 """""""""""""""""""""""""
@@ -258,9 +266,9 @@ languages. For more information on multilingual documents, see the
             odm:
                 ...
                 locales:
-                    en: [de, fr]
-                    de: [en, fr]
-                    fr: [en, de]
+                    en: [en, de, fr]
+                    de: [de, en, fr]
+                    fr: [fr, en, de]
 
 This block defines the order of alternative locales to look up if a document is
 not translated to the requested locale.
@@ -424,7 +432,7 @@ You can access the PHPCR services like this:
 Events
 ------
 
-You can tag services to listen to Doctrine PHPCR events. It works the same way
+You can tag services to listen to Doctrine PHPCR-ODM events. It works the same way
 as for Doctrine ORM. The only differences are
 
 * use the tag name ``doctrine_phpcr.event_listener`` resp. ``doctrine_phpcr.event_subscriber`` instead of ``doctrine.event_listener``.
@@ -440,6 +448,102 @@ You can register for the events as described in `the PHPCR-ODM documentation <ht
 
 More information on the doctrine event system integration is in this `Symfony cookbook entry <http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html>`_.
 
+
+Constraint validator
+--------------------
+
+The bundle provides a ``ValidPhpcrOdm`` constraint validator you can use to
+check if your document ``Id`` or ``Nodename`` and ``Parent`` fields are
+correct.
+
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            constraints:
+                - Doctrine\Bundle\PHPCRBundle\Validator\Constraints\ValidPhpcrOdm
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
+        use Doctrine\Bundle\PHPCRBundle\Validator\Constraints as OdmAssert;
+
+        /**
+         * @OdmAssert\ValidPhpcrOdm
+         */
+        class Author
+        {
+           ...
+        }
+
+    .. code-block:: xml
+
+        <!-- Resources/config/validation.xml -->
+        <?xml version="1.0" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+                http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+            <class name="Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route">
+                <constraint name="Doctrine\Bundle\PHPCRBundle\Validator\Constraints\ValidPhpcrOdm" />
+            </class>
+        </constraint-mapping>
+
+
+Form types
+----------
+
+The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM specific cases, along with form type guessers.
+
+
+phpcr_reference
+~~~~~~~~~~~~~~~
+
+The ``phpcr_reference`` represents a Property of type REFERENCE or WEAKREFERENCE within a form.
+The input will be rendered as a text field containing either the PATH or the UUID as per the
+configuration. The form will resolve the path or id back to a PHPCR node to set the reference.
+
+This type extends the ``text`` form type. It adds an option ``transformer_type`` that can be set
+to either ``path`` or ``uuid``.
+
+
+Fixture loading
+---------------
+
+To use the ``doctrine:phpcr:fixtures:load`` command, you additionally need to install the
+`DoctrineFixturesBundle <http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_ which brings the
+`Doctrine data-fixtures <https://github.com/doctrine/data-fixtures>`_ into Symfony2.
+
+Fixtures work the same way they work for Doctrine ORM. You write fixture classes implementing
+``Doctrine\Common\DataFixtures\FixtureInterface``. If you place them in <Bundle>\DataFixtures\PHPCR,
+they will be autodetected if you specify no path to the fixture loading command.
+
+A simple example fixture class looks like this:
+
+.. code-block:: php
+
+    <?php
+
+    namespace MyBundle\DataFixtures\PHPCR;
+
+    use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+
+    class LoadMyData implements FixtureInterface
+    {
+        public function load(ObjectManager $manager)
+        {
+            // Create and persist your data here...
+        }
+    }
+
+
+For more on fixtures, see the `documentation of the DoctrineFixturesBundle <http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_.
 
 
 Doctrine PHPCR Commands
