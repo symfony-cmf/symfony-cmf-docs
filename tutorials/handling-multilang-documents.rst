@@ -1,7 +1,9 @@
 Handling Multilang Documents
 ============================
-The goal of the tutorial / short introduction...
-Something you need to read first: :ref:`phpcr-odm-multilang-config`
+The goal of the tutorial is to describe all the steps that are needed
+to be taken to use mulitlang documents as clearly as possible.
+
+Something you need to read first: :ref:`coming soon`
 
 
 Make fields translatable
@@ -78,7 +80,6 @@ The next step is to update the routing.yml with the following content:
         type: sonata_admin
         prefix: /{_locale}/admin
 
-That should already do the trick.
-
-Reference
----------
+If you now open up the admin dashboard again, the url should be prefixed with your default locale.
+For example: "/de/admin/...". And when clicking on the language switcher the page reloads and displays
+the correct content for the requested language. Happy editing.
