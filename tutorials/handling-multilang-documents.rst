@@ -3,20 +3,21 @@ Handling Multilang Documents
 The goal of the tutorial is to describe all the steps that are needed
 to be taken to use mulitlang documents as clearly as possible.
 
-Please read
------------
-
-- :doc:`../bundles/phpcr-odm`:
-- :doc:`creating-cms-using-cmf-and-sonata`:
-
-
-Make fields translatable
-------------------------
-Coming soon.
+Please read this first
+----------------------
+:doc:`../bundles/phpcr-odm`:
+:doc:`creating-cms-using-cmf-and-sonata`:
 
 
-Adding language switcher
-------------------------
+PHPCR-ODM Multilanguage Documents
+---------------------------------
+You can mark any properties as being translatable and have the document manager store and load the correct
+language for you. Note that translation always happens on a document level, not on the individual translatable fields.
+- `PHPCR-ODM documentation on Multilanguage <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html>`_.
+
+
+Sonata PHPCR-ODM Admin
+----------------------
 The first step is to configure sonata admin. We are going to place the language switcher in the topnav bar.
 To do this we need to configure the template for the "user_block" as shown below:
 
