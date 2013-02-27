@@ -92,9 +92,3 @@ The next step is to update the routing.yml with the following content:
 If you now open up the admin dashboard again, the url should be prefixed with your default locale,
 for example ``/de/admin/...``. When clicking on the language switcher the page reloads and displays
 the correct content for the requested language. Happy editing.
-
-
-Further Reading
----------------
-
-- http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
