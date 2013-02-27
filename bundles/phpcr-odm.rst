@@ -505,6 +505,22 @@ Form types
 The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM specific cases, along with form type guessers.
 
 
+phpcr_odm_image
+~~~~~~~~~~~~~~~
+
+The ``phpcr_odm_image`` form maps to a document of type ``Doctrine\ODM\PHPCR\Document\Image`` and provides with
+a preview to see the uploaded image. To use it, you need to include the `LiipImagineBundle <https://github.com/liip/LiipImagineBundle/>`_
+in your project and define an imagine filter called ``image_upload_thumbnail``.
+
+Then you can add images in a document form
+
+.. code-block:: php
+
+    TODO
+
+To delete an image, you need to delete the document containing the image. (There is a proposal
+to improve the user experience for that in a `DoctrinePHPCRBundle issue <https://github.com/doctrine/DoctrinePHPCRBundle/issues/40>`_.)
+
 phpcr_reference
 ~~~~~~~~~~~~~~~
 
