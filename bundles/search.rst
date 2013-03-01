@@ -10,7 +10,7 @@ to provide a site wide search.
 Dependencies
 ------------
 
-* `LiipSearchBundle <https://github.com/liip/LiipSearchBundle#readme>`_
+* `LiipSearchBundle <https://github.com/liip/LiipSearchBundle>`_
 
 Configuration
 -------------

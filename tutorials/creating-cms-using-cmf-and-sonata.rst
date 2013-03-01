@@ -212,3 +212,9 @@ If you have not yet added anything to the content repository, the tree view will
 cannot find a root node. To fix this, load some data as fixtures by following this doc:
 
 - :doc:`using-blockbundle-and-contentbundle`
+
+Further reading
+---------------
+
+* :doc:`../bundles/doctrine_phpcr_admin`
+* :doc:`handling-multilang-documents`
