@@ -1,5 +1,5 @@
 Handling Multi-Language Documents
-============================
+=================================
 
 The goal of the tutorial is to describe all the steps that are needed
 to be taken to use multi-language documents as clearly as possible.
@@ -28,7 +28,7 @@ we recommend putting them into a parameter ``%locales%``, see the
 
 
 PHPCR-ODM multi-language Documents
----------------------------------
+----------------------------------
 
 You can mark any properties as being translatable and have the document manager
 store and load the correct language for you. Note that translation always happens
