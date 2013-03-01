@@ -167,6 +167,13 @@ default locale, for example ``/de/admin/dashboard``. When clicking on the
 language switcher the page reloads and displays the correct content for the
 requested language.
 
+The provided sonata admin classes map the locale field of the multi-language
+documents to the form. You need to do the same in your admins, in order
+to create new translations. Otherwise the language fallback of PHPCR-ODM will
+make you update the original language, even when you request a different locale.
+With the mapped locale field, the editor can chose if he needs to create a new
+language version or updates the loaded one.
+
 Happy editing.
 
 
