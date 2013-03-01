@@ -512,11 +512,58 @@ The ``phpcr_odm_image`` form maps to a document of type ``Doctrine\ODM\PHPCR\Doc
 a preview to see the uploaded image. To use it, you need to include the `LiipImagineBundle <https://github.com/liip/LiipImagineBundle/>`_
 in your project and define an imagine filter called ``image_upload_thumbnail``.
 
-Then you can add images in a document form
+Then you can add images to document via Sonata Admin as follows:
 
 .. code-block:: php
 
-    TODO
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+         $formMapper
+            ->add('image', 'phpcr_image', array('required' => false, 'data_class' => 'Doctrine\ODM\PHPCR\Document\Image'))
+         ;
+    }
+
+You will need to overwrite the default ``fields.html.twig`` template, to actually see the uploaded image in the Sonata backend.
+
+.. code-block:: yaml
+
+    # Twig Configuration
+    twig:
+        form:
+            resources:
+                - 'DoctrinePHPCRBundle:Form:fields.html.twig'
+
+
+This is an example of how the imagine filter needs to be configured.
+
+.. code-block:: yaml
+
+    # Imagine Configuration
+    liip_imagine:
+        ...
+        filter_sets:
+            image_upload_thumbnail:
+                data_loader: phpcr
+                filters:
+                    thumbnail: { size: [100, 100], mode: outbound }
+
+The document to which you want to upload the image to needs to implement the following method:
+
+.. code-block:: php
+
+    public function setImage($image)
+    {
+        if (!$image) {
+            return;
+        } elseif ($this->image && $this->image->getFile()) {
+        // TODO: this is needed due to a bug in PHPCRODM (http://www.doctrine-project.org/jira/browse/PHPCR-98)
+        // TODO: this can be removed once the bug is fixed
+            $this->image->getFile()->setFileContent($image->getFile()->getFileContent());
+        } else {
+            $this->image = $image;
+        }
+    }
+
 
 To delete an image, you need to delete the document containing the image. (There is a proposal
 to improve the user experience for that in a `DoctrinePHPCRBundle issue <https://github.com/doctrine/DoctrinePHPCRBundle/issues/40>`_.)
