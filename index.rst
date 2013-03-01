@@ -36,7 +36,7 @@ There are basically two main target audiences:
 
 #. Developers that have built an existing custom application with Symfony2 and need a fast
    way to add support for content management. Be it sophisticated CMS features like semantic
-   content, inline editing, multi-channel delivery etc. or just a few content pages for things 
+   content, inline editing, multi-channel delivery etc. or just a few content pages for things
    like the about/contact pages.
 
 #. Developers that need to build a highly customized authoring and content delivery
@@ -50,7 +50,7 @@ Just started learning about the CMF? Want to know if the CMF fits your project? 
 
 .. toctree::
 	:maxdepth: 1
-	
+
 	getting-started/installing-symfony-cmf
 	getting-started/routing
 	getting-started/content
@@ -72,6 +72,7 @@ Want to know more about the CMF and how each part can be configured? There's a t
 	tutorials/installing-configuring-inline-editing
 	tutorials/creating-cms-using-cmf-and-sonata
 	tutorials/using-blockbundle-and-contentbundle
+	tutorials/handling-multilang-documents
 
 Bundles
 -------
