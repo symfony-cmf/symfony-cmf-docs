@@ -6,8 +6,8 @@ several caching solutions. Have a look at the available adapters in the SonataCa
 
 The BlockBundle additionally provides its own adapters for:
 
-* Esi
-* Ssi
+* `ESI <http://wikipedia.org/wiki/Edge_Side_Includes>`_
+* `SSI <http://wikipedia.org/wiki/Server_Side_Includes>`_
 * Asynchronous javascript
 * Synchronous javascript
 
@@ -23,8 +23,10 @@ The cache functionality is optional and depends on the `SonataCacheBundle <https
 Installation
 ------------
 
-1. Follow the installation instructions from the `SonataCacheBundle documentation <http://sonata-project.org/bundles/cache/master/doc/index.html>`_.
-2. At the end of your routing file, add the following lines:
+The installation is split between the SonataCacheBundle, the SymfonyCmfBlockBundle and the SonataBlockBundle:
+
+1. *SonataCacheBundle* - Follow the installation instructions from the `SonataCacheBundle documentation <http://sonata-project.org/bundles/cache/master/doc/index.html>`_.
+2. *SymfonyCmfBlockBundle* - At the end of your routing file, add the following lines:
 
   .. configuration-block::
 
@@ -32,26 +34,24 @@ Installation
 
           # app/config/routing.yml
           # ...
+          # routes SymfonyCmfBlockBundle cache adapters
           block_cache:
               resource: "@SymfonyCmfBlockBundle/Resources/config/routing/cache.xml"
               prefix: /
 
-Configuration
--------------
+3. *SonataBlockBundle* - Use the ``sonata_block`` key to configure the cache adapter for each block service.
 
-Use the ``sonata_block`` key to configure the cache adapter for each block service.
+  .. configuration-block::
 
-.. configuration-block::
+      .. code-block:: yaml
 
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        sonata_block:
-        # ...
-            blocks:
-                symfony_cmf.block.action:
-                    # use the service id of the cache adapter
-                    cache: symfony_cmf.block.cache.js_async
+          # app/config/config.yml
+          sonata_block:
+          # ...
+              blocks:
+                  symfony_cmf.block.action:
+                      # use the service id of the cache adapter
+                      cache: symfony_cmf.block.cache.js_async
 
 Workflow
 --------
@@ -68,13 +68,13 @@ The following happens when a block is rendered using cache:
 
   * the cache adapter is asked for a cache element
 
-    * the Esi and Ssi adapter add a specific tag and a url to retrieve the block content
+    * the ESI and SSI adapter add a specific tag and a url to retrieve the block content
     * the Javascript adapter adds javascript and a url to retrieve the block content
 
   * if the cache element is not expired and has data it is returned
 * the template is rendered:
 
-  * for Esi and Ssi the url is called to retrieve the block content
+  * for ESI and SSI the url is called to retrieve the block content
   * for Javascript the browser calls a url and replaces a placeholder with the returned block content
 
 .. note::
@@ -150,7 +150,7 @@ The following parameters can be used in the ``sonata_block_render`` code in your
 Adapters
 --------
 
-Esi
+ESI
 ~~~
 
 This extends the default EsiCache adapter of the SonataCacheBundle.
@@ -171,7 +171,7 @@ Configuration
                     servers:
                         - varnishadm -T 127.0.0.1:2000 {{ COMMAND }} "{{ EXPRESSION }}"
 
-Ssi
+SSI
 ~~~
 
 This extends the default SsiCache adapter of the SonataCacheBundle.
