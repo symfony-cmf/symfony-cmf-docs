@@ -69,8 +69,7 @@ Routers
 -------
 
 The ``ChainRouter`` is incapable of, by itself, making any actual routing decisions.
-It's sole responsibility is managing the given set of Routers, which are the
-true responsible for matching a request and determining its parameters.
+Its sole responsibility is managing the given set of Routers, which are responsible for matching a request and determining its parameters.
 
 You can easily create your own Routers by implementing
 `RouterInterface <http://api.symfony.com/master/Symfony/Component/Routing/RouterInterface.html>`_
