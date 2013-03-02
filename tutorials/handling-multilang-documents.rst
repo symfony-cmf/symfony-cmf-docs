@@ -21,6 +21,10 @@ and to provide a locale switcher.
 To install the bundle, require it in your project with ``./composer.phar require lunetics/locale-bundle``
 and then instantiate ``Lunetics\LocaleBundle\LuneticsLocaleBundle`` in your AppKernel.php.
 
+You also need the ``intl`` php extension installed and enabled. (Otherwise
+composer will tell you it can't find ext-intl.) If you get issues that some
+locales can not be loaded, have a look at `this discussion on ICU<https://github.com/symfony/symfony/issues/5279#issuecomment-11710480>`_.
+
 Then configure it in the main application configuration file. As
 there are several CMF bundles wanting the list of allowed locales,
 we recommend putting them into a parameter ``%locales%``, see the
@@ -59,9 +63,12 @@ section.
 Routing
 -------
 
-The concept of the DynamicRouter is to map the request URL onto a PHPCR id.
-Each document can have only one id, and therefore we need a separate route
-document for each locale. The cool thing with this is that you can localize
+The DynamicRouter uses a route source to get routes that could match a
+request. The concept of the default PHPCR-ODM source is to map the request URL
+onto an id, which in PHPCR terms is the repository path to a node. This
+allows for a very efficient lookup without needing a full search over the
+repository. But a PHPCR node has exactly one path, therefore we need a separate
+route document for each locale. The cool thing with this is that we can localize
 the URL for each language. Simply create one route document per locale, and
 set a default value for _locale to point to the locale of that route.
 
