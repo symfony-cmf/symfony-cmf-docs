@@ -505,10 +505,28 @@ Form types
 The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM specific cases, along with form type guessers.
 
 
+phpcr_odm_reference_collection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This form type handles editing ``ReferenceMany`` collections on PHPCR-ODM documents.
+It is a choice field with an added ``referenced_class`` required option that specifies
+the class of the referenced target document.
+
+To use this form type, you need to specify the list of possible reference targets as
+an array of PHPCR-ODM ids (PHPCR paths).
+
+.. tip::
+
+    When building an admin interface with :doc:`Sonata Admin<doctrine_phpcr_admin>`
+    there is also the ``sonata_type_model`` that is more powerful, allowing to add
+    to the referenced documents on the fly. Unfortunately it is
+    `currently broken<https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145>`_.
+
+
 phpcr_reference
 ~~~~~~~~~~~~~~~
 
-The ``phpcr_reference`` represents a Property of type REFERENCE or WEAKREFERENCE within a form.
+The ``phpcr_reference`` represents a PHPCR Property of type REFERENCE or WEAKREFERENCE within a form.
 The input will be rendered as a text field containing either the PATH or the UUID as per the
 configuration. The form will resolve the path or id back to a PHPCR node to set the reference.
 
