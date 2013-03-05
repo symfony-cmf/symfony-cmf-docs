@@ -295,8 +295,8 @@ to be loaded. In the includeJSFilesAction, you specify the editor parameter.
 
     Create.js has built in support for Aloha and ckeditor, as well as the
     default hallo editor. Those should be supported by the CreateBundle as well.
-    See these github issue for `ckeditor<https://github.com/symfony-cmf/CreateBundle/issues/33>`_
-    and `alhoa<https://github.com/symfony-cmf/CreateBundle/issues/32>`_ integration.
+    See these github issue for `ckeditor <https://github.com/symfony-cmf/CreateBundle/issues/33>`_
+    and `alhoa <https://github.com/symfony-cmf/CreateBundle/issues/32>`_ integration.
 
     If you wrote the necessary code for one of those editors, or another editor
     that could be useful for others, please send a pull request.

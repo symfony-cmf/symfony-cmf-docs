@@ -23,7 +23,7 @@ and then instantiate ``Lunetics\LocaleBundle\LuneticsLocaleBundle`` in your AppK
 
 You also need the ``intl`` php extension installed and enabled. (Otherwise
 composer will tell you it can't find ext-intl.) If you get issues that some
-locales can not be loaded, have a look at `this discussion on ICU<https://github.com/symfony/symfony/issues/5279#issuecomment-11710480>`_.
+locales can not be loaded, have a look at `this discussion about ICU <https://github.com/symfony/symfony/issues/5279#issuecomment-11710480>`_.
 
 Then configure it in the main application configuration file. As
 there are several CMF bundles wanting the list of allowed locales,
