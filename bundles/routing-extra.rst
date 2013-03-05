@@ -184,7 +184,6 @@ The possible enhancements are (in order of precedence):
     class names in the map and if matched that template will be set as
     '_template' in the $defaults and the generic controller used as controller.
 
-
 .. configuration-block::
 
     .. code-block:: yaml
@@ -222,6 +221,11 @@ The possible enhancements are (in order of precedence):
 
 
 To see some examples, please look at the `CMF sandbox`_ and specifically the routing fixtures loading.
+
+.. tip::
+
+    You can also define your own RouteEnhancer classes for specific use cases.
+    See :ref:`bundles_routingextra_customize`.
 
 .. _bundles_routingextra_document:
 
@@ -363,11 +367,15 @@ Notes:
             controllers_by_class:
                 Symfony\Cmf\Component\Routing\RedirectRouteInterface:  symfony_cmf_routing_extra.redirect_controller:redirectAction
 
+.. _bundles_routingextra_customize:
+
 Customize
 ---------
 
-You can add more ControllerMapperInterface implementations if you have a case
-not handled by the provided ones.
+You can add more RouteEnhancerInterface implementations if you have a case
+not handled by the provided ones. Simply define services for your enhancers
+and tag them with ``dynamic_router_route_enhancer`` to have them added to the
+routing.
 
 If you use an ODM / ORM different to `PHPCR-ODM`_, you probably need to specify
 the class for the route entity (in `PHPCR-ODM`_, the class is automatically
