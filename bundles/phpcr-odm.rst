@@ -522,11 +522,12 @@ Then you can add images to document via Sonata Admin as follows:
     protected function configureFormFields(FormMapper $formMapper)
     {
          $formMapper
-            ->add('image', 'phpcr_image', array('required' => false, 'data_class' => 'Doctrine\ODM\PHPCR\Document\Image'))
+            ->add('image', 'phpcr_odm_image', array('required' => false, 'data_class' => 'Doctrine\ODM\PHPCR\Document\Image'))
          ;
     }
 
-You will need to overwrite the default ``fields.html.twig`` template, to actually see the uploaded image in the Sonata backend.
+You will need to add the ``fields.html.twig`` template from the DoctrinePHPCRBundle to the form.resources,
+to actually see the uploaded image in the Sonata backend.
 
 .. config-block::
     .. code-block:: yaml
