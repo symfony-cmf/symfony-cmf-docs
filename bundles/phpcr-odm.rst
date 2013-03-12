@@ -508,21 +508,21 @@ The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM specifi
 phpcr_odm_image
 ~~~~~~~~~~~~~~~
 
-This part here is tailored to be used with Sonata Admin, not the plain form layer. The ``phpcr_odm_image`` form maps to
-a document of type ``Doctrine\ODM\PHPCR\Document\Image`` and provides a preview of the uploaded image. To use it, you
-need to include the `LiipImagineBundle <https://github.com/liip/LiipImagineBundle/>`_ in your project and define an
+The ``phpcr_odm_image`` form maps to a document of type ``Doctrine\ODM\PHPCR\Document\Image``
+and provides a preview of the uploaded image. To use it, you need to include the
+`LiipImagineBundle <https://github.com/liip/LiipImagineBundle/>`_ in your project and define an
 imagine filter called ``image_upload_thumbnail``.
 
-Then you can add images to document via Sonata Admin as follows:
+Then you can add images to document forms as follows:
 
 .. code-block:: php
 
-    use Sonata\AdminBundle\Form\FormMapper;
+    use Symfony\Component\Form\FormBuilderInterface;
 
-    protected function configureFormFields(FormMapper $formMapper)
+    protected function configureFormFields(FormBuilderInterface $formBuilder)
     {
-         $formMapper
-            ->add('image', 'phpcr_odm_image', array('required' => false, 'data_class' => 'Doctrine\ODM\PHPCR\Document\Image'))
+         $formBuilder
+            ->add('image', 'phpcr_odm_image', array('required' => false))
          ;
     }
 
@@ -554,7 +554,8 @@ This is an example of how the imagine filter might be configured:
                         thumbnail: { size: [100, 100], mode: outbound }
 
 The document that should contain the Image document has to implement a setter method.
-To profit from the automatic guesser of the form layer, the name in the form and this method name have to match:
+To profit from the automatic guesser of the form layer, the name in the form element
+and this method name have to match:
 
 .. code-block:: php
 
@@ -563,8 +564,7 @@ To profit from the automatic guesser of the form layer, the name in the form and
         if (!$image) { // This is normal and happens when no new image is uploaded
             return;
         } elseif ($this->image && $this->image->getFile()) {
-        // TODO: this is needed due to a bug in PHPCRODM (http://www.doctrine-project.org/jira/browse/PHPCR-98)
-        // TODO: this can be removed once the bug is fixed
+            // TODO: needed until this bug in PHPCRODM has been fixed: https://github.com/doctrine/phpcr-odm/pull/262
             $this->image->getFile()->setFileContent($image->getFile()->getFileContent());
         } else {
             $this->image = $image;
@@ -574,6 +574,7 @@ To profit from the automatic guesser of the form layer, the name in the form and
 
 To delete an image, you need to delete the document containing the image. (There is a proposal
 to improve the user experience for that in a `DoctrinePHPCRBundle issue <https://github.com/doctrine/DoctrinePHPCRBundle/issues/40>`_.)
+
 
 phpcr_reference
 ~~~~~~~~~~~~~~~
