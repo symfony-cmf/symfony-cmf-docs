@@ -86,10 +86,11 @@ sonata_admin:
                     - symfony_cmf_block.slideshow_admin
 
 However, you can also integrate the slideshow administration directly in another AdminClass using
-'symfony_cmf_block.minimal_slideshow_admin'. Please refer to `the Sonata Admin docs
+``symfony_cmf_block.minimal_slideshow_admin``. Please refer to `the Sonata Admin docs
 <http://sonata-project.org/bundles/admin/master/doc/reference/form_types.html>` for further information.
 
 **Make the slideshow work in the frontend**
 Since the BlockBundle doesn't contain anything to make the slideshow work in the frontend, you need to do this
-yourself. Just override 'block_slideshow.html.twig' and 'block_slideshow_item.html.twig' and use your favourite JS
-library to do make the slideshow interactive.
+yourself. Just use your favourite JS library to make the slideshow interactive. If special markup is needed for your
+slideshow code to work, just override ``block_slideshow.html.twig`` and ``block_slideshow_item.html.twig`` and adapt
+them to your needs.
