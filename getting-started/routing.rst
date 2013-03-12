@@ -153,7 +153,7 @@ is carried out can be found in the :doc:`../components/routing`.
     interface (see at the bottom) or with fixtures.
 
     However, before we can explain how to do that, you need to understand how
-    the DynamicRouter works. An example will come later in this document.
+    the DynamicRouter works. An example will come :ref:`later in this document <routing-document>`.
 
 .. _routing-getting-controller-template:
 
@@ -264,6 +264,9 @@ urls, with a few added possibilities:
 * Pass either an implementation of ``RouteObjectInterface`` or a ``RouteAwareInterface`` as ``name`` parameter
 * Or supply an implementation of ``ContentRepositoryInterface`` and the id of the model instance as parameter ``content_id``
 
+The route generation handles locales as well, see :ref:`route-generator-and-locales`.
+
+.. _routing-document:
 
 The PHPCR-ODM route document
 ----------------------------
@@ -351,3 +354,4 @@ For more information on the Routing component of Symfony CMF, please refer to:
 - :doc:`../components/routing` for most of the actual functionality implementation
 - :doc:`../bundles/routing-extra` for Symfony2 integration bundle for Routing Bundle
 - Symfony2's `Routing <http://symfony.com/doc/current/components/routing/introduction.html>`_ component page
+- :doc:`../tutorials/handling-multilang-documents` for some notes on multilingual routing

@@ -58,7 +58,7 @@ stack Symfony2 framework, this is identified by the ``_controller`` field
 of the parameters.
 
 The ``ChainRouter`` works by accepting a set of prioritized routing strategies,
-`RouterInterface <http://api.symfony.com/2.1/Symfony/Component/Routing/RouterInterface.html>`_
+`RouterInterface <http://api.symfony.com/master/Symfony/Component/Routing/RouterInterface.html>`_
 implementations, commonly referred to as "Routers".
 
 When handling an incoming request, the ChainRouter iterates over the configured Routers,
@@ -69,8 +69,7 @@ Routers
 -------
 
 The ``ChainRouter`` is incapable of, by itself, making any actual routing decisions.
-It's sole responsibility is managing the given set of Routers, which are the
-true responsible for matching a request and determining its parameters.
+Its sole responsibility is managing the given set of Routers, which are responsible for matching a request and determining its parameters.
 
 You can easily create your own Routers by implementing
 `RouterInterface <http://api.symfony.com/master/Symfony/Component/Routing/RouterInterface.html>`_
@@ -121,7 +120,7 @@ NestedMatcher
 
 The provided ``RequestMatcherInterface`` implementation is ``NestedMatcher``.
 It is suitable for use with ``DynamicRouter``, and it uses a multiple step
-matching process to determine the resulting routing parameters from a given 
+matching process to determine the resulting routing parameters from a given
 `Request <http://api.symfony.com/master/Symfony/Component/HttpFoundation/Request.html>`_.
 
 It uses a ``RouteProviderInterface`` implementation, which is capable of
@@ -132,7 +131,7 @@ implemented on top of Doctrine PHPCR ODM or a relational database,
 effectively allowing you to store and manage routes dynamically from database.
 
 The ``NestedMatcher`` uses a 3-step matching process to determine which Route
-to use when handling the current Request: 
+to use when handling the current Request:
 
 * Ask the ``RouteProviderInterface`` for the collection of ``Route`` instances potentially matching the ``Request``
 * Apply all ``RouteFilterInterface`` to filter down this collection
@@ -231,7 +230,7 @@ The included ``ProviderBasedGenerator`` extends Symfony2's default
 `UrlGenerator <http://api.symfony.com/master/Symfony/Component/Routing/Generator/UrlGenerator.html>`_
 (which, in turn, implements ``UrlGeneratorInterface``) and - if $name is
 not already a ``Route`` object - loads the route from the ``RouteProviderInterface``.
-It then lets the core logic generate the URL from that Route. 
+It then lets the core logic generate the URL from that Route.
 
 The bundle also include the ``ContentAwareGenerator``, which extends the
 ``ProviderBasedGenerator`` to check if $name is an object implementing
@@ -244,6 +243,7 @@ three ways:
 * Or provide an implementation of ``ContentRepositoryInterface`` and pass the id
   of the content object as parameter ``content_id`` and ``null`` as $name.
 
+.. _route-generator-and-locales:
 
 ContentAwareGenerator and locales
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -290,7 +290,7 @@ an integration bundle is also available. We strongly recommend that you take
 a look at :doc:`../bundles/routing-extra`.
 
 For a starter's guide to the Routing bundle and its integration with Symfony2,
-refer to :doc:`../getting-started/routing` 
+refer to :doc:`../getting-started/routing`
 
 We strongly recommend reading Symfony2's
 `Routing <http://symfony.com/doc/current/components/routing/introduction.html>`__

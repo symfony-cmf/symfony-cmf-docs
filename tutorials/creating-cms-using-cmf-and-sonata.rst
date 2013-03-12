@@ -147,6 +147,9 @@ Add route in to your routing configuration
             type: sonata_admin
             prefix: /admin
 
+        doctrine_phpcr_admin_bundle_odm_browser:
+            resource: "@SonataDoctrinePHPCRAdminBundle/Resources/config/routing/phpcrodmbrowser.xml"
+
         fos_js_routing:
             resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
@@ -212,3 +215,9 @@ If you have not yet added anything to the content repository, the tree view will
 cannot find a root node. To fix this, load some data as fixtures by following this doc:
 
 - :doc:`using-blockbundle-and-contentbundle`
+
+Further reading
+---------------
+
+* :doc:`../bundles/doctrine_phpcr_admin`
+* :doc:`handling-multilang-documents`

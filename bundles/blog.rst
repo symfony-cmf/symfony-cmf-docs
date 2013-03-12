@@ -76,8 +76,8 @@ in ``app/config/config.yml``:
 Sonata Admin
 ~~~~~~~~~~~~
 
-The ``BlogBundle`` has admin services defined for Sonata Admin, to make the blog 
-system visible on your dashboard, add the following to the 
+The ``BlogBundle`` has admin services defined for Sonata Admin, to make the blog
+system visible on your dashboard, add the following to the
 ``sonata_admin`` section:
 
 .. code-block:: yaml
@@ -97,7 +97,7 @@ Tree Browser Bundle
 ~~~~~~~~~~~~~~~~~~~
 
 If you use the Symfony CMF Tree Browser bundle you can expose the blog routes
-to enable blog edition from the tree browser. Expose the routes in the 
+to enable blog edition from the tree browser. Expose the routes in the
 ``fos_js_routing`` section of ``app/config/config.yml``:
 
 .. code-block:: yaml
@@ -118,8 +118,8 @@ Templating
 The default templates are marked up for `Twitter Bootstrap <http://twitter.github.com/bootstrap/>`_.
 But it is easy to completely customize the templates by **overriding** them.
 
-The one template you will have to override is the default layout, you will need 
- to change it and make it extend your applications layout. The easiest way to do 
+The one template you will have to override is the default layout, you will need
+to change it and make it extend your applications layout. The easiest way to do
 this is to create the following file:
 
 .. code-block:: jinja

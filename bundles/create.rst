@@ -121,8 +121,6 @@ Configuration
 
             # use a different class for the REST handler
             # rest_controller_class: FQN\Classname
-            # enable hallo development mode (see the end of this chapter)
-            # use_coffee: false
 
             # image handling
             image:
@@ -237,16 +235,6 @@ Finally add the relevant routing to your configuration
         <import resource="@SymfonyCmfCreateBundle/Resources/config/routing/image.xml" type="rest" />
 
 
-Alternative: Aloha Editor
-+++++++++++++++++++++++++
-
-Optional: Aloha Editor (create.js ships with the hallo editor, but if you prefer you can also use aloha)
-
-    To use the Aloha editor, download the files here: https://github.com/alohaeditor/Aloha-Editor/downloads/
-    Unzip the contents of the "aloha" subfolder in the zip file as folder vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/vendor/aloha
-    Make sure you have just one aloha folder with the js, not aloha/aloha/... - you should have vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/vendor/aloha/aloha.js
-
-
 Usage
 -----
 
@@ -294,6 +282,26 @@ Or if you need more control over the generated HTML:
     {% endcreatephp %}
 
 
+Alternative Editors
++++++++++++++++++++
+
+You can write your own templates to load a javascript editor. They have to
+follow the naming pattern ``SymfonyCmfCreateBundle::includejsfiles-%editor%.html.twig``
+to be loaded. In the includeJSFilesAction, you specify the editor parameter.
+
+    {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'aloha' %}
+
+.. note::
+
+    Create.js has built in support for Aloha and ckeditor, as well as the
+    default hallo editor. Those should be supported by the CreateBundle as well.
+    See these github issue for `ckeditor <https://github.com/symfony-cmf/CreateBundle/issues/33>`_
+    and `alhoa <https://github.com/symfony-cmf/CreateBundle/issues/32>`_ integration.
+
+    If you wrote the necessary code for one of those editors, or another editor
+    that could be useful for others, please send a pull request.
+
+
 Developing the hallo wysiwyg editor
 -----------------------------------
 
@@ -306,12 +314,20 @@ the following command from the command line:
 
     app/console cmf:create:init-hallo-devel
 
-Then, set the ``symfony_cmf_create > use_coffee`` option to true in config.yml. This tells the
-jsloader to include the coffee script files from
-``Resources/public/vendor/hallo/src`` with assetic, rather than the precompiled
-javascript from ``Resources/public/vendor/create/deps/hallo-min.js``.
-This also means that you need to add a mapping for coffeescript in your assetic
-configuration and you need the `coffee compiler set up correctly <http://coffeescript.org/#installation>`_.
+
+There is a special template to load the coffee script files. To load this,
+just use the ``hallo-coffee`` editor with the includeJSFilesAction.
+
+.. code-block:: jinja
+
+    {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'hallo-coffee' %}
+
+
+The hallo-coffee template uses assetic to load the coffee script files from
+``Resources/public/vendor/hallo/src``, rather than the precompiled javascript
+from ``Resources/public/vendor/create/deps/hallo-min.js``. This also means that
+you need to add a mapping for coffeescript in your assetic configuration and
+you need the `coffee compiler set up correctly <http://coffeescript.org/#installation>`_.
 
 .. configuration-block::
 
@@ -325,11 +341,7 @@ configuration and you need the `coffee compiler set up correctly <http://coffees
                     node: %coffee.node%
                     apply_to: %coffee.extension%
 
-        symfony_cmf_create:
-            # set this to true if you want to develop hallo and edit the coffee files
-            use_coffee: true|false
-
-In the cmf sandbox we did a little hack to not trigger coffee script compiling.
+In the cmf sandbox we did a little hack to not alwas trigger coffee script compiling.
 In config.yml we make the coffee extension configurable. Now if the
 parameters.yml sets ``coffee.extension`` to ``\.coffee`` the coffeescript is
 compiled and the coffee compiler needs to be installed. If you set it to

@@ -339,8 +339,8 @@ Using the CMF ContentBundle
 
 Follow this example to use both the CMF Block and Content components together.
 
-The ContentBundle also requires RoutingExtraBundle, so to save time you can install both together.
-Add the following to ``composer.json``:
+The ContentBundle is best used together with the RoutingExtraBundle. Add the
+following to ``composer.json``:
 
 .. code-block:: javascript
 
