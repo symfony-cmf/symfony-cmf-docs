@@ -522,6 +522,78 @@ Form types
 The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM specific cases, along with form type guessers.
 
 
+phpcr_odm_image
+~~~~~~~~~~~~~~~
+
+The ``phpcr_odm_image`` form maps to a document of type ``Doctrine\ODM\PHPCR\Document\Image``
+and provides a preview of the uploaded image. To use it, you need to include the
+`LiipImagineBundle <https://github.com/liip/LiipImagineBundle/>`_ in your project and define an
+imagine filter called ``image_upload_thumbnail``.
+
+Then you can add images to document forms as follows:
+
+.. code-block:: php
+
+    use Symfony\Component\Form\FormBuilderInterface;
+
+    protected function configureFormFields(FormBuilderInterface $formBuilder)
+    {
+         $formBuilder
+            ->add('image', 'phpcr_odm_image', array('required' => false))
+         ;
+    }
+
+You will need to add the ``fields.html.twig`` template from the DoctrinePHPCRBundle to the form.resources,
+to actually see the uploaded image in the Sonata backend.
+
+.. config-block::
+    .. code-block:: yaml
+
+        # Twig Configuration
+        twig:
+            form:
+                resources:
+                    - 'DoctrinePHPCRBundle:Form:fields.html.twig'
+
+
+This is an example of how the imagine filter might be configured:
+
+.. config-block::
+    .. code-block:: yaml
+
+        # Imagine Configuration
+        liip_imagine:
+            ...
+            filter_sets:
+                image_upload_thumbnail:
+                    data_loader: phpcr
+                    filters:
+                        thumbnail: { size: [100, 100], mode: outbound }
+
+The document that should contain the Image document has to implement a setter method.
+To profit from the automatic guesser of the form layer, the name in the form element
+and this method name have to match:
+
+.. code-block:: php
+
+    public function setImage($image)
+    {
+        if (!$image) {
+            // This is normal and happens when no new image is uploaded
+            return;
+        } elseif ($this->image && $this->image->getFile()) {
+            // TODO: needed until this bug in PHPCRODM has been fixed: https://github.com/doctrine/phpcr-odm/pull/262
+            $this->image->getFile()->setFileContent($image->getFile()->getFileContent());
+        } else {
+            $this->image = $image;
+        }
+    }
+
+
+To delete an image, you need to delete the document containing the image. (There is a proposal
+to improve the user experience for that in a `DoctrinePHPCRBundle issue <https://github.com/doctrine/DoctrinePHPCRBundle/issues/40>`_.)
+
+
 phpcr_odm_reference_collection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
