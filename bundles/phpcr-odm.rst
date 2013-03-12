@@ -561,7 +561,8 @@ and this method name have to match:
 
     public function setImage($image)
     {
-        if (!$image) { // This is normal and happens when no new image is uploaded
+        if (!$image) {
+            // This is normal and happens when no new image is uploaded
             return;
         } elseif ($this->image && $this->image->getFile()) {
             // TODO: needed until this bug in PHPCRODM has been fixed: https://github.com/doctrine/phpcr-odm/pull/262
