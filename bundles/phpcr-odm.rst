@@ -436,9 +436,11 @@ You can tag services to listen to Doctrine PHPCR-ODM events. It works the same w
 as for Doctrine ORM. The only differences are
 
 * use the tag name ``doctrine_phpcr.event_listener`` resp. ``doctrine_phpcr.event_subscriber`` instead of ``doctrine.event_listener``.
-* expect the argument to be of class Doctrine\ODM\PHPCR\Event\LifecycleEventArgs rather than in the ORM namespace.
+* expect the argument to be of class ``Doctrine\ODM\PHPCR\Event\LifecycleEventArgs`` rather than in the ORM namespace.
+(this is subject to change, as doctrine commons 2.4 provides a common class for this event).
 
 You can register for the events as described in `the PHPCR-ODM documentation <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html>`_.
+Or you can tag your services as event listeners resp. event subscribers.
 
 .. configuration-block::
 
@@ -446,11 +448,26 @@ You can register for the events as described in `the PHPCR-ODM documentation <ht
 
         services:
             my.listener:
-                class: Acme\SearchBundle\Listener\SearchIndexer
+                class: Acme\SearchBundle\EventListener\SearchIndexer
                     tags:
                         - { name: doctrine_phpcr.event_listener, event: postPersist }
 
-More information on the doctrine event system integration is in this `Symfony cookbook entry <http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html>`_.
+            my.subscriber:
+                class: Acme\SearchBundle\EventSubscriber\MySubscriber
+                    tags:
+                        - { name: doctrine_phpcr.event_subscriber }
+
+
+.. hint::
+
+    Doctrine event subscribers (both ORM and PHPCR-ODM) can not
+    return a flexible array of methods to call like the `Symfony event subscriber <http://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers>`_
+    can do. Doctrine event subscribers must return a simple array of the event
+    names they subscribe to. Doctrine will then expect methods on the subscriber
+    with the names of the subscribed events, just as when using an event listener.
+
+More information with PHP code examples for the doctrine event system integration is in
+this `Symfony cookbook entry <http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html>`_.
 
 
 Constraint validator
