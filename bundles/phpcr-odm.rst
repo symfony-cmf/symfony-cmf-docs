@@ -512,8 +512,25 @@ This form type handles editing ``ReferenceMany`` collections on PHPCR-ODM docume
 It is a choice field with an added ``referenced_class`` required option that specifies
 the class of the referenced target document.
 
-To use this form type, you need to specify the list of possible reference targets as
-an array of PHPCR-ODM ids (PHPCR paths).
+To use this form type, you also need to specify the list of possible reference targets as an array of PHPCR-ODM ids or
+PHPCR paths.
+
+The minimal code required to use this type looks as follows:
+
+.. code-block:: php
+
+    $dataArr = array(
+        '/some/phpcr/path/item_1' => 'first item',
+        '/some/phpcr/path/item_2' => 'second item',
+    );
+
+    $formMapper
+        ->with('form.group_general')
+            ->add('myCollection', 'phpcr_odm_reference_collection', array(
+                'choices'   => $dataArr,
+                'referenced_class'  => 'Class\Of\My\Referenced\Documents',
+            ))
+        ->end();
 
 .. tip::
 
