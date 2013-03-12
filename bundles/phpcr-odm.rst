@@ -436,9 +436,11 @@ You can tag services to listen to Doctrine PHPCR-ODM events. It works the same w
 as for Doctrine ORM. The only differences are
 
 * use the tag name ``doctrine_phpcr.event_listener`` resp. ``doctrine_phpcr.event_subscriber`` instead of ``doctrine.event_listener``.
-* expect the argument to be of class Doctrine\ODM\PHPCR\Event\LifecycleEventArgs rather than in the ORM namespace.
+* expect the argument to be of class ``Doctrine\ODM\PHPCR\Event\LifecycleEventArgs`` rather than in the ORM namespace.
+(this is subject to change, as doctrine commons 2.4 provides a common class for this event).
 
 You can register for the events as described in `the PHPCR-ODM documentation <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html>`_.
+Or you can tag your services as event listeners resp. event subscribers.
 
 .. configuration-block::
 
@@ -446,11 +448,26 @@ You can register for the events as described in `the PHPCR-ODM documentation <ht
 
         services:
             my.listener:
-                class: Acme\SearchBundle\Listener\SearchIndexer
+                class: Acme\SearchBundle\EventListener\SearchIndexer
                     tags:
                         - { name: doctrine_phpcr.event_listener, event: postPersist }
 
-More information on the doctrine event system integration is in this `Symfony cookbook entry <http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html>`_.
+            my.subscriber:
+                class: Acme\SearchBundle\EventSubscriber\MySubscriber
+                    tags:
+                        - { name: doctrine_phpcr.event_subscriber }
+
+
+.. hint::
+
+    Doctrine event subscribers (both ORM and PHPCR-ODM) can not
+    return a flexible array of methods to call like the `Symfony event subscriber <http://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers>`_
+    can do. Doctrine event subscribers must return a simple array of the event
+    names they subscribe to. Doctrine will then expect methods on the subscriber
+    with the names of the subscribed events, just as when using an event listener.
+
+More information with PHP code examples for the doctrine event system integration is in
+this `Symfony cookbook entry <http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html>`_.
 
 
 Constraint validator
@@ -577,10 +594,45 @@ To delete an image, you need to delete the document containing the image. (There
 to improve the user experience for that in a `DoctrinePHPCRBundle issue <https://github.com/doctrine/DoctrinePHPCRBundle/issues/40>`_.)
 
 
+phpcr_odm_reference_collection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This form type handles editing ``ReferenceMany`` collections on PHPCR-ODM documents.
+It is a choice field with an added ``referenced_class`` required option that specifies
+the class of the referenced target document.
+
+To use this form type, you also need to specify the list of possible reference targets as an array of PHPCR-ODM ids or
+PHPCR paths.
+
+The minimal code required to use this type looks as follows:
+
+.. code-block:: php
+
+    $dataArr = array(
+        '/some/phpcr/path/item_1' => 'first item',
+        '/some/phpcr/path/item_2' => 'second item',
+    );
+
+    $formMapper
+        ->with('form.group_general')
+            ->add('myCollection', 'phpcr_odm_reference_collection', array(
+                'choices'   => $dataArr,
+                'referenced_class'  => 'Class\Of\My\Referenced\Documents',
+            ))
+        ->end();
+
+.. tip::
+
+    When building an admin interface with :doc:`Sonata Admin<doctrine_phpcr_admin>`
+    there is also the ``sonata_type_model`` that is more powerful, allowing to add
+    to the referenced documents on the fly. Unfortunately it is
+    `currently broken<https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145>`_.
+
+
 phpcr_reference
 ~~~~~~~~~~~~~~~
 
-The ``phpcr_reference`` represents a Property of type REFERENCE or WEAKREFERENCE within a form.
+The ``phpcr_reference`` represents a PHPCR Property of type REFERENCE or WEAKREFERENCE within a form.
 The input will be rendered as a text field containing either the PATH or the UUID as per the
 configuration. The form will resolve the path or id back to a PHPCR node to set the reference.
 
