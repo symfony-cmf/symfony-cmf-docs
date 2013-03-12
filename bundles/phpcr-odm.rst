@@ -508,8 +508,8 @@ The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM specifi
 phpcr_odm_image
 ~~~~~~~~~~~~~~~
 
-The ``phpcr_odm_image`` form maps to a document of type ``Doctrine\ODM\PHPCR\Document\Image`` and provides with
-a preview to see the uploaded image. To use it, you need to include the `LiipImagineBundle <https://github.com/liip/LiipImagineBundle/>`_
+The ``phpcr_odm_image`` form maps to a document of type ``Doctrine\ODM\PHPCR\Document\Image`` and provides
+a preview of the uploaded image. To use it, you need to include the `LiipImagineBundle <https://github.com/liip/LiipImagineBundle/>`_
 in your project and define an imagine filter called ``image_upload_thumbnail``.
 
 Then you can add images to document via Sonata Admin as follows:
@@ -525,35 +525,38 @@ Then you can add images to document via Sonata Admin as follows:
 
 You will need to overwrite the default ``fields.html.twig`` template, to actually see the uploaded image in the Sonata backend.
 
-.. code-block:: yaml
+.. config-block::
+    .. code-block:: yaml
 
-    # Twig Configuration
-    twig:
-        form:
-            resources:
-                - 'DoctrinePHPCRBundle:Form:fields.html.twig'
+        # Twig Configuration
+        twig:
+            form:
+                resources:
+                    - 'DoctrinePHPCRBundle:Form:fields.html.twig'
 
 
-This is an example of how the imagine filter needs to be configured.
+This is an example of how the imagine filter might be configured:
 
-.. code-block:: yaml
+.. config-block::
+    .. code-block:: yaml
 
-    # Imagine Configuration
-    liip_imagine:
-        ...
-        filter_sets:
-            image_upload_thumbnail:
-                data_loader: phpcr
-                filters:
-                    thumbnail: { size: [100, 100], mode: outbound }
+        # Imagine Configuration
+        liip_imagine:
+            ...
+            filter_sets:
+                image_upload_thumbnail:
+                    data_loader: phpcr
+                    filters:
+                        thumbnail: { size: [100, 100], mode: outbound }
 
-The document to which you want to upload the image to needs to implement the following method:
+The document that should contain the Image document has to implement a setter method.
+To profit from the automatic guesser of the form layer, the name in the form and this method name have to match:
 
 .. code-block:: php
 
     public function setImage($image)
     {
-        if (!$image) {
+        if (!$image) { // This is normal and happens when no new image is uploaded
             return;
         } elseif ($this->image && $this->image->getFile()) {
         // TODO: this is needed due to a bug in PHPCRODM (http://www.doctrine-project.org/jira/browse/PHPCR-98)
