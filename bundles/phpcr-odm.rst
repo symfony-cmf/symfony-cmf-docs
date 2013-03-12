@@ -508,13 +508,16 @@ The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM specifi
 phpcr_odm_image
 ~~~~~~~~~~~~~~~
 
-The ``phpcr_odm_image`` form maps to a document of type ``Doctrine\ODM\PHPCR\Document\Image`` and provides
-a preview of the uploaded image. To use it, you need to include the `LiipImagineBundle <https://github.com/liip/LiipImagineBundle/>`_
-in your project and define an imagine filter called ``image_upload_thumbnail``.
+This part here is tailored to be used with Sonata Admin, not the plain form layer. The ``phpcr_odm_image`` form maps to
+a document of type ``Doctrine\ODM\PHPCR\Document\Image`` and provides a preview of the uploaded image. To use it, you
+need to include the `LiipImagineBundle <https://github.com/liip/LiipImagineBundle/>`_ in your project and define an
+imagine filter called ``image_upload_thumbnail``.
 
 Then you can add images to document via Sonata Admin as follows:
 
 .. code-block:: php
+
+    use Sonata\AdminBundle\Form\FormMapper;
 
     protected function configureFormFields(FormMapper $formMapper)
     {
