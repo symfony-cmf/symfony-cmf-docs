@@ -23,7 +23,7 @@ Configuration
         # app/config/config.yml
         symfony_cmf_core:
             document_manager: default
-            role``: IS_AUTHENTICATED_ANONYMOUSLY # used by the publish workflow checker
+            role: IS_AUTHENTICATED_ANONYMOUSLY # used by the publish workflow checker
 
 Publish workflow checker
 ------------------------

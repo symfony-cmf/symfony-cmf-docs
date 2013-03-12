@@ -147,6 +147,9 @@ Add route in to your routing configuration
             type: sonata_admin
             prefix: /admin
 
+        doctrine_phpcr_admin_bundle_odm_browser:
+            resource: "@SonataDoctrinePHPCRAdminBundle/Resources/config/routing/phpcrodmbrowser.xml"
+
         fos_js_routing:
             resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
