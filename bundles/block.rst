@@ -218,7 +218,7 @@ Also the BlockBundle has more specific blocks:
 * RssBlock: This block extends the ActionBlock: the block document saves the feed url and the controller action fetches
   the feed items. The default implementation uses the `EkoFeedBundle <https://github.com/eko/FeedBundle>`_ to read the
   feed items.
-* SlideshowBlock / SlideshowItemBlock: Blocks for helping the management of Slideshows in the Backend. Note that this
+* SlideshowBlock / SlideshowItemBlock: Blocks for helping the management of slideshows in the backend. Note that this
   block doesn't provide any JS to make the slideshow work in the frontend - Feel free to use your favourite JS library to do
   this.
 
