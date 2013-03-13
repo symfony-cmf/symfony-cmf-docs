@@ -48,7 +48,7 @@ which contains an image and a label. However you are free to use whatever block 
 You can also mix different sorts of slides in the same slideshow.
 
 Create your first slideshow
-~~~
+`````````````
 
 .. code-block:: php
 
@@ -73,7 +73,7 @@ Create your first slideshow
     $mySlideshowItem->setImage($image);
 
 Use the admin class
-~~~
+`````````````
 
 The BlockBundle comes with admin classes for managing slideshows and slideshow items directly in SonataAdmin. All you
 need to do to administrate slideshows in your project is to add the following line to your sonata admin configuration:
@@ -93,7 +93,7 @@ However, you can also integrate the slideshow administration directly in another
 <http://sonata-project.org/bundles/admin/master/doc/reference/form_types.html>` for further information.
 
 Make the slideshow work in the frontend
-~~~
+`````````````
 
 Since the BlockBundle doesn't contain anything to make the slideshow work in the frontend, you need to do this
 yourself. Just use your favourite JS library to make the slideshow interactive. If special markup is needed for your
