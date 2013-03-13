@@ -72,6 +72,18 @@ Create your first slideshow
     $image->setFile($file);
     $mySlideshowItem->setImage($image);
 
+Render the slideshow
+`````````````
+
+Rendering your slideshow is as easy as just rendering the according block in your template. Note that your document
+needs to have a ``SlideshowBlock`` with the name used here:
+
+.. code-block:: php
+
+    {{ sonata_block_render({
+        'name': 'slideshow'
+    }) }}
+
 Use the admin class
 `````````````
 
@@ -91,6 +103,10 @@ need to do to administrate slideshows in your project is to add the following li
 However, you can also integrate the slideshow administration directly in another AdminClass using
 ``symfony_cmf_block.minimal_slideshow_admin``. Please refer to `the Sonata Admin docs
 <http://sonata-project.org/bundles/admin/master/doc/reference/form_types.html>`_ for further information.
+
+If you use the default template, you need to add the `LiipImagineBundle <https://github.com/liip/LiipImagineBundle>`_
+to your dependencies and define a imagine filter called 'slideshow_image'. Refer to the `docs
+<https://github.com/liip/LiipImagineBundle/tree/master/Resources/doc>`_ for further information.
 
 Make the slideshow work in the frontend
 `````````````
