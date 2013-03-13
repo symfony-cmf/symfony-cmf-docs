@@ -90,7 +90,7 @@ need to do to administrate slideshows in your project is to add the following li
 
 However, you can also integrate the slideshow administration directly in another AdminClass using
 ``symfony_cmf_block.minimal_slideshow_admin``. Please refer to `the Sonata Admin docs
-<http://sonata-project.org/bundles/admin/master/doc/reference/form_types.html>` for further information.
+<http://sonata-project.org/bundles/admin/master/doc/reference/form_types.html>`_ for further information.
 
 Make the slideshow work in the frontend
 `````````````
