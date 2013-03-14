@@ -528,7 +528,36 @@ phpcr_odm_image
 The ``phpcr_odm_image`` form maps to a document of type ``Doctrine\ODM\PHPCR\Document\Image``
 and provides a preview of the uploaded image. To use it, you need to include the
 `LiipImagineBundle <https://github.com/liip/LiipImagineBundle/>`_ in your project and define an
-imagine filter called ``image_upload_thumbnail``.
+imagine filter for thumbnails.
+
+This form type is only available if explicitly enabled in your application configuration
+by defining the ``imagine`` section under the ``odm`` section with at least ``enabled: true``.
+You can also configure the imagine filter to use for the preview, as well as additional
+filters to remove from cache when the image is replaced. If the filter is not specified,
+it defaults to ``image_upload_thumbnail``.
+
+.. config-block::
+    .. code-block:: yaml
+
+        doctrine_phpcr:
+            ...
+            odm:
+                imagine:
+                    enabled: true
+                    # filter: image_upload_thumbnail
+                    # extra_filters:
+                    #    - imagine_filter_name1
+                    #    - imagine_filter_name2
+
+        # Imagine Configuration
+        liip_imagine:
+            ...
+            filter_sets:
+                # define the filter to be used with the image preview
+                image_upload_thumbnail:
+                    data_loader: phpcr
+                    filters:
+                        thumbnail: { size: [100, 100], mode: outbound }
 
 Then you can add images to document forms as follows:
 
@@ -543,8 +572,17 @@ Then you can add images to document forms as follows:
          ;
     }
 
-You will need to add the ``fields.html.twig`` template from the DoctrinePHPCRBundle to the form.resources,
-to actually see the uploaded image in the Sonata backend.
+.. tip::
+
+   If you set required to true for the image, the user must re-upload a new image
+   each time he edits the form. If the document must have an image, it makes sense
+   to require the field when creating a new document, but make it optional when
+   editing an existing document.
+   We are `trying to make this automatic <https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4>`_.
+
+
+Next you will need to add the ``fields.html.twig`` template from the DoctrinePHPCRBundle to the form.resources,
+to actually see the preview of the uploaded image in the backend.
 
 .. config-block::
     .. code-block:: yaml
@@ -555,20 +593,6 @@ to actually see the uploaded image in the Sonata backend.
                 resources:
                     - 'DoctrinePHPCRBundle:Form:fields.html.twig'
 
-
-This is an example of how the imagine filter might be configured:
-
-.. config-block::
-    .. code-block:: yaml
-
-        # Imagine Configuration
-        liip_imagine:
-            ...
-            filter_sets:
-                image_upload_thumbnail:
-                    data_loader: phpcr
-                    filters:
-                        thumbnail: { size: [100, 100], mode: outbound }
 
 The document that should contain the Image document has to implement a setter method.
 To profit from the automatic guesser of the form layer, the name in the form element
