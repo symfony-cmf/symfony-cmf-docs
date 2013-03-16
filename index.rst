@@ -91,6 +91,7 @@ to do it? In this case the reference is the right place for you.
 	bundles/phpcr-odm
 	bundles/menu
 	bundles/routing-extra
+	bundles/routing_auto
 	bundles/search
 	bundles/simple-cms
 	bundles/doctrine_phpcr_admin
