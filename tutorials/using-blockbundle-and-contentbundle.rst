@@ -514,6 +514,55 @@ This happens when a block is rendered, see the .. index:: BlockBundle for more d
     An example is an rss reader block, the url and title are stored in the settings of the block document, the maximum
     amount of items to display is specified when calling ``sonata_block_render``.
 
+.. _tutorial-block-embed:
+
+Embedding blocks in WYSIWYG content
+-----------------------------------
+
+The SymfonyCmfBlockBundle provides a twig filter ``cmf_embed_blocks`` that
+looks through the content and looks for special tags to render blocks. To use
+the tag, you need to apply the ``cmf_embed_blocks``filter to your output.
+If you can, render your blocks directly in the template. This feature is only a
+cheap solution for web editors to place blocks anywhere in their HTML content.
+A better solution to build composed pages is to build it from blocks. (There
+might be a CMF bundle at some point for this.)
+
+.. code-block:: jinja
+
+    {# template.twig.html #}
+    {{ page.content|cmf_embed_blocks }}
+
+When you apply the filter, your users can use this tag to embed a block in
+their HTML content:
+
+.. code-block:: html
+
+    <span>%block:"/absolute/path/to/block"%</span>
+
+You can change the prefix and postfix (the parts ``<span>%block:`` and
+``%</span>`` to have a different tag for your users. Say you want to write
+``%%%block:"/absolute/path"%%%`` then you do:
+
+.. configuration-block::
+
+     .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_block:
+            twig:
+                cmf_embed_blocks:
+                    prefix: %%%block:
+                    postfix: %%%
+
+
+.. warning::
+
+    Currently there is no limitation built into this feature. Only enable it on
+    content for which you are sure only trusted users may edit it. Restrictions
+    about what block can be where that are built into an admin interface are
+    not respected here.
+
+
 Next steps
 ----------
 
