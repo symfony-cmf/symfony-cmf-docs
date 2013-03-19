@@ -40,8 +40,9 @@ stack is a group of routes and routes are simply documents in the PHPCR tree.
    , ``Generic`` documents which are not routable and will result in a 404 if accessed
    directly.
 
-Internally each route stack is provided by a *builder unit*. Builder units contain
-a *path provider* and actions to take if the provided path exist or not. The goal
+Internally each route stack is built up by a *builder unit*. Builder units contain
+one *path provider* class and two actions classes one action to take if the provided
+path exists in the PHPCR tree, the other if it does not. The goal
 of each builder unit is to generate a path and then provide a route object for each
 element in that path.
 
@@ -144,7 +145,9 @@ content_method
 ~~~~~~~~~~~~~~
 
 The ``content_method`` provider allows the content object (e.g. a blog ``Post``) to specify
-a path using one of its methods.
+a path using one of its methods. This is quite a powerful method as it allows the content 
+document to do whatever it can to produce the route, the disadvantage is that your content
+document will have extra code in it.
 
 Example 1:
 
