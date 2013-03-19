@@ -197,6 +197,9 @@ This happens when a block is rendered, see the separate sections for more detail
   * it calls a template
   * the result is a Response object
 
+You can also :ref:`embed blocks in content <tutorial-block-embed>` using the
+``cmf_embed_blocks`` filter.
+
 Block types
 -----------
 
