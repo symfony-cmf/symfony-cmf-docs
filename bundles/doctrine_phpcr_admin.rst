@@ -37,5 +37,6 @@ Configuration
             document_tree:
                 # Prototype
                 class: # name of the class
+                    # class names of valid children, manage tree operations for them and hide other children
                     valid_children:       []
                     image:
