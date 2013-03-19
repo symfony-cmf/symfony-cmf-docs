@@ -437,7 +437,7 @@ as for Doctrine ORM. The only differences are
 
 * use the tag name ``doctrine_phpcr.event_listener`` resp. ``doctrine_phpcr.event_subscriber`` instead of ``doctrine.event_listener``.
 * expect the argument to be of class ``Doctrine\ODM\PHPCR\Event\LifecycleEventArgs`` rather than in the ORM namespace.
-(this is subject to change, as doctrine commons 2.4 provides a common class for this event).
+  (this is subject to change, as doctrine commons 2.4 provides a common class for this event).
 
 You can register for the events as described in `the PHPCR-ODM documentation <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html>`_.
 Or you can tag your services as event listeners resp. event subscribers.
@@ -536,7 +536,8 @@ You can also configure the imagine filter to use for the preview, as well as add
 filters to remove from cache when the image is replaced. If the filter is not specified,
 it defaults to ``image_upload_thumbnail``.
 
-.. config-block::
+.. configuration-block::
+
     .. code-block:: yaml
 
         doctrine_phpcr:
@@ -584,7 +585,8 @@ Then you can add images to document forms as follows:
 Next you will need to add the ``fields.html.twig`` template from the DoctrinePHPCRBundle to the form.resources,
 to actually see the preview of the uploaded image in the backend.
 
-.. config-block::
+.. configuration-block::
+
     .. code-block:: yaml
 
         # Twig Configuration
@@ -650,7 +652,7 @@ The minimal code required to use this type looks as follows:
     When building an admin interface with :doc:`Sonata Admin<doctrine_phpcr_admin>`
     there is also the ``sonata_type_model`` that is more powerful, allowing to add
     to the referenced documents on the fly. Unfortunately it is
-    `currently broken<https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145>`_.
+    `currently broken <https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145>`_.
 
 
 phpcr_reference
