@@ -619,6 +619,14 @@ and this method name have to match:
 To delete an image, you need to delete the document containing the image. (There is a proposal
 to improve the user experience for that in a `DoctrinePHPCRBundle issue <https://github.com/doctrine/DoctrinePHPCRBundle/issues/40>`_.)
 
+.. note::
+
+    There is a doctrine listener to invalidate the imagine cache for the
+    filters you specified. This listener will only operate when an Image is
+    changed in a web request, but not when a CLI command changes images. When
+    changing images with commands, you should handle cache invalidation in
+    the command or manually remove the imagine cache afterwards.
+
 
 phpcr_odm_reference_collection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
