@@ -521,7 +521,7 @@ Embedding blocks in WYSIWYG content
 
 The SymfonyCmfBlockBundle provides a twig filter ``cmf_embed_blocks`` that
 looks through the content and looks for special tags to render blocks. To use
-the tag, you need to apply the ``cmf_embed_blocks``filter to your output.
+the tag, you need to apply the ``cmf_embed_blocks`` filter to your output.
 If you can, render your blocks directly in the template. This feature is only a
 cheap solution for web editors to place blocks anywhere in their HTML content.
 A better solution to build composed pages is to build it from blocks. (There

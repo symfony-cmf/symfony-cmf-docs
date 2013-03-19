@@ -123,13 +123,24 @@ This can be done either in an action template or in a custom block.
 
 You have to specify the tree root and the selected item, this allows you to have different type of content in your tree.
 
-In this example, we will have the menu elements :
+In this example, we will have the menu elements.
+
+For Symfony 2.2 and later
 
 .. configuration-block::
 
     .. code-block:: jinja
 
-        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuNodeId } %}
+        {% render(controller('sonata.admin.doctrine_phpcr.tree_controller:treeAction')) with { 'root': websiteId~"/menu", 'selected': menuNodeId, '_locale': app.request.locale } %}
+
+
+For Symfony 2.1
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuNodeId, '_locale': app.request.locale } %}
 
 
 How to customize the tree behaviour
@@ -141,13 +152,14 @@ A simple way to customize the tree behavior is to bind your actions to those eve
 If you have a look at init.js and select.js, you will notice that actions are already bound to some of the tree events. If the default behavior is not
 what you need, JQuery provide the unbind function to solve the problem.
 
-Here is a simple way to remove the context menu from the admin tree :
+Here is a simple way to remove the context menu from the admin tree (add the
+``controller`` call around the controller name inside ``render`` for Symfony 2.2) :
 
 .. configuration-block::
 
     .. code-block:: jinja
 
-        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuNodeId } %}
+        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuNodeId, '_locale': app.request.locale } %}
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#tree').bind("before.jstree", function (e, data) {

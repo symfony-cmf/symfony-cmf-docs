@@ -30,6 +30,13 @@ there are several CMF bundles wanting the list of allowed locales,
 we recommend putting them into a parameter ``%locales%``, see the
 `cmf-sandbox config.yml file <https://github.com/symfony-cmf/cmf-sandbox/blob/master/app/config/config.yml>`_ for an example.
 
+.. tip::
+
+    Whenever you do a sub-request, for example to call a controller from a twig
+    template, do not forget to pass the ``app.request.locale`` along or you will
+    lose the request locale and fall back to the default.
+    See for example the action to include the create.js javascript files in the
+    :ref:`create.js reference <bundle-create-usage-embed>`.
 
 PHPCR-ODM multi-language Documents
 ----------------------------------
