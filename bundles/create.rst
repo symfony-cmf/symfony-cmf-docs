@@ -240,6 +240,14 @@ Usage
 
 Adjust your template to load the editor js files if the current session is allowed to edit content.
 
+If you are using Symfony 2.2 or higher:
+
+.. code-block:: jinja
+
+    {% render(controller("symfony_cmf_create.jsloader.controller:includeJSFilesAction")) %}
+
+For version prior to 2.2, this will do:
+
 .. code-block:: jinja
 
     {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" %}
