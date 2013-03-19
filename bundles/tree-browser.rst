@@ -33,8 +33,8 @@ The configuration key for this bundle is ``symfony_cmf_tree_browser``
 Routing
 -------
 
-The bundle will create routes for each tree implementation found. In order to make 
-those routes available you need to include the following in your routing configuration: 
+The bundle will create routes for each tree implementation found. In order to make
+those routes available you need to include the following in your routing configuration:
 
 .. configuration-block::
 
@@ -60,7 +60,7 @@ Both have the following options when creating:
  * config.rootNode: id to the root node of your tree, defaults to "/"
  * config.selected: id of the selected node
  * config.ajax.children_url: Url to the controller that provides the children of a node
- * config.routing_defaults: array for route parameters (such as _locale etc.) 
+ * config.routing_defaults: array for route parameters (such as _locale etc.)
  * config.path.expanded: tree path where the tree should be expanded to at the moment
  * config.path.preloaded: tree path what node should be preloaded for faster user experience
 
@@ -103,7 +103,7 @@ This configuration is set for all your application trees regardless their type (
         sonata_doctrine_phpcr_admin:
             document_tree_defaults: [locale]
             document_tree:
-                Doctrine\PHPCR\Odm\Document\Generic:
+                Doctrine\ODM\PHPCR\Document\Generic:
                     valid_children:
                         - all
                 Symfony\Cmf\Bundle\ContentBundle\Document\MultilangStaticContent:

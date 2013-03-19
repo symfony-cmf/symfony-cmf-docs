@@ -87,7 +87,7 @@ Add the sonata bundles to your application configuration
 
         sonata_doctrine_phpcr_admin:
             document_tree:
-                Doctrine\PHPCR\Odm\Document\Generic:
+                Doctrine\ODM\PHPCR\Document\Generic:
                     valid_children:
                         - all
                 Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page: ~
