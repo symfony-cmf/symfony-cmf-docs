@@ -247,7 +247,7 @@ If you are using Symfony 2.2 or higher:
 
     {% render(controller("symfony_cmf_create.jsloader.controller:includeJSFilesAction"))  with {'_locale': app.request.locale} %}
 
-For version prior to 2.2, this will do:
+For versions prior to 2.2, this will do:
 
 .. code-block:: jinja
 
