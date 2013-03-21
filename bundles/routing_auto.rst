@@ -50,7 +50,7 @@ The configuration for the example above could be as follows:
 
 .. code-block:: yaml
 
-    routing_auto:
+    symfony_cmf_routing_auto:
         
         auto_route_mapping:
             My\Namespace\Bundle\BlogBundle\Document\Post:
@@ -58,8 +58,8 @@ The configuration for the example above could be as follows:
                     # corresponds first route stack in diagram: my, blog, my-blog
                     blog_path:
                         provider:
-                            name: content_method
-                            method: getBlogPath
+                            name: content_object
+                            method: getBlog
                         exists_action:
                             strategy: use
                         not_exists_action:
@@ -68,8 +68,8 @@ The configuration for the example above could be as follows:
                     # corresponds to second route stack: 2013,04,06
                     date:
                         provider:
-                            name: content_method
-                            method: getPublishedDateRouteNames
+                            name: content_datetime
+                            method: getPublishedDate
                         exists_action:
                             strategy: use
                         not_exists_action:
@@ -95,21 +95,19 @@ The ``Post`` document would then need to implement the methods named above as fo
     
     class Post
     {
-        public function getBlogRouteNames()
+        public function getBlog()
         {
-            // we can return a string
-            return 'path/to/my/blog'; // note the path is *not* absolute.
+            // return the blog object associated with the post
+            return $this->blog;
         }
 
-        public function getPublishedDateRouteNames()
+        public function getPublishedDate()
         {
-            // or an array of route names
-            return array('2013', '04', '06');
+            return new \DateTime('2013/04/06');
         }
 
         public function getTitle()
         {
-            // or a normal string, by default it will be slugified/urlized
             return "My post title";
         }
     }
@@ -202,3 +200,151 @@ Options:
 
  - ``method``: **required** Method used to return the route name / path / path elements.
  - ``slugify``: If we should use the slugifier, default is ``true``.
+
+content_object
+~~~~~~~~~~~~~~
+
+The content object provider will try and provide a path from an object provided by a designated method
+on the content document. For exmaple, if you have a `Post` class, which has a `getBlog` method, using
+this provider you can tell the `Post` auto route to use the route of the blog as a base.
+
+So basically, if your blog content has a path of `/this/is/my/blog` you can use this path as the base of your
+`Post` autoroute.
+
+Example:
+
+.. code-block:: yaml
+
+    provider:
+        name: content_object
+        method: getBlog
+
+.. note::
+
+    At the time of writing translated objects are not supported. This isn't hard to do, but well, I just
+    havn't done it yet.
+
+Options:
+
+ - ``method``: **required** Method used to return the document whose route path we wish to use.
+
+content_datetime
+~~~~~~~~~~~~~~~~
+
+The content datettime provider will try and provide a path from a DateTime object provided by a designated
+method on the content document.
+
+This method extends the `content_method` provider and so has the same options and also the `date_format` option.
+
+Example 1:
+
+.. code-block:: yaml
+
+    provider:
+        name: content_datetime
+        method: getDate
+
+Example 2:
+
+.. code-block:: yaml
+
+    provider:
+        name: content_datetime
+        method: getDate
+        date_format: Y/m/d
+
+.. note::
+
+    This method extends `content_method` and inherits the slugify feature. Internally we return a string using
+    the `DateTime->format()` method. This means that you can specify your date in anyway you like and it will be
+    automatically slugified, also, by adding path separators in the `date_format` you are effectively creating
+    routes for each date component.
+
+Options:
+
+ - ``method``: **required** Method used to return the route name / path / path elements.
+ - ``slugify``: If we should use the slugifier, default is ``true``.
+ - ``date_format``: Any date format accepted by the `DateTime` class.
+
+Path Exists Actions
+-------------------
+
+These are the default actions available to take if the path provided by a `path_provider` already exists and
+so creating a new path would create a conflict.
+
+auto_increment
+~~~~~~~~~~~~~~
+
+The `auto_increment` action will add a numerical suffix to the path, for example `my/path` would first become
+`my/path-1` and if that path *also* exists it will try `my/path-2', `my/path-3` and so on into infinity until
+it finds a path which *doesn't* exist.
+
+This action should typically be used in the `content_name` builder unit to resolve conflicts. Using it in the
+`content_path` builder chain would not make much sense (I can't imagine any use cases at the moment).
+
+Example:
+
+.. code-block:: yaml
+
+    exists_action:
+        name: auto_increment
+
+Options:
+
+ - None.
+
+use
+~~~
+
+The `use` action will simply take the existing path and use it. For example, in out post example the first 
+builder unit must first determine the blogs path, `/my/blog`, if this path exists (and it should) then we 
+will *use* it in the stack.
+
+This action should typically be used in one of the content path builder units to specify that we should use
+the existing route. Using this as a content name action should cause the old route to be overwritten.
+
+Example:
+
+.. code-block:: yaml
+
+    exists_action:
+        name: use
+
+Options:
+
+ - None.
+
+Path not exists actions
+-----------------------
+
+These are the default actions available to take if the path provided by a `path_provider` does not exist.
+
+create
+~~~~~~
+
+The `create` action will create the path. **currently** all routes provided by the content path build units
+will be created as `Gerneric` documents, whilst the content name route will be created as an `AutoRoute` document.
+
+.. code-block:: yaml
+
+    not_exists_action:
+        name: create
+
+Options:
+
+ - None.
+
+throw_exception
+~~~~~~~~~~~~~~~
+
+This action will throw an exception if the route provided by the path provider does not exist. You should take
+this action if you are sure that the route *should* exist.
+
+.. code-block:: yaml
+
+    not_exists_action:
+        name: create
+
+Options:
+
+ - None.
