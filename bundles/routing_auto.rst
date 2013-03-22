@@ -21,6 +21,23 @@ automatically displaying an index page when an unconfigured intermediate path is
 accessed (for example, listing all the children unders ``/blogs`` instead of returning
 a ``404``).
 
+Why not simply use a single route?
+----------------------------------
+
+Of course, our fictional blog application could use a single route with a pattern
+``/blogs/my-new-blog/{slug}`` which could be handled by a controller. Why not just
+do this?
+
+ 1. By having a route for each page in the system the application has more information
+    about itself, so it is easy to implement things like validation or a site map.
+
+ 2. By separating the route from the content we allow the route to be customized independently
+    of the content, for example, a blog post may have the same title as another post but might 
+    need a different URL.
+
+ 3. We can customize the action taken when a route is moved or deleted. For example, if
+    the title of the blog is changed, we can leave a redirect to the new title on the old route.
+
 Anatomy of an automatic URL
 ---------------------------
 
@@ -205,11 +222,15 @@ content_object
 ~~~~~~~~~~~~~~
 
 The content object provider will try and provide a path from an object provided by a designated method
-on the content document. For exmaple, if you have a `Post` class, which has a `getBlog` method, using
-this provider you can tell the `Post` auto route to use the route of the blog as a base.
+on the content document. For example, if you have a ``Post`` class, which has a ``getBlog`` method, using
+this provider you can tell the ``Post`` auto route to use the route of the blog as a base.
 
-So basically, if your blog content has a path of `/this/is/my/blog` you can use this path as the base of your
-`Post` autoroute.
+So basically, if your blog content has a path of ``/this/is/my/blog`` you can use this path as the base of your
+``Post`` autoroute.
+
+This provider will not work if it is not the *first* provider in the builder unit chain. The provided path will 
+always be absolute and so will always need to be declated in the **first builder unit**. If you declare it anywhere
+else an Exception will be raised.
 
 Example:
 
@@ -231,10 +252,8 @@ Options:
 content_datetime
 ~~~~~~~~~~~~~~~~
 
-The content datettime provider will try and provide a path from a DateTime object provided by a designated
+The ``content_datettime`` provider will try and provide a path from a ``DateTime`` object provided by a designated
 method on the content document.
-
-This method extends the `content_method` provider and so has the same options and also the `date_format` option.
 
 Example 1:
 
@@ -264,7 +283,7 @@ Options:
 
  - ``method``: **required** Method used to return the route name / path / path elements.
  - ``slugify``: If we should use the slugifier, default is ``true``.
- - ``date_format``: Any date format accepted by the `DateTime` class.
+ - ``date_format``: Any date format accepted by the `DateTime` class, default ``Y-m-d``.
 
 Path Exists Actions
 -------------------
@@ -275,12 +294,12 @@ so creating a new path would create a conflict.
 auto_increment
 ~~~~~~~~~~~~~~
 
-The `auto_increment` action will add a numerical suffix to the path, for example `my/path` would first become
-`my/path-1` and if that path *also* exists it will try `my/path-2', `my/path-3` and so on into infinity until
+The ``auto_increment`` action will add a numerical suffix to the path, for example ``my/path`` would first become
+``my/path-1`` and if that path *also* exists it will try ``my/path-2``, ``my/path-3`` and so on into infinity until
 it finds a path which *doesn't* exist.
 
-This action should typically be used in the `content_name` builder unit to resolve conflicts. Using it in the
-`content_path` builder chain would not make much sense (I can't imagine any use cases at the moment).
+This action should typically be used in the ``content_name`` builder unit to resolve conflicts. Using it in the
+``content_path`` builder chain would not make much sense (I can't imagine any use cases at the moment).
 
 Example:
 
@@ -296,12 +315,13 @@ Options:
 use
 ~~~
 
-The `use` action will simply take the existing path and use it. For example, in out post example the first 
-builder unit must first determine the blogs path, `/my/blog`, if this path exists (and it should) then we 
+The ``use`` action will simply take the existing path and use it. For example, in our post example the first 
+builder unit must first determine the blogs path, ``/my/blog``, if this path exists (and it should) then we 
 will *use* it in the stack.
 
 This action should typically be used in one of the content path builder units to specify that we should use
-the existing route. Using this as a content name action should cause the old route to be overwritten.
+the existing route, on the other hand, using this as the content name builder action should cause the old 
+route to be overwritten.
 
 Example:
 
@@ -317,13 +337,13 @@ Options:
 Path not exists actions
 -----------------------
 
-These are the default actions available to take if the path provided by a `path_provider` does not exist.
+These are the default actions available to take if the path provided by a ``path_provider`` does not exist.
 
 create
 ~~~~~~
 
-The `create` action will create the path. **currently** all routes provided by the content path build units
-will be created as `Gerneric` documents, whilst the content name route will be created as an `AutoRoute` document.
+The ``create`` action will create the path. **currently** all routes provided by the content path build units
+will be created as ``Gerneric`` documents, whilst the content name route will be created as an ``AutoRoute`` document.
 
 .. code-block:: yaml
 
