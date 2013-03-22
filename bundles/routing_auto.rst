@@ -132,7 +132,7 @@ The ``Post`` document would then need to implement the methods named above as fo
 Path Providers
 --------------
 
-Path providers specify a target path which is used by the subsequent path actions provide
+Path providers specify a target path which is used by the subsequent path actions to provide
 the actual route documents.
 
 specified
@@ -153,7 +153,7 @@ Options:
 .. note::
    
     We do not never specifiy absolute URLs in the auto route system. A paths absoluteness is determined
-    by its position in the builder unit chain. I.e. if the specified provider is first in the chain it
+    by its position in the builder unit chain, i.e. if the specified provider is first in the chain it
     will naturally be the base of an absolute URL.
 
 content_method
@@ -229,7 +229,7 @@ So basically, if your blog content has a path of ``/this/is/my/blog`` you can us
 ``Post`` autoroute.
 
 This provider will not work if it is not the *first* provider in the builder unit chain. The provided path will 
-always be absolute and so will always need to be declated in the **first builder unit**. If you declare it anywhere
+always be absolute and so will always need to be declared in the **first builder unit**. If you declare it anywhere
 else an Exception will be raised.
 
 Example:
