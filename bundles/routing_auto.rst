@@ -29,7 +29,9 @@ Of course, our fictional blog application could use a single route with a patter
 do this?
 
  1. By having a route for each page in the system the application has more information
-    about itself, so it is easy to implement things like validation or a site map.
+    about itself, so it is easy to implement things like validation or a site map. Or 
+    to enable the user to select an endpoint to be used as the destination for a menu item 
+    link.
 
  2. By separating the route from the content we allow the route to be customized independently
     of the content, for example, a blog post may have the same title as another post but might 
@@ -155,6 +157,30 @@ Options:
     We do not never specifiy absolute URLs in the auto route system. A paths absoluteness is determined
     by its position in the builder unit chain, i.e. if the specified provider is first in the chain it
     will naturally be the base of an absolute URL.
+
+route_base_path
+~~~~~~~~~~~~~~~
+
+This provider provides **base path** that has been predefined in your configuration, this is
+useful to esaily provide a common base path:
+
+.. code-block:: yaml
+
+    symfony_cmf_routing_auto:
+        route_base_path: /test/auto-route
+
+The path provider is specified without any other parameters:
+
+
+.. code-block:: yaml
+
+    path_provider:
+        name: route_base_path
+
+.. note::
+
+    You can only use this provide as the **first** unit in the builder unit chain. Using it
+    anywhere else will cause an exception to be thrown.
 
 content_method
 ~~~~~~~~~~~~~~
