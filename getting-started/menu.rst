@@ -152,7 +152,7 @@ needed for integration with the backend admin tool :doc:`SonataDoctrinePhpcrAdmi
 
 The included administration panels will automatically available but need to be
 explicitly put on the dashboard if you want to use them. See :doc:`../tutorials/creating-cms-using-cmf-and-sonata`
-for instructions on how to install SonataDoctrinePhpcrAdminBundle).
+for instructions on how to install SonataDoctrinePhpcrAdminBundle.
 
 
 Configuration
