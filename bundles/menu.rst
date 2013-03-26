@@ -30,7 +30,7 @@ The values are:
 
         symfony_cmf_menu:
             menu_basepath:        /cms/menu
-            document_manager_name:  default
+            document_manager_name: default
             admin_class:          ~
             document_class:       ~
             content_url_generator:  router
