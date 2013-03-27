@@ -70,7 +70,8 @@ stack is a group of routes and routes are simply documents in the PHPCR tree.
 .. note::
 
     Although routes in this case can be of any document class, only objects which 
-    extend the :class:`Symfony\\Component\\Routing\\Route` object will be considered when matching a URL. 
+    extend the :class:`Symfony\\Component\\Routing\\Route` object will be considered 
+    when matching a URL. 
 
     The default behavior is to use Generic documents when generating a content path, and
     these documents will result in a 404 when accessed directly.
