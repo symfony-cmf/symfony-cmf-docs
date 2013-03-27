@@ -28,17 +28,21 @@ Of course, our fictional blog application could use a single route with a patter
 ``/blogs/my-new-blog/{slug}`` which could be handled by a controller. Why not just
 do this?
 
- 1. By having a route for each page in the system the application has more information
-    about itself, so it is easy to implement things like validation or a site map. Or 
-    to enable the user to select an endpoint to be used as the destination for a menu item 
-    link.
+ 1. By having a route for each page in the system the application has a knowledge of
+    which URLs are accessible, this can be very useful, for example, when specifying 
+    endpoints for menu items are generating a site map.
 
  2. By separating the route from the content we allow the route to be customized independently
     of the content, for example, a blog post may have the same title as another post but might 
     need a different URL.
 
- 3. We can customize the action taken when a route is moved or deleted. For example, if
-    the title of the blog is changed, we can leave a redirect to the new title on the old route.
+ 3. Separate route documents are translateable - this means we can have a URL for 
+    *each language*, "/welcome" and "/bienvenue" would each reference
+    the same document in english and french respectively. This would be difficult if
+    the slug were embedded in the content document.
+
+ 4. By decoupling route and content the application doesn't care *what* is referenced in
+    the route document. This means that we can easily replace the class of document referenced.
 
 Anatomy of an automatic URL
 ---------------------------
@@ -47,17 +51,18 @@ The diagram below shows a fictional URL for a blog post. The first 6 elements
 of the URL are what we will call the *content path*. The last element we will call
 the *content name*.
 
-.. image:: ../images/bundles/routing_auto_post_schema.png
+.. image:: ../_images/bundles/routing_auto_post_schema.png
 
 The content path is further broken down into *route stacks* and *routes*. A route
 stack is a group of routes and routes are simply documents in the PHPCR tree.
 
 .. note::
 
-   Normally each *route* in the URL will correspond to a PHPCR-ODM node of class ``Route``.
-   At time of writing however this is not required, and nodes can simply be, for instance
-   , ``Generic`` documents which are not routable and will result in a 404 if accessed
-   directly.
+   Although routes in this case can be of any document class, only objects which 
+   extend the `Symfony\Component\Routing\Route` object will be considered when matching a URL. 
+
+   The default behavior is to use Generic documents when generating a content path, and
+   these documents will result in a 404 when accessed directly.
 
 Internally each route stack is built up by a *builder unit*. Builder units contain
 one *path provider* class and two actions classes one action to take if the provided
@@ -137,8 +142,12 @@ Path Providers
 Path providers specify a target path which is used by the subsequent path actions to provide
 the actual route documents.
 
-specified
-~~~~~~~~~
+**Base** providers must be the first configured as the first builder in the content path chain.
+This is because the paths that they provide correspond directly to an existing path, i.e. they
+have an absolute reference.
+
+specified (base provider)
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This is the most basic path provider and allows you to specify an exact (fixed) path.
 
@@ -154,109 +163,18 @@ Options:
 
 .. note::
    
-    We do not never specifiy absolute URLs in the auto route system. A paths absoluteness is determined
-    by its position in the builder unit chain, i.e. if the specified provider is first in the chain it
-    will naturally be the base of an absolute URL.
+    We never specifiy absolute paths in the auto route system. If the builder unit is the first
+    content path chain it is understood that it is the base of an absolute path.
 
-route_base_path
-~~~~~~~~~~~~~~~
+content_object (base provider)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This provider provides **base path** that has been predefined in your configuration, this is
-useful to esaily provide a common base path:
-
-.. code-block:: yaml
-
-    symfony_cmf_routing_auto:
-        route_base_path: /test/auto-route
-
-The path provider is specified without any other parameters:
-
-
-.. code-block:: yaml
-
-    path_provider:
-        name: route_base_path
-
-.. note::
-
-    You can only use this provide as the **first** unit in the builder unit chain. Using it
-    anywhere else will cause an exception to be thrown.
-
-content_method
-~~~~~~~~~~~~~~
-
-The ``content_method`` provider allows the content object (e.g. a blog ``Post``) to specify
-a path using one of its methods. This is quite a powerful method as it allows the content 
-document to do whatever it can to produce the route, the disadvantage is that your content
-document will have extra code in it.
-
-Example 1:
-
-.. code-block:: yaml
-
-    path_provider:
-        name: content_method
-        method: getTitle
-
-This example will use the existing method of ``Post`` to retrieve the title. By default
-all strings are *slugified*. That is, "My post title" will be automatically changed to
-"my-post-title".
-
-Example 2:
-
-.. code-block:: yaml
-
-    path_provider:
-        name: content_method
-        method: getBlogPath
-        slugify: false
-
-This example uses the ``getBlogPath`` method of the post which has been added explicitly
-for this purpose. It will return the URL to the blog, e.g. "my/blog".
-
-The method can return the path either as a single string, a path or an array of path elements
-as shown in the following example:
-
-.. code-block:: php
-
-    <?php
-
-    class Post
-    {
-         public function getTitle()
-         {
-            return "This is a post";
-         }
-
-         public function getPath()
-         {
-            return "/this/is/a/path";
-         }
-
-         public function getPathElements()
-         {
-            return array('this', 'is', 'a', 'path');
-         }
-    }
-
-Options:
-
- - ``method``: **required** Method used to return the route name / path / path elements.
- - ``slugify``: If we should use the slugifier, default is ``true``.
-
-content_object
-~~~~~~~~~~~~~~
-
-The content object provider will try and provide a path from an object provided by a designated method
+The content object provider will try and provide a path from an object implementing RouteAwareInterface provided by a designated method
 on the content document. For example, if you have a ``Post`` class, which has a ``getBlog`` method, using
 this provider you can tell the ``Post`` auto route to use the route of the blog as a base.
 
 So basically, if your blog content has a path of ``/this/is/my/blog`` you can use this path as the base of your
 ``Post`` autoroute.
-
-This provider will not work if it is not the *first* provider in the builder unit chain. The provided path will 
-always be absolute and so will always need to be declared in the **first builder unit**. If you declare it anywhere
-else an Exception will be raised.
 
 Example:
 
@@ -275,10 +193,54 @@ Options:
 
  - ``method``: **required** Method used to return the document whose route path we wish to use.
 
+content_method
+~~~~~~~~~~~~~~
+
+The ``content_method`` provider allows the content object (e.g. a blog ``Post``) to specify
+a path using one of its methods. This is quite a powerful method as it allows the content 
+document to do whatever it can to produce the route, the disadvantage is that your content
+document will have extra code in it.
+
+Example 1:
+
+.. code-block:: yaml
+
+    path_provider:
+        name: content_method
+        method: getTitle
+
+This example will use the existing method "getTitle" of the ``Post`` document to retrieve the 
+title. By default all strings are *slugified*.
+
+The method can return the path either as a single string or an array of path elements
+as shown in the following example:
+
+.. code-block:: php
+
+    <?php
+
+    class Post
+    {
+         public function getTitle()
+         {
+            return "This is a post";
+         }
+
+         public function getPathElements()
+         {
+            return array('this', 'is', 'a', 'path');
+         }
+    }
+
+Options:
+
+ - ``method``: **required** Method used to return the route name / path / path elements.
+ - ``slugify``: If we should use the slugifier, default is ``true``.
+
 content_datetime
 ~~~~~~~~~~~~~~~~
 
-The ``content_datettime`` provider will try and provide a path from a ``DateTime`` object provided by a designated
+The ``content_datettime`` provider will provide a path from a ``DateTime`` object provided by a designated
 method on the content document.
 
 Example 1:
@@ -303,7 +265,7 @@ Example 2:
     This method extends `content_method` and inherits the slugify feature. Internally we return a string using
     the `DateTime->format()` method. This means that you can specify your date in anyway you like and it will be
     automatically slugified, also, by adding path separators in the `date_format` you are effectively creating
-    routes for each date component.
+    routes for each date component as slugify applies to **each element** of the path.
 
 Options:
 
@@ -369,7 +331,7 @@ create
 ~~~~~~
 
 The ``create`` action will create the path. **currently** all routes provided by the content path build units
-will be created as ``Gerneric`` documents, whilst the content name route will be created as an ``AutoRoute`` document.
+will be created as ``Generic`` documents, whilst the content name route will be created as an ``AutoRoute`` document.
 
 .. code-block:: yaml
 
