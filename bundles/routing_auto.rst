@@ -166,6 +166,25 @@ Options:
     We never specifiy absolute paths in the auto route system. If the builder unit is the first
     content path chain it is understood that it is the base of an absolute path.
 
+route_base_path (base provider)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This provider provides **base path** that has been predefined in your configuration, this is
+useful to esaily provide a common base path:
+
+.. code-block:: yaml
+
+    symfony_cmf_routing_auto:
+        route_base_path: /test/auto-route
+
+The path provider is specified without any other parameters:
+
+
+.. code-block:: yaml
+
+    path_provider:
+        name: route_base_path
+
 content_object (base provider)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
