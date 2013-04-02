@@ -52,20 +52,15 @@ Get it using
 
 .. code-block:: bash
 
-    curl -s http://getcomposer.org/installer | php --
+    $ curl -sS https://getcomposer.org/installer | php
+    $ sudo mv composer.phar /usr/local/bin/composer
 
 and then get the Symfony CMF code with it (this may take a while)
 
 .. code-block:: bash
 
-    php composer.phar create-project symfony-cmf/standard-edition <path-to-install> --stability=dev
-    mv composer.phar <path-to-install>/.
-    cd <path-to-install>
-
-.. note::
-
-    It is actually recommended to move ``composer.phar`` into the bin directory of your filesystem,
-    so that you can access the command from any directory.
+    $ php composer.phar create-project symfony-cmf/standard-edition <path-to-install> --stability=dev
+    $ cd <path-to-install>
 
 The path ``<path-to-install>`` should either inside your web server doc root or configure
 a virtual host for ``<path-to-install>``.
