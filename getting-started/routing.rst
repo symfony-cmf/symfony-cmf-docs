@@ -43,11 +43,10 @@ It's used as a replacement for Symfony2's default routing system and, like
 it, is responsible for determining which Controller will handle each request.
 
 The ``ChainRouter`` works by accepting a set of prioritized routing strategies,
-`RouterInterface <http://api.symfony.com/master/Symfony/Component/Routing/RouterInterface.html>`_
-implementations, commonly referred to as "Routers". The routers are responsible
-for matching an incoming request to an actual Controller, and to do so, the
-``ChainRouter`` iterates over the configured Routers according to their configured
-priority:
+:class:`Symfony\\Component\\Routing\\RouterInterface` implementations,
+commonly referred to as "Routers". The routers are responsible for matching an
+incoming request to an actual Controller, and to do so, the ``ChainRouter``
+iterates over the configured Routers according to their configured priority:
 
 .. configuration-block::
 
