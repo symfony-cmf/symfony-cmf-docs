@@ -56,7 +56,8 @@ iterates over the configured Routers according to their configured priority:
         symfony_cmf_routing_extra:
             chain:
                 routers_by_id:
-                    # enable the DynamicRouter with high priority to allow overwriting configured routes with content
+                    # enable the DynamicRouter with high priority to allow overwriting
+                    # configured routes with content
                     symfony_cmf_routing_extra.dynamic_router: 200
 
                     # enable the symfony default router with a lower priority
