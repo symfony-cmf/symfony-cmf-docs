@@ -91,10 +91,10 @@ The next step is to setup the database, if you want to use SQLite as your databa
 
 .. code-block:: bash
 
-    app/console doctrine:database:create
-    app/console doctrine:phpcr:init:dbal
-    app/console doctrine:phpcr:register-system-node-types
-    app/console doctrine:phpcr:fixtures:load
+    php app/console doctrine:database:create
+    php app/console doctrine:phpcr:init:dbal
+    php app/console doctrine:phpcr:register-system-node-types
+    php app/console doctrine:phpcr:fixtures:load
 
 This will create a file called app.sqlite inside your app folder, containing the database content.
 
