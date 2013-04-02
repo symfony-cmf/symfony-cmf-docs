@@ -103,7 +103,7 @@ you can alternatively use the PHP internal web server:
 
 .. code-block:: bash
 
-    app/console server:run
+    php app/console server:run
 
 And then access the CMF via:
 
