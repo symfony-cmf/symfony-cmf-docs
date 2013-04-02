@@ -62,8 +62,10 @@ and then get the Symfony CMF code with it (this may take a while)
     $ php composer.phar create-project symfony-cmf/standard-edition <path-to-install> --stability=dev
     $ cd <path-to-install>
 
-The path ``<path-to-install>`` should either inside your web server doc root or configure
-a virtual host for ``<path-to-install>``.
+.. note::
+
+    The path ``<path-to-install>`` should either inside your web server doc root or
+    configure a virtual host for ``<path-to-install>``.
 
 This will clone the standard edition and install all the dependencies and run some initial commands.
 These commands require write permissions to the ``app/cache`` and ``app/logs`` directory. In case
