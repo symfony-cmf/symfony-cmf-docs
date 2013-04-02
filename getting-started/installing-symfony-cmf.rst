@@ -15,8 +15,12 @@ look at:
 .. note::
 
     For other Symfony CMF installation guides, please read:
-    - The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for instructions on how to install a more complete demo instance of Symfony CMF.
-    - :doc:`../tutorials/installing-cmf-core` for step-by-step installation and configuration details of just the core components into an existing Symfony application.
+
+    * The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for instructions on
+      how to install a more complete demo instance of Symfony CMF.
+    * :doc:`../tutorials/installing-cmf-core` for step-by-step installation and
+      configuration details of just the core components into an existing Symfony
+      application.
 
 .. index:: Standard Edition, install
 
