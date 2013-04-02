@@ -34,7 +34,7 @@ installed, since it is used as the default storage medium.
 
 .. note::
 
-    By default, Symfony CMF uses Jackalope + Doctrine DBAL, and SQLite as
+    By default, Symfony CMF uses Jackalope + Doctrine DBAL and SQLite as
     the underlying DB. However, Symfony CMF is storage agnostic, which means
     you can use one of several available data storage mechanisms without
     having to rewrite your code. For more information on the different
