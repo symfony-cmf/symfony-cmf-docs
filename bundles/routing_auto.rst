@@ -3,7 +3,8 @@ RoutingAutoBundle
 
 The ``RoutingAutoBundle`` allows you to define automatically created routes
 for documents. This implies a separation of the ``Route`` and ``Content``
-documents. If your needs are simple this bundle may not be for you and you should have a look at :doc:`SimpleCmsBundle<simple-cms>`.
+documents. If your needs are simple this bundle may not be for you and you 
+should have a look at :doc:`SimpleCmsBundle<simple-cms>`.
 
 For the sake of example, we will imagine a  blog application 
 that has two routeable contents, the blog itself, and the posts for the blog. 
@@ -38,21 +39,21 @@ Of course, our fictional blog application could use a single route with a patter
 ``/blogs/my-new-blog/{slug}`` which could be handled by a controller. Why not just
 do this?
 
- 1. By having a route for each page in the system the application has a knowledge of
-    which URLs are accessible, this can be very useful, for example, when specifying 
-    endpoints for menu items are generating a site map.
+1. By having a route for each page in the system the application has a knowledge of
+   which URLs are accessible, this can be very useful, for example, when specifying 
+   endpoints for menu items are generating a site map.
 
- 2. By separating the route from the content we allow the route to be customized independently
-    of the content, for example, a blog post may have the same title as another post but might 
-    need a different URL.
+2. By separating the route from the content we allow the route to be customized independently
+   of the content, for example, a blog post may have the same title as another post but might 
+   need a different URL.
 
- 3. Separate route documents are translateable - this means we can have a URL for 
-    *each language*, "/welcome" and "/bienvenue" would each reference
-    the same document in english and french respectively. This would be difficult if
-    the slug were embedded in the content document.
+3. Separate route documents are translateable - this means we can have a URL for 
+   *each language*, "/welcome" and "/bienvenue" would each reference
+   the same document in english and french respectively. This would be difficult if
+   the slug were embedded in the content document.
 
- 4. By decoupling route and content the application doesn't care *what* is referenced in
-    the route document. This means that we can easily replace the class of document referenced.
+4. By decoupling route and content the application doesn't care *what* is referenced in
+   the route document. This means that we can easily replace the class of document referenced.
 
 Anatomy of an automatic URL
 ---------------------------
@@ -68,11 +69,11 @@ stack is a group of routes and routes are simply documents in the PHPCR tree.
 
 .. note::
 
-   Although routes in this case can be of any document class, only objects which 
-   extend the `Symfony\Component\Routing\Route` object will be considered when matching a URL. 
+    Although routes in this case can be of any document class, only objects which 
+    extend the :class:`Symfony\\Component\\Routing\\Route` object will be considered when matching a URL. 
 
-   The default behavior is to use Generic documents when generating a content path, and
-   these documents will result in a 404 when accessed directly.
+    The default behavior is to use Generic documents when generating a content path, and
+    these documents will result in a 404 when accessed directly.
 
 Internally each route stack is built up by a *builder unit*. Builder units contain
 one *path provider* class and two actions classes one action to take if the provided
@@ -173,18 +174,21 @@ Options:
 
 .. note::
    
-    We never specifiy absolute paths in the auto route system. If the builder unit is the first
-    content path chain it is understood that it is the base of an absolute path.
+    We never specifiy absolute paths in the auto route system. If the builder unit 
+    is the first content path chain it is understood that it is the base of an absolute 
+    path.
 
 content_object (base provider)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The content object provider will try and provide a path from an object implementing RouteAwareInterface provided by a designated method
-on the content document. For example, if you have a ``Post`` class, which has a ``getBlog`` method, using
-this provider you can tell the ``Post`` auto route to use the route of the blog as a base.
+The content object provider will try and provide a path from an object implementing 
+``RouteAwareInterface`` provided by a designated method on the content document. For 
+example, if you have a ``Post`` class, which has a ``getBlog`` method, using
+this provider you can tell the ``Post`` auto route to use the route of the blog as a 
+base.
 
-So basically, if your blog content has a path of ``/this/is/my/blog`` you can use this path as the base of your
-``Post`` autoroute.
+So basically, if your blog content has a path of ``/this/is/my/blog`` you can use this 
+path as the base of your ``Post`` autoroute.
 
 Example:
 
