@@ -2,9 +2,19 @@ RoutingAutoBundle
 =================
 
 The ``RoutingAutoBundle`` allows you to define automatically created routes
-for documents. For example, a blog application has two routable contents, the
-blog itself, and the posts for the blog. We will call these documents ``Blog`` and
-``Post``, and we will class them as *content documents*.
+for documents. This implies a separation of the ``Route`` and ``Content``
+documents. If your needs are simple this bundle may not be for you and you should have a look at :doc:`SimpleCmsBundle<simple-cms>`.
+
+For the sake of example, we will imagine a  blog application 
+that has two routable contents, the blog itself, and the posts for the blog. 
+We will call these documents ``Blog`` and ``Post``, and we will class them as 
+*content documents*.
+
+.. note::
+
+    In our example we add an auto route for the blog, but in reality, as a blog
+    is something you create rarely, you will probably want to create routes for
+    your blog manually, but its up to you.
 
 If we create a new ``Blog`` with the title "My New Blog" the bundle could automatically
 create the route ``/blogs/my-new-blog``. For each new ``Post`` it could create a route
