@@ -6,7 +6,7 @@ for documents. This implies a separation of the ``Route`` and ``Content``
 documents. If your needs are simple this bundle may not be for you and you should have a look at :doc:`SimpleCmsBundle<simple-cms>`.
 
 For the sake of example, we will imagine a  blog application 
-that has two routable contents, the blog itself, and the posts for the blog. 
+that has two routeable contents, the blog itself, and the posts for the blog. 
 We will call these documents ``Blog`` and ``Post``, and we will class them as 
 *content documents*.
 
@@ -28,7 +28,7 @@ the corresponding auto route will also be deleted.
 If required, the bundle can also be configured to do extra stuff, like, for example,
 leaving a ``RedirectRoute`` when the location of a content document changes or
 automatically displaying an index page when an unconfigured intermediate path is
-accessed (for example, listing all the children unders ``/blogs`` instead of returning
+accessed (for example, listing all the children under ``/blogs`` instead of returning
 a ``404``).
 
 Why not simply use a single route?
