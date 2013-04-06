@@ -421,6 +421,8 @@ You can access the PHPCR services like this:
     {
         public function indexAction()
         {
+            // ManagerRegistry instance with references to all sessions and document manager instances
+            $registry = $this->container->get('doctrine_phpcr');
             // PHPCR session instance
             $session = $this->container->get('doctrine_phpcr.default_session');
             // PHPCR ODM document manager instance
