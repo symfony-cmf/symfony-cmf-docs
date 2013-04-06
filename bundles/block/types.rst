@@ -40,17 +40,35 @@ The controller to get the feed items can also be changed:
     The `Symfony CMF Sandbox <https://github.com/symfony-cmf/cmf-sandbox>`_ contains an example of the RssBlock.
 
 SlideshowBlock
---------
+--------------
 
-The ``SlideshowBlock`` is just a special kind of ``ContainerBlock``, a container for the slides of a slideshow. The
-BlockBundle also comes with a ``SlideshowItemBlock`` which represents a very simple kind of slide, a ``SlideshowItem``,
-which contains an image and a label. However you are free to use whatever block you want as an item for a slideshow.
-You can also mix different sorts of slides in the same slideshow.
+The ``SlideshowBlock`` is just a special kind of ``ContainerBlock``. It
+can contain any kind of blocks that will be rendered with a wrapper div
+to help a javascript slideshow library to slide them.
+The BlockBundle provides an ``ImagineBlock`` that has an image and a text
+to display. However you are free to use whatever block you want as an item
+for a slideshow. You can also mix different sorts of slides in the same
+slideshow.
+
+.. note::
+
+    This bundle does not attempt to provide a javascript library for animating
+    the slideshow. Chose your preferred library that plays well with the rest
+    of your site and hook it on the slideshows. (See also below).
+
 
 Create your first slideshow
-`````````````
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: php
+Creating a slideshow consists of creating the container SlideshowBlock and
+adding blocks to it. Those blocks can be anything, but an image makes a lot
+of sense.::
+
+    use Symfony\Cmf\Bundle\BlockBundle\Document\SlideshowBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Document\ImagineBlock;
+    // the Image will be moved to Symfony\Cmf\Bundle\MediaBundle\Model\Image
+    use Doctrine\ODM\PHPCR\Document\Image;
+    use Doctrine\ODM\PHPCR\Document\File;
 
     // create slideshow
     $mySlideshow = new SlideshowBlock();
@@ -60,7 +78,7 @@ Create your first slideshow
     $documentManager->persist($mySlideshow);
 
     // add first slide to slideshow
-    $mySlideshowItem = new SlideshowItemBlock();
+    $mySlideshowItem = new ImagineBlock();
     $mySlideshowItem->setName('first_item');
     $mySlideshowItem->setLabel('label of first item');
     $mySlideshowItem->setParentDocument($mySlideshow);
@@ -72,46 +90,58 @@ Create your first slideshow
     $image->setFile($file);
     $mySlideshowItem->setImage($image);
 
+
 Render the slideshow
-`````````````
+~~~~~~~~~~~~~~~~~~~~
 
-Rendering your slideshow is as easy as just rendering the according block in your template. Note that your document
-needs to have a ``SlideshowBlock`` with the name used here:
+Rendering your slideshow is as easy as just rendering the according block
+in your template. If your ``contentDocument`` has a field ``slideshow`` that
+contains a ``SlideshowBlock`` object, you can simply render it with::
 
-.. code-block:: php
+.. code-block:: jinja
 
     {{ sonata_block_render({
         'name': 'slideshow'
     }) }}
 
-Use the admin class
-`````````````
-
-The BlockBundle comes with admin classes for managing slideshows and slideshow items directly in SonataAdmin. All you
-need to do to administrate slideshows in your project is to add the following line to your sonata admin configuration:
-
-.. code-block:: php
-
-    sonata_admin:
-        dashboard:
-            groups:
-                blocks:
-                    label: Blocks
-                    items:
-                        - symfony_cmf_block.slideshow_admin
-
-However, you can also integrate the slideshow administration directly in another AdminClass using
-``symfony_cmf_block.minimal_slideshow_admin``. Please refer to `the Sonata Admin docs
-<http://sonata-project.org/bundles/admin/master/doc/reference/form_types.html>`_ for further information.
-
-If you use the default template, you need to add the `LiipImagineBundle <https://github.com/liip/LiipImagineBundle>`_
-to your dependencies and define a imagine filter called 'slideshow_image'. Refer to the `docs
-<https://github.com/liip/LiipImagineBundle/tree/master/Resources/doc>`_ for further information.
-
 Make the slideshow work in the frontend
-`````````````
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Since the BlockBundle doesn't contain anything to make the slideshow work in the frontend, you need to do this
-yourself. Just use your favourite JS library to make the slideshow interactive. If special markup is needed for your
-slideshow code to work, just override ``block_slideshow.html.twig`` and ``block_slideshow_item.html.twig`` and adapt
-them to your needs.
+Since the BlockBundle doesn't contain anything to make the slideshow work
+in the frontend, you need to do this yourself. Just use your favourite JS
+library to make the slideshow interactive. If special markup is needed for
+your slideshow code to work, just override ``BlockBundle:Block:block_slideshow.html.twig``
+and ``BlockBundle:Block:block_slideshow_item.html.twig`` and adapt them to your needs.
+
+
+Use the Sonata admin class
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The BlockBundle comes with classes for managing slideshows and imagine blocks
+directly in SonataAdmin. All you need to do to administrate slideshows in
+your project is to add the following line to your sonata admin configuration:
+
+.. config-block::
+
+    .. code-block:: yaml
+
+        sonata_admin:
+            dashboard:
+                groups:
+                    blocks:
+                        label: Blocks
+                        items:
+                            - symfony_cmf_block.slideshow_admin
+
+However, you can also embed the slideshow administration directly into
+other admin classes using the ``sonata_type_admin`` form type. The admin
+service to use in that case is ``symfony_cmf_block.slideshow_admin``.
+Please refer to `the Sonata Admin docs <http://sonata-project.org/bundles/admin/master/doc/reference/form_types.html>`_
+for further information.
+
+If you use the default template, you need to add the
+`LiipImagineBundle <https://github.com/liip/LiipImagineBundle>`_ to your
+dependencies and define a imagine filter using the phpcr called
+'symfony_cmf_block' (or the name you specified to the block in setFilter).
+Refer to the `LiipImagineBundle documentation <https://github.com/liip/LiipImagineBundle/tree/master/Resources/doc>`_
+for further information.
