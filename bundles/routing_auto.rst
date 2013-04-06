@@ -2,9 +2,9 @@ RoutingAutoBundle
 =================
 
 The ``RoutingAutoBundle`` allows you to define automatically created routes
-for documents. This implies a separation of the ``Route`` and ``Content``
-documents. If your needs are simple this bundle may not be for you and you 
-should have a look at :doc:`SimpleCmsBundle<simple-cms>`.
+for documents. Using this bundle that your application separates the 
+``Route`` and ``Content`` documents. If your application does **not** seperate
+route and content, then this bundle is not for you.
 
 For the sake of example, we will imagine a  blog application 
 that has two routeable contents, the blog itself, and the posts for the blog. 
@@ -35,13 +35,14 @@ a ``404``).
 Why not simply use a single route?
 ----------------------------------
 
-Of course, our fictional blog application could use a single route with a pattern
-``/blogs/my-new-blog/{slug}`` which could be handled by a controller. Why not just
-do this?
+Of course, our fictional blog application could use a conventional single route with
+a pattern like ``/blogs/my-new-blog/{slug}`` which could be handled by a controller. 
+Why not just do this?
 
 1. By having a route for each page in the system the application has a knowledge of
    which URLs are accessible, this can be very useful, for example, when specifying 
-   endpoints for menu items are generating a site map.
+   endpoints for menu items are generating a site map or running batch jobs (e.g.
+   taking a screenshot of each page on your site).
 
 2. By separating the route from the content we allow the route to be customized independently
    of the content, for example, a blog post may have the same title as another post but might 
@@ -53,7 +54,7 @@ do this?
    the slug were embedded in the content document.
 
 4. By decoupling route and content the application doesn't care *what* is referenced in
-   the route document. This means that we can easily replace the class of document referenced.
+   the route document. This means that we can easily replace the referenced document.
 
 Anatomy of an automatic URL
 ---------------------------
@@ -155,6 +156,8 @@ the actual route documents.
 **Base** providers must be the first configured as the first builder in the content path chain.
 This is because the paths that they provide correspond directly to an existing path, i.e. they
 have an absolute reference.
+
+It is easy to implement your own path providers through the DIC. :ref:`Customization <routingauto_customization_pathproviders`.
 
 specified (base provider)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -367,3 +370,51 @@ this action if you are sure that the route *should* exist.
 Options:
 
  - None.
+
+Customization
+-------------
+
+.. _routingauto_customization_pathproviders:
+
+Adding a path provider
+~~~~~~~~~~~~~~~~~~~~~~
+
+The goal of a ``PathProvider`` class is to add one or several path elements to
+the route stack. For example, the following provider will add the path "foo/bar"
+to the route stack:
+
+.. code-block:: php
+
+    <?php
+
+    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\PathProviderInterface;
+    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\RouteStack;
+
+    class FoobarProvider implements PathProviderInterface
+    {
+        public function providePath(RouteStack $routeStack)
+        {
+            $routeStack->addPathElements(array('foo', 'bar'));
+        }
+    }
+
+To use the path provider you must register it in the DIC and add the 
+``symfony_cmf_routing_auto.provider`` tag and set the **alias** accordingly.
+
+.. code-block:: xml
+
+    <service 
+        id="my_cms.some_bundle.path_provider.foobar" 
+        class="FoobarProvider"
+        scope="prototype"
+        >
+        <tag name="symfony_cmf_routing_auto.provider" alias="foobar"/>
+    </service>
+
+The **foobar** path provider is now available as **foobar**.
+
+.. note::
+
+    The that both path providers and path actions need to be defined with a 
+    scope of "ptototype". This ensures that each time the auto routing system
+    requests the class a new one is given and we do not have any state problems.
