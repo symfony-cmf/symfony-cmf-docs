@@ -66,6 +66,35 @@ iterates over the configured Routers according to their configured priority:
                     # enable the symfony default router with a lower priority
                     router.default: 100
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-routing-extra:config>
+            <symfony-cmf-routing-extra:chain>
+                <symfony-cmf-routing-extra:routers-by-id
+                    id="symfony-cmf-routing-extra.dynamic-router">
+                    200
+                </symfony-cmf-routing-extra:routers-by-id>
+
+                <symfony-cmf-routing-extra:routers-by-id
+                    id="router.default">
+                    100
+                </symfony-cmf-routing-extra:routers-by-id>
+            </symfony-cmf-routing-extra:chain>
+        </symfony-cmf-routing-extra:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+            'chain' => array(
+                'routers_by_id' => array(
+                    'symfony_cmf_routing_extra.dynamic_router' => 200,
+                    'router.default'                           => 100,
+                ),
+            ),
+        ));
+
 You can also load Routers using tagged services, by using the `router` tag
 and an optional `priority`. The higher the priority, the earlier your router
 will be asked to match the route. If you do not specify the priority, your
@@ -79,7 +108,7 @@ this:
 
         services:
             my_namespace.my_router:
-                class: %my_namespace.my_router_class%
+                class: "%my_namespace.my_router_class%"
                 tags:
                     - { name: router, priority: 300 }
 
@@ -129,6 +158,22 @@ file:
         symfony_cmf_routing_extra:
             dynamic:
                 enabled: true
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-routing-extra:config>
+            <symfony-cmf-routing-extra:dynamic enabled="true" />
+        </symfony-cmf-routing-extra:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+            'dynamic' => array(
+                'enabled' => true,
+            ),
+        ));
 
 This is the minimum configuration required to load the ``DynamicRouter`` as
 a service, thus making it capable of performing any routing. Actually, when
@@ -211,6 +256,49 @@ Here's an example on how to configure the above mentioned options:
                 templates_by_class:
                     Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: SymfonyCmfContentBundle:StaticContent:index.html.twig
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-routing-extra:config>
+            <symfony-cmf-routing-extra:dynamic>
+                <symfony-cmf-routing-extra:controllers-by-type
+                    type="editablestatic"
+                >
+                    sandbox_main.controller:indexAction
+                </symfony-cmf-routing-extra:controllers-by-type>
+
+                <symfony-cmf-routing-extra:controllers-by-class
+                    class="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
+                >
+                    symfony_cmf_content.controller::indexAction
+                </symfony-cmf-routing-extra:controllers-by-class>
+
+                <symfony-cmf-routing-extra:templates-by-class
+                    alias="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
+                >
+                    SymfonyCmfContentBundle:StaticContent:index.html.twig
+                </symfony-cmf-routing-extra:templates-by-class>
+            </symfony-cmf-routing-extra:dynamic>
+        </symfony-cmf-routing-extra:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+            'dynamic' => array(
+                'generic_controller' => 'symfony_cmf_content.controller:indexAction',
+                'controllers_by_type' => array(
+                    'editablestatic' => 'sandbox_main.controller:indexAction',
+                ),
+                'controllers_by_class' => array(
+                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'symfony_cmf_content.controller::indexAction',
+                ),
+                'templates_by_class' => array(
+                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'SymfonyCmfContentBundle:StaticContent:index.html.twig',
+                ),
+            ),
+        ));
+
 Notice that ``enabled: true`` is no longer present. It's only required if
 no other configuration parameter is provided. The router is automatically
 enabled as soon as you add any other configuration to the `dynamic` entry.
@@ -258,6 +346,25 @@ is handled by a specific Controller, that can be configured like so:
         symfony_cmf_routing_extra:
             controllers_by_class:
                 Symfony\Cmf\Component\Routing\RedirectRouteInterface:  symfony_cmf_routing_extra.redirect_controller:redirectAction
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-routing-extra:config>
+            <symfony-cmf-routing-extra:controllers-by-class
+                class="Symfony\Cmf\Component\Routing\RedirectRouteInterface">
+                symfony_cmf_routing_extra.redirect_controller:redirectAction
+            </symfony-cmf-routing-extra:controllers-by-class>
+        </symfony-cmf-routing-extra:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+            'controllers_by_class' => array(
+                'Symfony\Cmf\Component\Routing\RedirectRouteInterface' => 'symfony_cmf_routing_extra.redirect_controller:redirectAction',
+            ),
+        ));
 
 .. note::
 
