@@ -1,3 +1,6 @@
+.. index::
+    single: SimpleCMS, SymfonyCmfSimpleCMSBundle
+
 SimpleCMS
 =========
 

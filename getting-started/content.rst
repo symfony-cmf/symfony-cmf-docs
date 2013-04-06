@@ -1,3 +1,6 @@
+.. index::
+    single: Content, SymfonyCmfContentBundle
+
 Content
 =======
 

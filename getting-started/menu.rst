@@ -1,3 +1,6 @@
+.. index::
+    single: Menu, SymfonyCmfMenuBundle
+
 Menu
 ====
 
