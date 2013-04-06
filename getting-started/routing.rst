@@ -220,12 +220,12 @@ The ``DynamicRouter`` uses one of several possible methods to determine it
 (in order of precedence):
 
 - Explicit: The stored Route document itself can explicitly declare the target
-    Controller by specifying the '_controller' value in ``getRouteDefaults()``.
+  Controller by specifying the '_controller' value in ``getRouteDefaults()``.
 - By alias: the Route returns a 'type' value in ``getRouteDefaults()``,
-    which is then matched against the provided configuration from config.yml
+  which is then matched against the provided configuration from config.yml
 - By class: requires the Route instance to implement ``RouteObjectInterface``
-    and return an object for ``getRouteContent()``. The returned class type is
-    then matched against the provided configuration from config.yml.
+  and return an object for ``getRouteContent()``. The returned class type is
+  then matched against the provided configuration from config.yml.
 - Default: if configured, a default Controller will be used.
 
 Apart from this, the ``DynamicRouter`` is also capable of dynamically specifying
@@ -233,11 +233,10 @@ which Template will be used, in a similar way to the one used to determine
 the Controller (in order of precedence):
 
 - Explicit: The stored Route document itself can explicitly declare the target
-    Template in ``getRouteDefaults()``.
+  Template in ``getRouteDefaults()``.
 - By class: requires the Route instance to implement ``RouteObjectInterface``
-    and return an object for ``getRouteContent()``. The returned class type is
-    then matched against the provided configuration from config.yml.
-
+  and return an object for ``getRouteContent()``. The returned class type is
+  then matched against the provided configuration from config.yml.
 
 Here's an example on how to configure the above mentioned options:
 
@@ -378,8 +377,10 @@ Symfony CMF's Routing component uses the default Symfony2 components to handle
 route generation, so you can use the default methods for generating your
 urls, with a few added possibilities:
 
-* Pass either an implementation of ``RouteObjectInterface`` or a ``RouteAwareInterface`` as ``name`` parameter
-* Or supply an implementation of ``ContentRepositoryInterface`` and the id of the model instance as parameter ``content_id``
+* Pass either an implementation of ``RouteObjectInterface`` or a
+  ``RouteAwareInterface`` as ``name`` parameter
+* Or supply an implementation of ``ContentRepositoryInterface`` and the id of
+  the model instance as parameter ``content_id``
 
 The route generation handles locales as well, see :ref:`route-generator-and-locales`.
 
