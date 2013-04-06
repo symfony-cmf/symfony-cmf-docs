@@ -30,10 +30,10 @@ The solution
 In order to address these issues, a new routing system was developed, that
 takes into account the typical needs of a CMS routing:
 
-- User defined URLs.
-- Multi-site.
-- Multi-language.
-- Tree-like structure for easier management.
+- User defined URLs;
+- Multi-site;
+- Multi-language;
+- Tree-like structure for easier management;
 - Content, Menu and Route separation for added flexibility.
 
 With these requirements in mind, the Symfony CMF Routing component was developed.
