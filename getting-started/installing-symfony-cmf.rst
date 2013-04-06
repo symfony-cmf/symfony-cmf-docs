@@ -162,3 +162,32 @@ into a browsable website. The overall, simplified process is:
 Again, this is simplified view of a very simple CMS built on top of Symfony CMF.
 To fully understand all the possibilities of the CMF, a careful look into
 each component is needed.
+
+If you want to review the contents of the PHPCR database you can use the following command:
+
+.. code-block:: bash
+
+    $ php app/console doctrine:phpcr:dump
+
+Adding new pages
+~~~~~~~~~~~~~~~~
+
+Symfony CMF SE does not provide any admin tools to create new pages. If you are interested in adding
+an admin UI have a look at :doc:`../tutorials/creating-cms-using-cmf-and-sonata`. However if all you
+want is a simple way to add new pages that you can then edit via the inline editing, then you can
+use the SimpleCmsBundle ``page`` migrator. The Symfony CMF SE ships with an example yaml file stored
+in ``app/Resources/data/pages/test.yml``. The contents of this file can be loaded into the PHPCR
+database by calling:
+
+.. code-block:: bash
+
+    $ php app/console doctrine:phpcr:migrator page --identifier=/cms/simple/test
+
+Note that the above identifier is mapped to ``app/Resources/data/pages/test.yml`` by stripping
+off the ``basepath`` configuration of the SimpleCmsBundle, which defaults to ``/cms/simple``.
+Therefore if you want to define a child page ``foo`` for ``/cms/simple/test`` you would need to
+create a file ````app/Resources/data/pages/test/foo.yml`` and then run the following command:
+
+.. code-block:: bash
+
+    $ php app/console doctrine:phpcr:migrator page --identifier=/cms/simple/test/foo
