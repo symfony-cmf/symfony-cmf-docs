@@ -683,7 +683,7 @@ To use the ``doctrine:phpcr:fixtures:load`` command, you additionally need to in
 
 Fixtures work the same way they work for Doctrine ORM. You write fixture classes implementing
 ``Doctrine\Common\DataFixtures\FixtureInterface``. If you place them in <Bundle>\DataFixtures\PHPCR,
-they will be autodetected if you specify no path to the fixture loading command.
+they will be auto detected if you specify no path to the fixture loading command.
 
 A simple example fixture class looks like this:
 
@@ -707,6 +707,23 @@ A simple example fixture class looks like this:
 
 For more on fixtures, see the `documentation of the DoctrineFixturesBundle <http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_.
 
+Migration loading
+-----------------
+
+The DoctrinePHPCRBundle also ships with a simple command to run migration scripts. Migrations
+should implement the ``Doctrine\Bundle\PHPCRBundle\Migrator\MigratorInterface`` and registered
+as a service with a ``doctrine_phpcr.migrator`` tag contains an ``alias`` attribute uniquely
+identifying the migrator. There is an optional ``Doctrine\Bundle\PHPCRBundle\Migrator\AbstractMigrator``
+class to use as a basis. To find out available migrations run:
+
+.. code-block:: bash
+
+    $ php app/console doctrine:phpcr:migrator
+
+Then pass in the name of the migrator to run it, optionally passing in an ``--identifier``,
+``--depth`` or ``--session`` argument. The later argument determines which session name to
+set on the migrator, while the first two arguments will simply be passed to the ``migrate()``
+method. You can find an example migrator in the SimpleCmsBundle.
 
 Doctrine PHPCR Commands
 -----------------------
