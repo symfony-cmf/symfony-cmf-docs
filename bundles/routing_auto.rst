@@ -122,9 +122,7 @@ The configuration for the example above could be as follows:
                         strategy: create
 
 
-The ``Post`` document would then need to implement the methods named above as follows:
-
-.. code-block:: php
+The ``Post`` document would then need to implement the methods named above as follows::
 
     <?php
     
@@ -227,9 +225,7 @@ This example will use the existing method "getTitle" of the ``Post`` document to
 title. By default all strings are *slugified*.
 
 The method can return the path either as a single string or an array of path elements
-as shown in the following example:
-
-.. code-block:: php
+as shown in the following example::
 
     <?php
 
