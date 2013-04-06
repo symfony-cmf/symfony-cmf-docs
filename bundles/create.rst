@@ -234,15 +234,24 @@ Finally add the relevant routing to your configuration
         <import resource="@SymfonyCmfCreateBundle/Resources/config/routing/rest.xml" type="rest" />
         <import resource="@SymfonyCmfCreateBundle/Resources/config/routing/image.xml" type="rest" />
 
+.. _bundle-create-usage-embed:
 
 Usage
 -----
 
 Adjust your template to load the editor js files if the current session is allowed to edit content.
 
+If you are using Symfony 2.2 or higher:
+
 .. code-block:: jinja
 
-    {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" %}
+    {% render(controller("symfony_cmf_create.jsloader.controller:includeJSFilesAction"))  with {'_locale': app.request.locale} %}
+
+For versions prior to 2.2, this will do:
+
+.. code-block:: jinja
+
+    {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" with {'_locale': app.request.locale} %}
 
 Plus make sure that assetic is rewriting paths in your css files, then  include
 the base css files (and customize with your css as needed) with
@@ -288,8 +297,10 @@ Alternative Editors
 You can write your own templates to load a javascript editor. They have to
 follow the naming pattern ``SymfonyCmfCreateBundle::includejsfiles-%editor%.html.twig``
 to be loaded. In the includeJSFilesAction, you specify the editor parameter.
+(Do not forget to add the ``controller`` call around the controller name inside
+``render`` for Symfony 2.2, as in the example above.)
 
-    {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'aloha' %}
+    {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'aloha', '_locale': app.request.locale } %}
 
 .. note::
 
@@ -317,10 +328,12 @@ the following command from the command line:
 
 There is a special template to load the coffee script files. To load this,
 just use the ``hallo-coffee`` editor with the includeJSFilesAction.
+(Do not forget to add the ``controller`` call around the controller name inside
+``render`` for Symfony 2.2, as in the example above.)
 
 .. code-block:: jinja
 
-    {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'hallo-coffee' %}
+    {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'hallo-coffee', '_locale': app.request.locale } %}
 
 
 The hallo-coffee template uses assetic to load the coffee script files from

@@ -195,7 +195,7 @@ The possible enhancements are (in order of precedence):
                 controllers_by_type:
                     editablestatic: sandbox_main.controller:indexAction
                 controllers_by_class:
-                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: symfony_cmf_content.controller::indexAction
+                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: symfony_cmf_content.controller:indexAction
                 templates_by_class:
                     Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: SymfonyCmfContentBundle:StaticContent:index.html.twig
 

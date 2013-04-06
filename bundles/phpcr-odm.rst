@@ -436,9 +436,11 @@ You can tag services to listen to Doctrine PHPCR-ODM events. It works the same w
 as for Doctrine ORM. The only differences are
 
 * use the tag name ``doctrine_phpcr.event_listener`` resp. ``doctrine_phpcr.event_subscriber`` instead of ``doctrine.event_listener``.
-* expect the argument to be of class Doctrine\ODM\PHPCR\Event\LifecycleEventArgs rather than in the ORM namespace.
+* expect the argument to be of class ``Doctrine\ODM\PHPCR\Event\LifecycleEventArgs`` rather than in the ORM namespace.
+  (this is subject to change, as doctrine commons 2.4 provides a common class for this event).
 
 You can register for the events as described in `the PHPCR-ODM documentation <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html>`_.
+Or you can tag your services as event listeners resp. event subscribers.
 
 .. configuration-block::
 
@@ -446,11 +448,26 @@ You can register for the events as described in `the PHPCR-ODM documentation <ht
 
         services:
             my.listener:
-                class: Acme\SearchBundle\Listener\SearchIndexer
+                class: Acme\SearchBundle\EventListener\SearchIndexer
                     tags:
                         - { name: doctrine_phpcr.event_listener, event: postPersist }
 
-More information on the doctrine event system integration is in this `Symfony cookbook entry <http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html>`_.
+            my.subscriber:
+                class: Acme\SearchBundle\EventSubscriber\MySubscriber
+                    tags:
+                        - { name: doctrine_phpcr.event_subscriber }
+
+
+.. hint::
+
+    Doctrine event subscribers (both ORM and PHPCR-ODM) can not
+    return a flexible array of methods to call like the `Symfony event subscriber <http://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers>`_
+    can do. Doctrine event subscribers must return a simple array of the event
+    names they subscribe to. Doctrine will then expect methods on the subscriber
+    with the names of the subscribed events, just as when using an event listener.
+
+More information with PHP code examples for the doctrine event system integration is in
+this `Symfony cookbook entry <http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html>`_.
 
 
 Constraint validator
@@ -505,10 +522,151 @@ Form types
 The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM specific cases, along with form type guessers.
 
 
+phpcr_odm_image
+~~~~~~~~~~~~~~~
+
+The ``phpcr_odm_image`` form maps to a document of type ``Doctrine\ODM\PHPCR\Document\Image``
+and provides a preview of the uploaded image. To use it, you need to include the
+`LiipImagineBundle <https://github.com/liip/LiipImagineBundle/>`_ in your project and define an
+imagine filter for thumbnails.
+
+This form type is only available if explicitly enabled in your application configuration
+by defining the ``imagine`` section under the ``odm`` section with at least ``enabled: true``.
+You can also configure the imagine filter to use for the preview, as well as additional
+filters to remove from cache when the image is replaced. If the filter is not specified,
+it defaults to ``image_upload_thumbnail``.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        doctrine_phpcr:
+            ...
+            odm:
+                imagine:
+                    enabled: true
+                    # filter: image_upload_thumbnail
+                    # extra_filters:
+                    #    - imagine_filter_name1
+                    #    - imagine_filter_name2
+
+        # Imagine Configuration
+        liip_imagine:
+            ...
+            filter_sets:
+                # define the filter to be used with the image preview
+                image_upload_thumbnail:
+                    data_loader: phpcr
+                    filters:
+                        thumbnail: { size: [100, 100], mode: outbound }
+
+Then you can add images to document forms as follows:
+
+.. code-block:: php
+
+    use Symfony\Component\Form\FormBuilderInterface;
+
+    protected function configureFormFields(FormBuilderInterface $formBuilder)
+    {
+         $formBuilder
+            ->add('image', 'phpcr_odm_image', array('required' => false))
+         ;
+    }
+
+.. tip::
+
+   If you set required to true for the image, the user must re-upload a new image
+   each time he edits the form. If the document must have an image, it makes sense
+   to require the field when creating a new document, but make it optional when
+   editing an existing document.
+   We are `trying to make this automatic <https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4>`_.
+
+
+Next you will need to add the ``fields.html.twig`` template from the DoctrinePHPCRBundle to the form.resources,
+to actually see the preview of the uploaded image in the backend.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # Twig Configuration
+        twig:
+            form:
+                resources:
+                    - 'DoctrinePHPCRBundle:Form:fields.html.twig'
+
+
+The document that should contain the Image document has to implement a setter method.
+To profit from the automatic guesser of the form layer, the name in the form element
+and this method name have to match:
+
+.. code-block:: php
+
+    public function setImage($image)
+    {
+        if (!$image) {
+            // This is normal and happens when no new image is uploaded
+            return;
+        } elseif ($this->image && $this->image->getFile()) {
+            // TODO: needed until this bug in PHPCRODM has been fixed: https://github.com/doctrine/phpcr-odm/pull/262
+            $this->image->getFile()->setFileContent($image->getFile()->getFileContent());
+        } else {
+            $this->image = $image;
+        }
+    }
+
+
+To delete an image, you need to delete the document containing the image. (There is a proposal
+to improve the user experience for that in a `DoctrinePHPCRBundle issue <https://github.com/doctrine/DoctrinePHPCRBundle/issues/40>`_.)
+
+.. note::
+
+    There is a doctrine listener to invalidate the imagine cache for the
+    filters you specified. This listener will only operate when an Image is
+    changed in a web request, but not when a CLI command changes images. When
+    changing images with commands, you should handle cache invalidation in
+    the command or manually remove the imagine cache afterwards.
+
+
+phpcr_odm_reference_collection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This form type handles editing ``ReferenceMany`` collections on PHPCR-ODM documents.
+It is a choice field with an added ``referenced_class`` required option that specifies
+the class of the referenced target document.
+
+To use this form type, you also need to specify the list of possible reference targets as an array of PHPCR-ODM ids or
+PHPCR paths.
+
+The minimal code required to use this type looks as follows:
+
+.. code-block:: php
+
+    $dataArr = array(
+        '/some/phpcr/path/item_1' => 'first item',
+        '/some/phpcr/path/item_2' => 'second item',
+    );
+
+    $formMapper
+        ->with('form.group_general')
+            ->add('myCollection', 'phpcr_odm_reference_collection', array(
+                'choices'   => $dataArr,
+                'referenced_class'  => 'Class\Of\My\Referenced\Documents',
+            ))
+        ->end();
+
+.. tip::
+
+    When building an admin interface with :doc:`Sonata Admin<doctrine_phpcr_admin>`
+    there is also the ``sonata_type_model`` that is more powerful, allowing to add
+    to the referenced documents on the fly. Unfortunately it is
+    `currently broken <https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145>`_.
+
+
 phpcr_reference
 ~~~~~~~~~~~~~~~
 
-The ``phpcr_reference`` represents a Property of type REFERENCE or WEAKREFERENCE within a form.
+The ``phpcr_reference`` represents a PHPCR Property of type REFERENCE or WEAKREFERENCE within a form.
 The input will be rendered as a text field containing either the PATH or the UUID as per the
 configuration. The form will resolve the path or id back to a PHPCR node to set the reference.
 

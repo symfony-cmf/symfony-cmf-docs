@@ -33,8 +33,8 @@ The configuration key for this bundle is ``symfony_cmf_tree_browser``
 Routing
 -------
 
-The bundle will create routes for each tree implementation found. In order to make 
-those routes available you need to include the following in your routing configuration: 
+The bundle will create routes for each tree implementation found. In order to make
+those routes available you need to include the following in your routing configuration:
 
 .. configuration-block::
 
@@ -60,7 +60,7 @@ Both have the following options when creating:
  * config.rootNode: id to the root node of your tree, defaults to "/"
  * config.selected: id of the selected node
  * config.ajax.children_url: Url to the controller that provides the children of a node
- * config.routing_defaults: array for route parameters (such as _locale etc.) 
+ * config.routing_defaults: array for route parameters (such as _locale etc.)
  * config.path.expanded: tree path where the tree should be expanded to at the moment
  * config.path.preloaded: tree path what node should be preloaded for faster user experience
 
@@ -103,7 +103,7 @@ This configuration is set for all your application trees regardless their type (
         sonata_doctrine_phpcr_admin:
             document_tree_defaults: [locale]
             document_tree:
-                Doctrine\PHPCR\Odm\Document\Generic:
+                Doctrine\ODM\PHPCR\Document\Generic:
                     valid_children:
                         - all
                 Symfony\Cmf\Bundle\ContentBundle\Document\MultilangStaticContent:
@@ -123,13 +123,24 @@ This can be done either in an action template or in a custom block.
 
 You have to specify the tree root and the selected item, this allows you to have different type of content in your tree.
 
-In this example, we will have the menu elements :
+In this example, we will have the menu elements.
+
+For Symfony 2.2 and later
 
 .. configuration-block::
 
     .. code-block:: jinja
 
-        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuNodeId } %}
+        {% render(controller('sonata.admin.doctrine_phpcr.tree_controller:treeAction')) with { 'root': websiteId~"/menu", 'selected': menuNodeId, '_locale': app.request.locale } %}
+
+
+For Symfony 2.1
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuNodeId, '_locale': app.request.locale } %}
 
 
 How to customize the tree behaviour
@@ -141,13 +152,14 @@ A simple way to customize the tree behavior is to bind your actions to those eve
 If you have a look at init.js and select.js, you will notice that actions are already bound to some of the tree events. If the default behavior is not
 what you need, JQuery provide the unbind function to solve the problem.
 
-Here is a simple way to remove the context menu from the admin tree :
+Here is a simple way to remove the context menu from the admin tree (add the
+``controller`` call around the controller name inside ``render`` for Symfony 2.2) :
 
 .. configuration-block::
 
     .. code-block:: jinja
 
-        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuNodeId } %}
+        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuNodeId, '_locale': app.request.locale } %}
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#tree').bind("before.jstree", function (e, data) {
