@@ -1,3 +1,6 @@
+.. index::
+    single: Standard Edition, install
+
 Installing the Symfony CMF Standard Edition
 ===========================================
 
@@ -21,8 +24,6 @@ look at:
     - :doc:`../tutorials/installing-cmf-core` for step-by-step installation and
       configuration details of just the core components into an existing Symfony
       application.
-
-.. index:: Standard Edition, install
 
 Preconditions
 -------------
