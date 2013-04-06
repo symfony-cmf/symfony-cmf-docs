@@ -41,7 +41,8 @@ installed, since it is used as the default storage medium.
     available mechanisms and how to install and configure them, refer to
     :doc:`../tutorials/installing-configuring-doctrine-phpcr-odm`
 
-`Git <http://git-scm.com/>`_ and `Curl <http://curl.haxx.se/>`_ are also needed to follow the installation steps listed below.
+`Git <http://git-scm.com/>`_ and `Curl <http://curl.haxx.se/>`_ are also
+needed to follow the installation steps listed below.
 
 
 Installation
@@ -158,6 +159,6 @@ into a browsable website. The overall, simplified process is:
 - As configured, the retrieved content is passed to ContentBundle's ContentController, which will
   handle it and render AcmeMainBundle's layout.html.twig.
 
- Again, this is simplified view of a very simple CMS built on top of Symfony CMF.
- To fully understand all the possibilities of the CMF, a careful look into
- each component is needed.
+Again, this is simplified view of a very simple CMS built on top of Symfony CMF.
+To fully understand all the possibilities of the CMF, a careful look into
+each component is needed.
