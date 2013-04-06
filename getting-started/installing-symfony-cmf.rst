@@ -15,8 +15,12 @@ look at:
 .. note::
 
     For other Symfony CMF installation guides, please read:
-    - The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for instructions on how to install a more complete demo instance of Symfony CMF.
-    - :doc:`../tutorials/installing-cmf-core` for step-by-step installation and configuration details of just the core components into an existing Symfony application.
+
+    - The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for instructions on
+      how to install a more complete demo instance of Symfony CMF.
+    - :doc:`../tutorials/installing-cmf-core` for step-by-step installation and
+      configuration details of just the core components into an existing Symfony
+      application.
 
 .. index:: Standard Edition, install
 
@@ -30,14 +34,15 @@ installed, since it is used as the default storage medium.
 
 .. note::
 
-    By default, Symfony CMF uses Jackalope + Doctrine DBAL, and SQLite as
+    By default, Symfony CMF uses Jackalope + Doctrine DBAL and SQLite as
     the underlying DB. However, Symfony CMF is storage agnostic, which means
     you can use one of several available data storage mechanisms without
     having to rewrite your code. For more information on the different
     available mechanisms and how to install and configure them, refer to
     :doc:`../tutorials/installing-configuring-doctrine-phpcr-odm`
 
-`Git <http://git-scm.com/>`_ and `Curl <http://curl.haxx.se/>`_ are also needed to follow the installation steps listed below.
+`Git <http://git-scm.com/>`_ and `Curl <http://curl.haxx.se/>`_ are also
+needed to follow the installation steps listed below.
 
 
 Installation
@@ -48,23 +53,20 @@ Get it using
 
 .. code-block:: bash
 
-    curl -s http://getcomposer.org/installer | php --
+    $ curl -sS https://getcomposer.org/installer | php
+    $ sudo mv composer.phar /usr/local/bin/composer
 
 and then get the Symfony CMF code with it (this may take a while)
 
 .. code-block:: bash
 
-    php composer.phar create-project symfony-cmf/standard-edition <path-to-install> --stability=dev
-    mv composer.phar <path-to-install>/.
-    cd <path-to-install>
+    $ php composer.phar create-project symfony-cmf/standard-edition <path-to-install> --stability=dev
+    $ cd <path-to-install>
 
 .. note::
 
-    It is actually recommended to move ``composer.phar`` into the bin directory of your filesystem,
-    so that you can access the command from any directory.
-
-The path ``<path-to-install>`` should either inside your web server doc root or configure
-a virtual host for ``<path-to-install>``.
+    The path ``<path-to-install>`` should either inside your web server doc root or
+    configure a virtual host for ``<path-to-install>``.
 
 This will clone the standard edition and install all the dependencies and run some initial commands.
 These commands require write permissions to the ``app/cache`` and ``app/logs`` directory. In case
@@ -76,33 +78,34 @@ If you prefer you can also just clone the project:
 
 .. code-block:: bash
 
-    git clone git://github.com/symfony-cmf/symfony-cmf-standard.git <dir-name>
-    cd <dir-name>
+    $ git clone git://github.com/symfony-cmf/symfony-cmf-standard.git <dir-name>
+    $ cd <dir-name>
 
 If there were problems during the ``create-project`` command, or if you used ``git clone`` or if you
 updated the checkout later, always run the following command to update the dependencies:
 
 .. code-block:: bash
 
-    php composer.phar install
+    $ php composer.phar install
 
-The next step is to setup the database, if you want to use SQLite as your database backend just go ahead and run the following:
+The next step is to setup the database, if you want to use SQLite as your database backend just go
+ahead and run the following:
 
 .. code-block:: bash
 
-    app/console doctrine:database:create
-    app/console doctrine:phpcr:init:dbal
-    app/console doctrine:phpcr:register-system-node-types
-    app/console doctrine:phpcr:fixtures:load
+    $ php app/console doctrine:database:create
+    $ php app/console doctrine:phpcr:init:dbal
+    $ php app/console doctrine:phpcr:register-system-node-types
+    $ php app/console doctrine:phpcr:fixtures:load
 
-This will create a file called app.sqlite inside your app folder, containing the database content.
+This will create a file called ``app.sqlite`` inside your app folder, containing the database content.
 
 The project should now be accessible on your web server. If you have PHP 5.4 installed
 you can alternatively use the PHP internal web server:
 
 .. code-block:: bash
 
-    app/console server:run
+    $ php app/console server:run
 
 And then access the CMF via:
 
@@ -123,13 +126,16 @@ Edition (SE) and how they work together to provide the default pages you
 can see when browsing the Symfony CMF SE installation.
 
 It assumes you have already installed Symfony CMF SE and have carefully
-read the Symfony2 book.
+read `the Symfony2 book <http://symfony.com/doc/current/book/`_.
 
 .. note::
 
     For other Symfony CMF installation guides, please read:
-    - The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for instructions on how to install a more complete demo instance of Symfony CMF.
-    - :doc:`../tutorials/installing-cmf-core` for step-by-step installation and configuration details of just the core components into an existing Symfony application.
+
+    - The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for instructions on how to
+      install a more complete demo instance of Symfony CMF.
+    - :doc:`../tutorials/installing-cmf-core` for step-by-step installation and configuration
+      details of just the core components into an existing Symfony application.
 
 AcmeMainBundle and SimpleCMSBundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -144,11 +150,15 @@ data, that was loaded into your database during installation.
 There are several bundles working together in order to turn the fixture data
 into a browsable website. The overall, simplified process is:
 
-- When a request is received, the Symfony CMF :doc:`routing`'s Dynamic Router is used to handle the incoming request.
-- The Dynamic Router is able to match the requested URL with a specific ContentBundle's Content stored in the database.
-- The retrieved content's information is used to determine which controller to pass it on to, and which template to use.
-- As configured, the retrieved content is passed to ContentBundle's ContentController, which will handle it and render AcmeMainBundle's layout.html.twig.
+- When a request is received, the Symfony CMF :doc:`routing`'s Dynamic Router is used to handle the
+  incoming request.
+- The Dynamic Router is able to match the requested URL with a specific ContentBundle's Content
+  stored in the database.
+- The retrieved content's information is used to determine which controller to pass it on to, and
+  which template to use.
+- As configured, the retrieved content is passed to ContentBundle's ContentController, which will
+  handle it and render AcmeMainBundle's layout.html.twig.
 
- Again, this is simplified view of a very simple CMS built on top of Symfony CMF.
- To fully understand all the possibilities of the CMF, a careful look into
- each component is needed.
+Again, this is simplified view of a very simple CMS built on top of Symfony CMF.
+To fully understand all the possibilities of the CMF, a careful look into
+each component is needed.
