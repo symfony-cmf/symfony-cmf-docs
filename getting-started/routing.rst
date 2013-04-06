@@ -11,7 +11,7 @@ reference documentation please see :doc:`../components/routing` and
 Concept
 -------
 
-Why a new routing mechanism?
+Why a new Routing Mechanism?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 CMS are highly dynamic sites, where most of the content is managed by the
@@ -24,7 +24,7 @@ The default Symfony2 routing mechanism, with its configuration file approach,
 is not the best solution for this problem, as it's not suited to handle dynamic
 user defined routes, nor it scales well to a large number of routes.
 
-The solution
+The Solution
 ~~~~~~~~~~~~
 
 In order to address these issues, a new routing system was developed, that
@@ -87,13 +87,20 @@ this:
 
         <service id="my_namespace.my_router" class="%my_namespace.my_router_class%">
             <tag name="router" priority="300" />
-            ..
+            <!-- ... -->
         </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('my_namespace.my_router', '%my_namespace.my_router_class%')
+            ->addTag('router', array('priority' => 300))
+        ;
 
 The Symfony CMF Routing system adds a new ``DynamicRouter``, which complements
 the default ``Router`` found in Symfony2.
 
-The default Symfony2 router
+The Default Symfony2 Router
 ---------------------------
 
 Although it replaces the default routing mechanism, Symfony CMF Routing allows
@@ -131,7 +138,7 @@ Templates.
 
 .. _routing-getting-route-object:
 
-Getting the Route object
+Getting the Route Object
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 The provider to use can be configured to best suit each implementation's
@@ -217,7 +224,7 @@ enabled as soon as you add any other configuration to the `dynamic` entry.
 
 .. _routing-linking-a-route-with-a-model-instance:
 
-Linking a Route with a Model instance
+Linking a Route with a Model Instance
 -------------------------------------
 
 Depending on you application's logic, a requested URL may have an associated
@@ -257,7 +264,7 @@ is handled by a specific Controller, that can be configured like so:
     The actual configuration for this association exists as a service, not as part of
     a config.yml file. Like discussed before, any of the approaches can be used.
 
-URL generation
+URL Generation
 --------------
 
 Symfony CMF's Routing component uses the default Symfony2 components to handle
@@ -271,7 +278,7 @@ The route generation handles locales as well, see :ref:`route-generator-and-loca
 
 .. _routing-document:
 
-The PHPCR-ODM route document
+The PHPCR-ODM Route Document
 ----------------------------
 
 As mentioned above, you can use any route provider. The example in this section
@@ -349,7 +356,7 @@ a label and an array with ``content_ids`` in the options
 The form type automatically generates the routes for the specified content
 and passes the routes to the trans twig helper for replacement in the label.
 
-Further notes
+Further Notes
 -------------
 
 For more information on the Routing component of Symfony CMF, please refer to:

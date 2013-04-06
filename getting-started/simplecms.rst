@@ -81,7 +81,7 @@ mechanism, and will be analysed bellow.
  create different routes for different languages. This is one of the biggest
  disadvantages of the ``SimpleCmsBundle``.
  
-Configuring the content class
+Configuring the Content Class
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 By default, ``SimpleCMSBundle`` will use ``Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page``
@@ -100,7 +100,7 @@ support using the configuration parameters
             locales: ~  # defaults to [], declare your locales here to enable multilanguage
 
 
-SimpleCMSBundle in detail
+SimpleCMSBundle in Detail
 -------------------------
 
 Now that you understand what ``SimpleCMSBundle`` does, we'll detail how it
@@ -108,7 +108,7 @@ does it. Several other components are part of this bundle, that change the
 default behaviour of its dependencies.
 
 
-The routing
+The Routing
 ~~~~~~~~~~~
 
 ``SimpleCMSBundle`` doesn't add much functionality to the routing part of
@@ -154,7 +154,7 @@ extensions to the ``Route`` and ``RedirectRoute`` found in ``RoutingExtraBudle``
 but with the necessary changes to handle the prefix strategy discussed earlier.
 
 
-Content handling
+Content Handling
 ~~~~~~~~~~~~~~~~
 
 ``Route`` instances are responsible for determining which ``Controller``
@@ -199,7 +199,7 @@ the actual ``Route`` can provided a controller, in will take priority over
 this one. Both the template and the controller are part of ``SimpleCMSBundle``.
 
 
-Menu generation
+Menu Generation
 ~~~~~~~~~~~~~~~
 
 Like mentioned before, ``Page`` implements ``NodeInterface``, which means
@@ -220,7 +220,7 @@ optional, can be configured like so:
         basepath: ~  # /cms/simple
 
 
-Admin support
+Admin Support
 -------------
 
 ``SimpleCMSBundle`` also includes the administration panel and respective
@@ -256,7 +256,7 @@ This bundle is configurable using a set of parameters, but all of them are
 optional. You can go to the :doc:`../bundles/simple-cms` reference page for the
 full configuration options list and aditional information.
 
-Further notes
+Further Notes
 -------------
 
 For more information on the SimpleCMSBundle, please refer to:

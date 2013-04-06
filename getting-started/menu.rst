@@ -144,7 +144,7 @@ For information on the available translation strategies, refer to the Doctrine
 page regarding `Multi language support in PHPCR-ODM <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html>`_
 
 
-Admin support
+Admin Support
 -------------
 
 ``MenuBundle`` also includes the administration panels and respective services
@@ -162,7 +162,7 @@ This bundle is configurable using a set of parameters, but all of them are
 optional. You can go to the :doc:`../bundles/menu` reference page for the
 full configuration options list and additional information.
 
-Further notes
+Further Notes
 -------------
 
 For more information on the MenuBundle of Symfony CMF, please refer to:
