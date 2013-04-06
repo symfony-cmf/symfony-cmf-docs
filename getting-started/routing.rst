@@ -95,8 +95,8 @@ iterates over the configured Routers according to their configured priority:
             ),
         ));
 
-You can also load Routers using tagged services, by using the `router` tag
-and an optional `priority`. The higher the priority, the earlier your router
+You can also load Routers using tagged services, by using the ``router`` tag
+and an optional ``priority``. The higher the priority, the earlier your router
 will be asked to match the route. If you do not specify the priority, your
 router will come last. If there are several routers with the same priority,
 the order between them is undetermined. The tagged service will look like
@@ -301,7 +301,7 @@ Here's an example on how to configure the above mentioned options:
 
 Notice that ``enabled: true`` is no longer present. It's only required if
 no other configuration parameter is provided. The router is automatically
-enabled as soon as you add any other configuration to the `dynamic` entry.
+enabled as soon as you add any other configuration to the ``dynamic`` entry.
 
 .. note::
 
@@ -369,7 +369,7 @@ is handled by a specific Controller, that can be configured like so:
 .. note::
 
     The actual configuration for this association exists as a service, not as part of
-    a config.yml file. Like discussed before, any of the approaches can be used.
+    a ``config.yml`` file. Like discussed before, any of the approaches can be used.
 
 URL Generation
 --------------
@@ -410,13 +410,14 @@ A new route can be created in PHP code as follows:
     $route->setRequirement('id', '\d+');
     $route->setDefault('id', 1);
 
-This will give you a document that matches the URL /projects/<number> but also
-/projects as there is a default for the id parameter.
+This will give you a document that matches the URL ``/projects/<number>`` but
+also ``/projects`` as there is a default for the id parameter.
 
-Your controller can expect the $id parameter as well as the $contentDocument as
-we set a content on the route. The content could be used to define an intro
-section that is the same for each project or other shared data. If you don't
-need content, you can just not set it in the document.
+Your controller can expect the ``$id`` parameter as well as the
+``$contentDocument`` as we set a content on the route. The content could be
+used to define an intro section that is the same for each project or other
+shared data. If you don't need content, you can just not set it in the
+document.
 
 For more details, see the :ref:`route document section in the RoutingExtraBundle documentation<bundles_routingextra_document>`.
 
