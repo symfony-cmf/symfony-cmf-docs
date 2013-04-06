@@ -393,11 +393,10 @@ As mentioned above, you can use any route provider. The example in this section
 applies if you use the default PHPCR-ODM route provider.
 
 All routes are located under a configured root path, for example '/cms/routes'.
-A new route can be created in PHP code as follows:
-
-.. code-block:: php
+A new route can be created in PHP code as follows::
 
     use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route;
+
     $route = new Route;
     $route->setParent($dm->find(null, '/routes'));
     $route->setName('projects');
@@ -447,19 +446,36 @@ points to the root of your content documents.
             use_sonata_admin: auto # use true/false to force using / not using sonata admin
             content_basepath: ~ # used with sonata admin to manage content, defaults to symfony_cmf_core.content_basepath
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-routing-extra:config>
+            <symfony-cmf-routing-extra:use-sonata-admin>auto</symfony-cmf-routing-extra:use-sonata-admin>
+            <symfony-cmf-routing-extra:content-basepath>null</symfony-cmf-routing-extra:content-basepath>
+        </symfony-cmf-routing-extra:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+            'use_sonata_admin' => 'auto',
+            'content_basepath' => null,
+        ));
+
 Terms Form Type
 ---------------
 
 The bundle defines a form type that can be used for classical "accept terms"
 checkboxes where you place urls in the label. Simply specify
 ``symfony_cmf_routing_extra_terms_form_type`` as the form type name and specify
-a label and an array with ``content_ids`` in the options
-
-.. code-block:: php
+a label and an array with ``content_ids`` in the options::
 
     $form->add('terms', 'symfony_cmf_routing_extra_terms_form_type', array(
         'label' => 'I have seen the <a href="%team%">Team</a> and <a href="%more%">More</a> pages ...',
-        'content_ids' => array('%team%' => '/cms/content/static/team', '%more%' => '/cms/content/static/more')
+        'content_ids' => array(
+            '%team%' => '/cms/content/static/team',
+            '%more%' => '/cms/content/static/more'
+        ),
     ));
 
 The form type automatically generates the routes for the specified content
