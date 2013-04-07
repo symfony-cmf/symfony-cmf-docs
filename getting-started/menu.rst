@@ -39,14 +39,19 @@ Usage
 print out menus. You can refer to the `respective documentation page <https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md#rendering-menus>`_
 for more information on the subject, but a basic call would be:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ knp_menu_render('simple') }}
+    .. code-block:: jinja
+
+        {{ knp_menu_render('simple') }}
+
+    .. code-block:: php
+
+        <?php echo $view['knp_menu']->render('simple') ?>
 
 The provided menu name will be passed on to ``MenuProviderInterface`` implementation,
 which will use it to identify which menu you want rendered in this specific
 section.
-
 
 The Provider
 ~~~~~~~~~~~~
@@ -68,6 +73,18 @@ menu ``simple``, the menu root node must be stored at ``/cms/menu/simple``.
 
         symfony_cmf_menu:
             menu_basepath: /cms/menu
+
+    .. code-block:: xml
+
+        <symfony-cmf-menu:config>
+            <symfony-cmf-menu:menu-basepath>/cms/menu</symfony-cmf-menu:menu-basepath>
+        </symfony-cmf-menu:config>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('symfony_cmf_menu', array(
+            'menu_basepath' => '/cms/menu',
+        ));
 
 If you need multiple menu roots, you can create further PHPCRMenuProvider instances
 and register them with KnpMenu - see the CMF MenuBundle DependencyInjection code
@@ -137,11 +154,11 @@ database:
 
 .. configuration-block::
 
-    .. code-block:: php
+    .. code-block:: php-annotations
 
        /**
-       * @PHPCRODM\Document(translator="attribute")
-       */
+        * @PHPCRODM\Document(translator="attribute")
+        */
 
 For information on the available translation strategies, refer to the Doctrine
 page regarding `Multi language support in PHPCR-ODM <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html>`_
