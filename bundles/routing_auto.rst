@@ -366,3 +366,51 @@ this action if you are sure that the route *should* exist.
 Options:
 
  - None.
+
+Customization
+-------------
+
+.. _routingauto_customization_pathproviders:
+
+Adding a path provider
+~~~~~~~~~~~~~~~~~~~~~~
+
+The goal of a ``PathProvider`` class is to add one or several path elements to
+the route stack. For example, the following provider will add the path "foo/bar"
+to the route stack:
+
+.. code-block:: php
+
+    <?php
+
+    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\PathProviderInterface;
+    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\RouteStack;
+
+    class FoobarProvider implements PathProviderInterface
+    {
+        public function providePath(RouteStack $routeStack)
+        {
+            $routeStack->addPathElements(array('foo', 'bar'));
+        }
+    }
+
+To use the path provider you must register it in the DIC and add the 
+``symfony_cmf_routing_auto.provider`` tag and set the **alias** accordingly.
+
+.. code-block:: xml
+
+    <service 
+        id="my_cms.some_bundle.path_provider.foobar" 
+        class="FoobarProvider"
+        scope="prototype"
+        >
+        <tag name="symfony_cmf_routing_auto.provider" alias="foobar"/>
+    </service>
+
+The **foobar** path provider is now available as **foobar**.
+
+.. note::
+
+    The that both path providers and path actions need to be defined with a 
+    scope of "ptototype". This ensures that each time the auto routing system
+    requests the class a new one is given and we do not have any state problems.
