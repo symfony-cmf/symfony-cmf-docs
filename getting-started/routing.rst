@@ -259,7 +259,9 @@ Here's an example on how to configure the above mentioned options:
 
         <!-- app/config/config.xml -->
         <symfony-cmf-routing-extra:config>
-            <symfony-cmf-routing-extra:dynamic>
+            <symfony-cmf-routing-extra:dynamic
+                generic-controller="symfony_cmf_content.controllerindexAction"
+            >
                 <symfony-cmf-routing-extra:controllers-by-type
                     type="editablestatic"
                 >
@@ -449,10 +451,10 @@ points to the root of your content documents.
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <symfony-cmf-routing-extra:config>
-            <symfony-cmf-routing-extra:use-sonata-admin>auto</symfony-cmf-routing-extra:use-sonata-admin>
-            <symfony-cmf-routing-extra:content-basepath>null</symfony-cmf-routing-extra:content-basepath>
-        </symfony-cmf-routing-extra:config>
+        <symfony-cmf-routing-extra:config
+            use-sonata-admin="auto"
+            content-basepath="null"
+        />
 
     .. code-block:: php
 

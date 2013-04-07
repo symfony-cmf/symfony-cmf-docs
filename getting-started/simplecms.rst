@@ -92,15 +92,38 @@ as the content class if multilanguage is not enabled (default). If no other
 class is chosen, and multilanguage support is enabled, it will automatically
 switch to ``Symfony\Cmf\Bundle\SimpleCmsBundle\Document\MultilangPage``.
 You can explicitly specify your content class and/or enable multilanguage
-support using the configuration parameters
+support using the configuration parameters:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    symfony_cmf_simple_cms:
-        document_class: ~  # Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page
-        multilang:
-            locales: ~  # defaults to [], declare your locales here to enable multilanguage
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_simple_cms:
+            document_class: ~  # Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page
+            multilang:
+                locales: ~  # defaults to [], declare your locales here to enable multilanguage
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-simple-cms:config
+            document-class="null"
+        >
+            <symfony-cmf-simple-cms:multilang>
+                <symfony-cmf-simple-cms:locales></symfony-cmf-simple-cms:locales>
+            </symfony-cmf-simple-cms:multilang>
+        </symfony-cmf-simple-cms:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_simple_cms', array(
+            'document_class' => null,
+            'multilang'      => array(
+                'locales' => null,
+            ),
+        ));
 
 
 SimpleCMSBundle in Detail
@@ -165,11 +188,27 @@ will handle the current request. :ref:`routing-getting-controller-template`
 shows how Symfony CMF SE can determine which ``Controller`` to use when rendering
 a certain content, and ``SimpleCMSBundle`` uses these mechanisms to do so.
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    symfony_cmf_simple_cms:
-        generic_controller: ~  # symfony_cmf_content.controller:indexAction
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_simple_cms:
+            generic_controller: ~  # symfony_cmf_content.controller:indexAction
+
+    .. code-block:: xml
+    
+        <!-- app/config/config.xml -->
+        <symfony-cmf-simple-cms:config
+            generic-controller="null"
+        />
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_simple_cms', array(
+            'generic_controller' => null,
+        ));
 
 By default, it uses the above mentioned service, which instanciates ``ContentController``
 from ``ContentBundle``. The default configuration associates all ``document_class``
@@ -179,15 +218,46 @@ rules, which will associate, respectively, ``Controller`` and templates to
 a specific Content type. Symfony CMF SE includes an example of both in its
 default configuration.
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    symfony_cmf_simple_cms:
-        routing:
-            templates_by_class:
-                Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page:  SymfonyCmfSimpleCmsBundle:Page:index.html.twig
-            controllers_by_class:
-                Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute:  symfony_cmf_routing_extra.redirect_controller:redirectAction
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_simple_cms:
+            routing:
+                templates_by_class:
+                    Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page:  SymfonyCmfSimpleCmsBundle:Page:index.html.twig
+                controllers_by_class:
+                    Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute:  symfony_cmf_routing_extra.redirect_controller:redirectAction
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-simple-cms:config>
+            <symfony-cmf-simple-cms:routing>
+                <symfony-cmf-simple-cms:templates-by-class
+                    alias="Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page">
+                    SymfonyCmfSimpleCmsBundle:Page:index.html.twig
+                </symfony-cmf-simple-cms:templates-by-class
+
+                <symfony-cmf-simple-cms:controllers-by-class
+                    alias="Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute">
+                    symfony_cmf_routing_extra.redirect_controller:redirectAction
+                </symfony-cmf-simple-cms:templates-by-class
+            </symfony-cmf-simple-cms:routing>
+        </symfony-cmf-simple-cms:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_simple_cms', array(
+            'routing' => array(
+                'templates_by_class' => array(
+                    'Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page'             => SymfonyCmfSimpleCmsBundle:Page:index.html.twig,
+                    'Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute' => 'symfony_cmf_routing_extra.redirect_controller:redirectAction',
+                ),
+            ),
+        ));
 
 These configuration parameters will be used to instantiate :ref:`Route Enhancers <routing-getting-route-object>`.
 More information about them can be found in the :doc:`../components/routing`
@@ -215,12 +285,30 @@ configuration options, and used when handling content storage, to support
 functionality as described in :doc:`menu` documentation. This parameter is
 optional, can be configured like so:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    symfony_cmf_simple_cms:
-        use_menu: ~  # defaults to auto , true/false can be used to force providing / not providing a menu
-        basepath: ~  # /cms/simple
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_simple_cms:
+            use_menu: ~  # defaults to auto , true/false can be used to force providing / not providing a menu
+            basepath: ~  # /cms/simple
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-simple-cms:config
+            use-menu="null"
+            basepath="null"
+        />
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_simple_cms', array(
+            'use_menu' => null,
+            'basepath' => null,
+        ));
 
 
 Admin Support
@@ -236,11 +324,27 @@ The included administration panels will automatically be loaded if you install
 for instructions on how to do so). You can change this behaviour with the
 following configuration option:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    symfony_cmf_simple_cms:
-        use_sonata_admin: ~  # defaults to auto , true/false can be used to using / not using SonataAdmin
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_simple_cms:
+            use_sonata_admin: ~  # defaults to auto , true/false can be used to using / not using SonataAdmin
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-simple-cms:config
+            use-sonata-admin="null"
+        />
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_simple_cms', array(
+            'use_sonata_admin' => null,
+        ));
 
 
 Fixtures
