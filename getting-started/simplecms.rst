@@ -369,10 +369,10 @@ Further Notes
 For more information on the SimpleCMSBundle, please refer to:
 
 - :doc:`../bundles/simple-cms` for configuration reference and advanced details
-    about the bundle.
+  about the bundle.
 - :doc:`../getting-started/routing` for information about the routing component
-    in which ``SimpleCMSBundle`` is based on.
+  in which ``SimpleCMSBundle`` is based on.
 - :doc:`../getting-started/content` for information about the base content
-    bundle that ``SimpleCMSBundle`` depends on.
+  bundle that ``SimpleCMSBundle`` depends on.
 - :doc:`../getting-started/menu` for information about the menu system used
-    by ``SimpleCMSBundle``.
+  by ``SimpleCMSBundle``.
