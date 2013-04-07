@@ -85,7 +85,7 @@ mechanism, and will be analysed bellow.
  disadvantages of the ``SimpleCmsBundle``.
  
 Configuring the Content Class
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.............................
 
 By default, ``SimpleCMSBundle`` will use ``Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page``
 as the content class if multilanguage is not enabled (default). If no other
@@ -173,7 +173,7 @@ in both cases.
 
 
 Routes and Redirections
-^^^^^^^^^^^^^^^^^^^^^^^
+.......................
 
 ``SimpleCMSBundle`` includes ``MultilangRoute`` and ``MultilangRedirectRoute``,
 extensions to the ``Route`` and ``RedirectRoute`` found in ``RoutingExtraBudle``,
