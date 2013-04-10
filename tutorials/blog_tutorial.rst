@@ -135,10 +135,9 @@ the file ``LoadBlogData.php`` inside of it::
     use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
     use Symfony\Cmf\Bundle\BlogBundle\Document\Blog;
     use Symfony\Cmf\Bundle\BlogBundle\Document\Post;
-    use Symfony\Component\DependencyInjection\ContainerAware;
     use PHPCR\Util\NodeHelper;
 
-    class LoadBlogData extends ContainerAware implements FixtureInterface, OrderedFixtureInterface
+    class LoadBlogData implements FixtureInterface, OrderedFixtureInterface
     {
         public function getOrder()
         {
@@ -571,3 +570,302 @@ the default ``BlogBundle`` controllers:
 You should see something like the following:
 
 .. image:: ../_images/tutorials/blog_bundle_default_index.png
+
+// todo: Show blog post screen, currently blocked by DateTime query bug.
+
+Customize the templates
+-----------------------
+
+Now that you have a basic blog application you can begin customizing the
+templates.
+
+First of all, create a layout template in your application bundle:
+
+.. code-block:: jinja
+
+    {# src/DTL/MainBundle/Resources/views/layout.html.twig #}
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>My Blog</title>
+            <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        </head>
+        <body>
+            <div class="container">
+                <h1>My Blog</h1>
+                <section id="main">
+                    {% block content %}
+                    {% endblock %}
+                </section>
+            </div>
+        </body>
+    </html>
+
+.. note::
+
+    In the above code block you include a hosted version of twitters bootstrap
+    CSS framework. The blog bundle templates are designed using the
+    conventions of this framework. Find out more at -twitter bootstrap
+    link-
+
+
+.. note::
+
+    You can customize any bundle template by placing it in
+    ``app/Resources/NameOfBundle/views``.
+
+Now override the blog bundles ``default_layout.html.twig``, create the
+following file:
+
+.. code-block:: jinja
+
+    {# app/Resources/SymfonyCmfBlogBundle/views/default_layout.html.twig #}
+
+    {% extends "DTLMainBundle::layout.html.twig" %}
+
+    {% block content %}
+    {% endblock %}
+
+This template simply extends the template which you created in the previous
+step. You can override other bundles templates in the same way to customize
+the look of your website.
+
+The Home Page
+-------------
+
+Every site needs a home page, and your blog is probably not an exception. Here
+we will create some fixtures which will create your home page with the help of
+the ``ContentBundle``.
+
+Create the following fixtures file::
+
+    <?php
+    // src/DTL/BlogBundle/DataFixtures/PHPCR/LoadContentData.php
+
+    namespace DTL\MainBundle\DataFixtures\PHPCR;
+
+    use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+    use Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent;
+    use PHPCR\Util\NodeHelper;
+
+    class LoadContentData implements FixtureInterface, OrderedFixtureInterface
+    {
+        public function getOrder()
+        {
+            return 20;
+        }
+
+        public function load(ObjectManager $dm)
+        {
+            $session = $dm->getPhpcrSession();
+
+            $root = $dm->find(null, '/cms/content');
+
+            $home = new StaticContent;
+            $home->setName('home');
+            $home->setTitle('Home');
+            $home->setBody(<<<HEREDOC
+    Welcome to my blog!
+    HEREDOC
+            );
+            $home->setParent($root);
+
+            $dm->persist($home);
+            $dm->flush();
+        }
+    }
+
+Now reload the fixtures::
+
+    php app/console doctrine:phpcr:fixtures:load --no-interaction
+
+We can check that the new node exists using the ``dump`` command and specifying the
+nodes path:
+
+.. code-block:: bash
+
+    $ php app/console doctrine:phpcr:dump /cms/content/home
+
+And we can inspect the contents of the node by adding the ``--props``
+option to show the nodes properties:
+
+.. code-block:: bash
+
+    $ php app/console doctrine:phpcr:dump /cms/content/home
+    home:
+      - phpcr:class = Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent
+      - phpcr:classparents = Array()
+      - title = Home
+      - body = Welcome to my blog!
+      - tags = Array()
+
+Replacing the Default Content
+-----------------------------
+
+When you access the base URL of your application you will see the Symfony CMF
+Standard Edition default content. It is time that you removed this and replace
+create a route for your home page.
+
+So, very simply remove the ``Acme`` directory:
+
+.. code-block:: bash
+
+    $ rm -Rf src/Acme
+
+Or, if you have already started using GiT:
+
+.. code-block:: bash
+
+    $ git rm -r src/Acme
+    
+Now reload the fixtures again and try to load your webpage at 
+http://myblog.localhost/app_dev.php.
+
+You should get an error message::
+
+    None of the chained routers were able to generate route: Route
+    '/cms/simple' not found, /cms/simple
+
+This makes sense, the `/cms/simple` document was provided by the ``Acme`` fixtures
+which you have deleted, but why is it looking for the route ``cms/simple`` and not
+``/`` when you have accessed ``/``?
+
+The answer is that there is a redirect route defined in ``app/config/routing.yml``
+as follows:
+
+.. code-block:: yaml
+
+    home_redirect:
+        pattern: /
+        defaults:
+            _controller: FrameworkBundle:Redirect:redirect
+            route: /cms/simple
+            permanent: true # this for 301
+
+This is because conceptually it is difficult to have a "route" object as the
+root node for various reasons - for example the home page may exist in several
+languages and each language would need its own route. The redirect handles this
+situation elegantly.
+
+You will shortly create a route at the path ``/cms/routes/home``, so lets
+replace ``/cms/simple``:
+
+.. code-block:: yaml
+
+    home_redirect:
+        # ...
+        defaults:
+            # ...
+            route: /cms/routes/home
+            # ...
+
+Now create create another fixtures file::
+
+    <?php
+    // src/DTL/BlogBundle/DataFixtures/PHPCR/LoadRouteData.php
+
+    namespace DTL\MainBundle\DataFixtures\PHPCR;
+
+    use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+    use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route;
+    use PHPCR\Util\NodeHelper;
+
+    class LoadRouteData implements FixtureInterface, OrderedFixtureInterface
+    {
+        public function getOrder()
+        {
+            return 30;
+        }
+
+        public function load(ObjectManager $dm)
+        {
+            $session = $dm->getPhpcrSession();
+
+            $root = $dm->find(null, '/cms/routes');
+            $content = $dm->find(null, '/cms/content/home');
+
+            $route = new Route;
+            $route->setName('home');
+            $route->setRouteContent($content);
+            $route->setParent($root);
+
+            $dm->persist($route);
+            $dm->flush();
+        }
+    }
+
+Note that this fixtures file retrieves the "home" content that we created earlier, we
+can be sure that this already exists as we return a higher number in ``getOrder`` meaning
+that this fixtures file get loaded afterwards.
+
+.. note::
+
+    One of the benefits of the PHPCR-ODM over a regular RDBMS is that the *id*, or the
+    *path* never changes, so we never have any problems with changing numeric IDs.
+
+Refresh the page. You should now see an error which may seem familiar::
+
+    Unable to find the controller for path "/home". Maybe you forgot to add the
+    matching route in your routing configuration?
+
+You had the same problem when you tried to access the blog before configuring the 
+controller in ``config.yml``. You need to map the ``StaticContent`` class to the
+default content controller.
+
+.. code-block:: yaml
+    # app/config/config.yml
+    symfony_cmf_routing_extra:
+        chain:
+            # ...
+        dynamic:
+            # ...
+            controllers_by_class:
+                # ...
+                Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: symfony_cmf_content.controller:indexAction
+
+Notice that you have specified the same controller for *all* static content
+classes. The controller you specified is provided by the ``ContentBundle``.
+
+Refresh the page and see the following error::
+
+    Unable to find template "SymfonyCmfContentBundle:StaticContent:index.html.twig"
+
+Hmm. This template does not exist indeed. You had better create one that does:
+
+.. code-block:: jinja
+
+    {# src/DTL/BlogBundle/Resources/StaticContent/layout.html.twig #}
+    {% extends "DTLTravelBundle::layout.html.twig" %}
+    {% block content %}
+        <h2>{{ cmfMainContent.title }}</h2>
+        {{ cmfMainContent.body|raw }}
+    {% endblock %}
+
+Notice that the content controller we specified passes our ``StaticContent`` document
+as ``cmsMainContent`` and that we extends the layout that we created earlier.
+
+Now we just need to tell the routing system that documents of class ``StaticContent``
+should use this template:
+
+.. code-block:: yaml
+    # app/config/config.yml
+    symfony_cmf_routing_extra:
+        chain:
+            # ...
+        dynamic:
+            # ...
+            templates_by_class:
+                Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: DTLTravelBundle:StaticContent:layout.html.twig
+
+Now, refresh the page and you should see something like the following:
+
+.. image:: ../_images/tutorials/blog_my_blog_home.png
+
+// here I should probably reactivate the admin interface for routes and content...
+
+Creating a Menu
+---------------
