@@ -581,7 +581,7 @@ templates.
 
 First of all, create a layout template in your application bundle:
 
-.. code-block:: jinja
+.. code-block:: jinja+html
 
     {# src/DTL/MainBundle/Resources/views/layout.html.twig #}
     <!DOCTYPE html>
@@ -705,7 +705,7 @@ Replacing the Default Content
 -----------------------------
 
 When you access the base URL of your application you will see the Symfony CMF
-Standard Edition default content. It is time that you removed this and replace
+Standard Edition default content. It is time that you removed this and
 create a route for your home page.
 
 So, very simply remove the ``Acme`` directory:
@@ -817,6 +817,7 @@ controller in ``config.yml``. You need to map the ``StaticContent`` class to the
 default content controller.
 
 .. code-block:: yaml
+
     # app/config/config.yml
     symfony_cmf_routing_extra:
         chain:
@@ -852,6 +853,7 @@ Now we just need to tell the routing system that documents of class ``StaticCont
 should use this template:
 
 .. code-block:: yaml
+
     # app/config/config.yml
     symfony_cmf_routing_extra:
         chain:
@@ -869,3 +871,208 @@ Now, refresh the page and you should see something like the following:
 
 Creating a Menu
 ---------------
+
+So now you have the following pages:
+
+* **Home** Your home page;
+* **Blog** An index of blog posts.
+
+Now you will create a menu with an item for each of these pages.
+
+First, and this may be becoming familiar, create a fixtures file::
+
+    <?php
+    // src/DTL/BlogBundle/DataFixtures/PHPCR/LoadMenuData.php
+
+    namespace DTL\MainBundle\DataFixtures\PHPCR;
+
+    use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+    use Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode;
+    use PHPCR\Util\NodeHelper;
+
+    class LoadMenuData implements FixtureInterface, OrderedFixtureInterface
+    {
+        public function getOrder()
+        {
+            return 40;
+        }
+
+        public function load(ObjectManager $dm)
+        {
+            $session = $dm->getPhpcrSession();
+
+            NodeHelper::createPath($session, '/cms/menu');
+
+            $root = $dm->find(null, '/cms/menu');
+            $homeContent = $dm->find(null, '/cms/content/home');
+            $blogContent = $dm->find(null, '/cms/content/DTLs Blog');
+            $menu = new MenuNode;
+            $menu->setName('main');
+            $menu->setParent($root);
+            $menu->setContent($homeContent);
+            $dm->persist($menu);
+
+            $menuNode = new MenuNode;
+            $menuNode->setName('home');
+            $menuNode->setParent($menu);
+            $menuNode->setContent($homeContent);
+            $menuNode->seLabel('Home');
+            $dm->persist($menuNode);
+
+            $menuNode = new MenuNode;
+            $menuNode->setName('blog');
+            $menuNode->setParent($menu);
+            $menuNode->setContent($blogContent);
+            $menuNode->seLabel('Blog');
+            $dm->persist($menuNode);
+
+            $dm->flush();
+        }
+    }
+
+Your fixtures file creates 3 ``MenuNode``'s, one menu node called "main" which has
+two children, "home" and "blog":
+
+For each menu node we assign a content. Notice that the blog content name called "DTLs Blog"
+and not "dtls-blog" as you might have expected from earlier - this is beacuse earlier we
+retrieved a route document and names are automatically *slugified* by the auto routing 
+bundle. If you are in doubt about what nodes are called, use the ``dump`` command:
+
+.. code-block:: bash
+
+    $ app/console doctrine:phpcr:dump /cms/content --depth=1
+    content:
+      DTLs Blog:
+      home:
+
+So your menu hierachy looks like this:
+
+.. image:: ../_images/tutorials/blog_menu_hierarchy.png
+
+The "main" menu node is the one we will reference when rendering menu in the next step.
+
+To CMF's ``MenuBundle`` extends the flexible ``KnpMenuBundle``, you can easily render the menu
+by adding the following to the layout you created earler:
+
+.. code-block:: hinja+html
+
+    {# src/DTL/MainBundle/Resources/views/layout.html.twig #}
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <!-- ... !-->
+        </head>
+        <body>
+            <div class="container">
+                <!-- ... !-->
+                <nav id="navigation">
+                    {{ knp_menu_render('main') }}
+                </nav>
+                <!-- ... !-->
+            </div>
+        </body>
+    </html>
+
+Now refresh the home page of your blog and you will encounter the following error::
+
+    An exception has been thrown during the rendering of a template ("The menu "main" is not defined.") in "SymfonyCmfBlogBundle:Blog:list.html.twig"
+
+Hmm, the application can't find the menu that we defined. Have a look at your configuration
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+    # ...
+    symfony_cmf_menu:
+        # ...
+        menu_basepath: /cms
+
+You can see here that the SE defines ``/cms`` as the default menu path, and we are using 
+``/cms/menu``. So replace ``/cms`` with ``/cms/menu``.
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+    # ...
+    symfony_cmf_menu:
+        # ...
+        menu_basepath: /cms/menu
+
+When you refesh the page the menu should now be rendered as an unordered list, but it
+doesn't look very much like a menu does it? As you already have twitter bootstrap, lets
+customize the appearance of the menu.
+
+First of all, modify your layout as follows so that it more closely matches the conventions
+of twitter bootstrap:
+
+.. code-block:: jinja+html
+
+    <!DOCTYPE html>
+    <html>
+        <head>
+        {% block includes %}
+                <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        {% endblock %}
+            <title>My Blog</title>
+        </head>
+        <body>
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <h1>My Blog</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12 navbar">
+                        <div class="navbar-inner">
+                            {{ knp_menu_render('main') }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </body>
+    </html>
+
+To fully comply with the CSS framework, we need to set a class on the ``<ul/>`` dom
+element rendered by ``knp_menu_render`` - unfortunately we cannot simply pass the class
+to the renderer - we will need to customize the template.
+
+Create the following template:
+
+.. code-block:: jinja+html
+
+    {% extends "knp_menu.html.twig" %}
+    {% block list %}
+        {% if item.hasChildren and options.depth is not sameas(0) and item.displayChildren %}
+            <ul class="nav" >
+                {{ block('children') }}
+            </ul>
+        {% endif %}
+    {% endblock %}
+
+You notice that this template extends ``knp_menu.html.twig``. To understand fully what
+is going on, have a look at this file 
+``vendor/knplabs/knp-menu/src/Knp/Menu/Resources/views/knp_menu.html.twig`` notice
+that we are overriding the ``list`` block and adding the class ``nav`` to the ``<ul/>``
+element.
+
+Now we need to tell the ``KnpMenuBundle`` to use this template, add the following in
+``config.yml``:
+
+.. code-block:: yaml
+
+    knp_menu:
+        twig: 
+            template: DTLMainBundle::knp_menu.html.twig
+
+Your blog should now look something like this:
+
+.. image:: ../_images/tutorials/blog_index_with_menu.png
