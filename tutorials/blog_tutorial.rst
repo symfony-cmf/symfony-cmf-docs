@@ -867,7 +867,21 @@ Now, refresh the page and you should see something like the following:
 
 .. image:: ../_images/tutorials/blog_my_blog_home.png
 
-// here I should probably reactivate the admin interface for routes and content...
+Now that you have created route and content objects, those two boxes that we
+removed from the admin interface earlier make more sense. So re-introduce them
+by removing the lines you added earlier, syncronize the ``sonata_admin``
+section of your ``config.yml`` to the following:
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+    # ...
+    sonata_admin:
+        dashboard:
+            blocks:
+                - 
+                    position: left
+                    type: sonata.admin.block.admin_list
 
 Creating a Menu
 ---------------
@@ -1076,3 +1090,82 @@ Now we need to tell the ``KnpMenuBundle`` to use this template, add the followin
 Your blog should now look something like this:
 
 .. image:: ../_images/tutorials/blog_index_with_menu.png
+
+Integrating the Sonata Media Bundle
+-----------------------------------
+
+Now you should have a functional blog, but it sure would be nice to be able to
+upload and manage pictures and videos for your readers pleasure wouldn't it? eh?
+
+So now you can try and install the ``SonataMediaBundle`` it should be noted that
+this has never been done before, you are a pioneer my friend.
+
+First lets require the ``SontaMediaPackage``:
+
+.. code-block:: bash
+
+    $ composer require sonata-project/media-bundle
+
+And add the required bundles to your ``AppKernel``::
+
+    <?php
+    // app/AppKernel.php
+
+    class AppKernel
+    {
+        // ...
+        $bundles = array(
+            // ...
+            new Sonata\MediaBundle\SonataMediaBundle(),
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            // ...
+        );
+    }
+
+// there is a problem here as the easiest way to make this stuff work
+// is to copy the src/Sandbox/MediaBundle bundle from the cmf-sandbox.
+// This could exist as a separate bundle, but then it could also be part
+// of the sonata media bundle. We shall see what happens.
+
+Now add the ``sonata_admin`` configuration to ``config.yml``:
+
+.. code-block:: yaml
+
+    sonata_media:
+        default_context: default
+        db_driver: doctrine_phpcr
+        contexts:
+            default:  # the default context is mandatory
+                providers:
+                    - sonata.media.provider.image
+
+                formats:
+                    small: { width: 100 , quality: 70}
+                    big:   { width: 500 , quality: 70}
+
+        cdn:
+            server:
+                path: /uploads/media # http://media.sonata-project.org/
+
+        filesystem:
+            local:
+                directory:  %kernel.root_dir%/../web/uploads/media
+                create:     false
+        class:
+            media:             Sandbox\MediaBundle\PHPCR\Media
+            gallery:           Sandbox\MediaBundle\PHPCR\Gallery
+            gallery_has_media: Sandbox\MediaBundle\PHPCR\GalleryHasMedia
+
+Notice that you have specified custom classes for the ``media``, ``gallery`` and 
+``gallery_has_media`` keys of the ``class`` node. This is because the default configuration
+refers to Doctrine ORM *entities*, not PHPCR-ODM *documents*.
+
+.. note:: 
+
+    Sonata relies on the GD library. If you receive no error after installing
+    the media bundle, then you already have it. If not you will need to install it
+    i.e. on debian/ubuntu - apt-get install php5-gd
+    You can now refresh the page of your browser and recieve the following error:
+
+// this section needs to be revised once the PHPCR integration has been
+// refactored so that it works out-of-the-box
