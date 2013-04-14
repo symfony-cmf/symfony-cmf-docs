@@ -28,45 +28,64 @@ Dependencies
 Configuration
 -------------
 
-The default configuration will work with the ``cmf-sandbox`` but you will
-probably need to cusomize it to fit your own requirements.
-
-Parameters:
-
-* **routing_post_controller** - specifies which controller to use for showing
-  posts.
-* **routing_post_prefix** - this is the part of the URL which "prefixes" the
-  post slug e.g. with the default value the following post URL might be
-  generated: ``http://example.com/my-blog/posts/this-is-my-post``
-* **blog_basepath** - *required* Specify the path where the blog content
-  should be placed.
-* **routing_basepath** - *required* Specify the basepath for the routing
-  system.
-
 Example:
 
 .. code-block:: yaml
 
+    # app/config.yml
     symfony_cmf_blog:
-        routing_post_controller: symfony_cmf_blog.blog_controller:viewPost
-        routing_post_prefix: posts
-        blog_basepath: /cms/content
-        routing_basepath: /cms/routes
+        use_sonata_admin:     auto
+        blog_basepath:  /cms/blog
+        class:
+            blog_admin:           ~ # Required
+            post_admin:           ~ # Required
+            blog:                 ~ # Required
+            post:                 ~ # Required
+
+Explanation:
+
+ * **use_sonata_admin** - Specify whether to attempt to integrate with sonata admin;
+ * **blog_basepath** - *required* Specify the path where the blog content should be placed when using sonata admin;
+ * **class** - Allows you to specify custom classes for sonata admin and documents;
+   * **blog_admin**: FQN of the sonata admin class to use for managing ``Blog``'s;
+   * **post_admin**: FQN of the sonata admin class to use for managing ``Post``'s;
+   * **blog**: FQN of the document class that sonata admin will use for ``Blog``'s;
+   * **post**: FQN of the document class that sonata admin will use for ``Post``'s.
 
 .. note::
 
-   In the BlogBundle the controller is a *service*, and is referenced as such.
-   You can of course specify a controller using the standard
-   `MyBundle:Controller:action` syntax. See `controllers as services`_ in the
-   core Symfony2 docs.
+    You must either specify all the ``class`` keys or ommit the class key, you
+    can however simply specify ``~`` (null) to use the default value.
 
-Routing
-~~~~~~~
+Auto Routing
+~~~~~~~~~~~~
+
+The blog bundle uses the ``SymfonyCmfRoutingAuto`` bundle to generate a route
+for each content. You will need an auto routing configuration for this to work.
+
+You can include the default in ``config.yml`` as follows:
+
+.. code-block:: yaml
+    
+    # app/config/config.yml
+    imports:
+        - { resource: parameters.yml }
+        - { resource: security.yml }
+        - { resource: @SymfonyCmfBlogBundle/Resources/config/routing/autoroute_default.yml }
+
+The default configuration will produce URLs like the following::
+
+    http://www.example.com/blogs/dtls-blog/2013-04-14/this-is-my-post
+
+Refer to the :doc:`routing_auto` documentation for more information.
+
+Content Routing
+~~~~~~~~~~~~~~~
 
 To enable the routing system to automatically forward requests to the blog
-controller when a Blog content is associated with a route, add the following
-under the ``controllers_by_class`` section of ``symfony_cmf_routing`` in
-the config:
+controller when a ``Blog`` or ``Post``  content is associated with a route,
+add the following under the ``controllers_by_class`` section of
+``symfony_cmf_routing`` in the config:
 
 .. code-block:: yaml
 
@@ -77,6 +96,7 @@ the config:
             controllers_by_class:
                 # ...
                 Symfony\Cmf\Bundle\BlogBundle\Document\Blog: symfony_cmf_blog.blog_controller:listAction
+                Symfony\Cmf\Bundle\BlogBundle\Document\Post: symfony_cmf_blog.blog_controller:viewPostAction
 
 Sonata Admin
 ~~~~~~~~~~~~
@@ -87,6 +107,7 @@ blog system visible on your dashboard, add the following to the
 
 .. code-block:: yaml
 
+    # app/config/routing.yml
     sonata_admin:
         # ...
         dashboard:
