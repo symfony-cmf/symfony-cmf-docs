@@ -1,3 +1,6 @@
+.. index::
+    single: Routing, SymfonyCmfRoutingExtraBundle
+
 Routing
 =======
 
@@ -8,7 +11,7 @@ reference documentation please see :doc:`../components/routing` and
 Concept
 -------
 
-Why a new routing mechanism?
+Why a new Routing Mechanism?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 CMS are highly dynamic sites, where most of the content is managed by the
@@ -21,16 +24,16 @@ The default Symfony2 routing mechanism, with its configuration file approach,
 is not the best solution for this problem, as it's not suited to handle dynamic
 user defined routes, nor it scales well to a large number of routes.
 
-The solution
+The Solution
 ~~~~~~~~~~~~
 
 In order to address these issues, a new routing system was developed, that
 takes into account the typical needs of a CMS routing:
 
-- User defined URLs.
-- Multi-site.
-- Multi-language.
-- Tree-like structure for easier management.
+- User defined URLs;
+- Multi-site;
+- Multi-language;
+- Tree-like structure for easier management;
 - Content, Menu and Route separation for added flexibility.
 
 With these requirements in mind, the Symfony CMF Routing component was developed.
@@ -63,8 +66,37 @@ iterates over the configured Routers according to their configured priority:
                     # enable the symfony default router with a lower priority
                     router.default: 100
 
-You can also load Routers using tagged services, by using the `router` tag
-and an optional `priority`. The higher the priority, the earlier your router
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-routing-extra:config>
+            <symfony-cmf-routing-extra:chain>
+                <symfony-cmf-routing-extra:routers-by-id
+                    id="symfony-cmf-routing-extra.dynamic-router">
+                    200
+                </symfony-cmf-routing-extra:routers-by-id>
+
+                <symfony-cmf-routing-extra:routers-by-id
+                    id="router.default">
+                    100
+                </symfony-cmf-routing-extra:routers-by-id>
+            </symfony-cmf-routing-extra:chain>
+        </symfony-cmf-routing-extra:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+            'chain' => array(
+                'routers_by_id' => array(
+                    'symfony_cmf_routing_extra.dynamic_router' => 200,
+                    'router.default'                           => 100,
+                ),
+            ),
+        ));
+
+You can also load Routers using tagged services, by using the ``router`` tag
+and an optional ``priority``. The higher the priority, the earlier your router
 will be asked to match the route. If you do not specify the priority, your
 router will come last. If there are several routers with the same priority,
 the order between them is undetermined. The tagged service will look like
@@ -76,7 +108,7 @@ this:
 
         services:
             my_namespace.my_router:
-                class: %my_namespace.my_router_class%
+                class: "%my_namespace.my_router_class%"
                 tags:
                     - { name: router, priority: 300 }
 
@@ -84,13 +116,20 @@ this:
 
         <service id="my_namespace.my_router" class="%my_namespace.my_router_class%">
             <tag name="router" priority="300" />
-            ..
+            <!-- ... -->
         </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('my_namespace.my_router', '%my_namespace.my_router_class%')
+            ->addTag('router', array('priority' => 300))
+        ;
 
 The Symfony CMF Routing system adds a new ``DynamicRouter``, which complements
 the default ``Router`` found in Symfony2.
 
-The default Symfony2 router
+The Default Symfony2 Router
 ---------------------------
 
 Although it replaces the default routing mechanism, Symfony CMF Routing allows
@@ -120,6 +159,22 @@ file:
             dynamic:
                 enabled: true
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-routing-extra:config>
+            <symfony-cmf-routing-extra:dynamic enabled="true" />
+        </symfony-cmf-routing-extra:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+            'dynamic' => array(
+                'enabled' => true,
+            ),
+        ));
+
 This is the minimum configuration required to load the ``DynamicRouter`` as
 a service, thus making it capable of performing any routing. Actually, when
 you browse the default pages that come with the Symfony CMF SE, it's the
@@ -128,7 +183,7 @@ Templates.
 
 .. _routing-getting-route-object:
 
-Getting the Route object
+Getting the Route Object
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 The provider to use can be configured to best suit each implementation's
@@ -165,12 +220,12 @@ The ``DynamicRouter`` uses one of several possible methods to determine it
 (in order of precedence):
 
 - Explicit: The stored Route document itself can explicitly declare the target
-    Controller by specifying the '_controller' value in ``getRouteDefaults()``.
+  Controller by specifying the '_controller' value in ``getRouteDefaults()``.
 - By alias: the Route returns a 'type' value in ``getRouteDefaults()``,
-    which is then matched against the provided configuration from config.yml
+  which is then matched against the provided configuration from config.yml
 - By class: requires the Route instance to implement ``RouteObjectInterface``
-    and return an object for ``getRouteContent()``. The returned class type is
-    then matched against the provided configuration from config.yml.
+  and return an object for ``getRouteContent()``. The returned class type is
+  then matched against the provided configuration from config.yml.
 - Default: if configured, a default Controller will be used.
 
 Apart from this, the ``DynamicRouter`` is also capable of dynamically specifying
@@ -178,11 +233,10 @@ which Template will be used, in a similar way to the one used to determine
 the Controller (in order of precedence):
 
 - Explicit: The stored Route document itself can explicitly declare the target
-    Template in ``getRouteDefaults()``.
+  Template in ``getRouteDefaults()``.
 - By class: requires the Route instance to implement ``RouteObjectInterface``
-    and return an object for ``getRouteContent()``. The returned class type is
-    then matched against the provided configuration from config.yml.
-
+  and return an object for ``getRouteContent()``. The returned class type is
+  then matched against the provided configuration from config.yml.
 
 Here's an example on how to configure the above mentioned options:
 
@@ -201,9 +255,54 @@ Here's an example on how to configure the above mentioned options:
                 templates_by_class:
                     Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: SymfonyCmfContentBundle:StaticContent:index.html.twig
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-routing-extra:config>
+            <symfony-cmf-routing-extra:dynamic
+                generic-controller="symfony_cmf_content.controllerindexAction"
+            >
+                <symfony-cmf-routing-extra:controllers-by-type
+                    type="editablestatic"
+                >
+                    sandbox_main.controller:indexAction
+                </symfony-cmf-routing-extra:controllers-by-type>
+
+                <symfony-cmf-routing-extra:controllers-by-class
+                    class="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
+                >
+                    symfony_cmf_content.controller::indexAction
+                </symfony-cmf-routing-extra:controllers-by-class>
+
+                <symfony-cmf-routing-extra:templates-by-class
+                    alias="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
+                >
+                    SymfonyCmfContentBundle:StaticContent:index.html.twig
+                </symfony-cmf-routing-extra:templates-by-class>
+            </symfony-cmf-routing-extra:dynamic>
+        </symfony-cmf-routing-extra:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+            'dynamic' => array(
+                'generic_controller' => 'symfony_cmf_content.controller:indexAction',
+                'controllers_by_type' => array(
+                    'editablestatic' => 'sandbox_main.controller:indexAction',
+                ),
+                'controllers_by_class' => array(
+                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'symfony_cmf_content.controller::indexAction',
+                ),
+                'templates_by_class' => array(
+                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'SymfonyCmfContentBundle:StaticContent:index.html.twig',
+                ),
+            ),
+        ));
+
 Notice that ``enabled: true`` is no longer present. It's only required if
 no other configuration parameter is provided. The router is automatically
-enabled as soon as you add any other configuration to the `dynamic` entry.
+enabled as soon as you add any other configuration to the ``dynamic`` entry.
 
 .. note::
 
@@ -214,7 +313,7 @@ enabled as soon as you add any other configuration to the `dynamic` entry.
 
 .. _routing-linking-a-route-with-a-model-instance:
 
-Linking a Route with a Model instance
+Linking a Route with a Model Instance
 -------------------------------------
 
 Depending on you application's logic, a requested URL may have an associated
@@ -249,37 +348,57 @@ is handled by a specific Controller, that can be configured like so:
             controllers_by_class:
                 Symfony\Cmf\Component\Routing\RedirectRouteInterface:  symfony_cmf_routing_extra.redirect_controller:redirectAction
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-routing-extra:config>
+            <symfony-cmf-routing-extra:controllers-by-class
+                class="Symfony\Cmf\Component\Routing\RedirectRouteInterface">
+                symfony_cmf_routing_extra.redirect_controller:redirectAction
+            </symfony-cmf-routing-extra:controllers-by-class>
+        </symfony-cmf-routing-extra:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+            'controllers_by_class' => array(
+                'Symfony\Cmf\Component\Routing\RedirectRouteInterface' => 'symfony_cmf_routing_extra.redirect_controller:redirectAction',
+            ),
+        ));
+
 .. note::
 
     The actual configuration for this association exists as a service, not as part of
-    a config.yml file. Like discussed before, any of the approaches can be used.
+    a ``config.yml`` file. Like discussed before, any of the approaches can be used.
 
-URL generation
+URL Generation
 --------------
 
 Symfony CMF's Routing component uses the default Symfony2 components to handle
 route generation, so you can use the default methods for generating your
 urls, with a few added possibilities:
 
-* Pass either an implementation of ``RouteObjectInterface`` or a ``RouteAwareInterface`` as ``name`` parameter
-* Or supply an implementation of ``ContentRepositoryInterface`` and the id of the model instance as parameter ``content_id``
+* Pass either an implementation of ``RouteObjectInterface`` or a
+  ``RouteAwareInterface`` as ``name`` parameter
+* Or supply an implementation of ``ContentRepositoryInterface`` and the id of
+  the model instance as parameter ``content_id``
 
 The route generation handles locales as well, see :ref:`route-generator-and-locales`.
 
 .. _routing-document:
 
-The PHPCR-ODM route document
+The PHPCR-ODM Route Document
 ----------------------------
 
 As mentioned above, you can use any route provider. The example in this section
 applies if you use the default PHPCR-ODM route provider.
 
 All routes are located under a configured root path, for example '/cms/routes'.
-A new route can be created in PHP code as follows:
-
-.. code-block:: php
+A new route can be created in PHP code as follows::
 
     use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route;
+
     $route = new Route;
     $route->setParent($dm->find(null, '/routes'));
     $route->setName('projects');
@@ -293,13 +412,14 @@ A new route can be created in PHP code as follows:
     $route->setRequirement('id', '\d+');
     $route->setDefault('id', 1);
 
-This will give you a document that matches the URL /projects/<number> but also
-/projects as there is a default for the id parameter.
+This will give you a document that matches the URL ``/projects/<number>`` but
+also ``/projects`` as there is a default for the id parameter.
 
-Your controller can expect the $id parameter as well as the $contentDocument as
-we set a content on the route. The content could be used to define an intro
-section that is the same for each project or other shared data. If you don't
-need content, you can just not set it in the document.
+Your controller can expect the ``$id`` parameter as well as the
+``$contentDocument`` as we set a content on the route. The content could be
+used to define an intro section that is the same for each project or other
+shared data. If you don't need content, you can just not set it in the
+document.
 
 For more details, see the :ref:`route document section in the RoutingExtraBundle documentation<bundles_routingextra_document>`.
 
@@ -328,25 +448,42 @@ points to the root of your content documents.
             use_sonata_admin: auto # use true/false to force using / not using sonata admin
             content_basepath: ~ # used with sonata admin to manage content, defaults to symfony_cmf_core.content_basepath
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-routing-extra:config
+            use-sonata-admin="auto"
+            content-basepath="null"
+        />
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+            'use_sonata_admin' => 'auto',
+            'content_basepath' => null,
+        ));
+
 Terms Form Type
 ---------------
 
 The bundle defines a form type that can be used for classical "accept terms"
 checkboxes where you place urls in the label. Simply specify
 ``symfony_cmf_routing_extra_terms_form_type`` as the form type name and specify
-a label and an array with ``content_ids`` in the options
-
-.. code-block:: php
+a label and an array with ``content_ids`` in the options::
 
     $form->add('terms', 'symfony_cmf_routing_extra_terms_form_type', array(
         'label' => 'I have seen the <a href="%team%">Team</a> and <a href="%more%">More</a> pages ...',
-        'content_ids' => array('%team%' => '/cms/content/static/team', '%more%' => '/cms/content/static/more')
+        'content_ids' => array(
+            '%team%' => '/cms/content/static/team',
+            '%more%' => '/cms/content/static/more'
+        ),
     ));
 
 The form type automatically generates the routes for the specified content
 and passes the routes to the trans twig helper for replacement in the label.
 
-Further notes
+Further Notes
 -------------
 
 For more information on the Routing component of Symfony CMF, please refer to:

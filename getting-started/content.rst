@@ -1,3 +1,6 @@
+.. index::
+    single: Content, SymfonyCmfContentBundle
+
 Content
 =======
 
@@ -44,11 +47,11 @@ It also specifies the translation strategy:
 
 .. configuration-block::
 
-    .. code-block:: php
+    .. code-block:: php-annotations
 
        /**
-       * @PHPCRODM\Document(translator="child", referenceable=true)
-       */
+        * @PHPCRODM\Document(translator="child", referenceable=true)
+        */
 
 For information on the available translation strategies, refer to the Doctrine
 page regarding `Multilanguage support in PHPCR-ODM <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html>`_
@@ -66,7 +69,7 @@ by the ``DynamicRouter`` of the ``RoutingExtraBundle``. More information on this
 available on the :ref:`Routing system getting started page <routing-linking-a-route-with-a-model-instance>`
 page.
 
-Admin support
+Admin Support
 -------------
 
 The last component needed to handle the included content types is an administration
@@ -86,7 +89,7 @@ Configuration
 The bundle also supports a set of optional configuration parameters. Refer
 to :doc:`../bundles/content` for the full configuration reference.
 
-Final thoughts
+Final Thoughts
 --------------
 
 While this small bundle includes some vital components to a fully working
