@@ -51,6 +51,8 @@ See the section below for multilanguage support.
         symfony_cmf_simple_cms:
             use_menu:             auto # use true/false to force providing / not providing a menu
             use_sonata_admin:     auto # use true/false to force using / not using sonata admin
+            sonata_admin:
+                sort:             false # set to asc|desc to sort children by publication date
             document_class:       Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page
             # controller to use to render documents with just custom template
             generic_controller:   symfony_cmf_content.controller:indexAction
