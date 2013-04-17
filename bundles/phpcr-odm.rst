@@ -742,7 +742,7 @@ Use ``app/console help <command>`` to see all options each of the commands has.
 - ``doctrine:phpcr:workspace:create``  Create a workspace in the configured repository
 - ``doctrine:phpcr:workspace:list``  List all available workspaces in the configured repository
 - ``doctrine:phpcr:purge``  Remove a subtree or all content from the repository
-- ``doctrine:phpcr:init``   Register node types and create base paths
+- ``doctrine:phpcr:repository:init``   Register node types and create base paths
 - ``doctrine:phpcr:register-node-types``  Register node types from a .cnd file in the PHPCR repository
 - ``doctrine:phpcr:fixtures:load``  Load data fixtures to your PHPCR database.
 - ``doctrine:phpcr:import``  Import xml data into the repository, either in JCR system view format or arbitrary xml

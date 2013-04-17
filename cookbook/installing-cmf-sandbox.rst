@@ -115,7 +115,7 @@ Once your workspace is set up, you need to `register the node types <https://git
 
 .. code-block:: bash
 
-    app/console doctrine:phpcr:init
+    app/console doctrine:phpcr:repository:init
 
 Import the fixtures
 ~~~~~~~~~~~~~~~~~~~

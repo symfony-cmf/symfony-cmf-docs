@@ -133,7 +133,7 @@ Create the database schema and register the PHPCR node types using the following
 .. code-block:: bash
 
     php app/console doctrine:phpcr:init:dbal
-    php app/console doctrine:phpcr:init
+    php app/console doctrine:phpcr:repository:init
 
 Now you should have a number of tables in your MySQL database with the ``phpcr_`` prefix.
 

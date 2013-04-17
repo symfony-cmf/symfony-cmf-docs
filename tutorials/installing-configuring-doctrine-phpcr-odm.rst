@@ -324,7 +324,7 @@ trivial to register this type and the PHPCR namespace, as well as all base paths
 
 .. code-block:: bash
 
-    php app/console doctrine:phpcr:init
+    php app/console doctrine:phpcr:repository:init
 
 Using the ValidPhpcrOdm constraint validator
 --------------------------------------------

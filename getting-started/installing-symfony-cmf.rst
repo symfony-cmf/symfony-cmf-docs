@@ -96,7 +96,7 @@ ahead and run the following:
 
     $ php app/console doctrine:database:create
     $ php app/console doctrine:phpcr:init:dbal
-    $ php app/console doctrine:phpcr:init
+    $ php app/console doctrine:phpcr:repository:init
     $ php app/console doctrine:phpcr:fixtures:load
 
 This will create a file called ``app.sqlite`` inside your app folder, containing the database content.
