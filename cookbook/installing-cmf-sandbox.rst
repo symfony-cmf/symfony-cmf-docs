@@ -23,7 +23,7 @@ meet the `Requirements for running Symfony2 <http://symfony.com/doc/current/refe
 `Git 1.6+ <http://git-scm.com/>`_, `Curl <http://curl.haxx.se/>`_ and PHP Intl are
 also needed to follow the installation steps listed below.
 
-If you wish to use Jackalope + Apache JackRabbit as the storage medium (recommended), 
+If you wish to use Jackalope + Apache JackRabbit as the storage medium (recommended),
 you will also need Java (JRE). For other mechanisms and its requirements,
 please refer to their respective sections.
 
@@ -43,14 +43,14 @@ To start it, use the following command
 .. code-block:: bash
 
     java -jar jackrabbit-standalone-*.jar
-    
+
 By default the server is listening on the 8080 port, you can change this
 by specifying the port on the command line.
 
 .. code-block:: bash
 
     java -jar jackrabbit-standalone-*.jar --port 8888
-    
+
 For unix systems, you can get the start-stop script for /etc/init.d `here <https://github.com/sixty-nine/Jackrabbit-startup-script>`_
 
 Getting the sandbox code
@@ -69,23 +69,23 @@ Move into the folder and copy the default configuration files
     cd cmf-sandbox
     cp app/config/parameters.yml.dist app/config/parameters.yml
     cp app/config/phpcr_jackrabbit.yml.dist app/config/phpcr.yml
-    
+
 These two files include the default configuration parameters for the sandbox
 storage mechanism. You can modify them to better fit your needs
 
 .. note::
 
-    The second configuration file refers to specific jackalope + 
-    jackrabbit configuration. There are other files available for 
+    The second configuration file refers to specific jackalope +
+    jackrabbit configuration. There are other files available for
     different stack setups.
-    
+
 Next, get composer and install and the necessary bundles (this may take a while)
-    
+
 .. code-block:: bash
 
     curl -s http://getcomposer.org/installer | php --
     php composer.phar install
-    
+
 .. note::
 
     On Windows you need to run the shell as Administrator or edit the composer.json
@@ -99,9 +99,9 @@ Next, get composer and install and the necessary bundles (this may take a while)
 Preparing the PHPCR repository
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Now that you have all the code, you need to setup your PHPCR repository. 
+Now that you have all the code, you need to setup your PHPCR repository.
 PHPCR organizes data in workspaces, and sandbox uses the "default" workspace,
-which is exists by default in Jackrabbit. If you use other applications that 
+which is exists by default in Jackrabbit. If you use other applications that
 require Jackrabbit, or if you just wish to change the workspace name, you
 can do so in app/config/phpcr.yml. The following command will create
 a new workspace named  "sandbox" in Jackrabbit. If you decide to use the
@@ -110,13 +110,13 @@ a new workspace named  "sandbox" in Jackrabbit. If you decide to use the
 .. code-block:: bash
 
     app/console doctrine:phpcr:workspace:create sandbox
-    
+
 Once your workspace is set up, you need to `register the node types <https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged>`_ for phpcr-odm:
 
 .. code-block:: bash
 
-    app/console doctrine:phpcr:register-system-node-types
-    
+    app/console doctrine:phpcr:init
+
 Import the fixtures
 ~~~~~~~~~~~~~~~~~~~
 
@@ -161,7 +161,7 @@ tested and stable setup. However, other alternatives are available.
 Jackalope + Doctrine DBAL
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. note:: 
+.. note::
 
     By default, when using Doctrine DBAL, data is stored using a `Sqlite <http://www.sqlite.org/>`_ database.
     Refer to the project's page for installation instructions.
@@ -171,13 +171,13 @@ Jackalope + Doctrine DBAL
     for more information.
 
 Move into the sandbox folder and copy the default configuration file for
-Doctrine DBAL setup: 
+Doctrine DBAL setup:
 
 .. code-block:: bash
 
     cd cmf-sandbox
     cp app/config/phpcr_doctrine_dbal.yml.dist app/config/phpcr.yml
-    
+
 Next, you need to install the actual Doctrine DBAL bundle required by jackalope:
 
 .. code-block:: bash
@@ -202,7 +202,7 @@ by typing the following command:
 .. code-block:: bash
 
     php composer.phar require liip/doctrine-cache-bundle:dev-master
-    
+
 And adding the following entry to your app/AppKernel.php:
 
 .. code-block:: php
@@ -216,7 +216,7 @@ And adding the following entry to your app/AppKernel.php:
           // ...
       );
     }
-    
+
 Finally uncomment the caches settings in the phpcr.yml as well as the liip_doctrine_cache settings in config.yml.
 
 .. code-block:: yaml
@@ -225,11 +225,11 @@ Finally uncomment the caches settings in the phpcr.yml as well as the liip_doctr
     caches:
         meta: liip_doctrine_cache.ns.meta
         nodes: liip_doctrine_cache.ns.nodes
-        
+
 .. code-block:: yaml
 
     # app/config/config.yml
-    
+
     # jackalope doctrine caching
     liip_doctrine_cache:
         namespaces:
@@ -262,7 +262,7 @@ or `MacPorts <http://www.macports.org/>`_  with
     sudo port install php5-midgard2
 
 You also need to download `midgard_tree_node.xml <https://raw.github.com/midgardproject/phpcr-midgard2/master/data/share/schema/midgard_tree_node.xml>`_
-and `midgard_namespace_registry.xml <https://github.com/midgardproject/phpcr-midgard2/raw/master/data/share/schema/midgard_namespace_registry.xml>`_ 
+and `midgard_namespace_registry.xml <https://github.com/midgardproject/phpcr-midgard2/raw/master/data/share/schema/midgard_namespace_registry.xml>`_
 schema files, and place them into "<your-midgard2-folder>/schema" (defaults to "/usr/share/midgard2/schema")
 
 To have the Midgard2 PHPCR implementation installed run the following additional command:
@@ -276,12 +276,12 @@ Finally, switch to one of the Midgard2 configuration file:
 .. code-block:: bash
 
     cp app/config/phpcr_midgard_mysql.yml.dist app/config/phpcr.yml
-    
+
 or
 
 .. code-block:: bash
 
     cp app/config/phpcr_midgard_sqlite.yml.dist app/config/phpcr.yml
-    
+
 After this, your should follow the steps in `Preparing the PHPCR repository`_
 to continue the installation process.
