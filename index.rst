@@ -42,6 +42,18 @@ There are basically two main target audiences:
 #. Developers that need to build a highly customized authoring and content delivery
    solution that no out-of-the-box CMS can properly provide through customization alone.
 
+Requirements
+------------
+
+Symfony CMF is composed of several bundles running on top of `Symfony2`_. While
+calculating the system requirements, all the bundles used has to be taken into account.
+Here are the most notable:
+
+.. toctree::
+	:maxdepth: 1
+
+	`Symfony2_requirements`_
+	MySQL >= 5.1.5 (if using jackalope-doctrine-dbal with MySQL connection)
 
 Getting started
 ---------------
@@ -131,6 +143,7 @@ Contributing
 
 .. _`decoupled CMS`: http://decoupledcms.org
 .. _`Symfony2`: http://symfony.com
+.. _`Symfony2_requirements`: http://symfony.com/doc/current/reference/requirements.html
 .. _`about`: http://cmf.symfony.com/about
 .. _`Documentation planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
 .. _`Symfony Content Management Framework`: http://cmf.symfony.com
