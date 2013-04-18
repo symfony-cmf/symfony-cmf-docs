@@ -45,15 +45,8 @@ There are basically two main target audiences:
 Requirements
 ------------
 
-Symfony CMF is composed of several bundles running on top of `Symfony2`_. While
-calculating the system requirements, all the bundles used has to be taken into account.
-Here are the most notable:
-
-.. toctree::
-	:maxdepth: 1
-
-	`Symfony2_requirements`_
-	MySQL >= 5.1.5 (if using jackalope-doctrine-dbal with MySQL connection)
+* `Symfony2 requirements`_
+* MySQL >= 5.1.5 (if using ``jackalope-doctrine-dbal`` with MySQL connection)
 
 Getting started
 ---------------
