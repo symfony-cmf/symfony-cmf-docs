@@ -73,6 +73,52 @@ The currently highlighted entry is determined by checking if the content
 associated with a menu document is the same as the content the DynamicRouter
 has put into the request.
 
+Examples::
+
+    <?php
+
+    $rootNode = $dm->find(null, '...'); // retrieve parent menu item
+
+    // using referenceable content document
+    $blogContent = $dm->find(null, '/my/cms/content/blog');
+
+    $blogNode = new MenuNode;
+    $blogNode->setName('blog');
+    $blogNode->setParent($parent);
+    $blogNode->setContent($blogDocument);
+    $blogNode->setLabel('Blog');
+
+    // using a route document
+    $timelineRoute = $dm->find(null, '/my/cms/routes/timeline');
+
+    $timelineNode = new MenuNode;
+    $timelineNode->setContent($timelineRoute);
+    // ...
+
+    // using a symfony route
+    $sfRouteNode = new MenuNode;
+    $sfRouteNode->setRoute('my_hard_coded_symfony_route');
+    // ...
+
+    // using URL
+    $uriNode = new MenuNode;
+    $uriNode->setUri('http://www.example.com');
+
+By default content documents are created using a **weak** reference (this means
+you will be able to delete the referenced content). you can specify a strong
+reference by using ``setWeak(false)``::
+
+    <?php
+
+    $node = new MenuNode;
+    // ...
+    $node->setWeak(false);
+
+.. note::
+
+    When content is referenced weakly and the referenced content is deleted, the 
+    rendered menu just show the menu nodes label and will not provide a link to
+    missing content document.
 
 Usage
 -----
