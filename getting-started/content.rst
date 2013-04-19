@@ -66,7 +66,7 @@ a template to render it. If none is provided, it uses a pre-configured default.
 It also takes into account the document's publishing status and multi language.
 Both the content instance and the optional template are provided to the Controller
 by the ``DynamicRouter`` of the ``RoutingExtraBundle``. More information on this is
-available on the :ref:`Routing system getting started page <routing-linking-a-route-with-a-model-instance>`
+available on the :ref:`Routing system getting started page <start-routing-linking-a-route-with-a-model-instance>`
 page.
 
 Admin Support

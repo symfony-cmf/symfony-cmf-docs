@@ -60,7 +60,7 @@ on a document level, not on the individual translatable fields.
         private $topic;
 
 Read more about multi-language documents in the `PHPCR-ODM documentation on multi-language <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html>`_
-and see :ref:`phpcr-odm-multilang-config` to configure PHPCR-ODM correctly.
+and see :ref:`bundle-phpcr-odm-multilang-config` to configure PHPCR-ODM correctly.
 
 Most of the CMF bundles provide multi-language documents, for example MultilangStaticContent,
 MultilangMenuNode or MultilangSimpleBlock. The routing is different, as explained in the next
@@ -81,7 +81,7 @@ set a default value for _locale to point to the locale of that route.
 
 As all routes point to the same content, the route generator can handle picking
 the correct route for you when you generate the route from the content.
-See also :ref:`route-generator-and-locales`.
+See also :ref:`component-route-generator-and-locales`.
 
 
 Sonata PHPCR-ODM Admin

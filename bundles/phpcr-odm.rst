@@ -51,7 +51,7 @@ password.
 
     Every PHPCR implementation should provide the workspace called *default*, but you
     can choose a different one. There is the ``doctrine:phpcr:workspace:create``
-    command to initialize a new workspace. See also :ref:`reference-phpcr-commands`.
+    command to initialize a new workspace. See also :ref:`bundle-phpcr-odm-commands`.
 
 The username and password you specify here are what is used on the PHPCR layer in the
 ``PHPCR\SimpleCredentials``. They will usually be different from the username
@@ -111,7 +111,7 @@ early for the price of some round trips to the backend.
                     # its highly recommended NOT to disable transactions
                     # disable_transactions: true
 
-.. _reference-phpcr-doctrinedbal:
+.. _bundle-phpcr-odm-doctrinedbal:
 
 PHPCR Session with Jackalope Doctrine DBAL
 """"""""""""""""""""""""""""""""""""""""""
@@ -194,7 +194,7 @@ The session backend configuration looks as follows:
 
 For more information, please refer to the `official Midgard PHPCR documentation <http://midgard-project.org/phpcr/>`_.
 
-.. _reference-phpcr-odm-configuration:
+.. _bundle-phpcr-odm-configuration:
 
 
 Doctrine PHPCR-ODM Configuration
@@ -246,7 +246,7 @@ You can also enable `metadata caching <http://symfony.com/doc/master/reference/c
                     id:                   ~
 
 
-.. _phpcr-odm-multilang-config:
+.. _bundle-phpcr-odm-multilang-config:
 
 Translation configuration
 """""""""""""""""""""""""
@@ -292,7 +292,7 @@ You can tune the output of the `doctrine:phpcr:dump` command with
             jackrabbit_jar:       /path/to/jackrabbit.jar
             dump_max_line_length:  120
 
-.. _multiple-phpcr-sessions:
+.. _bundle-phpcr-odm-multiple-phpcr-sessions:
 
 Configuring Multiple Sessions
 -----------------------------
@@ -401,7 +401,7 @@ A full example looks as follows:
     ``repository_id`` attribute). This case is explained in
     :doc:`../cookbook/phpcr-odm-custom-documentclass-mapper`.
 
-.. _reference-phpcr-commands:
+.. _bundle-phpcr-odm-commands:
 
 
 Services

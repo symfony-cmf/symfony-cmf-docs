@@ -156,7 +156,7 @@ Your controllers can (and should) declare the parameter $contentDocument in thei
 ``Action`` methods if they are supposed to work with content referenced by the routes.
 See ``Symfony\Cmf\Bundle\ContentBundle\Controller\ContentController`` for an example.
 
-.. _routing-route-enhancer:
+.. _bundle-routing-route-enhancer:
 
 Configuration
 ~~~~~~~~~~~~~
@@ -225,9 +225,9 @@ To see some examples, please look at the `CMF sandbox`_ and specifically the rou
 .. tip::
 
     You can also define your own RouteEnhancer classes for specific use cases.
-    See :ref:`bundles_routingextra_customize`.
+    See :ref:`bundle-routing-customize`.
 
-.. _bundles_routingextra_document:
+.. _bundle-routing-document:
 
 Using the PHPCR-ODM route document
 ----------------------------------
@@ -367,7 +367,7 @@ Notes:
             controllers_by_class:
                 Symfony\Cmf\Component\Routing\RedirectRouteInterface:  symfony_cmf_routing_extra.redirect_controller:redirectAction
 
-.. _bundles_routingextra_customize:
+.. _bundle-routing-customize:
 
 Customize
 ---------

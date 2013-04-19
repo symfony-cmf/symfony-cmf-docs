@@ -36,6 +36,6 @@ Here we create a mapper that uses a configuration to read node information and
 map that onto a document class.
 
 If you have several repositories, you can use one configuration per repository.
-See :ref:`multiple-phpcr-sessions`.
+See :ref:`bundle-phpcr-odm-multiple-phpcr-sessions`.
 
 .. _`symfony cmf sandbox`: https://github.com/symfony-cmf/cmf-sandbox/tree/magnolia_integration

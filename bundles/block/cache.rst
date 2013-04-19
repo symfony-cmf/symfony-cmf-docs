@@ -98,7 +98,7 @@ Cache keys
 ----------
 
 The block service has the responsibility to generate the cache keys, the method ``getCacheKeys`` returns these keys, see
-:ref:`block-service`.
+:ref:`bundle-block-service`.
 
 The block services shipped with the BlockBunde use the ``getCacheKeys`` method of the ``Sonata\BlockBundle\Block\BaseBlockService``,
 and return:

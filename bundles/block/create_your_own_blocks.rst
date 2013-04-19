@@ -5,8 +5,8 @@ Follow these steps to create a block:
 
 * create a block document
 * create a block service and declare it (optional)
-* create a data object representing your block in the repository, see :ref:`block-document`
-* render the block, see :ref:`block-rendering`
+* create a data object representing your block in the repository, see :ref:`bundle-block-document`
+* render the block, see :ref:`bundle-block-rendering`
 
 Lets say you are working on a project where you have to integrate data received from several RSS feeds.
 Of course you could create an ActionBlock for each of these feeds, but wouldn't this be silly? In
@@ -60,7 +60,7 @@ your needs. For our rss block we create a service that knows how to handle RSSBl
       }
       // ..
 
-* the execute method passes the settings to an rss reader service and forwards the feed items to a template, see :ref:`block-execute`
+* the execute method passes the settings to an rss reader service and forwards the feed items to a template, see :ref:`bundle-block-execute`
 
 Make sure you implement the interface ``Sonata\BlockBundle\Block\BlockServiceInterface`` or an existing block service
 like ``Sonata\BlockBundle\Block\BaseBlockService``.

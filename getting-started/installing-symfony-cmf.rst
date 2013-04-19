@@ -127,7 +127,7 @@ Edition (SE) and how they work together to provide the default pages you
 can see when browsing the Symfony CMF SE installation.
 
 It assumes you have already installed Symfony CMF SE and have carefully
-read `the Symfony2 book <http://symfony.com/doc/current/book/`_.
+read `the Symfony2 book <http://symfony.com/doc/current/book/>`_.
 
 .. note::
 

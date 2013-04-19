@@ -79,11 +79,11 @@ mechanism, and will be analysed bellow.
  several translations coexist in the same database entry, and the several
  translated versions of each field are stored as different attributes in
  that same entry.
- 
+
  As the routing is not separated from the content, it is not possible to
  create different routes for different languages. This is one of the biggest
  disadvantages of the ``SimpleCmsBundle``.
- 
+
 Configuring the Content Class
 .............................
 
@@ -184,7 +184,7 @@ Content Handling
 ~~~~~~~~~~~~~~~~
 
 ``Route`` instances are responsible for determining which ``Controller``
-will handle the current request. :ref:`routing-getting-controller-template`
+will handle the current request. :ref:`start-routing-getting-controller-template`
 shows how Symfony CMF SE can determine which ``Controller`` to use when rendering
 a certain content, and ``SimpleCMSBundle`` uses these mechanisms to do so.
 
@@ -197,7 +197,7 @@ a certain content, and ``SimpleCMSBundle`` uses these mechanisms to do so.
             generic_controller: ~  # symfony_cmf_content.controller:indexAction
 
     .. code-block:: xml
-    
+
         <!-- app/config/config.xml -->
         <symfony-cmf-simple-cms:config
             generic-controller="null"
@@ -259,7 +259,7 @@ default configuration.
             ),
         ));
 
-These configuration parameters will be used to instantiate :ref:`Route Enhancers <routing-getting-route-object>`.
+These configuration parameters will be used to instantiate :ref:`Route Enhancers <start-routing-getting-route-object>`.
 More information about them can be found in the :doc:`../components/routing`
 component documentation page.
 
@@ -267,7 +267,7 @@ These specific example determines that content instances of class ``Page``
 will be rendered using the above mentioned template, if no other is explicitly
 provided by the associated ``Route`` (which, in this case, is ``Page`` itself).
 It also states that all contents that instantiate ``RedirectRoute`` will
-be rendered using the mentioned ``Controller`` instead of the default. Again, 
+be rendered using the mentioned ``Controller`` instead of the default. Again,
 the actual ``Route`` can provided a controller, in will take priority over
 this one. Both the template and the controller are part of ``SimpleCMSBundle``.
 

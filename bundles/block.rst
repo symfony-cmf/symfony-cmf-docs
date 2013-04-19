@@ -16,7 +16,7 @@ Dependencies
 
 This bundle is based on the `SonataBlockBundle <https://github.com/sonata-project/SonataBlockBundle>`_
 
-.. _configuration:
+.. _bundle-block-configuration:
 
 Configuration
 -------------
@@ -31,7 +31,7 @@ The configuration key for this bundle is ``symfony_cmf_block``
         symfony_cmf_block:
             document_manager_name:  default
 
-.. _block-document:
+.. _bundle-block-document:
 
 Block Document
 --------------
@@ -55,14 +55,14 @@ the block, this makes the block unique. The other properties are specific to ``S
 
 .. note::
 
-    The simple block is now ready to be rendered, see :ref:`block-rendering`.
+    The simple block is now ready to be rendered, see :ref:`bundle-block-rendering`.
 
 .. note::
 
     Always make sure you implement the interface ``Sonata\BlockBundle\Model\BlockInterface`` or an existing block document like
     ``Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock``.
 
-.. _block-service:
+.. _bundle-block-service:
 
 Block Service
 -------------
@@ -86,7 +86,7 @@ Take a look at the block services in ``Symfony\Cmf\Bundle\BlockBundle\Block`` to
     Always make sure you implement the interface ``Sonata\BlockBundle\Block\BlockServiceInterface`` or an existing block
     service like ``Sonata\BlockBundle\Block\BaseBlockService``.
 
-.. _block-execute:
+.. _bundle-block-execute:
 
 execute method
 ^^^^^^^^^^^^^^
@@ -172,7 +172,7 @@ load method
 The method ``load`` can be used to load additional data. It is called each time a block is rendered before the
 ``execute`` method is called.
 
-.. _block-rendering:
+.. _bundle-block-rendering:
 
 Block rendering
 ---------------

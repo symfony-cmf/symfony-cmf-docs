@@ -250,7 +250,7 @@ Object-Document manager, you need to configure it as well. The simplest is to se
 ``auto_mapping: true`` to make the PHPCR bundle recognize documents in the ``<Bundle>/Document``
 folder and look for mappings in ``<Bundle>/Resources/config/doctrine/<Document>.phpcr.xml`` resp.
 ``...yml``. Otherwise you need to manually configure the mappings section. See the
-:ref:`PHPCR-ODM configuration reference<reference-phpcr-odm-configuration>` for details.
+:ref:`configuration reference of the PHPCR-ODM bundle <bundle-phpcr-odm-configuration>` for details.
 
 .. configuration-block::
 
@@ -304,7 +304,7 @@ Run the following commands to create the database and set up a default schema:
 
 For more information on how to configure Doctrine DBAL with Symfony2, see the
 `Doctrine chapter in the Symfony2 documentation <http://symfony.com/doc/current/book/doctrine.html>`_
-and the explanations in the :ref:`PHPCR reference chapter <reference-phpcr-doctrinedbal>`.
+and the explanations in the :ref:`reference of the PHPCR-ODM bundle <bundle-phpcr-odm-doctrinedbal>`.
 
 .. _tutorials-installing-phpcr-midgard:
 

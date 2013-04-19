@@ -137,7 +137,7 @@ you to keep using the existing system. In fact, the default routing is enabled
 by default, so you can keep using the routes you declared in your configuration
 files, or as declared by other bundles.
 
-.. _routing-dynamic-router:
+.. _start-routing-dynamic-router:
 
 The DynamicRouter
 -----------------
@@ -181,7 +181,7 @@ you browse the default pages that come with the Symfony CMF SE, it's the
 ``DynamicRouter`` that's matching your requests with the Controllers and
 Templates.
 
-.. _routing-getting-route-object:
+.. _start-routing-getting-route-object:
 
 Getting the Route Object
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -208,9 +208,9 @@ is carried out can be found in the :doc:`../components/routing`.
     interface (see at the bottom) or with fixtures.
 
     However, before we can explain how to do that, you need to understand how
-    the DynamicRouter works. An example will come :ref:`later in this document <routing-document>`.
+    the DynamicRouter works. An example will come :ref:`later in this document <start-routing-document>`.
 
-.. _routing-getting-controller-template:
+.. _start-routing-getting-controller-template:
 
 Getting the Controller and Template
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -311,7 +311,7 @@ enabled as soon as you add any other configuration to the ``dynamic`` entry.
     enhancers in much wider, and you can find more information about them
     in the :doc:`../components/routing` documentation page.
 
-.. _routing-linking-a-route-with-a-model-instance:
+.. _start-routing-linking-a-route-with-a-model-instance:
 
 Linking a Route with a Model Instance
 -------------------------------------
@@ -384,9 +384,9 @@ urls, with a few added possibilities:
 * Or supply an implementation of ``ContentRepositoryInterface`` and the id of
   the model instance as parameter ``content_id``
 
-The route generation handles locales as well, see :ref:`route-generator-and-locales`.
+The route generation handles locales as well, see :ref:`component-route-generator-and-locales`.
 
-.. _routing-document:
+.. _start-routing-document:
 
 The PHPCR-ODM Route Document
 ----------------------------
@@ -421,7 +421,7 @@ used to define an intro section that is the same for each project or other
 shared data. If you don't need content, you can just not set it in the
 document.
 
-For more details, see the :ref:`route document section in the RoutingExtraBundle documentation<bundles_routingextra_document>`.
+For more details, see the :ref:`route document section in the RoutingExtraBundle documentation <bundle-routing-document>`.
 
 
 Integrating with SonataAdmin

@@ -166,7 +166,7 @@ Route as the best match or throw an exception if no adequate match could
 be found. The default implementation uses the `UrlMatcher <http://api.symfony.com/2.1/Symfony/Component/Routing/Matcher/UrlMatcher.html>`_
 of the Symfony Routing Component.
 
-.. _routing-enhancers:
+.. _component-routing-enhancers:
 
 Route Enhancers
 ^^^^^^^^^^^^^^^
@@ -243,7 +243,7 @@ three ways:
 * Or provide an implementation of ``ContentRepositoryInterface`` and pass the id
   of the content object as parameter ``content_id`` and ``null`` as $name.
 
-.. _route-generator-and-locales:
+.. _component-route-generator-and-locales:
 
 ContentAwareGenerator and locales
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

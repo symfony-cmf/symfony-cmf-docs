@@ -116,9 +116,9 @@ for determining which (if any) menu item is currently being viewed by the
 user. ``KnpMenu`` already includes a specific factory targeted at Symfony2's
 Routing component, which this bundle extends, to add support for:
 
-- Databased stored ``Route`` instances (refer to :ref:`RoutingBundle's RouteProvider <routing-getting-route-object>` for more details
+- Databased stored ``Route`` instances (refer to :ref:`RoutingBundle's RouteProvider <start-routing-getting-route-object>` for more details
   on this)
-- ``Route`` instances with associated content (more on this on respective :ref:`RoutingBundle's section <routing-linking-a-route-with-a-model-instance>`)
+- ``Route`` instances with associated content (more on this on respective :ref:`RoutingBundle's section <start-routing-linking-a-route-with-a-model-instance>`)
 
 Like mentioned before, the ``ContentAwareFactory`` is responsible for loading
 all the menu nodes from the provided root element. The actual loaded nodes
