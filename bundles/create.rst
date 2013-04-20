@@ -117,6 +117,18 @@ In your config file, you should write the editor base path:
         symfony_cmf_create:
             editor_base_path: /bundles/symfonycmfcreate/vendor/ckeditor/
 
+    .. code-block:: xml
+
+        <cmf-create
+            editor-base-path="/bundles/symfonycmfcreate/vendor/ckeditor/"
+        />
+
+    .. code-block:: php
+
+        $container->loadFromExtension('symfony_cmf_create', array(
+            'editor_base_path': '/bundles/symfonycmfcreate/vendor/ckeditor/',
+        ));
+
 In your template, write:
 
     {% render controller(
