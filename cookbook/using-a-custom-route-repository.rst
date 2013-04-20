@@ -1,14 +1,14 @@
 Using a custom route repository with Dynamic Router
 ===================================================
 
-The Dynamic Router allows you to customize the route Repository (i.e. the class 
+The Dynamic Router allows you to customize the route Provider (i.e. the class 
 responsible for retrieving routes from the database), and by extension, the 
 Route objects.
 
-Creating the route repository
+Creating the route provider
 -----------------------------
 
-The route repository must implement the `RouteRepositoryInterface` The 
+The route provider must implement the `RouteProviderInterface` The 
 following class provides a simple solution using an ODM Repository.
 
 .. code-block:: php
@@ -17,11 +17,11 @@ following class provides a simple solution using an ODM Repository.
 
     namespace MyVendor\Bundle\MyBundle\Repository;
     use Doctrine\ODM\PHPCR\DocumentRepository;
-    use Symfony\Cmf\Component\Routing\RouteRepositoryInterface;
+    use Symfony\Cmf\Component\Routing\RouteProviderInterface;
     use Symfony\Component\Routing\RouteCollection;
     use Symfony\Component\Routing\Route as SymfonyRoute;
 
-    class RouteRepository extends DocumentRepository implements RouteRepositoryInterface
+    class RouteProvider extends DocumentRepository implements RouteProviderInterface
 
     {
         // this method is used to find routes matching the given URL
@@ -74,10 +74,10 @@ following class provides a simple solution using an ODM Repository.
     enable the possibility of matching *dynamic* routes, `/page/{page_id}/edit` for example.
     In our example we match the given URL exactly and only ever return a single `Route`.
 
-Replacing the default CMF repository
+Replacing the default CMF route provider
 ------------------------------------
 
-To replace the default `RouteRepository` it is necessary to modify your configuration
+To replace the default `RouteProvider` it is necessary to modify your configuration
 as follows:
 
 .. configuration-block::
@@ -88,8 +88,8 @@ as follows:
        symfony_cmf_routing_extra:
            dynamic:
                enabled: true
-               route_repository_service_id: my_bundle.repository.endpoint
+               route_provider_service_id: my_bundle.provider.endpoint
    
-Where `my_bundle.repository.endpoint` is the service ID of your repository. 
+Where `my_bundle.provider.endpoint` is the service ID of your route provider. 
 See `Creating and configuring services in the container <http://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container/>`_ 
 for information on creating custom services.
