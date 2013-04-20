@@ -7,8 +7,8 @@ integrates create.js and the createphp helper library into Symfony2.
 Create.js is a comprehensive web editing interface for Content Management
 Systems. It is designed to provide a modern, fully browser-based HTML5
 environment for managing content. Create can be adapted to work on almost any
-content management backend. For now, by default, it's hallo editor but you can
-choose ckeditor.
+content management backend. The default editor is the Hallo Editor, but you can
+also use ckeditor
 See http://createjs.org/
 
 
@@ -83,11 +83,11 @@ You also need to configure FOSRestBundle to handle json:
                 json: true
 
 ckeditor
-++++++++
+~~~~~~~~
 
-You should to add a new script in your composer.json file:
+If you want to use the ckeditor, you should add a new script in your ``composer.json file``:
 
-.. code-block:: yaml
+.. code-block:: json
 
     {
         "scripts": {
@@ -102,26 +102,32 @@ You should to add a new script in your composer.json file:
         }
     }
 
-And execute composer command
+and execute the composer command:
 
 .. code-block:: bash
-    ./composer.phar update nothing
+
+    php fix composer.phar update nothing
 
 In your config file, you should write the editor base path:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    symfony_cmf_create:
-        editor_base_path: /bundles/symfonycmfcreate/vendor/ckeditor/
+    .. code-block:: yaml
 
-In your template write:
+        symfony_cmf_create:
+            editor_base_path: /bundles/symfonycmfcreate/vendor/ckeditor/
 
-    {% render controller("symfony_cmf_create.jsloader.controller:includeJSFilesAction", {'editor': 'ckeditor'}) %}
+In your template, write:
 
-It is possible to specify another directory, repository and commit id in extra
-parameters of composer.json file (here is the default values):
+    {% render controller(
+        "symfony....",
+        {"editor": "ckeditor"}
+    %}
 
-.. code-block:: yaml
+It is possible to specify another directory, repository or commit id in the extra
+parameters of ``composer.json file`` (here is the default values):
+
+.. code-block:: json
 
     {
         "extra": {
