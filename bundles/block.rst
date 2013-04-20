@@ -1,5 +1,4 @@
-BlockBundle
-===========
+==========
 
 The `BlockBundle <https://github.com/symfony-cmf/BlockBundle#readme>`_ provides integration with SonataBlockBundle.
 It assists you in managing fragments of contents, so-called blocks. What the BlockBundle does is similar
@@ -31,31 +30,41 @@ The configuration key for this bundle is ``symfony_cmf_block``
         symfony_cmf_block:
             document_manager_name:  default
 
-.. _bundle-block-document:
+    .. code-block:: xml
+
+        <!-- app/config/config.xml !-->
+        <symfony-cmf-block:config document_manager_name="default"/>
+
+    ..code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_block', array(
+            'document_manager_name' => 'default',
+        ));
+
 
 Block Document
 --------------
 
-Before you can render a block, you need to create a data object representing your block in the repository.
-You can do so with the following code snippet (Note that ``$parentPage`` needs to be an instance of
-a page defined by the `ContentBundle <https://github.com/symfony-cmf/ContentBundle>`_):
+Before you can render a block, you need to create a data object representing
+your block in the repository. You can do so with the following code snippet::
 
-.. code-block:: php
+    <?php
 
     $myBlock = new SimpleBlock();
-    $myBlock->setParentDocument($parentPage);
+    $myBlock->setParentDocument($parentDocument);
     $myBlock->setName('sidebarBlock');
     $myBlock->setTitle('My first block');
     $myBlock->setContent('Hello block world!');
 
     $documentManager->persist($myBlock);
 
-Note the 'sidebarBlock' is the identifier we chose for the block. Together with the parent document of
-the block, this makes the block unique. The other properties are specific to ``Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock``.
+Note the ``sidebarBlock`` is the identifier we chose for the block. Together
+with the parent document of the block, this makes the block unique. The other
+properties are specific to
+``Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock``.
 
-.. note::
-
-    The simple block is now ready to be rendered, see :ref:`bundle-block-rendering`.
+The simple block is now ready to be rendered, see :ref:`bundle-block-rendering`.
 
 .. note::
 
@@ -67,33 +76,37 @@ the block, this makes the block unique. The other properties are specific to ``S
 Block Service
 -------------
 
-If you look inside the SimpleBlock class, you will notice the method ``getType``. This defines the name of the block
-service that processes the block when it is rendered.
+If you look inside the SimpleBlock class, you will notice the method
+``getType``. This defines the name of the block service that processes the
+block when it is rendered.
 
 A block service contains:
 
-* an execute method
-* default settings
-* form configuration
-* cache configuration
-* js and css assets to be loaded
-* a load method
+* An execute method;
+* Default settings;
+* Dorm configuration;
+* Cache configuration;
+* Javascript and stylesheet assets to be loaded;
+* A load method.
 
-Take a look at the block services in ``Symfony\Cmf\Bundle\BlockBundle\Block`` to see some examples.
+Take a look at the block services in ``Symfony\Cmf\Bundle\BlockBundle\Block``
+to see some examples.
 
 .. note::
 
-    Always make sure you implement the interface ``Sonata\BlockBundle\Block\BlockServiceInterface`` or an existing block
+    Always make sure you implement the interface
+    ``Sonata\BlockBundle\Block\BlockServiceInterface`` or an existing block
     service like ``Sonata\BlockBundle\Block\BaseBlockService``.
 
 .. _bundle-block-execute:
 
-execute method
-^^^^^^^^^^^^^^
+The Execute Method
+~~~~~~~~~~~~~~~~~~
 
-This contains ``controller`` logic. Merge the default settings in this method if you would like to use them:
+This method contains ``controller`` logic. Merge the default settings in this
+method if you would like to use them::
 
-.. code-block:: php
+    <?php
 
     // ...
     if ($block->getEnabled()) {
@@ -115,47 +128,52 @@ This contains ``controller`` logic. Merge the default settings in this method if
 
 .. note::
 
-    If you have much logic to be used, you can move that to a specific service and inject it in the block service. Then
-    use this specific service in the execute method.
+    If you have much logic to be used, you can move that to a specific service
+    and inject it in the block service. Then use this specific service in the
+    execute method.
 
-default settings
-^^^^^^^^^^^^^^^^
+Default Settings
+~~~~~~~~~~~~~~~~
 
-The method ``getDefaultSettings`` contains the default settings of a block. Settings can be altered on multiple places
-afterward, it cascades like this:
+The method ``getDefaultSettings`` specifies the default settings for a block.
+Settings can be altered on multiple places afterwards, it cascades like this:
 
-* default settings are stored in the block service
-* settings can be altered through template helpers:
+* Default settings are stored in the block service;
+* Settings can be altered through template helpers (see example);
+* And settings can also be altered in a block document, the advantage is that
+  settings are stored in PHPCR and allows to implement a frontend or backend UI
+  to change some or all settings.
 
-  .. code-block:: jinja
+Example of how settings can be specified through a template helper:
 
-      {{ sonata_block_render({
-        'type': 'acme_main.block.rss',
-        'settings': {
-            'title': 'Symfony2 CMF news',
-            'url': 'http://cmf.symfony.com/news.rss'
-        }
-      }) }}
+.. code-block:: jinja
 
-* and settings can also be altered in a block document, the advantage is that settings are stored in PHPCR and allows to implement a
-  frontend or backend UI to change some or all settings
+    {{ sonata_block_render({
+      'type': 'acme_main.block.rss',
+      'settings': {
+          'title': 'Symfony2 CMF news',
+          'url': 'http://cmf.symfony.com/news.rss'
+      }
+    }) }}
 
-form configuration
-^^^^^^^^^^^^^^^^^^
+Form Configuration
+~~~~~~~~~~~~~~~~~~
 
-The methods ``buildEditForm`` and ``buildCreateForm`` contain form configuration for editing using a frontend or
-backend UI. The method ``validateBlock`` contains the validation configuration.
+The methods ``buildEditForm`` and ``buildCreateForm`` specify how to build the
+the forms for editing using a frontend or backend UI. The method
+``validateBlock`` contains the validation configuration.
 
-cache configuration
-^^^^^^^^^^^^^^^^^^^
+Cache Configuration
+~~~~~~~~~~~~~~~~~~~
 
 The method ``getCacheKeys`` contains cache keys to be used for caching the block.
 
-js and css
-^^^^^^^^^^
+Javascript and Stylesheets
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The methods ``getJavascripts`` and ``getStylesheets`` can be used to define js and css assets. Use the twig helpers
-``sonata_block_include_javascripts`` and ``sonata_block_include_stylesheets`` to render them.
+The methods ``getJavascripts`` and ``getStylesheets`` can be used to define javascript
+and stylesheet assets. Use the twig helpers ``sonata_block_include_javascripts`` and
+``sonata_block_include_stylesheets`` to render them:
 
 .. code-block:: jinja
 
@@ -164,38 +182,49 @@ The methods ``getJavascripts`` and ``getStylesheets`` can be used to define js a
 
 .. note::
 
-    This will output the js and css of all blocks loaded in the service container of your application.
+    This will output the javascripts and stylesheets for all blocks loaded in
+    the service container of your application.
 
-load method
-^^^^^^^^^^^
+The Load Method
+~~~~~~~~~~~~~~~
 
-The method ``load`` can be used to load additional data. It is called each time a block is rendered before the
-``execute`` method is called.
+The method ``load`` can be used to load additional data. It is called each
+time a block is rendered before the ``execute`` method is called.
 
 .. _bundle-block-rendering:
 
 Block rendering
 ---------------
 
-To have the block from the example of the Block Document section actually rendered, you just add the following code to
-your Twig template:
+To render the example from the :ref:`block-document` section, just add
+the following code to your Twig template:
+
+.. code-block:: jinja
+
+    {{ sonata_block_render({'name': '/cms/content/blocks/sidebarBlock'}) }}
+
+In this example we specify an absolute path, however, if the block is a child
+of a content document, then you can simply specify the **name** of the block
+as follows:
 
 .. code-block:: jinja
 
     {{ sonata_block_render({'name': 'sidebarBlock'}) }}
 
-This will make the BlockBundle rendering the according block on every page that has a block named 'sidebarBlock'.
-Of course, the actual page needs to be rendered by the template that contains the snippet above.
+This will make the BlockBundle render the specified block on every page that
+has a child block document named ``sidebarBlock``.  Of course, the actual page
+needs to be rendered by the template that contains the snippet above.
 
-This happens when a block is rendered, see the separate sections for more details:
+When a block is rendered the following things happen:
 
-* a document is loaded based on the name
-* if caching is configured, the cache is checked and content is returned if found
-* each block document also has a block service, the execute method of it is called:
+* The block document is loaded based on its name or absolute path;
+* If caching is configured, the cache is checked and content is returned if found;
+* The ``execute`` method of the corresponding block service is called.
 
-  * you can put here logic like in a controller
-  * it calls a template
-  * the result is a Response object
+The execute method is the equivalent of a normal Symfony controller. It
+receives the block object (equivalent to a Request object) and a ``Response``
+object. The purpose of the ``execute`` method to set the content of the
+response object - typically by rendering a Twig template.
 
 You can also :ref:`embed blocks in content <tutorial-block-embed>` using the
 ``cmf_embed_blocks`` filter.
@@ -205,28 +234,36 @@ Block types
 
 The BlockBundle comes with four general purpose blocks:
 
-* SimpleBlock: A simple block with nothing but a title and a field of hypertext. This would usually be what an editor
-  edits directly, for example contact information
-* ContainerBlock: A block that contains 0 to n child blocks
-* ReferenceBlock: A block that references a block stored somewhere else in the content tree. For example you might want
-  to refer parts of the contact information from the homepage
-* ActionBlock: A block that calls a Symfony2 action. "Why would I use this instead of directly calling the action from
-  my template?", you might wonder. Well imagine the following case: You provide a block that renders teasers of your
-  latest news. However, there is no rule where they should appear. Instead, your customer wants to decide himself on
-  what pages this block is to be displayed. Providing an according ActionBlock, you allow your customer to do so without
-  calling you to change some templates (over and over again!).
+* **SimpleBlock**: A simple block with nothing but a title and a field of
+  hypertext. This would usually be what an editor edits directly, for example
+  contact information;
+* **ContainerBlock**: A block that contains zero, one or many child blocks;
+* **ReferenceBlock**: A block that references a block stored somewhere else in
+  the content tree. For example you might want; to refer parts of the contact
+  information from the homepage
+* **ActionBlock**: A block that calls a Symfony2 action. 
 
-Also the BlockBundle has more specific blocks:
+.. note::
 
-* RssBlock: This block extends the ActionBlock: the block document saves the feed url and the controller action fetches
-  the feed items. The default implementation uses the `EkoFeedBundle <https://github.com/eko/FeedBundle>`_ to read the
-  feed items.
+    You may be thinking "Why would I use this instead of directly calling the
+    action from my template?", well, imagine the following case: You provide a
+    block that renders teasers of your latest news. However, there is no rule
+    where they should appear. Instead, your customer wants to decide himself on
+    what pages this block is to be displayed. By using an ActionBlock, you
+    could allow your customer to do so without calling you to change some templates
+    (over and over again!).
+
+* **RssBlock**: This block extends the ActionBlock, the block document saves
+  the feed url and the controller action fetches the feed items. The default
+  implementation uses the `EkoFeedBundle <https://github.com/eko/FeedBundle>`_
+  to read the feed items.
 
 Examples
 --------
 
-You can find example usages of this bundle in the `Symfony CMF Sandbox <https://github.com/symfony-cmf/cmf-sandbox>`_.
-Have a look at the BlockBundle in the Sandbox. It also shows you how to make blocks editable using the
+You can find example usages of this bundle in the `Symfony CMF Sandbox
+<https://github.com/symfony-cmf/cmf-sandbox>`_ (have a look at the
+BlockBundle). It also shows you how to make blocks editable using the
 `CreateBundle <https://github.com/symfony-cmf/CreateBundle>`_.
 
 Reference
