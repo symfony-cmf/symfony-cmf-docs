@@ -85,7 +85,7 @@ You also need to configure FOSRestBundle to handle json:
 ckeditor
 ~~~~~~~~
 
-If you want to use the ckeditor, you should add a new script in your ``composer.json file``:
+If you want to use the ckeditor, you should add a new script in your ``composer.json`` file:
 
 .. code-block:: json
 
@@ -120,12 +120,12 @@ In your config file, you should write the editor base path:
 In your template, write:
 
     {% render controller(
-        "symfony....",
+        "symfony_cmf_create.jsloader.controller:includeJSFilesAction",
         {"editor": "ckeditor"}
     %}
 
 It is possible to specify another directory, repository or commit id in the extra
-parameters of ``composer.json file`` (here is the default values):
+parameters of ``composer.json`` file (here are the default values):
 
 .. code-block:: json
 
