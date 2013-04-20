@@ -106,7 +106,7 @@ and execute the composer command:
 
 .. code-block:: bash
 
-    php fix composer.phar update nothing
+    $ php composer.phar update nothing
 
 In your config file, you should write the editor base path:
 
