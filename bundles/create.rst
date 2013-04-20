@@ -7,8 +7,10 @@ integrates create.js and the createphp helper library into Symfony2.
 Create.js is a comprehensive web editing interface for Content Management
 Systems. It is designed to provide a modern, fully browser-based HTML5
 environment for managing content. Create can be adapted to work on almost any
-content management backend.
+content management backend. The default editor is the Hallo Editor, but you can
+also use ckeditor
 See http://createjs.org/
+
 
 Createphp is a PHP library to help with RDFa annotating your documents/entities.
 See https://github.com/flack/createphp for documentation on how it works.
@@ -79,6 +81,73 @@ You also need to configure FOSRestBundle to handle json:
         view:
             formats:
                 json: true
+
+ckeditor
+~~~~~~~~
+
+If you want to use the ckeditor, you should add a new script in your ``composer.json`` file:
+
+.. code-block:: json
+
+    {
+        "scripts": {
+            "post-install-cmd": [
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCkeditor",
+                ...
+            ],
+            "post-update-cmd": [
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCkeditor",
+                ...
+            ]
+        }
+    }
+
+and execute the composer command:
+
+.. code-block:: bash
+
+    $ php composer.phar update nothing
+
+In your config file, you should write the editor base path:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        symfony_cmf_create:
+            editor_base_path: /bundles/symfonycmfcreate/vendor/ckeditor/
+
+    .. code-block:: xml
+
+        <cmf-create
+            editor-base-path="/bundles/symfonycmfcreate/vendor/ckeditor/"
+        />
+
+    .. code-block:: php
+
+        $container->loadFromExtension('symfony_cmf_create', array(
+            'editor_base_path': '/bundles/symfonycmfcreate/vendor/ckeditor/',
+        ));
+
+In your template, write:
+
+    {% render controller(
+        "symfony_cmf_create.jsloader.controller:includeJSFilesAction",
+        {"editor": "ckeditor"}
+    %}
+
+It is possible to specify another directory, repository or commit id in the extra
+parameters of ``composer.json`` file (here are the default values):
+
+.. code-block:: json
+
+    {
+        "extra": {
+            "ckeditor-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/ckeditor",
+            "ckeditor-repository": "https://github.com/ckeditor/ckeditor-releases.git",
+            "ckeditor-commit": "bba29309f93a1ace1e2e3a3bd086025975abbad0"
+        }
+    }
 
 Concept
 -------
@@ -245,7 +314,7 @@ If you are using Symfony 2.2 or higher:
 
 .. code-block:: jinja
 
-    {% render(controller("symfony_cmf_create.jsloader.controller:includeJSFilesAction"))  with {'_locale': app.request.locale} %}
+    {% render controller("symfony_cmf_create.jsloader.controller:includeJSFilesAction", {'_locale': app.request.locale}) %}
 
 For versions prior to 2.2, this will do:
 
