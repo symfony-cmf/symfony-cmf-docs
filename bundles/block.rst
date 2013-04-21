@@ -1,12 +1,15 @@
 ==========
 
-The `BlockBundle <https://github.com/symfony-cmf/BlockBundle#readme>`_ provides integration with SonataBlockBundle.
-It assists you in managing fragments of contents, so-called blocks. What the BlockBundle does is similar
-to what Twig does, but for blocks that are persisted in a DB. Thus, the blocks can be made editable for an editor.
-Also the BlockBundle provides the logic to determine which block should be rendered on which pages.
+The `BlockBundle <https://github.com/symfony-cmf/BlockBundle#readme>`_
+provides integration with SonataBlockBundle.  It assists you in managing
+fragments of contents, so-called blocks. What the BlockBundle does is similar
+to what Twig does, but for blocks that are persisted in a DB. Thus, the blocks
+can be made editable for an editor.  Also the BlockBundle provides the logic
+to determine which block should be rendered on which pages.
 
-The BlockBundle does not provide an editing functionality for blocks itself. However, you can find examples
-on how making blocks editable in the `Symfony CMF Sandbox <https://github.com/symfony-cmf/cmf-sandbox>`_.
+The BlockBundle does not provide an editing functionality for blocks itself.
+However, you can find examples on how making blocks editable in the `Symfony
+CMF Sandbox <https://github.com/symfony-cmf/cmf-sandbox>`_.
 
 .. index:: BlockBundle
 
@@ -33,7 +36,7 @@ The configuration key for this bundle is ``symfony_cmf_block``
     .. code-block:: xml
 
         <!-- app/config/config.xml !-->
-        <symfony-cmf-block:config document_manager_name="default"/>
+        <symfony-cmf-block:config document-manager-name="default"/>
 
     ..code-block:: php
 
@@ -76,7 +79,7 @@ The simple block is now ready to be rendered, see :ref:`bundle-block-rendering`.
 Block Service
 -------------
 
-If you look inside the SimpleBlock class, you will notice the method
+If you look inside the ``SimpleBlock`` class, you will notice the method
 ``getType``. This defines the name of the block service that processes the
 block when it is rendered.
 
@@ -253,7 +256,7 @@ The BlockBundle comes with four general purpose blocks:
     could allow your customer to do so without calling you to change some templates
     (over and over again!).
 
-* **RssBlock**: This block extends the ActionBlock, the block document saves
+* **RssBlock**: This block extends the ``ActionBlock``, the block document saves
   the feed url and the controller action fetches the feed items. The default
   implementation uses the `EkoFeedBundle <https://github.com/eko/FeedBundle>`_
   to read the feed items.
