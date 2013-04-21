@@ -35,7 +35,7 @@ The configuration key for this bundle is ``symfony_cmf_block``
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml !-->
+        <!-- app/config/config.xml -->
         <symfony-cmf-block:config document-manager-name="default"/>
 
     ..code-block:: php
