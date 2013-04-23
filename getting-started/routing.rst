@@ -30,16 +30,16 @@ The Solution
 In order to address these issues, a new routing system was developed, that
 takes into account the typical needs of a CMS routing:
 
-- User defined URLs;
-- Multi-site;
-- Multi-language;
-- Tree-like structure for easier management;
-- Content, Menu and Route separation for added flexibility.
+* User defined URLs;
+* Multi-site;
+* Multi-language;
+* Tree-like structure for easier management;
+* Content, Menu and Route separation for added flexibility.
 
 With these requirements in mind, the Symfony CMF Routing component was developed.
 
-The ChainRouter
----------------
+The ``ChainRouter``
+-------------------
 
 At the core of Symfony CMF's Routing component sits the ``ChainRouter``.
 It's used as a replacement for Symfony2's default routing system and, like
@@ -69,19 +69,25 @@ iterates over the configured Routers according to their configured priority:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <symfony-cmf-routing-extra:config>
-            <symfony-cmf-routing-extra:chain>
-                <symfony-cmf-routing-extra:routers-by-id
-                    id="symfony-cmf-routing-extra.dynamic-router">
-                    200
-                </symfony-cmf-routing-extra:routers-by-id>
+        <?xml version="1.0" encoding="UTF-8" ?>
 
-                <symfony-cmf-routing-extra:routers-by-id
-                    id="router.default">
-                    100
-                </symfony-cmf-routing-extra:routers-by-id>
-            </symfony-cmf-routing-extra:chain>
-        </symfony-cmf-routing-extra:config>
+        <container xmlns="http://cmf.symfony.com/schema/dic/services"
+            xmlns:cmf-routing-extra="http://cmf.symfony.com/schema/dic/routingextra"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+            <cmf-routing-extra:config xmlns="http://cmf.symfony.com/schema/dic/routingextra">
+                <chain>
+                    <routers-by-id
+                        id="symfony_cmf_routing_extra.dynamic_router">
+                        200
+                    </routers-by-id>
+
+                    <routers-by-id
+                        id="router.default">
+                        100
+                    </routers-by-id>
+                </chain>
+            </cmf-routing-extra:config>
 
     .. code-block:: php
 
@@ -162,9 +168,16 @@ file:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <symfony-cmf-routing-extra:config>
-            <symfony-cmf-routing-extra:dynamic enabled="true" />
-        </symfony-cmf-routing-extra:config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <container xmlns="http://cmf.symfony.com/schema/dic/services"
+            xmlns:cmf-routing-extra="http://cmf.symfony.com/schema/dic/routingextra"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+            <cmf-routing-extra:config xmlns="http://cmf.symfony.com/schema/dic/routingextra">
+                <dynamic enabled="true" />
+            </cmf-routing-extra:config>
+        </container>
 
     .. code-block:: php
 
@@ -188,11 +201,10 @@ Getting the Route Object
 
 The provider to use can be configured to best suit each implementation's
 needs, and must implement the ``RouteProviderInterface``. As part of this
-bundle, an implementation for `PHPCR-ODM <https://github.com/doctrine/phpcr-odm>`_
-is provided, but you can easily create your own, as the Router itself is
-storage agnostic. The default provider loads the route at the path in the
-request and all parent paths to allow for some of the path segments being
-parameters.
+bundle, an implementation for `PHPCR-ODM`_ is provided, but you can easily
+create your own, as the Router itself is storage agnostic. The default
+provider loads the route at the path in the request and all parent paths to
+allow for some of the path segments being parameters.
 
 For more detailed information on this implementation and how you can customize
 or extend it, refer to :doc:`../bundles/routing-extra`.
@@ -219,14 +231,14 @@ A Route needs to specify which Controller should handle a specific Request.
 The ``DynamicRouter`` uses one of several possible methods to determine it
 (in order of precedence):
 
-- Explicit: The stored Route document itself can explicitly declare the target
+* Explicit: The stored Route document itself can explicitly declare the target
   Controller by specifying the '_controller' value in ``getRouteDefaults()``.
-- By alias: the Route returns a 'type' value in ``getRouteDefaults()``,
+* By alias: the Route returns a 'type' value in ``getRouteDefaults()``,
   which is then matched against the provided configuration from config.yml
-- By class: requires the Route instance to implement ``RouteObjectInterface``
+* By class: requires the Route instance to implement ``RouteObjectInterface``
   and return an object for ``getRouteContent()``. The returned class type is
   then matched against the provided configuration from config.yml.
-- Default: if configured, a default Controller will be used.
+* Default: if configured, a default Controller will be used.
 
 Apart from this, the ``DynamicRouter`` is also capable of dynamically specifying
 which Template will be used, in a similar way to the one used to determine
@@ -258,29 +270,31 @@ Here's an example on how to configure the above mentioned options:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <symfony-cmf-routing-extra:config>
-            <symfony-cmf-routing-extra:dynamic
-                generic-controller="symfony_cmf_content.controllerindexAction"
-            >
-                <symfony-cmf-routing-extra:controllers-by-type
-                    type="editablestatic"
-                >
-                    sandbox_main.controller:indexAction
-                </symfony-cmf-routing-extra:controllers-by-type>
+        <?xml version="1.0" encoding="UTF-8" ?>
 
-                <symfony-cmf-routing-extra:controllers-by-class
-                    class="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
-                >
-                    symfony_cmf_content.controller::indexAction
-                </symfony-cmf-routing-extra:controllers-by-class>
+        <container xmlns="http://cmf.symfony.com/schema/dic/services"
+            xmlns:cmf-routing-extra="http://cmf.symfony.com/schema/dic/routingextra"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-                <symfony-cmf-routing-extra:templates-by-class
-                    alias="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
-                >
-                    SymfonyCmfContentBundle:StaticContent:index.html.twig
-                </symfony-cmf-routing-extra:templates-by-class>
-            </symfony-cmf-routing-extra:dynamic>
-        </symfony-cmf-routing-extra:config>
+            <cmf-routing-extra:config xmlns="http://cmf.symfony.com/schema/dic/routingextra">
+                <dynamic generic-controller="symfony_cmf_content.controllerindexAction">
+                    <controllers-by-type type="editablestatic">
+                        sandbox_main.controller:indexAction
+                    </controllers-by-type>
+
+                    <controllers-by-class
+                        class="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
+                    >
+                        symfony_cmf_content.controller::indexAction
+                    </controllers-by-class>
+
+                    <templates-by-class alias="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
+                    >
+                        SymfonyCmfContentBundle:StaticContent:index.html.twig
+                    </templates-by-class>
+                </dynamic>
+            </cmf-routing-extra:config>
+        </container>
 
     .. code-block:: php
 
@@ -351,12 +365,19 @@ is handled by a specific Controller, that can be configured like so:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <symfony-cmf-routing-extra:config>
-            <symfony-cmf-routing-extra:controllers-by-class
-                class="Symfony\Cmf\Component\Routing\RedirectRouteInterface">
-                symfony_cmf_routing_extra.redirect_controller:redirectAction
-            </symfony-cmf-routing-extra:controllers-by-class>
-        </symfony-cmf-routing-extra:config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <container xmlns="http://cmf.symfony.com/schema/dic/services"
+            xmlns:cmf-routing-extra="http://cmf.symfony.com/schema/dic/routingextra"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+            <cmf-routing-extra:config xmlns="http://cmf.symfony.com/schema/dic/routingextra">
+                <controllers-by-class
+                    class="Symfony\Cmf\Component\Routing\RedirectRouteInterface">
+                    symfony_cmf_routing_extra.redirect_controller:redirectAction
+                </controllers-by-class>
+            </cmf-routing-extra:config>
+        </container>
 
     .. code-block:: php
 
@@ -421,7 +442,8 @@ used to define an intro section that is the same for each project or other
 shared data. If you don't need content, you can just not set it in the
 document.
 
-For more details, see the :ref:`route document section in the RoutingExtraBundle documentation <bundle-routing-document>`.
+For more details, see the
+:ref:`route document section in the RoutingExtraBundle documentation <bundle-routing-document>`.
 
 
 Integrating with SonataAdmin
@@ -431,8 +453,8 @@ If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the composer.json
 require section, the route documents are exposed in the SonataDoctrinePhpcrAdminBundle.
 For instructions on how to configure this Bundle see :doc:`../bundles/doctrine_phpcr_admin`.
 
-By default, ``use_sonata_admin`` is automatically set based on whether
-``SonataDoctrinePhpcrAdminBundle`` is available but you can explicitly disable it
+By default, ``use_sonata_admin`` is automatically set based on whether the
+SonataDoctrinePhpcrAdminBundle is available but you can explicitly disable it
 to not have it even if sonata is enabled, or explicitly enable to get an error
 if Sonata becomes unavailable.
 
@@ -451,10 +473,17 @@ points to the root of your content documents.
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <symfony-cmf-routing-extra:config
-            use-sonata-admin="auto"
-            content-basepath="null"
-        />
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <container xmlns="http://cmf.symfony.com/schema/dic/services"
+            xmlns:cmf-routing-extra="http://cmf.symfony.com/schema/dic/routingextra"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+            <cmf-routing-extra:config
+                use-sonata-admin="auto"
+                content-basepath="null"
+            />
+        </container>
 
     .. code-block:: php
 
@@ -488,7 +517,10 @@ Further Notes
 
 For more information on the Routing component of Symfony CMF, please refer to:
 
-- :doc:`../components/routing` for most of the actual functionality implementation
-- :doc:`../bundles/routing-extra` for Symfony2 integration bundle for Routing Bundle
-- Symfony2's `Routing <http://symfony.com/doc/current/components/routing/introduction.html>`_ component page
-- :doc:`../tutorials/handling-multilang-documents` for some notes on multilingual routing
+* :doc:`../components/routing` for most of the actual functionality implementation
+* :doc:`../bundles/routing-extra` for Symfony2 integration bundle for Routing Bundle
+* Symfony2's `Routing`_ component page
+* :doc:`../tutorials/handling-multilang-documents` for some notes on multilingual routing
+
+.. _`PHPCR-ODM`: https://github.com/doctrine/phpcr-odm
+.. _`Routing`: http://symfony.com/doc/current/components/routing/introduction.html
