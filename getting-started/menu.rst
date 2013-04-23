@@ -17,27 +17,27 @@ multiple options, thus making them a complex problem themselves.
 Symfony CMF Menu System
 -----------------------
 
-Symfony CMF SE includes the ``MenuBundle``, a tool that allow you to dynamically
-define your menus. It extends `KnpMenuBundle <https://github.com/knplabs/KnpMenuBundle>`_,
-with a set of hierarchical, multi language menu elements, along with the tools
-to load and store them from/to a database. It also includes the administration
-panel definitions and related services needed for integration with
-`SonataDoctrinePhpcrAdminBundle <https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle>`_
+Symfony CMF SE includes the MenuBundle, a tool that allow you to dynamically
+define your menus. It extends the `KnpMenuBundle`_, with a set of
+hierarchical, multi language menu elements, along with the tools to load and
+store them from/to a database. It also includes the administration panel
+definitions and related services needed for integration with the
+`SonataDoctrinePhpcrAdminBundle`_.
 
 .. note::
 
-    The ``MenuBundle`` extends and greatly relies on `KnpMenuBundle <https://github.com/knplabs/KnpMenuBundle>`_,
-    so you should carefully read `KnpMenuBundle's documentation <https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md>`_.
-    For the rest of this page we assume you have done so, and are familiar
-    with concepts like Menu Providers and Menu Factories.
+    The MenuBundle extends and greatly relies on the `KnpMenuBundle`_, so you
+    should carefully read `KnpMenuBundle's documentation`_. For the rest of
+    this page we assume you have done so and are familiar with concepts like
+    Menu Providers and Menu Factories.
 
 
 Usage
 ~~~~~
 
-``MenuBundle`` uses ``KnpMenuBundle``'s default renderers and helpers to
-print out menus. You can refer to the `respective documentation page <https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md#rendering-menus>`_
-for more information on the subject, but a basic call would be:
+The MenuBundle uses KnpMenuBundle's default renderers and helpers to print out
+menus. You can refer to the `respective documentation page`_ for more
+information on the subject, but a basic call would be:
 
 .. configuration-block::
 
@@ -56,7 +56,7 @@ section.
 The Provider
 ~~~~~~~~~~~~
 
-The core of ``MenuBundle`` is ``PHPCRMenuProvider``, a ``MenuProviderInterface``
+The core of the MenuBundle is ``PHPCRMenuProvider``, a ``MenuProviderInterface``
 implementation that's responsible for dynamically loading menus from a PHPCR
 database. The default provider service is configured with a ``menu_basepath`` to
 know where in the PHPCR tree it will find menus. The menu ``name`` is given when
@@ -76,9 +76,15 @@ menu ``simple``, the menu root node must be stored at ``/cms/menu/simple``.
 
     .. code-block:: xml
 
-        <symfony-cmf-menu:config>
-            <symfony-cmf-menu:menu-basepath>/cms/menu</symfony-cmf-menu:menu-basepath>
-        </symfony-cmf-menu:config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <container xmlns="http://cmf.symfony.com/schema/dic/menu"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+            <symfony-cmf-menu:config xmlns="http://cmf.symfony.com/schema/dic/menu">
+                <menu-basepath>/cms/menu</menu-basepath>
+            </symfony-cmf-menu:config>
+        </container>
 
     .. code-block:: php
 
@@ -87,7 +93,7 @@ menu ``simple``, the menu root node must be stored at ``/cms/menu/simple``.
         ));
 
 If you need multiple menu roots, you can create further PHPCRMenuProvider instances
-and register them with KnpMenu - see the CMF MenuBundle DependencyInjection code
+and register them with KnpMenu - see the CMF MenuBundle ``DependencyInjection`` code
 for the details.
 
 The menu element fetched using this process is used as the menu root node,
@@ -129,7 +135,7 @@ implement ``NodeInterface`` in order to be included in the generated menu.
 The Menu Nodes
 ~~~~~~~~~~~~~~
 
-Also included in ``MenuBundle`` come two menu node content types: ``MenuNode``
+Also included in the MenuBundle come two menu node content types: ``MenuNode``
 and ``MultilangMenuNode``. If you have read the documentation page regarding
 :doc:`content`, you'll find this implementation somewhat familiar. ``MenuNode``
 implements the above mentioned ``NodeInterface``, and holds the information
@@ -142,7 +148,7 @@ the fact that two fields exist) Content element. The ``MenuNode`` can have
 a strong (integrity ensured) or weak (integrity not ensured) reference to
 the actual Content element it points to, it's up to you to choose which best
 fits your scenario. You can find more information on references on the
-`Doctrine PHPCR documentation page <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/association-mapping.html#references>`_.
+`Doctrine PHPCR documentation page`_.
 
 ``MultilangMenuNode`` extends ``MenuNode`` with multilanguage support. It
 adds a ``locale`` field to identify which translation set it belongs to,
@@ -161,13 +167,13 @@ database:
         */
 
 For information on the available translation strategies, refer to the Doctrine
-page regarding `Multi language support in PHPCR-ODM <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html>`_
+page regarding `Multi language support in PHPCR-ODM`_
 
 
 Admin Support
 -------------
 
-``MenuBundle`` also includes the administration panels and respective services
+The MenuBundle also includes the administration panels and respective services
 needed for integration with the backend admin tool :doc:`SonataDoctrinePhpcrAdminBundle <../bundles/doctrine_phpcr_admin>`
 
 The included administration panels will automatically available but need to be
@@ -188,5 +194,13 @@ Further Notes
 For more information on the MenuBundle of Symfony CMF, please refer to:
 
 - :doc:`../bundles/menu` for advanced details and configuration reference
-- `KnpMenuBundle`_ page for information on the bundle on which ``MenuBundle`` relies
-- `KnpMenu <https://github.com/knplabs/KnpMenu>`_ page for information on the underlying library used by ``KnpMenuBundle``
+- `KnpMenuBundle`_ page for information on the bundle on which the MenuBundle relies
+- `KnpMenu`_ page for information on the underlying library used by the KnpMenuBundle
+
+.. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle
+.. _`SonataDoctrinePhpcrAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle
+.. _`KnpMenuBundle's documentation`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md
+.. _`respective documentation page`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md#rendering-menus
+.. _`Doctrine PHPCR documentation page`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/association-mapping.html#references
+.. _`Multi language support in PHPCR-ODM`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
+.. _`KnpMenu`: https://github.com/knplabs/KnpMenu
