@@ -15,17 +15,15 @@ setup, please refer to:
 
 .. index:: sandbox, install
 
-Preconditions
--------------
+Requirements
+------------
 
 As Symfony CMF Sandbox is based on Symfony2, you should make sure you
 meet the `Requirements for running Symfony2 <http://symfony.com/doc/current/reference/requirements.html>`_.
 `Git 1.6+ <http://git-scm.com/>`_, `Curl <http://curl.haxx.se/>`_ and PHP Intl are
 also needed to follow the installation steps listed below.
 
-If you wish to use Jackalope + Apache JackRabbit as the storage medium (recommended),
-you will also need Java (JRE). For other mechanisms and its requirements,
-please refer to their respective sections.
+For the PHPCR repository requirements, see :ref:`PHPCR-ODM requirements <tutorials-phpcr-odm-requirements>`
 
 Installation
 ------------
