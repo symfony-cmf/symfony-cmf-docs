@@ -12,16 +12,16 @@ custom application.
 If this is your first encounter with the Symfony CMF it would be a good idea to first take a
 look at:
 
-- `The Big Picture <http://slides.liip.ch/static/2012-01-17_symfony_cmf_big_picture.html#1>`_
-- The online sandbox demo at `cmf.liip.ch <http://cmf.liip.ch>`_
+- `The Big Picture`_
+- The online sandbox demo at `cmf.liip.ch`_
 
 .. note::
 
     For other Symfony CMF installation guides, please read:
 
-    - The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for instructions on
+    * The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for instructions on
       how to install a more complete demo instance of Symfony CMF.
-    - :doc:`../tutorials/installing-cmf-core` for step-by-step installation and
+    * :doc:`../tutorials/installing-cmf-core` for step-by-step installation and
       configuration details of just the core components into an existing Symfony
       application.
 
@@ -29,8 +29,8 @@ Preconditions
 -------------
 
 As Symfony CMF is based on Symfony2, you should make sure you meet the
-`Requirements for running Symfony2 <http://symfony.com/doc/current/reference/requirements.html>`_.
-Additionally, you need to have `SQLite <http://www.sqlite.org/>`_ PDO extension (pdo_sqlite)
+`Requirements for running Symfony2`_.
+Additionally, you need to have `SQLite`_ PDO extension (``pdo_sqlite``)
 installed, since it is used as the default storage medium.
 
 .. note::
@@ -42,15 +42,13 @@ installed, since it is used as the default storage medium.
     available mechanisms and how to install and configure them, refer to
     :doc:`../tutorials/installing-configuring-doctrine-phpcr-odm`
 
-`Git <http://git-scm.com/>`_ and `Curl <http://curl.haxx.se/>`_ are also
-needed to follow the installation steps listed below.
+`Git`_ and `Curl`_ are also needed to follow the installation steps listed below.
 
 
 Installation
 ------------
 
-The easiest way to install Symfony CMF is is using `Composer <http://getcomposer.org/>`_.
-Get it using
+The easiest way to install Symfony CMF is is using `Composer`_. Get it using
 
 .. code-block:: bash
 
@@ -71,9 +69,9 @@ and then get the Symfony CMF code with it (this may take a while)
 
 This will clone the standard edition and install all the dependencies and run some initial commands.
 These commands require write permissions to the ``app/cache`` and ``app/logs`` directory. In case
-the final commands end up giving permissions errors, please follow the `guidelines in the official
-documentation <http://symfony.com/doc/master/book/installation.html#configuration-and-setup>`_ for
-configuring the permissions and then run the ``composer.phar install`` command mentioned below.
+the final commands end up giving permissions errors, please follow the
+`guidelines in the symfony book`_ for configuring the permissions and then run the
+``composer.phar install`` command mentioned below.
 
 If you prefer you can also just clone the project:
 
@@ -127,15 +125,15 @@ Edition (SE) and how they work together to provide the default pages you
 can see when browsing the Symfony CMF SE installation.
 
 It assumes you have already installed Symfony CMF SE and have carefully
-read `the Symfony2 book <http://symfony.com/doc/current/book/>`_.
+read `the Symfony2 book`_.
 
 .. note::
 
     For other Symfony CMF installation guides, please read:
 
-    - The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for instructions on how to
+    * The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for instructions on how to
       install a more complete demo instance of Symfony CMF.
-    - :doc:`../tutorials/installing-cmf-core` for step-by-step installation and configuration
+    * :doc:`../tutorials/installing-cmf-core` for step-by-step installation and configuration
       details of just the core components into an existing Symfony application.
 
 AcmeMainBundle and SimpleCMSBundle
@@ -145,20 +143,20 @@ Symfony CMF SE comes with a default AcmeMainBundle to help you get started,
 in a similar way that Symfony2 has AcmeDemoBundle, providing you some
 demo pages visible on your browser. However, AcmeMainBundle doesn't include
 controllers or configuration files, like you probably would expect. It contains
-little more than a twig file and `Fixtures <http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_
-data, that was loaded into your database during installation.
+little more than a twig file and `Fixtures`_ data, that was loaded into your
+database during installation.
 
 There are several bundles working together in order to turn the fixture data
 into a browsable website. The overall, simplified process is:
 
-- When a request is received, the Symfony CMF :doc:`routing`'s Dynamic Router is used to handle the
-  incoming request.
-- The Dynamic Router is able to match the requested URL with a specific ContentBundle's Content
-  stored in the database.
-- The retrieved content's information is used to determine which controller to pass it on to, and
-  which template to use.
-- As configured, the retrieved content is passed to ContentBundle's ContentController, which will
-  handle it and render AcmeMainBundle's layout.html.twig.
+* When a request is received, the :doc:`Symfony CMF Routing's Dynamic Router <routing>` is used
+  to handle the incoming request;
+* The Dynamic Router is able to match the requested URL with a specific ContentBundle's Content
+  stored in the database;
+* The retrieved content's information is used to determine which controller to pass it on to, and
+  which template to use;
+* As configured, the retrieved content is passed to ContentBundle's
+  ``ContentController``, which will handle it and render AcmeMainBundle's ``layout.html.twig``.
 
 Again, this is simplified view of a very simple CMS built on top of Symfony CMF.
 To fully understand all the possibilities of the CMF, a careful look into
@@ -192,3 +190,14 @@ create a file ````app/Resources/data/pages/test/foo.yml`` and then run the follo
 .. code-block:: bash
 
     $ php app/console doctrine:phpcr:migrator page --identifier=/cms/simple/test/foo
+
+.. _`The Big Picture`: http://slides.liip.ch/static/2012-01-17_symfony_cmf_big_picture.html#1
+.. _`cmf.liip.ch`: http://cmf.liip.ch
+.. _`Requirements for running Symfony2`: http://symfony.com/doc/current/reference/requirements.html
+.. _`SQLite`: http://www.sqlite.org/
+.. _`Git`: http://git-scm.com/
+.. _`Curl`: http://curl.haxx.se/
+.. _`Composer`: http://getcomposer.org/
+.. _`guidelines in the symfony book`: http://symfony.com/doc/master/book/installation.html#configuration-and-setup
+.. _`the Symfony2 book`: http://symfony.com/doc/current/book/
+.. _`Fixtures`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
