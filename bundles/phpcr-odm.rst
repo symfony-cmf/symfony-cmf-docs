@@ -22,8 +22,8 @@ Out of the box, this bundle supports the following PHPCR implementations:
 This bundle is based on the AbstractDoctrineBundle and thus is similar to the
 configuration of the Doctrine ORM and MongoDB bundles.
 
-Setup
------
+Setup and Requirements
+----------------------
 
 See :doc:`../tutorials/installing-configuring-doctrine-phpcr-odm`
 
