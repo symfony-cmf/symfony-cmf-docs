@@ -30,8 +30,8 @@ Requirements
 
 * Symfony2 (version 2.1 or newer)
 * phpunit >= 3.6 (if you want to run the tests)
-* When using **jackalope-jackrabbit**: Java, jackrabbit.jar and libxml version >= 2.7.0
-  (due to a `bug in libxml`_)
+* When using **jackalope-jackrabbit**: Java, Apache Jackalope and libxml
+  version >= 2.7.0 (due to a `bug in libxml`_)
 * When using **jackalope-doctrine-dbal with MySQL**: MySQL >= 5.1.5
   (as you need the xml function ``ExtractValue``)
 
