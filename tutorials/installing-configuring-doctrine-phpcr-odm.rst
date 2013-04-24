@@ -22,12 +22,19 @@ Finally for information about PHPCR see the `official PHPCR website <http://phpc
 
 .. index:: PHPCR, ODM
 
-Preconditions
--------------
-- php >= 5.3
-- libxml version >= 2.7.0 (due to a bug in libxml http://bugs.php.net/bug.php?id=36501)
-- phpunit >= 3.6 (if you want to run the tests)
-- Symfony2 (version 2.1.x)
+
+.. _tutorial-phpcr-odm-requirements:
+
+Requirements
+------------
+
+* Symfony2 (version 2.1 or newer)
+* phpunit >= 3.6 (if you want to run the tests)
+* When using **jackalope-jackrabbit**: Java, Apache Jackalope and libxml
+  version >= 2.7.0 (due to a `bug in libxml`_)
+* When using **jackalope-doctrine-dbal with MySQL**: MySQL >= 5.1.5
+  (as you need the xml function ``ExtractValue``)
+
 
 Installation
 ------------
@@ -356,3 +363,5 @@ The bundle provides a ``ValidPhpcrOdm`` constraint validator you can use to chec
         protected $parent;
 
         ...
+
+.. _`bug in libxml`: http://bugs.php.net/bug.php?id=36501)
