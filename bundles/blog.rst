@@ -50,6 +50,21 @@ Example:
                 blog: Symfony\Cmf\Bundle\BlogBundle\Document\Blog # Optional
                 post: Symfony\Cmf\Bundle\BlogBundle\Document\Post # Optional
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-blog:config 
+            use-sonata-admin="auto" 
+            blog-basepath="/cms/blog"
+        >
+            <symfony-cmf-blog:class 
+                blog-admin="Symfony\Cmf\Bundle\BlogBundle\Admin\BlogAdmin"
+                post-admin="Symfony\Cmf\Bundle\BlogBundle\Admin\PostAdmin"
+                blog="Symfony\Cmf\Bundle\BlogBundle\Document\Blog"
+                post="Symfony\Cmf\Bundle\BlogBundle\Document\Post"
+            />
+        </symfony-cmf-blog:config>
+
     .. code-block:: php
 
         // app/config/config.php
@@ -63,21 +78,6 @@ Example:
                 'post' => 'Symfony\Cmf\Bundle\BlogBundle\Document\Post', // optional
             ),
         ));
-
-    .. code-block:: xml
-
-        // app/config/config.xml
-        <symfony-cmf-blog:config 
-            use-sonata-admin="auto" 
-            blog-basepath="/cms/blog"
-        >
-            <symfony-cmf-blog:class 
-                blog-admin="Symfony\Cmf\Bundle\BlogBundle\Admin\BlogAdmin"
-                post-admin="Symfony\Cmf\Bundle\BlogBundle\Admin\PostAdmin"
-                blog="Symfony\Cmf\Bundle\BlogBundle\Document\Blog"
-                post="Symfony\Cmf\Bundle\BlogBundle\Document\Post"
-            />
-        </symfony-cmf-blog:config>
 
 Explanation:
 
@@ -101,7 +101,7 @@ Auto Routing
 The blog bundle uses the ``SymfonyCmfRoutingAuto`` bundle to generate a route
 for each content. You will need an auto routing configuration for this to work.
 
-You can include the default in the main configuration (i.e. ``config.yml``) as follows:
+You can include the default in the main configuration file as follows:
 
 .. configuration-block::
 
@@ -115,7 +115,7 @@ You can include the default in the main configuration (i.e. ``config.yml``) as f
 
     .. code-block:: xml
 
-        # app/config/config.xml
+        <!-- app/config/config.xml -->
         <imports>
             <!-- ... -->
             <import resource="@SymfonyCmfBlogBundle/Resources/config/routing/autoroute_default" />
@@ -124,7 +124,7 @@ You can include the default in the main configuration (i.e. ``config.yml``) as f
 
     .. code-block:: php
 
-        # app/config/config.php
+        // app/config/config.php
         $loader->import('config.php');
         // ...
 
@@ -140,7 +140,7 @@ Content Routing
 To enable the routing system to automatically forward requests to the blog
 controller when a ``Blog`` or ``Post``  content is associated with a route,
 add the following under the ``controllers_by_class`` section of
-``symfony_cmf_routing`` in the config:
+``symfony_cmf_routing_extra`` in the main configuration file:
 
 .. configuration-block::
 
@@ -156,6 +156,19 @@ add the following under the ``controllers_by_class`` section of
                     Symfony\Cmf\Bundle\BlogBundle\Document\Blog: symfony_cmf_blog.blog_controller:listAction
                     Symfony\Cmf\Bundle\BlogBundle\Document\Post: symfony_cmf_blog.blog_controller:viewPostAction
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-blog:config>
+            <symfony-cmf-blog:dynamic>
+                <symfony-cmf-blog:controllers-by-class
+                    class="Symfony\CmfBundle\BlogBundle\Document\Post"
+                >
+                    symfony_cmf_blog.blog_controller:listAction"
+                </symfony-cmf-blog:controllers-by-class>
+            </symfony-cmf-blog:dynamic>
+        </symfony-cmf-blog:config>
+
     .. code-block:: php
 
         // app/config/config.php
@@ -168,17 +181,6 @@ add the following under the ``controllers_by_class`` section of
                 ),
             ),
         ));
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml
-        <symfony-cmf-blog:config>
-            <symfony-cmf-blog:dynamic>
-                <symfony-cmf-blog:controllers-by-class
-                    Symfony\CmfBundle\BlogBundle\Document\Post="symfony_cmf_blog.blog_controller:listAction"
-                </symfony-cmf-blog:controllers-by-class>
-            </symfony-cmf-blog:dynamic>
-        </symfony-cmf-blog:config>
 
 Sonata Admin
 ~~~~~~~~~~~~
@@ -227,7 +229,7 @@ Tree Browser Bundle
 
 If you use the Symfony CMF Tree Browser bundle you can expose the blog routes
 to enable blog edition from the tree browser. Expose the routes in the
-``fos_js_routing`` section of ``app/config/config.yml``:
+``fos_js_routing`` section of the configuration file:
 
 .. configuration-block::
 
@@ -236,7 +238,7 @@ to enable blog edition from the tree browser. Expose the routes in the
         # app/config/config.yml
         fos_js_routing:
             routes_to_expose:
-                ...
+                # ...
                 - admin_bundle_blog_blog_create
                 - admin_bundle_blog_blog_delete
                 - admin_bundle_blog_blog_edit
