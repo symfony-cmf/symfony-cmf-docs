@@ -739,18 +739,26 @@ will only be available if such a backend is configured.
 
 Use ``app/console help <command>`` to see all options each of the commands has.
 
-- ``doctrine:phpcr:workspace:create``  Create a workspace in the configured repository
-- ``doctrine:phpcr:workspace:list``  List all available workspaces in the configured repository
-- ``doctrine:phpcr:purge``  Remove a subtree or all content from the repository
-- ``doctrine:phpcr:repository:init``   Register node types and create base paths
-- ``doctrine:phpcr:register-node-types``  Register node types from a .cnd file in the PHPCR repository
-- ``doctrine:phpcr:fixtures:load``  Load data fixtures to your PHPCR database.
-- ``doctrine:phpcr:import``  Import xml data into the repository, either in JCR system view format or arbitrary xml
-- ``doctrine:phpcr:export``  Export nodes from the repository, either to the JCR system view format or the document view format
-- ``doctrine:phpcr:dump``  Output all or some content of the repository
-- ``doctrine:phpcr:query``  Execute a JCR SQL2 statement
-- ``doctrine:phpcr:mapping:info``  Shows basic information about all mapped documents
-
+* **doctrine:phpcr:workspace:create**: Create a workspace in the configured
+  repository;
+* **doctrine:phpcr:workspace:list**: List all available workspaces in the
+  configured repository;
+* **doctrine:phpcr:type:register**: Register node types from a .cnd file in
+  the PHPCR repository;
+* **doctrine:phpcr:type:list**: List all node types in the PHPCR repository;
+* **doctrine:phpcr:purge**: Remove a subtree or all content from the repository;
+* **doctrine:phpcr:repository:init**: Register node types and create base paths;
+* **doctrine:phpcr:fixtures:load**: Load data fixtures to your PHPCR database;
+* **doctrine:phpcr:import**: Import xml data into the repository, either in
+  JCR system view format or arbitrary xml;
+* **doctrine:phpcr:export**: Export nodes from the repository, either to the
+  JCR system view format or the document view format;
+* **doctrine:phpcr:dump**: Output all or some content of the repository;
+* **doctrine:phpcr:touch**: Create or modify a node at the specified path;
+* **doctrine:phpcr:move**: Move a node from one path to another;
+* **doctrine:phpcr:query**: Execute a JCR SQL2 statement;
+* **doctrine:phpcr:mapping:info**: Shows basic information about all mapped
+  documents.
 
 .. note::
 
