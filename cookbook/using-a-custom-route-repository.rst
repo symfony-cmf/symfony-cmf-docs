@@ -28,17 +28,17 @@ following class provides a simple solution using an ODM Repository.
         public function findManyByUrl($url)
         {
             // for simplicity we retrieve one route
-            $myDocument = $this->findOneBy(array(
+            $document = $this->findOneBy(array(
                 'url' => $url,
             ));
 
-            $pattern = $myDocument->getUrl(); // e.g. "/this/is/a/url"
+            $pattern = $document->getUrl(); // e.g. "/this/is/a/url"
 
             $collection = new RouteCollection();
 
             // create a new Route and set our document as
             // a default (so that we can retrieve it from the request)
-            $route = new SymfonyRoute($ep->getPath(), array(
+            $route = new SymfonyRoute($pattern, array(
                 'document' => $document,
             ));
 
