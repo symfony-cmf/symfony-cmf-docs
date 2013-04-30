@@ -77,13 +77,14 @@ Examples::
 
     <?php
 
-    $dm = // get document manager
+    // get document manager
+    $dm = ...;
     $rootNode = $dm->find(null, '...'); // retrieve parent menu item
 
     // using referenceable content document
     $blogContent = $dm->find(null, '/my/cms/content/blog');
 
-    $blogNode = new MenuNode;
+    $blogNode = new MenuNode();
     $blogNode->setName('blog');
     $blogNode->setParent($parent);
     $blogNode->setContent($blogDocument);
@@ -94,21 +95,21 @@ Examples::
     // using a route document
     $timelineRoute = $dm->find(null, '/my/cms/routes/timeline');
 
-    $timelineNode = new MenuNode;
+    $timelineNode = new MenuNode();
     $timelineNode->setContent($timelineRoute);
     // ...
 
     $dm->persist($timelineNode);
 
     // using a symfony route
-    $sfRouteNode = new MenuNode;
+    $sfRouteNode = new MenuNode();
     $sfRouteNode->setRoute('my_hard_coded_symfony_route');
     // ...
 
     $dm->persist($sfRouteNode);
 
     // using URL
-    $urlNode = new MenuNode;
+    $urlNode = new MenuNode();
     $urlNode->setUri('http://www.example.com');
     // ...
 
