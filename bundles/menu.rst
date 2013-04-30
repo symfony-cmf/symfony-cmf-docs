@@ -13,9 +13,9 @@ This bundle is extending the `KnpMenuBundle <https://github.com/knplabs/KnpMenuB
 
 Unless you change defaults and provide your own implementations, this bundle also depends on
 
-* ``SymfonyRoutingExtraBundle`` for the router service ``symfony_cmf_routing_extra.dynamic_router``.
+* ``SymfonyRoutingBundle`` for the router service ``symfony_cmf_routing.dynamic_router``.
   Note that you need to explicitly enable the dynamic router as per default it is not loaded.
-  See the :doc:`documentation of the routing extra bundle<routing-extra>` for how to do this.
+  See the :doc:`documentation of the cmf routing bundle<routing>` for how to do this.
 * :doc:`PHPCR-ODM<phpcr-odm>` to load route documents from the content repository
 
 Configuration

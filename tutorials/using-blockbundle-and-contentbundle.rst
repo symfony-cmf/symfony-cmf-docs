@@ -339,7 +339,7 @@ Using the CMF ContentBundle
 
 Follow this example to use both the CMF Block and Content components together.
 
-The ContentBundle is best used together with the RoutingExtraBundle. Add the
+The ContentBundle is best used together with the RoutingBundle. Add the
 following to ``composer.json``:
 
 .. code-block:: javascript
@@ -347,7 +347,7 @@ following to ``composer.json``:
     "require": {
         ...
         "symfony-cmf/content-bundle": "dev-master",
-        "symfony-cmf/routing-extra-bundle": "dev-master"
+        "symfony-cmf/routing-bundle": "dev-master"
     }
 
 Install as before:
@@ -673,12 +673,12 @@ Make sure the CMF BlockBundle is installed and loaded in app/AppKernel.php:
 
     Fatal error: Interface 'Symfony\Cmf\Component\Routing\RouteAwareInterface' not found in /var/www/your-site/vendor/symfony-cmf/content-bundle/Symfony/Cmf/Bundle/ContentBundle/Document/StaticContent.php on line 15
 
-If you are using ContentBundle, make sure you have also installed the RoutingExtraBundle:
+If you are using ContentBundle, make sure you have also installed the RoutingBundle:
 
 .. code-block:: javascript
 
     // composer.json
-    "symfony-cmf/routing-extra-bundle": "dev-master"
+    "symfony-cmf/routing-bundle": "dev-master"
 
 ...and install:
 

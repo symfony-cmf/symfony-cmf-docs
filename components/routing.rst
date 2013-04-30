@@ -9,7 +9,7 @@ The `Symfony CMF Routing component`_
 library extends the Symfony2 core routing component. Even though it has Symfony
 in its name, it does not need the full Symfony2 framework and can be used in
 standalone projects. For integration with Symfony we provide
-:doc:`../bundles/routing-extra`.
+:doc:`../bundles/routing`.
 
 At the core of the Symfony CMF Routing component is the ``ChainRouter``, that
 is used instead of the Symfony2's default routing system. The ChainRouter
@@ -81,7 +81,7 @@ includes a powerful route matching system that you can extend to your needs.
 .. note::
 
     If you are using this as part of a full Symfony CMF project, please refer to
-    :doc:`../bundles/routing-extra` for instructions on how to add Routers to
+    :doc:`../bundles/routing` for instructions on how to add Routers to
     the ``ChainRouter``. Otherwise, use the ``ChainRouter``'s ``add`` method to
     configure new routers.
 
@@ -149,7 +149,7 @@ later steps.
 
 The underlying implementation of the ``RouteProviderInterface`` is not in the
 scope of this bundle. Please refer to the interface declaration for more
-information. For a functional example, see :doc:`../bundles/routing-extra`.
+information. For a functional example, see :doc:`../bundles/routing`.
 
 ``RouteFilterInterface``
 """"""""""""""""""""""""
@@ -211,7 +211,7 @@ Route.
 Notice that the actual redirection logic is not handled by the bundle. You
 should implement your own logic to handle the redirection. For an example on
 implementing that redirection under the full Symfony2 stack, refer to
-:doc:`../bundles/routing-extra`.
+:doc:`../bundles/routing`.
 
 Generating URLs
 ~~~~~~~~~~~~~~~
@@ -286,7 +286,7 @@ Symfony2 integration
 Like mentioned before, this bundle was designed to only require certain parts
 of Symfony2. However, if you wish to use it as part of your Symfony CMF project,
 an integration bundle is also available. We strongly recommend that you take
-a look at :doc:`../bundles/routing-extra`.
+a look at :doc:`../bundles/routing`.
 
 For a starter's guide to the Routing bundle and its integration with Symfony2,
 refer to :doc:`../getting-started/routing`

@@ -1,12 +1,12 @@
 .. index::
-    single: Routing, SymfonyCmfRoutingExtraBundle
+    single: Routing, SymfonyCmfRoutingBundle
 
 Routing
 =======
 
 This is an introduction to understand the concepts behind CMF routing. For the
 reference documentation please see :doc:`../components/routing` and
-:doc:`../bundles/routing-extra`.
+:doc:`../bundles/routing`.
 
 Concept
 -------
@@ -58,12 +58,12 @@ their configured priority:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing_extra:
+        symfony_cmf_routing:
             chain:
                 routers_by_id:
                     # enable the DynamicRouter with high priority to allow overwriting
                     # configured routes with content
-                    symfony_cmf_routing_extra.dynamic_router: 200
+                    symfony_cmf_routing.dynamic_router: 200
 
                     # enable the symfony default router with a lower priority
                     router.default: 100
@@ -74,13 +74,13 @@ their configured priority:
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:cmf-routing-extra="http://cmf.symfony.com/schema/dic/routingextra"
+            xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <cmf-routing-extra:config xmlns="http://cmf.symfony.com/schema/dic/routingextra">
+            <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <chain>
                     <routers-by-id
-                        id="symfony_cmf_routing_extra.dynamic_router">
+                        id="symfony_cmf_routing.dynamic_router">
                         200
                     </routers-by-id>
 
@@ -89,15 +89,15 @@ their configured priority:
                         100
                     </routers-by-id>
                 </chain>
-            </cmf-routing-extra:config>
+            </cmf-routing:config>
 
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+        $container->loadFromExtension('symfony_cmf_routing', array(
             'chain' => array(
                 'routers_by_id' => array(
-                    'symfony_cmf_routing_extra.dynamic_router' => 200,
+                    'symfony_cmf_routing.dynamic_router' => 200,
                     'router.default'                           => 100,
                 ),
             ),
@@ -162,7 +162,7 @@ by default. To activate it, just add the following to your configuration file:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing_extra:
+        symfony_cmf_routing:
             dynamic:
                 enabled: true
 
@@ -172,18 +172,18 @@ by default. To activate it, just add the following to your configuration file:
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:cmf-routing-extra="http://cmf.symfony.com/schema/dic/routingextra"
+            xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <cmf-routing-extra:config xmlns="http://cmf.symfony.com/schema/dic/routingextra">
+            <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic enabled="true" />
-            </cmf-routing-extra:config>
+            </cmf-routing:config>
         </container>
 
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+        $container->loadFromExtension('symfony_cmf_routing', array(
             'dynamic' => array(
                 'enabled' => true,
             ),
@@ -208,7 +208,7 @@ provider loads the route at the path in the request and all parent paths to
 allow for some of the path segments being parameters.
 
 For more detailed information on this implementation and how you can customize
-or extend it, refer to :doc:`../bundles/routing-extra`.
+or extend it, refer to :doc:`../bundles/routing`.
 
 The ``DynamicRouter`` is able to match the incoming request to a Route object
 from the underlying provider. The details on how this matching process is
@@ -259,7 +259,7 @@ Here's an example on how to configure the above mentioned options:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing_extra:
+        symfony_cmf_routing:
             dynamic:
                 generic_controller: symfony_cmf_content.controller:indexAction
                 controllers_by_type:
@@ -275,10 +275,10 @@ Here's an example on how to configure the above mentioned options:
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:cmf-routing-extra="http://cmf.symfony.com/schema/dic/routingextra"
+            xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <cmf-routing-extra:config xmlns="http://cmf.symfony.com/schema/dic/routingextra">
+            <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic generic-controller="symfony_cmf_content.controllerindexAction">
                     <controllers-by-type type="editablestatic">
                         sandbox_main.controller:indexAction
@@ -295,13 +295,13 @@ Here's an example on how to configure the above mentioned options:
                         SymfonyCmfContentBundle:StaticContent:index.html.twig
                     </templates-by-class>
                 </dynamic>
-            </cmf-routing-extra:config>
+            </cmf-routing:config>
         </container>
 
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+        $container->loadFromExtension('symfony_cmf_routing', array(
             'dynamic' => array(
                 'generic_controller' => 'symfony_cmf_content.controller:indexAction',
                 'controllers_by_type' => array(
@@ -362,9 +362,9 @@ configured like so:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing_extra:
+        symfony_cmf_routing:
             controllers_by_class:
-                Symfony\Cmf\Component\Routing\RedirectRouteInterface:  symfony_cmf_routing_extra.redirect_controller:redirectAction
+                Symfony\Cmf\Component\Routing\RedirectRouteInterface:  symfony_cmf_routing.redirect_controller:redirectAction
 
     .. code-block:: xml
 
@@ -372,23 +372,23 @@ configured like so:
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:cmf-routing-extra="http://cmf.symfony.com/schema/dic/routingextra"
+            xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <cmf-routing-extra:config xmlns="http://cmf.symfony.com/schema/dic/routingextra">
+            <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <controllers-by-class
                     class="Symfony\Cmf\Component\Routing\RedirectRouteInterface">
-                    symfony_cmf_routing_extra.redirect_controller:redirectAction
+                    symfony_cmf_routing.redirect_controller:redirectAction
                 </controllers-by-class>
-            </cmf-routing-extra:config>
+            </cmf-routing:config>
         </container>
 
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+        $container->loadFromExtension('symfony_cmf_routing', array(
             'controllers_by_class' => array(
-                'Symfony\Cmf\Component\Routing\RedirectRouteInterface' => 'symfony_cmf_routing_extra.redirect_controller:redirectAction',
+                'Symfony\Cmf\Component\Routing\RedirectRouteInterface' => 'symfony_cmf_routing.redirect_controller:redirectAction',
             ),
         ));
 
@@ -424,7 +424,7 @@ section applies if you use the default PHPCR-ODM route provider.
 All routes are located under a configured root path, for example
 ``/cms/routes``.  A new route can be created in PHP code as follows::
 
-    use Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route;
+    use Symfony\Cmf\Bundle\RoutingBundle\Document\Route;
 
     $route = new Route;
     $route->setParent($dm->find(null, '/routes'));
@@ -449,7 +449,7 @@ shared data. If you don't need content, you can just not set it in the
 document.
 
 For more details, see the
-:ref:`route document section in the RoutingExtraBundle documentation <bundle-routing-document>`.
+:ref:`route document section in the RoutingBundle documentation <bundle-routing-document>`.
 
 
 Integrating with SonataAdmin
@@ -473,7 +473,7 @@ You have a couple of configuration options for the admin. The
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing_extra:
+        symfony_cmf_routing:
             use_sonata_admin: auto # use true/false to force using / not using sonata admin
             content_basepath: ~ # used with sonata admin to manage content, defaults to symfony_cmf_core.content_basepath
 
@@ -483,10 +483,10 @@ You have a couple of configuration options for the admin. The
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:cmf-routing-extra="http://cmf.symfony.com/schema/dic/routingextra"
+            xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <cmf-routing-extra:config
+            <cmf-routing:config
                 use-sonata-admin="auto"
                 content-basepath="null"
             />
@@ -495,7 +495,7 @@ You have a couple of configuration options for the admin. The
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+        $container->loadFromExtension('symfony_cmf_routing', array(
             'use_sonata_admin' => 'auto',
             'content_basepath' => null,
         ));
@@ -505,10 +505,10 @@ Terms Form Type
 
 The bundle defines a form type that can be used for classical "accept terms"
 checkboxes where you place urls in the label. Simply specify
-``symfony_cmf_routing_extra_terms_form_type`` as the form type name and
+``symfony_cmf_routing_terms_form_type`` as the form type name and
 specify a label and an array with ``content_ids`` in the options::
 
-    $form->add('terms', 'symfony_cmf_routing_extra_terms_form_type', array(
+    $form->add('terms', 'symfony_cmf_routing_terms_form_type', array(
         'label' => 'I have seen the <a href="%team%">Team</a> and <a href="%more%">More</a> pages ...',
         'content_ids' => array(
             '%team%' => '/cms/content/static/team',
@@ -525,7 +525,7 @@ Further Notes
 For more information on the Routing component of Symfony CMF, please refer to:
 
 * :doc:`../components/routing` for most of the actual functionality implementation
-* :doc:`../bundles/routing-extra` for Symfony2 integration bundle for Routing Bundle
+* :doc:`../bundles/routing` for Symfony2 integration bundle for Routing Bundle
 * Symfony2's `Routing`_ component page
 * :doc:`../tutorials/handling-multilang-documents` for some notes on multilingual routing
 

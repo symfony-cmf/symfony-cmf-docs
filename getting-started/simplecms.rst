@@ -140,18 +140,18 @@ The Routing
 ~~~~~~~~~~~
 
 The SimpleCMSBundle doesn't add much functionality to the routing part of
-Symfony CMF. Instead, it greatly relies on RoutingExtraBundle and its set of
+Symfony CMF. Instead, it greatly relies on RoutingBundle and its set of
 configurable functionalities to meet its requirements. It declares an
 independent ``DynamicRouter``, with it's own specific ``RouteProvider``,
 ``NestedMatcher``, Enhancers set and other useful services, all of them
-instances of the classes bundled with RoutingBundle and RoutingExtraBudle.
+instances of the classes bundled with RoutingBundle and RoutingBudle.
 This service declaration duplication allows you to reuse the original
-RoutingExtraBundle configuration options to declare another Router, if you
+RoutingBundle configuration options to declare another Router, if you
 wish to do so.
 
 The only exception to this is ``RouteProvider``: the SimpleCMSBundle has its
 own strategy to retrieve ``Route`` instances from database. This is related
-with the way ``Route`` instances are stored in database by RoutingExtraBundle.
+with the way ``Route`` instances are stored in database by RoutingBundle.
 By default, the ``path`` parameter will hold the prefixed full URI, including
 the locale identifier. This would mean an independent ``Route`` instance
 should exist for each translation of the same ``Content``. However, as we've
@@ -180,7 +180,7 @@ Routes and Redirections
 
 The SimpleCMSBundle includes ``MultilangRoute`` and
 ``MultilangRedirectRoute``, extensions to the ``Route`` and ``RedirectRoute``
-found in RoutingExtraBudle, but with the necessary changes to handle the
+found in RoutingBundle, but with the necessary changes to handle the
 prefix strategy discussed earlier.
 
 Content Handling
@@ -239,7 +239,7 @@ type. Symfony CMF SE includes an example of both in its default configuration.
                 templates_by_class:
                     Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page:  SymfonyCmfSimpleCmsBundle:Page:index.html.twig
                 controllers_by_class:
-                    Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute:  symfony_cmf_routing_extra.redirect_controller:redirectAction
+                    Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute:  symfony_cmf_routing.redirect_controller:redirectAction
 
     .. code-block:: xml
 
@@ -258,8 +258,8 @@ type. Symfony CMF SE includes an example of both in its default configuration.
                     </templates-by-class
 
                     <controllers-by-class
-                        alias="Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute">
-                        symfony_cmf_routing_extra.redirect_controller:redirectAction
+                        alias="Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute">
+                        symfony_cmf_routing.redirect_controller:redirectAction
                     </templates-by-class
                 </routing>
             </cmf-simple-cms:config>
@@ -272,7 +272,7 @@ type. Symfony CMF SE includes an example of both in its default configuration.
             'routing' => array(
                 'templates_by_class' => array(
                     'Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page'             => SymfonyCmfSimpleCmsBundle:Page:index.html.twig,
-                    'Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute' => 'symfony_cmf_routing_extra.redirect_controller:redirectAction',
+                    'Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute' => 'symfony_cmf_routing.redirect_controller:redirectAction',
                 ),
             ),
         ));

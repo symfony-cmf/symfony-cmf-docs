@@ -1,14 +1,14 @@
 Using a custom route repository with Dynamic Router
 ===================================================
 
-The Dynamic Router allows you to customize the route Provider (i.e. the class 
-responsible for retrieving routes from the database), and by extension, the 
+The Dynamic Router allows you to customize the route Provider (i.e. the class
+responsible for retrieving routes from the database), and by extension, the
 Route objects.
 
 Creating the route provider
 -----------------------------
 
-The route provider must implement the `RouteProviderInterface` The 
+The route provider must implement the `RouteProviderInterface` The
 following class provides a simple solution using an ODM Repository.
 
 .. code-block:: php
@@ -68,7 +68,7 @@ following class provides a simple solution using an ODM Repository.
 
 .. tip::
 
-    As you may have noticed we return a `RouteCollection` object - why not return 
+    As you may have noticed we return a `RouteCollection` object - why not return
     a single `Route`? The Dynamic Router allows us to return many *candidate* routes,
     in other words, routes that *might* match the incoming URL. This is important to
     enable the possibility of matching *dynamic* routes, `/page/{page_id}/edit` for example.
@@ -85,11 +85,11 @@ as follows:
    .. code-block:: yaml
 
        # app/config/config.yml
-       symfony_cmf_routing_extra:
+       symfony_cmf_routing:
            dynamic:
                enabled: true
                route_provider_service_id: my_bundle.provider.endpoint
-   
-Where `my_bundle.provider.endpoint` is the service ID of your route provider. 
-See `Creating and configuring services in the container <http://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container/>`_ 
+
+Where `my_bundle.provider.endpoint` is the service ID of your route provider.
+See `Creating and configuring services in the container <http://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container/>`_
 for information on creating custom services.

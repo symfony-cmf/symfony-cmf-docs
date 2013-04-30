@@ -12,7 +12,7 @@ good idea to start with:
 - :doc:`../getting-started/installing-symfony-cmf` page for instructions on how to quickly install the CMF (recommended for development)
 - :doc:`../cookbook/installing-cmf-sandbox` for instructions on how to install a demonstration sandbox.
 
-.. index:: RoutingExtraBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle, install
+.. index:: RoutingBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle, install
 
 Preconditions
 -------------
@@ -55,7 +55,7 @@ Next, initialize the bundles in ``AppKernel.php`` by adding them to the ``regist
         $bundles = array(
             // ...
 
-            new Symfony\Cmf\Bundle\RoutingExtraBundle\SymfonyCmfRoutingExtraBundle(),
+            new Symfony\Cmf\Bundle\RoutingBundle\SymfonyCmfRoutingBundle(),
             new Symfony\Cmf\Bundle\CoreBundle\SymfonyCmfCoreBundle(),
             new Symfony\Cmf\Bundle\MenuBundle\SymfonyCmfMenuBundle(),
             new Symfony\Cmf\Bundle\ContentBundle\SymfonyCmfContentBundle(),
@@ -107,7 +107,7 @@ Configure the BlockBundle in your ``config.yml``:
 Additional configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Because most CMF components use the DynamicRouter from the RoutingExtraBundle, which by default is
+Because most CMF components use the DynamicRouter from the RoutingBundle, which by default is
 not loaded, you will need to enable it as follows:
 
 .. configuration-block::
@@ -115,16 +115,16 @@ not loaded, you will need to enable it as follows:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing_extra:
+        symfony_cmf_routing:
             chain:
                 routers_by_id:
-                    symfony_cmf_routing_extra.dynamic_router: 200
+                    symfony_cmf_routing.dynamic_router: 200
                     router.default: 100
             dynamic:
                 enabled: true
 
 You might want to configure more on the dynamic router, i.e. to automatically choose controllers based on content.
-See :doc:`../bundles/routing-extra` for details.
+See :doc:`../bundles/routing` for details.
 
 For now this is the only configuration we need. Mastering the configuration of the different
 bundles will be handled in further tutorials. If you're looking for the configuration of a
