@@ -60,12 +60,12 @@ if Sonata becomes unavailable.
 Menu entries
 ------------
 
-``MenuItem`` document defines menu entries. You can build menu items based on
+A ``MenuItem`` document defines menu entries. You can build menu items based on
 symfony routes, absolute or relative urls or referenceable PHPCR-ODM content
 documents.
 
 The menu tree is built from documents under [menu_basepath]/[menuname]. You can
-use different document classes for menu items, as long as they implement
+use different document classes for menu items as long as they implement
 ``Knp\Menu\NodeInterface`` to integrate with KnpMenuBundle. The default ``MenuNode``
 document discards children that do not implement this interface.
 
@@ -73,6 +73,64 @@ The currently highlighted entry is determined by checking if the content
 associated with a menu document is the same as the content the DynamicRouter
 has put into the request.
 
+Examples::
+
+    <?php
+
+    // get document manager
+    $dm = ...;
+    $rootNode = $dm->find(null, '...'); // retrieve parent menu item
+
+    // using referenceable content document
+    $blogContent = $dm->find(null, '/my/cms/content/blog');
+
+    $blogNode = new MenuNode();
+    $blogNode->setName('blog');
+    $blogNode->setParent($parent);
+    $blogNode->setContent($blogDocument);
+    $blogNode->setLabel('Blog');
+
+    $dm->persist($blogNode);
+
+    // using a route document
+    $timelineRoute = $dm->find(null, '/my/cms/routes/timeline');
+
+    $timelineNode = new MenuNode();
+    $timelineNode->setContent($timelineRoute);
+    // ...
+
+    $dm->persist($timelineNode);
+
+    // using a symfony route
+    $sfRouteNode = new MenuNode();
+    $sfRouteNode->setRoute('my_hard_coded_symfony_route');
+    // ...
+
+    $dm->persist($sfRouteNode);
+
+    // using URL
+    $urlNode = new MenuNode();
+    $urlNode->setUri('http://www.example.com');
+    // ...
+
+    $dm->persist($urlNode);
+
+    $dm->flush();
+
+By default content documents are created using a **weak** reference (this means
+you will be able to delete the referenced content). You can specify a strong
+reference by using ``setWeak(false)``::
+
+    <?php
+
+    $node = new MenuNode;
+    // ...
+    $node->setWeak(false);
+
+.. note::
+
+    When content is referenced weakly and subsequently deleted the 
+    rendered menu will not provide a link to the content.
 
 Usage
 -----
