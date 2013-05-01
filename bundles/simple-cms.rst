@@ -37,9 +37,9 @@ disable it if you have the menu bundle but do not want to use the default servic
 or explicitly enable to get an error if the menu bundle becomes unavailable.
 
 The routing section is configuring what template or controller to use for a
-content class. This is reusing what routing extra does, please see the corresponding
-:ref:`routing configuration section <bundle-routing-route-enhancer>`. It also explains the
-``generic_controller``.
+content class. This is reusing what the cmf routing bundle does, please see the
+corresponding :ref:`routing configuration section <bundle-routing-route-enhancer>`.
+It also explains the ``generic_controller``.
 
 See the section below for multilanguage support.
 
@@ -59,7 +59,7 @@ See the section below for multilanguage support.
             # where in the PHPCR tree to store the pages
             basepath:             /cms/simple
             routing:
-                content_repository_id:  symfony_cmf_routing_extra.content_repository
+                content_repository_id:  symfony_cmf_routing.content_repository
                 controllers_by_class:
                     # ...
                 templates_by_class:

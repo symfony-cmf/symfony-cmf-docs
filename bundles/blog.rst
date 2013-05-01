@@ -22,7 +22,7 @@ Pending features:
 Dependencies
 ------------
 
-* :doc:`SymfonyCmfRoutingExtraBundle<routing-extra>` is used to manage the routing.
+* :doc:`SymfonyCmfRoutingBundle<routing>` is used to manage the routing.
 * :doc:`PHPCR-ODM<phpcr-odm>` is used to persist the bundles documents.
 
 Configuration
@@ -60,12 +60,12 @@ Routing
 
 To enable the routing system to automatically forward requests to the blog
 controller when a Blog content is associated with a route, add the following
-under the ``controllers_by_class`` section of ``symfony_cmf_routing_extra``
+under the ``controllers_by_class`` section of ``symfony_cmf_routing``
 in ``app/config/config.yml``:
 
 .. code-block:: yaml
 
-    symfony_cmf_routing_extra:
+    symfony_cmf_routing:
         ...
         dynamic:
             ...

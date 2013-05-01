@@ -379,7 +379,7 @@ A full example looks as follows:
                             SandboxMainBundle: ~
                             SymfonyCmfContentBundle: ~
                             SymfonyCmfMenuBundle: ~
-                            SymfonyCmfRoutingExtraBundle: ~
+                            SymfonyCmfRoutingBundle: ~
 
                     website:
                         session: website
@@ -512,7 +512,7 @@ correct.
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
                 http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
-            <class name="Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route">
+            <class name="Symfony\Cmf\Bundle\RoutingBundle\Document\Route">
                 <constraint name="Doctrine\Bundle\PHPCRBundle\Validator\Constraints\ValidPhpcrOdm" />
             </class>
         </constraint-mapping>

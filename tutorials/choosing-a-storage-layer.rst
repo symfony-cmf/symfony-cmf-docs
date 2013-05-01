@@ -123,7 +123,7 @@ of the CMS to a particular algorithm.
 
 However it should be said once more, that all Bundles and Components in the CMF are developed
 to enable any persistent storage API and we welcome contributions for adding implementations
-for other storage systems. So for example RoutingExtraBundle currently only provides Document
+for other storage systems. So for example CMF RoutingBundle currently only provides Document
 classes for PHPCR ODM, but the interfaces defined in the Routing component are storage
 agnostic and we would accept a contribution to add Doctrine ORM support.
 
