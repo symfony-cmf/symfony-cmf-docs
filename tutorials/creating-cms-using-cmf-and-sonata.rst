@@ -91,11 +91,11 @@ Add the sonata bundles to your application configuration
                     valid_children:
                         - all
                 Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page: ~
-                Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route:
+                Symfony\Cmf\Bundle\RoutingBundle\Document\Route:
                     valid_children:
-                        - Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route
-                        - Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute
-                Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute:
+                        - Symfony\Cmf\Bundle\RoutingBundle\Document\Route
+                        - Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute
+                Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute:
                     valid_children: []
                 Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode:
                     valid_children:
