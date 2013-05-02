@@ -37,19 +37,31 @@ This bundle is best included using Composer.
 Edit your project composer file to add a new require for symfony-cmf/create-bundle.
 Then create a scripts section or add to the existing one:
 
-
-.. code-block:: yaml
+.. code-block:: json
 
     {
         "scripts": {
             "post-install-cmd": [
-                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::initSubmodules",
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreate",
                 ...
             ],
             "post-update-cmd": [
-                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::initSubmodules",
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreate",
                 ...
             ]
+        }
+    }
+
+It is possible to specify another directory, repository or commit id in the extra
+parameters of ``composer.json`` file (here are the default values):
+
+.. code-block:: json
+
+    {
+        "extra": {
+            "create-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/create",
+            "create-repository": "https://github.com/bergie/create.git",
+            "create-commit": "271e0114a039ab256ffcceacdf7f361803995e05"
         }
     }
 
@@ -85,18 +97,18 @@ You also need to configure FOSRestBundle to handle json:
 ckeditor
 ~~~~~~~~
 
-If you want to use the ckeditor, you should add a new script in your ``composer.json`` file:
+If you want to use the ckeditor, you should edit the script in your ``composer.json`` file:
 
 .. code-block:: json
 
     {
         "scripts": {
             "post-install-cmd": [
-                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCkeditor",
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreateAndCkeditor",
                 ...
             ],
             "post-update-cmd": [
-                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCkeditor",
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreateAndCkeditor",
                 ...
             ]
         }
@@ -136,7 +148,7 @@ In your template, write:
         {"editor": "ckeditor"}
     %}
 
-It is possible to specify another directory, repository or commit id in the extra
+As create.js, it is possible to specify another directory, repository or commit id in the extra
 parameters of ``composer.json`` file (here are the default values):
 
 .. code-block:: json
