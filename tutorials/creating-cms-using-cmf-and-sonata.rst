@@ -106,31 +106,6 @@ Add the sonata bundles to your application configuration
                         - Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode
                         - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode
 
-        fos_js_routing:
-            routes_to_expose:
-                - admin_sandbox_main_editablestaticcontent_create
-                - admin_sandbox_main_editablestaticcontent_delete
-                - admin_sandbox_main_editablestaticcontent_edit
-                - admin_bundle_menu_menunode_create
-                - admin_bundle_menu_menunode_delete
-                - admin_bundle_menu_menunode_edit
-                - admin_bundle_menu_multilangmenunode_create
-                - admin_bundle_menu_multilangmenunode_delete
-                - admin_bundle_menu_multilangmenunode_edit
-                - admin_bundle_content_multilangstaticcontent_create
-                - admin_bundle_content_multilangstaticcontent_delete
-                - admin_bundle_content_multilangstaticcontent_edit
-                - admin_bundle_routingextra_route_create
-                - admin_bundle_routingextra_route_delete
-                - admin_bundle_routingextra_route_edit
-                - admin_bundle_simplecms_page_create
-                - admin_bundle_simplecms_page_delete
-                - admin_bundle_simplecms_page_edit
-                - symfony_cmf_tree_browser.phpcr_children
-                - symfony_cmf_tree_browser.phpcr_move
-                - sonata.admin.doctrine_phpcr.phpcrodm_children
-                - sonata.admin.doctrine_phpcr.phpcrodm_move
-
 Add route in to your routing configuration
 
 .. configuration-block::
@@ -157,6 +132,11 @@ Add route in to your routing configuration
             resource: .
             type: 'symfony_cmf_tree'
 
+
+The FOSJsRoutingBundle is used to export sonata routes to javascript, to be
+used with the tree. All relevant routes have the ``expose`` option set. If you
+do custom routes that need to be used with the tree, you need to do that or
+configure the js routing bundle manually.
 
 Sonata Assets
 -------------
