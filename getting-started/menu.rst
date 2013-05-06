@@ -117,6 +117,8 @@ the base classes, and their respective documentation pages can be found in
 transforming the ``MenuNode`` instances from the root node it receives from
 the ``MenuProviderInterface`` implementation. It is also responsible for
 determining which (if any) menu item is currently being viewed by the user.
+It supports a voter mechanism to have custom code decide what menu item is
+the current item.
 ``KnpMenu`` already includes a specific factory targeted at Symfony2's Routing
 component, which this bundle extends, to add support for:
 
