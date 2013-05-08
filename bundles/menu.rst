@@ -183,20 +183,15 @@ set it explicitly:
 
     .. code-block:: xml
 
-        <srv:container
-            xmlns:srv="http://symfony.com/schema/dic/services"
-            xmlns:cmf-menu="http://cmf.symfony.com/schema/dic/menu"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-            <cmf-menu:config xmlns="http://cmf.symfony.com/schema/dic/menu">
-                <menu-basepath>/cms/menu</menu-basepath>
-            </cmf-menu:config>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/menu">
+                <voter>
+                    <content-identity>
+                        <content-key>myKey</content-key>
+                    </content-identity>
+                </voter>
+            </config>
         </container>
-
-        symfony_cmf_menu:
-            voters:
-                content_identity:
-                    content_key: myKey
 
     .. code-block:: php
 
@@ -252,7 +247,8 @@ to write your own PHP code:
 
     .. code-block:: xml
 
-        <service id="my_bundle.menu_voter.parent" class="Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter">
+        <service id="my_bundle.menu_voter.parent"
+                 class="Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter">
             <argument>mainContent</argument>
             <argument>%my_bundle.my_model_class%</argument>
             <tag name="symfony_cmf_menu.voter" request="true"/>
