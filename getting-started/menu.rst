@@ -8,9 +8,9 @@ Concept
 -------
 
 No CMS system is complete without a menu system that allows users to navigate
-between content pages and perform certain actions. While it does usually map
+between content pages and perform certain actions. While it usually maps
 the actual content tree structure, menus often have a logic of their own,
-include options not mapped by contents or exist in multiple contexts with
+include options not mapped by content or exist in multiple contexts with
 multiple options, thus making them a complex problem themselves.
 
 Symfony CMF Menu System
@@ -18,8 +18,8 @@ Symfony CMF Menu System
 
 Symfony CMF SE includes the MenuBundle, a tool that allow you to dynamically
 define your menus. It extends the `KnpMenuBundle`_, with a set of
-hierarchical, multi language menu elements, along with the tools to load and
-store them from/to a database. It also includes the administration panel
+hierarchical, multi language menu elements, along with the tools to persist
+them in the chosen content store. It also includes the administration panel
 definitions and related services needed for integration with the
 `SonataDoctrinePhpcrAdminBundle`_.
 
@@ -108,10 +108,10 @@ generated this way is later used to generate the actual HTML representation of
 the menu.
 
 The included implementation focuses on generating ``MenuItem`` instances from
-``NodeInterface`` instances, as it is the best approach to handle tree-like
-structures like the ones typically used by CMS. Other approaches are
-implemented in the base classes, and their respective documentation pages can
-be found in `KnpMenuBundle`_'s page.
+``NodeInterface`` instances, as this is usually the best approach to handle
+tree-like structures typically used by CMS. Other approaches are implemented in
+the base classes, and their respective documentation pages can be found in
+`KnpMenuBundle`_'s page.
 
 ``ContentAwareFactory`` is responsible for loading the full menu hierarchy and
 transforming the ``MenuNode`` instances from the root node it receives from
@@ -120,13 +120,13 @@ determining which (if any) menu item is currently being viewed by the user.
 ``KnpMenu`` already includes a specific factory targeted at Symfony2's Routing
 component, which this bundle extends, to add support for:
 
-* Databased stored ``Route`` instances (refer to :ref:`RoutingBundle's
+* Persistently stored ``Route`` instances (refer to :ref:`RoutingBundle's
   RouteProvider <start-routing-getting-route-object>` for more details on
   this)
 * ``Route`` instances with associated content (more on this on respective
   :ref:`RoutingBundle's section <start-routing-linking-a-route-with-a-model-instance>`)
 
-Like mentioned before, the ``ContentAwareFactory`` is responsible for loading
+As mentioned before, ``ContentAwareFactory`` is responsible for loading
 all the menu nodes from the provided root element. The actual loaded nodes can
 be of any class, even if it's different from the root's, but all must
 implement ``NodeInterface`` in order to be included in the generated menu.
@@ -134,28 +134,29 @@ implement ``NodeInterface`` in order to be included in the generated menu.
 The Menu Nodes
 ~~~~~~~~~~~~~~
 
-Also included in the MenuBundle come two menu node content types: ``MenuNode``
+Also included in the MenuBundle are two menu node content types: ``MenuNode``
 and ``MultilangMenuNode``. If you have read the documentation page regarding
 :doc:`content`, you'll find this implementation somewhat familiar.
+
 ``MenuNode`` implements the above mentioned ``NodeInterface``, and holds the
 information regarding a single menu entry: a ``label`` and a ``uri``, a
-``children`` list, like you would expect, plus some ``attributes`` for himself
-and its children, that will allow the actual rendering proccess to be
-customized.  It also includes a ``Route`` field and two references to
+``children`` list, plus some ``attributes`` for the node
+and its children that will allow the rendering process to be
+customized. It also includes a ``Route`` field and two references to
 Contents. These are used to store an associated ``Route`` object, plus one
 (not two, despite the fact that two fields exist) Content element. The
 ``MenuNode`` can have a strong (integrity ensured) or weak (integrity not
-ensured) reference to the actual Content element it points to, it's up to you
+ensured) reference to the actual Content element it points to; it's up to you
 to choose which best fits your scenario. You can find more information on
 references on the `Doctrine PHPCR documentation page`_.
 
 ``MultilangMenuNode`` extends ``MenuNode`` with multilanguage support. It adds
-a ``locale`` field to identify which translation set it belongs to, plus a
-``label`` and ``uri`` fields marked as ``translated=true``, meaning they will
-differ between translations, unlike the other fields.
+a ``locale`` field to identify which translation set it belongs to, plus
+``label`` and ``uri`` fields marked as ``translated=true``. This means they
+will differ between translations, unlike the other fields.
 
-It also specifies the strategy used to store the multiple translations to
-database:
+``MultilangMenuNode`` also specifies the strategy used to persist multiple
+translations:
 
 .. configuration-block::
 
@@ -172,11 +173,11 @@ Admin Support
 -------------
 
 The MenuBundle also includes the administration panels and respective services
-needed for integration with the backend admin tool
+needed for integration with the back end admin tool
 :doc:`SonataDoctrinePhpcrAdminBundle <../bundles/doctrine_phpcr_admin>`
 
-The included administration panels will automatically available but need to be
-explicitly put on the dashboard if you want to use them. See
+The included administration panels will be automatically available but need to
+be explicitly put on the dashboard if you want to use them. See
 :doc:`../tutorials/creating-cms-using-cmf-and-sonata` for instructions on how
 to install SonataDoctrinePhpcrAdminBundle.
 

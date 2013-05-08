@@ -14,14 +14,14 @@ your :doc:`content`, which users can browse using a :doc:`menu`.
 These three components complement each other but are independent: they work
 without each other, allowing you to choose which ones you want to use, extend
 or ignore. In some cases, however, you might just want a simple implementation
-that gathers all those functionalities in a ready-to-go package. For that
+that gathers all those capabilities into a ready-to-go package. For that
 purpose, the SimpleCMSBundle was created.
 
 SimpleCMSBundle
 ---------------
 
 The SimpleCMSBundle is implemented on top of most of the other Symfony CMF
-Bundles, combining them into a functional CMS. It's a simple solution, but you
+Bundles, combining them into a functional CMS. It is a simple solution, but you
 will find it very useful when you start implementing your own CMS using
 Symfony CMF. Whether you decide to extend or replace it, it's up to you, but
 in both cases, it's a good place to start developing your first CMS.
@@ -34,60 +34,59 @@ points out many of the features available:
 
 * It extends ``Route``, meaning it's not only a ``Content`` instance, but
   also a ``Route``. In this case, as declared in ``getRouteContent()``, the
-  ``Route`` as an associated content, itself.
+  ``Route`` has an associated content document: itself.
 * It implements ``RouteAwareInterface``, which means it has associated
   ``Route`` instances. As expected, and as seen in ``getRoutes()``, it has
   only one ``Route`` associated: itself.
 * It implements ``NodeInterface``, which means it can be used by
   ``MenuBundle`` to generate a menu structure.
 
-The class itself is similar to the ``StaticContent`` already described in the
-documentation page regarding :doc:`content`, although some key atributes, like
-``parent`` or ``path`` come from the ``Route`` class it extends.
+The class itself is similar to ``StaticContent`` already described in the
+documentation page regarding :doc:`content`. However some key attributes,
+such as ``parent`` or ``path``, come from the ``Route`` class it extends.
 
 Three-in-one
 ~~~~~~~~~~~~
 
-Like explained before, this bundle gathers functionality from three distinct
+As explained before, this bundle gathers functionality from three distinct
 bundles: :doc:`content`, :doc:`routing` and :doc:`menu`. The routing component
-receives a request, that it matches to a ``Route`` instance loaded from
-database.  That ``Route`` points to a ``Content`` instance: itself. A
-controller is also determined by the routing component, that renders the
-``Content`` using a template which, in turn, presents the user with a HTML
-visualization of the stored information tree structure, rendered using
+receives a request that it matches to a ``Route`` instance loaded from
+persistent storage. That ``Route`` points to a ``Content`` instance: itself.
+Which controller to use is determined by the routing component that renders the
+``Content`` using a template which, in turn, presents the user with an HTML
+visualization of the stored information tree structure. This is rendered using
 ``MenuItem`` obtained from equivalent ``NodeInterface`` instances.
 
 The SimpleCMSBundle simplifies this process: ``Content``, ``Route`` and
 ``NodeInterface`` are gathered in one class: ``Page``. This three-in-one
-approach is the key concept behind this bundle.
-
+approach is the key concept behind the bundle.
 
 MultilangPage
 ~~~~~~~~~~~~~
 
-Like you would expect, a multilanguage version of ``Page`` is also included.
+As you would expect, a multilanguage version of ``Page`` is also included.
 ``MultilangPage`` defines a ``locale`` variable and which fields will be
 translated (``title``, ``label`` and ``body``). It also includes
 ``getStaticPrefix()`` to handle the path prefix of the ``Page``. This is part
-of the route handling mechanism, and will be analysed bellow.
+of the route handling mechanism, and will be discussed below.
 
-The ``MultilangPage`` uses the ``attribute`` strategy for translation: the
-several translations coexist in the same database entry, and the several
-translated versions of each field are stored as different attributes in that
+The ``MultilangPage`` class uses the ``attribute`` strategy for translation:
+several translations can coexist in the same database entry, and several
+translated versions of each field can be stored as different attributes in that
 same entry.
 
 As the routing is not separated from the content, it is not possible to create
-different routes for different languages. This is one of the biggest
+different routes for different languages. This is one of the main
 disadvantages of the SimpleCmsBundle.
 
 Configuring the Content Class
 .............................
 
-By default, the SimpleCMSBundle will use
+SimpleCMSBundle will use
 ``Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page`` as the content class if
-multilanguage is not enabled (default). If no other class is chosen, and
-multilanguage support is enabled, it will automatically switch to
-``Symfony\Cmf\Bundle\SimpleCmsBundle\Document\MultilangPage``.  You can
+multilanguage is not enabled (this is the default). If no other class is chosen,
+and multilanguage support is enabled, it will automatically switch to
+``Symfony\Cmf\Bundle\SimpleCmsBundle\Document\MultilangPage``. You can
 explicitly specify your content class and/or enable multilanguage support
 using the configuration parameters:
 
@@ -97,9 +96,11 @@ using the configuration parameters:
 
         # app/config/config.yml
         symfony_cmf_simple_cms:
-            document_class: ~  # Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page
+            # defaults to Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page or MultilangPage (see above)
+            document_class: ~
             multilang:
-                locales: ~  # defaults to [], declare your locales here to enable multilanguage
+                # defaults to [] - declare your locales here to enable multilanguage
+                locales: ~
 
     .. code-block:: xml
 
@@ -110,10 +111,12 @@ using the configuration parameters:
             xmlns:cmf-simple-cms="http://cmf.symfony.com/schema/dic/simplecms"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+            <!-- defaults to Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page or MultilangPage (see above) -->
             <cmf-simple-cms:config xmlns="http://cmf.symfony.com/schema/dic/simplecms"
                 document-class="null"
             >
                 <multilang>
+                    <!-- defaults to empty list - declare your locales here to enable multilanguage -->
                     <locales></locales>
                 </multilang>
             </cmf-simple-cms:config>
@@ -123,8 +126,10 @@ using the configuration parameters:
 
         // app/config/config.php
         $container->loadFromExtension('symfony_cmf_simple_cms', array(
+            // defaults to Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page or MultilangPage (see above)
             'document_class' => null,
             'multilang'      => array(
+                // defaults to empty array - declare your locales here to enable multilanguage
                 'locales' => null,
             ),
         ));
@@ -133,39 +138,39 @@ SimpleCMSBundle in Detail
 -------------------------
 
 Now that you understand what the SimpleCMSBundle does, we'll detail how it
-does it. Several other components are part of this bundle, that change the
+does it. Several other components are part of this bundle that change the
 default behaviour of its dependencies.
 
-The Routing
-~~~~~~~~~~~
+Routing
+~~~~~~~
 
-The SimpleCMSBundle doesn't add much functionality to the routing part of
+The SimpleCMSBundle adds little functionality to the routing part of
 Symfony CMF. Instead, it greatly relies on RoutingBundle and its set of
-configurable functionalities to meet its requirements. It declares an
-independent ``DynamicRouter``, with it's own specific ``RouteProvider``,
+configurable capabilities to meet its requirements. It declares an
+independent ``DynamicRouter``, with its own specific ``RouteProvider``,
 ``NestedMatcher``, Enhancers set and other useful services, all of them
-instances of the classes bundled with RoutingBundle and RoutingBudle.
+instances of the classes bundled with RoutingBundle.
 This service declaration duplication allows you to reuse the original
 RoutingBundle configuration options to declare another Router, if you
 wish to do so.
 
 The only exception to this is ``RouteProvider``: the SimpleCMSBundle has its
-own strategy to retrieve ``Route`` instances from database. This is related
-with the way ``Route`` instances are stored in database by RoutingBundle.
+own strategy to retrieve ``Route`` instances from persistent storage. This is
+related to the way ``Route`` instances are stored by RoutingBundle.
 By default, the ``path`` parameter will hold the prefixed full URI, including
 the locale identifier. This would mean an independent ``Route`` instance
 should exist for each translation of the same ``Content``. However, as we've
 seen, ``MultilangPage```stores all translations in the same entry. So, to
 avoid duplication, the locale prefix is stripped from the URI prior to
-persistance, and SimpleCMSBundle includes ``MultilangRouteProvider``, which is
+persistence, and SimpleCMSBundle includes ``MultilangRouteProvider``, which is
 responsible for fetching ``Route`` instances taking that into account.
 
 When rendering the actual URL from ``Route``, the locale prefix needs to be
-put back, otherwise the resulting addresses wouldn't specify the locale they
+replaced, otherwise the resulting addresses would not specify the locale they
 refer to. To do so, ``MultilangPage`` uses the already mentioned
 ``getStaticPrefix()`` implementation.
 
-Exemplifying: An incoming request for ``contact`` would be prefixed with
+Example: An incoming request for ``contact`` would be prefixed with the
 ``/cms/simple`` basepath, and the storage would be queried for
 ``/cms/simple/contact/``.  However, in a multilanguage setup, the locale is
 prefixed to the URI, resulting in a query either for
@@ -175,11 +180,11 @@ above mentioned approach, the ``locale`` is stripped from the URI prior to
 ``basepath`` prepending, resulting in a query for ``/cms/simple/contact/`` in
 both cases.
 
-Routes and Redirections
-.......................
+Routes and Redirects
+....................
 
-The SimpleCMSBundle includes ``MultilangRoute`` and
-``MultilangRedirectRoute``, extensions to the ``Route`` and ``RedirectRoute``
+SimpleCMSBundle includes ``MultilangRoute`` and
+``MultilangRedirectRoute``. These are extensions to the ``Route`` and ``RedirectRoute``
 found in RoutingBundle, but with the necessary changes to handle the
 prefix strategy discussed earlier.
 
@@ -189,7 +194,7 @@ Content Handling
 ``Route`` instances are responsible for determining which ``Controller`` will
 handle the current request. :ref:`start-routing-getting-controller-template`
 shows how Symfony CMF SE can determine which ``Controller`` to use when
-rendering a certain content, and the SimpleCMSBundle uses these mechanisms to
+rendering a certain content document, and the SimpleCMSBundle uses these mechanisms to
 do so.
 
 .. configuration-block::
@@ -198,7 +203,8 @@ do so.
 
         # app/config/config.yml
         symfony_cmf_simple_cms:
-            generic_controller: ~  # symfony_cmf_content.controller:indexAction
+            # defaults to symfony_cmf_content.controller:indexAction
+            generic_controller: ~
 
     .. code-block:: xml
 
@@ -209,6 +215,7 @@ do so.
             xmlns:cmf-simple-cms="http://cmf.symfony.com/schema/dic/simplecms"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+            <!-- defaults to symfony_cmf_content.controller:indexAction -->
             <cmf-simple-cms:config
                 generic-controller="null"
             />
@@ -218,10 +225,11 @@ do so.
 
         // app/config/config.php
         $container->loadFromExtension('symfony_cmf_simple_cms', array(
+            // defaults to symfony_cmf_content.controller:indexAction
             'generic_controller' => null,
         ));
 
-By default, it uses the above mentioned service, which instanciates
+By default, it uses the above mentioned service, which instantiates
 ``ContentController`` from ``ContentBundle``. The default configuration
 associates all ``document_class`` instances with this ``Controller``, and
 specifies no default template. However, you can configure several
@@ -282,28 +290,27 @@ These configuration parameters will be used to instantiate
 about them can be found in the :doc:`../components/routing` component
 documentation page.
 
-These specific example determines that content instances of class ``Page``
-will be rendered using the above mentioned template, if no other is explicitly
+The above, specific example determines that content instances of class ``Page``
+will be rendered using the above template, if none other is explicitly
 provided by the associated ``Route`` (which, in this case, is ``Page``
-itself).  It also states that all contents that instantiate ``RedirectRoute``
-will be rendered using the mentioned ``Controller`` instead of the default.
-Again, the actual ``Route`` can provided a controller, in will take priority
+itself). It also states that all content documents that instantiate ``RedirectRoute``
+will be rendered using the specified ``Controller`` instead of the the default.
+Again, the actual ``Route`` can provided a controller that will take priority
 over this one. Both the template and the controller are part of
 SimpleCMSBundle.
-
 
 Menu Generation
 ~~~~~~~~~~~~~~~
 
-Like mentioned before, ``Page`` implements ``NodeInterface``, which means it
-can be used to generate ``MenuItem`` that will, in turn, be rendered into HTML
-menus presented to the user.
+As mentioned before, ``Page`` implements ``NodeInterface``, which means it
+can be used to generate a ``MenuItem`` that will, in turn, be rendered into HTML
+menus.
 
 To do so, the default ``MenuBundle`` mechanisms are used, only a custom
 ``basepath`` is provided to the ``PHPCRMenuProvider`` instance. This is
 defined in the SimpleCMSBundle configuration options, and used when handling
-content storage, to support functionality as described in :doc:`menu`
-documentation. This parameter is optional, can be configured like so:
+content storage to support functionality as described in :doc:`menu`
+documentation. This parameter is optional, and can be configured as follows:
 
 .. configuration-block::
 
@@ -311,8 +318,11 @@ documentation. This parameter is optional, can be configured like so:
 
         # app/config/config.yml
         symfony_cmf_simple_cms:
-            use_menu: ~  # defaults to auto , true/false can be used to force providing / not providing a menu
-            basepath: ~  # /cms/simple
+            # defaults to auto; true/false can be used to force providing/not providing a menu
+            use_menu: ~
+
+            # defaults to /cms/simple
+            basepath: ~
 
     .. code-block:: xml
 
@@ -323,6 +333,8 @@ documentation. This parameter is optional, can be configured like so:
             xmlns:cmf-simple-cms="http://cmf.symfony.com/schema/dic/simplecms"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+            <!-- use-menu: defaults to auto; true/false can be used to force providing/not providing a menu -->
+            <!-- basepath: defaults to /cms/simple -->
             <cmf-simple-cms:config
                 use-menu="null"
                 basepath="null"
@@ -333,17 +345,19 @@ documentation. This parameter is optional, can be configured like so:
 
         // app/config/config.php
         $container->loadFromExtension('symfony_cmf_simple_cms', array(
+            // defaults to auto; true/false can be used to force providing/not providing a menu
             'use_menu' => null,
+
+            // defaults to /cms/simple
             'basepath' => null,
         ));
-
 
 Admin Support
 -------------
 
 The SimpleCMSBundle also includes the administration panel and respective
 service needed for integration with `SonataDoctrinePHPCRAdminBundle`_, a
-backoffice generation tool that can be installed with Symfony CMF. For more
+back office generation tool that can be installed with the Symfony CMF. For more
 information about it, please refer to the bundle's `documentation section`_.
 
 The included administration panels will automatically be loaded if you install
@@ -358,7 +372,8 @@ option:
 
         # app/config/config.yml
         symfony_cmf_simple_cms:
-            use_sonata_admin: ~  # defaults to auto , true/false can be used to using / not using SonataAdmin
+            # defaults to auto; true/false can be used to force using/not using SonataAdmin
+            use_sonata_admin: ~
 
     .. code-block:: xml
 
@@ -369,6 +384,7 @@ option:
             xmlns:cmf-simple-cms="http://cmf.symfony.com/schema/dic/simplecms"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+            <!-- defaults to auto; true/false can be used to force using/not using SonataAdmin -->
             <cmf-simple-cms:config
                 use-sonata-admin="null"
             />
@@ -378,19 +394,18 @@ option:
 
         // app/config/config.php
         $container->loadFromExtension('symfony_cmf_simple_cms', array(
+            // defaults to auto; true/false can be used to force using/not using SonataAdmin
             'use_sonata_admin' => null,
         ));
-
 
 Fixtures
 --------
 
 The SimpleCMSBundle includes a support class for integration with
-`DoctrineFixturesBundle`_, aimed at making loading initial data easier. A
-working example is provided in Symfony CMF SE, that illustrates how you can
-easily generate ``MultilangPage`` and ``MultilangMenuNode`` instances from yml
+`DoctrineFixturesBundle`_, aimed at making loading initial data easier.
+A working example is provided in Symfony CMF SE that illustrates how you can
+easily generate ``MultilangPage`` and ``MultilangMenuNode`` instances from YAML
 files.
-
 
 Configuration
 -------------
