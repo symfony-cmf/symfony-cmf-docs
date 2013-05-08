@@ -163,12 +163,14 @@ RequestContentIdentityVoter
 
 This voter looks at the ``content`` field of the menu item and compares
 it with the main content attribute of the request. The name for the
-request attribute is configurable, it defaults to the constant
+main content attribute in the request is configurable with the
+``content_key`` option - if not set it defaults to the constant
 ``DynamicRouter::CONTENT_KEY``.
 
 You can enable this voter by setting
-``symfony_cmf_menu.voters.content_identity: ~`` in your config.yml
-to use a custom main content attribute name, set it explicitly:
+``symfony_cmf_menu.voters.content_identity`` to ``~`` in your config.yml
+to use a custom ``content_key`` for the main content attribute name,
+set it explicitly:
 
 .. configuration-block::
 
@@ -178,6 +180,33 @@ to use a custom main content attribute name, set it explicitly:
             voters:
                 content_identity:
                     content_key: myKey
+
+    .. code-block:: xml
+
+        <srv:container
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xmlns:cmf-menu="http://cmf.symfony.com/schema/dic/menu"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+            <cmf-menu:config xmlns="http://cmf.symfony.com/schema/dic/menu">
+                <menu-basepath>/cms/menu</menu-basepath>
+            </cmf-menu:config>
+        </container>
+
+        symfony_cmf_menu:
+            voters:
+                content_identity:
+                    content_key: myKey
+
+    .. code-block:: php
+
+        $container->loadFromExtension('symfony_cmf_menu', array(
+            'voters' => array(
+                'content_identity' => array(
+                    'content_key' => 'myKey',
+                ),
+            ),
+        ));
 
 
 UriPrefixVoter
@@ -229,14 +258,62 @@ to write your own PHP code:
             <tag name="symfony_cmf_menu.voter" request="true"/>
         </service>
 
+    .. code-block:: php
+
+        $definition = new Definition(
+            'Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter',
+            array('mainContent', '%my_bundle.my_model_class%')
+        ));
+        $definition->addTag('symfony_cmf_menu.voter', array('request' => true));
+        $container->setDefinition('my_bundle.menu_voter.parent', $definition);
+
+
 Custom Voter
 ~~~~~~~~~~~~
 
 Voters must implement the ``Symfony\Cmf\MenuBundle\Voter\VoterInterface``.
 To make the menu bundle notice the voter, tag it with ``symfony_cmf_menu.voter``.
 If the voter needs the request, add the attribute ``request: true`` to the tag
+(example see above in the service for ``RequestParentIdentityVoter`` above)
 to have the menu bundle call ``setRequest`` on the voter before it votes for
 the first time.
+
+A voter will look something like this::
+
+    <?php
+    namespace Acme\MenuBundle\Voter;
+
+    use Symfony\Cmf\Bundle\MenuBundle\Voter\VoterInterface;
+    use Knp\Menu\ItemInterface;
+
+    class MyVoter implements VoterInterface
+    {
+        private $request;
+
+        public function setRequest(Request $request)
+        {
+            $this->request = $request;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public function matchItem(ItemInterface $item)
+        {
+            if (...) {
+                // $item is the current menu item
+                return true;
+            }
+            if (...) {
+                // $item for sure is NOT the current menu item
+                // even if other voters might match
+                return false;
+            }
+
+            // we dont know if this is the current item
+            return null;
+        }
+    }
 
 
 Rendering Menus
