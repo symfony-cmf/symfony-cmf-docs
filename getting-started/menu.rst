@@ -109,7 +109,7 @@ the menu.
 
 The included implementation focuses on generating ``MenuItem`` instances from
 ``NodeInterface`` instances, as this is usually the best approach to handle
-tree-like structures typically used by CMS. Other approaches are implemented in
+tree-like structures typically used by a CMS. Other approaches are implemented in
 the base classes, and their respective documentation pages can be found in
 `KnpMenuBundle`_'s page.
 
@@ -173,10 +173,10 @@ Admin Support
 -------------
 
 The MenuBundle also includes the administration panels and respective services
-needed for integration with the back end admin tool
+needed for integration with the backend admin tool
 :doc:`SonataDoctrinePhpcrAdminBundle <../bundles/doctrine_phpcr_admin>`
 
-The included administration panels will be automatically available but need to
+The included administration panels are automatically available but need to
 be explicitly put on the dashboard if you want to use them. See
 :doc:`../tutorials/creating-cms-using-cmf-and-sonata` for instructions on how
 to install SonataDoctrinePhpcrAdminBundle.

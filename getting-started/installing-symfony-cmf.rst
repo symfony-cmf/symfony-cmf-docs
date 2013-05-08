@@ -146,9 +146,7 @@ Symfony CMF SE comes with a default AcmeMainBundle to help you get started,
 similar to the AcmeDemoBundle provided by Symfony2. This gives you some demo
 pages viewable in your browser.
 
-.. note::
-
-    Where are the controllers?
+.. sidebar:: Where are the Controllers?
 
     AcmeMainBundle doesn't include controllers or configuration files as you
     might expect. It contains little more than a Twig file and `Fixtures`_
@@ -186,7 +184,7 @@ following commands:
 The above examples respectively show a summary, a detailed view, and a summary
 of a node and all its children (instead of starting at the root node).
 
-Don't forget to look at the `--help` output for more possibilities:
+Don't forget to look at the ``--help`` output for more possibilities:
 
 .. code-block:: bash
 

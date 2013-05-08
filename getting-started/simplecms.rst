@@ -144,15 +144,11 @@ default behaviour of its dependencies.
 Routing
 ~~~~~~~
 
-The SimpleCMSBundle adds little functionality to the routing part of
-Symfony CMF. Instead, it greatly relies on RoutingBundle and its set of
+The SimpleCMSBundle mostly relies on RoutingBundle and its set of
 configurable capabilities to meet its requirements. It declares an
-independent ``DynamicRouter``, with its own specific ``RouteProvider``,
+independent ``DynamicRouter`` service, with its own specific ``RouteProvider``,
 ``NestedMatcher``, Enhancers set and other useful services, all of them
 instances of the classes bundled with RoutingBundle.
-This service declaration duplication allows you to reuse the original
-RoutingBundle configuration options to declare another Router, if you
-wish to do so.
 
 The only exception to this is ``RouteProvider``: the SimpleCMSBundle has its
 own strategy to retrieve ``Route`` instances from persistent storage. This is
@@ -229,8 +225,8 @@ do so.
             'generic_controller' => null,
         ));
 
-By default, it uses the above mentioned service, which instantiates
-``ContentController`` from ``ContentBundle``. The default configuration
+Unless you specify otherwise, the ContentController from SimpleCMSBundle
+is used for all Documents. The default configuration
 associates all ``document_class`` instances with this ``Controller``, and
 specifies no default template. However, you can configure several
 ``controllers_by_class`` and ``templates_by_class`` rules, which will
@@ -290,7 +286,7 @@ These configuration parameters will be used to instantiate
 about them can be found in the :doc:`../components/routing` component
 documentation page.
 
-The above, specific example determines that content instances of class ``Page``
+The specific example above determines that content instances of class ``Page``
 will be rendered using the above template, if none other is explicitly
 provided by the associated ``Route`` (which, in this case, is ``Page``
 itself). It also states that all content documents that instantiate ``RedirectRoute``

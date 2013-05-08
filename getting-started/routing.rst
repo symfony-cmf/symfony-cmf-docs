@@ -448,8 +448,8 @@ All routes are located under a configured root path, for example
 This will give you a document that matches the URL ``/projects/<number>`` but
 also ``/projects`` as there is a default for the id parameter.
 
-Your controller can expect the ``$id`` parameter as well as the
-``$contentDocument`` as we set a content on the route. The content could be
+Because you called setRouteContent on the route, your controller can expect the
+``$id`` parameter as well as ``$contentDocument``. The content could be
 used to define an intro section that is the same for each project or other
 shared data. If you don't need content, you can just not set it in the
 document.

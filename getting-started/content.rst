@@ -31,7 +31,7 @@ implementation:
 * ``RouteAwareInterface`` means that the content has associated Routes.
 * ``PublishWorkflowInterface`` means that the content has publishing and
    unpublishing dates, which will be handled by Symfony CMF's core to
-   determine access.
+   determine whether or not to display the content from ``StaticContent``.
 
 Multilang Static Content
 ------------------------
@@ -59,8 +59,8 @@ Content Controller
 
 A controller is also included that can render either of the above content
 document types. Its single action, ``indexAction``, accepts a content
-instance and optionally a template to render it. If none is provided, it
-uses a pre-configured default.
+instance and optionally the path of the template to be used for rendering.
+If no template path is provided, it uses a pre-configured default.
 
 The controller action also takes into account the document's publishing status
 and language (for ``MultilangStaticContent``). Both the content instance and the
