@@ -25,6 +25,8 @@ Configuration
             document_manager: default
             role: IS_AUTHENTICATED_ANONYMOUSLY # used by the publish workflow checker
 
+.. _bundle-core-publish_workflow:
+
 Publish workflow checker
 ------------------------
 

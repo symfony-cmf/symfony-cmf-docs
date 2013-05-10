@@ -26,53 +26,40 @@ will find it very useful when you start implementing your own CMS using
 Symfony CMF. Whether you decide to extend or replace it, it's up to you, but
 in both cases, it's a good place to start developing your first CMS.
 
-Page
-~~~~
+Page Document
+~~~~~~~~~~~~~
 
-The SimpleCMSBundle basic content type is ``Page``. Its class declaration
-points out many of the features available:
+Instead of separate documents for the content, routing and the menu system,
+the SimpleCMSBundle provides the ``Page`` document which provides all those
+roles in one class:
 
-* It extends ``Route``, meaning it's not only a ``Content`` instance, but
-  also a ``Route``.
-* It implements ``RouteAwareInterface``, which means it has associated
-  ``Route`` instances. As we will explain shortly, the associated ``Route``
-  is actually the ``Page`` instance itself.
+* It has properties for title and text body;
+* It extends the ``Route`` class from the CMF ``RoutingBundle`` to work
+  with the CMF router component, returning ``$this`` in
+  ``getRouteContent()``;
+* It implements the ``RouteAwareInterface`` with ``getRoutes`` simply
+  returning ``array($this)`` to allow the CMF router to generate the URL
+  to a page;
 * It implements ``NodeInterface``, which means it can be used by
-  ``MenuBundle`` to generate a menu structure.
-
-The class itself is similar to ``StaticContent`` already described in the
-documentation page regarding :doc:`content`. However some key attributes,
-such as ``parent`` or ``path``, come from the ``Route`` class it extends.
-
-Three-in-one
-~~~~~~~~~~~~
-
-As explained above, this bundle gathers functionality from three distinct
-bundles: :doc:`content`, :doc:`routing` and :doc:`menu`. The roles of a
-content document, route and menu item are all fulfilled by the ``Page``
-class.
-
-In other words, an instance of ``Page`` can represent persistent content
-through use of the PHPCR-ODM annotations, and slot into the publishing
-work flow by implementing ``PublishWorkflowInterface``.
-
-Furthermore, the ``Page`` can *require* an associated route, because
-it implements ``RouteAwareInterface``, but the same instance can *be* that
-route, because it extends ``Route``. Finally, the ``Page`` instance can
-also drop into place within a menu hierarchy because it implements
-``NodeInterface``.
+  CMF ``MenuBundle`` to generate a menu structure;
+* It implements the ``PublishWorkflowInterface`` to be used with the
+  :ref:`publish workflow checker <bundle-core-publish_workflow>`.
 
 Here's how that works in practice:
 
 * The routing component receives a request that it matches to a ``Route``
-instance loaded from persistent storage. That ``Route`` points to a
-``Page`` instance.
-
-* Which controller to use is determined by the routing component that renders
-the ``Page``, using a template to output the content (usually in HTML).
-
-* The controller also renders the stored information tree structure
-using ``MenuItem``, obtained from equivalent ``NodeInterface`` instances.
+  instance loaded from persistent storage. That ``Route`` is a ``Page``
+  instance;
+* The route enhancer asks the page for its content and will receive ``$this``,
+  putting the page into the request attributes;
+* Other route enhancers determine the controller to use with this class
+  and optionally the template to use (either a specific template stored with
+  the page or one configured in the application configuration for the
+  SimpleCmsBundle);
+* The controller renders the page using the template, usually generating
+  HTML content.
+* The template might also render the menu, which will load all Pages and
+  build a menu with them.
 
 This three-in-one approach is the key concept behind the bundle.
 
