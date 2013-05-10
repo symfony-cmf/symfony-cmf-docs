@@ -120,7 +120,7 @@ determining which (if any) menu item is currently being viewed by the user.
 ``KnpMenu`` already includes a specific factory targeted at Symfony2's Routing
 component, which this bundle extends, to add support for:
 
-* Persistently stored ``Route`` instances (refer to :ref:`RoutingBundle's
+* ``Route`` instances stored in a database (refer to :ref:`RoutingBundle's
   RouteProvider <start-routing-getting-route-object>` for more details on
   this)
 * ``Route`` instances with associated content (more on this on respective

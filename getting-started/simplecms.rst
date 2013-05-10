@@ -33,11 +33,10 @@ The SimpleCMSBundle basic content type is ``Page``. Its class declaration
 points out many of the features available:
 
 * It extends ``Route``, meaning it's not only a ``Content`` instance, but
-  also a ``Route``. In this case, as declared in ``getRouteContent()``, the
-  ``Route`` has an associated content document: itself.
+  also a ``Route``.
 * It implements ``RouteAwareInterface``, which means it has associated
-  ``Route`` instances. As expected, and as seen in ``getRoutes()``, it has
-  only one ``Route`` associated: itself.
+  ``Route`` instances. As we will explain shortly, the associated ``Route``
+  is actually the ``Page`` instance itself.
 * It implements ``NodeInterface``, which means it can be used by
   ``MenuBundle`` to generate a menu structure.
 
@@ -48,18 +47,34 @@ such as ``parent`` or ``path``, come from the ``Route`` class it extends.
 Three-in-one
 ~~~~~~~~~~~~
 
-As explained before, this bundle gathers functionality from three distinct
-bundles: :doc:`content`, :doc:`routing` and :doc:`menu`. The routing component
-receives a request that it matches to a ``Route`` instance loaded from
-persistent storage. That ``Route`` points to a ``Content`` instance: itself.
-Which controller to use is determined by the routing component that renders the
-``Content`` using a template which, in turn, presents the user with an HTML
-visualization of the stored information tree structure. This is rendered using
-``MenuItem`` obtained from equivalent ``NodeInterface`` instances.
+As explained above, this bundle gathers functionality from three distinct
+bundles: :doc:`content`, :doc:`routing` and :doc:`menu`. The roles of a
+content document, route and menu item are all fulfilled by the ``Page``
+class.
 
-The SimpleCMSBundle simplifies this process: ``Content``, ``Route`` and
-``NodeInterface`` are gathered in one class: ``Page``. This three-in-one
-approach is the key concept behind the bundle.
+In other words, an instance of ``Page`` can represent persistent content
+through use of the PHPCR-ODM annotations, and slot into the publishing
+work flow by implementing ``PublishWorkflowInterface``.
+
+Furthermore, the ``Page`` can *require* an associated route, because
+it implements ``RouteAwareInterface``, but the same instance can *be* that
+route, because it extends ``Route``. Finally, the ``Page`` instance can
+also drop into place within a menu hierarchy because it implements
+``NodeInterface``.
+
+Here's how that works in practice:
+
+* The routing component receives a request that it matches to a ``Route``
+instance loaded from persistent storage. That ``Route`` points to a
+``Page`` instance.
+
+* Which controller to use is determined by the routing component that renders
+the ``Page``, using a template to output the content (usually in HTML).
+
+* The controller also renders the stored information tree structure
+using ``MenuItem``, obtained from equivalent ``NodeInterface`` instances.
+
+This three-in-one approach is the key concept behind the bundle.
 
 MultilangPage
 ~~~~~~~~~~~~~
@@ -353,8 +368,8 @@ Admin Support
 
 The SimpleCMSBundle also includes the administration panel and respective
 service needed for integration with `SonataDoctrinePHPCRAdminBundle`_, a
-back office generation tool that can be installed with the Symfony CMF. For more
-information about it, please refer to the bundle's `documentation section`_.
+backend editing bundle. For more information about it, please refer to the
+bundle's `documentation section`_.
 
 The included administration panels will automatically be loaded if you install
 the SonataDoctrinePHPCRAdminBundle (refer to

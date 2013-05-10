@@ -425,7 +425,8 @@ The PHPCR-ODM Route Document
 ----------------------------
 
 As mentioned above, you can use any route provider. The example in this
-section applies if you use the default PHPCR-ODM route provider.
+section applies if you use the default PHPCR-ODM route provider
+(``Symfony\Cmf\Bundle\RoutingBundle\Document\RouteProvider``).
 
 All routes are located under a configured root path, for example
 ``/cms/routes``.  A new route can be created in PHP code as follows::
@@ -440,7 +441,7 @@ All routes are located under a configured root path, for example
     $content = new Content('my content');
     $route->setRouteContent($content);
 
-    // now configure some parameters, do not forget the leading slash if you want /projects/{id} and not /projects{id}
+    // now define an id parameter; do not forget the leading slash if you want /projects/{id} and not /projects{id}
     $route->setVariablePattern('/{id}');
     $route->setRequirement('id', '\d+');
     $route->setDefault('id', 1);
@@ -448,15 +449,15 @@ All routes are located under a configured root path, for example
 This will give you a document that matches the URL ``/projects/<number>`` but
 also ``/projects`` as there is a default for the id parameter.
 
-Because you called setRouteContent on the route, your controller can expect the
-``$id`` parameter as well as ``$contentDocument``. The content could be
-used to define an intro section that is the same for each project or other
-shared data. If you don't need content, you can just not set it in the
-document.
+Because you defined the ``{id}`` route parameter, your controller can expect an
+``$id`` parameter. Additionally, because you called setRouteContent on the
+route, your controller can expect the ``$contentDocument`` parameter.
+The content could be used to define an intro section that is the same for each
+project or other shared data. If you don't need content, you can just not set it
+in the document.
 
 For more details, see the
 :ref:`route document section in the RoutingBundle documentation <bundle-routing-document>`.
-
 
 Integrating with SonataAdmin
 ----------------------------
