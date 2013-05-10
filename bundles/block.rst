@@ -39,13 +39,15 @@ The configuration key for this bundle is ``symfony_cmf_block``
         <!-- app/config/config.xml -->
         <symfony-cmf-block:config document-manager-name="default"/>
 
-    ..code-block:: php
+    .. code-block:: php
 
         // app/config/config.php
         $container->loadFromExtension('symfony_cmf_block', array(
             'document_manager_name' => 'default',
         ));
 
+
+.. _bundle-block-document:
 
 Block Document
 --------------
@@ -200,7 +202,7 @@ time a block is rendered before the ``execute`` method is called.
 Block rendering
 ---------------
 
-To render the example from the :ref:`block-document` section, just add
+To render the example from the :ref:`bundle-block-document` section, just add
 the following code to your Twig template:
 
 .. code-block:: jinja
@@ -245,7 +247,7 @@ The BlockBundle comes with four general purpose blocks:
 * **ReferenceBlock**: A block that references a block stored somewhere else in
   the content tree. For example you might want; to refer parts of the contact
   information from the homepage
-* **ActionBlock**: A block that calls a Symfony2 action. 
+* **ActionBlock**: A block that calls a Symfony2 action.
 
 .. note::
 

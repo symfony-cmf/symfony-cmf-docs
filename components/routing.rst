@@ -291,7 +291,7 @@ a look at :doc:`../bundles/routing`.
 For a starter's guide to the Routing bundle and its integration with Symfony2,
 refer to :doc:`../getting-started/routing`
 
-We strongly recommend reading Symfony2's `Routing`__ component documentation
+We strongly recommend reading Symfony2's `Routing`_ component documentation
 page, as it's the base of this bundle's implementation.
 
 Authors

@@ -23,7 +23,7 @@ Finally for information about PHPCR see the `official PHPCR website <http://phpc
 .. index:: PHPCR, ODM
 
 
-.. _tutorial-phpcr-odm-requirements:
+.. _tutorials-phpcr-odm-requirements:
 
 Requirements
 ------------

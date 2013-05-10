@@ -6,7 +6,7 @@ responsible for retrieving routes from the database), and by extension, the
 Route objects.
 
 Creating the route provider
------------------------------
+---------------------------
 
 The route provider must implement the `RouteProviderInterface` The
 following class provides a simple solution using an ODM Repository.
@@ -75,7 +75,7 @@ following class provides a simple solution using an ODM Repository.
     In our example we match the given URL exactly and only ever return a single `Route`.
 
 Replacing the default CMF route provider
-------------------------------------
+----------------------------------------
 
 To replace the default `RouteProvider` it is necessary to modify your configuration
 as follows:

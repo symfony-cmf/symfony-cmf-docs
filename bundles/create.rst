@@ -37,7 +37,7 @@ This bundle is best included using Composer.
 Edit your project composer file to add a new require for symfony-cmf/create-bundle.
 Then create a scripts section or add to the existing one:
 
-.. code-block:: json
+.. code-block:: javascript
 
     {
         "scripts": {
@@ -55,7 +55,7 @@ Then create a scripts section or add to the existing one:
 It is possible to specify another directory, repository or commit id in the extra
 parameters of ``composer.json`` file (here are the default values):
 
-.. code-block:: json
+.. code-block:: javascript
 
     {
         "extra": {
@@ -99,7 +99,7 @@ ckeditor
 
 If you want to use the ckeditor, you should edit the script in your ``composer.json`` file:
 
-.. code-block:: json
+.. code-block:: javascript
 
     {
         "scripts": {
@@ -120,7 +120,7 @@ and execute the composer command:
 
     $ php composer.phar update nothing
 
-In your config file, you should write the editor base path:
+In your config file, you should define the editor base path:
 
 .. configuration-block::
 
@@ -141,7 +141,9 @@ In your config file, you should write the editor base path:
             'editor_base_path': '/bundles/symfonycmfcreate/vendor/ckeditor/',
         ));
 
-In your template, write:
+In your template, load the javascript files using:
+
+.. code-block:: jinja
 
     {% render controller(
         "symfony_cmf_create.jsloader.controller:includeJSFilesAction",
@@ -151,7 +153,7 @@ In your template, write:
 As create.js, it is possible to specify another directory, repository or commit id in the extra
 parameters of ``composer.json`` file (here are the default values):
 
-.. code-block:: json
+.. code-block:: javascript
 
     {
         "extra": {
@@ -241,7 +243,7 @@ your own if you need larger customizations.
 
 
 Metadata
-++++++++
+~~~~~~~~
 
 createphp needs metadata information for each class of your domain model. By
 default, the create bundle uses the XML metadata driver and looks for metadata
@@ -253,7 +255,7 @@ See the `documentation of createphp <https://github.com/flack/createphp>`_ for t
 
 
 Access control
-++++++++++++++
+~~~~~~~~~~~~~~
 
 If you use the default REST controller, everybody can edit content once you
 enabled the create bundle. To restrict access, specify a role other than the
@@ -267,7 +269,7 @@ passed domain object is editable.
 
 
 Image Handling
-++++++++++++++
+~~~~~~~~~~~~~~
 
 Enable the default simplistic image handler with the image > model_class | controller_class
 settings. This image handler just throws images into the PHPCR-ODM repository
@@ -280,7 +282,7 @@ service with it.
 
 
 Mapping requests to objects
-+++++++++++++++++++++++++++
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For now, the bundle only provides a service to map to doctrine PHPCR-ODM. Enable it
 by setting `phpcr_odm` to true. If you need something else, you need to provide a
@@ -297,7 +299,7 @@ and the class names. (TODO: can we not index all mappings and do this automatica
 
 
 Routing
-+++++++
+~~~~~~~
 
 Finally add the relevant routing to your configuration
 
@@ -373,7 +375,7 @@ Or if you need more control over the generated HTML:
 
 
 Alternative Editors
-+++++++++++++++++++
+~~~~~~~~~~~~~~~~~~~
 
 You can write your own templates to load a javascript editor. They have to
 follow the naming pattern ``SymfonyCmfCreateBundle::includejsfiles-%editor%.html.twig``
