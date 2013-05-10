@@ -30,12 +30,13 @@ Page Document
 ~~~~~~~~~~~~~
 
 Instead of separate documents for the content, routing and the menu system,
-the SimpleCMSBundle provides the ``Page`` document which is everything at
-once:
+the SimpleCMSBundle provides the ``Page`` document which provides all those
+roles in one class:
 
 * It has properties for title and text body;
 * It extends the ``Route`` class from the CMF ``RoutingBundle`` to work
-  with the CMF router component, returning ``$this`` as route content;
+  with the CMF router component, returning ``$this`` in
+  ``getRouteContent()``;
 * It implements the ``RouteAwareInterface`` with ``getRoutes`` simply
   returning ``array($this)`` to allow the CMF router to generate the URL
   to a page;
@@ -51,7 +52,7 @@ Here's how that works in practice:
   instance;
 * The route enhancer asks the page for its content and will receive ``$this``,
   putting the page into the request attributes;
-* Other route enhancer determine the controller to use with this class
+* Other route enhancers determine the controller to use with this class
   and optionally the template to use (either a specific template stored with
   the page or one configured in the application configuration for the
   SimpleCmsBundle);
