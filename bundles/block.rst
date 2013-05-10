@@ -1,4 +1,5 @@
-==========
+BlockBundle
+===========
 
 The `BlockBundle <https://github.com/symfony-cmf/BlockBundle#readme>`_
 provides integration with SonataBlockBundle.  It assists you in managing

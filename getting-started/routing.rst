@@ -21,16 +21,16 @@ available translations. Best accessibility and SEO practices, as well as user
 preferences dictate that the URLs should be definable by the content managers.
 
 The default Symfony2 routing mechanism, with its configuration file approach,
-is not the best solution for this problem, as it's not suited to handle
-dynamic user defined routes, nor it scales well to a large number of routes.
+is not the best solution for this problem. It does not provide a way of handling
+dynamic, user-defined routes, nor does it scale well to a large number of routes.
 
 The Solution
 ~~~~~~~~~~~~
 
-In order to address these issues, a new routing system was developed, that
-takes into account the typical needs of a CMS routing:
+In order to address these issues, a new routing system was developed that
+takes into account the typical needs of CMS routing:
 
-* User defined URLs;
+* User-defined URLs;
 * Multi-site;
 * Multi-language;
 * Tree-like structure for easier management;
@@ -42,9 +42,10 @@ developed.
 The ``ChainRouter``
 -------------------
 
-At the core of Symfony CMF's Routing component sits the ``ChainRouter``.  It's
-used as a replacement for Symfony2's default routing system and, like it, is
-responsible for determining which Controller will handle each request.
+At the core of Symfony CMF's Routing component sits the ``ChainRouter``.
+It is used as a replacement for Symfony2's default routing system and,
+like the Symfony2 router, is responsible for determining which Controller
+will handle each request.
 
 The ``ChainRouter`` works by accepting a set of prioritized routing
 strategies, :class:`Symfony\\Component\\Routing\\RouterInterface`
@@ -79,11 +80,14 @@ their configured priority:
 
             <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <chain>
+                    <!-- enable the DynamicRouter with high priority to allow overwriting
+                         configured routes with content -->
                     <routers-by-id
                         id="symfony_cmf_routing.dynamic_router">
                         200
                     </routers-by-id>
 
+                    <!-- enable the symfony default router with a lower priority -->
                     <routers-by-id
                         id="router.default">
                         100
@@ -97,8 +101,12 @@ their configured priority:
         $container->loadFromExtension('symfony_cmf_routing', array(
             'chain' => array(
                 'routers_by_id' => array(
+                    // enable the DynamicRouter with high priority to allow overwriting
+                    // configured routes with content
                     'symfony_cmf_routing.dynamic_router' => 200,
-                    'router.default'                           => 100,
+
+                    // enable the symfony default router with a lower priority
+                    'router.default'                     => 100,
                 ),
             ),
         ));
@@ -124,7 +132,6 @@ this:
 
         <service id="my_namespace.my_router" class="%my_namespace.my_router_class%">
             <tag name="router" priority="300" />
-            <!-- ... -->
         </service>
 
     .. code-block:: php
@@ -191,8 +198,8 @@ by default. To activate it, just add the following to your configuration file:
 
 This is the minimum configuration required to load the ``DynamicRouter`` as a
 service, thus making it capable of performing any routing. Actually, when you
-browse the default pages that come with the Symfony CMF SE, it's the
-``DynamicRouter`` that's matching your requests with the Controllers and
+browse the default pages that come with the Symfony CMF SE, it is the
+``DynamicRouter`` that matches your requests with the Controllers and
 Templates.
 
 .. _start-routing-getting-route-object:
@@ -202,7 +209,7 @@ Getting the Route Object
 
 The provider to use can be configured to best suit each implementation's
 needs, and must implement the ``RouteProviderInterface``. As part of this
-bundle, an implementation for `PHPCR-ODM`_ is provided, but you can easily
+bundle, an implementation for `PHPCR-ODM`_ is provided. Also, you can easily
 create your own, as the Router itself is storage agnostic. The default
 provider loads the route at the path in the request and all parent paths to
 allow for some of the path segments being parameters.
@@ -252,7 +259,7 @@ determine the Controller (in order of precedence):
   and return an object for ``getRouteContent()``. The returned class type is
   then matched against the provided configuration from config.yml.
 
-Here's an example on how to configure the above mentioned options:
+Here's an example of how to configure the above mentioned options:
 
 .. configuration-block::
 
@@ -324,7 +331,7 @@ as soon as you add any other configuration to the ``dynamic`` entry.
 
     Internally, the routing component maps these configuration options to
     several ``RouteEnhancerInterface`` instances. The actual scope of these
-    enhancers in much wider, and you can find more information about them in
+    enhancers is much wider, and you can find more information about them in
     the :doc:`../components/routing` documentation page.
 
 .. _start-routing-linking-a-route-with-a-model-instance:
@@ -338,24 +345,23 @@ model instance from the database. Those Routes can implement the
 automatically passed to the Controller as the ``$contentDocument`` variable,
 if declared as parameter.
 
-Notice that a Route can implement the above mentioned interface but still not
-to return any model instance, in which case no associated object will be
-provided.
+Note that a Route can implement the above mentioned interface but still not
+return any model instance, in which case no associated object will be provided.
 
 Furthermore, Routes that implement this interface can also have a custom Route
-name, instead of the default Symfony core compatible name, and it can contain
+name, instead of the default Symfony core compatible name, and can contain
 any characters. This allows you, for example, to set a path as the route name.
 
-Redirections
-------------
+Redirects
+---------
 
-You can build redirections by implementing the ``RedirectRouteInterface``.  If
+You can build redirects by implementing the ``RedirectRouteInterface``. If
 you are using the default ``PHPCR-ODM`` route provider, a ready to use
 implementation is provided in the ``RedirectRoute`` Document. It can redirect
 either to an absolute URI, to a named Route that can be generated by any
 Router in the chain or to another Route object known to the route provider.
-The actual redirection is handled by a specific Controller, that can be
-configured like so:
+The actual redirection is handled by a specific Controller that can be
+configured as follows:
 
 .. configuration-block::
 
@@ -395,20 +401,20 @@ configured like so:
 .. note::
 
     The actual configuration for this association exists as a service, not as
-    part of a ``config.yml`` file. Like discussed before, any of the
+    part of a ``config.yml`` file. As discussed before, any of the
     approaches can be used.
 
 URL Generation
 --------------
 
 Symfony CMF's Routing component uses the default Symfony2 components to handle
-route generation, so you can use the default methods for generating your urls,
+route generation, so you can use the default methods for generating your URLs
 with a few added possibilities:
 
-* Pass either an implementation of ``RouteObjectInterface`` or a
-  ``RouteAwareInterface`` as ``name`` parameter
-* Or supply an implementation of ``ContentRepositoryInterface`` and the id of
-  the model instance as parameter ``content_id``
+* Pass an implementation of either ``RouteObjectInterface`` or
+  ``RouteAwareInterface`` as the ``name`` parameter
+* Alternatively, supply an implementation of ``ContentRepositoryInterface`` and
+  the id of the model instance as parameter ``content_id``
 
 The route generation handles locales as well, see
 :ref:`component-route-generator-and-locales`.
@@ -419,7 +425,8 @@ The PHPCR-ODM Route Document
 ----------------------------
 
 As mentioned above, you can use any route provider. The example in this
-section applies if you use the default PHPCR-ODM route provider.
+section applies if you use the default PHPCR-ODM route provider
+(``Symfony\Cmf\Bundle\RoutingBundle\Document\RouteProvider``).
 
 All routes are located under a configured root path, for example
 ``/cms/routes``.  A new route can be created in PHP code as follows::
@@ -434,7 +441,7 @@ All routes are located under a configured root path, for example
     $content = new Content('my content');
     $route->setRouteContent($content);
 
-    // now configure some parameter, do not forget leading slash if you want /projects/{id} and not /projects{id}
+    // now define an id parameter; do not forget the leading slash if you want /projects/{id} and not /projects{id}
     $route->setVariablePattern('/{id}');
     $route->setRequirement('id', '\d+');
     $route->setDefault('id', 1);
@@ -442,30 +449,30 @@ All routes are located under a configured root path, for example
 This will give you a document that matches the URL ``/projects/<number>`` but
 also ``/projects`` as there is a default for the id parameter.
 
-Your controller can expect the ``$id`` parameter as well as the
-``$contentDocument`` as we set a content on the route. The content could be
-used to define an intro section that is the same for each project or other
-shared data. If you don't need content, you can just not set it in the
-document.
+Because you defined the ``{id}`` route parameter, your controller can expect an
+``$id`` parameter. Additionally, because you called setRouteContent on the
+route, your controller can expect the ``$contentDocument`` parameter.
+The content could be used to define an intro section that is the same for each
+project or other shared data. If you don't need content, you can just not set it
+in the document.
 
 For more details, see the
 :ref:`route document section in the RoutingBundle documentation <bundle-routing-document>`.
-
 
 Integrating with SonataAdmin
 ----------------------------
 
 If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the
 composer.json require section, the route documents are exposed in the
-SonataDoctrinePhpcrAdminBundle.  For instructions on how to configure this
+SonataDoctrinePhpcrAdminBundle. For instructions on how to configure this
 Bundle see :doc:`../bundles/doctrine_phpcr_admin`.
 
 By default, ``use_sonata_admin`` is automatically set based on whether the
 SonataDoctrinePhpcrAdminBundle is available but you can explicitly disable it
-to not have it even if sonata is enabled, or explicitly enable to get an error
+to not have it even if Sonata is enabled, or explicitly enable to get an error
 if Sonata becomes unavailable.
 
-You have a couple of configuration options for the admin. The
+There are a couple of configuration options for the admin. The
 ``content_basepath`` points to the root of your content documents.
 
 .. configuration-block::
@@ -474,8 +481,11 @@ You have a couple of configuration options for the admin. The
 
         # app/config/config.yml
         symfony_cmf_routing:
-            use_sonata_admin: auto # use true/false to force using / not using sonata admin
-            content_basepath: ~ # used with sonata admin to manage content, defaults to symfony_cmf_core.content_basepath
+            # use true/false to force using / not using sonata admin
+            use_sonata_admin: auto
+
+            # used with Sonata Admin to manage content; defaults to symfony_cmf_core.content_basepath
+            content_basepath: ~
 
     .. code-block:: xml
 
@@ -486,6 +496,8 @@ You have a couple of configuration options for the admin. The
             xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+            <!-- use-sonata-admin: use true/false to force using / not using sonata admin -->
+            <!-- content-basepath: used with Sonata Admin to manage content; defaults to symfony_cmf_core.content_basepath -->
             <cmf-routing:config
                 use-sonata-admin="auto"
                 content-basepath="null"
@@ -496,15 +508,18 @@ You have a couple of configuration options for the admin. The
 
         // app/config/config.php
         $container->loadFromExtension('symfony_cmf_routing', array(
+            // use true/false to force using / not using sonata admin
             'use_sonata_admin' => 'auto',
+
+            // used with Sonata Admin to manage content; defaults to symfony_cmf_core.content_basepath
             'content_basepath' => null,
         ));
 
 Terms Form Type
 ---------------
 
-The bundle defines a form type that can be used for classical "accept terms"
-checkboxes where you place urls in the label. Simply specify
+The Routing bundle defines a form type that can be used for classical "accept terms"
+checkboxes where you place URLs in the label. Simply specify
 ``symfony_cmf_routing_terms_form_type`` as the form type name and
 specify a label and an array with ``content_ids`` in the options::
 

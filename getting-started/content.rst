@@ -19,9 +19,9 @@ storage of Routes.
 Static Content
 --------------
 
-The ``StaticContent`` declares the basic content's structure. Its structure is
-very similar to the ones used on Symfony2's ORM systems, and most of its
-fields are self explanatory, and are what you would expect from a basic CMS:
+The ``StaticContent`` class declares the basic content's structure. Its structure is
+very similar to the ones used on Symfony2's ORM systems. Most of its
+fields are self explanatory and are what you would expect from a basic CMS:
 title, body, publishing information and a parent reference, to accommodate a
 tree-like hierarchy. It also includes a Block reference (more on that later).
 
@@ -31,13 +31,12 @@ implementation:
 * ``RouteAwareInterface`` means that the content has associated Routes.
 * ``PublishWorkflowInterface`` means that the content has publishing and
    unpublishing dates, which will be handled by Symfony CMF's core to
-   determine access.
-
+   determine whether or not to display the content from ``StaticContent``.
 
 Multilang Static Content
 ------------------------
 
-The ``MultilangStaticContent`` extends ``StaticContent``, offering the same
+The ``MultilangStaticContent`` class extends ``StaticContent``, offering the same
 functionality with multi language support. It specifies which fields are to be
 translated (``title``, ``body`` and ``tags``) as well as a variable to declare
 the locale.
@@ -55,17 +54,18 @@ It also specifies the translation strategy:
 For information on the available translation strategies, refer to the Doctrine
 page regarding `multilanguage support in PHPCR-ODM`_.
 
-
 Content Controller
 ------------------
 
-To handle both content types, a controller is also included. Its inner
-workings are pretty straightforward: It accepts a content instance and
-optionally a template to render it. If none is provided, it uses a
-pre-configured default.  It also takes into account the document's publishing
-status and multi language.  Both the content instance and the optional
-template are provided to the controller by the ``DynamicRouter`` of the
-RoutingBundle. More information on this is available on the
+A controller is also included that can render either of the above content
+document types. Its single action, ``indexAction``, accepts a content
+instance and optionally the path of the template to be used for rendering.
+If no template path is provided, it uses a pre-configured default.
+
+The controller action also takes into account the document's publishing status
+and language (for ``MultilangStaticContent``). Both the content instance and the
+optional template are provided to the controller by the ``DynamicRouter`` of
+the RoutingBundle. More information on this is available on the
 :ref:`Routing system getting started page <start-routing-linking-a-route-with-a-model-instance>`
 page.
 
@@ -74,7 +74,7 @@ Admin Support
 
 The last component needed to handle the included content types is an
 administration panel. Symfony CMF can optionally support
-`SonataDoctrinePHPCRAdminBundle`_ , a back office generation tool. For more
+`SonataDoctrinePHPCRAdminBundle`_, a back office generation tool. For more
 information about it, please refer to the bundle's `documentation section`_.
 
 In ContentBundle, the required administration panels are already declared in
@@ -86,7 +86,7 @@ instructions on that).
 Configuration
 -------------
 
-The bundle also supports a set of optional configuration parameters. Refer to
+The ContentBundle also supports a set of optional configuration parameters. Refer to
 :doc:`../bundles/content` for the full configuration reference.
 
 Final Thoughts
