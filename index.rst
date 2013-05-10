@@ -1,11 +1,9 @@
 Symfony CMF Documentation
 =========================
 
-Welcome to the official documentation of the `Symfony Content Management Framework`_.
-
-The Symfony2 Content Management Framework project is organized by the Symfony
+The Symfony2 Content Management Framework (CMF) project is organized by the Symfony
 community and has several sponsoring companies and prominent open source leaders
-implementing the philosophy of the `decoupled CMS`_. You can read learn more about the
+implementing the philosophy of the `decoupled CMS`_. You can learn more about the
 project on the `about`_ page.
 
 This documentation is currently in development and far from complete. See `Documentation planning`_
@@ -23,18 +21,18 @@ Why another CMS?
 ----------------
 
 Actually we consider this project to be a CMF, a **content management framework**, rather
-than a CMS, a content management system. The reason is that we are only **providing tools
-to build a custom CMS**. There are obviously many CMS solutions available today already,
-but they tend to be tailored first and foremost towards end users and also many tend
-to carry a lot of legacy baggage which make them less than **ideal for developing highly
-custom applications** like what is possible with `Symfony2`_.
+than a CMS, a content management system. The reason is that we are only **providing the tools
+to build a custom CMS**. There are clearly many CMS solutions available already,
+but they tend to be monolithic packages tailored towards end users. Many carry a certain
+amount of legacy baggage which make them less than **ideal for developing highly
+custom applications**, in contrast to what is possible with `Symfony2`_.
 
 What is our target audience?
 ----------------------------
 
 There are basically two main target audiences:
 
-#. Developers that have built an existing custom application with Symfony2 and need a fast
+#. Developers who have built an existing custom application with Symfony2 and need a fast
    way to add support for content management. Be it sophisticated CMS features like semantic
    content, inline editing, multi-channel delivery etc. or just a few content pages for things
    like the about/contact pages.
@@ -101,7 +99,7 @@ to do it? In this case the reference is the right place for you.
 Cookbook
 --------
 
-Special solutions for special needs that go beyond standard usage.
+Special solutions for specific use cases that go beyond standard usage.
 
 .. toctree::
 	:maxdepth: 1
