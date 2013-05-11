@@ -14,7 +14,7 @@ the given source packages.
 Documentation
 -------------
 
-The Symfony2 documentation is licensed under a Creative Commons
+The Symfony CMF documentation is licensed under a Creative Commons
 `Attribution-Share Alike 3.0 Unported License`_.
 
 **You are free:**
