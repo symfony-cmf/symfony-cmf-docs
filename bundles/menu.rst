@@ -34,12 +34,12 @@ The values are:
             admin_class:          ~
             document_class:       ~
             content_url_generator:  router
-            content_key:          ~ # (resolves to DynamicRouter::CONTENT_KEY)
             route_name:           ~ # cmf routes are created by content instead of name
             content_basepath:     ~ # defaults to symfony_cmf_core.content_basepath
             voters:
                 uri_prefix:       false # enable the UriPrefixVoter for current menu item
-                content_identity: false # enable the RequestContentIdentityVoter
+                content_identity: not set # enable the RequestContentIdentityVoter
+                    content_key:  not set # override DynamicRouter::CONTENT_KEY
             use_sonata_admin:     auto # use true/false to force using / not using sonata admin
             multilang:            # the whole multilang section is optional
                 use_sonata_admin:     auto # use true/false to force using / not using sonata admin
@@ -183,14 +183,15 @@ set it explicitly:
 
     .. code-block:: xml
 
-        <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://cmf.symfony.com/schema/dic/menu">
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:cmf-menu="http://cmf.symfony.com/schema/dic/menu">
+            <cmf-menu:config xmlns="http://cmf.symfony.com/schema/dic/menu">
                 <voter>
                     <content-identity>
                         <content-key>myKey</content-key>
                     </content-identity>
                 </voter>
-            </config>
+            </cmf-menu:config>
         </container>
 
     .. code-block:: php

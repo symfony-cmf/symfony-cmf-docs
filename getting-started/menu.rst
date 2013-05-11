@@ -79,12 +79,9 @@ render the menu ``simple``, the menu root node must be stored at
 
         <container
             xmlns="http://symfony.com/schema/dic/services"
-            xmlns:cmf-menu="http://cmf.symfony.com/schema/dic/menu"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            xmlns:cmf-menu="http://cmf.symfony.com/schema/dic/menu">
 
-            <cmf-menu:config xmlns="http://cmf.symfony.com/schema/dic/menu">
-                <menu-basepath>/cms/menu</menu-basepath>
-            </cmf-menu:config>
+            <cmf-menu:config menu-basepath="/cms/menu</menu-basepath"/>
         </container>
 
     .. code-block:: php
