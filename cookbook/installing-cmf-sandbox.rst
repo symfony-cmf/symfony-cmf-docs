@@ -174,7 +174,7 @@ Jackalope + Doctrine DBAL
     By default, when using Doctrine DBAL, data is stored using a `Sqlite`_
     database.  Refer to the project's page for installation instructions.  If
     you wish to use other database systems, change the configuration
-    parameters in app/config/parameters.yml. Refer to
+    parameters in ``app/config/parameters.yml``. Refer to
     `Symfony's page on Doctrine DBAL configuration`_ or
     `Doctrine's documentation`_ for more information.
 
