@@ -128,17 +128,17 @@ phpcr-odm:
 Import the Fixtures
 ~~~~~~~~~~~~~~~~~~~
 
-The admin backend is still in an early stage. Until it improves, the easiest
-is to programmatically create data. The best way to do that is with the
-doctrine data fixtures. The DoctrinePHPCRBundle included in the
-``symfony-cmf`` repository provides a command to load fixtures.
+The sandbox provides a set of demo content to show various use cases.
+They are loaded using the fixture loading concept of PHPCR-ODM.
 
 .. code-block:: bash
 
     $ php app/console -v doctrine:phpcr:fixtures:load
 
-Run this to load the fixtures from the Sandbox's MainBundle, which will
-populate your repository with dummy data, i.e. loads the demo pages.
+This command loads fixtures from all bundles that provide them in the
+``DataFixtures/PHPCR`` folder. The sandbox has fixtures in the
+MainBundle. Note that loading fixtures from non-default locations is
+possible as well, just not needed in this case.
 
 Accessing your Sandbox
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -154,7 +154,7 @@ doctrine proxies and dump the assetic assets:
 
 .. code-block:: text
 
-    $ php app/console cache:warmup --env=prod --no-debug
+    $ php app/console cache:clear --env=prod --no-debug
     $ php app/console assetic:dump --env=prod --no-debug
 
 
@@ -174,9 +174,9 @@ Jackalope + Doctrine DBAL
     By default, when using Doctrine DBAL, data is stored using a `Sqlite`_
     database.  Refer to the project's page for installation instructions.  If
     you wish to use other database systems, change the configuration
-    parameters in app/config/parameters.yml. Refer to `Symfony's page on
-    Doctrine DBAL configuration`_ or `Doctrine's documentation`_ for more
-    information.
+    parameters in app/config/parameters.yml. Refer to
+    `Symfony's page on Doctrine DBAL configuration`_ or
+    `Doctrine's documentation`_ for more information.
 
 Move into the sandbox folder and copy the default configuration file for
 Doctrine DBAL setup:
@@ -266,15 +266,16 @@ On OS X you can install it using either `Homebrew`_ with:
 
     $ brew install midgard2-php
 
-or `MacPorts <>`_ with:
+or `MacPorts`_ with:
 
 .. code-block:: bash
 
     $ sudo port install php5-midgard2
 
 You also need to download the `midgard_tree_node.xml`_ and
-`midgard_namespace_registry.xml`_ schema files and place them into
-`<your-midgard2-folder>/schema` (defaults to `"/usr/share/midgard2/schema"`)
+`midgard_namespace_registery.xml`_ schema files and place them into
+``<your-midgard2-folder>/schema`` (defaults to
+``"/usr/share/midgard2/schema"``)
 
 To have the Midgard2 PHPCR implementation installed run the following additional command:
 

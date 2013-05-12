@@ -15,7 +15,7 @@ Resources / Links
 * `Users mailing list`_
 * `Devs mailing list`_
 
-.. _`development process: http://symfony.com/doc/current/contributing/index.html
+.. _`development process`: http://symfony.com/doc/current/contributing/index.html
 .. _`GitHub`: https://github.com/symfony-cmf
 .. _`Website`: http://cmf.symfony.com/
 .. _`Wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki
