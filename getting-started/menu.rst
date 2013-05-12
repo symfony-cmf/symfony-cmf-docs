@@ -160,7 +160,7 @@ translations:
 
 .. configuration-block::
 
-    .. code-block:: php
+    .. code-block:: php-annotations
 
        /**
         * @PHPCRODM\Document(translator="attribute")

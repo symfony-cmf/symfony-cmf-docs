@@ -45,7 +45,7 @@ It also specifies the translation strategy:
 
 .. configuration-block::
 
-    .. code-block:: php
+    .. code-block:: php-annotations
 
        /**
         * @PHPCRODM\Document(translator="child", referenceable=true)
