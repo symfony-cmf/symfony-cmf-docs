@@ -1,4 +1,4 @@
-Using a custom document class mapper with PHPCR-ODM
+Using a Custom Document Class Mapper with PHPCR-ODM
 ===================================================
 
 The default document class mapper of PHPCR-ODM uses the attribute ``phpcr:class``
@@ -10,14 +10,13 @@ from scratch. The important methods are getClassName that needs to find the clas
 and writeMetadata that needs to make sure the class of a newly stored document can be
 determined when loading it again.
 
-Then you can overwrite the doctrine.odm_configuration service to call setDocumentClassMapper
-on it. An example from the `symfony cmf sandbox`_ (magnolia_integration branch):
+Then you can overwrite the ``doctrine.odm_configuration`` service to call
+``setDocumentClassMapper`` on it. An example from the `symfony cmf sandbox`_
+(``magnolia_integration`` branch):
 
 .. configuration-block::
 
     .. code-block:: yaml
-
-        # Resources/config/services.yml
 
         # if you want to overwrite default configuration, otherwise use a
         # custom name and specify in odm configuration block
@@ -32,10 +31,47 @@ on it. An example from the `symfony cmf sandbox`_ (magnolia_integration branch):
             arguments:
                 - 'standard-templating-kit:pages/stkSection': 'Sandbox\MagnoliaBundle\Document\Section'
 
-Here we create a mapper that uses a configuration to read node information and
-map that onto a document class.
+    .. code-block:: xml
 
-If you have several repositories, you can use one configuration per repository.
-See :ref:`bundle-phpcr-odm-multiple-phpcr-sessions`.
+        <service id="doctrine.odm_configuration" 
+            class="%doctrine_phpcr.odm.configuration.class%">
+            <call method="setDocumentClassMapper">
+                <argument type="service" id="sandbox_magnolia.odm_mapper" />
+            </call>
+        </service>
+
+        <service id="sandbox_magnolia.odm_mapper"
+            class="Sandbox\MagnoliaBundle\Document\MagnoliaDocumentClassMapper">
+            <argument type="collection">
+                <argument type="standard-templating-kit:pages/stkSection">Sandbox\MagnoliaBundle\Document\Section</argument>
+            </argument>
+        </service>
+
+    .. code-block:: xml
+
+        use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\Reference;
+        
+        $container
+            ->register('doctrine.odm_configuration', '%doctrine_phpcr.odm.configuration.class%')
+            ->addMethodCall('setDocumentClassMapper', array(
+                new Reference('sandbox_magnolia.odm_mapper'),
+            ))
+        ;
+
+        $container ->setDefinition('sandbox_amgnolia.odm_mapper', new Definition(
+            'Sandbox\MagnoliaBundle\Document\MagnoliaDocumentClassMapper',
+            array(
+                array(
+                    'standard-templating-kit:pages/stkSection' => 'Sandbox\MagnoliaBundle\Document\Section',
+                ),
+            ),
+        ));
+
+Here you create a mapper that uses a configuration to read node information
+and map that onto a document class.
+
+If you have several repositories, you can use one configuration per
+repository. See :ref:`bundle-phpcr-odm-multiple-phpcr-sessions`.
 
 .. _`symfony cmf sandbox`: https://github.com/symfony-cmf/cmf-sandbox/tree/magnolia_integration
