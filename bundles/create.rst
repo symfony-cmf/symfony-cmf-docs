@@ -8,7 +8,7 @@ Create.js is a comprehensive web editing interface for Content Management
 Systems. It is designed to provide a modern, fully browser-based HTML5
 environment for managing content. Create can be adapted to work on almost any
 content management backend. The default editor is the Hallo Editor, but you can
-also use ckeditor
+also use CKEditor
 See http://createjs.org/
 
 
@@ -94,10 +94,13 @@ You also need to configure FOSRestBundle to handle json:
             formats:
                 json: true
 
-ckeditor
-~~~~~~~~
+.. _bundle-create-ckeditor:
 
-If you want to use the ckeditor, you should edit the script in your ``composer.json`` file:
+Using CKEditor instead
+~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to use CKEditor, edit the ``composer.json`` file to call
+``downloadCreateAndCkeditor`` instead of ``downloadCreate``:
 
 .. code-block:: javascript
 
@@ -114,13 +117,13 @@ If you want to use the ckeditor, you should edit the script in your ``composer.j
         }
     }
 
-and execute the composer command:
+and re-run composer:
 
 .. code-block:: bash
 
     $ php composer.phar update nothing
 
-In your config file, you should define the editor base path:
+In your application config file, define the editor base path:
 
 .. configuration-block::
 
@@ -150,8 +153,9 @@ In your template, load the javascript files using:
         {"editor": "ckeditor"}
     %}
 
-As create.js, it is possible to specify another directory, repository or commit id in the extra
-parameters of ``composer.json`` file (here are the default values):
+As for create.js, you can override the source of CKEditor to a different
+target directory, source repository or commit id in the extra
+parameters of the ``composer.json`` file (here are the default values):
 
 .. code-block:: javascript
 
