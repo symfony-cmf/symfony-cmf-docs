@@ -1,20 +1,24 @@
-Installing and configuring inline editing
+Installing and Configuring Inline Editing
 =========================================
-The goal of this tutorial is to install and configure the inline editing support.
 
-This provides a solution to easily integrate with `VIE.js <http://viejs.org>`_ and `create.js <http://createjs.org>`_
-to provide inline editing based on `RDFa <http://rdfa.info>`_ output.
+The goal of this tutorial is to install and configure the inline editing
+support.
 
-For more information for now see the documentation of the `CreateBundle <https://github.com/symfony-cmf/CreateBundle>`_
+This provides a solution to easily integrate with `VIE.js`_ and `create.js`_
+to provide inline editing based on `RDFa`_ output.
+
+For more information for now see the documentation of the
+:doc:`CreateBundle <../bundles/create>`
 
 .. index:: VIE.js, CreateBundle, FOSRestBundle, JMSSerializerBundle, RDFa, create.js, hallo.js
 
 Installation
 ------------
 
-Download the bundles
+Download the Bundles
 ~~~~~~~~~~~~~~~~~~~~
-Add the following to your ``composer.json`` file
+
+Add the following to your ``composer.json`` file:
 
 .. code-block:: javascript
 
@@ -33,18 +37,21 @@ Add the following to your ``composer.json`` file
         ]
     },
 
-And then run
+And then run:
 
 .. code-block:: bash
 
-    php composer.phar update symfony-cmf/create-bundle
+    $ php composer.phar update symfony-cmf/create-bundle
 
-Initialize bundles
+Initialize Bundles
 ~~~~~~~~~~~~~~~~~~
-Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method
 
-.. code-block:: php
+Next, initialize the bundles in the ``AppKernel`` by adding them to the
+``registerBundle`` method::
 
+    // app/AppKernel.php
+
+    // ...
     public function registerBundles()
     {
         $bundles = array(
@@ -59,6 +66,7 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
 
 Configuration
 -------------
+
 Next step is to configure the bundles.
 
 Basic configuration, add to your application configuration:
@@ -76,12 +84,11 @@ Basic configuration, add to your application configuration:
                 model_class: Symfony\Cmf\Bundle\CreateBundle\Document\Image
                 controller_class: Symfony\Cmf\Bundle\CreateBundle\Controller\PHPCRImageController
 
-If you have your own documents, add them to the mapping and place the RDFa mappings
-in ``Resources/rdf-mappings`` either inside the ``app`` directory or inside any Bundle.
-The filename is the full class name including namespace with the backslashes ``\\`` replaced by a dot ``.``.
+If you have your own documents, add them to the mapping and place the RDFa
+mappings in ``Resources/rdf-mappings`` either inside the ``app`` directory or
+inside any Bundle.  The filename is the full class name including namespace
+with the backslashes ``\\`` replaced by a dot ``.``.
 
-
-Reference
----------
-
-See :doc:`../bundles/create`
+.. _`VIE.js`: http://viejs.org
+.. _`create.js`: http://createjs.org
+.. _`RDFa`: http://rdfa.info
