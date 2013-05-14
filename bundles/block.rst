@@ -1,30 +1,29 @@
 BlockBundle
 ===========
 
-The `BlockBundle <https://github.com/symfony-cmf/BlockBundle#readme>`_
-provides integration with SonataBlockBundle.  It assists you in managing
-fragments of contents, so-called blocks. What the BlockBundle does is similar
-to what Twig does, but for blocks that are persisted in a DB. Thus, the blocks
-can be made editable for an editor.  Also the BlockBundle provides the logic
-to determine which block should be rendered on which pages.
+The `BlockBundle`_ provides integration with SonataBlockBundle. It assists you
+in managing fragments of contents, so-called blocks. What the BlockBundle does
+is similar to what Twig does, but for blocks that are persisted in a DB.
+Thus, the blocks can be made editable for an editor.  Also the BlockBundle
+provides the logic to determine which block should be rendered on which pages.
 
 The BlockBundle does not provide an editing functionality for blocks itself.
-However, you can find examples on how making blocks editable in the `Symfony
-CMF Sandbox <https://github.com/symfony-cmf/cmf-sandbox>`_.
+However, you can find examples on how making blocks editable in the
+`Symfony CMF Sandbox`_.
 
 .. index:: BlockBundle
 
 Dependencies
 ------------
 
-This bundle is based on the `SonataBlockBundle <https://github.com/sonata-project/SonataBlockBundle>`_
+This bundle is based on the `SonataBlockBundle`_.
 
 .. _bundle-block-configuration:
 
 Configuration
 -------------
 
-The configuration key for this bundle is ``symfony_cmf_block``
+The configuration key for this bundle is ``symfony_cmf_block``:
 
 .. configuration-block::
 
@@ -37,7 +36,15 @@ The configuration key for this bundle is ``symfony_cmf_block``
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <symfony-cmf-block:config document-manager-name="default"/>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:cmf-block="http://cmf.symfony.com/schema/dic/menu"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+            <cmf-block:config
+                document-manager-name="default"
+            />
+        </container>
 
     .. code-block:: php
 
@@ -70,12 +77,14 @@ with the parent document of the block, this makes the block unique. The other
 properties are specific to
 ``Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock``.
 
-The simple block is now ready to be rendered, see :ref:`bundle-block-rendering`.
+The simple block is now ready to be rendered, see
+:ref:`bundle-block-rendering`.
 
 .. note::
 
-    Always make sure you implement the interface ``Sonata\BlockBundle\Model\BlockInterface`` or an existing block document like
-    ``Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock``.
+    Always make sure you implement the interface
+    ``Sonata\BlockBundle\Model\BlockInterface`` or an existing block document
+    like ``Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock``.
 
 .. _bundle-block-service:
 
@@ -172,14 +181,16 @@ the forms for editing using a frontend or backend UI. The method
 Cache Configuration
 ~~~~~~~~~~~~~~~~~~~
 
-The method ``getCacheKeys`` contains cache keys to be used for caching the block.
+The method ``getCacheKeys`` contains cache keys to be used for caching the
+block.
 
 Javascript and Stylesheets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The methods ``getJavascripts`` and ``getStylesheets`` can be used to define javascript
-and stylesheet assets. Use the twig helpers ``sonata_block_include_javascripts`` and
-``sonata_block_include_stylesheets`` to render them:
+The methods ``getJavascripts`` and ``getStylesheets`` can be used to define
+javascript and stylesheet assets. Use the twig helpers
+``sonata_block_include_javascripts`` and ``sonata_block_include_stylesheets``
+to render them:
 
 .. code-block:: jinja
 
@@ -224,7 +235,8 @@ needs to be rendered by the template that contains the snippet above.
 When a block is rendered the following things happen:
 
 * The block document is loaded based on its name or absolute path;
-* If caching is configured, the cache is checked and content is returned if found;
+* If caching is configured, the cache is checked and content is returned if
+  found;
 * The ``execute`` method of the corresponding block service is called.
 
 The execute method is the equivalent of a normal Symfony controller. It
@@ -254,23 +266,22 @@ The BlockBundle comes with four general purpose blocks:
     You may be thinking "Why would I use this instead of directly calling the
     action from my template?", well, imagine the following case: You provide a
     block that renders teasers of your latest news. However, there is no rule
-    where they should appear. Instead, your customer wants to decide himself on
-    what pages this block is to be displayed. By using an ActionBlock, you
-    could allow your customer to do so without calling you to change some templates
-    (over and over again!).
+    where they should appear. Instead, your customer wants to decide himself
+    on what pages this block is to be displayed. By using an ActionBlock, you
+    could allow your customer to do so without calling you to change some
+    templates (over and over again!).
 
-* **RssBlock**: This block extends the ``ActionBlock``, the block document saves
-  the feed url and the controller action fetches the feed items. The default
-  implementation uses the `EkoFeedBundle <https://github.com/eko/FeedBundle>`_
-  to read the feed items.
+* **RssBlock**: This block extends the ``ActionBlock``, the block document
+  saves the feed url and the controller action fetches the feed items. The
+  default implementation uses the `EkoFeedBundle
+  <https://github.com/eko/FeedBundle>`_ to read the feed items.
 
 Examples
 --------
 
-You can find example usages of this bundle in the `Symfony CMF Sandbox
-<https://github.com/symfony-cmf/cmf-sandbox>`_ (have a look at the
-BlockBundle). It also shows you how to make blocks editable using the
-`CreateBundle <https://github.com/symfony-cmf/CreateBundle>`_.
+You can find example usages of this bundle in the `Symfony CMF Sandbox`_
+(have a look at the BlockBundle). It also shows you how to make blocks
+editable using the :doc:`CreateBundle <create>`.
 
 Reference
 ---------
@@ -283,3 +294,7 @@ Reference
    block/create_your_own_blocks
    block/cache
    block/relation_to_sonata_block_bundle
+
+.. _`BlockBundle`: https://github.com/symfony-cmf/BlockBundle#readme
+.. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
+.. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle
