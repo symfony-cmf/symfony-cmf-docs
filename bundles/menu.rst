@@ -227,10 +227,12 @@ compared to the ``content`` of the menu item. That way, content that does
 not have its own menu entry but a parent that does have a menu item can
 trigger the right menu entry to be highlighted.
 
-To use this voter you need to set up a custom service configured with
-the request attribute to look for the content and your model class to
-avoid calling getParent on objects that do not have that method. This
-works the same as for complete custom voters (see below), except you do not need
+To use this voter you need to configure a custom service with the name of
+the content in the request and your model class to avoid calling getParent
+on objects that do not have that method.
+You need to tag the service as ``symfony_cmf_menu.voter`` and also as
+``cmf_request_aware`` because it depends on the request. The service looks
+the same as for complete custom voters (see below), except you do not need
 to write your own PHP code:
 
 .. configuration-block::
@@ -244,7 +246,8 @@ to write your own PHP code:
                     - mainContent
                     - %my_bundle.my_model_class%
                 tags:
-                    - { name: "symfony_cmf_menu.voter" request: true }
+                    - { name: "symfony_cmf_menu.voter" }
+                    - { name: "cmf_request_aware" }
 
     .. code-block:: xml
 
@@ -252,7 +255,8 @@ to write your own PHP code:
                  class="Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter">
             <argument>mainContent</argument>
             <argument>%my_bundle.my_model_class%</argument>
-            <tag name="symfony_cmf_menu.voter" request="true"/>
+            <tag name="symfony_cmf_menu.voter"/>
+            <tag name="cmf_request_aware"/>
         </service>
 
     .. code-block:: php
@@ -261,7 +265,8 @@ to write your own PHP code:
             'Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter',
             array('mainContent', '%my_bundle.my_model_class%')
         ));
-        $definition->addTag('symfony_cmf_menu.voter', array('request' => true));
+        $definition->addTag('symfony_cmf_menu.voter');
+        $definition->addTag('cmf_request_aware');
         $container->setDefinition('my_bundle.menu_voter.parent', $definition);
 
 
@@ -270,10 +275,12 @@ Custom Voter
 
 Voters must implement the ``Symfony\Cmf\MenuBundle\Voter\VoterInterface``.
 To make the menu bundle notice the voter, tag it with ``symfony_cmf_menu.voter``.
-If the voter needs the request, add the attribute ``request: true`` to the tag
-(example see above in the service for ``RequestParentIdentityVoter`` above)
-to have the menu bundle call ``setRequest`` on the voter before it votes for
+If the voter needs the request, add the tag ``cmf_request_aware``
+to have a listener calling ``setRequest`` on the voter before it votes for
 the first time.
+
+For an example service definition see the section above for
+``RequestParentIdentityVoter``.
 
 A voter will look something like this::
 
