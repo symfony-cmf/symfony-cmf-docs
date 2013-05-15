@@ -41,6 +41,38 @@ The Bundle provides a ``symfony_cmf_core.publish_workflow_checker`` service whic
         ..
     }
 
+Dependency Injection Tags
+-------------------------
+
+cmf_request_aware
+~~~~~~~~~~~~~~~~~
+
+If you have services that need the request (e.g. for the publishing workflow
+or current menu item voters), you can tag them with ``cmf_request_aware``
+to have a kernel listener inject the request. Any class used in such a tagged
+service must have the ``setRequest`` method or you will get a fatal error::
+
+    use Symfony\Component\HttpFoundation\Request;
+
+    class MyClass
+    {
+        private $request;
+
+        public function setRequest(Request $request)
+        {
+            $this->request = $request;
+        }
+    }
+
+.. note::
+
+    You should only use this tag on services that will be needed on every
+    request. If you use this tag excessively you will run into performance
+    issues. For seldom used services, you can inject the container in the
+    service definition and call ``$this->container->get('request')`` in your
+    code when you actually need the request.
+
+
 Twig extension
 --------------
 
