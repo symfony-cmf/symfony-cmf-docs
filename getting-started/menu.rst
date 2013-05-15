@@ -77,12 +77,11 @@ render the menu ``simple``, the menu root node must be stored at
 
         <?xml version="1.0" encoding="UTF-8" ?>
 
-        <container xmlns="http://cmf.symfony.com/schema/dic/menu"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <container
+            xmlns="http://symfony.com/schema/dic/services"
+            xmlns:cmf-menu="http://cmf.symfony.com/schema/dic/menu">
 
-            <symfony-cmf-menu:config xmlns="http://cmf.symfony.com/schema/dic/menu">
-                <menu-basepath>/cms/menu</menu-basepath>
-            </symfony-cmf-menu:config>
+            <cmf-menu:config menu-basepath="/cms/menu"/>
         </container>
 
     .. code-block:: php
@@ -117,6 +116,8 @@ the base classes, and their respective documentation pages can be found in
 transforming the ``MenuNode`` instances from the root node it receives from
 the ``MenuProviderInterface`` implementation. It is also responsible for
 determining which (if any) menu item is currently being viewed by the user.
+It supports a voter mechanism to have custom code decide what menu item is
+the current item.
 ``KnpMenu`` already includes a specific factory targeted at Symfony2's Routing
 component, which this bundle extends, to add support for:
 
