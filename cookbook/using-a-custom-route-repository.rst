@@ -95,31 +95,31 @@ configuration as follows:
                enabled: true
                route_provider_service_id: my_bundle.provider.endpoint
 
-    .. code-block:: xml
+   .. code-block:: xml
 
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+       <!-- app/config/config.xml -->
+       <?xml version="1.0" encoding="UTF-8" ?>
+       <container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
-                <dynamic
-                    enabled="true"
-                    route-provider-service-id="my_bundle.provider.endpoint"
-                />
-            </cmf-routing:config>
-        </container>
+           <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
+               <dynamic
+                   enabled="true"
+                   route-provider-service-id="my_bundle.provider.endpoint"
+               />
+           </cmf-routing:config>
+       </container>
 
-    .. code-block:: php
+   .. code-block:: php
 
-        // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_routing', array(
-            'dynamic' => array(
-               'enabled'                   => true,
-               'route_provider_service_id' => 'my_bundle.provider.endpoint',
-            ),
-        ));
+       // app/config/config.php
+       $container->loadFromExtension('symfony_cmf_routing', array(
+           'dynamic' => array(
+              'enabled'                   => true,
+              'route_provider_service_id' => 'my_bundle.provider.endpoint',
+           ),
+       ));
 
 Where ``my_bundle.provider.endpoint`` is the service ID of your route
 provider.  See `Creating and configuring services in the container`_ for
