@@ -78,12 +78,21 @@ Twig extension
 
 Implements the following functions:
 
-* ``cmf_find``: find the document for the provided path and class
+* ``cmf_find``: returns the document for the provided path
+* ``cmf_find_many``: returns an array of documents for the provided paths
 * ``cmf_is_published``: checks if the provided document is published
-* ``cmf_prev``: returns the previous published document by examining the child nodes of the parent of the provided
-* ``cmf_next``: returns the next published document by examining the child nodes of the parent of the provided
-* ``cmf_children``: returns an array of all the children documents of the provided documents that are published
+* ``cmf_prev``: returns the previous document by examining the child nodes of the provided parent
+* ``cmf_prev_linkable``: returns the previous linkable document by examining the child nodes of the provided parent
+* ``cmf_next``: returns the next document by examining the child nodes of the provided parent
+* ``cmf_next_linkable``: returns the next linkable document by examining the child nodes of the provided parent
+* ``cmf_child``: returns a child documents of the provided parent document and child node
+* ``cmf_children``: returns an array of all the children documents of the provided parent
+* ``cmf_linkable_children``: returns an array of all the linkable children documents of the provided parent
+* ``cmf_descendants``: returns an array of all descendants paths of the provided parent
 * ``cmf_document_locales``: gets the locales of the provided document
+* ``cmf_nodename``: returns the node name of the provided document
+* ``cmf_parent_path``: returns the parent path of the provided document
+* ``cmf_path``: returns the path of the provided document
 
 .. code-block:: jinja
 
