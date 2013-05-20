@@ -49,7 +49,7 @@ Just started learning about the CMF? Want to know if the CMF fits your project? 
 .. toctree::
 	:hidden:
 
-	getting-started/index
+	getting_started/index
 
 .. include:: getting-started/map.rst.inc
 

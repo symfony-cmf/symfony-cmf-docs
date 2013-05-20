@@ -9,13 +9,13 @@ Bundles
 	content
 	core
 	create
-	phpcr-odm
+	phpcr_odm
 	menu
 	routing
 	routing_auto
 	search
-	simple-cms
+	simple_cms
 	doctrine_phpcr_admin
-	tree-browser
+	tree_browser
 
 .. include:: map.rst.inc

@@ -3,11 +3,11 @@
 * :doc:`bundles/content`
 * :doc:`bundles/core`
 * :doc:`bundles/create`
-* :doc:`bundles/phpcr-odm`
+* :doc:`bundles/phpcr_odm`
 * :doc:`bundles/menu`
 * :doc:`bundles/routing`
 * :doc:`bundles/routing_auto`
 * :doc:`bundles/search`
-* :doc:`bundles/simple-cms`
+* :doc:`bundles/simple_cms`
 * :doc:`bundles/doctrine_phpcr_admin`
-* :doc:`bundles/tree-browser`
+* :doc:`bundles/tree_browser`

@@ -4,7 +4,7 @@ Getting Started
 .. toctree::
     :hidden:
 
-    installing-symfony-cmf
+    installing_symfony_cmf
     routing
     content
     menu
