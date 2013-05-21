@@ -1,5 +1,5 @@
-DoctrinePHPCRBundle
-===================
+The DoctrinePHPCRBundle
+=======================
 
 The `DoctrinePHPCRBundle <https://github.com/doctrine/DoctrinePHPCRBundle>`_
 provides integration with the PHP content repository and optionally with

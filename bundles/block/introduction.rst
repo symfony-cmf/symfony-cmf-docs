@@ -1,5 +1,5 @@
-BlockBundle
-===========
+The BlockBundle
+===============
 
 The `BlockBundle`_ provides integration with SonataBlockBundle. It assists you
 in managing fragments of contents, so-called blocks. What the BlockBundle does
@@ -287,13 +287,13 @@ Reference
 ---------
 
 .. toctree::
-   :maxdepth: 1
-   :numbered:
-
-   block/types
-   block/create_your_own_blocks
-   block/cache
-   block/relation_to_sonata_block_bundle
+    :maxdepth: 1
+    :numbered:
+    
+    types
+    create_your_own_blocks
+    cache
+    relation_to_sonata_block_bundle
 
 .. _`BlockBundle`: https://github.com/symfony-cmf/BlockBundle#readme
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox

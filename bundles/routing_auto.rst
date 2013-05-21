@@ -1,5 +1,5 @@
-RoutingAutoBundle
-=================
+The RoutingAutoBundle
+=====================
 
 The ``RoutingAutoBundle`` allows you to define automatically created routes
 for documents. This implies a separation of the ``Route`` and ``Content``

@@ -1,5 +1,5 @@
-SearchBundle
-============
+The SearchBundle
+================
 
 The `SearchBundle <https://github.com/symfony-cmf/SearchBundle#readme>`_
 provides integration with `LiipSearchBundle <https://github.com/liip/LiipSearchBundle>`_
