@@ -1,1 +1,3 @@
-* :doc:`components/routing`
+* **Routing**
+
+    * :doc:`/components/routing`
