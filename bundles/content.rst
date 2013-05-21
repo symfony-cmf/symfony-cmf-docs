@@ -1,5 +1,5 @@
-ContentBundle
-=============
+The ContentBundle
+=================
 
 This bundle provides a document for static content and the controller to render it.
 

@@ -1,5 +1,5 @@
-SonataDoctrinePhpcrAdminBundle
-==============================
+The SonataDoctrinePhpcrAdminBundle
+==================================
 
 The `SonataDoctrinePhpcrAdminBundle <https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle#readme>`_
 provides integration with the SonataAdminBundle to enable easy creation of admin UIs.

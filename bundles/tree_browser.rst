@@ -1,5 +1,5 @@
-TreeBrowserBundle
-=================
+The TreeBrowserBundle
+=====================
 
 The `TreeBrowserBundle <https://github.com/symfony-cmf/TreeBrowserBundle#readme>`_
 provides a tree navigation on top of a PHPCR repository.

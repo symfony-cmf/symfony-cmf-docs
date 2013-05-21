@@ -1,5 +1,5 @@
-SimpleCmsBundle
-===============
+The SimpleCmsBundle
+===================
 
 The `SimpleCmsBundle <https://github.com/symfony-cmf/SimpleCmsBundle#readme>`_
 provides a simplistic CMS on top of the CMF components and bundles.
