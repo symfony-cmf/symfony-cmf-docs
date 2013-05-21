@@ -1,5 +1,5 @@
-RoutingBundle
-=============
+The RoutingBundle
+=================
 
 The `RoutingBundle <https://github.com/symfony-cmf/RoutingBundle#readme>`_
 integrates dynamic routing into Symfony using :doc:`../components/routing`.

@@ -47,7 +47,7 @@ Then you can overwrite the ``doctrine.odm_configuration`` service to call
             </argument>
         </service>
 
-    .. code-block:: xml
+    .. code-block:: php
 
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
