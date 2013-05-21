@@ -1,3 +1,3 @@
 * **Routing**
 
-    * :doc:`/components/routing`
+    * :doc:`components/routing`
