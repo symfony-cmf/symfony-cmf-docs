@@ -1,5 +1,5 @@
-DoctrinePHPCRBundle
-===================
+The DoctrinePHPCRBundle
+=======================
 
 The `DoctrinePHPCRBundle <https://github.com/doctrine/DoctrinePHPCRBundle>`_
 provides integration with the PHP content repository and optionally with
@@ -22,8 +22,8 @@ Out of the box, this bundle supports the following PHPCR implementations:
 This bundle is based on the AbstractDoctrineBundle and thus is similar to the
 configuration of the Doctrine ORM and MongoDB bundles.
 
-Setup
------
+Setup and Requirements
+----------------------
 
 See :doc:`../tutorials/installing-configuring-doctrine-phpcr-odm`
 
@@ -51,7 +51,7 @@ password.
 
     Every PHPCR implementation should provide the workspace called *default*, but you
     can choose a different one. There is the ``doctrine:phpcr:workspace:create``
-    command to initialize a new workspace. See also :ref:`reference-phpcr-commands`.
+    command to initialize a new workspace. See also :ref:`bundle-phpcr-odm-commands`.
 
 The username and password you specify here are what is used on the PHPCR layer in the
 ``PHPCR\SimpleCredentials``. They will usually be different from the username
@@ -111,7 +111,7 @@ early for the price of some round trips to the backend.
                     # its highly recommended NOT to disable transactions
                     # disable_transactions: true
 
-.. _reference-phpcr-doctrinedbal:
+.. _bundle-phpcr-odm-doctrinedbal:
 
 PHPCR Session with Jackalope Doctrine DBAL
 """"""""""""""""""""""""""""""""""""""""""
@@ -194,7 +194,7 @@ The session backend configuration looks as follows:
 
 For more information, please refer to the `official Midgard PHPCR documentation <http://midgard-project.org/phpcr/>`_.
 
-.. _reference-phpcr-odm-configuration:
+.. _bundle-phpcr-odm-configuration:
 
 
 Doctrine PHPCR-ODM Configuration
@@ -246,7 +246,7 @@ You can also enable `metadata caching <http://symfony.com/doc/master/reference/c
                     id:                   ~
 
 
-.. _phpcr-odm-multilang-config:
+.. _bundle-phpcr-odm-multilang-config:
 
 Translation configuration
 """""""""""""""""""""""""
@@ -292,7 +292,7 @@ You can tune the output of the `doctrine:phpcr:dump` command with
             jackrabbit_jar:       /path/to/jackrabbit.jar
             dump_max_line_length:  120
 
-.. _multiple-phpcr-sessions:
+.. _bundle-phpcr-odm-multiple-phpcr-sessions:
 
 Configuring Multiple Sessions
 -----------------------------
@@ -379,7 +379,7 @@ A full example looks as follows:
                             SandboxMainBundle: ~
                             SymfonyCmfContentBundle: ~
                             SymfonyCmfMenuBundle: ~
-                            SymfonyCmfRoutingExtraBundle: ~
+                            SymfonyCmfRoutingBundle: ~
 
                     website:
                         session: website
@@ -401,7 +401,7 @@ A full example looks as follows:
     ``repository_id`` attribute). This case is explained in
     :doc:`../cookbook/phpcr-odm-custom-documentclass-mapper`.
 
-.. _reference-phpcr-commands:
+.. _bundle-phpcr-odm-commands:
 
 
 Services
@@ -512,7 +512,7 @@ correct.
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
                 http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
-            <class name="Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route">
+            <class name="Symfony\Cmf\Bundle\RoutingBundle\Document\Route">
                 <constraint name="Doctrine\Bundle\PHPCRBundle\Validator\Constraints\ValidPhpcrOdm" />
             </class>
         </constraint-mapping>
@@ -739,18 +739,26 @@ will only be available if such a backend is configured.
 
 Use ``app/console help <command>`` to see all options each of the commands has.
 
-- ``doctrine:phpcr:workspace:create``  Create a workspace in the configured repository
-- ``doctrine:phpcr:workspace:list``  List all available workspaces in the configured repository
-- ``doctrine:phpcr:purge``  Remove a subtree or all content from the repository
-- ``doctrine:phpcr:repository:init``   Register node types and create base paths
-- ``doctrine:phpcr:register-node-types``  Register node types from a .cnd file in the PHPCR repository
-- ``doctrine:phpcr:fixtures:load``  Load data fixtures to your PHPCR database.
-- ``doctrine:phpcr:import``  Import xml data into the repository, either in JCR system view format or arbitrary xml
-- ``doctrine:phpcr:export``  Export nodes from the repository, either to the JCR system view format or the document view format
-- ``doctrine:phpcr:dump``  Output all or some content of the repository
-- ``doctrine:phpcr:query``  Execute a JCR SQL2 statement
-- ``doctrine:phpcr:mapping:info``  Shows basic information about all mapped documents
-
+* **doctrine:phpcr:workspace:create**: Create a workspace in the configured
+  repository;
+* **doctrine:phpcr:workspace:list**: List all available workspaces in the
+  configured repository;
+* **doctrine:phpcr:type:register**: Register node types from a .cnd file in
+  the PHPCR repository;
+* **doctrine:phpcr:type:list**: List all node types in the PHPCR repository;
+* **doctrine:phpcr:purge**: Remove a subtree or all content from the repository;
+* **doctrine:phpcr:repository:init**: Register node types and create base paths;
+* **doctrine:phpcr:fixtures:load**: Load data fixtures to your PHPCR database;
+* **doctrine:phpcr:import**: Import xml data into the repository, either in
+  JCR system view format or arbitrary xml;
+* **doctrine:phpcr:export**: Export nodes from the repository, either to the
+  JCR system view format or the document view format;
+* **doctrine:phpcr:dump**: Output all or some content of the repository;
+* **doctrine:phpcr:touch**: Create or modify a node at the specified path;
+* **doctrine:phpcr:move**: Move a node from one path to another;
+* **doctrine:phpcr:query**: Execute a JCR SQL2 statement;
+* **doctrine:phpcr:mapping:info**: Shows basic information about all mapped
+  documents.
 
 .. note::
 

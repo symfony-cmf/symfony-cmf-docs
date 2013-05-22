@@ -1,11 +1,9 @@
 Symfony CMF Documentation
 =========================
 
-Welcome to the official documentation of the `Symfony Content Management Framework`_.
-
-The Symfony2 Content Management Framework project is organized by the Symfony
+The Symfony2 Content Management Framework (CMF) project is organized by the Symfony
 community and has several sponsoring companies and prominent open source leaders
-implementing the philosophy of the `decoupled CMS`_. You can read learn more about the
+implementing the philosophy of the `decoupled CMS`_. You can learn more about the
 project on the `about`_ page.
 
 This documentation is currently in development and far from complete. See `Documentation planning`_
@@ -23,18 +21,18 @@ Why another CMS?
 ----------------
 
 Actually we consider this project to be a CMF, a **content management framework**, rather
-than a CMS, a content management system. The reason is that we are only **providing tools
-to build a custom CMS**. There are obviously many CMS solutions available today already,
-but they tend to be tailored first and foremost towards end users and also many tend
-to carry a lot of legacy baggage which make them less than **ideal for developing highly
-custom applications** like what is possible with `Symfony2`_.
+than a CMS, a content management system. The reason is that we are only **providing the tools
+to build a custom CMS**. There are clearly many CMS solutions available already,
+but they tend to be monolithic packages tailored towards end users. Many carry a certain
+amount of legacy baggage which make them less than **ideal for developing highly
+custom applications**, in contrast to what is possible with `Symfony2`_.
 
 What is our target audience?
 ----------------------------
 
 There are basically two main target audiences:
 
-#. Developers that have built an existing custom application with Symfony2 and need a fast
+#. Developers who have built an existing custom application with Symfony2 and need a fast
    way to add support for content management. Be it sophisticated CMS features like semantic
    content, inline editing, multi-channel delivery etc. or just a few content pages for things
    like the about/contact pages.
@@ -54,13 +52,11 @@ Getting started
 Just started learning about the CMF? Want to know if the CMF fits your project? Start here.
 
 .. toctree::
-	:maxdepth: 1
+	:hidden:
 
-	getting-started/installing-symfony-cmf
-	getting-started/routing
-	getting-started/content
-	getting-started/menu
-	getting-started/simplecms
+	getting_started/index
+
+.. include:: getting_started/map.rst.inc
 
 
 Tutorials
@@ -69,15 +65,11 @@ Tutorials
 Want to know more about the CMF and how each part can be configured? There's a tutorial for each one.
 
 .. toctree::
-	:maxdepth: 1
+	:hidden:
 
-	tutorials/choosing-a-storage-layer
-	tutorials/installing-cmf-core
-	tutorials/installing-configuring-doctrine-phpcr-odm
-	tutorials/installing-configuring-inline-editing
-	tutorials/creating-cms-using-cmf-and-sonata
-	tutorials/using-blockbundle-and-contentbundle
-	tutorials/handling-multilang-documents
+	tutorials/index
+
+.. include:: tutorials/map.rst.inc
 
 Bundles
 -------
@@ -87,33 +79,23 @@ configuration options of a bundle? Want to know if you can use a bundle independ
 to do it? In this case the reference is the right place for you.
 
 .. toctree::
-	:maxdepth: 1
+	:hidden:
 
-	bundles/block
-	bundles/blog
-	bundles/content
-	bundles/core
-	bundles/create
-	bundles/phpcr-odm
-	bundles/menu
-	bundles/routing-extra
-	bundles/routing_auto
-	bundles/search
-	bundles/simple-cms
-	bundles/doctrine_phpcr_admin
-	bundles/tree-browser
+	bundles/index
+
+.. include:: bundles/map.rst.inc
 
 Cookbook
 --------
 
-Special solutions for special needs that go beyond standard usage.
+Special solutions for specific use cases that go beyond standard usage.
 
 .. toctree::
-	:maxdepth: 1
+	:hidden:
 
-	cookbook/phpcr-odm-custom-documentclass-mapper
-	cookbook/using-a-custom-route-repository
-	cookbook/installing-cmf-sandbox
+	cookbook/index
+
+.. include:: cookbook/map.rst.inc
 
 Components
 ----------
@@ -121,18 +103,21 @@ Components
 Looking for some information about the low level components of the CMF?
 
 .. toctree::
-	:maxdepth: 1
+	:hidden:
 
-	components/routing
+	components/index
+
+.. include:: components/map.rst.inc
 
 Contributing
 ------------
 
 .. toctree::
-	:maxdepth: 1
+	:hidden:
 
-	contributing/code
-	contributing/license
+	contributing/index
+
+.. include:: contributing/map.rst.inc
 
 .. _`decoupled CMS`: http://decoupledcms.org
 .. _`Symfony2`: http://symfony.com

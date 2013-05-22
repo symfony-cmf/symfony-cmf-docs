@@ -1,5 +1,5 @@
-CreateBundle
-============
+The CreateBundle
+================
 
 The `CreateBundle <https://github.com/symfony-cmf/CreateBundle>`_
 integrates create.js and the createphp helper library into Symfony2.
@@ -7,8 +7,10 @@ integrates create.js and the createphp helper library into Symfony2.
 Create.js is a comprehensive web editing interface for Content Management
 Systems. It is designed to provide a modern, fully browser-based HTML5
 environment for managing content. Create can be adapted to work on almost any
-content management backend.
+content management backend. The default editor is the Hallo Editor, but you can
+also use CKEditor
 See http://createjs.org/
+
 
 Createphp is a PHP library to help with RDFa annotating your documents/entities.
 See https://github.com/flack/createphp for documentation on how it works.
@@ -35,19 +37,31 @@ This bundle is best included using Composer.
 Edit your project composer file to add a new require for symfony-cmf/create-bundle.
 Then create a scripts section or add to the existing one:
 
-
-.. code-block:: yaml
+.. code-block:: javascript
 
     {
         "scripts": {
             "post-install-cmd": [
-                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::initSubmodules",
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreate",
                 ...
             ],
             "post-update-cmd": [
-                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::initSubmodules",
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreate",
                 ...
             ]
+        }
+    }
+
+It is possible to specify another directory, repository or commit id in the extra
+parameters of ``composer.json`` file (here are the default values):
+
+.. code-block:: javascript
+
+    {
+        "extra": {
+            "create-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/create",
+            "create-repository": "https://github.com/bergie/create.git",
+            "create-commit": "271e0114a039ab256ffcceacdf7f361803995e05"
         }
     }
 
@@ -79,6 +93,79 @@ You also need to configure FOSRestBundle to handle json:
         view:
             formats:
                 json: true
+
+.. _bundle-create-ckeditor:
+
+Using CKEditor instead
+~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to use CKEditor, edit the ``composer.json`` file to call
+``downloadCreateAndCkeditor`` instead of ``downloadCreate``:
+
+.. code-block:: javascript
+
+    {
+        "scripts": {
+            "post-install-cmd": [
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreateAndCkeditor",
+                ...
+            ],
+            "post-update-cmd": [
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreateAndCkeditor",
+                ...
+            ]
+        }
+    }
+
+and re-run composer:
+
+.. code-block:: bash
+
+    $ php composer.phar update nothing
+
+In your application config file, define the editor base path:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        symfony_cmf_create:
+            editor_base_path: /bundles/symfonycmfcreate/vendor/ckeditor/
+
+    .. code-block:: xml
+
+        <cmf-create
+            editor-base-path="/bundles/symfonycmfcreate/vendor/ckeditor/"
+        />
+
+    .. code-block:: php
+
+        $container->loadFromExtension('symfony_cmf_create', array(
+            'editor_base_path': '/bundles/symfonycmfcreate/vendor/ckeditor/',
+        ));
+
+In your template, load the javascript files using:
+
+.. code-block:: jinja
+
+    {% render controller(
+        "symfony_cmf_create.jsloader.controller:includeJSFilesAction",
+        {"editor": "ckeditor"}
+    %}
+
+As for create.js, you can override the source of CKEditor to a different
+target directory, source repository or commit id in the extra
+parameters of the ``composer.json`` file (here are the default values):
+
+.. code-block:: javascript
+
+    {
+        "extra": {
+            "ckeditor-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/ckeditor",
+            "ckeditor-repository": "https://github.com/ckeditor/ckeditor-releases.git",
+            "ckeditor-commit": "bba29309f93a1ace1e2e3a3bd086025975abbad0"
+        }
+    }
 
 Concept
 -------
@@ -160,7 +247,7 @@ your own if you need larger customizations.
 
 
 Metadata
-++++++++
+~~~~~~~~
 
 createphp needs metadata information for each class of your domain model. By
 default, the create bundle uses the XML metadata driver and looks for metadata
@@ -172,7 +259,7 @@ See the `documentation of createphp <https://github.com/flack/createphp>`_ for t
 
 
 Access control
-++++++++++++++
+~~~~~~~~~~~~~~
 
 If you use the default REST controller, everybody can edit content once you
 enabled the create bundle. To restrict access, specify a role other than the
@@ -186,7 +273,7 @@ passed domain object is editable.
 
 
 Image Handling
-++++++++++++++
+~~~~~~~~~~~~~~
 
 Enable the default simplistic image handler with the image > model_class | controller_class
 settings. This image handler just throws images into the PHPCR-ODM repository
@@ -199,7 +286,7 @@ service with it.
 
 
 Mapping requests to objects
-+++++++++++++++++++++++++++
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For now, the bundle only provides a service to map to doctrine PHPCR-ODM. Enable it
 by setting `phpcr_odm` to true. If you need something else, you need to provide a
@@ -216,7 +303,7 @@ and the class names. (TODO: can we not index all mappings and do this automatica
 
 
 Routing
-+++++++
+~~~~~~~
 
 Finally add the relevant routing to your configuration
 
@@ -245,7 +332,7 @@ If you are using Symfony 2.2 or higher:
 
 .. code-block:: jinja
 
-    {% render(controller("symfony_cmf_create.jsloader.controller:includeJSFilesAction"))  with {'_locale': app.request.locale} %}
+    {% render controller("symfony_cmf_create.jsloader.controller:includeJSFilesAction", {'_locale': app.request.locale}) %}
 
 For versions prior to 2.2, this will do:
 
@@ -292,7 +379,7 @@ Or if you need more control over the generated HTML:
 
 
 Alternative Editors
-+++++++++++++++++++
+~~~~~~~~~~~~~~~~~~~
 
 You can write your own templates to load a javascript editor. They have to
 follow the naming pattern ``SymfonyCmfCreateBundle::includejsfiles-%editor%.html.twig``
