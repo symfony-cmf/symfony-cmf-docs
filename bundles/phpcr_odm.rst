@@ -266,9 +266,9 @@ languages. For more information on multilingual documents, see the
             odm:
                 ...
                 locales:
-                    en: [en, de, fr]
-                    de: [de, en, fr]
-                    fr: [fr, en, de]
+                    en: [e, fr]
+                    de: [en, fr]
+                    fr: [en, de]
 
 This block defines the order of alternative locales to look up if a document is
 not translated to the requested locale.
