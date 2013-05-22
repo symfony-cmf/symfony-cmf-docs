@@ -1,3 +1,3 @@
 * **Routing**
 
-    * :doc:`components/routing`
+  * :doc:`/cmf/components/routing`
