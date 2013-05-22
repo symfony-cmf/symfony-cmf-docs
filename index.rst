@@ -51,7 +51,7 @@ Just started learning about the CMF? Want to know if the CMF fits your project? 
 
 	getting_started/index
 
-.. include:: getting-started/map.rst.inc
+.. include:: getting_started/map.rst.inc
 
 
 Tutorials
