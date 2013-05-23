@@ -27,8 +27,27 @@ Configuration
 
 .. _bundle-core-publish_workflow:
 
+Publish Workflow
+----------------
+
+The publish workflow system enables the user to specify if and when classes
+implementing the ``PublishWorkFlowInterface`` should be published.
+
+PublishWorkFlowInterface
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Classes implementing the publish workflow interface need to implement the
+following methods
+
+* **isPublishable**: If the object should be considered for publication or
+  not;
+* **getPublishStartDate**: If non-null, the date from which the document
+  should start being published;
+* **getPublishEndDate**: If non-null, the date from which the document
+  should stop being published.
+
 Publish workflow checker
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 The Bundle provides a ``symfony_cmf_core.publish_workflow_checker`` service which implements
 ``PublishWorkflowCheckerInterface``. This interface defines a single method ``checkIsPublished()``.
@@ -40,6 +59,41 @@ The Bundle provides a ``symfony_cmf_core.publish_workflow_checker`` service whic
     if ($publishWorkflowChecker->checkIsPublished($document, $ignoreRole)) {
         ..
     }
+
+Publish Workflow Admin Extension
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Bundle also provides an admin extension so you can easily add the publish
+workflow fields to all or selected administrable classes. Just add the
+extension configuration to the ``sonata_admin`` section of your main
+configuration:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config.yml
+        sonata_admin:
+            # ...
+            extensions:
+                symfony_cmf_core.admin_extension.publish_workflow:
+                    implements:
+                        - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowInterface
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_admin', array(
+            'extensions' => array(
+                'symfony_cmf_core.admin_extension.publish_workflow' => array(
+                    'implements' => array(
+                        'Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowInterface',
+                    ),
+                ),
+            ),
+        ));
+
+See the `Sonata Admin extension documentation`_ for more information.
 
 Dependency Injection Tags
 -------------------------
@@ -120,3 +174,7 @@ Implements the following functions:
             <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all)|merge({'_locale': 'fr'})) }}">DE</a>
         {%  endif %}
     {%  endif %}
+
+.. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
+
+

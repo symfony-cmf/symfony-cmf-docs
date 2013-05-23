@@ -358,3 +358,9 @@ Note that if you just want to generate normal symfony routes with a menu that
 is in the database, you can pass the core router service as content_url_generator,
 make sure the content_key never matches and make your menu documents provide
 the route name and eventual routeParameters.
+
+Publish Workflow Interface
+--------------------------
+
+Menu nodes implement the ``PublishWorkFlowInterface``, see :doc:`publish workflow documentation <core>` for more information.
+
