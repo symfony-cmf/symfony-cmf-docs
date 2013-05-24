@@ -53,6 +53,20 @@ The configuration key for this bundle is ``symfony_cmf_block``:
             'document_manager_name' => 'default',
         ));
 
+The default settings of a block are defined in the block service. If you use a
+3rd party block you might want to alter these for your application. Use the
+``sonata_block`` key for this.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_block:
+            blocks:
+                acme_main.block.rss:
+                    settings:
+                        maxItems: 3
 
 .. _bundle-block-document:
 
@@ -154,6 +168,8 @@ The method ``getDefaultSettings`` specifies the default settings for a block.
 Settings can be altered on multiple places afterwards, it cascades like this:
 
 * Default settings are stored in the block service;
+* If you use a 3rd party bundle you might want to change them in the bundle
+  configuration for your application see :ref:`configuration`;
 * Settings can be altered through template helpers (see example);
 * And settings can also be altered in a block document, the advantage is that
   settings are stored in PHPCR and allows to implement a frontend or backend UI

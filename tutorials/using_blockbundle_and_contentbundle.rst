@@ -498,10 +498,11 @@ This happens when a block is rendered, see the .. index:: BlockBundle for more d
 
     A block can also be configured using settings, this allows you to create
     more advanced blocks and reuse it. The default settings are configured in
-    the block service and can be altered in the twig helper and the block
-    document.  An example is an rss reader block, the url and title are stored
-    in the settings of the block document, the maximum amount of items to
-    display is specified when calling ``sonata_block_render``.
+    the block service and can be altered in the bundle configuration, the twig
+    helper and the block document.  An example is an rss reader block, the url
+    and title are stored in the settings of the block document, the maximum
+    amount of items to display is specified when calling
+    ``sonata_block_render``.
 
 .. _tutorial-block-embed:
 
