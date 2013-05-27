@@ -47,13 +47,14 @@ Getting started
 Just started learning about the CMF? Want to know if the CMF fits your project? Start here.
 
 .. toctree::
-   :maxdepth: 1
+	:maxdepth: 1
 
-    getting_started/installing_symfony_cmf
-    getting_started/routing
-    getting_started/content
-    getting_started/menu
-    getting_started/simplecms
+	getting-started/installing-symfony-cmf
+	getting-started/routing
+	getting-started/content
+	getting-started/menu
+	getting-started/simplecms
+
 
 Tutorials
 ---------
@@ -61,15 +62,15 @@ Tutorials
 Want to know more about the CMF and how each part can be configured? There's a tutorial for each one.
 
 .. toctree::
-   :maxdepth: 1
+	:maxdepth: 1
 
-    tutorials/choosing_a_storage_layer
-    tutorials/installing_cmf_core
-    tutorials/installing_configuring_doctrine_phpcr_odm
-    tutorials/installing_configuring_inline_editing
-    tutorials/creating_cms_using_cmf_and_sonata
-    tutorials/using_blockbundle_and_contentbundle
-    tutorials/handling_multilang_documents
+	tutorials/choosing-a-storage-layer
+	tutorials/installing-cmf-core
+	tutorials/installing-configuring-doctrine-phpcr-odm
+	tutorials/installing-configuring-inline-editing
+	tutorials/creating-cms-using-cmf-and-sonata
+	tutorials/using-blockbundle-and-contentbundle
+	tutorials/handling-multilang-documents
 
 Bundles
 -------
@@ -79,21 +80,21 @@ configuration options of a bundle? Want to know if you can use a bundle independ
 to do it? In this case the reference is the right place for you.
 
 .. toctree::
-   :maxdepth: 1
+	:maxdepth: 1
 
-    bundles/block/index
-    bundles/blog
-    bundles/content
-    bundles/core
-    bundles/create
-    bundles/phpcr_odm
-    bundles/menu
-    bundles/routing
-    bundles/routing_auto
-    bundles/search
-    bundles/simple_cms
-    bundles/doctrine_phpcr_admin
-    bundles/tree_browser
+	bundles/block
+	bundles/blog
+	bundles/content
+	bundles/core
+	bundles/create
+	bundles/phpcr-odm
+	bundles/menu
+	bundles/routing
+	bundles/routing_auto
+	bundles/search
+	bundles/simple-cms
+	bundles/doctrine_phpcr_admin
+	bundles/tree-browser
 
 Cookbook
 --------
@@ -101,11 +102,11 @@ Cookbook
 Special solutions for specific use cases that go beyond standard usage.
 
 .. toctree::
-   :maxdepth: 1
+	:maxdepth: 1
 
-    cookbook/phpcr_odm_custom_documentclass_mapper
-    cookbook/using_a_custom_route_repository
-    cookbook/installing_cmf_sandbox
+	cookbook/phpcr-odm-custom-documentclass-mapper
+	cookbook/using-a-custom-route-repository
+	cookbook/installing-cmf-sandbox
 
 Components
 ----------
@@ -113,18 +114,18 @@ Components
 Looking for some information about the low level components of the CMF?
 
 .. toctree::
-   :maxdepth: 1
+	:maxdepth: 1
 
-    components/routing
+	components/routing
 
 Contributing
 ------------
 
 .. toctree::
-   :maxdepth: 1
+	:maxdepth: 1
 
-    contributing/code
-    contributing/license
+	contributing/code
+	contributing/license
 
 .. _`decoupled CMS`: http://decoupledcms.org
 .. _`Symfony2`: http://symfony.com
