@@ -47,12 +47,13 @@ Getting started
 Just started learning about the CMF? Want to know if the CMF fits your project? Start here.
 
 .. toctree::
-	:hidden:
+    :maxdepth: 1
 
-	getting_started/index
-
-.. include:: getting_started/map.rst.inc
-
+    getting_started/installing_symfony_cmf
+    getting_started/routing
+    getting_started/content
+    getting_started/menu
+    getting_started/simplecms
 
 Tutorials
 ---------
@@ -60,11 +61,15 @@ Tutorials
 Want to know more about the CMF and how each part can be configured? There's a tutorial for each one.
 
 .. toctree::
-	:hidden:
+	:maxdepth: 1
 
-	tutorials/index
-
-.. include:: tutorials/map.rst.inc
+    tutorials/choosing_a_storage_layer
+    tutorials/installing_cmf_core
+    tutorials/installing_configuring_doctrine_phpcr_odm
+    tutorials/installing_configuring_inline_editing
+    tutorials/creating_cms_using_cmf_and_sonata
+    tutorials/using_blockbundle_and_contentbundle
+    tutorials/handling_multilang_documents
 
 Bundles
 -------
@@ -74,11 +79,21 @@ configuration options of a bundle? Want to know if you can use a bundle independ
 to do it? In this case the reference is the right place for you.
 
 .. toctree::
-	:hidden:
+	:maxdepth: 1
 
-	bundles/index
-
-.. include:: bundles/map.rst.inc
+    bundles/block/index
+    bundles/blog
+    bundles/content
+    bundles/core
+    bundles/create
+    bundles/phpcr_odm
+    bundles/menu
+    bundles/routing
+    bundles/routing_auto
+    bundles/search
+    bundles/simple_cms
+    bundles/doctrine_phpcr_admin
+    bundles/tree_browser
 
 Cookbook
 --------
@@ -86,11 +101,11 @@ Cookbook
 Special solutions for specific use cases that go beyond standard usage.
 
 .. toctree::
-	:hidden:
+	:maxdepth: 2
 
-	cookbook/index
-
-.. include:: cookbook/map.rst.inc
+    cookbook/phpcr_odm_custom_documentclass_mapper
+    cookbook/using_a_custom_route_repository
+    cookbook/installing_cmf_sandbox
 
 Components
 ----------
@@ -98,21 +113,18 @@ Components
 Looking for some information about the low level components of the CMF?
 
 .. toctree::
-	:hidden:
+	:maxdepth: 1
 
-	components/index
-
-.. include:: components/map.rst.inc
+    components/routing
 
 Contributing
 ------------
 
 .. toctree::
-	:hidden:
+	:maxdepth: 1
 
-	contributing/index
-
-.. include:: contributing/map.rst.inc
+    contributing/code
+    contributing/license
 
 .. _`decoupled CMS`: http://decoupledcms.org
 .. _`Symfony2`: http://symfony.com
