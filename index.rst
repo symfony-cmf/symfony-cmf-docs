@@ -47,7 +47,7 @@ Getting started
 Just started learning about the CMF? Want to know if the CMF fits your project? Start here.
 
 .. toctree::
-    :maxdepth: 1
+   :maxdepth: 1
 
     getting_started/installing_symfony_cmf
     getting_started/routing
@@ -61,7 +61,7 @@ Tutorials
 Want to know more about the CMF and how each part can be configured? There's a tutorial for each one.
 
 .. toctree::
-	:maxdepth: 1
+   :maxdepth: 1
 
     tutorials/choosing_a_storage_layer
     tutorials/installing_cmf_core
@@ -79,7 +79,7 @@ configuration options of a bundle? Want to know if you can use a bundle independ
 to do it? In this case the reference is the right place for you.
 
 .. toctree::
-	:maxdepth: 1
+   :maxdepth: 1
 
     bundles/block/index
     bundles/blog
@@ -101,7 +101,7 @@ Cookbook
 Special solutions for specific use cases that go beyond standard usage.
 
 .. toctree::
-	:maxdepth: 2
+   :maxdepth: 1
 
     cookbook/phpcr_odm_custom_documentclass_mapper
     cookbook/using_a_custom_route_repository
@@ -113,7 +113,7 @@ Components
 Looking for some information about the low level components of the CMF?
 
 .. toctree::
-	:maxdepth: 1
+   :maxdepth: 1
 
     components/routing
 
@@ -121,7 +121,7 @@ Contributing
 ------------
 
 .. toctree::
-	:maxdepth: 1
+   :maxdepth: 1
 
     contributing/code
     contributing/license
