@@ -1,5 +1,5 @@
-BlogBundle
-==========
+The BlogBundle
+==============
 
 This bundle aims to provide everything you need to create a full blog or
 blog-like system. It also includes in-built support for the Sonata Admin
@@ -7,107 +7,252 @@ bundle to help you get up-and-running quickly.
 
 Current features:
 
-* Host multiple blogs within a single website.
-* Place blogs anywhere within your route hierarchy.
+* Host multiple blogs within a single website;
+* Place blogs anywhere within your route hierarchy;
 * Sonata Admin integration.
 
 Pending features:
 
-* Full tag support
-* Frontend pagination (using knp-paginator)
-* RSS/ATOM feed
-* Comments
-* User support (FOSUserBundle)
+* Full tag support;
+* Frontend pagination (using knp-paginator);
+* RSS/ATOM feed;
+* Comments;
+* User support (FOSUserBundle).
+
+Notes on this document
+----------------------
+
+* The XML configuration examples may be formatted incorrectly.
 
 Dependencies
 ------------
 
-* :doc:`SymfonyCmfRoutingExtraBundle<routing-extra>` is used to manage the routing.
+* :doc:`SymfonyCmfRoutingBundle <routing>` is used to manage the routing;
+* :doc:`SymfonyCmfRoutingAutoBundle<routing_auto>` is used to manage automatically generate routes;
 * :doc:`PHPCR-ODM<phpcr-odm>` is used to persist the bundles documents.
 
 Configuration
 -------------
 
-The default configuration will work with the ``cmf-sandbox`` but you will probably
-need to cusomize it to fit your own requirements.
-
-Parameters:
-
-* **routing_post_controller** - specifies which controller to use for showing posts.
-* **routing_post_prefix** - this is the part of the URL which "prefixes" the post slug
-   e.g. with the default value the following post URL might be generated: ``http://example.com/my-blog/posts/this-is-my-post``
-* **blog_basepath** - *required* Specify the path where the blog content should be placed.
-* **routing_basepath** - *required* Specify the basepath for the routing system.
-
 Example:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    symfony_cmf_blog:
-        routing_post_controller: symfony_cmf_blog.blog_controller:viewPost
-        routing_post_prefix: posts
-        blog_basepath: /cms/content
-        routing_basepath: /cms/routes
+    .. code-block:: yaml
+
+        # app/config.yml
+        symfony_cmf_blog:
+            use_sonata_admin:     auto
+            blog_basepath:        /cms/blog
+            class:
+                blog_admin: Symfony\Cmf\Bundle\BlogBundle\Admin\BlogAdmin # Optional
+                post_admin: Symfony\Cmf\Bundle\BlogBundle\Admin\PostAdmin # Optional
+                blog: Symfony\Cmf\Bundle\BlogBundle\Document\Blog # Optional
+                post: Symfony\Cmf\Bundle\BlogBundle\Document\Post # Optional
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-blog:config 
+            use-sonata-admin="auto" 
+            blog-basepath="/cms/blog"
+        >
+            <symfony-cmf-blog:class 
+                blog-admin="Symfony\Cmf\Bundle\BlogBundle\Admin\BlogAdmin"
+                post-admin="Symfony\Cmf\Bundle\BlogBundle\Admin\PostAdmin"
+                blog="Symfony\Cmf\Bundle\BlogBundle\Document\Blog"
+                post="Symfony\Cmf\Bundle\BlogBundle\Document\Post"
+            />
+        </symfony-cmf-blog:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_blog', array(
+            'use_sonata_admin' => 'auto',
+            'blog_basepath' => '/cms/blog',
+            'class' => array(
+                'blog_admin' => 'Symfony\Cmf\Bundle\BlogBundle\Admin\BlogAdmin', // optional
+                'post_admin' => 'Symfony\Cmf\Bundle\BlogBundle\Admin\PostAdmin', // optional
+                'blog' => 'Symfony\Cmf\Bundle\BlogBundle\Document\Blog', // optional
+                'post' => 'Symfony\Cmf\Bundle\BlogBundle\Document\Post', // optional
+            ),
+        ));
+
+Explanation:
+
+* **use_sonata_admin** - Specify whether to attempt to integrate with sonata admin;
+* **blog_basepath** - *required* Specify the path where the blog content should be placed when using sonata admin;
+* **class** - Allows you to specify custom classes for sonata admin and documents;
+  * **blog_admin**: FQN of the sonata admin class to use for managing ``Blog``'s;
+  * **post_admin**: FQN of the sonata admin class to use for managing ``Post``'s;
+  * **blog**: FQN of the document class that sonata admin will use for ``Blog``'s;
+  * **post**: FQN of the document class that sonata admin will use for ``Post``'s.
 
 .. note::
 
-   In the BlogBundle the controller is a *service*, and is referenced as such. You can
-   of course specify a controller using the standard `MyBundle:Controller:action`
-   syntax. See `controllers as services <http://symfony.com/doc/current/cookbook/controller/service.html>`_ in the official sf2 docs.
+    If you change the default documents **it is necessary** to update the auto
+    routing configuration, as the auto routing system will not recognize your new
+    classes and consequently will not generate any routes.
 
-Routing
-~~~~~~~
+Auto Routing
+~~~~~~~~~~~~
+
+The blog bundle uses the ``SymfonyCmfRoutingAuto`` bundle to generate a route
+for each content. You will need an auto routing configuration for this to work.
+
+You can include the default in the main configuration file as follows:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+        
+        # app/config/config.yml
+        imports:
+            # ...
+            - { resource: @SymfonyCmfBlogBundle/Resources/config/routing/autoroute_default.yml }
+        # ...
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <imports>
+            <!-- ... -->
+            <import resource="@SymfonyCmfBlogBundle/Resources/config/routing/autoroute_default" />
+        </imports>
+        <!-- ... -->
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $loader->import('config.php');
+        // ...
+
+The default configuration will produce URLs like the following::
+
+    http://www.example.com/blogs/dtls-blog/2013-04-14/this-is-my-post
+
+Refer to the :doc:`routing_auto` documentation for more information.
+
+Content Routing
+~~~~~~~~~~~~~~~
 
 To enable the routing system to automatically forward requests to the blog
-controller when a Blog content is associated with a route, add the following
-under the ``controllers_by_class`` section of ``symfony_cmf_routing_extra``
-in ``app/config/config.yml``:
+controller when a ``Blog`` or ``Post``  content is associated with a route,
+add the following under the ``controllers_by_class`` section of
+``symfony_cmf_routing_extra`` in the main configuration file:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    symfony_cmf_routing_extra:
-        ...
-        dynamic:
-            ...
-            controllers_by_class:
-                ...
-                Symfony\Cmf\Bundle\BlogBundle\Document\Blog: symfony_cmf_blog.blog_controller:listAction
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        symfony_cmf_routing_extra:
+            # ...
+            dynamic:
+                # ...
+                controllers_by_class:
+                    # ...
+                    Symfony\Cmf\Bundle\BlogBundle\Document\Blog: symfony_cmf_blog.blog_controller:listAction
+                    Symfony\Cmf\Bundle\BlogBundle\Document\Post: symfony_cmf_blog.blog_controller:viewPostAction
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <symfony-cmf-blog:config>
+            <symfony-cmf-blog:dynamic>
+                <symfony-cmf-blog:controllers-by-class
+                    class="Symfony\CmfBundle\BlogBundle\Document\Post"
+                >
+                    symfony_cmf_blog.blog_controller:listAction"
+                </symfony-cmf-blog:controllers-by-class>
+            </symfony-cmf-blog:dynamic>
+        </symfony-cmf-blog:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('symfony_cmf_routing_extra', array(
+            // ...
+            'dynamic' => array(
+                'controllers_by_class' => array(
+                    'Symfony\Cmf\Bundle\BlogBundle\Document\Blog' => 'symfony_cmf_blog.blog_controller:listAction',
+                    'Symfony\Cmf\Bundle\BlogBundle\Document\Post' => 'symfony_cmf_blog.blog_controller:viewPostAction',
+                ),
+            ),
+        ));
 
 Sonata Admin
 ~~~~~~~~~~~~
 
-The ``BlogBundle`` has admin services defined for Sonata Admin, to make the blog
-system visible on your dashboard, add the following to the
+The ``BlogBundle`` has admin services defined for Sonata Admin, to make the
+blog system visible on your dashboard, add the following to the
 ``sonata_admin`` section:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    sonata_admin:
-        ...
-        dashboard:
-            groups:
-                ...
-                blog:
-                    label: blog
-                    items:
-                        - symfony_cmf_blog.admin
-                        - symfony_cmf_post.admin
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_admin:
+            # ...
+            dashboard:
+                groups:
+                    # ...
+                    blog:
+                        label: blog
+                        items:
+                            - symfony_cmf_blog.admin
+                            - symfony_cmf_post.admin
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_admin', array(
+            // ...
+            'dashboard' => array(
+                'groups' => array(
+                    // ...
+                    'blog' => array(
+                        'label' => 'blog',
+                        'items' => array(
+                            'symfony_cmf_blog.admin',
+                            'symfony_cmf_post.admin',
+                        ),
+                    ),
+                ),
+            ),
+        ));
 
 Tree Browser Bundle
 ~~~~~~~~~~~~~~~~~~~
 
 If you use the Symfony CMF Tree Browser bundle you can expose the blog routes
 to enable blog edition from the tree browser. Expose the routes in the
-``fos_js_routing`` section of ``app/config/config.yml``:
+``fos_js_routing`` section of the configuration file:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    fos_js_routing:
-        routes_to_expose:
-            ...
-            - admin_bundle_blog_blog_create
-            - admin_bundle_blog_blog_delete
-            - admin_bundle_blog_blog_edit
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        fos_js_routing:
+            routes_to_expose:
+                # ...
+                - admin_bundle_blog_blog_create
+                - admin_bundle_blog_blog_delete
+                - admin_bundle_blog_blog_edit
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('fos_js_routing', array(
+            'routes_to_expose' => array(
+                // ...
+                'admin_bundle_blog_blog_create',
+                'admin_bundle_blog_blog_delete',
+                'admin_bundle_blog_blog_edit',
+        )));
 
 Integration
 -----------
@@ -115,23 +260,30 @@ Integration
 Templating
 ~~~~~~~~~~
 
-The default templates are marked up for `Twitter Bootstrap <http://twitter.github.com/bootstrap/>`_.
-But it is easy to completely customize the templates by **overriding** them.
+The default templates are marked up for `Twitter Bootstrap`_. But it is easy
+to completely customize the templates by **overriding** them.
 
-The one template you will have to override is the default layout, you will need
-to change it and make it extend your applications layout. The easiest way to do
-this is to create the following file:
+The one template you will have to override is the default layout, you will
+need to change it and make it extend your applications layout. The easiest way
+to do this is to create the following file:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {# /app/Resources/SymfonyCmfBlogBundle/views/default_layout.html.twig #}
+    .. code-block:: jinja
 
-    {% extends "MyApplicationBundle::my_layout.html.twig" %}
+        {# /app/Resources/SymfonyCmfBlogBundle/views/default_layout.html.twig #}
 
-    {% block content %}
-    {% endblock %}
+        {% extends "MyApplicationBundle::my_layout.html.twig" %}
+
+        {% block content %}
+        {% endblock %}
 
 The blog will now use ``MyApplicationBundle::my_layout.html.twig`` instead of
 ``SymfonyCmfBlogBundle::default_layout.html.twig``.
 
-See `Overriding Bundle Templates <http://symfony.com/doc/2.0/book/templating.html#overriding-bundle-templates>`_ in the Symfony documentation for more information.
+See `Overriding Bundle Templates`_ in the Symfony documentation for more
+information.
+
+.. _`controllers as services`: http://symfony.com/doc/current/cookbook/controller/service.html
+.. _`Twitter Bootstrap`: http://twitter.github.com/bootstrap/
+.. _`Overrding Bundle Templates`: http://symfony.com/doc/current/book/templating.html#overriding-bundle-templates

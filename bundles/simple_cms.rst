@@ -1,5 +1,5 @@
-SimpleCmsBundle
-===============
+The SimpleCmsBundle
+===================
 
 The `SimpleCmsBundle <https://github.com/symfony-cmf/SimpleCmsBundle#readme>`_
 provides a simplistic CMS on top of the CMF components and bundles.
@@ -37,9 +37,9 @@ disable it if you have the menu bundle but do not want to use the default servic
 or explicitly enable to get an error if the menu bundle becomes unavailable.
 
 The routing section is configuring what template or controller to use for a
-content class. This is reusing what routing extra does, please see the corresponding
-:ref:`routing configuration section<routing-route-enhancer>`. It also explains the
-``generic_controller``.
+content class. This is reusing what the cmf routing bundle does, please see the
+corresponding :ref:`routing configuration section <bundle-routing-route-enhancer>`.
+It also explains the ``generic_controller``.
 
 See the section below for multilanguage support.
 
@@ -51,13 +51,15 @@ See the section below for multilanguage support.
         symfony_cmf_simple_cms:
             use_menu:             auto # use true/false to force providing / not providing a menu
             use_sonata_admin:     auto # use true/false to force using / not using sonata admin
+            sonata_admin:
+                sort:             false # set to asc|desc to sort children by publication date
             document_class:       Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page
             # controller to use to render documents with just custom template
             generic_controller:   symfony_cmf_content.controller:indexAction
             # where in the PHPCR tree to store the pages
             basepath:             /cms/simple
             routing:
-                content_repository_id:  symfony_cmf_routing_extra.content_repository
+                content_repository_id:  symfony_cmf_routing.content_repository
                 controllers_by_class:
                     # ...
                 templates_by_class:

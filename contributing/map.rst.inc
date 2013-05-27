@@ -1,0 +1,2 @@
+* :doc:`code`
+* :doc:`license`

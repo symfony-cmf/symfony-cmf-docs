@@ -1,8 +1,9 @@
 Creating a CMS using CMF and Sonata
 ===================================
 
-The goal of this tutorial is to create a simple content management system using the CMF as well as
-`SonataAdminBundle <https://github.com/sonata-project/SonataAdminBundle>`_ and :doc:`../bundles/doctrine_phpcr_admin`.
+The goal of this tutorial is to create a simple content management system
+using the CMF as well as `SonataAdminBundle`_ and
+:doc:`../bundles/doctrine_phpcr_admin`.
 
 
 .. index:: Sonata, SonataAdminBundle, SonataDoctrinePHPCRAdminBundle, SonatajQueryBundle, FOSJsRoutingBundle, TreeBundle, TreeBrowserBundle
@@ -10,15 +11,16 @@ The goal of this tutorial is to create a simple content management system using 
 Preconditions
 -------------
 
-- :doc:`installing-cmf-core`
-- `Symfony SecurityBundle <http://symfony.com/doc/master/book/security.html>`_ (required by the SonataAdminBundle default templates)
+* :doc:`installing-cmf-core`
+* `Symfony SecurityBundle`_ (required by the SonataAdminBundle default templates)
 
 Installation
 ------------
 
-Download the bundles
+Download the Bundles
 ~~~~~~~~~~~~~~~~~~~~
-Add the following to your ``composer.json`` file
+
+Add the following to your ``composer.json`` file:
 
 .. code-block:: javascript
 
@@ -27,17 +29,17 @@ Add the following to your ``composer.json`` file
         "sonata-project/doctrine-phpcr-admin-bundle": "1.0.*",
     }
 
-And then run
+And then run:
 
 .. code-block:: bash
 
-    php composer.phar update
+    $ php composer.phar update
 
-Initialize bundles
+Initialize Bundles
 ~~~~~~~~~~~~~~~~~~
-Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``registerBundle`` method
 
-.. code-block:: php
+Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the
+``registerBundle`` method::
 
     public function registerBundles()
     {
@@ -52,13 +54,14 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the ``re
             new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
+
         // ...
     }
 
 Configuration
 -------------
 
-Add the sonata bundles to your application configuration
+Add the sonata bundles to your application configuration:
 
 .. configuration-block::
 
@@ -91,11 +94,11 @@ Add the sonata bundles to your application configuration
                     valid_children:
                         - all
                 Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page: ~
-                Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route:
+                Symfony\Cmf\Bundle\RoutingBundle\Document\Route:
                     valid_children:
-                        - Symfony\Cmf\Bundle\RoutingExtraBundle\Document\Route
-                        - Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute
-                Symfony\Cmf\Bundle\RoutingExtraBundle\Document\RedirectRoute:
+                        - Symfony\Cmf\Bundle\RoutingBundle\Document\Route
+                        - Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute
+                Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute:
                     valid_children: []
                 Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode:
                     valid_children:
@@ -106,32 +109,7 @@ Add the sonata bundles to your application configuration
                         - Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode
                         - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode
 
-        fos_js_routing:
-            routes_to_expose:
-                - admin_sandbox_main_editablestaticcontent_create
-                - admin_sandbox_main_editablestaticcontent_delete
-                - admin_sandbox_main_editablestaticcontent_edit
-                - admin_bundle_menu_menunode_create
-                - admin_bundle_menu_menunode_delete
-                - admin_bundle_menu_menunode_edit
-                - admin_bundle_menu_multilangmenunode_create
-                - admin_bundle_menu_multilangmenunode_delete
-                - admin_bundle_menu_multilangmenunode_edit
-                - admin_bundle_content_multilangstaticcontent_create
-                - admin_bundle_content_multilangstaticcontent_delete
-                - admin_bundle_content_multilangstaticcontent_edit
-                - admin_bundle_routingextra_route_create
-                - admin_bundle_routingextra_route_delete
-                - admin_bundle_routingextra_route_edit
-                - admin_bundle_simplecms_page_create
-                - admin_bundle_simplecms_page_delete
-                - admin_bundle_simplecms_page_edit
-                - symfony_cmf_tree_browser.phpcr_children
-                - symfony_cmf_tree_browser.phpcr_move
-                - sonata.admin.doctrine_phpcr.phpcrodm_children
-                - sonata.admin.doctrine_phpcr.phpcrodm_move
-
-Add route in to your routing configuration
+Add route in to your routing configuration:
 
 .. configuration-block::
 
@@ -158,15 +136,20 @@ Add route in to your routing configuration
             type: 'symfony_cmf_tree'
 
 
+The FOSJsRoutingBundle is used to export sonata routes to javascript, to be
+used with the tree. All relevant routes have the ``expose`` option set. If you
+do custom routes that need to be used with the tree, you need to do that or
+configure the js routing bundle manually.
+
 Sonata Assets
 -------------
 
 .. code-block:: bash
 
-    app/console assets:install --symlink
+    $ php app/console assets:install --symlink
 
 
-Defining own Admin classes
+Defining own Admin Classes
 --------------------------
 
 The CMF bundles come with predefined admin classes which will be activated
@@ -183,8 +166,8 @@ work.
 The constructor expects three arguments, code, document class and controller
 name. You can pass an empty argument for the code, the document class must be
 the fully qualified class name of the document this admin is for and the third
-argument can be used to set a custom controller that does additional operations
-over the default sonata CRUD controller.
+argument can be used to set a custom controller that does additional
+operations over the default sonata CRUD controller.
 
 .. configuration-block::
 
@@ -205,19 +188,22 @@ over the default sonata CRUD controller.
 Finally
 -------
 
-Now Sonata is configured to work with the PHPCR you can access the dashboard using via /admin/dashboard in your site.
+Now Sonata is configured to work with the PHPCR you can access the dashboard
+using via ``/admin/dashboard`` in your site.
 
 
 Tree Problems
 -------------
 
-If you have not yet added anything to the content repository, the tree view will not load as it
-cannot find a root node. To fix this, load some data as fixtures by following this doc:
+If you have not yet added anything to the content repository, the tree view
+will not load as it cannot find a root node. To fix this, load some data as
+fixtures by following ":doc:`using-blockbundle-and-contentbundle`"
 
-- :doc:`using-blockbundle-and-contentbundle`
-
-Further reading
+Further Reading
 ---------------
 
 * :doc:`../bundles/doctrine_phpcr_admin`
 * :doc:`handling-multilang-documents`
+
+.. _`SonataAdminBundle`: https://github.com/sonata-project/SonataAdminBundle
+.. _`Symfony SecurityBundle`: http://symfony.com/doc/master/book/security.html

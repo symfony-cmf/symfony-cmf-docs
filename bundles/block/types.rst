@@ -1,17 +1,17 @@
 Block Types
 ===========
 
-For each purpose a different block type can be used. The general purpose blocks can be used for several solutions.
-The Block Bundle ships with more specific block types.
+For each purpose a different block type can be used. The general purpose
+blocks can be used for several solutions.  The Block Bundle ships with more
+specific block types.
 
 RSSBlock
 --------
 
-The RssBlock extends the ActionBlock and allows you to read feed items and display them in a list.
+The RssBlock extends the ActionBlock and allows you to read feed items and
+display them in a list.
 
-Create a document:
-
-.. code-block:: php
+Create a document::
 
     $myRssBlock = new RssBlock();
     $myRssBlock->setParentDocument($parentPage);
@@ -26,18 +26,22 @@ All available settings are:
 
 * **url**: the url of the rss feed (*required*)
 * **title**: the title for the list (*default*: Insert the rss title)
-* **maxItems**: the maximum amount of items to return to the template (*default*: 10)
-* **template**: the template to render the feed items (*default*: SymfonyCmfBlockBundle:Block:block_rss.html.twig)
-* **ItemClass**: the class used for the item objects that are passed to the template (*default*: Symfony\Cmf\Bundle\BlockBundle\Model\FeedItem)
+* **maxItems**: the maximum amount of items to return to the template
+  (*default*: 10)
+* **template**: the template to render the feed items (*default*:
+  ``SymfonyCmfBlockBundle:Block:block_rss.html.twig``)
+* **ItemClass**: the class used for the item objects that are passed to the
+  template (*default*: ``Symfony\Cmf\Bundle\BlockBundle\Model\FeedItem``)
 
 The controller to get the feed items can also be changed:
 
-* define a different class for the controller service in your configuration using the DI service parameter ``symfony_cmf_block.rss_controller_class``
+* Define a different class for the controller service in your configuration
+  using the DI service parameter ``symfony_cmf_block.rss_controller_class``
 * or set the actionName of your RssBlock document
 
 .. note::
 
-    The `Symfony CMF Sandbox <https://github.com/symfony-cmf/cmf-sandbox>`_ contains an example of the RssBlock.
+        The `Symfony CMF Sandbox`_ contains an example of the RssBlock.
 
 SlideshowBlock
 --------------
@@ -136,12 +140,15 @@ your project is to add the following line to your sonata admin configuration:
 However, you can also embed the slideshow administration directly into
 other admin classes using the ``sonata_type_admin`` form type. The admin
 service to use in that case is ``symfony_cmf_block.slideshow_admin``.
-Please refer to `the Sonata Admin docs <http://sonata-project.org/bundles/admin/master/doc/reference/form_types.html>`_
+Please refer to the `Sonata Admin documentation`_
 for further information.
 
-If you use the default template, you need to add the
-`LiipImagineBundle <https://github.com/liip/LiipImagineBundle>`_ to your
-dependencies and define a imagine filter using the phpcr called
+If you use the default template, you need to add the `LiipImagineBundle`_ to
+your dependencies and define a imagine filter using the phpcr called
 'symfony_cmf_block' (or the name you specified to the block in setFilter).
-Refer to the `LiipImagineBundle documentation <https://github.com/liip/LiipImagineBundle/tree/master/Resources/doc>`_
-for further information.
+Refer to the `LiipImagineBundle documentation`_ for further information.
+
+.. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
+.. _`Sonata Admin documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/form_types.html
+.. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
+.. _`LiipImagineBundle documentation`: https://github.com/liip/LiipImagineBundle/tree/master/Resources/doc
