@@ -1,2 +1,2 @@
-* :doc:`contributing/code`
-* :doc:`contributing/license`
+* :doc:`code`
+* :doc:`license`

@@ -1,55 +1,55 @@
-* :doc:`bundles/block/index`
+* :doc:`block/index`
 
-  * :doc:`bundles/block/introduction`
-  * :doc:`bundles/block/types`
-  * :doc:`bundles/block/create_your_own_blocks`
-  * :doc:`bundles/block/cache`
-  * :doc:`bundles/block/relation_to_sonata_block_bundle`
+  * :doc:`block/introduction`
+  * :doc:`block/types`
+  * :doc:`block/create_your_own_blocks`
+  * :doc:`block/cache`
+  * :doc:`block/relation_to_sonata_block_bundle`
 
 * **BlogBundle**
 
-  * :doc:`bundles/blog`
+  * :doc:`blog`
 
 * **ContentBundle**
 
-  * :doc:`bundles/content`
+  * :doc:`content`
 
 * **CoreBundle**
 
-  * :doc:`bundles/core`
+  * :doc:`core`
 
 * **CreateBundle**
 
-  * :doc:`bundles/create`
+  * :doc:`create`
 
 * **DoctrinePHPCRBundle**
 
-  * :doc:`bundles/phpcr_odm`
+  * :doc:`phpcr_odm`
 
 * **MenuBundle**
 
-  * :doc:`bundles/menu`
+  * :doc:`menu`
 
 * **RoutingBundle**
 
-  * :doc:`bundles/routing`
+  * :doc:`routing`
 
 * **RoutingAutoBundle**
 
-  * :doc:`bundles/routing_auto`
+  * :doc:`routing_auto`
 
 * **SearchBundle**
 
-  * :doc:`bundles/search`
+  * :doc:`search`
 
 * **SimpleCmsbundle**
 
-  * :doc:`bundles/simple_cms`
+  * :doc:`simple_cms`
 
 * **SonataDoctrinePhpcrAdminBundle**
 
-  * :doc:`bundles/doctrine_phpcr_admin`
+  * :doc:`doctrine_phpcr_admin`
 
 * **TreeBrowserBundle**
 
-  * :doc:`bundles/tree_browser`
+  * :doc:`tree_browser`
