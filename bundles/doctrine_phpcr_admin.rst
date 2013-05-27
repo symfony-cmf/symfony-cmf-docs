@@ -1,16 +1,16 @@
 The SonataDoctrinePhpcrAdminBundle
 ==================================
 
-The `SonataDoctrinePhpcrAdminBundle <https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle#readme>`_
-provides integration with the SonataAdminBundle to enable easy creation of admin UIs.
+The `SonataDoctrinePhpcrAdminBundle`_ provides integration with the
+SonataAdminBundle to enable easy creation of admin UIs.
 
 .. index:: TreeBundle
 
 Dependencies
 ------------
 
-* `SonataAdminBundle <https://github.com/sonata-project/SonataAdminBundle>`_
-* `TreeBundle <https://github.com/symfony-cmf/TreeBundle#readme>`_
+* `SonataAdminBundle`_
+* `TreeBundle`_
 
 Configuration
 -------------
@@ -40,3 +40,7 @@ Configuration
                     # class names of valid children, manage tree operations for them and hide other children
                     valid_children:       []
                     image:
+                    
+.. _`SonataDoctrinePhpcrAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle#readme
+.. _`SonataAdminBundle`: https://github.com/sonata-project/SonataAdminBundle
+.. _`TreeBundle`: https://github.com/symfony-cmf/TreeBundle#readme
