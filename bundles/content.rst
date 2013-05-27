@@ -1,9 +1,10 @@
 The ContentBundle
 =================
 
-This bundle provides a document for static content and the controller to render it.
+This bundle provides a document for static content and the controller to
+render it.
 
-For an introduction see the :doc:`../getting-started/content` page in the
+For an introduction see the :doc:`../getting-started/content` article in the
 "Getting started" section.
 
 .. index:: ContentBundle
@@ -11,7 +12,7 @@ For an introduction see the :doc:`../getting-started/content` page in the
 Configuration
 -------------
 
-The configuration key for this bundle is ``symfony_cmf_content``
+The configuration key for this bundle is ``symfony_cmf_content``:
 
 .. configuration-block::
 

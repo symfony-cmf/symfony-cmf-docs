@@ -1,23 +1,22 @@
 The DoctrinePHPCRBundle
 =======================
 
-The `DoctrinePHPCRBundle <https://github.com/doctrine/DoctrinePHPCRBundle>`_
-provides integration with the PHP content repository and optionally with
-Doctrine PHPCR-ODM to provide the ODM document manager in symfony.
+The `DoctrinePHPCRBundle`_ provides integration with the PHP content
+repository and optionally with Doctrine PHPCR-ODM to provide the ODM document
+manager in symfony.
 
 Out of the box, this bundle supports the following PHPCR implementations:
 
-* `Jackalope <http://jackalope.github.com/>`_ (both jackrabbit and doctrine-dbal transports)
-* `Midgard2 <http://midgard-project.org/phpcr/>`_
-
+* `Jackalope`_ (both jackrabbit and doctrine-dbal transports)
+* `Midgard2`_
 
 .. index:: DoctrinePHPCRBundle, PHPCR, ODM
 
-.. Tip::
+.. tip::
 
-    This reference only explains the Symfony2 integration of PHPCR and PHPCR-ODM.
-    To learn how to use PHPCR refer to `the PHPCR website <http://phpcr.github.com/>`_ and for
-    Doctrine PHPCR-ODM to the `PHPCR-ODM documentation <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/>`_.
+    This reference only explains the Symfony2 integration of PHPCR and
+    PHPCR-ODM.  To learn how to use PHPCR refer to `the PHPCR website`_ and
+    for Doctrine PHPCR-ODM to the `PHPCR-ODM documentation`_.
 
 This bundle is based on the AbstractDoctrineBundle and thus is similar to the
 configuration of the Doctrine ORM and MongoDB bundles.
@@ -27,41 +26,41 @@ Setup and Requirements
 
 See :doc:`../tutorials/installing-configuring-doctrine-phpcr-odm`
 
-
 Configuration
 -------------
 
-.. Tip::
+.. tip::
 
-    If you want to only use plain PHPCR without the PHPCR-ODM, you can simply not
-    configure the ``odm`` section to avoid loading the services at all. Note that most
-    CMF bundles by default use PHPCR-ODM documents and thus need ODM enabled.
-
+    If you want to only use plain PHPCR without the PHPCR-ODM, you can simply
+    not configure the ``odm`` section to avoid loading the services at all.
+    Note that most CMF bundles by default use PHPCR-ODM documents and thus
+    need ODM enabled.
 
 PHPCR Session Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The session needs a PHPCR implementation specified in the ``backend`` section
 by the ``type`` field, along with configuration options to bootstrap the
-implementation. Currently we support ``jackrabbit``, ``doctrinedbal`` and ``midgard2``.
-Regardless of the backend, every PHPCR session needs a workspace, username and
-password.
+implementation. Currently we support ``jackrabbit``, ``doctrinedbal`` and
+``midgard2``.  Regardless of the backend, every PHPCR session needs a
+workspace, username and password.
 
-.. Tip::
+.. tip::
 
-    Every PHPCR implementation should provide the workspace called *default*, but you
-    can choose a different one. There is the ``doctrine:phpcr:workspace:create``
-    command to initialize a new workspace. See also :ref:`bundle-phpcr-odm-commands`.
+    Every PHPCR implementation should provide the workspace called *default*,
+    but you can choose a different one. There is the
+    ``doctrine:phpcr:workspace:create`` command to initialize a new workspace.
+    See also :ref:`bundle-phpcr-odm-commands`.
 
-The username and password you specify here are what is used on the PHPCR layer in the
-``PHPCR\SimpleCredentials``. They will usually be different from the username
-and password used by Midgard2 or Doctrine DBAL to connect to the
+The username and password you specify here are what is used on the PHPCR layer
+in the ``PHPCR\SimpleCredentials``. They will usually be different from the
+username and password used by Midgard2 or Doctrine DBAL to connect to the
 underlying RDBMS where the data is actually stored.
 
-If you are using one of the Jackalope backends, you can also specify ``options``.
-They will be set on the Jackalope session. Currently this can be used to tune
-pre-fetching nodes by setting ``jackalope.fetch_depth`` to something bigger than
-0.
+If you are using one of the Jackalope backends, you can also specify
+``options``.  They will be set on the Jackalope session. Currently this can be
+used to tune pre-fetching nodes by setting ``jackalope.fetch_depth`` to
+something bigger than 0.
 
 .. configuration-block::
 
@@ -84,11 +83,13 @@ pre-fetching nodes by setting ``jackalope.fetch_depth`` to something bigger than
 PHPCR Session with Jackalope Jackrabbit
 """""""""""""""""""""""""""""""""""""""
 
-The only setup required is to install Apache Jackrabbit (see :ref:`installing Jackrabbit <tutorials-installing-phpcr-jackrabbit>`).
+The only setup required is to install Apache Jackrabbit (see
+:ref:`installing Jackrabbit <tutorials-installing-phpcr-jackrabbit>`).
 
-The configuration needs the ``url`` parameter to point to your jackrabbit. Additionally you can
-tune some other jackrabbit-specific options, for example to use it in a load-balanced setup or to fail
-early for the price of some round trips to the backend.
+The configuration needs the ``url`` parameter to point to your jackrabbit.
+Additionally you can tune some other jackrabbit-specific options, for example
+to use it in a load-balanced setup or to fail early for the price of some
+round trips to the backend.
 
 .. configuration-block::
 
@@ -121,7 +122,7 @@ to provide PHPCR without any installation requirements beyond any of the RDBMS
 supported by Doctrine.
 
 You need to configure a Doctrine connection according to the DBAL section in
-the `Symfony2 Doctrine documentation <http://symfony.com/doc/current/book/doctrine.html>`_.
+the `Symfony2 Doctrine documentation`_.
 
 .. configuration-block::
 
@@ -141,26 +142,24 @@ the `Symfony2 Doctrine documentation <http://symfony.com/doc/current/book/doctri
                     # its highly recommended NOT to disable transactions
                     # disable_transactions: true
 
-
 Once the connection is configured, you can create the database and you *need*
 to initialize the database with the ``doctrine:phpcr:init:dbal`` command.
 
 .. code-block:: bash
 
-    app/console doctrine:database:create
-    app/console doctrine:phpcr:init:dbal
+    $ php app/console doctrine:database:create
+    $ php app/console doctrine:phpcr:init:dbal
 
-.. Tip::
+.. tip::
 
     Of course, you can also use a different connection instead of the default.
     It is recommended to use a separate connection to a separate database if
-    you also use Doctrine ORM or direct DBAL access to data, rather than mixing
-    this data with the tables generated by jackalope-doctrine-dbal.
-    If you have a separate connection, you need to pass the alternate
-    connection name to the ``doctrine:database:create`` command with the
-    ``--connection`` option. For doctrine PHPCR commands, this parameter is not
-    needed as you configured the connection to use.
-
+    you also use Doctrine ORM or direct DBAL access to data, rather than
+    mixing this data with the tables generated by jackalope-doctrine-dbal.  If
+    you have a separate connection, you need to pass the alternate connection
+    name to the ``doctrine:database:create`` command with the ``--connection``
+    option. For doctrine PHPCR commands, this parameter is not needed as you
+    configured the connection to use.
 
 PHPCR Session with Midgard2
 """""""""""""""""""""""""""
@@ -168,9 +167,10 @@ PHPCR Session with Midgard2
 Midgard2 is an application that provides a compiled PHP extension. It
 implements the PHPCR API on top of a standard RDBMS.
 
-To use the Midgard2 PHPCR provider, you must have both the `midgard2 PHP extension <http://midgard-project.org/midgard2/#download>`_
-and `the midgard/phpcr package <http://packagist.org/packages/midgard/phpcr>`_ installed.
-The settings here correspond to Midgard2 repository parameters as explained in `the getting started document <http://midgard-project.org/phpcr/#getting_started>`_.
+To use the Midgard2 PHPCR provider, you must have both the
+`midgard2 PHP extension`_ and `the midgard/phpcr package`_ installed. The
+settings here correspond to Midgard2 repository parameters as explained in
+`the getting started document`_.
 
 The session backend configuration looks as follows:
 
@@ -192,29 +192,28 @@ The session backend configuration looks as follows:
                     db_init: true
                     blobdir: /tmp/cmf-blobs
 
-For more information, please refer to the `official Midgard PHPCR documentation <http://midgard-project.org/phpcr/>`_.
+For more information, please refer to the `official Midgard PHPCR documentation`_.
 
 .. _bundle-phpcr-odm-configuration:
-
 
 Doctrine PHPCR-ODM Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This configuration section manages the Doctrine PHPCR-ODM system. If you do not
-configure anything here, the ODM services will not be loaded.
+This configuration section manages the Doctrine PHPCR-ODM system. If you do
+not configure anything here, the ODM services will not be loaded.
 
 If you enable ``auto_mapping``, you can place your mappings in
-``<Bundle>/Resources/config/doctrine/<Document>.phpcr.xml`` resp. ``...yml`` to
-configure mappings for documents you provide in the ``<Bundle>/Document``
+``<Bundle>/Resources/config/doctrine/<Document>.phpcr.xml`` resp. ``...yml``
+to configure mappings for documents you provide in the ``<Bundle>/Document``
 folder. Otherwise you need to manually configure the mappings section.
 
-If ``auto_generate_proxy_classes`` is false, you need to run the ``cache:warmup``
-command in order to have the proxy classes generated after you modified a
-document. You can also tune how and where to generate the proxy classes with the
-``proxy_dir`` and ``proxy_namespace`` settings. The the defaults are usually fine
-here.
+If ``auto_generate_proxy_classes`` is false, you need to run the
+``cache:warmup`` command in order to have the proxy classes generated after
+you modified a document. You can also tune how and where to generate the proxy
+classes with the ``proxy_dir`` and ``proxy_namespace`` settings. The the
+defaults are usually fine here.
 
-You can also enable `metadata caching <http://symfony.com/doc/master/reference/configuration/doctrine.html>`_.
+You can also enable `metadata caching`_.
 
 .. configuration-block::
 
@@ -245,17 +244,16 @@ You can also enable `metadata caching <http://symfony.com/doc/master/reference/c
                     class:                ~
                     id:                   ~
 
+.. index:: I18N, Multilanguage
 
 .. _bundle-phpcr-odm-multilang-config:
 
-Translation configuration
+Translation Configuration
 """""""""""""""""""""""""
 
-.. index:: I18N, Multilanguage
-
 If you are using multilingual documents, you need to configure the available
-languages. For more information on multilingual documents, see the
-`PHPCR-ODM documentation on Multilanguage <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html>`_.
+languages. For more information on multilingual documents, see the `PHPCR-ODM
+documentation on Multilanguage`_.
 
 .. configuration-block::
 
@@ -270,18 +268,17 @@ languages. For more information on multilingual documents, see the
                     de: [en, fr]
                     fr: [en, de]
 
-This block defines the order of alternative locales to look up if a document is
-not translated to the requested locale.
-
+This block defines the order of alternative locales to look up if a document
+is not translated to the requested locale.
 
 General Settings
 ~~~~~~~~~~~~~~~~
 
-If the `jackrabbit_jar` path is set, you can use the `doctrine:phpcr:jackrabbit`
-console command to start and stop jackrabbit.
+If the `jackrabbit_jar` path is set, you can use the
+``doctrine:phpcr:jackrabbit`` console command to start and stop jackrabbit.
 
-You can tune the output of the `doctrine:phpcr:dump` command with
-`dump_max_line_length`.
+You can tune the output of the ``doctrine:phpcr:dump`` command with
+``dump_max_line_length``.
 
 .. configuration-block::
 
@@ -302,7 +299,6 @@ of the ``session`` information. Each session has a name and the configuration
 as you can use directly in ``session``. You can also overwrite which session
 to use as ``default_session``.
 
-
 .. configuration-block::
 
     .. code-block:: yaml
@@ -321,10 +317,12 @@ to use as ``default_session``.
                         options:
                             # as above
 
-If you are using the ODM, you will also want to configure multiple document managers.
+If you are using the ODM, you will also want to configure multiple document
+managers.
 
-Inside the odm section, you can add named entries in the ``document_managers``.
-To use the non-default session, specify the session attribute.
+Inside the odm section, you can add named entries in the
+``document_managers``.  To use the non-default session, specify the session
+attribute.
 
 .. configuration-block::
 
@@ -403,13 +401,10 @@ A full example looks as follows:
 
 .. _bundle-phpcr-odm-commands:
 
-
 Services
 --------
 
-You can access the PHPCR services like this:
-
-.. code-block:: php
+You can access the PHPCR services like this::
 
     <?php
 
@@ -434,15 +429,19 @@ You can access the PHPCR services like this:
 Events
 ------
 
-You can tag services to listen to Doctrine PHPCR-ODM events. It works the same way
-as for Doctrine ORM. The only differences are
+You can tag services to listen to Doctrine PHPCR-ODM events. It works the same
+way as for Doctrine ORM. The only differences are:
 
-* use the tag name ``doctrine_phpcr.event_listener`` resp. ``doctrine_phpcr.event_subscriber`` instead of ``doctrine.event_listener``.
-* expect the argument to be of class ``Doctrine\ODM\PHPCR\Event\LifecycleEventArgs`` rather than in the ORM namespace.
-  (this is subject to change, as doctrine commons 2.4 provides a common class for this event).
+* use the tag name ``doctrine_phpcr.event_listener`` resp.
+  ``doctrine_phpcr.event_subscriber`` instead of ``doctrine.event_listener``.
+* expect the argument to be of class
+* ``Doctrine\ODM\PHPCR\Event\LifecycleEventArgs`` rather than in the ORM
+  namespace. (this is subject to change, as doctrine commons 2.4 provides a
+  common class for this event).
 
-You can register for the events as described in `the PHPCR-ODM documentation <http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html>`_.
-Or you can tag your services as event listeners resp. event subscribers.
+You can register for the events as described in
+`the PHPCR-ODM documentation`_. Or you can tag your services as event
+listeners resp. event subscribers.
 
 .. configuration-block::
 
@@ -460,25 +459,24 @@ Or you can tag your services as event listeners resp. event subscribers.
                         - { name: doctrine_phpcr.event_subscriber }
 
 
-.. hint::
+.. tip::
 
-    Doctrine event subscribers (both ORM and PHPCR-ODM) can not
-    return a flexible array of methods to call like the `Symfony event subscriber <http://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers>`_
-    can do. Doctrine event subscribers must return a simple array of the event
-    names they subscribe to. Doctrine will then expect methods on the subscriber
-    with the names of the subscribed events, just as when using an event listener.
+    Doctrine event subscribers (both ORM and PHPCR-ODM) can not return a
+    flexible array of methods to call like the `Symfony event subscriber`_ can
+    do. Doctrine event subscribers must return a simple array of the event
+    names they subscribe to. Doctrine will then expect methods on the
+    subscriber with the names of the subscribed events, just as when using an
+    event listener.
 
-More information with PHP code examples for the doctrine event system integration is in
-this `Symfony cookbook entry <http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html>`_.
+More information with PHP code examples for the doctrine event system
+integration is in this `Symfony cookbook entry`_.
 
-
-Constraint validator
+Constraint Validator
 --------------------
 
 The bundle provides a ``ValidPhpcrOdm`` constraint validator you can use to
 check if your document ``Id`` or ``Nodename`` and ``Parent`` fields are
 correct.
-
 
 .. configuration-block::
 
@@ -518,32 +516,33 @@ correct.
         </constraint-mapping>
 
 
-Form types
+Form Types
 ----------
 
-The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM specific cases, along with form type guessers.
-
+The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM
+specific cases, along with form type guessers.
 
 phpcr_odm_image
 ~~~~~~~~~~~~~~~
 
-The ``phpcr_odm_image`` form maps to a document of type ``Doctrine\ODM\PHPCR\Document\Image``
-and provides a preview of the uploaded image. To use it, you need to include the
-`LiipImagineBundle <https://github.com/liip/LiipImagineBundle/>`_ in your project and define an
-imagine filter for thumbnails.
+The ``phpcr_odm_image`` form maps to a document of type
+``Doctrine\ODM\PHPCR\Document\Image`` and provides a preview of the uploaded
+image. To use it, you need to include the `LiipImagineBundle`_ in your project
+and define an imagine filter for thumbnails.
 
-This form type is only available if explicitly enabled in your application configuration
-by defining the ``imagine`` section under the ``odm`` section with at least ``enabled: true``.
-You can also configure the imagine filter to use for the preview, as well as additional
-filters to remove from cache when the image is replaced. If the filter is not specified,
-it defaults to ``image_upload_thumbnail``.
+This form type is only available if explicitly enabled in your application
+configuration by defining the ``imagine`` section under the ``odm`` section
+with at least ``enabled: true``.  You can also configure the imagine filter to
+use for the preview, as well as additional filters to remove from cache when
+the image is replaced. If the filter is not specified, it defaults to
+``image_upload_thumbnail``.
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         doctrine_phpcr:
-            ...
+            # ...
             odm:
                 imagine:
                     enabled: true
@@ -554,7 +553,7 @@ it defaults to ``image_upload_thumbnail``.
 
         # Imagine Configuration
         liip_imagine:
-            ...
+            # ...
             filter_sets:
                 # define the filter to be used with the image preview
                 image_upload_thumbnail:
@@ -562,9 +561,7 @@ it defaults to ``image_upload_thumbnail``.
                     filters:
                         thumbnail: { size: [100, 100], mode: outbound }
 
-Then you can add images to document forms as follows:
-
-.. code-block:: php
+Then you can add images to document forms as follows::
 
     use Symfony\Component\Form\FormBuilderInterface;
 
@@ -577,15 +574,15 @@ Then you can add images to document forms as follows:
 
 .. tip::
 
-   If you set required to true for the image, the user must re-upload a new image
-   each time he edits the form. If the document must have an image, it makes sense
-   to require the field when creating a new document, but make it optional when
-   editing an existing document.
-   We are `trying to make this automatic <https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4>`_.
+   If you set required to true for the image, the user must re-upload a new
+   image each time he edits the form. If the document must have an image, it
+   makes sense to require the field when creating a new document, but make it
+   optional when editing an existing document.  We are
+   `trying to make this automatic`_.
 
-
-Next you will need to add the ``fields.html.twig`` template from the DoctrinePHPCRBundle to the form.resources,
-to actually see the preview of the uploaded image in the backend.
+Next you will need to add the ``fields.html.twig`` template from the
+DoctrinePHPCRBundle to the ``form.resources``, to actually see the preview of
+the uploaded image in the backend.
 
 .. configuration-block::
 
@@ -597,17 +594,14 @@ to actually see the preview of the uploaded image in the backend.
                 resources:
                     - 'DoctrinePHPCRBundle:Form:fields.html.twig'
 
-
-The document that should contain the Image document has to implement a setter method.
-To profit from the automatic guesser of the form layer, the name in the form element
-and this method name have to match:
-
-.. code-block:: php
+The document that should contain the Image document has to implement a setter
+method.  To profit from the automatic guesser of the form layer, the name in
+the form element and this method name have to match::
 
     public function setImage($image)
     {
         if (!$image) {
-            // This is normal and happens when no new image is uploaded
+            // this is normal and happens when no new image is uploaded
             return;
         } elseif ($this->image && $this->image->getFile()) {
             // TODO: needed until this bug in PHPCRODM has been fixed: https://github.com/doctrine/phpcr-odm/pull/262
@@ -617,32 +611,29 @@ and this method name have to match:
         }
     }
 
-
-To delete an image, you need to delete the document containing the image. (There is a proposal
-to improve the user experience for that in a `DoctrinePHPCRBundle issue <https://github.com/doctrine/DoctrinePHPCRBundle/issues/40>`_.)
+To delete an image, you need to delete the document containing the image.
+(There is a proposal to improve the user experience for that in a
+`DoctrinePHPCRBundle issue`_.)
 
 .. note::
 
     There is a doctrine listener to invalidate the imagine cache for the
     filters you specified. This listener will only operate when an Image is
     changed in a web request, but not when a CLI command changes images. When
-    changing images with commands, you should handle cache invalidation in
-    the command or manually remove the imagine cache afterwards.
-
+    changing images with commands, you should handle cache invalidation in the
+    command or manually remove the imagine cache afterwards.
 
 phpcr_odm_reference_collection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This form type handles editing ``ReferenceMany`` collections on PHPCR-ODM documents.
-It is a choice field with an added ``referenced_class`` required option that specifies
-the class of the referenced target document.
+This form type handles editing ``ReferenceMany`` collections on PHPCR-ODM
+documents.  It is a choice field with an added ``referenced_class`` required
+option that specifies the class of the referenced target document.
 
-To use this form type, you also need to specify the list of possible reference targets as an array of PHPCR-ODM ids or
-PHPCR paths.
+To use this form type, you also need to specify the list of possible reference
+targets as an array of PHPCR-ODM ids or PHPCR paths.
 
-The minimal code required to use this type looks as follows:
-
-.. code-block:: php
+The minimal code required to use this type looks as follows::
 
     $dataArr = array(
         '/some/phpcr/path/item_1' => 'first item',
@@ -659,37 +650,35 @@ The minimal code required to use this type looks as follows:
 
 .. tip::
 
-    When building an admin interface with :doc:`Sonata Admin<doctrine_phpcr_admin>`
-    there is also the ``sonata_type_model`` that is more powerful, allowing to add
-    to the referenced documents on the fly. Unfortunately it is
-    `currently broken <https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145>`_.
-
+    When building an admin interface with
+    :doc:`Sonata Admin <doctrine_phpcr_admin>` there is also the
+    ``sonata_type_model`` that is more powerful, allowing to add to the
+    referenced documents on the fly. Unfortunately it is `currently broken`_.
 
 phpcr_reference
 ~~~~~~~~~~~~~~~
 
-The ``phpcr_reference`` represents a PHPCR Property of type REFERENCE or WEAKREFERENCE within a form.
-The input will be rendered as a text field containing either the PATH or the UUID as per the
-configuration. The form will resolve the path or id back to a PHPCR node to set the reference.
+The ``phpcr_reference`` represents a PHPCR Property of type REFERENCE or
+WEAKREFERENCE within a form.  The input will be rendered as a text field
+containing either the PATH or the UUID as per the configuration. The form will
+resolve the path or id back to a PHPCR node to set the reference.
 
-This type extends the ``text`` form type. It adds an option ``transformer_type`` that can be set
-to either ``path`` or ``uuid``.
+This type extends the ``text`` form type. It adds an option
+``transformer_type`` that can be set to either ``path`` or ``uuid``.
 
-
-Fixture loading
+Fixture Loading
 ---------------
 
-To use the ``doctrine:phpcr:fixtures:load`` command, you additionally need to install the
-`DoctrineFixturesBundle <http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_ which brings the
-`Doctrine data-fixtures <https://github.com/doctrine/data-fixtures>`_ into Symfony2.
+To use the ``doctrine:phpcr:fixtures:load`` command, you additionally need to
+install the `DoctrineFixturesBundle`_ which brings the `Doctrine
+data-fixtures`_ into Symfony2.
 
-Fixtures work the same way they work for Doctrine ORM. You write fixture classes implementing
-``Doctrine\Common\DataFixtures\FixtureInterface``. If you place them in <Bundle>\DataFixtures\PHPCR,
-they will be auto detected if you specify no path to the fixture loading command.
+Fixtures work the same way they work for Doctrine ORM. You write fixture
+classes implementing ``Doctrine\Common\DataFixtures\FixtureInterface``. If you
+place them in <Bundle>\DataFixtures\PHPCR, they will be auto detected if you
+specify no path to the fixture loading command.
 
-A simple example fixture class looks like this:
-
-.. code-block:: php
+A simple example fixture class looks like this::
 
     <?php
 
@@ -707,25 +696,28 @@ A simple example fixture class looks like this:
     }
 
 
-For more on fixtures, see the `documentation of the DoctrineFixturesBundle <http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_.
+For more on fixtures, see the `documentation of the DoctrineFixturesBundle`_.
 
-Migration loading
+Migration Loading
 -----------------
 
-The DoctrinePHPCRBundle also ships with a simple command to run migration scripts. Migrations
-should implement the ``Doctrine\Bundle\PHPCRBundle\Migrator\MigratorInterface`` and registered
-as a service with a ``doctrine_phpcr.migrator`` tag contains an ``alias`` attribute uniquely
-identifying the migrator. There is an optional ``Doctrine\Bundle\PHPCRBundle\Migrator\AbstractMigrator``
-class to use as a basis. To find out available migrations run:
+The DoctrinePHPCRBundle also ships with a simple command to run migration
+scripts. Migrations should implement the
+``Doctrine\Bundle\PHPCRBundle\Migrator\MigratorInterface`` and registered as a
+service with a ``doctrine_phpcr.migrator`` tag contains an ``alias`` attribute
+uniquely identifying the migrator. There is an optional
+``Doctrine\Bundle\PHPCRBundle\Migrator\AbstractMigrator`` class to use as a
+basis. To find out available migrations run:
 
 .. code-block:: bash
 
     $ php app/console doctrine:phpcr:migrator
 
-Then pass in the name of the migrator to run it, optionally passing in an ``--identifier``,
-``--depth`` or ``--session`` argument. The later argument determines which session name to
-set on the migrator, while the first two arguments will simply be passed to the ``migrate()``
-method. You can find an example migrator in the SimpleCmsBundle.
+Then pass in the name of the migrator to run it, optionally passing in an
+``--identifier``, ``--depth`` or ``--session`` argument. The later argument
+determines which session name to set on the migrator, while the first two
+arguments will simply be passed to the ``migrate()`` method. You can find an
+example migrator in the SimpleCmsBundle.
 
 Doctrine PHPCR Commands
 -----------------------
@@ -737,7 +729,8 @@ PHPCR sessions.
 Some of these commands are specific to a backend or to the ODM. Those commands
 will only be available if such a backend is configured.
 
-Use ``app/console help <command>`` to see all options each of the commands has.
+Use ``app/console help <command>`` to see all options each of the commands
+has.
 
 * **doctrine:phpcr:workspace:create**: Create a workspace in the configured
   repository;
@@ -762,45 +755,65 @@ Use ``app/console help <command>`` to see all options each of the commands has.
 
 .. note::
 
-    To use the ``doctrine:phpcr:fixtures:load`` command, you additionally need to install the
-    `DoctrineFixturesBundle <http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html>`_
-    and its dependencies. See that documentation page for how to use fixtures.
+    To use the ``doctrine:phpcr:fixtures:load`` command, you additionally need
+    to install the `DoctrineFixturesBundle`_ and its dependencies. See that
+    documentation page for how to use fixtures.
 
-
-Jackrabbit specific commands
+Jackrabbit Specific Commands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you are using jackalope-jackrabbit, you also have a command to start and stop the
-jackrabbit server:
+If you are using ``jackalope-jackrabbit``, you also have a command to start and
+stop the jackrabbit server:
 
--  ``jackalope:run:jackrabbit``  Start and stop the Jackrabbit server
+* ``jackalope:run:jackrabbit``  Start and stop the Jackrabbit server
 
 
-Doctrine DBAL specific commands
+Doctrine DBAL Specific Commands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you are using jackalope-doctrine-dbal, you have a command to initialize the
-database:
+If you are using ``jackalope-doctrine-dbal``, you have a command to initialize
+the database:
 
-- ``jackalope:init:dbal``   Prepare the database for Jackalope Doctrine DBAL
+* ``jackalope:init:dbal``   Prepare the database for Jackalope Doctrine DBAL
 
 Note that you can also use the doctrine dbal command to create the database.
 
-
-Some example command runs
+Some Example Command Runs
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Running `SQL2 queries <http://www.h2database.com/jcr/grammar.html>`_ against the repository
+Running `SQL2 queries`_ against the repository:
 
 .. code-block:: bash
 
-    app/console doctrine:phpcr:query "SELECT title FROM [nt:unstructured] WHERE NAME() = 'home'"
+    $ php app/console doctrine:phpcr:query "SELECT title FROM [nt:unstructured] WHERE NAME() = 'home'"
 
-
-Dumping nodes under /cms/simple including their properties
+Dumping nodes under ``/cms/simple`` including their properties:
 
 .. code-block:: bash
 
-    app/console doctrine:phpcr:dump /cms/simple --props
+    $ php app/console doctrine:phpcr:dump /cms/simple --props
 
-
+.. _`DoctrinePHPCRBundle`: https://github.com/doctrine/DoctrinePHPCRBundle
+.. _`Jackalope`: http://jackalope.github.com/
+.. _`Midgard2`: http://midgard-project.org/phpcr/
+.. _`the PHPCR website`: http://phpcr.github.com/
+.. _`PHPCR-ODM documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/
+.. _`Symfony2 Doctrine documentation`: http://symfony.com/doc/current/book/doctrine.html
+.. _`midgard2 PHP extension`: http://midgard-project.org/midgard2/#download
+.. _`the midgard/phpcr package`: http://packagist.org/packages/midgard/phpcr
+.. _`the getting started document`: http://midgard-project.org/phpcr/#getting_started
+.. _`official Midgard PHPCR documentation`: http://midgard-project.org/phpcr/
+.. _`metadata caching`: http://symfony.com/doc/master/reference/configuration/doctrine.html
+.. _`PHPCR-ODM documentation on Multilanguage`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
+.. _`the PHPCR-ODM documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html
+.. _`Symfony event subscriber`: http://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers
+.. _`Symfony cookbook entry`: http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html
+.. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle/
+.. _`trying to make this automatic`: https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4
+.. _`DoctrinePHPCRBundle issue`: https://github.com/doctrine/DoctrinePHPCRBundle/issues/40
+.. _`currently broken`: https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145
+.. _`DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
+.. _`Doctrine data-fixtures`: https://github.com/doctrine/data-fixtures
+.. _`documentation of the DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
+.. _`DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
+.. _`SQL2 queries`: http://www.h2database.com/jcr/grammar.html
