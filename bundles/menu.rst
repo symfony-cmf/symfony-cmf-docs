@@ -1,22 +1,24 @@
 ﻿The MenuBundle
 ==============
 
-The `MenuBundle <https://github.com/symfony-cmf/MenuBundle#readme>`_
-provides menus from a doctrine object manager with the help of KnpMenuBundle.
+The `MenuBundle`_ provides menus from a doctrine object manager with the help
+of `KnpMenuBundle`_.
 
 .. index:: MenuBundle
 
 Dependencies
 ------------
 
-This bundle is extending the `KnpMenuBundle <https://github.com/knplabs/KnpMenuBundle>`_.
+This bundle is extending the `KnpMenuBundle`_.
 
-Unless you change defaults and provide your own implementations, this bundle also depends on
+Unless you change defaults and provide your own implementations, this bundle
+also depends on
 
-* ``SymfonyRoutingBundle`` for the router service ``symfony_cmf_routing.dynamic_router``.
-  Note that you need to explicitly enable the dynamic router as per default it is not loaded.
-  See the :doc:`documentation of the cmf routing bundle<routing>` for how to do this.
-* :doc:`PHPCR-ODM<phpcr-odm>` to load route documents from the content repository
+* ``SymfonyRoutingBundle`` for the router service
+  ``symfony_cmf_routing.dynamic_router``.  Note that you need to explicitly
+  enable the dynamic router as per default it is not loaded.  See the
+  :doc:`documentation of the cmf routing bundle <routing>` for how to do this.
+* :doc:`PHPCR-ODM <phpcr-odm>` to load route documents from the content repository
 
 Configuration
 -------------
@@ -50,27 +52,27 @@ The values are:
 If you want to render the menu from twig, make sure you have not disabled twig
 in the ``knp_menu`` configuration section.
 
-If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the composer.json
-require section, the menu documents are exposed in the SonataDoctrinePhpcrAdminBundle.
-For instructions on how to configure this Bundle see :doc:`doctrine_phpcr_admin`.
+If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the
+composer.json require section, the menu documents are exposed in the
+SonataDoctrinePhpcrAdminBundle.  For instructions on how to configure this
+Bundle see :doc:`doctrine_phpcr_admin`.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
 SonataDoctrinePhpcrAdminBundle is available but you can explicitly disable it
 to not have it even if sonata is enabled, or explicitly enable to get an error
 if Sonata becomes unavailable.
 
-
-Menu entries
+Menu Entries
 ------------
 
-A ``MenuItem`` document defines menu entries. You can build menu items based on
-symfony routes, absolute or relative urls or referenceable PHPCR-ODM content
-documents.
+A ``MenuItem`` document defines menu entries. You can build menu items based
+on symfony routes, absolute or relative urls or referenceable PHPCR-ODM
+content documents.
 
-The menu tree is built from documents under [menu_basepath]/[menuname]. You can
-use different document classes for menu items as long as they implement
-``Knp\Menu\NodeInterface`` to integrate with KnpMenuBundle. The default ``MenuNode``
-document discards children that do not implement this interface.
+The menu tree is built from documents under [menu_basepath]/[menuname]. You
+can use different document classes for menu items as long as they implement
+``Knp\Menu\NodeInterface`` to integrate with KnpMenuBundle. The default
+``MenuNode`` document discards children that do not implement this interface.
 
 Examples::
 
@@ -78,7 +80,7 @@ Examples::
 
     // get document manager
     $dm = ...;
-    $rootNode = $dm->find(null, '...'); // retrieve parent menu item
+    $rootNode = $dm->find(null, ...); // retrieve parent menu item
 
     // using referenceable content document
     $blogContent = $dm->find(null, '/my/cms/content/blog');
@@ -116,9 +118,9 @@ Examples::
 
     $dm->flush();
 
-By default content documents are created using a **weak** reference (this means
-you will be able to delete the referenced content). You can specify a strong
-reference by using ``setWeak(false)``::
+By default content documents are created using a **weak** reference (this
+means you will be able to delete the referenced content). You can specify a
+strong reference by using ``setWeak(false)``::
 
     <?php
 
@@ -128,49 +130,45 @@ reference by using ``setWeak(false)``::
 
 .. note::
 
-    When content is referenced weakly and subsequently deleted the
-    rendered menu will not provide a link to the content.
-
+    When content is referenced weakly and subsequently deleted the rendered
+    menu will not provide a link to the content.
 
 Current Menu Item
 -----------------
 
 A menu item can be the current item. If it is the current item, this
-information is passed to the twig template which by default adds the css
-class ``current`` and all menu items that are ancestors of that item get
-the class ``current_ancestor``. This will typically used in CSS to
-highlight menu entries.
+information is passed to the twig template which by default adds the css class
+``current`` and all menu items that are ancestors of that item get the class
+``current_ancestor``. This will typically used in CSS to highlight menu
+entries.
 
-The decision about being current item happens by comparing the URI
-associated with the menu item with the request URI. Additionally,
-the CMF menu bundle supports voters that can look at the ``MenuItem``
-and optionally the request.
+The decision about being current item happens by comparing the URI associated
+with the menu item with the request URI. Additionally, the CMF menu bundle
+supports voters that can look at the ``MenuItem`` and optionally the request.
 
-There are two voter services configured but not enabled by default,
-another voter that you can use to configure services and you can
-write your own voter classes.
+There are two voter services configured but not enabled by default, another
+voter that you can use to configure services and you can write your own voter
+classes.
 
 .. note::
 
-    The CMF MenuBundle is based on Knp Menu 1.x. The 2.0 rewrite of
-    Knp Menu will add current item voters in the core Knp library.
-    The CMF bundle voters are interface compatible and follow the
-    same mechanism as Knp Menu to ease upgrading.
-
+    The CMF MenuBundle is based on Knp Menu 1.x. The 2.0 rewrite of Knp Menu
+    will add current item voters in the core Knp library.  The CMF bundle
+    voters are interface compatible and follow the same mechanism as Knp Menu
+    to ease upgrading.
 
 RequestContentIdentityVoter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This voter looks at the ``content`` field of the menu item and compares
-it with the main content attribute of the request. The name for the
-main content attribute in the request is configurable with the
-``content_key`` option - if not set it defaults to the constant
-``DynamicRouter::CONTENT_KEY``.
+This voter looks at the ``content`` field of the menu item and compares it
+with the main content attribute of the request. The name for the main content
+attribute in the request is configurable with the ``content_key`` option - if
+not set it defaults to the constant ``DynamicRouter::CONTENT_KEY``.
 
 You can enable this voter by setting
-``symfony_cmf_menu.voters.content_identity`` to ``~`` in your config.yml
-to use a custom ``content_key`` for the main content attribute name,
-set it explicitly:
+``symfony_cmf_menu.voters.content_identity`` to ``~`` in your config.yml to
+use a custom ``content_key`` for the main content attribute name, set it
+explicitly:
 
 .. configuration-block::
 
@@ -204,16 +202,14 @@ set it explicitly:
             ),
         ));
 
-
 UriPrefixVoter
 ~~~~~~~~~~~~~~
 
-The uri prefix voter looks at the ``content`` field of the menu item
-and checks if it contains an instance of the symfony Route class. If
-so, it compares the route option ``currentUriPrefix`` with the request
-URI. This allows you to make a whole sub-path of your site trigger
-the same menu item as current, but you need to configure the prefix
-option on your route documents.
+The uri prefix voter looks at the ``content`` field of the menu item and
+checks if it contains an instance of the symfony Route class. If so, it
+compares the route option ``currentUriPrefix`` with the request URI. This
+allows you to make a whole sub-path of your site trigger the same menu item as
+current, but you need to configure the prefix option on your route documents.
 
 To enable the prefix voter, set the configuration key
 ``symfony_cmf_menu.voters.uri_prefix: ~``.
@@ -221,19 +217,18 @@ To enable the prefix voter, set the configuration key
 RequestParentContentIdentityVoter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This voter has the same logic of looking for a request attribute to get
-the current content, but calls ``getParent`` on it. This parent is
-compared to the ``content`` of the menu item. That way, content that does
-not have its own menu entry but a parent that does have a menu item can
-trigger the right menu entry to be highlighted.
+This voter has the same logic of looking for a request attribute to get the
+current content, but calls ``getParent`` on it. This parent is compared to the
+``content`` of the menu item. That way, content that does not have its own
+menu entry but a parent that does have a menu item can trigger the right menu
+entry to be highlighted.
 
-To use this voter you need to configure a custom service with the name of
-the content in the request and your model class to avoid calling getParent
-on objects that do not have that method.
-You need to tag the service as ``symfony_cmf_menu.voter`` and also as
-``cmf_request_aware`` because it depends on the request. The service looks
-the same as for complete custom voters (see below), except you do not need
-to write your own PHP code:
+To use this voter you need to configure a custom service with the name of the
+content in the request and your model class to avoid calling getParent on
+objects that do not have that method.  You need to tag the service as
+``symfony_cmf_menu.voter`` and also as ``cmf_request_aware`` because it
+depends on the request. The service looks the same as for complete custom
+voters (see below), except you do not need to write your own PHP code:
 
 .. configuration-block::
 
@@ -273,11 +268,11 @@ to write your own PHP code:
 Custom Voter
 ~~~~~~~~~~~~
 
-Voters must implement the ``Symfony\Cmf\MenuBundle\Voter\VoterInterface``.
-To make the menu bundle notice the voter, tag it with ``symfony_cmf_menu.voter``.
-If the voter needs the request, add the tag ``cmf_request_aware``
-to have a listener calling ``setRequest`` on the voter before it votes for
-the first time.
+Voters must implement the ``Symfony\Cmf\MenuBundle\Voter\VoterInterface``.  To
+make the menu bundle notice the voter, tag it with ``symfony_cmf_menu.voter``.
+If the voter needs the request, add the tag ``cmf_request_aware`` to have a
+listener calling ``setRequest`` on the voter before it votes for the first
+time.
 
 For an example service definition see the section above for
 ``RequestParentIdentityVoter``.
@@ -319,7 +314,6 @@ A voter will look something like this::
         }
     }
 
-
 Rendering Menus
 ---------------
 
@@ -329,12 +323,11 @@ Adjust your twig template to load the menu.
 
     {{ knp_menu_render('simple') }}
 
-The menu name is the name of the node under ``menu_basepath``. For example if your
-repository stores the menu nodes under ``/cms/menu`` , rendering "main" would mean
-to render the menu that is at ``/cms/menu/main``
+The menu name is the name of the node under ``menu_basepath``. For example if
+your repository stores the menu nodes under ``/cms/menu`` , rendering "main"
+would mean to render the menu that is at ``/cms/menu/main``
 
-
-How to use non-default other components
+How to use Non-Default Other Components
 ---------------------------------------
 
 If you use the cmf menu with PHPCR-ODM, you just need to store Route documents
@@ -349,12 +342,16 @@ menu_document_class too, as only PHPCR-ODM can determine the document from the
 database content.
 
 If you use the cmf menu with the DynamicRouter, you need no route name as the
-menu document just needs to provide a field content_key in the options.
-If you want to use a different service to generate URLs, you need to make sure
-your menu entries provide information in your selected content_key that the url
-generator can use to generate the url. Depending on your generator, you might
-need to specify a route_name too.
+menu document just needs to provide a field content_key in the options.  If
+you want to use a different service to generate URLs, you need to make sure
+your menu entries provide information in your selected content_key that the
+url generator can use to generate the url. Depending on your generator, you
+might need to specify a route_name too.
+
 Note that if you just want to generate normal symfony routes with a menu that
-is in the database, you can pass the core router service as content_url_generator,
-make sure the content_key never matches and make your menu documents provide
-the route name and eventual routeParameters.
+is in the database, you can pass the core router service as
+content_url_generator, make sure the content_key never matches and make your
+menu documents provide the route name and eventual routeParameters.
+
+.. _`MenuBundle`: https://github.com/symfony-cmf/MenuBundle#readme
+.. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle

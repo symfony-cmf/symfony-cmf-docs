@@ -1,16 +1,15 @@
 The SearchBundle
 ================
 
-The `SearchBundle <https://github.com/symfony-cmf/SearchBundle#readme>`_
-provides integration with `LiipSearchBundle <https://github.com/liip/LiipSearchBundle>`_
-to provide a site wide search.
+The `SearchBundle`_ provides integration with `LiipSearchBundle`_ to provide a
+site wide search.
 
 .. index:: SearchBundle
 
 Dependencies
 ------------
 
-* `LiipSearchBundle <https://github.com/liip/LiipSearchBundle>`_
+* `LiipSearchBundle`_
 
 Configuration
 -------------
@@ -30,3 +29,7 @@ The configuration key for this bundle is ``symfony_cmf_search``
             search_fields:
                 title: title
                 summary: body
+
+.. _`SearchBundle`: https://github.com/symfony-cmf/SearchBundle#readme
+.. _`LiipSearchBundle`: https://github.com/liip/LiipSearchBundle
+.. _`LiipSearchBundle`: https://github.com/liip/LiipSearchBundle
