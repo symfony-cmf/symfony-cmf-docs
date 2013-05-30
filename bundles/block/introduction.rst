@@ -38,7 +38,7 @@ The configuration key for this bundle is ``symfony_cmf_block``:
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:cmf-block="http://cmf.symfony.com/schema/dic/menu"
+            xmlns:cmf-block="http://cmf.symfony.com/schema/dic/block"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
             <cmf-block:config
@@ -266,8 +266,10 @@ You can also :ref:`embed blocks in content <tutorial-block-embed>` using the
 Block types
 -----------
 
-The BlockBundle comes with four general purpose blocks:
+The BlockBundle comes with five general purpose blocks:
 
+* **StringBlock**: A block only containing a string that is rendered without
+  any decoration. Useful for page fragments;
 * **SimpleBlock**: A simple block with nothing but a title and a field of
   hypertext. This would usually be what an editor edits directly, for example
   contact information;
@@ -287,10 +289,24 @@ The BlockBundle comes with four general purpose blocks:
     could allow your customer to do so without calling you to change some
     templates (over and over again!).
 
+The BlockBundle also provides a couple of blocks for specific tasks,
+integrating third party libraries. You should to read the :doc:`types` section
+relevant to those blocks to figure out what third party libraries you need to
+load into your project.
+
 * **RssBlock**: This block extends the ``ActionBlock``, the block document
   saves the feed url and the controller action fetches the feed items. The
   default implementation uses the `EkoFeedBundle
   <https://github.com/eko/FeedBundle>`_ to read the feed items.
+
+* **ImagineBlock**: A block containing an image child, the imagine filter name
+  and optional link url and title.
+
+* **SlideshowBlock**: A special case of a container block suitable for building
+  a slideshow of blocks. Note that this block doesn't provide any Javascript
+  code to make the slideshow work in the frontend. You can use your favourite
+  Javascript library to do the animation.
+
 
 Examples
 --------
@@ -305,7 +321,7 @@ Reference
 .. toctree::
     :maxdepth: 1
     :numbered:
-    
+
     types
     create_your_own_blocks
     cache
