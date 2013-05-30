@@ -85,7 +85,7 @@ If you prefer you can also just clone the project:
 
 .. code-block:: bash
 
-    $ git clone git://github.com/symfony-cmf/cmf-standard.git <dir-name>
+    $ git clone git://github.com/symfony-cmf/symfony-cmf-standard.git <dir-name>
     $ cd <dir-name>
 
 If there were problems during the ``create-project`` command, if you used
@@ -217,7 +217,7 @@ and then run the following command:
 
     $ php app/console doctrine:phpcr:migrator page --identifier=/cms/simple/test/foo
 
-.. _`The Big Picture`: http://slides.liip.ch/static/2012-01-17_cmf_big_picture.html#1
+.. _`The Big Picture`: http://slides.liip.ch/static/2012-01-17_symfony_cmf_big_picture.html#1
 .. _`cmf.liip.ch`: http://cmf.liip.ch
 .. _`Requirements for running Symfony2`: http://symfony.com/doc/current/reference/requirements.html
 .. _`SQLite`: http://www.sqlite.org/
