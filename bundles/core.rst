@@ -22,7 +22,7 @@ Configuration
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_core:
+        cmf_core:
             document_manager: default
             role: IS_AUTHENTICATED_ANONYMOUSLY # used by the publish workflow checker
 
@@ -31,13 +31,13 @@ Configuration
 Publish workflow checker
 ------------------------
 
-The Bundle provides a ``symfony_cmf_core.publish_workflow_checker`` service
+The Bundle provides a ``cmf_core.publish_workflow_checker`` service
 which implements ``PublishWorkflowCheckerInterface``. This interface defines a
 single method ``checkIsPublished()``.
 
 .. code-block:: php
 
-    $publishWorkflowChecker = $container->get('symfony_cmf_core.publish_workflow_checker');
+    $publishWorkflowChecker = $container->get('cmf_core.publish_workflow_checker');
 
     // if to ignore the role when deciding if to consider the document as published
     $ignoreRole = false;

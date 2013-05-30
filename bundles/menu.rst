@@ -15,7 +15,7 @@ Unless you change defaults and provide your own implementations, this bundle
 also depends on
 
 * ``SymfonyRoutingBundle`` for the router service
-  ``symfony_cmf_routing.dynamic_router``.  Note that you need to explicitly
+  ``cmf_routing.dynamic_router``.  Note that you need to explicitly
   enable the dynamic router as per default it is not loaded.  See the
   :doc:`documentation of the cmf routing bundle <routing>` for how to do this.
 * :doc:`PHPCR-ODM <phpcr-odm>` to load route documents from the content repository
@@ -30,14 +30,14 @@ The values are:
 
     .. code-block:: yaml
 
-        symfony_cmf_menu:
+        cmf_menu:
             menu_basepath:        /cms/menu
             document_manager_name: default
             admin_class:          ~
             document_class:       ~
             content_url_generator:  router
             route_name:           ~ # cmf routes are created by content instead of name
-            content_basepath:     ~ # defaults to symfony_cmf_core.content_basepath
+            content_basepath:     ~ # defaults to cmf_core.content_basepath
             voters:
                 uri_prefix:       false # enable the UriPrefixVoter for current menu item
                 content_identity: not set # enable the RequestContentIdentityVoter
@@ -166,7 +166,7 @@ attribute in the request is configurable with the ``content_key`` option - if
 not set it defaults to the constant ``DynamicRouter::CONTENT_KEY``.
 
 You can enable this voter by setting
-``symfony_cmf_menu.voters.content_identity`` to ``~`` in your config.yml to
+``cmf_menu.voters.content_identity`` to ``~`` in your config.yml to
 use a custom ``content_key`` for the main content attribute name, set it
 explicitly:
 
@@ -174,7 +174,7 @@ explicitly:
 
     .. code-block:: yaml
 
-        symfony_cmf_menu:
+        cmf_menu:
             voters:
                 content_identity:
                     content_key: myKey
@@ -194,7 +194,7 @@ explicitly:
 
     .. code-block:: php
 
-        $container->loadFromExtension('symfony_cmf_menu', array(
+        $container->loadFromExtension('cmf_menu', array(
             'voters' => array(
                 'content_identity' => array(
                     'content_key' => 'myKey',
@@ -212,7 +212,7 @@ allows you to make a whole sub-path of your site trigger the same menu item as
 current, but you need to configure the prefix option on your route documents.
 
 To enable the prefix voter, set the configuration key
-``symfony_cmf_menu.voters.uri_prefix: ~``.
+``cmf_menu.voters.uri_prefix: ~``.
 
 RequestParentContentIdentityVoter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -226,7 +226,7 @@ entry to be highlighted.
 To use this voter you need to configure a custom service with the name of the
 content in the request and your model class to avoid calling getParent on
 objects that do not have that method.  You need to tag the service as
-``symfony_cmf_menu.voter`` and also as ``cmf_request_aware`` because it
+``cmf_menu.voter`` and also as ``cmf_request_aware`` because it
 depends on the request. The service looks the same as for complete custom
 voters (see below), except you do not need to write your own PHP code:
 
@@ -241,7 +241,7 @@ voters (see below), except you do not need to write your own PHP code:
                     - mainContent
                     - %my_bundle.my_model_class%
                 tags:
-                    - { name: "symfony_cmf_menu.voter" }
+                    - { name: "cmf_menu.voter" }
                     - { name: "cmf_request_aware" }
 
     .. code-block:: xml
@@ -250,7 +250,7 @@ voters (see below), except you do not need to write your own PHP code:
                  class="Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter">
             <argument>mainContent</argument>
             <argument>%my_bundle.my_model_class%</argument>
-            <tag name="symfony_cmf_menu.voter"/>
+            <tag name="cmf_menu.voter"/>
             <tag name="cmf_request_aware"/>
         </service>
 
@@ -260,7 +260,7 @@ voters (see below), except you do not need to write your own PHP code:
             'Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter',
             array('mainContent', '%my_bundle.my_model_class%')
         ));
-        $definition->addTag('symfony_cmf_menu.voter');
+        $definition->addTag('cmf_menu.voter');
         $definition->addTag('cmf_request_aware');
         $container->setDefinition('my_bundle.menu_voter.parent', $definition);
 
@@ -269,7 +269,7 @@ Custom Voter
 ~~~~~~~~~~~~
 
 Voters must implement the ``Symfony\Cmf\MenuBundle\Voter\VoterInterface``.  To
-make the menu bundle notice the voter, tag it with ``symfony_cmf_menu.voter``.
+make the menu bundle notice the voter, tag it with ``cmf_menu.voter``.
 If the voter needs the request, add the tag ``cmf_request_aware`` to have a
 listener calling ``setRequest`` on the voter before it votes for the first
 time.

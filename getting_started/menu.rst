@@ -1,5 +1,5 @@
 .. index::
-    single: Menu, SymfonyCmfMenuBundle
+    single: Menu, CmfMenuBundle
 
 Menu
 ====
@@ -70,7 +70,7 @@ render the menu ``simple``, the menu root node must be stored at
 
     .. code-block:: yaml
 
-        symfony_cmf_menu:
+        cmf_menu:
             menu_basepath: /cms/menu
 
     .. code-block:: xml
@@ -86,7 +86,7 @@ render the menu ``simple``, the menu root node must be stored at
 
     .. code-block:: php
 
-        $container->loadFromExtension('symfony_cmf_menu', array(
+        $container->loadFromExtension('cmf_menu', array(
             'menu_basepath' => '/cms/menu',
         ));
 

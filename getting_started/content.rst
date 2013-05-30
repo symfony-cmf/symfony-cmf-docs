@@ -1,5 +1,5 @@
 .. index::
-    single: Content, SymfonyCmfContentBundle
+    single: Content, CmfContentBundle
 
 Content
 =======

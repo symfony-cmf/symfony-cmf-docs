@@ -58,16 +58,16 @@ Next, initialize the bundles in ``AppKernel.php`` by adding them to the
         $bundles = array(
             // ...
 
-            new Symfony\Cmf\Bundle\RoutingBundle\SymfonyCmfRoutingBundle(),
-            new Symfony\Cmf\Bundle\CoreBundle\SymfonyCmfCoreBundle(),
-            new Symfony\Cmf\Bundle\MenuBundle\SymfonyCmfMenuBundle(),
-            new Symfony\Cmf\Bundle\ContentBundle\SymfonyCmfContentBundle(),
-            new Symfony\Cmf\Bundle\BlockBundle\SymfonyCmfBlockBundle(),
+            new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
+            new Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
+            new Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
+            new Symfony\Cmf\Bundle\ContentBundle\CmfContentBundle(),
+            new Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
 
-            // Dependencies of the SymfonyCmfMenuBundle
+            // Dependencies of the CmfMenuBundle
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
-            // Dependencies of the SymfonyCmfBlockBundle
+            // Dependencies of the CmfBlockBundle
             new Sonata\BlockBundle\SonataBlockBundle(),
         );
 
@@ -117,10 +117,10 @@ which by default is not loaded, you will need to enable it as follows:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing:
+        cmf_routing:
             chain:
                 routers_by_id:
-                    symfony_cmf_routing.dynamic_router: 200
+                    cmf_routing.dynamic_router: 200
                     router.default: 100
             dynamic:
                 enabled: true

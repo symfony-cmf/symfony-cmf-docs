@@ -89,7 +89,7 @@ The configuration for the example above could be as follows:
 
 .. code-block:: yaml
 
-    symfony_cmf_routing_auto:
+    cmf_routing_auto:
         
         auto_route_mapping:
             My\Namespace\Bundle\BlogBundle\Document\Post:
@@ -396,7 +396,7 @@ the route stack. For example, the following provider will add the path
     }
 
 To use the path provider you must register it in the **DIC** and add the
-``symfony_cmf_routing_auto.provider`` tag and set the **alias** accordingly.
+``cmf_routing_auto.provider`` tag and set the **alias** accordingly.
 
 .. configuration-block::
 
@@ -407,7 +407,7 @@ To use the path provider you must register it in the **DIC** and add the
             class="FoobarProvider"
             scope="prototype"
         >
-            <tag name="symfony_cmf_routing_auto.provider" alias="foobar"/>
+            <tag name="cmf_routing_auto.provider" alias="foobar"/>
         </service>
 
     .. code-block:: yaml
@@ -416,14 +416,14 @@ To use the path provider you must register it in the **DIC** and add the
             class: "FoobarProvider"
             scope: prototype
             tags:
-                - { name: symfony_cmf_routing_auto.provider, alias: "foobar"}
+                - { name: cmf_routing_auto.provider, alias: "foobar"}
 
     .. code-block:: php
     
         use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition('FooBarProvider');
-        $definition->addTag('symfony_cmf_routing_auto.provider', array('alias' => 'foobar'));
+        $definition->addTag('cmf_routing_auto.provider', array('alias' => 'foobar'));
         $definition->setScope('prototype');
 
         $container->setDefinition('my_cms.some_bundle.path_provider.foobar', $definition);
@@ -480,23 +480,23 @@ It is registered in the DI configuration as follows:
             class="My\Cms\AutoRoute\PathNotExists\ThrowException"
             scope="prototype"
             >
-            <tag name="symfony_cmf_routing_auto.not_exists_action" alias="throw_exception"/>
+            <tag name="cmf_routing_auto.not_exists_action" alias="throw_exception"/>
         </service>
 
     .. code-block:: yaml
 
-        symfony_cmf_routing_auto.not_exists_action.throw_exception
+        cmf_routing_auto.not_exists_action.throw_exception
             class: "My\Cms\AutoRoute\PathNotExists\ThrowException"
             scope: prototype
             tags:
-                - { name: symfony_cmf_routing_auto.provider, alias: "throw_exception"}
+                - { name: cmf_routing_auto.provider, alias: "throw_exception"}
 
     .. code-block:: php
     
         use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition('My\Cms\AutoRoute\PathNotExists\ThrowException');
-        $definition->addTag('symfony_cmf_routing_auto.provider', array('alias' => 'throw_exception'));
+        $definition->addTag('cmf_routing_auto.provider', array('alias' => 'throw_exception'));
         $definition->setScope('prototype');
 
         $container->setDefinition('my_cms.some_bundle.path_provider.throw_exception', $definition);
@@ -505,6 +505,6 @@ Note the following:
 
 * **Scope**: Must *always* be set to *prototype*;
 * **Tag**: The tag registers the service with the auto routing system, it can be one of the following;
-    * ``symfony_cmf_routing_auto.exists.action`` - if the action is to be used when a path exists;
-    * ``symfony_cmf_routing_auto.not_exists.action`` - if the action is to be used when a path does not exist;
+    * ``cmf_routing_auto.exists.action`` - if the action is to be used when a path exists;
+    * ``cmf_routing_auto.not_exists.action`` - if the action is to be used when a path does not exist;
 * **Alias**: The alias of the tag is the name by which you will reference this action in the auto routing schema.
