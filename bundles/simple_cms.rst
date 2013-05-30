@@ -29,7 +29,7 @@ bundles.
 Configuration
 -------------
 
-The configuration key for this bundle is ``symfony_cmf_simple_cms``
+The configuration key for this bundle is ``cmf_simple_cms``
 
 The ``use_menu`` option automatically enables a service to provide menus out
 of the simple cms if the MenuBundle is enabled. You can also explicitly
@@ -49,18 +49,18 @@ See the section below for multilanguage support.
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_simple_cms:
+        cmf_simple_cms:
             use_menu:             auto # use true/false to force providing / not providing a menu
             use_sonata_admin:     auto # use true/false to force using / not using sonata admin
             sonata_admin:
                 sort:             false # set to asc|desc to sort children by publication date
             document_class:       Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page
             # controller to use to render documents with just custom template
-            generic_controller:   symfony_cmf_content.controller:indexAction
+            generic_controller:   cmf_content.controller:indexAction
             # where in the PHPCR tree to store the pages
             basepath:             /cms/simple
             routing:
-                content_repository_id:  symfony_cmf_routing.content_repository
+                content_repository_id:  cmf_routing.content_repository
                 controllers_by_class:
                     # ...
                 templates_by_class:
@@ -78,7 +78,7 @@ See the section below for multilanguage support.
 
         .. code-block:: yaml
 
-            symfony_cmf_simple_cms:
+            cmf_simple_cms:
                 use_sonata_admin: false
 
 Multi-language support
@@ -166,7 +166,7 @@ configuration parameter to your own document class:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_simple_cms:
+        cmf_simple_cms:
             # ...
             document_class:       Acme\DemoBundle\Document\MySuperPage
             # ...
@@ -199,4 +199,4 @@ These properties can then be accessed in your controller or templates via the
 .. _`SimpleCmsBundle`: https://github.com/symfony-cmf/SimpleCmsBundle#readme
 .. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/symfony-cmf-standard
 .. _`Getting started`: ../getting-started/simplecms
-.. _`CMF website`: https://github.com/symfony-cmf/symfony-cmf-website/
+.. _`CMF website`: https://github.com/symfony-cmf/cmf-website/

@@ -1,5 +1,5 @@
 .. index::
-    single: SimpleCMS, SymfonyCmfSimpleCMSBundle
+    single: SimpleCMS, CmfSimpleCMSBundle
 
 SimpleCMS
 =========
@@ -97,7 +97,7 @@ using the configuration parameters:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_simple_cms:
+        cmf_simple_cms:
             # defaults to Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page or MultilangPage (see above)
             document_class: ~
             multilang:
@@ -127,7 +127,7 @@ using the configuration parameters:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_simple_cms', array(
+        $container->loadFromExtension('cmf_simple_cms', array(
             // defaults to Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page or MultilangPage (see above)
             'document_class' => null,
             'multilang'      => array(
@@ -200,8 +200,8 @@ do so.
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_simple_cms:
-            # defaults to symfony_cmf_content.controller:indexAction
+        cmf_simple_cms:
+            # defaults to cmf_content.controller:indexAction
             generic_controller: ~
 
     .. code-block:: xml
@@ -213,7 +213,7 @@ do so.
             xmlns:cmf-simple-cms="http://cmf.symfony.com/schema/dic/simplecms"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <!-- defaults to symfony_cmf_content.controller:indexAction -->
+            <!-- defaults to cmf_content.controller:indexAction -->
             <cmf-simple-cms:config
                 generic-controller="null"
             />
@@ -222,8 +222,8 @@ do so.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_simple_cms', array(
-            // defaults to symfony_cmf_content.controller:indexAction
+        $container->loadFromExtension('cmf_simple_cms', array(
+            // defaults to cmf_content.controller:indexAction
             'generic_controller' => null,
         ));
 
@@ -240,12 +240,12 @@ type. Symfony CMF SE includes an example of both in its default configuration.
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_simple_cms:
+        cmf_simple_cms:
             routing:
                 templates_by_class:
-                    Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page:  SymfonyCmfSimpleCmsBundle:Page:index.html.twig
+                    Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page:  CmfSimpleCmsBundle:Page:index.html.twig
                 controllers_by_class:
-                    Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute:  symfony_cmf_routing.redirect_controller:redirectAction
+                    Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute:  cmf_routing.redirect_controller:redirectAction
 
     .. code-block:: xml
 
@@ -260,12 +260,12 @@ type. Symfony CMF SE includes an example of both in its default configuration.
                 <routing>
                     <templates-by-class
                         alias="Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page">
-                        SymfonyCmfSimpleCmsBundle:Page:index.html.twig
+                        CmfSimpleCmsBundle:Page:index.html.twig
                     </templates-by-class
 
                     <controllers-by-class
                         alias="Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute">
-                        symfony_cmf_routing.redirect_controller:redirectAction
+                        cmf_routing.redirect_controller:redirectAction
                     </templates-by-class
                 </routing>
             </cmf-simple-cms:config>
@@ -274,11 +274,11 @@ type. Symfony CMF SE includes an example of both in its default configuration.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_simple_cms', array(
+        $container->loadFromExtension('cmf_simple_cms', array(
             'routing' => array(
                 'templates_by_class' => array(
-                    'Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page'             => SymfonyCmfSimpleCmsBundle:Page:index.html.twig,
-                    'Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute' => 'symfony_cmf_routing.redirect_controller:redirectAction',
+                    'Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page'             => CmfSimpleCmsBundle:Page:index.html.twig,
+                    'Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute' => 'cmf_routing.redirect_controller:redirectAction',
                 ),
             ),
         ));
@@ -315,7 +315,7 @@ documentation. This parameter is optional, and can be configured as follows:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_simple_cms:
+        cmf_simple_cms:
             # defaults to auto; true/false can be used to force providing/not providing a menu
             use_menu: ~
 
@@ -342,7 +342,7 @@ documentation. This parameter is optional, and can be configured as follows:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_simple_cms', array(
+        $container->loadFromExtension('cmf_simple_cms', array(
             // defaults to auto; true/false can be used to force providing/not providing a menu
             'use_menu' => null,
 
@@ -369,7 +369,7 @@ option:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_simple_cms:
+        cmf_simple_cms:
             # defaults to auto; true/false can be used to force using/not using SonataAdmin
             use_sonata_admin: ~
 
@@ -391,7 +391,7 @@ option:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_simple_cms', array(
+        $container->loadFromExtension('cmf_simple_cms', array(
             // defaults to auto; true/false can be used to force using/not using SonataAdmin
             'use_sonata_admin' => null,
         ));

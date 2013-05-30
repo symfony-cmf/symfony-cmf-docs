@@ -60,7 +60,7 @@ Next, initialize the bundles in the ``AppKernel`` by adding them to the
         $bundles = array(
             // ...
 
-            new Symfony\Cmf\Bundle\CreateBundle\SymfonyCmfCreateBundle(),
+            new Symfony\Cmf\Bundle\CreateBundle\CmfCreateBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
         );
@@ -79,7 +79,7 @@ Basic configuration, add to your application configuration:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_create:
+        cmf_create:
             phpcr_odm: true
             map:
                 '<http://rdfs.org/sioc/ns#Post>': 'Symfony\Cmf\Bundle\MultilangContentBundle\Document\MultilangStaticContent'

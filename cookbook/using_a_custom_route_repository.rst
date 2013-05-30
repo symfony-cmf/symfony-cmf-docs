@@ -90,7 +90,7 @@ configuration as follows:
    .. code-block:: yaml
 
        # app/config/config.yml
-       symfony_cmf_routing:
+       cmf_routing:
            dynamic:
                enabled: true
                route_provider_service_id: my_bundle.provider.endpoint
@@ -114,7 +114,7 @@ configuration as follows:
    .. code-block:: php
 
        // app/config/config.php
-       $container->loadFromExtension('symfony_cmf_routing', array(
+       $container->loadFromExtension('cmf_routing', array(
            'dynamic' => array(
               'enabled'                   => true,
               'route_provider_service_id' => 'my_bundle.provider.endpoint',

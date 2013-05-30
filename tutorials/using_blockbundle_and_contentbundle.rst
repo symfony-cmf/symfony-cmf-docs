@@ -161,7 +161,7 @@ Add the following lines to ``AppKernel``::
         $bundles = array(
             // ...
             new Sonata\BlockBundle\SonataBlockBundle(),
-            new Symfony\Cmf\Bundle\BlockBundle\SymfonyCmfBlockBundle(),
+            new Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
         );
 
         // ...
@@ -350,7 +350,7 @@ Add the following line to ``AppKernel``:
     {
         $bundles = array(
             // ...
-            new Symfony\Cmf\Bundle\ContentBundle\SymfonyCmfContentBundle(),
+            new Symfony\Cmf\Bundle\ContentBundle\CmfContentBundle(),
         );
 
         // ...
@@ -377,7 +377,7 @@ sample block, so create the ``LoadBlockWithCmfParent.php`` class::
         {
             // Get the base path name to use from the configuration
             $session = $manager->getPhpcrSession();
-            $basepath = $this->container->getParameter('symfony_cmf_content.static_basepath');
+            $basepath = $this->container->getParameter('cmf_content.static_basepath');
 
             // Create the path in the repository
             NodeHelper::createPath($session, $basepath);
@@ -418,7 +418,7 @@ your ``config.yml``:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_content:
+        cmf_content:
             static_basepath: /content
 
 Now it should be possible to load in the above fixtures:
@@ -509,7 +509,7 @@ This happens when a block is rendered, see the .. index:: BlockBundle for more d
 Embedding Blocks in WYSIWYG Content
 -----------------------------------
 
-The SymfonyCmfBlockBundle provides a twig filter ``cmf_embed_blocks`` that
+The CmfBlockBundle provides a twig filter ``cmf_embed_blocks`` that
 looks through the content and looks for special tags to render blocks. To use
 the tag, you need to apply the ``cmf_embed_blocks`` filter to your output.  If
 you can, render your blocks directly in the template. This feature is only a
@@ -538,7 +538,7 @@ You can change the prefix and postfix (the parts ``<span>%block:`` and
      .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_block:
+        cmf_block:
             twig:
                 cmf_embed_blocks:
                     prefix: %%%block:
@@ -659,7 +659,7 @@ SimpleBlock class not found
 
 Make sure the CMF BlockBundle is installed and loaded in ``app/AppKernel.php``::
 
-    new Symfony\Cmf\Bundle\BlockBundle\SymfonyCmfBlockBundle(),
+    new Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
 
 RouteAwareInterface not found
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
