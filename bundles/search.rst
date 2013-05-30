@@ -14,14 +14,14 @@ Dependencies
 Configuration
 -------------
 
-The configuration key for this bundle is ``symfony_cmf_search``
+The configuration key for this bundle is ``cmf_search``
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_search:
+        cmf_search:
             document_manager_name:  default
             translation_strategy: child # can also be set to an empty string or attribute
             translation_strategy: attribute

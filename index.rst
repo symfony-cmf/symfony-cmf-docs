@@ -132,4 +132,4 @@ Contributing
 .. _`about`: http://cmf.symfony.com/about
 .. _`Documentation planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
 .. _`Symfony Content Management Framework`: http://cmf.symfony.com
-.. _`documentation is hosted on github`: https://github.com/symfony-cmf/symfony-cmf-docs
+.. _`documentation is hosted on github`: https://github.com/symfony-cmf/cmf-docs

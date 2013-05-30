@@ -47,7 +47,7 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the
             // ...
 
             // support for the admin
-            new Symfony\Cmf\Bundle\TreeBrowserBundle\SymfonyCmfTreeBrowserBundle(),
+            new Symfony\Cmf\Bundle\TreeBrowserBundle\CmfTreeBrowserBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
@@ -131,9 +131,9 @@ Add route in to your routing configuration:
         fos_js_routing:
             resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
-        symfony_cmf_tree:
+        cmf_tree:
             resource: .
-            type: 'symfony_cmf_tree'
+            type: 'cmf_tree'
 
 
 The FOSJsRoutingBundle is used to export sonata routes to javascript, to be

@@ -375,9 +375,9 @@ A full example looks as follows:
                         session: default
                         mappings:
                             SandboxMainBundle: ~
-                            SymfonyCmfContentBundle: ~
-                            SymfonyCmfMenuBundle: ~
-                            SymfonyCmfRoutingBundle: ~
+                            CmfContentBundle: ~
+                            CmfMenuBundle: ~
+                            CmfRoutingBundle: ~
 
                     website:
                         session: website

@@ -23,14 +23,14 @@ This bundle is based on the `SonataBlockBundle`_.
 Configuration
 -------------
 
-The configuration key for this bundle is ``symfony_cmf_block``:
+The configuration key for this bundle is ``cmf_block``:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_block:
+        cmf_block:
             document_manager_name:  default
 
     .. code-block:: xml
@@ -49,7 +49,7 @@ The configuration key for this bundle is ``symfony_cmf_block``:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_block', array(
+        $container->loadFromExtension('cmf_block', array(
             'document_manager_name' => 'default',
         ));
 

@@ -29,14 +29,14 @@ All available settings are:
 * **maxItems**: the maximum amount of items to return to the template
   (*default*: 10)
 * **template**: the template to render the feed items (*default*:
-  ``SymfonyCmfBlockBundle:Block:block_rss.html.twig``)
+  ``CmfBlockBundle:Block:block_rss.html.twig``)
 * **ItemClass**: the class used for the item objects that are passed to the
   template (*default*: ``Symfony\Cmf\Bundle\BlockBundle\Model\FeedItem``)
 
 The controller to get the feed items can also be changed:
 
 * Define a different class for the controller service in your configuration
-  using the DI service parameter ``symfony_cmf_block.rss_controller_class``
+  using the DI service parameter ``cmf_block.rss_controller_class``
 * or set the actionName of your RssBlock document
 
 .. note::
@@ -51,7 +51,7 @@ out of PHPCR. The block has a child of type ``nt:file`` and fields for the
 name of the imagine filter to use, an URL and an image caption. To use this
 block, you need to add ``liip/imagine-bundle`` to your composer.json and
 define the imagine filter you specify in the block. The default name is
-``symfony_cmf_block``. The filter must use the ``phpcr`` driver:
+``cmf_block``. The filter must use the ``phpcr`` driver:
 
 .. configuration-block::
 
@@ -61,7 +61,7 @@ define the imagine filter you specify in the block. The default name is
         liip_imagine:
             # ...
             filter_sets:
-                symfony_cmf_block:
+                cmf_block:
                     data_loader: phpcr
                     quality: 85
                     filters:
@@ -77,7 +77,7 @@ define the imagine filter you specify in the block. The default name is
 
             <liip-imagine:config xmlns="http://example.org/dic/schema/liip_imagine">
                 <!-- ... -->
-                <filter-set name="symfony_cmf_block" data-loader="phpcr" quality="85">
+                <filter-set name="cmf_block" data-loader="phpcr" quality="85">
                     <filter name="thumbnail" size="616,419" mode="outbound"/>
                 </filter-set>
                 <!-- ... -->
@@ -90,7 +90,7 @@ define the imagine filter you specify in the block. The default name is
         $container->loadFromExtension('liip_imagine', array(
             // ...
             'filter_sets' => array(
-                'symfony_cmf_block' => array(
+                'cmf_block' => array(
                     'data_loader' => 'phpcr',
                     'quality'     => 85,
                     'filters'     => array(
@@ -201,11 +201,11 @@ following line to your sonata admin configuration:
                     blocks:
                         label: Blocks
                         items:
-                            - symfony_cmf_block.slideshow_admin
+                            - cmf_block.slideshow_admin
 
 However, you can also embed the slideshow administration directly into
 other admin classes using the ``sonata_type_admin`` form type. The admin
-service to use in that case is ``symfony_cmf_block.slideshow_admin``.
+service to use in that case is ``cmf_block.slideshow_admin``.
 Please refer to the `Sonata Admin documentation`_
 for further information.
 

@@ -25,11 +25,11 @@ Installation
 ------------
 
 The installation is split between the SonataCacheBundle, the
-SymfonyCmfBlockBundle and the SonataBlockBundle:
+CmfBlockBundle and the SonataBlockBundle:
 
 1. *SonataCacheBundle* - Follow the installation instructions from the
    `SonataCacheBundle documentation`_.
-2. *SymfonyCmfBlockBundle* - At the end of your routing file, add the
+2. *CmfBlockBundle* - At the end of your routing file, add the
    following lines:
 
    .. configuration-block::
@@ -39,9 +39,9 @@ SymfonyCmfBlockBundle and the SonataBlockBundle:
            # app/config/routing.yml
 
            # ...
-           # routes SymfonyCmfBlockBundle cache adapters
+           # routes CmfBlockBundle cache adapters
            block_cache:
-               resource: "@SymfonyCmfBlockBundle/Resources/config/routing/cache.xml"
+               resource: "@CmfBlockBundle/Resources/config/routing/cache.xml"
                prefix: /
 
 3. *SonataBlockBundle* - Use the ``sonata_block`` key to configure the cache
@@ -55,9 +55,9 @@ SymfonyCmfBlockBundle and the SonataBlockBundle:
            sonata_block:
            # ...
                blocks:
-                   symfony_cmf.block.action:
+                   cmf.block.action:
                        # use the service id of the cache adapter
-                       cache: symfony_cmf.block.cache.js_async
+                       cache: cmf.block.cache.js_async
 
 Workflow
 --------
@@ -180,7 +180,7 @@ Configuration
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_block:
+        cmf_block:
             # ...
             caches:
                 esi:
@@ -201,7 +201,7 @@ Configuration
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_block:
+        cmf_block:
             # ...
             caches:
                 ssi:

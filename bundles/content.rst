@@ -12,14 +12,14 @@ For an introduction see the :doc:`../getting-started/content` article in the
 Configuration
 -------------
 
-The configuration key for this bundle is ``symfony_cmf_content``:
+The configuration key for this bundle is ``cmf_content``:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_content:
+        cmf_content:
             admin_class:          ~
             document_class:       ~
             default_template:     ~

@@ -56,16 +56,16 @@ earlier this router service is asked to match a route or to generate a url
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing:
+        cmf_routing:
             chain:
                 routers_by_id:
                     # enable the DynamicRouter with high priority to allow overwriting configured routes with content
-                    symfony_cmf_routing.dynamic_router: 200
+                    cmf_routing.dynamic_router: 200
                     # enable the symfony default router with a lower priority
                     router.default: 100
                 # whether the chain router should replace the default router. defaults to true
                 # if you set this to false, the router is just available as service
-                # symfony_cmf_routing.router and you  need to do something to trigger it
+                # cmf_routing.router and you  need to do something to trigger it
                 # replace_symfony_router: true
 
 Loading Routers with Tagging
@@ -117,7 +117,7 @@ handle the request, to avoid hard coding controller names into your route
 documents.
 
 The minimum configuration required to load the dynamic router as service
-``symfony_cmf_routing.dynamic_router`` is to have ``enabled: true`` in your
+``cmf_routing.dynamic_router`` is to have ``enabled: true`` in your
 config.yml (the router is automatically enabled as soon as you add any other
 configuration to the `dynamic` entry). Without enabling it, the dynamic router
 service will not be loaded at all, allowing you to use the ChainRouter with
@@ -128,7 +128,7 @@ your own routers
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing:
+        cmf_routing:
             dynamic:
                 enabled: true
 
@@ -194,15 +194,15 @@ The possible enhancements are (in order of precedence):
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing:
+        cmf_routing:
             dynamic:
-                generic_controller: symfony_cmf_content.controller:indexAction
+                generic_controller: cmf_content.controller:indexAction
                 controllers_by_type:
                     editablestatic: sandbox_main.controller:indexAction
                 controllers_by_class:
-                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: symfony_cmf_content.controller:indexAction
+                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: cmf_content.controller:indexAction
                 templates_by_class:
-                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: SymfonyCmfContentBundle:StaticContent:index.html.twig
+                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: CmfContentBundle:StaticContent:index.html.twig
 
                 # the route provider is responsible for loading routes.
                 manager_registry: doctrine_phpcr
@@ -328,9 +328,9 @@ to point to the root of your content documents.
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing:
+        cmf_routing:
             use_sonata_admin: auto # use true/false to force using / not using sonata admin
-            content_basepath: ~ # used with sonata admin to manage content, defaults to symfony_cmf_core.content_basepath
+            content_basepath: ~ # used with sonata admin to manage content, defaults to cmf_core.content_basepath
 
 
 Form Type
@@ -338,10 +338,10 @@ Form Type
 
 The bundle defines a form type that can be used for classical "accept terms"
 checkboxes where you place urls in the label. Simply specify
-``symfony_cmf_routing_terms_form_type`` as the form type name and specify a
+``cmf_routing_terms_form_type`` as the form type name and specify a
 label and an array with ``content_ids`` in the options::
 
-    $form->add('terms', 'symfony_cmf_routing_terms_form_type', array(
+    $form->add('terms', 'cmf_routing_terms_form_type', array(
         'label' => 'I have seen the <a href="%team%">Team</a> and <a href="%more%">More</a> pages ...',
         'content_ids' => array('%team%' => '/cms/content/static/team', '%more%' => '/cms/content/static/more')
     ));
@@ -367,9 +367,9 @@ Notes:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing:
+        cmf_routing:
             controllers_by_class:
-                Symfony\Cmf\Component\Routing\RedirectRouteInterface:  symfony_cmf_routing.redirect_controller:redirectAction
+                Symfony\Cmf\Component\Routing\RedirectRouteInterface:  cmf_routing.redirect_controller:redirectAction
 
 .. _bundle-routing-customize:
 

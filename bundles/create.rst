@@ -77,7 +77,7 @@ application's kernel::
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new FOS\RestBundle\FOSRestBundle(),
-            new Symfony\Cmf\Bundle\CreateBundle\SymfonyCmfCreateBundle(),
+            new Symfony\Cmf\Bundle\CreateBundle\CmfCreateBundle(),
             // ...
         );
     }
@@ -126,7 +126,7 @@ In your application config file, define the editor base path:
 
     .. code-block:: yaml
 
-        symfony_cmf_create:
+        cmf_create:
             editor_base_path: /bundles/symfonycmfcreate/vendor/ckeditor/
 
     .. code-block:: xml
@@ -137,7 +137,7 @@ In your application config file, define the editor base path:
 
     .. code-block:: php
 
-        $container->loadFromExtension('symfony_cmf_create', array(
+        $container->loadFromExtension('cmf_create', array(
             'editor_base_path': '/bundles/symfonycmfcreate/vendor/ckeditor/',
         ));
 
@@ -146,7 +146,7 @@ In your template, load the javascript files using:
 .. code-block:: jinja
 
     {% render controller(
-        "symfony_cmf_create.jsloader.controller:includeJSFilesAction",
+        "cmf_create.jsloader.controller:includeJSFilesAction",
         {"editor": "ckeditor"}
     %}
 
@@ -193,7 +193,7 @@ Configuration
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_create:
+        cmf_create:
             # metadata loading
 
             # directory list to look for metadata
@@ -274,7 +274,7 @@ PHPCR-ODM repository and also serves them in requests.
 
 If you need different image handling, you can either overwrite
 ``image.model_class`` and/or ``image.controller_class``, or implement a custom
-``ImageController`` and override the ``symfony_cmf_create.image.controller``
+``ImageController`` and override the ``cmf_create.image.controller``
 service with it.
 
 Mapping Requests to Objects
@@ -282,7 +282,7 @@ Mapping Requests to Objects
 
 For now, the bundle only provides a service to map to doctrine PHPCR-ODM.
 Enable it by setting ``phpcr_odm`` to true. If you need something else, you need
-to provide a service ``symfony_cmf_create.object_mapper``. (If you need a
+to provide a service ``cmf_create.object_mapper``. (If you need a
 wrapper for doctrine ORM, look at the mappers in the createphp library and do
 a pull request on that library, and another one to expose the ORM mapper as
 service in the create bundle).
@@ -306,15 +306,15 @@ Finally add the relevant routing to your configuration
     .. code-block:: yaml
 
         create:
-            resource: "@SymfonyCmfCreateBundle/Resources/config/routing/rest.xml"
+            resource: "@CmfCreateBundle/Resources/config/routing/rest.xml"
         create_image:
-            resource: "@SymfonyCmfCreateBundle/Resources/config/routing/image.xml"
+            resource: "@CmfCreateBundle/Resources/config/routing/image.xml"
 
     .. code-block:: xml
 
-        <import resource="@SymfonyCmfCreateBundle/Resources/config/routing/rest.xml"
+        <import resource="@CmfCreateBundle/Resources/config/routing/rest.xml"
             type="rest" />
-        <import resource="@SymfonyCmfCreateBundle/Resources/config/routing/image.xml"
+        <import resource="@CmfCreateBundle/Resources/config/routing/image.xml"
             type="rest" />
 
 .. _bundle-create-usage-embed:
@@ -329,20 +329,20 @@ If you are using Symfony 2.2 or higher:
 
 .. code-block:: jinja
 
-    {% render controller("symfony_cmf_create.jsloader.controller:includeJSFilesAction", {'_locale': app.request.locale}) %}
+    {% render controller("cmf_create.jsloader.controller:includeJSFilesAction", {'_locale': app.request.locale}) %}
 
 For versions prior to 2.2, this will do:
 
 .. code-block:: jinja
 
-    {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" with {'_locale': app.request.locale} %}
+    {% render "cmf_create.jsloader.controller:includeJSFilesAction" with {'_locale': app.request.locale} %}
 
 Plus make sure that assetic is rewriting paths in your css files, then
 include the base css files (and customize with your css as needed) with
 
 .. code-block:: jinja
 
-    {% include "SymfonyCmfCreateBundle::includecssfiles.html.twig" %}
+    {% include "CmfCreateBundle::includecssfiles.html.twig" %}
 
 The other thing you have to do is provide RDFa mappings for your model classes
 and adjust your templates to render with createphp so that create.js knows
@@ -379,14 +379,14 @@ Alternative Editors
 
 You can write your own templates to load a javascript editor. They have to
 follow the naming pattern
-``SymfonyCmfCreateBundle::includejsfiles-%editor%.html.twig`` to be loaded. In
+``CmfCreateBundle::includejsfiles-%editor%.html.twig`` to be loaded. In
 the includeJSFilesAction, you specify the editor parameter.  (Do not forget to
 add the ``controller`` call around the controller name inside ``render`` for
 Symfony 2.2, as in the example above.)
 
 .. code-block:: jinja
 
-    {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'aloha', '_locale': app.request.locale } %}
+    {% render "cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'aloha', '_locale': app.request.locale } %}
 
 .. note::
 
@@ -416,7 +416,7 @@ forget to add the ``controller`` call around the controller name inside
 
 .. code-block:: jinja
 
-    {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'hallo-coffee', '_locale': app.request.locale } %}
+    {% render "cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'hallo-coffee', '_locale': app.request.locale } %}
 
 The hallo-coffee template uses assetic to load the coffee script files from
 ``Resources/public/vendor/hallo/src``, rather than the precompiled javascript

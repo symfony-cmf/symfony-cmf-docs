@@ -20,14 +20,14 @@ Dependencies
 Configuration
 -------------
 
-The configuration key for this bundle is ``symfony_cmf_tree_browser``:
+The configuration key for this bundle is ``cmf_tree_browser``:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_tree_browser:
+        cmf_tree_browser:
             session:  default
 
 Routing
@@ -42,9 +42,9 @@ configuration:
     .. code-block:: yaml
 
         # app/config/routing.yml
-        symfony_cmf_tree:
+        cmf_tree:
             resource: .
-            type: 'symfony_cmf_tree'
+            type: 'cmf_tree'
 
 Usage
 -----
@@ -238,8 +238,8 @@ configuration:
 
         fos_js_routing:
             routes_to_expose:
-                - symfony_cmf_tree_browser.phpcr_children
-                - symfony_cmf_tree_browser.phpcr_move
+                - cmf_tree_browser.phpcr_children
+                - cmf_tree_browser.phpcr_move
                 - sonata.admin.doctrine_phpcr.phpcrodm_children
                 - sonata.admin.doctrine_phpcr.phpcrodm_move
                 - presta_cms_page_edit

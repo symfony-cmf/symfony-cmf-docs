@@ -1,5 +1,5 @@
 .. index::
-    single: Routing, SymfonyCmfRoutingBundle
+    single: Routing, CmfRoutingBundle
 
 Routing
 =======
@@ -59,12 +59,12 @@ their configured priority:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing:
+        cmf_routing:
             chain:
                 routers_by_id:
                     # enable the DynamicRouter with high priority to allow overwriting
                     # configured routes with content
-                    symfony_cmf_routing.dynamic_router: 200
+                    cmf_routing.dynamic_router: 200
 
                     # enable the symfony default router with a lower priority
                     router.default: 100
@@ -83,7 +83,7 @@ their configured priority:
                     <!-- enable the DynamicRouter with high priority to allow overwriting
                          configured routes with content -->
                     <routers-by-id
-                        id="symfony_cmf_routing.dynamic_router">
+                        id="cmf_routing.dynamic_router">
                         200
                     </routers-by-id>
 
@@ -98,12 +98,12 @@ their configured priority:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_routing', array(
+        $container->loadFromExtension('cmf_routing', array(
             'chain' => array(
                 'routers_by_id' => array(
                     // enable the DynamicRouter with high priority to allow overwriting
                     // configured routes with content
-                    'symfony_cmf_routing.dynamic_router' => 200,
+                    'cmf_routing.dynamic_router' => 200,
 
                     // enable the symfony default router with a lower priority
                     'router.default'                     => 100,
@@ -169,7 +169,7 @@ by default. To activate it, just add the following to your configuration file:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing:
+        cmf_routing:
             dynamic:
                 enabled: true
 
@@ -190,7 +190,7 @@ by default. To activate it, just add the following to your configuration file:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_routing', array(
+        $container->loadFromExtension('cmf_routing', array(
             'dynamic' => array(
                 'enabled' => true,
             ),
@@ -266,15 +266,15 @@ Here's an example of how to configure the above mentioned options:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing:
+        cmf_routing:
             dynamic:
-                generic_controller: symfony_cmf_content.controller:indexAction
+                generic_controller: cmf_content.controller:indexAction
                 controllers_by_type:
                     editablestatic: sandbox_main.controller:indexAction
                 controllers_by_class:
-                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: symfony_cmf_content.controller::indexAction
+                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: cmf_content.controller::indexAction
                 templates_by_class:
-                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: SymfonyCmfContentBundle:StaticContent:index.html.twig
+                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: CmfContentBundle:StaticContent:index.html.twig
 
     .. code-block:: xml
 
@@ -286,7 +286,7 @@ Here's an example of how to configure the above mentioned options:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
             <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
-                <dynamic generic-controller="symfony_cmf_content.controllerindexAction">
+                <dynamic generic-controller="cmf_content.controllerindexAction">
                     <controllers-by-type type="editablestatic">
                         sandbox_main.controller:indexAction
                     </controllers-by-type>
@@ -294,12 +294,12 @@ Here's an example of how to configure the above mentioned options:
                     <controllers-by-class
                         class="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
                     >
-                        symfony_cmf_content.controller::indexAction
+                        cmf_content.controller::indexAction
                     </controllers-by-class>
 
                     <templates-by-class alias="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
                     >
-                        SymfonyCmfContentBundle:StaticContent:index.html.twig
+                        CmfContentBundle:StaticContent:index.html.twig
                     </templates-by-class>
                 </dynamic>
             </cmf-routing:config>
@@ -308,17 +308,17 @@ Here's an example of how to configure the above mentioned options:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_routing', array(
+        $container->loadFromExtension('cmf_routing', array(
             'dynamic' => array(
-                'generic_controller' => 'symfony_cmf_content.controller:indexAction',
+                'generic_controller' => 'cmf_content.controller:indexAction',
                 'controllers_by_type' => array(
                     'editablestatic' => 'sandbox_main.controller:indexAction',
                 ),
                 'controllers_by_class' => array(
-                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'symfony_cmf_content.controller::indexAction',
+                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'cmf_content.controller::indexAction',
                 ),
                 'templates_by_class' => array(
-                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'SymfonyCmfContentBundle:StaticContent:index.html.twig',
+                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'CmfContentBundle:StaticContent:index.html.twig',
                 ),
             ),
         ));
@@ -368,9 +368,9 @@ configured as follows:
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing:
+        cmf_routing:
             controllers_by_class:
-                Symfony\Cmf\Component\Routing\RedirectRouteInterface:  symfony_cmf_routing.redirect_controller:redirectAction
+                Symfony\Cmf\Component\Routing\RedirectRouteInterface:  cmf_routing.redirect_controller:redirectAction
 
     .. code-block:: xml
 
@@ -384,7 +384,7 @@ configured as follows:
             <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <controllers-by-class
                     class="Symfony\Cmf\Component\Routing\RedirectRouteInterface">
-                    symfony_cmf_routing.redirect_controller:redirectAction
+                    cmf_routing.redirect_controller:redirectAction
                 </controllers-by-class>
             </cmf-routing:config>
         </container>
@@ -392,9 +392,9 @@ configured as follows:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_routing', array(
+        $container->loadFromExtension('cmf_routing', array(
             'controllers_by_class' => array(
-                'Symfony\Cmf\Component\Routing\RedirectRouteInterface' => 'symfony_cmf_routing.redirect_controller:redirectAction',
+                'Symfony\Cmf\Component\Routing\RedirectRouteInterface' => 'cmf_routing.redirect_controller:redirectAction',
             ),
         ));
 
@@ -480,11 +480,11 @@ There are a couple of configuration options for the admin. The
     .. code-block:: yaml
 
         # app/config/config.yml
-        symfony_cmf_routing:
+        cmf_routing:
             # use true/false to force using / not using sonata admin
             use_sonata_admin: auto
 
-            # used with Sonata Admin to manage content; defaults to symfony_cmf_core.content_basepath
+            # used with Sonata Admin to manage content; defaults to cmf_core.content_basepath
             content_basepath: ~
 
     .. code-block:: xml
@@ -497,7 +497,7 @@ There are a couple of configuration options for the admin. The
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
             <!-- use-sonata-admin: use true/false to force using / not using sonata admin -->
-            <!-- content-basepath: used with Sonata Admin to manage content; defaults to symfony_cmf_core.content_basepath -->
+            <!-- content-basepath: used with Sonata Admin to manage content; defaults to cmf_core.content_basepath -->
             <cmf-routing:config
                 use-sonata-admin="auto"
                 content-basepath="null"
@@ -507,11 +507,11 @@ There are a couple of configuration options for the admin. The
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('symfony_cmf_routing', array(
+        $container->loadFromExtension('cmf_routing', array(
             // use true/false to force using / not using sonata admin
             'use_sonata_admin' => 'auto',
 
-            // used with Sonata Admin to manage content; defaults to symfony_cmf_core.content_basepath
+            // used with Sonata Admin to manage content; defaults to cmf_core.content_basepath
             'content_basepath' => null,
         ));
 
@@ -520,10 +520,10 @@ Terms Form Type
 
 The Routing bundle defines a form type that can be used for classical "accept terms"
 checkboxes where you place URLs in the label. Simply specify
-``symfony_cmf_routing_terms_form_type`` as the form type name and
+``cmf_routing_terms_form_type`` as the form type name and
 specify a label and an array with ``content_ids`` in the options::
 
-    $form->add('terms', 'symfony_cmf_routing_terms_form_type', array(
+    $form->add('terms', 'cmf_routing_terms_form_type', array(
         'label' => 'I have seen the <a href="%team%">Team</a> and <a href="%more%">More</a> pages ...',
         'content_ids' => array(
             '%team%' => '/cms/content/static/team',
