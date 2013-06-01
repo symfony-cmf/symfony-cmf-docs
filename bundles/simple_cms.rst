@@ -129,9 +129,9 @@ such a template is:
         <div>{{ page.body|raw }}</div>
 
         <ul>
-        {% foreach tag in page.tags %}
+        {% for tag in page.tags %}
             <li>{{ tag }}</li>
-        {% endforeach %}
+        {% endfor %}
         </ul>
     {% endblock %}
 
