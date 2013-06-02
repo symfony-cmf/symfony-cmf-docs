@@ -169,7 +169,7 @@ Settings can be altered on multiple places afterwards, it cascades like this:
 
 * Default settings are stored in the block service;
 * If you use a 3rd party bundle you might want to change them in the bundle
-  configuration for your application see :ref:`configuration`;
+  configuration for your application see :ref:`bundle-block-configuration`;
 * Settings can be altered through template helpers (see example);
 * And settings can also be altered in a block document, the advantage is that
   settings are stored in PHPCR and allows to implement a frontend or backend UI
@@ -313,19 +313,8 @@ Examples
 
 You can find example usages of this bundle in the `Symfony CMF Sandbox`_
 (have a look at the BlockBundle). It also shows you how to make blocks
-editable using the :doc:`CreateBundle <create>`.
+editable using the :doc:`CreateBundle <../create>`.
 
-Reference
----------
-
-.. toctree::
-    :maxdepth: 1
-    :numbered:
-
-    types
-    create_your_own_blocks
-    cache
-    relation_to_sonata_block_bundle
 
 .. _`BlockBundle`: https://github.com/symfony-cmf/BlockBundle#readme
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox

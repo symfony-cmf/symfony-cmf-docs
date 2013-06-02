@@ -4,7 +4,7 @@ Bundles
 .. toctree::
 	:hidden:
 
-	block
+	block/index
 	blog
 	content
 	core

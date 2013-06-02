@@ -16,7 +16,7 @@ would look similar: Receive data from a feed, sanitize it and pass the data to
 a template. So instead you decide to create your own block, the RSSBlock.
 
 Create a block document
-----------------------
+-----------------------
 
 The first thing you need is an document that contains the data. It is
 recommended to extend ``Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock``

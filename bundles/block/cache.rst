@@ -48,9 +48,9 @@ CmfBlockBundle and the SonataBlockBundle:
    adapter for each block service:
 
    .. configuration-block::
-  
+
        .. code-block:: yaml
-  
+
            # app/config/config.yml
            sonata_block:
            # ...
