@@ -82,7 +82,7 @@ to do it? In this case the reference is the right place for you.
 .. toctree::
 	:maxdepth: 1
 
-	bundles/block
+	bundles/block/index
 	bundles/blog
 	bundles/content
 	bundles/core

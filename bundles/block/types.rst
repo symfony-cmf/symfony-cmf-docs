@@ -164,7 +164,7 @@ Render the slideshow
 
 Rendering your slideshow is as easy as just rendering the according block
 in your template. If your ``contentDocument`` has a field ``slideshow`` that
-contains a ``SlideshowBlock`` object, you can simply render it with::
+contains a ``SlideshowBlock`` object, you can simply render it with:
 
 .. code-block:: jinja
 
@@ -191,7 +191,7 @@ The BlockBundle comes with an admin class for managing slideshow blocks. All
 you need to do to administrate slideshows in your project is to add the
 following line to your sonata admin configuration:
 
-.. config-block::
+.. configuration-block::
 
     .. code-block:: yaml
 
