@@ -55,7 +55,10 @@ The configuration key for this bundle is ``cmf_block``:
 
 The default settings of a block are defined in the block service. If you use a
 3rd party block you might want to alter these for your application. Use the
-``sonata_block`` key for this.
+``sonata_block`` key for this. You can define default settings for a block
+service type or more specific for a block class. The later is usefull as a
+block service can be used by multiple block classes and sometimes you only want
+specific settings for one of the block classes.
 
 .. configuration-block::
 
@@ -64,9 +67,13 @@ The default settings of a block are defined in the block service. If you use a
         # app/config/config.yml
         sonata_block:
             blocks:
-                acme_main.block.rss:
+                acme_main.block.news:
                     settings:
                         maxItems: 3
+        blocks_by_class:
+            Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock:
+                settings:
+                    maxItems: 3
 
 .. _bundle-block-document:
 
@@ -100,6 +107,14 @@ The simple block is now ready to be rendered, see
     ``Sonata\BlockBundle\Model\BlockInterface`` or an existing block document
     like ``Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock``.
 
+Block Context
+-------------
+
+The BlockContext contains all information and the block document needed to
+render the block. It aggregates and merges all settings from configuration,
+the block service, the block document and settings passed to the twig template
+helper. Therefore use the BlockContext to get or alter a setting if needed.
+
 .. _bundle-block-service:
 
 Block Service
@@ -132,25 +147,21 @@ to see some examples.
 The Execute Method
 ~~~~~~~~~~~~~~~~~~
 
-This method contains ``controller`` logic. Merge the default settings in this
-method if you would like to use them::
+This method contains ``controller`` logic::
 
     <?php
 
     // ...
     if ($block->getEnabled()) {
-        // merge settings
-        $settings = array_merge($this->getDefaultSettings(), $block->getSettings());
-
         $feed = false;
-        if ($settings['url']) {
+        if ($blockContext->getSetting('url', false)) {
             $feed = $this->feedReader->import($block);
         }
 
-        return $this->renderResponse($this->getTemplate(), array(
-            'feed' => $feed,
-            'block' => $block,
-            'settings' => $settings
+        return $this->renderResponse($blockContext->getTemplate(), array(
+            'feed'     => $feed,
+            'block'    => $blockContext->getBlock(),
+            'settings' => $blockContext->getSettings(),
         ), $response);
     }
     // ...
@@ -164,7 +175,7 @@ method if you would like to use them::
 Default Settings
 ~~~~~~~~~~~~~~~~
 
-The method ``getDefaultSettings`` specifies the default settings for a block.
+The method ``setDefaultSettings`` specifies the default settings for a block.
 Settings can be altered on multiple places afterwards, it cascades like this:
 
 * Default settings are stored in the block service;
@@ -179,12 +190,9 @@ Example of how settings can be specified through a template helper:
 
 .. code-block:: jinja
 
-    {{ sonata_block_render({
-      'type': 'acme_main.block.rss',
-      'settings': {
+    {{ sonata_block_render({'name': 'rssBlock'}, {
           'title': 'Symfony2 CMF news',
           'url': 'http://cmf.symfony.com/news.rss'
-      }
     }) }}
 
 Form Configuration

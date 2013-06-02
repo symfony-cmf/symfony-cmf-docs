@@ -55,9 +55,13 @@ CmfBlockBundle and the SonataBlockBundle:
            sonata_block:
            # ...
                blocks:
-                   cmf.block.action:
+                   acme_main.block.news:
                        # use the service id of the cache adapter
                        cache: cmf.block.cache.js_async
+               blocks_by_class:
+                    # cache only the RssBlock and not all action blocks
+                    Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock:
+                        cache: cmf.block.cache.js_async
 
 Workflow
 --------
@@ -153,16 +157,15 @@ Block Rendering
 The following parameters can be used in the ``sonata_block_render`` code in
 your Twig template when using cache:
 
-* **useCache**: use the configured cache for a block (*default*: true)
-* **extraCachekeys**: expects an array with extra cache keys (*default*: empty array)
+* **use_cache**: use the configured cache for a block (*default*: true)
+* **extra_cache_keys**: expects an array with extra cache keys (*default*: empty array)
 
 .. code-block:: jinja
 
-    {{ sonata_block_render(
-        { 'name': 'rssBlock' },
-        true,
-        { 'extra_key': 'my_block' }
-    ) }}
+    {{ sonata_block_render({ 'name': 'rssBlock' }, {
+        use_cache: true,
+        extra_cache_keys: { 'extra_key': 'my_block' }
+    }) }}
 
 Adapters
 --------
