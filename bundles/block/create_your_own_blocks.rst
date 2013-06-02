@@ -16,7 +16,7 @@ would look similar: Receive data from a feed, sanitize it and pass the data to
 a template. So instead you decide to create your own block, the RSSBlock.
 
 Create a block document
-----------------------
+-----------------------
 
 The first thing you need is an document that contains the data. It is
 recommended to extend ``Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock``
@@ -52,17 +52,18 @@ You could choose to use a an already existing block service because the
 configuration and logic already satisfy your needs. For our rss block we
 create a service that knows how to handle RSSBlocks:
 
-* The method ``getDefaultSettings`` configures a title, url and the maximum
-  amount of items::
+* The method ``setDefaultSettings`` configures a template, title, url and the
+  maximum amount of items::
 
       // ...
-      public function getDefaultSettings()
+      public function setDefaultSettings(OptionsResolverInterface $resolver)
       {
-          return array(
+          $resolver->setDefaults(array(
+              'template' => 'AcmeMainBundle::Block::block_rss.html.twig',
               'url'      => false,
               'title'    => 'Insert the rss title',
               'maxItems' => 10,
-          );
+          ));
       }
       // ...
 

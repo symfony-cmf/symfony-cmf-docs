@@ -2,8 +2,9 @@ Using the BlockBundle and ContentBundle with PHPCR
 ==================================================
 
 The goal of this tutorial is to demonstrate how the CMF
-:doc:`../bundles/block`  and :doc:`../bundles/content` can be used as
-stand-alone components, and to show how they fit into the PHPCR.
+:doc:`BlockBundle <../bundles/block/index>` and :doc:`ContentBundle
+<../bundles/content>` can be used as stand-alone components, and to show how
+they fit into the PHPCR.
 
 This tutorial demonstrates the simplest possible usage, to get you up and
 running quickly. Once you are familiar with basic usage, the in-depth
@@ -25,14 +26,14 @@ Preconditions
 -------------
 
 * `Installation of Symfony2`_ (2.1.x)
-* :doc:`installing-configuring-doctrine-phpcr-odm`
+* :doc:`installing_configuring_doctrine_phpcr_odm`
 
 .. note::
 
     This tutorial is based on using PHPCR-ODM set up with Jackalope, Doctrine
     DBAL and a MySQL database. It should be easy to adapt this to work with
     one of the other PHPCR options documented in
-    :doc:`installing-configuring-doctrine-phpcr-odm`.
+    :doc:`installing_configuring_doctrine_phpcr_odm`.
 
 
 Create and Configure the Database
@@ -68,7 +69,7 @@ Configure the Doctrine PHPCR Component
 
 .. note::
 
-    If you have followed :doc:`installing-configuring-doctrine-phpcr-odm`, you
+    If you have followed :doc:`installing_configuring_doctrine_phpcr_odm`, you
     can skip this section.
 
 You need to install the PHPCR-ODM components. Add the following to your
@@ -484,7 +485,8 @@ examples):
     CMF BlockBundle and ContentBundle
     Block from CMF BlockBundle, parent from CMF ContentBundle (StaticContent).
 
-This happens when a block is rendered, see the .. index:: BlockBundle for more details:
+This happens when a block is rendered, see the :doc:`../bundles/block/index`
+for more details:
 
 * a document is loaded based on the name
 * if caching is configured, the cache is checked and content is returned if found
@@ -558,8 +560,9 @@ Next Steps
 You should now be ready to use the BlockBundle and/or the ContentBundle in
 your application, or to explore the other available CMF bundles.
 
-* See the :doc:`../bundles/block` and :doc:`../bundles/content` documentation
-  to learn about more advanced usage of these bundles
+* See the :doc:`BlockBundle <../bundles/block/index>` and :doc:`ContentBundle
+  <../bundles/content>` documentation to learn about more advanced usage of
+  these bundles
 * To see a better way of loading fixtures, look at the
   `fixtures in the CMF Sandbox`_
 * Take a look at the `PHPCR Tutorial`_ for a better understanding of the
