@@ -131,6 +131,8 @@ reference by using ``setWeak(false)``::
     When content is referenced weakly and subsequently deleted the
     rendered menu will not provide a link to the content.
 
+@todo: Explain about the various hash maps - $attributes, $routeParameters,
+$extras and $childrenParameters.
 
 Current Menu Item
 -----------------
