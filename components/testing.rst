@@ -11,6 +11,17 @@ It provides a way to easily bootstrap a consistent functional test environment.
 Data Fixtures
 -------------
 
+Support Files
+-------------
+
+The testing component includes some basic documents which will automatically be
+mapped by PHPCR-ODM:
+
+Content
+~~~~~~~
+
+`Symfony\Cmf\Testing\Document\Content` is a minimal referenceable content document.
+
 Configuration
 -------------
 
@@ -66,9 +77,7 @@ going with a minimum of effort and repetition.
 
 Because of the apparent difficulty in getting the directory of these
 configurations we have had to define this directory as a *PHP constant*.
-Thusly, to implement the default configurations create the following PHP file:
-
-.. code-block:: php
+Thusly, to implement the default configurations create the following PHP file::
 
     // Tests/Functional/App/Kernel/config/config.php
     <?php
@@ -84,3 +93,26 @@ Setting up PHPUnit
 ~~~~~~~~~~~~~~~~~~
 
 Explain about `KERNEL_DIR`. Show example phpunit.dist.xml
+
+DB Managers
+===========
+
+The testing component provides abstractions for various db managers
+
+PHPCR
+-----
+
+Access as::
+
+    <?php
+
+    $manager = $this->db('PHPCR');
+    $documentManager = $this->db('PHPCR')->getOm();
+
+    // create a test node /test
+    $this->db('PHPCR')->createTestNode();
+
+    // load fixtures
+    $this->db('PHPCR')->loadFixtures(array(
+        // fixture classes here
+    ));
