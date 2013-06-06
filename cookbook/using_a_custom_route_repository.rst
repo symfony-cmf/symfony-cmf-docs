@@ -13,9 +13,8 @@ following class provides a simple solution using an ODM Repository.
 
 .. code-block:: php
 
-    <?php
-
-    namespace MyVendor\Bundle\MyBundle\Repository;
+    // src/Acme/DemoBundle/Repository/RouteProvider.php
+    namespace Acme\DemoBundle\Repository;
 
     use Doctrine\ODM\PHPCR\DocumentRepository;
     use Symfony\Cmf\Component\Routing\RouteProviderInterface;
@@ -93,7 +92,7 @@ configuration as follows:
        cmf_routing:
            dynamic:
                enabled: true
-               route_provider_service_id: my_bundle.provider.endpoint
+               route_provider_service_id: acme_demo.provider.endpoint
 
    .. code-block:: xml
 
@@ -103,7 +102,7 @@ configuration as follows:
            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                <dynamic
                    enabled="true"
-                   route-provider-service-id="my_bundle.provider.endpoint"
+                   route-provider-service-id="acme_demo.provider.endpoint"
                />
            </config>
        </container>
@@ -114,11 +113,11 @@ configuration as follows:
        $container->loadFromExtension('cmf_routing', array(
            'dynamic' => array(
               'enabled'                   => true,
-              'route_provider_service_id' => 'my_bundle.provider.endpoint',
+              'route_provider_service_id' => 'acme_demo.provider.endpoint',
            ),
        ));
 
-Where ``my_bundle.provider.endpoint`` is the service ID of your route
+Where ``acme_demo.provider.endpoint`` is the service ID of your route
 provider.  See `Creating and configuring services in the container`_ for
 information on creating custom services.
 

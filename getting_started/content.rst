@@ -47,9 +47,11 @@ It also specifies the translation strategy:
 
     .. code-block:: php-annotations
 
-       /**
-        * @PHPCRODM\Document(translator="child", referenceable=true)
-        */
+        use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+
+        /**
+         * @PHPCRODM\Document(translator="child", referenceable=true)
+         */
 
 For information on the available translation strategies, refer to the Doctrine
 page regarding `multilanguage support in PHPCR-ODM`_.

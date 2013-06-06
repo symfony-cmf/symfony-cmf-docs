@@ -44,6 +44,30 @@ CmfBlockBundle and the SonataBlockBundle:
                resource: "@CmfBlockBundle/Resources/config/routing/cache.xml"
                prefix: /
 
+        .. code-block:: xml
+
+            <!-- app/config/routing.xml -->
+            <?xml version="1.0" encoding="UTF-8" ?>
+            <routes xmlns="http://symfony.com/schema/routing"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+                <!-- ... -->
+
+                <import resource="@SymfonyCmfBlockBundle/Resources/config/routing/cache.xml"
+                    prefix="/" />
+            </routes>
+
+        .. code-block:: php
+
+            // app/config/routing.php
+            $collection->addCollection(
+                $loader->import("@SymfonyCmfBlockBundle/Resources/config/routing/cache.xml"),
+                '/'
+            );
+
+            return $collection;
+
 3. *SonataBlockBundle* - Use the ``sonata_block`` key to configure the cache
    adapter for each block service:
 
@@ -62,6 +86,32 @@ CmfBlockBundle and the SonataBlockBundle:
                     # cache only the RssBlock and not all action blocks
                     Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock:
                         cache: cmf.block.cache.js_async
+
+        .. code-block:: xml
+
+            <!-- app/config/config.xml -->
+            <?xml version="1.0" charset="UTF-8" ?>
+            <container xmlns="http://symfony.com/schema/dic/services">
+
+                <config xmlns="http://example.org/schema/dic/sonata_block">
+                    <!-- use the service id of the cache adapter -->
+                    <blocks id="symfony_cmf.block.action"
+                        cache="symfony_cmf.block.cache.js_async"
+                    />
+                </config>
+            </container>
+
+        .. code-block:: php
+
+            // app/config/config.php
+            $container->loadFromExtension('sonata_block', array(
+                'blocks' => array(
+                    'symfony_cmf.block.action' => array(
+                        // use the service id of the cache adapter
+                        'cache' => 'symfony_cmf.block.cache.js_async',
+                    ),
+                ),
+            ));
 
 Workflow
 --------

@@ -106,3 +106,21 @@ with ``sonata.block``, otherwise it will not be known by the Bundle.
             <argument type="service" id="sonata.block.renderer" />
             <argument type="service" id="acme_main.block.rss_reader" />
         </service>
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\Reference;
+
+        $container->register('acme_main.rss_reader', 'Acme\MainBundle\Feed\SimpleReader');
+
+        $container->addDefinition('sandbox_main.block.rss', new Definition(
+            'Acme\MainBundle\Block\RssBlockService',
+            array(
+                'acme_main.block.rss',
+                new Reference('templating'),
+                new Reference('sonata.block.renderer'),
+                new Reference('acme_main.rss_reader'),
+            )
+        ))
+            ->addTag('sonata.block');
