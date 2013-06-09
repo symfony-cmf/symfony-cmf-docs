@@ -72,16 +72,15 @@ define the imagine filter you specify in the block. The default name is
 
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:liip-imagine="http://example.org/dic/schema/liip_imagine">
+        <container xmlns="http://symfony.com/schema/dic/services">
 
-            <liip-imagine:config xmlns="http://example.org/dic/schema/liip_imagine">
+            <config xmlns="http://example.org/dic/schema/liip_imagine">
                 <!-- ... -->
                 <filter-set name="cmf_block" data-loader="phpcr" quality="85">
                     <filter name="thumbnail" size="616,419" mode="outbound"/>
                 </filter-set>
                 <!-- ... -->
-            </liip-imagine:config>
+            </config>
         </container>
 
     .. code-block:: php

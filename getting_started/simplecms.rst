@@ -110,18 +110,17 @@ using the configuration parameters:
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:cmf-simple-cms="http://cmf.symfony.com/schema/dic/simplecms"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
             <!-- defaults to Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page or MultilangPage (see above) -->
-            <cmf-simple-cms:config xmlns="http://cmf.symfony.com/schema/dic/simplecms"
+            <config xmlns="http://cmf.symfony.com/schema/dic/simplecms"
                 document-class="null"
             >
                 <multilang>
                     <!-- defaults to empty list - declare your locales here to enable multilanguage -->
                     <locales></locales>
                 </multilang>
-            </cmf-simple-cms:config>
+            </config>
         </container>
 
     .. code-block:: php
@@ -253,10 +252,9 @@ type. Symfony CMF SE includes an example of both in its default configuration.
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:cmf-simple-cms="http://cmf.symfony.com/schema/dic/simplecms"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <cmf-simple-cms:config xmlns="http://cmf.symfony.com/schema/dic/simplecms"
+            <config xmlns="http://cmf.symfony.com/schema/dic/simplecms"
                 <routing>
                     <templates-by-class
                         alias="Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page">
@@ -268,7 +266,7 @@ type. Symfony CMF SE includes an example of both in its default configuration.
                         cmf_routing.redirect_controller:redirectAction
                     </templates-by-class
                 </routing>
-            </cmf-simple-cms:config>
+            </config>
         </container>
 
     .. code-block:: php

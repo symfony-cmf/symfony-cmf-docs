@@ -181,15 +181,14 @@ explicitly:
 
     .. code-block:: xml
 
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:cmf-menu="http://cmf.symfony.com/schema/dic/menu">
-            <cmf-menu:config xmlns="http://cmf.symfony.com/schema/dic/menu">
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/menu">
                 <voter>
                     <content-identity>
                         <content-key>myKey</content-key>
                     </content-identity>
                 </voter>
-            </cmf-menu:config>
+            </config>
         </container>
 
     .. code-block:: php
