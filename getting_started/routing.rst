@@ -74,11 +74,9 @@ their configured priority:
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
 
-        <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <container xmlns="http://cmf.symfony.com/schema/dic/services">
 
-            <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <chain>
                     <!-- enable the DynamicRouter with high priority to allow overwriting
                          configured routes with content -->
@@ -93,7 +91,7 @@ their configured priority:
                         100
                     </routers-by-id>
                 </chain>
-            </cmf-routing:config>
+            </config>
 
     .. code-block:: php
 
@@ -179,12 +177,11 @@ by default. To activate it, just add the following to your configuration file:
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic enabled="true" />
-            </cmf-routing:config>
+            </config>
         </container>
 
     .. code-block:: php
@@ -282,10 +279,9 @@ Here's an example of how to configure the above mentioned options:
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic generic-controller="cmf_content.controllerindexAction">
                     <controllers-by-type type="editablestatic">
                         sandbox_main.controller:indexAction
@@ -302,7 +298,7 @@ Here's an example of how to configure the above mentioned options:
                         CmfContentBundle:StaticContent:index.html.twig
                     </templates-by-class>
                 </dynamic>
-            </cmf-routing:config>
+            </config>
         </container>
 
     .. code-block:: php
@@ -378,15 +374,14 @@ configured as follows:
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <cmf-routing:config xmlns="http://cmf.symfony.com/schema/dic/routing">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <controllers-by-class
                     class="Symfony\Cmf\Component\Routing\RedirectRouteInterface">
                     cmf_routing.redirect_controller:redirectAction
                 </controllers-by-class>
-            </cmf-routing:config>
+            </config>
         </container>
 
     .. code-block:: php
