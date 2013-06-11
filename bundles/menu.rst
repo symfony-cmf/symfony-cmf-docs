@@ -1,4 +1,4 @@
-﻿The MenuBundle
+The MenuBundle
 ==============
 
 The `MenuBundle`_ provides menus from a doctrine object manager with the help
@@ -38,6 +38,7 @@ The values are:
             content_url_generator:  router
             route_name:           ~ # cmf routes are created by content instead of name
             content_basepath:     ~ # defaults to cmf_core.content_basepath
+            allow_empty_items:    ~ # defaults to false
             voters:
                 uri_prefix:       false # enable the UriPrefixVoter for current menu item
                 content_identity: not set # enable the RequestContentIdentityVoter
@@ -61,6 +62,12 @@ By default, ``use_sonata_admin`` is automatically set based on whether
 SonataDoctrinePhpcrAdminBundle is available but you can explicitly disable it
 to not have it even if sonata is enabled, or explicitly enable to get an error
 if Sonata becomes unavailable.
+
+By default, menu items, that have neither the uri nor a route specified 
+and their route also cannot be guessed from the content they link to are
+skipped by the menu factory. So are there descendants. If you want to show 
+these menu items as static text instead, just set  the, just set the ``allow_empty_items`` 
+parameter to true. 
 
 Menu Entries
 ------------
