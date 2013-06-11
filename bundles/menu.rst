@@ -63,10 +63,11 @@ SonataDoctrinePhpcrAdminBundle is available but you can explicitly disable it
 to not have it even if sonata is enabled, or explicitly enable to get an error
 if Sonata becomes unavailable.
 
-By default, menu items, that do not have uri or route specified, and their 
-route cannot be guessed, are skipped by the bundle. So are there descendants. 
-If you want to show these menu items as static text instead, just set  the 
-``allow_empty_items`` parameter to true. 
+By default, menu items, that have neither the uri nor a route specified 
+and their route also cannot be guessed from the content they link to are
+skipped by the menu factory. So are there descendants. If you want to show 
+these menu items as static text instead, just set  the, just set the ``allow_empty_items`` 
+parameter to true. 
 
 Menu Entries
 ------------
