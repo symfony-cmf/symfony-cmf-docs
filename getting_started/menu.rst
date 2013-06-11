@@ -163,9 +163,9 @@ translations:
 
     .. code-block:: php-annotations
 
-       /**
-        * @PHPCRODM\Document(translator="attribute")
-        */
+        /**
+         * @PHPCRODM\Document(translator="attribute")
+         */
 
 For information on the available translation strategies, refer to the Doctrine
 page regarding `Multi language support in PHPCR-ODM`_

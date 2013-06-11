@@ -424,7 +424,7 @@ section applies if you use the default PHPCR-ODM route provider
 (``Symfony\Cmf\Bundle\RoutingBundle\Document\RouteProvider``).
 
 All routes are located under a configured root path, for example
-``/cms/routes``.  A new route can be created in PHP code as follows::
+``/cms/routes``. A new route can be created in PHP code as follows::
 
     use Symfony\Cmf\Bundle\RoutingBundle\Document\Route;
 

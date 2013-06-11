@@ -5,11 +5,10 @@
 Routing
 =======
 
-The `Symfony CMF Routing component`_
-library extends the Symfony2 core routing component. Even though it has Symfony
-in its name, it does not need the full Symfony2 framework and can be used in
-standalone projects. For integration with Symfony we provide
-:doc:`../bundles/routing`.
+The `Symfony CMF Routing component`_ library extends the Symfony2 core routing
+component. Even though it has Symfony in its name, it does not need the full
+Symfony2 framework and can be used in standalone projects. For integration
+with Symfony we provide :doc:`../bundles/routing`.
 
 At the core of the Symfony CMF Routing component is the ``ChainRouter``, that
 is used instead of the Symfony2's default routing system. The ChainRouter
@@ -71,8 +70,9 @@ provide the request parameters.
 Routers
 -------
 
-The ``ChainRouter`` is incapable of, by itself, making any actual routing decisions.
-Its sole responsibility is managing the given set of Routers, which are responsible for matching a request and determining its parameters.
+The ``ChainRouter`` is incapable of, by itself, making any actual routing
+decisions. Its sole responsibility is managing the given set of Routers,
+which are responsible for matching a request and determining its parameters.
 
 You can easily create your own routers by implementing
 :class:`Symfony\\Component\\Routing\\RouterInterface` but Symfony CMF already
@@ -134,9 +134,11 @@ effectively allowing you to store and manage routes dynamically from database.
 The ``NestedMatcher`` uses a 3-step matching process to determine which Route
 to use when handling the current Request:
 
-* Ask the ``RouteProviderInterface`` for the collection of ``Route`` instances potentially matching the ``Request``
-* Apply all ``RouteFilterInterface`` to filter down this collection
-* Let the ``FinalMatcherInterface`` instance decide on the best match among the remaining ``Route`` instances and transform it into the parameter array.
+* Ask the ``RouteProviderInterface`` for the collection of ``Route`` instances
+  potentially matching the ``Request``
+  Apply all ``RouteFilterInterface`` to filter down this collection
+* Let the ``FinalMatcherInterface`` instance decide on the best match among
+  the remaining ``Route`` instances and transform it into the parameter array.
 
 ``RouteProviderInterface``
 """"""""""""""""""""""""""
