@@ -75,6 +75,30 @@ specific settings for one of the block classes.
                 settings:
                     maxItems: 3
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://example.org/schema/dic/sonata_block">
+                <blocks id="acme_main.block.rss">
+                    <settings id="maxItems">3</settings>
+                </blocks>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_block', array(
+            'blocks' => array(
+                'acme_main.block.rss' => array(
+                    'settings' => 3,
+                ),
+            ),
+        ));
+
 .. _bundle-block-document:
 
 Block Document
@@ -83,7 +107,9 @@ Block Document
 Before you can render a block, you need to create a data object representing
 your block in the repository. You can do so with the following code snippet::
 
-    <?php
+    use Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock;
+
+    // ...
 
     $myBlock = new SimpleBlock();
     $myBlock->setParentDocument($parentDocument);
@@ -148,8 +174,6 @@ The Execute Method
 ~~~~~~~~~~~~~~~~~~
 
 This method contains ``controller`` logic::
-
-    <?php
 
     // ...
     if ($block->getEnabled()) {

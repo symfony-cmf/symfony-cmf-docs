@@ -5,13 +5,17 @@ For each purpose a different block type can be used. The general purpose
 blocks can be used for several solutions.  The Block Bundle ships with more
 specific block types.
 
-RSSBlock
+RssBlock
 --------
 
 The RssBlock extends the ActionBlock and allows you to read feed items and
 display them in a list.
 
 Create a document::
+
+    use Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock;
+
+    // ...
 
     $myRssBlock = new RssBlock();
     $myRssBlock->setParentDocument($parentPage);
