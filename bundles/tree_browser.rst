@@ -30,6 +30,20 @@ The configuration key for this bundle is ``cmf_tree_browser``:
         cmf_tree_browser:
             session:  default
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <config xmlns="http://cmf.symfony.com/schema/dic/treebrowser"
+            session-name="default"
+        />
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_tree_browser', array(
+            'session_name' => 'default',
+        ));
+
 Routing
 -------
 
@@ -45,6 +59,22 @@ configuration:
         cmf_tree:
             resource: .
             type: 'cmf_tree'
+
+    .. code-block:: xml
+
+        <!-- app/config/routing.xml -->
+        <import resource="."
+            type="cmf_tree" />
+
+    .. code-block:: php
+
+        // app/config/routing.php
+        use Symfony\Component\Routing\RouteCollection;
+
+        $collection = new RouteCollection();
+        $collection->addCollection($loader->import('.', 'cmf_tree'));
+
+        return $collection;
 
 Usage
 -----
@@ -129,7 +159,7 @@ This configuration is set for all your application trees regardless their type
                         - Symfony\Cmf\Bundle\BlockBundle\Document\ActionBlock
                 Symfony\Cmf\Bundle\BlockBundle\Document\ReferenceBlock:
                     valid_children: []
-                ...
+                # ...
 
 
 How to add an Admin Tree to Your Page
@@ -148,8 +178,22 @@ For Symfony 2.2 and later:
 
     .. code-block:: jinja
 
-        {% render(controller('sonata.admin.doctrine_phpcr.tree_controller:treeAction')) with { 'root': websiteId~"/menu", 'selected': menuNodeId, '_locale': app.request.locale } %}
+        {% render(controller('sonata.admin.doctrine_phpcr.tree_controller:treeAction')) with {
+            'root':     websiteId ~ "/menu",
+            'selected': menuNodeId,
+            '_locale':  app.request.locale
+        } %}
 
+    .. code-block:: php
+
+        <?php echo $view['actions']->render(new ControllerReference(
+                'sonata.admin.doctrine_phpcr.tree_controller:treeAction',
+                array(
+                    'root'     => $websiteId.'/menu',
+                    'selected' => $menuNodeId,
+                    '_locale'  => $app->getRequest()->getLocale()
+                ),
+        )) ?>
 
 For Symfony 2.1:
 
@@ -157,8 +201,20 @@ For Symfony 2.1:
 
     .. code-block:: jinja
 
-        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuNodeId, '_locale': app.request.locale } %}
+        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with {
+            'root':     websiteId ~ "/menu",
+            'selected': menuNodeId,
+            '_locale':  app.request.locale
+        } %}
 
+    .. code-block:: php
+
+        <?php echo
+        $view['actions']->render('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array(
+            'root'     => $websiteId.'/menu',
+            'selected' => $menuNodeId,
+            '_locale'  => $app->getRequest()->getLocale()
+        )) ?>
 
 How to Customize the Tree Behaviour
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -179,9 +235,13 @@ Here is a simple way to remove the context menu from the admin tree (add the
 
 .. configuration-block::
 
-    .. code-block:: jinja
+    .. code-block:: jinja+html
 
-        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with { 'root': websiteId~"/menu", 'selected': menuNodeId, '_locale': app.request.locale } %}
+        {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with {
+            'root':     websiteId ~ "/menu",
+            'selected': menuNodeId,
+            '_locale':  app.request.locale
+        } %}
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#tree').bind("before.jstree", function (e, data) {
@@ -193,6 +253,24 @@ Here is a simple way to remove the context menu from the admin tree (add the
             });
         </script>
 
+    .. code-block:: php+html
+
+        <?php
+        $view['actions']->render('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array(
+            'root'     => $websiteId.'/menu',
+            'selected' => $menuNodeId,
+            '_locale'  => $app->getRequest()->getLocale()
+        ))?>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#tree').bind("before.jstree", function (e, data) {
+                    if (data.plugin === "contextmenu") {
+                        e.stopImmediatePropagation();
+                        return false;
+                    }
+                });
+            });
+        </script>
 
 By default, the item selection open the edit route of the admin class of the
 element. This action is bind to the ``select_node.jstree``.
@@ -200,15 +278,13 @@ element. This action is bind to the ``select_node.jstree``.
 If you want to remove it, you just need to call the unbind function on this
 event:
 
-.. configuration-block::
+.. code-block:: html
 
-    .. code-block:: jinja
-
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#tree').unbind('select_node.jstree');
-            });
-        </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#tree').unbind('select_node.jstree');
+        });
+    </script>
 
 Then you can bind it on another action.
 
@@ -229,8 +305,21 @@ For example, if your want to open a custom action:
             }
         });
 
-Don't forget to add your custom route to the fos_js_routing.routes_to_expose
-configuration:
+    .. code-block:: php
+
+        $('#tree').bind("select_node.jstree", function (event, data) {
+            if ((data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Document_MenuNode'
+                || data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Document_MultilangMenuNode')
+                && data.rslt.obj.attr("id") != '<?php echo $menuNodeId ?>'
+            ) {
+                var routing_defaults = {'locale': '<?php echo $locale ?>', '_locale': '<?php echo $_locale ?>'};
+                routing_defaults["id"] = data.rslt.obj.attr("url_safe_id");
+                window.location = Routing.generate('presta_cms_page_edit', routing_defaults);
+            }
+        });
+
+Don't forget to add your custom route to the
+``fos_js_routing.routes_to_expose`` configuration:
 
 .. configuration-block::
 
@@ -243,6 +332,28 @@ configuration:
                 - sonata.admin.doctrine_phpcr.phpcrodm_children
                 - sonata.admin.doctrine_phpcr.phpcrodm_move
                 - presta_cms_page_edit
+
+    .. code-block:: xml
+
+        <config xmlns="http://example.org/schema/dic/fos_js_routing">
+            <routes-to-expose>cmf_tree_browser.phpcr_children</routes-to-expose>
+            <routes-to-expose>cmf_tree_browser.phpcr_move</routes-to-expose>
+            <routes-to-expose>sonata.admin.doctrine_phpcr.phpcrodm_children</routes-to-expose>
+            <routes-to-expose>sonata.admin.doctrine_phpcr.phpcrodm_move</routes-to-expose>
+            <routes-to-expose>presta_cms_page_edit</routes-to-expose>
+        </config>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('fos_js_routing', array(
+            'routes_to_expose' => array(
+                'cmf_tree_browser.phpcr_children',
+                'cmf_tree_browser.phpcr_move',
+                'sonata.admin.doctrine_phpcr.phpcrodm_children',
+                'sonata.admin.doctrine_phpcr.phpcrodm_move',
+                'presta_cms_page_edit',
+            ),
+        ));
 
 .. _`TreeBrowserBundle`: https://github.com/symfony-cmf/TreeBrowserBundle#readme
 .. _`FOSJsRoutingBundle`: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle

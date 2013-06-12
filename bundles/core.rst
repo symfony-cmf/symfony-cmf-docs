@@ -23,12 +23,21 @@ Configuration
 
         # app/config/config.yml
         cmf_core:
-            document_manager: default
+            document_manager_name: default
             role: IS_AUTHENTICATED_ANONYMOUSLY # used by the publish workflow checker
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <!-- role: used by the publish workflow checker -->
+        <config xmlns="http://symfony.com/schema/dic/core"
+            document-manager-name="default"
+            role="IS_AUTHENTICATED_ANONYMOUSLY"
+        />
 
 .. _bundle-core-publish_workflow:
 
-Publish workflow checker
+Publish Workflow Checker
 ------------------------
 
 The Bundle provides a ``cmf_core.publish_workflow_checker`` service

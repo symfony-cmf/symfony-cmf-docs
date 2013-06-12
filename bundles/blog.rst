@@ -53,17 +53,17 @@ Example:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <cmf-blog:config 
+        <config xmlns="http://cmf.symfony.com/schema/dic/blog"
             use-sonata-admin="auto" 
             blog-basepath="/cms/blog"
         >
-            <cmf-blog:class 
+            <class 
                 blog-admin="Symfony\Cmf\Bundle\BlogBundle\Admin\BlogAdmin"
                 post-admin="Symfony\Cmf\Bundle\BlogBundle\Admin\PostAdmin"
                 blog="Symfony\Cmf\Bundle\BlogBundle\Document\Blog"
                 post="Symfony\Cmf\Bundle\BlogBundle\Document\Post"
             />
-        </cmf-blog:config>
+        </config>
 
     .. code-block:: php
 
@@ -159,15 +159,15 @@ add the following under the ``controllers_by_class`` section of
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <cmf-blog:config>
-            <cmf-blog:dynamic>
-                <cmf-blog:controllers-by-class
+        <config xmlns="http://cmf.symfony.com/schema/dic/blog">
+            <dynamic>
+                <controllers-by-class
                     class="Symfony\CmfBundle\BlogBundle\Document\Post"
                 >
                     cmf_blog.blog_controller:listAction"
-                </cmf-blog:controllers-by-class>
-            </cmf-blog:dynamic>
-        </cmf-blog:config>
+                </controllers-by-class>
+            </dynamic>
+        </config>
 
     .. code-block:: php
 
@@ -204,6 +204,21 @@ blog system visible on your dashboard, add the following to the
                         items:
                             - cmf_blog.admin
                             - cmf_post.admin
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <config xmlns="http://example.org/schema/dic/sonata_admin">
+            <!-- ... -->
+
+            <dashboard>
+                <groups id="blog"
+                    label="blog">
+                    <item>cmf_blog.admin</item>
+                    <item>cmf_post.admin</item>
+                </groups>
+            </dashboard>
+        </config>
 
     .. code-block:: php
 
@@ -243,6 +258,16 @@ to enable blog edition from the tree browser. Expose the routes in the
                 - admin_bundle_blog_blog_delete
                 - admin_bundle_blog_blog_edit
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <config xmlns="http://example.org/schema/dic/fos_js_routing">
+            <!-- ... -->
+            <routes-to-expose>admin_bundle_blog_blog_create</routes-to-expose>
+            <routes-to-expose>admin_bundle_blog_blog_delete</routes-to-expose>
+            <routes-to-expose>admin_bundle_blog_blog_edit</routes-to-expose>
+        </config>
+
     .. code-block:: php
 
         // app/config/config.php
@@ -271,12 +296,18 @@ to do this is to create the following file:
 
     .. code-block:: jinja
 
-        {# /app/Resources/CmfBlogBundle/views/default_layout.html.twig #}
-
+        {# app/Resources/CmfBlogBundle/views/default_layout.html.twig #}
         {% extends "MyApplicationBundle::my_layout.html.twig" %}
 
         {% block content %}
         {% endblock %}
+
+    .. code-block:: php
+
+        <!-- app/Resources/CmfBlogBundle/views/default_layout.html.twig -->
+        <?php $view->extend('MyApplicationBundle::my_layout.html.twig') ?>
+
+        <?php $view['slots']->output('content') ?>
 
 The blog will now use ``MyApplicationBundle::my_layout.html.twig`` instead of
 ``CmfBlogBundle::default_layout.html.twig``.

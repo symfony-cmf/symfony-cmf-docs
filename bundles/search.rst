@@ -30,6 +30,35 @@ The configuration key for this bundle is ``cmf_search``
                 title: title
                 summary: body
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        
+        <!-- translation-strategy: can also be set to an empty string or attribute -->
+        <config xmlns="http://cmf.symfony.com/schema/dic/search"
+            document-manager-name="default"
+            translation-strategy="child"
+            search-path="/cms/content">
+                <search-fields>
+                    <title>title</title>
+                    <summary>body</summary>
+                </search-fields>
+        </config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_search', array(
+            'document_manager_name' => 'default',
+            'translation_strategy'  => 'child', // can also be set to an empty string or attribute
+            'translation_strategy'  => 'attribute',
+            'search_path'           => '/cms/content',
+            'search_fields'         => array(
+                'title'   => 'title',
+                'summary' => 'body',
+            ),
+        ));
+
 .. _`SearchBundle`: https://github.com/symfony-cmf/SearchBundle#readme
 .. _`LiipSearchBundle`: https://github.com/liip/LiipSearchBundle
 .. _`LiipSearchBundle`: https://github.com/liip/LiipSearchBundle

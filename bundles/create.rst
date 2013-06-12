@@ -21,7 +21,7 @@ Dependencies
 
 This bundle includes create.js (which bundles all its dependencies like
 jquery, vie, hallo, backbone etc) as a git submodule. Do not forget to add the
-composer script handler to your composer.json as described below.
+composer script handler to your ``composer.json`` as described below.
 
 PHP dependencies are managed through composer. We use createphp as well as
 AsseticBundle, FOSRestBundle and by inference also JmsSerializerBundle. Make
@@ -84,12 +84,32 @@ application's kernel::
 
 You also need to configure FOSRestBundle to handle json:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    fos_rest:
-        view:
-            formats:
-                json: true
+    .. code-block:: yaml
+
+        fos_rest:
+            view:
+                formats:
+                    json: true
+
+    .. code-block:: xml
+
+        <config xmlns="http://example.org/schema/dic/fos_rest">
+            <view>
+                <format name="json">true</format>
+            </view>
+        </config>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('fos_rest', array(
+            'view' => array(
+                'formats' => array(
+                    'json' => true,
+                ),
+            ),
+        ));
 
 .. _bundle-create-ckeditor:
 
@@ -131,7 +151,7 @@ In your application config file, define the editor base path:
 
     .. code-block:: xml
 
-        <cmf-create
+        <cmf-create:config
             editor-base-path="/bundles/symfonycmfcreate/vendor/ckeditor/"
         />
 
@@ -143,12 +163,23 @@ In your application config file, define the editor base path:
 
 In your template, load the javascript files using:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {% render controller(
-        "cmf_create.jsloader.controller:includeJSFilesAction",
-        {"editor": "ckeditor"}
-    %}
+    .. code-block:: jinja
+
+        {% render controller(
+            "cmf_create.jsloader.controller:includeJSFilesAction",
+            {"editor": "ckeditor"}
+        %}
+
+    .. code-block:: php
+
+        <?php $view['actions']->render(
+            'cmf_create.jsloader.controller:includeJSFilesAction',
+            array(
+                'editor' => 'ckeditor',
+            )
+        ) ?>
 
 As for create.js, you can override the source of CKEditor to a different
 target directory, source repository or commit id in the extra parameters of
@@ -234,6 +265,97 @@ Configuration
             # not necessary with the SimpleCmsBundle, as the content and the
             # routes are in the same repository tree.
             # create_routes_types: ['http://schema.org/NewsArticle']
+    
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <!--
+            auto-mapping: look for mappings in <Bundle>/Resources/rdf-mappings
+            rest-controller-class: use a different class for the REST handler
+            role: access check role for js inclusion, default REST and image controllers
+            phpcr-odm: enable the doctrine PHPCR-ODM mapper
+            stanbol-url: stanbol url for semantic enhancement, otherwise defaults to the demo install
+            fixed-toolbar: fix the Hallo editor toolbar on top of the page
+        -->
+        <config xmlns="http://cmf.symfony.com/schema/dic/create"
+            auto-mapping="true"
+            rest-controller-class="FQN\ClassName"
+            role="IS_AUTHENTICATED_ANONYMOUSLY"
+            phpcr-odm="true"
+            stanbol-url="http://dev.iks-project.eu:8081"
+            fixed-toolbar="true">
+            <!-- metadata loading -->
+
+            <!-- directory list to look for metadata -->
+            <rdf-config-dir>%kernel.root_dir%/Resources/rdf-mappings</rdf-config-dir>
+
+            <!-- image handling -->
+            <image
+                model-class=""
+                controller-class=""
+            />
+
+            <!-- mapping from rdf type name => class name used when adding items to collections -->
+            <map
+                rdfname="FQN\ClassName"
+            />
+
+            <!-- RDFa types used for elements to be edited in plain text -->
+            <plain-text-type>dcterms:title</plain-text-type>
+            <!--
+                RDFa types for which to create the corresponding routes after
+                content of these types has been added with Create.js. This is
+                not necessary with the SimpleCmsBundle, as the content and the
+            -->
+        </config>
+
+    .. code-block:: php
+
+        // app/config/config.yml
+        $container->loadFromExtension('cmf_create', array(
+            // metadata loading
+
+            // directory list to look for metadata
+            'rdf_config_dirs' => array(
+                "%kernel.root_dir%/Resources/rdf-mappings",
+            ),
+
+            // look for mappings in <Bundle>/Resources/rdf-mappings
+            // 'auto_mapping' => true,
+
+            // use a different class for the REST handler
+            // 'rest_controller_class' => 'FQN\Classname'
+
+            // image handling
+            'image' => array(
+                'model_class'      => null,
+                'controller_class' => null,
+            ),
+
+            // access check role for js inclusion, default REST and image controllers
+            // 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY',
+
+            // enable the doctrine PHPCR-ODM mapper
+            'phpcr_odm' => true,
+
+            // mapping from rdf type name => class name used when adding items to collections
+            'map' => array(
+                'rdfname' => 'FQN\Classname',
+            ),
+
+            // stanbol url for semantic enhancement, otherwise defaults to the demo install
+            // 'stanbol_url' => 'http://dev.iks-project.eu:8081',
+
+            // fix the Hallo editor toolbar on top of the page
+            // 'fixed_toolbar' => true,
+
+            // RDFa types used for elements to be edited in plain text
+            // 'plain_text_types' => array('dcterms:title'),
+
+            // RDFa types for which to create the corresponding routes after
+            // content of these types has been added with Create.js. This is
+            // not necessary with the SimpleCmsBundle, as the content and the
+        ));
 
 The provided javascript file configures create.js and the hallo editor. It
 enables some plugins like the tag editor to edit ``skos:related`` collections
@@ -312,10 +434,18 @@ Finally add the relevant routing to your configuration
 
     .. code-block:: xml
 
-        <import resource="@CmfCreateBundle/Resources/config/routing/rest.xml"
-            type="rest" />
-        <import resource="@CmfCreateBundle/Resources/config/routing/image.xml"
-            type="rest" />
+        <import resource="@CmfCreateBundle/Resources/config/routing/rest.xml" />
+        <import resource="@CmfCreateBundle/Resources/config/routing/image.xml" />
+
+    .. code-block:: php
+
+        use Symfony\Component\Routing\RouteCollection;
+
+        $collection = new RouteCollection();
+        $collection->addCollection($loader->import("@CmfCreateBundle/Resources/config/routing/rest.xml"));
+        $collection->addCollection($loader->import("@CmfCreateBundle/Resources/config/routing/image.xml"));
+
+        return $collection;
 
 .. _bundle-create-usage-embed:
 
@@ -327,15 +457,35 @@ allowed to edit content.
 
 If you are using Symfony 2.2 or higher:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {% render controller("cmf_create.jsloader.controller:includeJSFilesAction", {'_locale': app.request.locale}) %}
+    .. code-block:: jinja
+
+        {% render controller("cmf_create.jsloader.controller:includeJSFilesAction", {'_locale': app.request.locale}) %}
+
+    .. code-block:: php
+
+        <?php $view['actions']->render(
+            new
+            ControllerReference('cmf_create.jsloader.controller:includeJSFilesAction', array(
+                '_locale' => $app->getRequest()->getLocale(),
+            ))
+        ) ?>
 
 For versions prior to 2.2, this will do:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {% render "cmf_create.jsloader.controller:includeJSFilesAction" with {'_locale': app.request.locale} %}
+    .. code-block:: jinja
+
+        {% render "cmf_create.jsloader.controller:includeJSFilesAction" with {'_locale': app.request.locale} %}
+
+    .. code-block:: php
+
+        <?php
+        $view['actions']->render('cmf_create.jsloader.controller:includeJSFilesAction', array(
+            '_locale' => $app->getRequest()->getLocale(),
+        ) ?>
 
 Plus make sure that assetic is rewriting paths in your css files, then
 include the base css files (and customize with your css as needed) with
@@ -384,9 +534,19 @@ the includeJSFilesAction, you specify the editor parameter.  (Do not forget to
 add the ``controller`` call around the controller name inside ``render`` for
 Symfony 2.2, as in the example above.)
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {% render "cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'aloha', '_locale': app.request.locale } %}
+    .. code-block:: jinja
+
+        {% render "cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'aloha', '_locale': app.request.locale } %}
+
+    .. code-block:: php
+
+        <?php
+        $view['actions']->render('cmf_create.jsloader.controller:includeJSFilesAction', array(
+            'editor'  => 'aloha',
+            '_locale' => $app->getRequest()->getLocale(),
+        ));
 
 .. note::
 
@@ -414,9 +574,19 @@ just use the ``hallo-coffee`` editor with the includeJSFilesAction.  (Do not
 forget to add the ``controller`` call around the controller name inside
 ``render`` for Symfony 2.2, as in the example above.)
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {% render "cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'hallo-coffee', '_locale': app.request.locale } %}
+    .. code-block:: jinja
+
+        {% render "cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'hallo-coffee', '_locale': app.request.locale } %}
+
+    .. code-block:: php
+
+        <?php
+        $view['actions']->render('cmf_create.jsloader.controller:includeJSFilesAction", array(
+            'editor'  => 'hallo-coffee',
+            '_locale' => $app->getRequest()->getLocale(),
+        )) ?>
 
 The hallo-coffee template uses assetic to load the coffee script files from
 ``Resources/public/vendor/hallo/src``, rather than the precompiled javascript
@@ -436,6 +606,29 @@ and you need the `coffee compiler set up correctly`_.
                     node: %coffee.node%
                     apply_to: %coffee.extension%
 
+    .. code-block:: xml
+
+        <config xmlns="http://symfony.com/schema/dic/assetic">
+            <filter name="cssrewite" />
+            <filter name="coffee"
+                bin="%coffee.bin%"
+                node="%coffee.node%"
+                apply-to="%coffee.extension%" />
+        </config>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('assetic', array(
+            'filters' => array(
+                'cssrewrite' => null,
+                'coffee'     => array(
+                    'bin'      => '%coffee.bin%',
+                    'node'     => '%coffee.node%',
+                    'apply_to' => '%coffee.extension%',
+                ),
+            ),
+        ));
+
 In the cmf sandbox we did a little hack to not alwas trigger coffee script
 compiling.  In config.yml we make the coffee extension configurable. Now if
 the parameters.yml sets ``coffee.extension`` to ``\.coffee`` the coffeescript
@@ -445,13 +638,14 @@ installed.
 
 The default values for the three parameters are
 
-.. configuration-block::
+.. code-block:: yaml
 
-    .. code-block:: yaml
-
-        coffee.bin: /usr/local/bin/coffee
-        coffee.node: /usr/local/bin/node
-        coffee.extension: \.coffee
+    # app/config/parameters.yml
+    
+    # ...
+    coffee.bin: /usr/local/bin/coffee
+    coffee.node: /usr/local/bin/node
+    coffee.extension: \.coffee
 
 .. _`CreateBundle`: https://github.com/symfony-cmf/CreateBundle
 .. _`documentation of createphp`: https://github.com/flack/createphp
