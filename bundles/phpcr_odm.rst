@@ -668,6 +668,58 @@ resolve the path or id back to a PHPCR node to set the reference.
 This type extends the ``text`` form type. It adds an option
 ``transformer_type`` that can be set to either ``path`` or ``uuid``.
 
+Reposiotry Initializers
+-----------------------
+
+The Initializer is the PHPCR equivalent of the ORM schema tools. It
+is used to let bundles register PHPCR node types and to create required base
+paths in the repository. Initializers have to implement
+``Doctrine\Bundle\PHPCRBundle\Initializer``. If you don't need any special
+logic, you can simply configure the ``GenericInitializer`` as service and don't
+need to write any code. The generic initializer expects an array of base paths
+it will create if they do not exist, and an optional string defining namespaces
+and primary / mixin node types in the CND language.
+
+A service to use the generic initializer looks like this:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/ContentBundle/Resources/config/services.yml
+        acme.phpcr.initializer:
+            class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
+            arguments:
+                - { %acme.content_basepath%, %acme.menu_basepath% }
+                - { %acme.cnd% }
+            tags:
+                - { name: "doctrine_phpcr.initializer" }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/ContentBundle/Resources/config/services.xml -->
+        <service id="acme.phpcr.initializer" class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
+            <argument type="collection">
+                <argument>%acme.content_basepath%</argument>
+                <argument>%acme.menu_basepath%</argument>
+            </argument>
+            <argument>%acme.cnd%</argument>
+            <tag name="doctrine_phpcr.initializer"/>
+        </service>
+
+    .. code-block:: php
+
+        $definition = new Definition(
+            'Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer', array(
+                array('%acme.content_basepath%', '%acme.menu_basepath%'),
+                $cnd
+        )));
+        $definition->addTag('doctrine_phpcr.initializer');
+        $container->setDefinition('acme.phpcr.initializer', $definition);
+
+The ``doctrine:phpcr:repository:init`` command runs all tagged initializers.
+
+
 Fixture Loading
 ---------------
 
@@ -742,7 +794,8 @@ has.
   the PHPCR repository;
 * **doctrine:phpcr:type:list**: List all node types in the PHPCR repository;
 * **doctrine:phpcr:purge**: Remove a subtree or all content from the repository;
-* **doctrine:phpcr:repository:init**: Register node types and create base paths;
+* **doctrine:phpcr:repository:init**: Register node types and create base paths.
+  See above how to define custom initializers;
 * **doctrine:phpcr:fixtures:load**: Load data fixtures to your PHPCR database;
 * **doctrine:phpcr:import**: Import xml data into the repository, either in
   JCR system view format or arbitrary xml;
