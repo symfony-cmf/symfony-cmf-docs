@@ -668,7 +668,7 @@ resolve the path or id back to a PHPCR node to set the reference.
 This type extends the ``text`` form type. It adds an option
 ``transformer_type`` that can be set to either ``path`` or ``uuid``.
 
-Reposiotry Initializers
+Repository Initializers
 -----------------------
 
 The Initializer is the PHPCR equivalent of the ORM schema tools. It
@@ -709,11 +709,17 @@ A service to use the generic initializer looks like this:
 
     .. code-block:: php
 
+        use Symfony\Component\DependencyInjection\Definition
+
+        // ...
+
         $definition = new Definition(
-            'Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer', array(
+            'Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer',
+            array(
                 array('%acme.content_basepath%', '%acme.menu_basepath%'),
                 $cnd
-        )));
+            )
+        ));
         $definition->addTag('doctrine_phpcr.initializer');
         $container->setDefinition('acme.phpcr.initializer', $definition);
 
