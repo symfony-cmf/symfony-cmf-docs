@@ -690,8 +690,8 @@ A service to use the generic initializer looks like this:
         acme.phpcr.initializer:
             class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
             arguments:
-                - { %acme.content_basepath%, %acme.menu_basepath% }
-                - { %acme.cnd% }
+                - { "%acme.content_basepath%", "%acme.menu_basepath%" }
+                - { "%acme.cnd%" }
             tags:
                 - { name: "doctrine_phpcr.initializer" }
 
