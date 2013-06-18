@@ -8,58 +8,144 @@ Testing
 The Testing compoent is an **internal tool** for testing Symfony CMF bundles.
 It provides a way to easily bootstrap a consistent functional test environment.
 
-Data Fixtures
--------------
-
-Support Files
--------------
-
-The testing component includes some basic documents which will automatically be
-mapped by PHPCR-ODM:
-
-Content
-~~~~~~~
-
-`Symfony\Cmf\Testing\Document\Content` is a minimal referenceable content document.
-
 Configuration
 -------------
 
-Your Test Application
----------------------
+composer
+~~~~~~~~
 
-(my opinion): As much as is possible Bundles should be developed in isolation
-from other bundles, that is, they should not be developed in the context of
-the `cmf-sandbox`, or your own application, but instead on their own.
+Add the folowing dependency to the `require-dev` section of composer
 
-This may not always be possible, and may indeed be difficult when developing
-graphical elements, but, in general, this is good advice. By developing your
-bundle exclusively from the context of a functional test POV you are
-constantly reasserting the work that you have previously completed.
+````javascript
+    "require-dev": {
+        "symfony-cmf/testing": "1.0.*",
+    },
+````
 
-Your functional test application should be an application which implements
-your bundle to its full extent.
+.. note:
 
-You test application must be structured as follows:
+    The testing component does not automatically include the *SonataAdminBundle*. You
+    will need to manually add this dependency if required.
 
-.. code-block::
 
-    ./Tests
-        ./Functional/
-            ./App/
-                ./Kernel
-                    ./AppKernel.php
-                    ./config/
-                        default.php
-                ./Document # optional
-                    ./CustomDocument1.php
-                    ./CustomDocument2.php
+phpunit
+~~~~~~~
 
+The following file should be placed in the root directory of your bundle and named `phpunit.xml.dist`:
+
+````xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    colors="true"
+    bootstrap="vendor/symfony-cmf/testing/bootstrap/bootstrap.php"
+    >
+
+    <testsuites>
+        <testsuite name="Symfony <your bundle>Bundle Test Suite">
+            <directory>./Tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory>.</directory>
+            <exclude>
+                <file>*Bundle.php</file>
+                <directory>Resources/</directory>
+                <directory>Admin/</directory>
+                <directory>Tests/</directory>
+                <directory>vendor/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <php>
+        <server name="KERNEL_DIR" value="Tests/Resources/app" />
+    </php>
+
+</phpunit>
+````
 
 AppKernel
 ~~~~~~~~~
 
-Talk about AppKernel here.
+The `AppKernel` should be placed in the `./Tests/Resources/app` folder.
+
+Below is the minimal `AppKernel.php`::
+
+<?php
+
+use Symfony\Cmf\Component\Testing\HttpKernel\TestKernel;
+use Symfony\Component\Config\Loader\LoaderInterface;
+
+class AppKernel extends TestKernel
+{
+    public function configure()
+    {
+        $this->requireBundleSets(array(
+            'default'
+        ));
+
+        $this->addBundles(array(
+            new \Symfony\Cmf\Bundle\MyBundle\CmfMyBundle(),
+        ));
+    }
+
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
+        $loader->load(__DIR__.'/config/config.php');
+    }
+}
+
+Use `$this->requireBundleSets('bundle_set_name')` to include pre-configured
+sets of bundles:
+
+* **default**: Symfony's FrameworkBundle, TwigBundle and MonologBundle;
+* **phpcr_odm**: Doctrines DoctrineBundle and DoctrinePHPCRBundle;
+* **sonata_admin**: Sonata AdminBundle, BlockBundle and SonataDoctrinePHPCRAdminBundle.
+
+For any other bundle requirements simply use `$this->addBundles(array())` as in
+the example above.
+
+git
+~~~
+
+Place the following `.gitignore` file in your root directory.
+
+````
+Tests/Resources/app/cache
+Tests/Resources/app/logs
+composer.lock
+vendor
+````
+
+Your Test Application
+---------------------
+
+Test File Organization
+~~~~~~~~~~~~~~~~~~~~~~
+
+Test files and tests should be organized as follows:
+
+````
+./Tests/
+    ./Functional
+        ./Full/Namespace/<test>Test.php
+        ./Document/BlogTest.php
+        ./Document/PostTest.php
+        [...]
+    ./Unit
+        ./Full/Namespace/<test>Test.php
+        ./Document/BlogTest.php
+        ./Document/PostTest.php
+        [...]
+    ./Resources
+        ./app
+            ./AppKernel.php
+            ./config/
+                ./config.php
+````
 
 Documents
 ~~~~~~~~~
@@ -67,7 +153,7 @@ Documents
 The testing component will automatically include PHPCR-ODM documents (Entity's
 and other types of persistant objects can be added later) in the PHPCR-ODM
 configuration **only if** the documents are placed in
-`Tests/Functional/App/Document`.
+`Tests/Resources/Document`.
 
 Configuration
 ~~~~~~~~~~~~~
@@ -75,32 +161,67 @@ Configuration
 The testing component includes some pre-defined configurations to get things
 going with a minimum of effort and repetition.
 
-Because of the apparent difficulty in getting the directory of these
-configurations we have had to define this directory as a *PHP constant*.
-Thusly, to implement the default configurations create the following PHP file::
+To implement the default configurations create the following PHP file::
 
-    // Tests/Functional/App/Kernel/config/config.php
     <?php
+    // Tests/Resources/app/config/config.php
 
     $loader->import(CMF_TEST_CONFIG_DIR.'/default.php');
     $loader->import(__DIR__.'/mybundleconfig.yml');
 
 Here you include the testing components **default** configuration, which will
-basically get everything working with a minimal configuration. Then you can
-optionally import configurations specific to your bundle.
+get everything up-and-running. You can then optionally import configurations
+specific to your bundle.
 
-Setting up PHPUnit
-~~~~~~~~~~~~~~~~~~
+The available default configurations are as follows, and correspond to the bundle sets
+above:
 
-Explain about `KERNEL_DIR`. Show example phpunit.dist.xml
+* **default.php**: framework, doctrine, security;
+* **sonata_admin**: sonata_admin, sonata_block;
+* **phpcr-odm**: doctrine_phpcr.
 
-DB Managers
-===========
+Note that each must be prefixed with the `CMF_TEST_CONFIG_DIR` constant.
 
-The testing component provides abstractions for various db managers
+Routing Configuration
+~~~~~~~~~~~~~~~~~~~~~
 
-PHPCR
------
+You must include a `routing.php` file in the same directory as the
+configuration above::
+
+    <?php
+
+    use Symfony\Component\Routing\RouteCollection;
+
+    $collection = new RouteCollection();
+    $collection->addCollection(
+        $loader->import(CMF_TEST_CONFIG_DIR.'/routing/sonata_routing.yml')
+    );
+    $collection->addCollection(
+        $loader->import(__DIR__.'/routing/my_test_routing.yml')
+    );
+
+    return $collection;
+
+The following default routing configurations are available:
+
+* **sonata_routing.yml**: sonata admin and dashboard.
+
+The above files must be prefixed with `CMF_TEST_CONFIG_DIR.'routing'` as in the
+example above.
+
+
+Functional Testing
+==================
+
+In general your functional tests should extend
+`Symfony\Cmf\Component\Testing\Functional\BaseTestCase`. This class will
+provide you with some helpers to make testing easier.
+
+PHPCR-ODM
+---------
+
+Accessing the Document Manager
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Access as::
 
@@ -116,3 +237,11 @@ Access as::
     $this->db('PHPCR')->loadFixtures(array(
         // fixture classes here
     ));
+
+Support Files
+~~~~~~~~~~~~~
+
+The testing component includes some basic documents which will automatically be
+mapped by PHPCR-ODM:
+
+* `Symfony\Cmf\Testing\Document\Content`: Minimal referenceable content document.
