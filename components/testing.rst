@@ -14,17 +14,17 @@ Configuration
 composer
 ~~~~~~~~
 
-Add the folowing dependency to the `require-dev` section of composer
+Add the folowing dependency to the ``require-dev`` section of ``composer.json``:
 
-````javascript
+.. code-block:: javascript
+
     "require-dev": {
         "symfony-cmf/testing": "1.0.*",
     },
-````
 
-.. note:
+.. note::
 
-    The testing component does not automatically include the *SonataAdminBundle*. You
+    The Testing component does not automatically include the SonataAdminBundle. You
     will need to manually add this dependency if required.
 
 
@@ -74,29 +74,29 @@ The `AppKernel` should be placed in the `./Tests/Resources/app` folder.
 
 Below is the minimal `AppKernel.php`::
 
-<?php
-
-use Symfony\Cmf\Component\Testing\HttpKernel\TestKernel;
-use Symfony\Component\Config\Loader\LoaderInterface;
-
-class AppKernel extends TestKernel
-{
-    public function configure()
+    <?php
+    
+    use Symfony\Cmf\Component\Testing\HttpKernel\TestKernel;
+    use Symfony\Component\Config\Loader\LoaderInterface;
+    
+    class AppKernel extends TestKernel
     {
-        $this->requireBundleSets(array(
-            'default'
-        ));
-
-        $this->addBundles(array(
-            new \Symfony\Cmf\Bundle\MyBundle\CmfMyBundle(),
-        ));
+        public function configure()
+        {
+            $this->requireBundleSets(array(
+                'default',
+            ));
+    
+            $this->addBundles(array(
+                new \Symfony\Cmf\Bundle\MyBundle\CmfMyBundle(),
+            ));
+        }
+    
+        public function registerContainerConfiguration(LoaderInterface $loader)
+        {
+            $loader->load(__DIR__.'/config/config.php');
+        }
     }
-
-    public function registerContainerConfiguration(LoaderInterface $loader)
-    {
-        $loader->load(__DIR__.'/config/config.php');
-    }
-}
 
 Use `$this->requireBundleSets('bundle_set_name')` to include pre-configured
 sets of bundles:
@@ -111,7 +111,9 @@ the example above.
 git
 ~~~
 
-Place the following `.gitignore` file in your root directory::
+Place the following `.gitignore` file in your root directory:
+
+.. code-block:: text
 
     Tests/Resources/app/cache
     Tests/Resources/app/logs
@@ -153,7 +155,9 @@ Your Test Application
 Test File Organization
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Test files and tests should be organized as follows::
+Test files and tests should be organized as follows:
+
+.. code-block:: text
 
     ./Tests/
         ./Functional
@@ -239,14 +243,16 @@ The Console
 
 The console for your test application can be accessed as follows::
 
-    php vendor/symfony-cmf/testing/bin/console
+   $ php vendor/symfony-cmf/testing/bin/console
 
 Initializing the Test Environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Before running your (functional) tests you will need to initialize the test environment (i.e. the database). You could do this manually, but it is easier to do this the same way that *travis* will do it, as follows::
+Before running your (functional) tests you will need to initialize the test
+environment (i.e. the database). You could do this manually, but it is easier
+to do this the same way that *travis* will do it, as follows::
 
-    ./vendor/symfony-cmf/testing/bin/travis/phpcr_odm_doctrine_dbal.sh
+    $ ./vendor/symfony-cmf/testing/bin/travis/phpcr_odm_doctrine_dbal.sh
 
 Functional Testing
 ==================
@@ -273,7 +279,7 @@ Access as::
 
     // load fixtures
     $this->db('PHPCR')->loadFixtures(array(
-        // fixture classes here
+        // ... fixture classes here
     ));
 
 Support Files
