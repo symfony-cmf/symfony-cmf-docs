@@ -31,7 +31,7 @@ The configuration key for this bundle is ``cmf_block``:
 
         # app/config/config.yml
         cmf_block:
-            document_manager_name:  default
+            manager_name:  default
 
     .. code-block:: xml
 
