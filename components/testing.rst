@@ -31,48 +31,47 @@ Add the folowing dependency to the ``require-dev`` section of ``composer.json``:
 phpunit
 ~~~~~~~
 
-The following file should be placed in the root directory of your bundle and named `phpunit.xml.dist`:
+The following file should be placed in the root directory of your bundle and named ``phpunit.xml.dist``:
 
-````xml
+.. code-block:: xml
 
-<?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-    colors="true"
-    bootstrap="vendor/symfony-cmf/testing/bootstrap/bootstrap.php"
-    >
+    <?xml version="1.0" encoding="UTF-8"?>
+    <phpunit
+        colors="true"
+        bootstrap="vendor/symfony-cmf/testing/bootstrap/bootstrap.php"
+        >
 
-    <testsuites>
-        <testsuite name="Symfony <your bundle>Bundle Test Suite">
-            <directory>./Tests</directory>
-        </testsuite>
-    </testsuites>
+        <testsuites>
+            <testsuite name="Symfony <your bundle>Bundle Test Suite">
+                <directory>./Tests</directory>
+            </testsuite>
+        </testsuites>
 
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory>.</directory>
-            <exclude>
-                <file>*Bundle.php</file>
-                <directory>Resources/</directory>
-                <directory>Admin/</directory>
-                <directory>Tests/</directory>
-                <directory>vendor/</directory>
-            </exclude>
-        </whitelist>
-    </filter>
+        <filter>
+            <whitelist addUncoveredFilesFromWhitelist="true">
+                <directory>.</directory>
+                <exclude>
+                    <file>*Bundle.php</file>
+                    <directory>Resources/</directory>
+                    <directory>Admin/</directory>
+                    <directory>Tests/</directory>
+                    <directory>vendor/</directory>
+                </exclude>
+            </whitelist>
+        </filter>
 
-    <php>
-        <server name="KERNEL_DIR" value="Tests/Resources/app" />
-    </php>
+        <php>
+            <server name="KERNEL_DIR" value="Tests/Resources/app" />
+        </php>
 
-</phpunit>
-````
+    </phpunit>
 
 AppKernel
 ~~~~~~~~~
 
-The `AppKernel` should be placed in the `./Tests/Resources/app` folder.
+The ``AppKernel`` should be placed in the ``./Tests/Resources/app`` folder.
 
-Below is the minimal `AppKernel.php`::
+Below is the minimal ``AppKernel.php``::
 
     <?php
     
@@ -98,20 +97,20 @@ Below is the minimal `AppKernel.php`::
         }
     }
 
-Use `$this->requireBundleSets('bundle_set_name')` to include pre-configured
+Use ``$this->requireBundleSets('bundle_set_name')`` to include pre-configured
 sets of bundles:
 
 * **default**: Symfony's FrameworkBundle, TwigBundle and MonologBundle;
 * **phpcr_odm**: Doctrines DoctrineBundle and DoctrinePHPCRBundle;
 * **sonata_admin**: Sonata AdminBundle, BlockBundle and SonataDoctrinePHPCRAdminBundle.
 
-For any other bundle requirements simply use `$this->addBundles(array())` as in
+For any other bundle requirements simply use ``$this->addBundles(array())`` as in
 the example above.
 
 git
 ~~~
 
-Place the following `.gitignore` file in your root directory:
+Place the following ``.gitignore`` file in your root directory:
 
 .. code-block:: text
 
@@ -123,7 +122,7 @@ Place the following `.gitignore` file in your root directory:
 travis
 ~~~~~~
 
-The following file should be named `.travis.yml` (note the leading ".") and placed
+The following file should be named ``.travis.yml`` (note the leading ".") and placed
 in the root directory of your bundle:
 
 .. code-block:: yaml
@@ -182,7 +181,7 @@ Documents
 The testing component will automatically include PHPCR-ODM documents (Entity's
 and other types of persistant objects can be added later) in the PHPCR-ODM
 configuration **only if** the documents are placed in
-`Tests/Resources/Document`.
+``Tests/Resources/Document``.
 
 Configuration
 ~~~~~~~~~~~~~
@@ -206,15 +205,15 @@ The available default configurations are as follows, and correspond to the bundl
 above:
 
 * **default.php**: framework, doctrine, security;
-* **sonata_admin**: sonata_admin, sonata_block;
-* **phpcr-odm**: doctrine_phpcr.
+* **sonata_admin.php**: sonata_admin, sonata_block;
+* **phpcr-odm.php**: doctrine_phpcr.
 
-Note that each must be prefixed with the `CMF_TEST_CONFIG_DIR` constant.
+Note that each must be prefixed with the ``CMF_TEST_CONFIG_DIR`` constant.
 
 Routing Configuration
 ~~~~~~~~~~~~~~~~~~~~~
 
-You must include a `routing.php` file in the same directory as the
+You must include a ``routing.php`` file in the same directory as the
 configuration above::
 
     <?php
@@ -235,7 +234,7 @@ The following default routing configurations are available:
 
 * **sonata_routing.yml**: sonata admin and dashboard.
 
-The above files must be prefixed with `CMF_TEST_CONFIG_DIR.'routing'` as in the
+The above files must be prefixed with ``CMF_TEST_CONFIG_DIR.'routing'`` as in the
 example above.
 
 The Console
@@ -258,7 +257,7 @@ Functional Testing
 ==================
 
 In general your functional tests should extend
-`Symfony\Cmf\Component\Testing\Functional\BaseTestCase`. This class will
+``Symfony\Cmf\Component\Testing\Functional\BaseTestCase``. This class will
 provide you with some helpers to make testing easier.
 
 PHPCR-ODM
@@ -288,4 +287,4 @@ Support Files
 The testing component includes some basic documents which will automatically be
 mapped by PHPCR-ODM:
 
-* `Symfony\Cmf\Testing\Document\Content`: Minimal referenceable content document.
+* ``Symfony\Cmf\Testing\Document\Content``: Minimal referenceable content document.
