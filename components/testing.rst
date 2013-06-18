@@ -111,14 +111,41 @@ the example above.
 git
 ~~~
 
-Place the following `.gitignore` file in your root directory.
+Place the following `.gitignore` file in your root directory::
 
-````
-Tests/Resources/app/cache
-Tests/Resources/app/logs
-composer.lock
-vendor
-````
+    Tests/Resources/app/cache
+    Tests/Resources/app/logs
+    composer.lock
+    vendor
+
+travis
+~~~~~~
+
+The following file should be named `.travis.yml` (note the leading ".") and placed
+in the root directory of your bundle:
+
+.. code-block:: yaml
+
+    language: php
+
+    php:
+      - 5.3
+      - 5.4
+      - 5.5
+
+    env:
+      - SYMFONY_VERSION=2.2.*
+      - SYMFONY_VERSION=2.3.*
+
+    before_script:
+      - composer require symfony/framework-bundle:${SYMFONY_VERSION}
+      - vendor/symfony-cmf/testing/bin/travis/phpcr_odm_doctrine_dbal.sh
+
+    script: phpunit --coverage-text
+
+    notifications:
+      irc: "irc.freenode.org#symfony-cmf"
+      email: "symfony-cmf-devs@googlegroups.com"
 
 Your Test Application
 ---------------------
@@ -126,26 +153,24 @@ Your Test Application
 Test File Organization
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Test files and tests should be organized as follows:
+Test files and tests should be organized as follows::
 
-````
-./Tests/
-    ./Functional
-        ./Full/Namespace/<test>Test.php
-        ./Document/BlogTest.php
-        ./Document/PostTest.php
-        [...]
-    ./Unit
-        ./Full/Namespace/<test>Test.php
-        ./Document/BlogTest.php
-        ./Document/PostTest.php
-        [...]
-    ./Resources
-        ./app
-            ./AppKernel.php
-            ./config/
-                ./config.php
-````
+    ./Tests/
+        ./Functional
+            ./Full/Namespace/<test>Test.php
+            ./Document/BlogTest.php
+            ./Document/PostTest.php
+            [...]
+        ./Unit
+            ./Full/Namespace/<test>Test.php
+            ./Document/BlogTest.php
+            ./Document/PostTest.php
+            [...]
+        ./Resources
+            ./app
+                ./AppKernel.php
+                ./config/
+                    ./config.php
 
 Documents
 ~~~~~~~~~
@@ -209,6 +234,19 @@ The following default routing configurations are available:
 The above files must be prefixed with `CMF_TEST_CONFIG_DIR.'routing'` as in the
 example above.
 
+The Console
+~~~~~~~~~~~
+
+The console for your test application can be accessed as follows::
+
+    php vendor/symfony-cmf/testing/bin/console
+
+Initializing the Test Environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before running your (functional) tests you will need to initialize the test environment (i.e. the database). You could do this manually, but it is easier to do this the same way that *travis* will do it, as follows::
+
+    ./vendor/symfony-cmf/testing/bin/travis/phpcr_odm_doctrine_dbal.sh
 
 Functional Testing
 ==================
