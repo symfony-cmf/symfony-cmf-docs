@@ -170,8 +170,7 @@ In your template, load the javascript files using:
         {% render controller(
             "cmf_create.jsloader.controller:includeJSFilesAction",
             {"editor": "ckeditor"}
-           )
-        %}
+        ) %}
 
     .. code-block:: php
 
