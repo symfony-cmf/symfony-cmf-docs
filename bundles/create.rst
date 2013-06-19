@@ -147,18 +147,18 @@ In your application config file, define the editor base path:
     .. code-block:: yaml
 
         cmf_create:
-            editor_base_path: /bundles/symfonycmfcreate/vendor/ckeditor/
+            editor_base_path: /bundles/cmfcreate/vendor/ckeditor/
 
     .. code-block:: xml
 
         <cmf-create:config
-            editor-base-path="/bundles/symfonycmfcreate/vendor/ckeditor/"
+            editor-base-path="/bundles/cmfcreate/vendor/ckeditor/"
         />
 
     .. code-block:: php
 
         $container->loadFromExtension('cmf_create', array(
-            'editor_base_path': '/bundles/symfonycmfcreate/vendor/ckeditor/',
+            'editor_base_path': '/bundles/cmfcreate/vendor/ckeditor/',
         ));
 
 In your template, load the javascript files using:
@@ -170,6 +170,7 @@ In your template, load the javascript files using:
         {% render controller(
             "cmf_create.jsloader.controller:includeJSFilesAction",
             {"editor": "ckeditor"}
+           )
         %}
 
     .. code-block:: php
