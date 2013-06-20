@@ -19,7 +19,7 @@ Add the folowing dependency to the ``require-dev`` section of ``composer.json``:
 .. code-block:: javascript
 
     "require-dev": {
-        "symfony-cmf/testing": "1.0.*",
+        "symfony-cmf/testing": "1.0.*"
     },
 
 .. note::
@@ -31,7 +31,8 @@ Add the folowing dependency to the ``require-dev`` section of ``composer.json``:
 phpunit
 ~~~~~~~
 
-The following file should be placed in the root directory of your bundle and named ``phpunit.xml.dist``:
+The following file should be placed in the root directory of your bundle and
+named ``phpunit.xml.dist``:
 
 .. code-block:: xml
 
@@ -249,7 +250,9 @@ Initializing the Test Environment
 
 Before running your (functional) tests you will need to initialize the test
 environment (i.e. the database). You could do this manually, but it is easier
-to do this the same way that *travis* will do it, as follows::
+to do this the same way that *travis* will do it, as follows:
+
+.. code-block:: bash
 
     $ ./vendor/symfony-cmf/testing/bin/travis/phpcr_odm_doctrine_dbal.sh
 
