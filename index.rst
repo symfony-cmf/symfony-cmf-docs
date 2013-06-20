@@ -117,6 +117,7 @@ Looking for some information about the low level components of the CMF?
 	:maxdepth: 1
 
 	components/routing
+	components/testing
 
 Contributing
 ------------

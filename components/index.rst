@@ -5,5 +5,6 @@ The Components
     :hidden:
 
     routing
+    testing
 
 .. include:: map.rst.inc
