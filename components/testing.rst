@@ -241,9 +241,39 @@ example above.
 The Console
 ~~~~~~~~~~~
 
-The console for your test application can be accessed as follows::
+The console for your test application can be accessed as follows:
 
-   $ php vendor/symfony-cmf/testing/bin/console
+.. code-block:: bash
+
+    $ php vendor/symfony-cmf/testing/bin/console
+
+Test Web Server
+~~~~~~~~~~~~~~~
+
+The testing component provides a wrapper for the Symfony ``server:run`` command.
+
+.. code-block:: bash
+
+    $ php vendor/symfony-cmf/testing/bin/server
+
+Which basically does the following:
+
+.. code-block:: bash
+
+    $ php vendor/symfony-cmf/testing/bin/console server:run \
+        --router=vendor/symfony-cmf/testing/resources/web/router.php \
+        --docroot=vendor/symfony-cmf/testing/resources/web
+
+You can then access your test application in your browser at
+``http://localhost:8000``.
+
+Publish assets in the directory named above using the testing console as
+follows:
+
+.. code-block:: bash
+
+    $ php vendor/symfony-cmf/testing/bin/cosole assets:install \
+        vendor/symfony-cmf/testing/resources/web
 
 Initializing the Test Environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
