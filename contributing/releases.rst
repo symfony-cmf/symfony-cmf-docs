@@ -19,25 +19,26 @@ Point releases (i.e. ``1.0.1``) are used to quickly provide important fixes.
 New features are never added in the point releases, but only in minor releases.
 With the release of 1.0, we will create a branch 1.0 to maintain such fixes,
 and master becomes aliased to 1.1.x-dev.
-The SE and symfony-cmf will get point releases whenever one of the included
-bundles does a point release.
+
+The CMF Standard Edition and symfony-cmf will get point releases whenever one
+of the included bundles does a point release.
 
 .. note::
 
     The CMF is quite new. As with Symfony 2.0, we don't want to promise BC
     at all cost yet. If reasonably doable, we will keep the code BC or use
     deprecations, but there might be exceptions where BC is too cumbersome.
-    The UPGRADE.md document will help you in those cases.
+    The ``UPGRADE.md`` document will help you in those cases.
 
 Development
 -----------
 
 The six-months period is divided into two phases:
 
-* *Development*: *Four months* to add new features and to enhance existing
+* **Development**: *Four months* to add new features and to enhance existing
   ones;
 
-* *Stabilisation*: *Two months* to fix bugs and prepare the release.
+* **Stabilisation**: *Two months* to fix bugs and prepare the release.
 
 During the development phase, any new feature can be reverted if it won't be
 finished in time or if it won't be stable enough to be included in the current
@@ -55,11 +56,9 @@ Backward Compatibility
 ----------------------
 
 For the next releases, we will maintain BC if possible. If something needs to
-be broken, the UPGRADE.md file will help you to update the project. We hope to
-switch to a BC at all cost model with the CMF 1.3, which can be expected in summer
-2014. From then on, we will work like core Symfony and avoid BC breaks at all
-cost. Breaking features or fixes will then be postponed for CMF 2.0 in the interest
-of a stable environment.
+be broken, the UPGRADE.md file will help you to update the project. We will
+switch to a BC-at-all-cost model later, once the CMF has stabilized and
+matured.
 
 .. note::
 
