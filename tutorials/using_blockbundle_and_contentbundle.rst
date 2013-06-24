@@ -529,11 +529,15 @@ their HTML content:
 
 .. code-block:: html
 
-    <span>%block:"/absolute/path/to/block"%</span>
+    <span>%embed-block:"/absolute/path/to/block"%</span>
 
-You can change the prefix and postfix (the parts ``<span>%block:`` and
-``%</span>`` to have a different tag for your users. Say you want to write
-``%%%block:"/absolute/path"%%%`` then you do:
+    <span>%embed-block:"local-block"%</span>
+
+The path to the block is either absolute or relative to the current main content.
+The actual path to the block must be enclosed with double quotes ``"``. But the
+prefix and postfix are configurable. The default prefix is ``<span>%embed-block:``
+and the default postfix is ``%</span>``. Say you want to write
+``%%%block:"/absolute/path"%%%`` and no ``<span>`` tag then you do:
 
 .. configuration-block::
 
