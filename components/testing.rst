@@ -250,7 +250,7 @@ The console for your test application can be accessed as follows:
 Test Web Server
 ~~~~~~~~~~~~~~~
 
-The testing component provides a wrapper for the Symfony `server:run` command.
+The testing component provides a wrapper for the Symfony ``server:run`` command.
 
 .. code-block:: bash
 
@@ -265,7 +265,7 @@ Which basically does the following:
         --docroot=vendor/symfony-cmf/testing/resources/web
 
 You can then access your test application in your browser at
-`http://localhost:8000`.
+``http://localhost:8000``.
 
 Publish assets in the directory named above using the testing console as
 follows:
