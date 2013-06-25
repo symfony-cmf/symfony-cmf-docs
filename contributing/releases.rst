@@ -2,18 +2,18 @@ The Symfony CMF Release Process
 ================================
 
 This document explains the release process for the Symfony Content Management
-Framework. This page explains the `core Symfony release process`_.
+Framework. See the core documentation for the `core Symfony release process`_.
 
 Symfony CMF manages its releases through a *time-based model*; a new Symfony
 CMF release comes out every *six months*. We want to synchronize with the
 core Symfony release dates and release a version about one month after Symfony.
 This should lead to releases in *June* and *December*.
 
-This release cycle is for the ``symfony-cmf/symfony-cmf`` repository and the
-symfony-cmf standard edition. The individual CMF bundles and components may
-release more version if needed. ``symfony-cmf/symfony-cmf`` will always point
-to a working combination and only integrate newer minor versions when a minor
-release of the CMF is scheduled.
+This release cycle is for the **``symfony-cmf/symfony-cmf`` repository** and the
+**symfony-cmf Standard Edition**. The individual CMF bundles and components may
+release minor versions more often, if needed. ``symfony-cmf/symfony-cmf`` will
+always point to a working combination and only integrate newer minor versions
+when a minor release of the CMF is scheduled.
 
 Point releases (i.e. ``1.0.1``) are used to quickly provide important fixes.
 New features are never added in the point releases, but only in minor releases.
