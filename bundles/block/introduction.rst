@@ -99,9 +99,8 @@ specific settings for one of the block classes.
             ),
         ));
 
-If you want to make the base fields of your block document based on BaseBlock 
-editable, just use the existing admin extension by adding the following lines
-to your sonata admin configuration ``sonata_admin``.
+If you want to make the base fields (f.e. the TTL for caching) of your block document based on BaseBlock editable, just use the existing admin extension by adding the following lines
+to your sonata admin configuration ``sonata_admin``. See http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html for more details.
 
 .. configuration-block::
 
@@ -122,11 +121,11 @@ to your sonata admin configuration ``sonata_admin``.
             xmlns:cmf-block="http://cmf.symfony.com/schema/dic/block"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <sonata_admin:config>
+            <config xmlns="http://example.org/schema/dic/sonata_admin">
                 <extensions id="cmf.block.admin.base.extension" >
-                    <admins id="cmf_block.simple_admin" />
+                    <admins>cmf_block.simple_admin</admins>
                 </extensions>
-            </sonata_admin:config>
+            </config>
         </container>
 
     .. code-block:: php
