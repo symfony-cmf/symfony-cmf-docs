@@ -126,6 +126,7 @@ Contributing
 	:maxdepth: 1
 
 	contributing/code
+	contributing/releases
 	contributing/license
 
 .. _`decoupled CMS`: http://decoupledcms.org
