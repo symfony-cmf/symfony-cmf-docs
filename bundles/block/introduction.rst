@@ -99,6 +99,47 @@ specific settings for one of the block classes.
             ),
         ));
 
+If you want to make the base fields of your block document based on BaseBlock 
+editable, just use the existing admin extension by adding the following lines
+to your sonata admin configuration ``sonata_admin``.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_admin:
+            extensions:
+                cmf.block.admin.base.extension:
+                    admins:
+                        - cmf_block.simple_admin
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:cmf-block="http://cmf.symfony.com/schema/dic/block"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+            <sonata_admin:config>
+                <extensions id="cmf.block.admin.base.extension" >
+                    <admins id="cmf_block.simple_admin" />
+                </extensions>
+            </sonata_admin:config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_admin', array(
+            'extensions' => array(
+                'cmf.block.admin.base.extension' => array(
+                    'admins' => array(cmf_block.simple_admin)
+                )
+            ),
+        ));
+
 .. _bundle-block-document:
 
 Block Document
