@@ -149,8 +149,24 @@ in the root directory of your bundle:
       irc: "irc.freenode.org#symfony-cmf"
       email: "symfony-cmf-devs@googlegroups.com"
 
-Your Test Application
----------------------
+Implementing the Component
+--------------------------
+
+You should try and build a working application for testing your bundle. The
+application can be accessed using the `server` command detailed in this
+document.
+
+Test Types
+~~~~~~~~~~
+
+* **Unit** - The scope of a unit test should be limited testing a single class
+  instance. All other dependencies should be mocked;
+* **Functional** - Functional tests will test a *single service* as
+  retrieved from the dependency injection container;
+* **Web** - Web test cases are the most holistic tests. They use the browser
+  kit to make web requests on the kernel, testing the whole stack.
+
+.. _testing_test_file_organization:
 
 Test File Organization
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -160,28 +176,27 @@ Test files and tests should be organized as follows:
 .. code-block:: text
 
     ./Tests/
-        ./Functional
-            ./Full/Namespace/<test>Test.php
-            ./Document/BlogTest.php
-            ./Document/PostTest.php
-            [...]
         ./Unit
             ./Full/Namespace/<test>Test.php
             ./Document/BlogTest.php
             ./Document/PostTest.php
             [...]
+        ./Functional
+            ./MyService/SomeServiceTest.php
+            [...]
+        ./WebTest
+            ./Admin/SomeAdminTest.php
+            ./Controller/MyControllerTest.php
         ./Resources
             ./app
                 ./AppKernel.php
                 ./config/
                     ./config.php
 
-Documents
-~~~~~~~~~
+Custom Documents
+~~~~~~~~~~~~~~~~
 
-The testing component will automatically include PHPCR-ODM documents (Entity's
-and other types of persistant objects can be added later) in the PHPCR-ODM
-configuration **only if** the documents are placed in
+The testing component will automatically include PHPCR-ODM documents that are placed in
 ``Tests/Resources/Document``.
 
 Configuration
@@ -286,8 +301,8 @@ to do this the same way that *travis* will do it, as follows:
 
     $ ./vendor/symfony-cmf/testing/bin/travis/phpcr_odm_doctrine_dbal.sh
 
-Functional Testing
-==================
+Functional and Web Testing
+==========================
 
 In general your functional tests should extend
 ``Symfony\Cmf\Component\Testing\Functional\BaseTestCase``. This class will
