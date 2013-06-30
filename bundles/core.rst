@@ -26,7 +26,7 @@ Configuration
             document_manager_name: null # used for the twig functions to fetch documents
             publish_workflow:
                 enabled: true
-                view_non_published_role: CAN_VIEW_NON_PUBLISHED
+                view_non_published_role: ROLE_CAN_VIEW_NON_PUBLISHED
                 request_listener: true
 
     .. code-block:: xml
@@ -36,7 +36,7 @@ Configuration
             document-manager-name="null">
             <publish-workflow
                 enabled="true"
-                view-non-published-role="CAN_VIEW_NON_PUBLISHED"
+                view-non-published-role="ROLE_CAN_VIEW_NON_PUBLISHED"
                 request-listener="true"
             />
         <config/>
@@ -47,7 +47,7 @@ Configuration
             'document_manager_name' => null,
             'publish_workflow'      => array(
                 'enabled'                 => true,
-                'view_non_published_role' => 'CAN_VIEW_NON_PUBLISHED',
+                'view_non_published_role' => 'ROLE_CAN_VIEW_NON_PUBLISHED',
                 'request_listener'        => true,
             ),
         ));
@@ -61,7 +61,7 @@ Publish Workflow
 ----------------
 
 The publish workflow system allows to control what content is available on the
-site. This is similar to the Symfony2 security component. But contrary to the
+site. This is similar to the `Symfony2 security component`_. But contrary to the
 security check, the publish check can be executed even when no firewall is in
 place and the security context thus has no token (see `Symfony2 Authorization`_).
 
@@ -71,8 +71,11 @@ workflow. This means that if you always have a firewall, you can just use
 the normal security context and the twig function ``is_granted`` to check for
 publication.
 
-Checking if content is published
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A good introduction to the Symfony core security is the `Security Chapter`_ in
+the Symfony2 book.
+
+Check if content is published
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The Bundle provides the ``cmf_core.publish_workflow.checker`` service which
 implements the :class:`Symfony\\Component\\Security\\Core\\SecurityContextInterface`
@@ -92,18 +95,65 @@ For this, the "view anonymous" permission is used.
 
 The workflow checker is configured with a role that is allowed to bypass
 publication checks so that it can see unpublished content. This role should be
-given to editors. The default name of the role is ``CAN_VIEW_NON_PUBLISHED``.
+given to editors. The default name of the role is ``ROLE_CAN_VIEW_NON_PUBLISHED``.
 
-.. code-block:: php
+.. configuration-block::
 
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        security:
+            role_hierarchy:
+                ROLE_EDITOR:       ROLE_CAN_VIEW_NON_PUBLISHED
+
+    .. code-block:: xml
+
+        <!-- app/config/security.xml -->
+        <config>
+            <role id="ROLE_EDITOR">ROLE_CAN_VIEW_NON_PUBLISHED</role>
+        </config>
+
+    .. code-block:: php
+
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
+            'role_hierarchy' => array(
+                'ROLE_EDITOR'       => 'ROLE_CAN_VIEW_NON_PUBLISHED',
+            ),
+        ));
+
+Once a user with ``ROLE_EDITOR`` is logged in - meaning there is a firewall in place for the path
+in question - he will have the permission to view unpublished content as well::
+
+    use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowChecker;
+
+    // check if current user is allowed to see this document
     $publishWorkflowChecker = $container->get('cmf_core.publish_workflow.checker');
-
-    // if to ignore the role when deciding if to consider the document as published
-    $ignoreRole = false;
-
-    if ($publishWorkflowChecker->isGranted('VIEW', $document)) {
+    if ($publishWorkflowChecker->isGranted(PublishWorkflowChecker::VIEW_ATTRIBUTE, $document)) {
         // ...
     }
+    // check if the document is published, do not make an exception if current
+    // user would have the right to see this content
+    if ($publishWorkflowChecker->isGranted(PublishWorkflowChecker::VIEW_ANONYMOUS_ATTRIBUTE, $document)) {
+        // ...
+    }
+
+To check publication in a template, use the twig function ``cmf_is_published``:
+
+.. code-block:: jinja
+
+    {# check if document is published, regardless of current users role #}
+    {% if cmf_is_published(page) %}
+        {# output the document #}
+    {% endif %}
+
+    {# check if current logged in user is allowed to view the document either
+       because it is published or because the current user may view unpublished
+       documents.
+    #}
+    {% if is_granted('VIEW', page) %}
+        {# output the document #}
+    {% endif %}
 
 Code that loads content should do the publish checks. Note that the twig
 functions already check for publication. Thanks to a
@@ -129,13 +179,13 @@ the content to be considered not published. If all voters abstain (for example
 when the content in question does not implement any workflow features) the
 content is still considered published.
 
-Publish voters
+Publish Voters
 ~~~~~~~~~~~~~~
 
 A voter has to implement the
 :class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface`.
 It will get passed a content object and has to decide whether it is published
-according to its rules. The ``CoreBundle`` provides a couple of generic voters
+according to its rules. The CoreBundle` provides a couple of generic voters
 that check the content for having an interface exposing the methods they need.
 If the content implements the interface, they check the parameter and return
 ``ACCESS_GRANTED`` resp ``ACCESS_DENIED``, otherwise they return
@@ -145,15 +195,15 @@ You can also implement your :ref:`own voters <bundle-core-workflow_custom_voters
 additional publication behaviour.
 
 PublishableVoter
-^^^^^^^^^^^^^^^^
+................
 
 This voter checks on the ``PublishableInterface`` which simply has a method to
 return a boolean value.
 
-* **isPublishable**: If the object should be considered for publication or not;
+* **isPublishable**: If the object should be considered for publication or not.
 
 TimePeriodVoter
-^^^^^^^^^^^^^^^
+...............
 
 This voter checks on the ``PublishTimePeriodInterface`` which defines a start
 and end date. A date may be null to indicate "always started" resp.
@@ -167,7 +217,7 @@ and end date. A date may be null to indicate "always started" resp.
 .. _bundle-core-workflow_custom_voters:
 
 Custom Voters
-^^^^^^^^^^^^^
+.............
 
 To build voters with custom logic, you need to implement
 :class:`Symfony\\Component\\Security\\Core\\Authentication\\Voter\\VoterInterface`
@@ -181,7 +231,6 @@ you can lower the priority of those voters.
 
     .. code-block:: yaml
 
-        # services.yml
         services:
             acme.security.publishable_voter:
                 class: %my_namespace.security.publishable_voter.class%
@@ -190,7 +239,6 @@ you can lower the priority of those voters.
 
     .. code-block:: xml
 
-        <!-- services.xml -->
         <service id="acme.security.publishable_voter" class="%acme.security.publishable_voter.class%">
             <tag name="cmf_published_voter" priority="30"/>
         </service>
@@ -199,10 +247,8 @@ you can lower the priority of those voters.
 
         use Symfony\Component\DependencyInjection\Definition;
 
-        $definition = new Definition('%acme.security.publishable_voter.class%');
-        $definition->addTag('cmf_published_voter', array('priority' => 30));
-        $container->setDefinition('acme.security.publishable_voter', $definition);
-
+        $container->register('acme.security.publishable_voter', '%acme.security.publishable_voter.class%')
+            ->addTag('cmf_published_voter', array('priority' => 30));
 
 As the workflow checker will create an
 :class:`Symfony\\Component\\Security\\Core\\Authentication\\Token\\AnonymousToken` on
@@ -263,8 +309,8 @@ service must have the ``setRequest`` method or you will get a fatal error::
 cmf_published_voter
 ~~~~~~~~~~~~~~~~~~~
 
-Used to activate voters for the
-:ref:`publish workflow <bundle-core-publish_workflow>`. Tagging a service with
+Used to activate :ref:`custom voters <bundle-core-workflow_custom_voters>` for the
+:ref:`publish workflow <bundle-core-publish_workflow>` . Tagging a service with
 ``cmf_published_voter`` integrates it into the access decision of the publish
 workflow.
 
@@ -330,5 +376,7 @@ enabled.
     {%  endif %}
 
 .. _`CoreBundle`: https://github.com/symfony-cmf/CoreBundle#readme
-.. _`Symfony2 Authorization`: http://symfony.com/doc/current/components/security/authorization.html
-.. _`ACL checks`: http://symfony.com/doc/current/cookbook/security/acl.html
+.. _`Symfony2 security component`: http://www.symfony.com/doc/current/components/security/index.html
+.. _`Symfony2 Authorization`: http://www.symfony.com/doc/current/components/security/authorization.html
+.. _`Security Chapter`: http://www.symfony.com/doc/current/book/security.html
+.. _`ACL checks`: http://www.symfony.com/doc/current/cookbook/security/acl.html
