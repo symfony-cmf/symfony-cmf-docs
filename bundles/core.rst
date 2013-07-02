@@ -50,7 +50,7 @@ single method ``checkIsPublished()``.
 
     // if to ignore the role when deciding if to consider the document as published
     $ignoreRole = false;
-    
+
     if ($publishWorkflowChecker->checkIsPublished($document, $ignoreRole)) {
         // ...
     }
@@ -86,6 +86,11 @@ service must have the ``setRequest`` method or you will get a fatal error::
     service definition and call ``$this->container->get('request')`` in your
     code when you actually need the request.
 
+This tag is automatically translated to a `synchronized service`_ but as
+Symfony 2.2 does not have that feature, you can use this tag for bundles that
+you want to be able to use with Symfony 2.2. In custom applications that run
+with Symfony 2.3, there is no need for this tag, just use the synchronized
+service feature.
 
 Twig extension
 --------------
@@ -144,3 +149,4 @@ Implements the following functions:
     {%  endif %}
 
 .. _`CoreBundle`: https://github.com/symfony-cmf/CoreBundle#readme
+.. _`synchronized service`: http://symfony.com/doc/current/cookbook/service_container/scopes.html#using-a-synchronized-service
