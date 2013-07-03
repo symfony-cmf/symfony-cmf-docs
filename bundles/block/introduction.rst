@@ -298,7 +298,12 @@ You can also :ref:`embed blocks in content <tutorial-block-embed>` using the
 Block types
 -----------
 
-The BlockBundle comes with five general purpose blocks:
+The block bundle comes with a couple of predefined blocks. You may write
+your own blocks, but often, the supplied implementations will be sufficient.
+This is just a quick overview, more details on each block type can be found
+in the :doc:`Block Types <types>` section.
+
+There are five general purpose blocks:
 
 * **StringBlock**: A block only containing a string that is rendered without
   any decoration. Useful for page fragments;
@@ -310,16 +315,6 @@ The BlockBundle comes with five general purpose blocks:
   the content tree. For example you might want; to refer parts of the contact
   information from the homepage
 * **ActionBlock**: A block that calls a Symfony2 action.
-
-.. note::
-
-    You may be thinking "Why would I use this instead of directly calling the
-    action from my template?", well, imagine the following case: You provide a
-    block that renders teasers of your latest news. However, there is no rule
-    where they should appear. Instead, your customer wants to decide himself
-    on what pages this block is to be displayed. By using an ActionBlock, you
-    could allow your customer to do so without calling you to change some
-    templates (over and over again!).
 
 The BlockBundle also provides a couple of blocks for specific tasks,
 integrating third party libraries. You should to read the :doc:`types` section
