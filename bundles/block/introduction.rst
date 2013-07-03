@@ -114,8 +114,8 @@ _`Sonata Admin Extensions` for more details.
         sonata_admin:
             extensions:
                 cmf.block.admin.base.extension:
-                    admins:
-                        - cmf_block.simple_admin
+                    extends:
+                        - Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock
 
     .. code-block:: xml
 
@@ -127,7 +127,7 @@ _`Sonata Admin Extensions` for more details.
 
             <config xmlns="http://example.org/schema/dic/sonata_admin">
                 <extensions id="cmf.block.admin.base.extension">
-                    <admins>cmf_block.simple_admin</admins>
+                    <extends>Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock</admins>
                 </extensions>
             </config>
         </container>
@@ -138,7 +138,9 @@ _`Sonata Admin Extensions` for more details.
         $container->loadFromExtension('sonata_admin', array(
             'extensions' => array(
                 'cmf.block.admin.base.extension' => array(
-                    'admins' => array(cmf_block.simple_admin,),
+                    'extends' => array(
+                        Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock,
+                    ),
                 ),
             ),
         ));
