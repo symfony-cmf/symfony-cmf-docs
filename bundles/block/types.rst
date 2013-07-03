@@ -1,9 +1,75 @@
 Block Types
 ===========
 
-For each purpose a different block type can be used. The general purpose
-blocks can be used for several solutions.  The Block Bundle ships with more
-specific block types.
+The BlockBundle provides a couple of default block types for general use
+cases. It also has a couple of more specific blocks that integrate third
+party libraries. Those can be handy for some use cases and also serve as
+examples to build your own blocks.
+
+
+StringBlock
+-----------
+
+This is a very simple block that just provides one string field called
+``content`` and the default template renders the content as ``raw`` to
+allow HTML in the field. The template outputs no HTML tags around the string
+at all.
+
+SimpleBlock
+-----------
+
+Just a text block with a ``title`` and a ``content``. The default template
+renders both title and content as ``raw``, meaning HTML is allowed in those
+fields.
+
+This block also exists in a MultilangSimpleBlock variant that can be
+translated.
+
+This block is useful to edit static text fragments and for example display
+it in several places using the ``ReferenceBlock``.
+
+ContainerBlock
+--------------
+
+A container can hold a list of arbitrary child blocks (even other
+``ContainerBlocks``) and just renders one child after the other.
+
+This block has the methods ``setChildren`` to overwrite the current
+children with a new list and ``addChild`` and ``removeChild`` to individually
+add resp. remove child blocks.
+
+ReferenceBlock
+--------------
+
+This block has no content of its own but points to a target block.
+When rendered, this block renders the target node as if the target
+node was directly used in that place.
+
+This block simply has the method ``setReferencedBlock`` that accepts any
+block mapped by the persistence layer as argument. If you set this to
+something that is not a valid block, the problem is only detected when
+rendering the block.
+
+ActionBlock
+-----------
+
+The action block allows to configure a controller action that will be called
+in a subrequest when rendering the block. Instead of directly calling the
+action from a template, your CMS users can define and parametrize their own
+actions, and decide where to put this block.
+
+This block is also a good base to implement specific actions if you need
+something more user friendly. See the ``RssBlock`` below for an example.
+
+As the ``ActionBlock`` does a subrequest, you may also need to control the
+parameters that are passed to the subrequest. The block service calls
+``resolveRequestParams($request, $blockContext)`` to let the block decide
+what needs to be passed to the subrequest. The ActionBlock implementation
+lets you configure the fields with ``setRequestParams`` and persists them
+in the database. It does not matter whether the field is found in the
+request attributes or the request parameters, it is found in both by using
+``$request->get()``. The only request attribute propagated by default is
+the ``_locale``.
 
 RssBlock
 --------
