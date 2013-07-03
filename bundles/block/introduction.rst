@@ -99,8 +99,8 @@ specific settings for one of the block classes.
             ),
         ));
 
-If you want to make the base fields (f.e. the TTL for caching) of your block document based on BaseBlock editable, just use the existing admin extension by adding the following lines
-to your sonata admin configuration ``sonata_admin``. See http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html for more details.
+If you want to make the base fields (f.e. the TTL for caching) of your block document based on ``BaseBlock`` editable, just use the existing admin extension by adding the following lines
+to your sonata admin configuration ``sonata_admin``. Admin extensions allow you to add or change features of one or more Admin instances. Read more about _`Sonata Admin Extensions` for more details.
 
 .. configuration-block::
 
@@ -122,7 +122,7 @@ to your sonata admin configuration ``sonata_admin``. See http://sonata-project.o
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
             <config xmlns="http://example.org/schema/dic/sonata_admin">
-                <extensions id="cmf.block.admin.base.extension" >
+                <extensions id="cmf.block.admin.base.extension">
                     <admins>cmf_block.simple_admin</admins>
                 </extensions>
             </config>
@@ -134,8 +134,8 @@ to your sonata admin configuration ``sonata_admin``. See http://sonata-project.o
         $container->loadFromExtension('sonata_admin', array(
             'extensions' => array(
                 'cmf.block.admin.base.extension' => array(
-                    'admins' => array(cmf_block.simple_admin)
-                )
+                    'admins' => array(cmf_block.simple_admin,),
+                ),
             ),
         ));
 
@@ -391,3 +391,4 @@ editable using the :doc:`CreateBundle <../create>`.
 .. _`BlockBundle`: https://github.com/symfony-cmf/BlockBundle#readme
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle
+.. _`Sonata Admin Extensions`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
