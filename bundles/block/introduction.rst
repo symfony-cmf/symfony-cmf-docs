@@ -104,7 +104,7 @@ block document based on ``BaseBlock`` editable, just use the existing
 admin extension by adding the following lines to your sonata admin 
 configuration ``sonata_admin``. Admin extensions allow you to add or 
 change features of one or more Admin instances. Read more about 
-_`Sonata Admin Extensions` for more details.
+`Sonata Admin Extensions`_ for more details.
 
 .. configuration-block::
 
