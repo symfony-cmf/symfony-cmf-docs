@@ -122,7 +122,6 @@ change features of one or more Admin instances. Read more about
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:cmf-block="http://cmf.symfony.com/schema/dic/block"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
             <config xmlns="http://example.org/schema/dic/sonata_admin">
