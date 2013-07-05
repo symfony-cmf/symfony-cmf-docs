@@ -1,8 +1,10 @@
 Bundles
 =======
 
-Perhaps more so than other community developed bundles, the CMF bundles should
-adhere to a core set of standards and goals. This allows:
+Perhaps unlike many other bundles, each individual CMF bundle is part of a
+larger project, the CMF. As such, stable bundles should adhere to a core set
+of standards and goals in addition to the `suggested bundle best practices`_.
+We aim to provide:
 
 * A base standard of quality to be established;
 * Easier maintainance;
@@ -103,3 +105,4 @@ instructions on how the component should be integrated.
 
 .. _`README template on wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki/README-format-proposal
 .. _`CHANGELOG template on wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki/Change-log-format
+.. _`suggested bundle best practices`: http://symfony.com/doc/current/cookbook/bundles/best_practices.html
