@@ -1,20 +1,52 @@
 Bundles
 =======
 
-All bundles should be standardized as much as possible.
+Perhaps more so than other community developed bundles, the CMF bundles should
+adhere to a core set of standards and goals. This allows:
 
-Standardization facilitates easy maintenance and interoperability on the numerous CMF. 
+* A base standard of quality to be established;
+* Easier maintainance;
+* Less barriers for developers who want to contibute outside of their
+  speciality.
+* <more>
 
-All CMF bundles (and components where applicable) should adhere to the following:
+All CMF bundles should be adhere to the following checklist. The checklist is
+in markdown format and can be copied to the bundles ``README.md`` file.
 
-- Agnostic persistence models;
-- Standard configuration file formats;
-- Standard integration of the Testing component.
+.. code-block:: markdown
 
-Agnostic Persistence Models
----------------------------
+    | Feature                          | OK |
+    | --                               | -- |
+    | Meta: README, CHANGELOG, etc     |    |
+    | Persistance                      |    |
+    | Configuration, files and formats |    |
+    | Testing component integration    |    |
 
-.. code-block::
+Meta: README, CHANGELOG, etc.
+-----------------------------
+
+Bundles MUST have the following metafiles:
+
+.. code-block:: bash
+
+    ./README.md
+    ./CHANMGELOG.md
+    ./CONTRIBUTING.md
+
+See the following templates:
+
+* **README**: `README template on wiki`_;
+* **CHANGELOG**: `CHANGELOG template on wiki`_;
+* **CONTRIBUTING**: See existing bundles.
+
+Persistance
+-----------
+
+* All CMF bundles MUST support PHPCR-ODM;
+* All CMF bundles MUST follow the following structure to enable future or
+  current support of other persistance systems:
+
+.. code-block:: bash
 
     ./Model
          ./Blog.php
@@ -31,31 +63,43 @@ Agnostic Persistence Models
             ./doctrine-phpcr
                 ./Blog.phpcr.xml
 
-Standard Configuration Formats
-------------------------------
+Configuration, Files and Formats
+--------------------------------
 
-XML should be the configuration language for the following:
+All core configuration files MUST be in **XML**, this includes:
 
-- DI container configuration
-- Doctrine persistence mappings
+* Routing;
+* Service definitions;
+* Doctrine mappings.
+
+Bundles MUST adhere to the following directory and filenaming structure
+as applicable:
+
+.. code-block:: bash
+
+    ./Resources/
+        ./config/
+            ./routing
+                ./my_service.xml
+            ./admin.xml                # all sonata-admin stuff
+            ./validation.xml           # all validation
+            ./my-related-services.xml  # semanticlly named file for specific services
+
+All bundles MUST define a `Configuration` class
+
+.. code-block:: bash
+
+    ./DependencyInjection
+        ./Configuration.php
+        ./MyBundleExtension.php
 
 Standard Integration of the Testing Component
 ---------------------------------------------
 
-All bundles should implement the CMF Testing component.
+All bundles MUST implement the CMF Testing component.
 
 The :doc:`testing component documentation <../components/testing>` includes
 instructions on how the component should be integrated.
 
-Approach to complexity
-----------------------
-
-CMF Bundles are primarily intended to be foundations that end-user
-applications can build upon. For this reason we should always supply the most
-basic implementation possible in addition to the most advanced implementation
-possible.
-
-For example:
-
-- **MenuNode**: A simple menu node;
-- **MenuNode**: Advanced menu node with translations link types, etc.
+.. _`README template on wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki/README-format-proposal
+.. _`CHANGELOG template on wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki/Change-log-format
