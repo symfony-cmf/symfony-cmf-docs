@@ -102,7 +102,7 @@ specific settings for one of the block classes.
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://example.org/schema/dic/sonata_block">
+            <config xmlns="http://sonata-project.com/schema/dic/block">
                 <blocks id="acme_main.block.rss">
                     <settings id="maxItems">3</settings>
                 </blocks>
@@ -233,12 +233,21 @@ Settings can be altered on multiple places afterwards, it cascades like this:
 
 Example of how settings can be specified through a template helper:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ sonata_block_render({'name': 'rssBlock'}, {
-          'title': 'Symfony2 CMF news',
-          'url': 'http://cmf.symfony.com/news.rss'
-    }) }}
+    .. code-block:: jinja
+
+        {{ sonata_block_render({'name': 'rssBlock'}, {
+            'title': 'Symfony2 CMF news',
+            'url': 'http://cmf.symfony.com/news.rss'
+        }) }}
+
+    .. code-block:: php+html
+        
+        <?php $view['blocks']->render(array('name' => 'rssBlock'), array(
+            'title' => 'Symfony2 CMF news',
+            'url'   => 'http://cmf.symfony.com/news.rss',
+        )) ?>
 
 Form Configuration
 ~~~~~~~~~~~~~~~~~~
@@ -261,10 +270,17 @@ javascript and stylesheet assets. Use the twig helpers
 ``sonata_block_include_javascripts`` and ``sonata_block_include_stylesheets``
 to render them:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ sonata_block_include_javascripts() }}
-    {{ sonata_block_include_stylesheets() }}
+    .. code-block:: jinja
+
+        {{ sonata_block_include_javascripts() }}
+        {{ sonata_block_include_stylesheets() }}
+
+    .. code-block:: php+html
+
+        <?php $view['blocks']->includeJavaScripts() ?>
+        <?php $view['blocks']->includeStylesheets() ?>
 
 .. note::
 
@@ -285,17 +301,33 @@ Block rendering
 To render the example from the :ref:`bundle-block-document` section, just add
 the following code to your Twig template:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ sonata_block_render({'name': '/cms/content/blocks/sidebarBlock'}) }}
+    .. code-block:: jinja
+
+        {{ sonata_block_render({'name': '/cms/content/blocks/sidebarBlock'}) }}
+
+    .. code-block:: php+html
+
+        <?php echo $view['blocks']->render(array(
+            'name' => '/cms/content/blocks/sidebarBlock',
+        )) ?>
 
 In this example we specify an absolute path, however, if the block is a child
 of a content document, then you can simply specify the **name** of the block
 as follows:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ sonata_block_render({'name': 'sidebarBlock'}) }}
+    .. code-block:: jinja
+
+        {{ sonata_block_render({'name': 'sidebarBlock'}) }}
+
+    .. code-block:: php+html
+
+        <?php echo $view['blocks']->render(array(
+            'name' => 'sidebarBlock',
+        )) ?>
 
 This will make the BlockBundle render the specified block on every page that
 has a child block document named ``sidebarBlock``.  Of course, the actual page
