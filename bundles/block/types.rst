@@ -92,6 +92,8 @@ Create a document::
 
     $documentManager->persist($myRssBlock);
 
+.. _bundle-block-rss-settings:
+
 All available settings are:
 
 * **url**: the url of the rss feed (*required*)

@@ -23,6 +23,27 @@ This bundle is based on the `SonataBlockBundle`_.
 Configuration
 -------------
 
+.. sidebar:: Updated SonataBlockBundle defaults
+    :subtitle: Prepended Configuration
+
+    The BlockBundle *automatically* changes some defaults and adds configuration
+    to the `SonataBlockBundle`_ to make it work nicely. This is done using the
+    `prepended configuration`_ option of Symfony available since version 2.2.
+    See ``DependencyInjection\CmfBlockExtension::prepend``.
+
+    Updated defaults:
+
+    * **templates.block_base** the cmf base template wraps the block output in
+      a div and dashifies the PHPCR path as id; The base template is
+      kept compatible with the Sonata base template for non-cmf blocks;
+    * **RssBlock configuration** adds the
+      :ref:`default RssBlock settings <bundle-block-rss-settings>`.
+
+    .. note::
+
+        Settings are only prepended, define the settings explicitly inside
+        the ``app/config/config.yml`` to override them.
+
 The configuration key for this bundle is ``cmf_block``:
 
 .. configuration-block::
@@ -70,10 +91,10 @@ specific settings for one of the block classes.
                 acme_main.block.news:
                     settings:
                         maxItems: 3
-        blocks_by_class:
-            Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock:
-                settings:
-                    maxItems: 3
+            blocks_by_class:
+                Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock:
+                    settings:
+                        maxItems: 3
 
     .. code-block:: xml
 
@@ -345,4 +366,5 @@ editable using the :doc:`CreateBundle <../create>`.
 
 .. _`BlockBundle`: https://github.com/symfony-cmf/BlockBundle#readme
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
+.. _`prepended configuration`: http://symfony.com/doc/current/components/dependency_injection/compilation.html#prepending-configuration-passed-to-the-extension
 .. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle
