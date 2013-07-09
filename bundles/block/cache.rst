@@ -233,6 +233,10 @@ Configuration
     .. code-block:: yaml
 
         # app/config/config.yml
+        framework:
+            # ...
+            esi: { enabled: true }
+
         cmf_block:
             # ...
             caches:
