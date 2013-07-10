@@ -5,7 +5,7 @@
 Testing
 =======
 
-The Testing compoent is an **internal tool** for testing Symfony CMF bundles.
+The Testing component is an **internal tool** for testing Symfony CMF bundles.
 It provides a way to easily bootstrap a consistent functional test environment.
 
 Configuration
