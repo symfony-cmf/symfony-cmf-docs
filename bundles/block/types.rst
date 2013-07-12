@@ -196,7 +196,7 @@ types of blocks in the same slideshow.
     of your site and hook it on the slideshows. (See also below).
 
 
-Create your first slideshow
+Create your first Slideshow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Creating a slideshow consists of creating the container ``SlideshowBlock`` and
@@ -237,11 +237,19 @@ Rendering your slideshow is as easy as just rendering the according block
 in your template. If your ``contentDocument`` has a field ``slideshow`` that
 contains a ``SlideshowBlock`` object, you can simply render it with:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ sonata_block_render({
-        'name': 'slideshow'
-    }) }}
+    .. code-block:: jinja
+
+        {{ sonata_block_render({
+            'name': 'slideshow'
+        }) }}
+
+    .. code-block:: php+html
+
+        <?php echo $view['blocks']->render(array(
+            'name' => 'slideshow',
+        )) ?>
 
 
 Make the slideshow work in the frontend
@@ -273,6 +281,37 @@ following line to your sonata admin configuration:
                         label: Blocks
                         items:
                             - cmf_block.slideshow_admin
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://example.org/schema/dic/sonata_admin">
+                <dashboard>
+                    <group id="blocks"
+                        label="Blocks">
+                        <item>cmf_block.slideshow_admin</item>
+                    </group>
+                </dashboard>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('sonata_admin', array(
+            'dashboard' => array(
+                'groups' => array(
+                    'blocks' => array(
+                        'label' => 'Blocks',
+                        'items' => array(
+                            'cmf_block.slideshow_admin',
+                        ),
+                    ),
+                ),
+            ),
+        ));
 
 However, you can also embed the slideshow administration directly into
 other admin classes using the ``sonata_type_admin`` form type. The admin
