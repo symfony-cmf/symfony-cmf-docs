@@ -1,3 +1,7 @@
+.. index::
+    single: TreeBrowser; Bundles
+    single: TreeBrowserBundle
+
 The TreeBrowserBundle
 =====================
 

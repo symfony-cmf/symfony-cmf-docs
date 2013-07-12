@@ -1,3 +1,6 @@
+.. index::
+    single: Installing Inline Editing
+
 Installing and Configuring Inline Editing
 =========================================
 

@@ -1,3 +1,7 @@
+.. index::
+    single: RoutingAuto; Bundles
+    single: RoutingAutoBundle
+
 The RoutingAutoBundle
 =====================
 

@@ -1,5 +1,6 @@
 .. index::
-    single: Routing, CmfRoutingBundle
+    single: Routing; Getting Started
+    single: CmfRoutingBundle
 
 Routing
 =======

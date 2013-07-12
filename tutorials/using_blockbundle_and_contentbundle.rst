@@ -1,3 +1,8 @@
+.. index::
+    single: PHPCR and BlockBundle and ContentBundle
+    single: BlockBundle
+    single: ContentBundle
+
 Using the BlockBundle and ContentBundle with PHPCR
 ==================================================
 

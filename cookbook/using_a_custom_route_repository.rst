@@ -1,3 +1,6 @@
+.. index::
+    single: Custom Route Repository
+
 Using a Custom Route Repository with Dynamic Router
 ===================================================
 

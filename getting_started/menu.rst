@@ -1,5 +1,6 @@
 .. index::
-    single: Menu, CmfMenuBundle
+    single: Menu; Getting Started
+    single: CmfMenuBundle
 
 Menu
 ====

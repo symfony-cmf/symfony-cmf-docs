@@ -1,3 +1,6 @@
+.. index::
+    single: Custom Mapper; PHPCR-ODM
+
 Using a Custom Document Class Mapper with PHPCR-ODM
 ===================================================
 

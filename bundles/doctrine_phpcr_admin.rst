@@ -1,3 +1,7 @@
+.. index::
+    single: DoctrinePHPCrAdmin; Bundles
+    single: SonataDoctrinePhpcrAdminBundle
+
 The SonataDoctrinePhpcrAdminBundle
 ==================================
 

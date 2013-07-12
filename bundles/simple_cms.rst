@@ -1,3 +1,7 @@
+.. index::
+    single: SimpleCms; Bundles
+    single: SimpleCmsBundle
+
 The SimpleCmsBundle
 ===================
 

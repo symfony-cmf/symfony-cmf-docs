@@ -1,3 +1,6 @@
+.. index::
+    single: Multi Language Documents
+
 Handling Multi-Language Documents
 =================================
 
