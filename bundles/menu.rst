@@ -83,8 +83,16 @@ If you want to generate menu items without a link instead, set the
 ``allow_empty_items`` parameter to true to make the menu items show up as
 plain text instead.
 
+Menus
+-----
+
+@todo: Describe Menu features
+
 Menu Entries
-------------
+~~~~~~~~~~~~
+
+@todo: Explain link type
+@todo: Explain automatic link type resolve priority (uri, route, content)
 
 A ``MenuNode`` document defines a menu entry. You can build entries based
 on symfony route names, absolute or relative URLs or referenceable PHPCR-ODM
