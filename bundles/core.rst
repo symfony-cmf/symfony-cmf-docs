@@ -62,7 +62,7 @@ Publish Workflow
 
 The publish workflow system allows to control what content is available on the
 site. This is similar to the `Symfony2 security component`_. But contrary to the
-security check, the publish check can be executed even when no firewall is in
+security context, the publish check can be executed even when no firewall is in
 place and the security context thus has no token (see `Symfony2 Authorization`_).
 
 The publish workflow is also tied into the security workflow: The core bundle
@@ -162,14 +162,16 @@ the main content provided by the
 :ref:`DynamicRouter <bundles-routing-dynamic_router>` are checked automatically
 as well.
 
-It is possible to set the token explicitly on the workflow checker. But by
-default, the checker will acquire the token from the default security context,
-and if there is none (typically when there is no firewall in place for that
-URL), an
+It is possible to set the security token explicitly on the workflow checker.
+But by default, the checker will acquire the token from the default security
+context, and if there is none (typically when there is no firewall in place for
+that URL), an
 :class:`Symfony\\Component\\Security\\Core\\Authentication\\Token\\AnonymousToken`
-is created on the fly. If we check for ``VIEW`` and not ``VIEW_ANONYMOUS``, it
-checks whether there is a current user and if that user is granted the bypass
-role. If so, access is granted, otherwise the decision is delegated to the
+is created on the fly.
+
+If you check for ``VIEW`` and not ``VIEW_ANONYMOUS``, the first check is
+whether the security context knows the current user and if that user is granted
+the bypass role. If so, access is granted, otherwise the decision is delegated to a
 :class:`Symfony\\Component\\Security\\Core\\Authorization\\AccessDecisionManager`
 which calls all voters with the requested attributes, the object and the token.
 
@@ -185,14 +187,18 @@ Publish Voters
 A voter has to implement the
 :class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface`.
 It will get passed a content object and has to decide whether it is published
-according to its rules. The CoreBundle` provides a couple of generic voters
+according to its rules. The CoreBundle provides a couple of generic voters
 that check the content for having an interface exposing the methods they need.
 If the content implements the interface, they check the parameter and return
 ``ACCESS_GRANTED`` resp ``ACCESS_DENIED``, otherwise they return
 ``ACCESS_ABSTAIN``.
 
-You can also implement your :ref:`own voters <bundle-core-workflow_custom_voters>` for
-additional publication behaviour.
+As voting is unanimous, each voter returns ``ACCESS_GRANTED`` if its criteria
+is met, but if a single voter returns ``ACCESS_DENIED``, the content is
+considered not published.
+
+You can also implement your :ref:`own voters <bundle-core-workflow_custom_voters>`
+for additional publication behaviour.
 
 PublishableVoter
 ................
@@ -326,7 +332,10 @@ enabled.
 
 * **cmf_find**: returns the document for the provided path
 * **cmf_find_many**: returns an array of documents for the provided paths
-* **cmf_is_published**: checks if the provided document is published
+* **cmf_is_published**: checks if the provided document is published,
+  regardless of an eventual bypass permission of the current user. If you need
+  the bypass role, you will have a firewall configured for the route the
+  template is rendered in and can simply use ``{{ is_granted('VIEW', document) }}``
 * **cmf_prev**: returns the previous document by examining the child nodes of
   the provided parent
 * **cmf_prev_linkable**: returns the previous linkable document by examining
