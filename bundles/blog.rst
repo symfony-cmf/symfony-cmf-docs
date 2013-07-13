@@ -1,3 +1,7 @@
+.. index::
+    single: Blog; Bundles
+    single: BlogBundle
+
 The BlogBundle
 ==============
 

@@ -1,3 +1,6 @@
+.. index::
+    single: Installing CMF Core
+
 Installing and Configuring the CMF Core
 =======================================
 

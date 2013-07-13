@@ -1,3 +1,6 @@
+.. index::
+    single: Storage Layer
+
 Choosing a Storage Layer
 ========================
 

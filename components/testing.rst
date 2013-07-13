@@ -1,6 +1,6 @@
 .. index::
+    single: Testing; Components
     single: Testing
-    single: Components; Testing
 
 Testing
 =======

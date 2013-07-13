@@ -1,3 +1,6 @@
+.. index::
+    single: Creating a CMS
+
 Creating a CMS using CMF and Sonata
 ===================================
 

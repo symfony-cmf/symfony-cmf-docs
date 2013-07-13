@@ -1,3 +1,7 @@
+.. index::
+    single: PHPCR; Bundles
+    single: DoctrinePHPCRBundle
+
 The DoctrinePHPCRBundle
 =======================
 

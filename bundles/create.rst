@@ -1,3 +1,7 @@
+.. index::
+    single: Create; Bundles
+    single: CreateBundles
+
 The CreateBundle
 ================
 

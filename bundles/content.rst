@@ -1,3 +1,7 @@
+.. index::
+    single: Content; Bundles
+    single: ContentBundle
+
 The ContentBundle
 =================
 

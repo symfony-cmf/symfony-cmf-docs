@@ -1,3 +1,7 @@
+.. index::
+    single: Core; Bundles
+    single: CoreBundle
+
 The CoreBundle
 ==============
 
