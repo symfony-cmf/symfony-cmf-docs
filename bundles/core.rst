@@ -281,6 +281,71 @@ This means that custom templates for ``templates_by_class`` and the controllers
 of ``controllers_by_class`` need not check for publication explicitly as its
 already done.
 
+Editing publication information: Publish Workflow Sonata Admin Extension
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There is a write interface for each publish workflow too, defining setter
+methods. The core bundle provides extensions for SonataAdminBundle to easily
+add editing of the publish workflow fields to all or selected admins.
+
+Instead of implementing ``PublishableInterface`` resp.
+``PublishTimePeriodInterface`` you models instead need to implement the
+``PublishableWriteInterface`` and / or ``PublishTimePeriodWriteInterface``.
+
+To enable the extensions in your admin classes, simply define the extension
+configuration in the ``sonata_admin`` section of your project configuration:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_admin:
+            # ...
+            extensions:
+                symfony_cmf_core.publish_workflow.admin_extension.publishable:
+                    implements:
+                        - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableWriteInterface
+                symfony_cmf_core.publish_workflow.admin_extension.time_period:
+                    implements:
+                        - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodWriteInterface
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <config>
+            <sonata-admin>
+                <!-- ... -->
+                <extensions>
+                    <extension id="symfony_cmf_core.publish_workflow.admin_extension.publishable">
+                        <implements>
+                            Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableWriteInterface
+                        </implements>
+                    </extension>
+                    <extension id="symfony_cmf_core.publish_workflow.admin_extension.time_period">
+                        <implements>
+                            Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodWriteInterface
+                       </implements>
+                   </extension>
+                </extensions>
+            </sonata-admin>
+        </config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_admin', array(
+            'extensions' => array(
+                'symfony_cmf_core.admin_extension.publish_workflow' => array(
+                    'implements' => array(
+                        'Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowInterface',
+                    ),
+                ),
+            ),
+        ));
+
+See the `Sonata Admin extension documentation`_ for more information.
+
 Dependency Injection Tags
 -------------------------
 
@@ -389,3 +454,4 @@ enabled.
 .. _`Symfony2 Authorization`: http://www.symfony.com/doc/current/components/security/authorization.html
 .. _`Security Chapter`: http://www.symfony.com/doc/current/book/security.html
 .. _`ACL checks`: http://www.symfony.com/doc/current/cookbook/security/acl.html
+.. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
