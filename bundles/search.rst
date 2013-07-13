@@ -1,3 +1,7 @@
+.. index::
+    single: Search; Bundles
+    single: SearchBundle
+
 The SearchBundle
 ================
 

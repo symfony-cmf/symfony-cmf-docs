@@ -1,5 +1,6 @@
 .. index::
-    single: Standard Edition, install
+    single: Installation; Getting Started
+    single: Standard Edition
 
 Installing the Symfony CMF Standard Edition
 ===========================================

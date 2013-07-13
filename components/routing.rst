@@ -1,6 +1,6 @@
 .. index::
+    single: Routing; Components
     single: Routing
-    single: Components; Routing
 
 Routing
 =======
