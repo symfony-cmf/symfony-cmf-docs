@@ -23,7 +23,7 @@ Configuration
 
         # app/config/config.yml
         cmf_core:
-            document_manager_name: null # used for the twig functions to fetch documents
+            document_manager_name: ~ # used for the twig functions to fetch documents
             publish_workflow:
                 enabled: true
                 view_non_published_role: ROLE_CAN_VIEW_NON_PUBLISHED
@@ -32,18 +32,19 @@ Configuration
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <config xmlns="http://symfony.com/schema/dic/core"
+        <config xmlns="http://cmf.symfony.com/schema/dic/core"
             document-manager-name="null">
             <publish-workflow
                 enabled="true"
                 view-non-published-role="ROLE_CAN_VIEW_NON_PUBLISHED"
                 request-listener="true"
             />
-        <config/>
+        </config>
 
     .. code-block:: php
 
-            $container->loadFromExtension('cmf_core', array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', array(
             'document_manager_name' => null,
             'publish_workflow'      => array(
                 'enabled'                 => true,
@@ -61,7 +62,7 @@ Publish Workflow
 ----------------
 
 The publish workflow system allows to control what content is available on the
-site. This is similar to the `Symfony2 security component`_. But contrary to the
+site. This is similar to the `Symfony2 Security component`_. But contrary to the
 security context, the publish check can be executed even when no firewall is in
 place and the security context thus has no token (see `Symfony2 Authorization`_).
 
@@ -74,14 +75,14 @@ publication.
 A good introduction to the Symfony core security is the `Security Chapter`_ in
 the Symfony2 book.
 
-Check if content is published
+Check if Content is Published
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The Bundle provides the ``cmf_core.publish_workflow.checker`` service which
 implements the :class:`Symfony\\Component\\Security\\Core\\SecurityContextInterface`
 of the Symfony security component. The method to check publication is, like
 with the security context,
-:method:`Symfony\\Component\\Security\\Core\\SecurityContextInterface::isGranted()``.
+:method:`Symfony\\Component\\Security\\Core\\SecurityContextInterface::isGranted`.
 
 This method is used as when doing `ACL checks`_: The first argument is the
 desired action, the second the content object you want to do the action on.
@@ -109,7 +110,7 @@ given to editors. The default name of the role is ``ROLE_CAN_VIEW_NON_PUBLISHED`
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
-        <config>
+        <config xmlns="http://symfony.com/schema/dic/security">
             <role id="ROLE_EDITOR">ROLE_CAN_VIEW_NON_PUBLISHED</role>
         </config>
 
@@ -118,7 +119,7 @@ given to editors. The default name of the role is ``ROLE_CAN_VIEW_NON_PUBLISHED`
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'role_hierarchy' => array(
-                'ROLE_EDITOR'       => 'ROLE_CAN_VIEW_NON_PUBLISHED',
+                'ROLE_EDITOR' => 'ROLE_CAN_VIEW_NON_PUBLISHED',
             ),
         ));
 
@@ -138,22 +139,43 @@ in question - he will have the permission to view unpublished content as well::
         // ...
     }
 
+.. _bundle-core-publish_workflow-twig_function:
+
 To check publication in a template, use the twig function ``cmf_is_published``:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {# check if document is published, regardless of current users role #}
-    {% if cmf_is_published(page) %}
-        {# output the document #}
-    {% endif %}
+    .. code-block:: jinja
 
-    {# check if current logged in user is allowed to view the document either
-       because it is published or because the current user may view unpublished
-       documents.
-    #}
-    {% if is_granted('VIEW', page) %}
-        {# output the document #}
-    {% endif %}
+        {# check if document is published, regardless of current users role #}
+        {% if cmf_is_published(page) %}
+            {# ... output the document #}
+        {% endif %}
+
+        {#
+            check if current logged in user is allowed to view the document either
+            because it is published or because the current user may view unpublished
+            documents.
+        #}
+        {% if is_granted('VIEW', page) %}
+            {# ... output the document #}
+        {% endif %}
+
+    .. code-block:: php
+
+        <!-- check if document is published, regardless of current users role -->
+        <?php if ($view['cmf']->isPublished($page)) : ?>
+            <!-- ... output the document -->
+        <?php endif ?>
+
+        <!--
+            check if current logged in user is allowed to view the document either
+            because it is published or because the current user may view unpublished
+            documents.
+        -->
+        <?php if ($view['security']->isGranted('VIEW', $page)) : ?>
+            <!-- ... output the document -->
+        <?php endif ?>
 
 Code that loads content should do the publish checks. Note that the twig
 functions already check for publication. Thanks to a
@@ -190,7 +212,7 @@ It will get passed a content object and has to decide whether it is published
 according to its rules. The CoreBundle provides a couple of generic voters
 that check the content for having an interface exposing the methods they need.
 If the content implements the interface, they check the parameter and return
-``ACCESS_GRANTED`` resp ``ACCESS_DENIED``, otherwise they return
+``ACCESS_GRANTED`` or ``ACCESS_DENIED``, otherwise they return
 ``ACCESS_ABSTAIN``.
 
 As voting is unanimous, each voter returns ``ACCESS_GRANTED`` if its criteria
@@ -253,8 +275,13 @@ you can lower the priority of those voters.
 
         use Symfony\Component\DependencyInjection\Definition;
 
-        $container->register('acme.security.publishable_voter', '%acme.security.publishable_voter.class%')
-            ->addTag('cmf_published_voter', array('priority' => 30));
+        $container
+            ->register(
+                'acme.security.publishable_voter',
+                '%acme.security.publishable_voter.class%'
+            )
+            ->addTag('cmf_published_voter', array('priority' => 30))
+        ;
 
 As the workflow checker will create an
 :class:`Symfony\\Component\\Security\\Core\\Authentication\\Token\\AnonymousToken` on
@@ -313,22 +340,18 @@ configuration in the ``sonata_admin`` section of your project configuration:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <config>
-            <sonata-admin>
-                <!-- ... -->
-                <extensions>
-                    <extension id="symfony_cmf_core.publish_workflow.admin_extension.publishable">
-                        <implements>
-                            Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableWriteInterface
-                        </implements>
-                    </extension>
-                    <extension id="symfony_cmf_core.publish_workflow.admin_extension.time_period">
-                        <implements>
-                            Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodWriteInterface
-                       </implements>
-                   </extension>
-                </extensions>
-            </sonata-admin>
+        <config xmlns="http://sonata-project.org/schema/dic/admin">
+            <!-- ... -->
+            <extension id="symfony_cmf_core.publish_workflow.admin_extension.publishable">
+                <implement>
+                    Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableWriteInterface
+                </implement>
+            </extension>
+            <extension id="symfony_cmf_core.publish_workflow.admin_extension.time_period">
+                <implement>
+                    Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodWriteInterface
+               </implement>
+           </extension>
         </config>
 
     .. code-block:: php
@@ -397,10 +420,8 @@ enabled.
 
 * **cmf_find**: returns the document for the provided path
 * **cmf_find_many**: returns an array of documents for the provided paths
-* **cmf_is_published**: checks if the provided document is published,
-  regardless of an eventual bypass permission of the current user. If you need
-  the bypass role, you will have a firewall configured for the route the
-  template is rendered in and can simply use ``{{ is_granted('VIEW', document) }}``
+* **cmf_is_published**: checks if the provided document is published, see
+  :ref:`bundle-core-publish_workflow-twig_function`.
 * **cmf_prev**: returns the previous document by examining the child nodes of
   the provided parent
 * **cmf_prev_linkable**: returns the previous linkable document by examining
