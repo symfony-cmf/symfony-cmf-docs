@@ -5,13 +5,13 @@
 Routing
 =======
 
-The `Symfony CMF Routing component`_ extends the Symfony2 core routing
+The Symfony CMF Routing component extends the Symfony2 core routing
 component. Even though it has Symfony in its name, it does not need the full
-Symfony2 framework and can be used in standalone projects. For integration
-with the Symfony2 framework, we provide :doc:`../bundles/routing`.
+Symfony2 Framework and can be used in standalone projects. For integration
+with the Symfony2 Framework, we provide :doc:`../bundles/routing`.
 
 At the core of the Symfony CMF Routing component is the `ChainRouter`_. The
-ChainRouter can chain several routes to determine what should handle each
+ChainRouter can chain several routers to determine what should handle each
 request. The default Symfony2 router can be added to this chain, so the
 standard routing mechanism can still be used.
 
@@ -30,26 +30,37 @@ content object.
 .. note::
 
     To use this component outside of the Symfony2 framework context, have a
-    look at the core Symfony2 `Routing`_ to get a fundamental understanding of
-    the component. CMF Routing just extends the basic behaviour.
+    look at the core Symfony2 `Routing Component`_ to get a fundamental
+    understanding of the component. The CMF Routing Component just extends the
+    basic behaviour.
 
-Dependencies
+Installation
 ------------
 
-The Routing Component depends on the Symfony2 `Routing`_ component and the
+You can install the component in 2 different ways:
+
+* Use the official Git repository (https://github.com/symfony-cmf/Routing);
+* `Install it via Composer`_ (``symfony-cmf/routing`` on `Packagist`_).
+
+Dependencies
+~~~~~~~~~~~~
+
+The Component depends on the Symfony2 `Routing`_ component and the
 `HttpKernel`_ component.
 
-For the ``DynamicRouter`` you will need something to implement the
-``RouteProviderInterface`` with. We suggest using Doctrine as this provides an
-easy way to map classes into a database.
+.. tip::
+
+    For the ``DynamicRouter`` you will need something to implement the
+    ``RouteProviderInterface`` with. We suggest using Doctrine as this provides an
+    easy way to map classes into a database.
 
 ChainRouter
 -----------
 
-At the core of Symfony CMF's Routing component sits the ``ChainRouter``.
+At the core of the Symfony CMF Routing component sits the ``ChainRouter``.
 It's used as a replacement for Symfony2's default routing system, and is
 responsible for determining the parameters for each request. Typically you
-need to determine which Controller will handle this request - in the full
+need to determine which controller will handle this request - in the full
 stack Symfony2 Framework, this is identified by the ``_controller`` field
 of the parameters.
 
@@ -77,8 +88,8 @@ Now, when the ``ChainRouter`` matches a request, it'll chain over the Symfony2
 
 If you add a new router, for instance the ``DynamicRouter``, it will be
 chained after the Symfony2 Router (because that was added first). To change
-this, you can use the second argument of the ``add`` method to provide a
-priority. Lower priorities are chained first.
+this, you can use the second argument of the ``add`` method to set a priority.
+Higher priorities are sorted first.
 
 .. code-block:: php
 
@@ -86,11 +97,11 @@ priority. Lower priorities are chained first.
     use Symfony\Cmf\Component\Routing\DynamicRouter;
     // ...
 
-    $chainRouter->add(new Router(...), 90);
+    $chainRouter->add(new Router(...), 1);
 
     $dynamicRouter = new DynamicRouter(...);
     // ...
-    $chainRouter->add($dynamicRouter, 1);
+    $chainRouter->add($dynamicRouter, 100);
 
 .. note::
 
@@ -106,8 +117,8 @@ which are responsible for matching a request and determining its parameters.
 
 You can easily create your own routers by implementing
 :class:`Symfony\\Component\\Routing\\RouterInterface` but the Symfony CMF
-Routing Component already includes some powerful route matching system that
-you can extend to your needs.
+Routing Component already includes a powerful route matching system that you
+can extend to your needs.
 
 Symfony2 Default Router
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -115,7 +126,7 @@ Symfony2 Default Router
 The Symfony2 routing mechanism is itself a ``RouterInterface`` implementation,
 which means you can use it as a Router in the ``ChainRouter``. This allows you
 to use the default routing declaration system. Read more about this router in
-the `Routing`_ component article of the core documentation.
+the `Routing Component`_ article of the core documentation.
 
 Dynamic Router
 ~~~~~~~~~~~~~~
@@ -150,8 +161,8 @@ The ``NestedMatcher`` uses a 3-step matching process to determine which Route
 to use when handling the current Request:
 
 #. Ask the ``RouteProviderInterface`` for the collection of ``Route`` instances
-   potentially matching the ``Request``
-#. Apply all ``RouteFilterInterface`` to filter down this collection
+   potentially matching the ``Request``;
+#. Apply all ``RouteFilterInterface`` to filter down this collection;
 #. Let the ``FinalMatcherInterface`` instance decide on the best match among
    the remaining ``Route`` instances and transform it into the parameter array.
 
@@ -386,24 +397,11 @@ refer to :doc:`../getting-started/routing`
 We strongly recommend reading Symfony2's `Routing`_ component documentation
 page, as it's the base of this bundle's implementation.
 
-Authors
--------
-
-* Filippo De Santis (p16)
-* Henrik Bjornskov (henrikbjorn)
-* Claudio Beatrice (omissis)
-* Lukas Kahwe Smith (lsmith77)
-* David Buchmann (dbu)
-* Larry Garfield (Crell)
-* `And others`_
-
-The original code for the chain router was contributed by Magnus Nordlander.
-
-.. _`Symfony CMF Routing component`: https://github.com/symfony/symfony-docs/issues?milestone=1&state=open
-.. _`Routing`: http://symfony.com/doc/current/components/routing/introduction.html
+.. _`Install it via Composer`: http://symfony.com/doc/current/components/using_components.html
+.. _`Packagist`: https://packagist.org/packages/symfony-cmf/routing
+.. _`Routing Component`: http://symfony.com/doc/current/components/routing/introduction.html
 .. _`Composer`: http://getcomposer.org
 .. _`HttpKernel`: http://symfony.com/doc/current/components/http_kernel/introduction.html
-.. _`And others`: https://github.com/symfony/symfony-docs/issues?milestone=1&state=open
 .. _`FieldByClassEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/blob/master/Enhancer/FieldByClassEnhancer.php
 .. _`FieldMapEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/blob/master/Enhancer/FieldMapEnhancer.php
 .. _`FieldPresenceEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/blob/master/Enhancer/FieldPresenceEnhancer.php
