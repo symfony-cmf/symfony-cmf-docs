@@ -369,5 +369,12 @@ is in the database, you can pass the core router service as
 content_url_generator, make sure the content_key never matches and make your
 menu documents provide the route name and eventual routeParameters.
 
+Publish Workflow Interface
+--------------------------
+
+Menu nodes implement the write interfaces for publishable and publish time
+period, see the :ref:`publish workflow documentation <bundle-core-publish_workflow>`
+for more information.
+
 .. _`MenuBundle`: https://github.com/symfony-cmf/MenuBundle#readme
 .. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle
