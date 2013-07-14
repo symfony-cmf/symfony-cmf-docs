@@ -1,9 +1,75 @@
 Block Types
 ===========
 
-For each purpose a different block type can be used. The general purpose
-blocks can be used for several solutions.  The Block Bundle ships with more
-specific block types.
+The BlockBundle provides a couple of default block types for general use
+cases. It also has a couple of more specific blocks that integrate third
+party libraries. Those can be handy for some use cases and also serve as
+examples to build your own blocks.
+
+
+StringBlock
+-----------
+
+This is a very simple block that just provides one string field called
+``content`` and the default template renders the content as ``raw`` to
+allow HTML in the field. The template outputs no HTML tags around the string
+at all.
+
+SimpleBlock
+-----------
+
+Just a text block with a ``title`` and a ``content``. The default template
+renders both title and content as ``raw``, meaning HTML is allowed in those
+fields.
+
+This block also exists in a MultilangSimpleBlock variant that can be
+translated.
+
+This block is useful to edit static text fragments and for example display
+it in several places using the ``ReferenceBlock``.
+
+ContainerBlock
+--------------
+
+A container can hold a list of arbitrary child blocks (even other
+``ContainerBlocks``) and just renders one child after the other.
+
+This block has the methods ``setChildren`` to overwrite the current
+children with a new list and ``addChild`` and ``removeChild`` to individually
+add resp. remove child blocks.
+
+ReferenceBlock
+--------------
+
+This block has no content of its own but points to a target block.
+When rendered, this block renders the target node as if the target
+node was directly used in that place.
+
+This block simply has the method ``setReferencedBlock`` that accepts any
+block mapped by the persistence layer as argument. If you set this to
+something that is not a valid block, the problem is only detected when
+rendering the block.
+
+ActionBlock
+-----------
+
+The action block allows to configure a controller action that will be called
+in a subrequest when rendering the block. Instead of directly calling the
+action from a template, your CMS users can define and parametrize their own
+actions, and decide where to put this block.
+
+This block is also a good base to implement specific actions if you need
+something more user friendly. See the ``RssBlock`` below for an example.
+
+As the ``ActionBlock`` does a subrequest, you may also need to control the
+parameters that are passed to the subrequest. The block service calls
+``resolveRequestParams($request, $blockContext)`` to let the block decide
+what needs to be passed to the subrequest. The ActionBlock implementation
+lets you configure the fields with ``setRequestParams`` and persists them
+in the database. It does not matter whether the field is found in the
+request attributes or the request parameters, it is found in both by using
+``$request->get()``. The only request attribute propagated by default is
+the ``_locale``.
 
 RssBlock
 --------
@@ -25,6 +91,8 @@ Create a document::
     $myRssBlock->setSetting('maxItems', 3);
 
     $documentManager->persist($myRssBlock);
+
+.. _bundle-block-rss-settings:
 
 All available settings are:
 
@@ -128,7 +196,7 @@ types of blocks in the same slideshow.
     of your site and hook it on the slideshows. (See also below).
 
 
-Create your first slideshow
+Create your first Slideshow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Creating a slideshow consists of creating the container ``SlideshowBlock`` and
@@ -169,11 +237,19 @@ Rendering your slideshow is as easy as just rendering the according block
 in your template. If your ``contentDocument`` has a field ``slideshow`` that
 contains a ``SlideshowBlock`` object, you can simply render it with:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ sonata_block_render({
-        'name': 'slideshow'
-    }) }}
+    .. code-block:: jinja
+
+        {{ sonata_block_render({
+            'name': 'slideshow'
+        }) }}
+
+    .. code-block:: php+html
+
+        <?php echo $view['blocks']->render(array(
+            'name' => 'slideshow',
+        )) ?>
 
 
 Make the slideshow work in the frontend
@@ -205,6 +281,37 @@ following line to your sonata admin configuration:
                         label: Blocks
                         items:
                             - cmf_block.slideshow_admin
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://example.org/schema/dic/sonata_admin">
+                <dashboard>
+                    <group id="blocks"
+                        label="Blocks">
+                        <item>cmf_block.slideshow_admin</item>
+                    </group>
+                </dashboard>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('sonata_admin', array(
+            'dashboard' => array(
+                'groups' => array(
+                    'blocks' => array(
+                        'label' => 'Blocks',
+                        'items' => array(
+                            'cmf_block.slideshow_admin',
+                        ),
+                    ),
+                ),
+            ),
+        ));
 
 However, you can also embed the slideshow administration directly into
 other admin classes using the ``sonata_type_admin`` form type. The admin

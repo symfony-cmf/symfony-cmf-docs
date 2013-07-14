@@ -1,3 +1,6 @@
+.. index::
+    single: Sandbox Installation
+
 Installing the CMF sandbox
 ==========================
 

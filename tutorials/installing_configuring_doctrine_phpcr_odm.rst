@@ -1,3 +1,6 @@
+.. index::
+    single: Installing Doctrine PHPCR-ODM
+
 Installing and Configuring Doctrine PHPCR-ODM
 =============================================
 

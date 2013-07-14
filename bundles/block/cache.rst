@@ -15,6 +15,7 @@ The BlockBundle additionally provides its own adapters for:
 .. note::
 
   It is advised to store all settings in the block document when using cache.
+  See also :ref:`bundle-block-cache-rendering`.
 
 Dependencies
 ------------
@@ -44,29 +45,29 @@ CmfBlockBundle and the SonataBlockBundle:
                resource: "@CmfBlockBundle/Resources/config/routing/cache.xml"
                prefix: /
 
-        .. code-block:: xml
+       .. code-block:: xml
 
-            <!-- app/config/routing.xml -->
-            <?xml version="1.0" encoding="UTF-8" ?>
-            <routes xmlns="http://symfony.com/schema/routing"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+           <!-- app/config/routing.xml -->
+           <?xml version="1.0" encoding="UTF-8" ?>
+           <routes xmlns="http://symfony.com/schema/routing"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-                <!-- ... -->
+               <!-- ... -->
 
-                <import resource="@SymfonyCmfBlockBundle/Resources/config/routing/cache.xml"
-                    prefix="/" />
-            </routes>
+               <import resource="@SymfonyCmfBlockBundle/Resources/config/routing/cache.xml"
+                   prefix="/" />
+           </routes>
 
-        .. code-block:: php
+       .. code-block:: php
 
-            // app/config/routing.php
-            $collection->addCollection(
-                $loader->import("@SymfonyCmfBlockBundle/Resources/config/routing/cache.xml"),
-                '/'
-            );
+           // app/config/routing.php
+           $collection->addCollection(
+               $loader->import("@SymfonyCmfBlockBundle/Resources/config/routing/cache.xml"),
+               '/'
+           );
 
-            return $collection;
+           return $collection;
 
 3. *SonataBlockBundle* - Use the ``sonata_block`` key to configure the cache
    adapter for each block service:
@@ -87,13 +88,13 @@ CmfBlockBundle and the SonataBlockBundle:
                     Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock:
                         cache: cmf.block.cache.js_async
 
-        .. code-block:: xml
+       .. code-block:: xml
 
-            <!-- app/config/config.xml -->
-            <?xml version="1.0" charset="UTF-8" ?>
-            <container xmlns="http://symfony.com/schema/dic/services">
+           <!-- app/config/config.xml -->
+           <?xml version="1.0" charset="UTF-8" ?>
+           <container xmlns="http://symfony.com/schema/dic/services">
 
-                <config xmlns="http://example.org/schema/dic/sonata_block">
+                <config xmlns="http://sonata-project.org/schema/dic/block">
                     <!-- use the service id of the cache adapter -->
                     <blocks id="symfony_cmf.block.action"
                         cache="symfony_cmf.block.cache.js_async"
@@ -101,17 +102,17 @@ CmfBlockBundle and the SonataBlockBundle:
                 </config>
             </container>
 
-        .. code-block:: php
+       .. code-block:: php
 
-            // app/config/config.php
-            $container->loadFromExtension('sonata_block', array(
-                'blocks' => array(
-                    'symfony_cmf.block.action' => array(
-                        // use the service id of the cache adapter
-                        'cache' => 'symfony_cmf.block.cache.js_async',
-                    ),
-                ),
-            ));
+           // app/config/config.php
+           $container->loadFromExtension('sonata_block', array(
+               'blocks' => array(
+                   'symfony_cmf.block.action' => array(
+                       // use the service id of the cache adapter
+                       'cache' => 'symfony_cmf.block.cache.js_async',
+                   ),
+               ),
+           ));
 
 Workflow
 --------
@@ -201,6 +202,8 @@ The BlockBundle also has a cache invalidation listener that calls the
 ``flush`` method of a cache adapter automatically when a cached block document
 is updated or removed.
 
+.. _bundle-block-cache-rendering:
+
 Block Rendering
 ---------------
 
@@ -210,12 +213,63 @@ your Twig template when using cache:
 * **use_cache**: use the configured cache for a block (*default*: true)
 * **extra_cache_keys**: expects an array with extra cache keys (*default*: empty array)
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ sonata_block_render({ 'name': 'rssBlock' }, {
-        use_cache: true,
-        extra_cache_keys: { 'extra_key': 'my_block' }
-    }) }}
+    .. code-block:: jinja
+
+        {{ sonata_block_render({ 'name': 'rssBlock' }, {
+            use_cache: true,
+            extra_cache_keys: { 'extra_key': 'my_block' }
+        }) }}
+
+    .. code-block:: php+html
+
+        <?php echo $view['blocks']->render(array(
+            'name' => 'rssBlock',
+        ), array(
+            'use_cache' => true,
+            'extra_cache_keys' => array(
+                'extra_key' => 'my_block'
+            ),
+        )) ?>
+
+When using the Esi, Ssi or Js cache adapters the settings passed here are remembered:
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {{ sonata_block_render({ 'name': 'rssBlock' }, {
+            'title': 'Symfony2 CMF news',
+            'url': 'http://cmf.symfony.com/news.rss',
+            'maxItems': 2
+        }) }}
+
+    .. code-block:: php+html
+
+        <?php echo $view['blocks']->render(array(
+            'name' => 'rssBlock',
+        ), array(
+            'title'    => 'Symfony2 CMF news',
+            'url'      => 'http://cmf.symfony.com/news.rss',
+            'maxItems' => 2,
+        )) ?>
+
+The default ``BlockContextManager`` of the SonataBlockBundle automatically adds
+settings passed from the template to the ``extra_cache_keys`` with the key
+``context``. This allows the cache adapters to rebuild the BlockContext. See
+also the `SonataBlockBundle Advanced usage`_ documentation.
+
+.. note::
+
+    Secure the cache adapter url if needed as the settings from
+    ``sonata_block_render`` are added to the url as parameters.
+
+.. caution::
+
+    Because, as mentioned above, settings can be added to the url as parameters
+    avoid exposing sensitive settings from ``sonata_block_render`` and try to
+    store them in the block document.
 
 Adapters
 --------
@@ -223,7 +277,7 @@ Adapters
 ESI
 ~~~
 
-This extends the default EsiCache adapter of the SonataCacheBundle.
+This extends the default VarnishCache adapter of the SonataCacheBundle.
 
 Configuration
 .............
@@ -233,13 +287,53 @@ Configuration
     .. code-block:: yaml
 
         # app/config/config.yml
+        framework:
+            # ...
+            esi: { enabled: true }
+            # enable FragmentListener to automatically validate and secure fragments
+            fragments: { path: /_fragment }
+            # add varnish server ip-address(es)
+            trusted_proxies: [192.0.0.1, 10.0.0.0/8]
+
         cmf_block:
             # ...
             caches:
-                esi:
+                varnish:
                     token: a unique security key # a random one is generated by default
                     servers:
                         - varnishadm -T 127.0.0.1:2000 {{ COMMAND }} "{{ EXPRESSION }}"
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/block">
+                <caches>
+                    <!-- token: a random one is generated by default -->
+                    <varnish token="a unique security key">
+                        <server>varnishadm -T 127.0.0.1:2000 {{ COMMAND }} "{{ EXPRESSION }}"</server>
+                    </varnish>
+                </caches>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_block', array(
+            // ...
+            'caches' => array(
+                'varnish' => array(
+                    'token' => 'a unique security key', // a random one is generated by default
+                    'servers' => array(
+                        'varnishadm -T 127.0.0.1:2000 {{ COMMAND }} "{{ EXPRESSION }}"',
+                    ),
+                ),
+            ),
+        ));
 
 SSI
 ~~~
@@ -260,6 +354,35 @@ Configuration
                 ssi:
                    token: a unique security key # a random one is generated by default
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/block">
+                <caches>
+                    <!-- token: a random one is generated by default -->
+                    <ssi
+                        token="a unique security key"
+                    />
+                </caches>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_block', array(
+            // ...
+            'caches' => array(
+                'ssi' => array(
+                    'token' => 'a unique security key', // a random one is generated by default
+                ),
+            ),
+        ));
+
 Javascript
 ~~~~~~~~~~
 
@@ -271,3 +394,4 @@ asynchronously or synchronously loaded and added to the page.
 .. _`ESI`: http://wikipedia.org/wiki/Edge_Side_Includes
 .. _`SSI`: http://wikipedia.org/wiki/Server_Side_Includes
 .. _`SonataCacheBundle documentation`: http://sonata-project.org/bundles/cache/master/doc/index.html
+.. _`SonataBlockBundle Advanced usage`: http://sonata-project.org/bundles/block/master/doc/reference/advanced_usage.html#block-context-manager-context-cache

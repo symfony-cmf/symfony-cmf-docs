@@ -23,6 +23,27 @@ This bundle is based on the `SonataBlockBundle`_.
 Configuration
 -------------
 
+.. sidebar:: Updated SonataBlockBundle defaults
+    :subtitle: Prepended Configuration
+
+    The BlockBundle *automatically* changes some defaults and adds configuration
+    to the `SonataBlockBundle`_ to make it work nicely. This is done using the
+    `prepended configuration`_ option of Symfony available since version 2.2.
+    See ``DependencyInjection\CmfBlockExtension::prepend``.
+
+    Updated defaults:
+
+    * **templates.block_base** the cmf base template wraps the block output in
+      a div and dashifies the PHPCR path as id; The base template is
+      kept compatible with the Sonata base template for non-cmf blocks;
+    * **RssBlock configuration** adds the
+      :ref:`default RssBlock settings <bundle-block-rss-settings>`.
+
+    .. note::
+
+        Settings are only prepended, define the settings explicitly inside
+        the ``app/config/config.yml`` to override them.
+
 The configuration key for this bundle is ``cmf_block``:
 
 .. configuration-block::
@@ -70,10 +91,10 @@ specific settings for one of the block classes.
                 acme_main.block.news:
                     settings:
                         maxItems: 3
-        blocks_by_class:
-            Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock:
-                settings:
-                    maxItems: 3
+            blocks_by_class:
+                Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock:
+                    settings:
+                        maxItems: 3
 
     .. code-block:: xml
 
@@ -81,7 +102,7 @@ specific settings for one of the block classes.
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://example.org/schema/dic/sonata_block">
+            <config xmlns="http://sonata-project.com/schema/dic/block">
                 <blocks id="acme_main.block.rss">
                     <settings id="maxItems">3</settings>
                 </blocks>
@@ -212,12 +233,21 @@ Settings can be altered on multiple places afterwards, it cascades like this:
 
 Example of how settings can be specified through a template helper:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ sonata_block_render({'name': 'rssBlock'}, {
-          'title': 'Symfony2 CMF news',
-          'url': 'http://cmf.symfony.com/news.rss'
-    }) }}
+    .. code-block:: jinja
+
+        {{ sonata_block_render({'name': 'rssBlock'}, {
+            'title': 'Symfony2 CMF news',
+            'url': 'http://cmf.symfony.com/news.rss'
+        }) }}
+
+    .. code-block:: php+html
+        
+        <?php $view['blocks']->render(array('name' => 'rssBlock'), array(
+            'title' => 'Symfony2 CMF news',
+            'url'   => 'http://cmf.symfony.com/news.rss',
+        )) ?>
 
 Form Configuration
 ~~~~~~~~~~~~~~~~~~
@@ -240,10 +270,17 @@ javascript and stylesheet assets. Use the twig helpers
 ``sonata_block_include_javascripts`` and ``sonata_block_include_stylesheets``
 to render them:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ sonata_block_include_javascripts() }}
-    {{ sonata_block_include_stylesheets() }}
+    .. code-block:: jinja
+
+        {{ sonata_block_include_javascripts() }}
+        {{ sonata_block_include_stylesheets() }}
+
+    .. code-block:: php+html
+
+        <?php $view['blocks']->includeJavaScripts() ?>
+        <?php $view['blocks']->includeStylesheets() ?>
 
 .. note::
 
@@ -264,17 +301,33 @@ Block rendering
 To render the example from the :ref:`bundle-block-document` section, just add
 the following code to your Twig template:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ sonata_block_render({'name': '/cms/content/blocks/sidebarBlock'}) }}
+    .. code-block:: jinja
+
+        {{ sonata_block_render({'name': '/cms/content/blocks/sidebarBlock'}) }}
+
+    .. code-block:: php+html
+
+        <?php echo $view['blocks']->render(array(
+            'name' => '/cms/content/blocks/sidebarBlock',
+        )) ?>
 
 In this example we specify an absolute path, however, if the block is a child
 of a content document, then you can simply specify the **name** of the block
 as follows:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ sonata_block_render({'name': 'sidebarBlock'}) }}
+    .. code-block:: jinja
+
+        {{ sonata_block_render({'name': 'sidebarBlock'}) }}
+
+    .. code-block:: php+html
+
+        <?php echo $view['blocks']->render(array(
+            'name' => 'sidebarBlock',
+        )) ?>
 
 This will make the BlockBundle render the specified block on every page that
 has a child block document named ``sidebarBlock``.  Of course, the actual page
@@ -298,7 +351,12 @@ You can also :ref:`embed blocks in content <tutorial-block-embed>` using the
 Block types
 -----------
 
-The BlockBundle comes with five general purpose blocks:
+The block bundle comes with a couple of predefined blocks. You may write
+your own blocks, but often, the supplied implementations will be sufficient.
+This is just a quick overview, more details on each block type can be found
+in the :doc:`Block Types <types>` section.
+
+There are five general purpose blocks:
 
 * **StringBlock**: A block only containing a string that is rendered without
   any decoration. Useful for page fragments;
@@ -310,16 +368,6 @@ The BlockBundle comes with five general purpose blocks:
   the content tree. For example you might want; to refer parts of the contact
   information from the homepage
 * **ActionBlock**: A block that calls a Symfony2 action.
-
-.. note::
-
-    You may be thinking "Why would I use this instead of directly calling the
-    action from my template?", well, imagine the following case: You provide a
-    block that renders teasers of your latest news. However, there is no rule
-    where they should appear. Instead, your customer wants to decide himself
-    on what pages this block is to be displayed. By using an ActionBlock, you
-    could allow your customer to do so without calling you to change some
-    templates (over and over again!).
 
 The BlockBundle also provides a couple of blocks for specific tasks,
 integrating third party libraries. You should to read the :doc:`types` section
@@ -350,4 +398,5 @@ editable using the :doc:`CreateBundle <../create>`.
 
 .. _`BlockBundle`: https://github.com/symfony-cmf/BlockBundle#readme
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
+.. _`prepended configuration`: http://symfony.com/doc/current/components/dependency_injection/compilation.html#prepending-configuration-passed-to-the-extension
 .. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle

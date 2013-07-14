@@ -1,5 +1,6 @@
 .. index::
-    single: SimpleCMS, CmfSimpleCMSBundle
+    single: SimpleCMS; Getting Started
+    single: CmfSimpleCMSBundle
 
 SimpleCMS
 =========

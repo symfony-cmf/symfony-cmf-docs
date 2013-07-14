@@ -1,3 +1,7 @@
+.. index::
+    single: Routing; Bundles
+    single: RoutingBundle
+
 The RoutingBundle
 =================
 

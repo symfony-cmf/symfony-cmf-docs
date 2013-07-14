@@ -1,5 +1,6 @@
 .. index::
-    single: Content, CmfContentBundle
+    single: Content; Getting Started
+    single: CmfContentBundle
 
 Content
 =======
