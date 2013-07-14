@@ -101,6 +101,8 @@ will look like this
 
 See also official Symfony2 `documentation for DependencyInjection tags`_
 
+.. _bundles-routing-dynamic_router:
+
 Dynamic Router
 --------------
 
