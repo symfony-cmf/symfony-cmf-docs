@@ -3,11 +3,11 @@ Bundles
 
 Perhaps unlike many other community bundles, each individual CMF bundle is
 part of a larger project, the CMF. As such, stable bundles should adhere to a
-core set of standards and goals in addition to the `suggested bundle best
-practices`_. 
+core set of standards and goals in addition to the 
+`suggested bundle best practices`_. 
 
 All CMF bundles MUST meet the requirements set out in the following table in
-order for them to be classed as stable:
+order for them to be classified as stable:
 
 +----------------------------------+----+
 | Feature                          | OK |
@@ -23,6 +23,8 @@ order for them to be classed as stable:
 
 The rest of this document will explain each of the above requirements in
 detail.
+
+.. _bundle_standard_meta:
 
 Meta: README, CHANGELOG, etc.
 -----------------------------
@@ -42,7 +44,9 @@ See the following templates:
 * **CONTRIBUTING**: `CONTRIBUTING document from CoreBundle`_ (this document is
   the same for all bundles).
 
-Persistance
+.. _bundle_standard_persistence:
+
+Persistence
 -----------
 
 * All CMF bundles MUST support PHPCR-ODM;
@@ -70,14 +74,20 @@ Persistance
 See the `Mapping Model Classes`_ chapter of the Symfony cookbook for more
 information.
 
+.. _bundle_standard_configuration:
+
 Configuration, Files and Formats
 --------------------------------
 
-All core configuration files MUST be in **XML**, this includes:
+Core configuration files MUST be in **XML**, this includes:
 
 * Routing;
 * Service definitions;
-* Doctrine mappings.
+* Doctrine mappings;
+* Translations (XLIFF format).
+
+In other cases XML should be preferred over other configuration formats where
+there is a choice.
 
 Bundles MUST adhere to the following directory and filename schema
 as applicable:
@@ -86,19 +96,32 @@ as applicable:
 
     ./Resources/
         ./config/
+            ./schema/
+                ./bundle_name-1.0.xsd
             ./routing
                 ./my_service.xml
             ./admin.xml                # all sonata-admin stuff
             ./validation.xml           # all validation
             ./my-related-services.xml  # semanticlly named file for specific services
 
-All bundles MUST define a ``Configuration`` class
+Bundles MUST define a ``Configuration`` class
 
 .. code-block:: text
 
     ./DependencyInjection
         ./Configuration.php
         ./MyBundleExtension.php
+
+Bundles SHOULD provide an `XML schema`_ for their configuration, as provided by
+``Configuration::getXsdValidationBasePath``.
+
+Bundles MUST use their own XML namespace, The XML namespace is
+`http://cmf.symfony.com/schema/dic/bundle_name` with ``bundle_name`` being the
+`DI alias of the bundle`_.
+
+Bundles MUST support `XML in the configuration class`_.
+
+.. _bundle_standard_testing_component:
 
 Standard Integration of the Testing Component
 ---------------------------------------------
@@ -113,4 +136,7 @@ instructions on how the component should be integrated.
 .. _`suggested bundle best practices`: http://symfony.com/doc/current/cookbook/bundles/best_practices.html
 .. _`CONTRIBUTING document from CoreBundle`: https://github.com/symfony-cmf/CoreBundle/blob/master/CONTRIBUTING.md
 .. _`Mapping Model Classes`: http://symfony.com/doc/master/cookbook/doctrine/mapping_model_classes.html
-
+.. _`DI alias of the bundle`: http://symfony.com/doc/current/cookbook/bundles/extension.html#creating-an-extension-class
+.. _`XML in the configuration class`: ttp://symfony.com/doc/current/components/config/definition.html#normalization
+.. _`XML schema`: https://en.wikipedia.org/wiki/.xsd
+.. _`XLIFF format`: http://symfony.com/doc/current/book/translation.html#basic-translation

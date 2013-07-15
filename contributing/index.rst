@@ -4,8 +4,8 @@ Contributing
 .. toctree::
 	:hidden:
 
-	code
+    code
     bundles
-	license
+    license
 
 .. include:: map.rst.inc
