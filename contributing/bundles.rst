@@ -9,25 +9,41 @@ core set of standards and goals in addition to the
 All CMF bundles MUST meet the requirements set out in the following table in
 order for them to be classified as stable:
 
-+----------------------------------+----+
-| Feature                          | OK |
-+==================================+====+
-| Meta: README, CHANGELOG, etc     |    |
-+----------------------------------+----+
-| Persistance                      |    |
-+----------------------------------+----+
-| Configuration, files and formats |    |
-+----------------------------------+----+
-| Testing component integration    |    |
-+----------------------------------+----+
++-------------------------------------+----+
+| Feature                             | OK |
++=====================================+====+
+| `General Bundle Standards`_         |    |
++-------------------------------------+----+
+| `Meta: README, CHANGELOG, etc`_     |    |
++-------------------------------------+----+
+| `Persistence`_                      |    |
++-------------------------------------+----+
+| `Configuration, files and formats`_ |    |
++-------------------------------------+----+
+| `Testing Component Integration`_    |    |
++-------------------------------------+----+
 
 The rest of this document will explain each of the above requirements in
 detail.
 
-.. _bundle_standard_meta:
+General Bundle Standards
+------------------------
 
-Meta: README, CHANGELOG, etc.
------------------------------
+Composite filenames (and by extension class names) SHOULD place the subject
+first:
+
++---------------------+----------------------+
+| Bad                 | Good                 |
++=====================+======================+
+| phpcr-admin.xml     | admin-phpcr.xml      |
++---------------------+----------------------+
+| FoobarMenuNode      | MenuNodeFoobar       |
++---------------------+----------------------+
+| AdvancedSimpleBlock | SimpleBlockAdvanced  |
++---------------------+----------------------+
+
+Meta: README, CHANGELOG, etc
+----------------------------
 
 Bundles MUST have the following metafiles:
 
@@ -41,10 +57,8 @@ See the following templates:
 
 * **README**: `README template on wiki`_;
 * **CHANGELOG**: `CHANGELOG template on wiki`_;
-* **CONTRIBUTING**: `CONTRIBUTING document from CoreBundle`_ (this document is
-  the same for all bundles).
-
-.. _bundle_standard_persistence:
+* **CONTRIBUTING**: `CONTRIBUTING file from CoreBundle`_ (this should be
+  copied verbatim).
 
 Persistence
 -----------
@@ -73,8 +87,6 @@ Persistence
 
 See the `Mapping Model Classes`_ chapter of the Symfony cookbook for more
 information.
-
-.. _bundle_standard_configuration:
 
 Configuration, Files and Formats
 --------------------------------
@@ -116,15 +128,13 @@ Bundles SHOULD provide an `XML schema`_ for their configuration, as provided by
 ``Configuration::getXsdValidationBasePath``.
 
 Bundles MUST use their own XML namespace, The XML namespace is
-`http://cmf.symfony.com/schema/dic/bundle_name` with ``bundle_name`` being the
+``http://cmf.symfony.com/schema/dic/bundle_name`` with ``bundle_name`` being the
 `DI alias of the bundle`_.
 
 Bundles MUST support `XML in the configuration class`_.
 
-.. _bundle_standard_testing_component:
-
-Standard Integration of the Testing Component
----------------------------------------------
+Testing Component Integration
+-----------------------------
 
 All bundles MUST implement the CMF Testing component.
 
@@ -140,3 +150,4 @@ instructions on how the component should be integrated.
 .. _`XML in the configuration class`: ttp://symfony.com/doc/current/components/config/definition.html#normalization
 .. _`XML schema`: https://en.wikipedia.org/wiki/.xsd
 .. _`XLIFF format`: http://symfony.com/doc/current/book/translation.html#basic-translation
+.. _`CONTRIBUTING file from CoreBundle`: https://github.com/symfony-cmf/CoreBundle/CONTRIBUTING.md
