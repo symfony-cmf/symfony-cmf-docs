@@ -214,7 +214,7 @@ If you want to use the PHPCR-ODM as well, please also see the next section.
             session:
                 backend:
                     type: doctrinedbal
-                    connection: doctrine.dbal.default_connection
+                    # connection: default
                 workspace: default
                 username: admin
                 password: admin

@@ -107,7 +107,7 @@ In your ``config.yml`` file, add following configuration for ``doctrine_phpcr``:
             session:
                 backend:
                     type: doctrinedbal
-                    connection: doctrine.dbal.default_connection
+                    # connection: default
                 workspace: default
             odm:
                 auto_mapping: true
@@ -643,7 +643,7 @@ Make sure you have the following in your config file:
             session:
                 backend:
                     type: doctrinedbal
-                    connection: doctrine.dbal.default_connection
+                    # connection: default
                 workspace: default
             odm:
                 auto_mapping: true
