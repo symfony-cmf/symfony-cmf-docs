@@ -1,5 +1,5 @@
-Obsolete: RoutingExtraBundle
-============================
+RoutingExtraBundle (Deprecated)
+===============================
 
 This bundle was removed to :doc:`RoutingBundle <routing>`. The old bundle is
 still kept around for a moment to give people time to upgrade and for its

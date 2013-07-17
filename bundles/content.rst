@@ -2,8 +2,8 @@
     single: Content; Bundles
     single: ContentBundle
 
-The ContentBundle
-=================
+ContentBundle
+=============
 
 This bundle provides a document for static content and the controller to
 render it.

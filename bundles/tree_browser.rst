@@ -2,8 +2,8 @@
     single: TreeBrowser; Bundles
     single: TreeBrowserBundle
 
-The TreeBrowserBundle
-=====================
+TreeBrowserBundle
+=================
 
 The `TreeBrowserBundle`_ provides a tree navigation on top of a PHPCR
 repository.

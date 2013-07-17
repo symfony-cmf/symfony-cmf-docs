@@ -2,8 +2,8 @@
     single: Create; Bundles
     single: CreateBundles
 
-The CreateBundle
-================
+CreateBundle
+============
 
 The `CreateBundle`_ integrates create.js and the createphp helper library into
 Symfony2.

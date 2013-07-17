@@ -2,8 +2,8 @@
     single: Search; Bundles
     single: SearchBundle
 
-The SearchBundle
-================
+SearchBundle
+============
 
 The `SearchBundle`_ provides integration with `LiipSearchBundle`_ to provide a
 site wide search.

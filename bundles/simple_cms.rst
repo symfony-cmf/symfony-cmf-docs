@@ -2,8 +2,8 @@
     single: SimpleCms; Bundles
     single: SimpleCmsBundle
 
-The SimpleCmsBundle
-===================
+SimpleCmsBundle
+===============
 
 The `SimpleCmsBundle`_ provides a simplistic CMS on top of the CMF components
 and bundles.

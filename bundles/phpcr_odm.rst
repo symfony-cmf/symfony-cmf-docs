@@ -2,8 +2,8 @@
     single: PHPCR; Bundles
     single: DoctrinePHPCRBundle
 
-The DoctrinePHPCRBundle
-=======================
+DoctrinePHPCRBundle
+===================
 
 The `DoctrinePHPCRBundle`_ provides integration with the PHP content
 repository and optionally with Doctrine PHPCR-ODM to provide the ODM document

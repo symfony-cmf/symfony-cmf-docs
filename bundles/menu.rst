@@ -2,8 +2,8 @@
     single: Menu; Bundles
     single: MenuBundle
 
-The MenuBundle
-==============
+MenuBundle
+==========
 
 The `MenuBundle`_ provides menus from a doctrine object manager with the help
 of `KnpMenuBundle`_.

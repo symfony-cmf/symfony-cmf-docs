@@ -2,8 +2,8 @@
     single: Routing; Bundles
     single: RoutingBundle
 
-The RoutingBundle
-=================
+RoutingBundle
+=============
 
 The `RoutingBundle`_ integrates dynamic routing into Symfony using
 :doc:`../components/routing`.

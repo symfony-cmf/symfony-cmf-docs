@@ -2,8 +2,8 @@
     single: DoctrinePHPCrAdmin; Bundles
     single: SonataDoctrinePhpcrAdminBundle
 
-The SonataDoctrinePhpcrAdminBundle
-==================================
+SonataDoctrinePhpcrAdminBundle
+==============================
 
 The `SonataDoctrinePhpcrAdminBundle`_ provides integration with the
 SonataAdminBundle to enable easy creation of admin UIs.

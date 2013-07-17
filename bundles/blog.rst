@@ -2,8 +2,8 @@
     single: Blog; Bundles
     single: BlogBundle
 
-The BlogBundle
-==============
+BlogBundle
+==========
 
 This bundle aims to provide everything you need to create a full blog or
 blog-like system. It also includes in-built support for the Sonata Admin
