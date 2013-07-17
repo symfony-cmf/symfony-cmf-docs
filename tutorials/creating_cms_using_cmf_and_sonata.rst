@@ -200,7 +200,7 @@ Tree Problems
 
 If you have not yet added anything to the content repository, the tree view
 will not load as it cannot find a root node. To fix this, load some data as
-fixtures by following ":doc:`using-blockbundle-and-contentbundle`"
+fixtures by following ":doc:`using_blockbundle_and_contentbundle`"
 
 Further Reading
 ---------------

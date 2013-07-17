@@ -12,9 +12,9 @@ This is aimed at experienced user who want to know all about the Symfony CMF
 details. If this is your first encounter with the Symfony CMF it would be a
 good idea to start with:
 
-* :doc:`../getting-started/installing-symfony-cmf` page for instructions on
+* :doc:`../getting_started/installing_symfony_cmf` page for instructions on
   how to quickly install the CMF (recommended for development)
-* :doc:`../cookbook/installing-cmf-sandbox` for instructions on how to install
+* :doc:`../cookbook/installing_cmf_sandbox` for instructions on how to install
   a demonstration sandbox.
 
 .. index:: RoutingBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle, install
@@ -23,7 +23,7 @@ Preconditions
 -------------
 
 * `Installation of Symfony2`_ (2.1.x)
-* :doc:`installing-configuring-doctrine-phpcr-odm`
+* :doc:`installing_configuring_doctrine_phpcr_odm`
 
 Installation
 ------------
@@ -93,7 +93,7 @@ Minimum Configuration
 These steps are needed to ensure your ``AppKernel`` still runs.
 
 If you haven't done so already, make sure you have followed these steps from
-:doc:`installing-configuring-doctrine-phpcr-odm`:
+:doc:`installing_configuring_doctrine_phpcr_odm`:
 
 * Initialize ``DoctrinePHPCRBundle`` in ``app/AppKernel.php``
 * Ensure there is a ``doctrine_phpcr:`` section in ``app/config/config.yml``

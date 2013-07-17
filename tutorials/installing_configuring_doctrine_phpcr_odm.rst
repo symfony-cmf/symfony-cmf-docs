@@ -14,7 +14,7 @@ The goal of this tutorial is to install and configure Doctrine PHPCR-ODM,
 ready for you to get started with the CMF.
 
 For more details see the `full PHPCR-ODM documentation`_. Some additional
-information can be found in the :doc:`../bundles/phpcr-odm` reference, which
+information can be found in the :doc:`../bundles/phpcr_odm` reference, which
 for the most part mimics the standard `DoctrineBundle`_.
 
 Finally for information about PHPCR see the `official PHPCR website`_.
@@ -177,7 +177,7 @@ PHPCR Session
 Basic configuration for each content repository is shown below; add the
 appropriate lines to your ``app/config/config.yml``. More information on
 configuring this bundle can be found in the reference chapter
-:doc:`../bundles/phpcr-odm`.
+:doc:`../bundles/phpcr_odm`.
 
 The workspace, username and password parameters are for the PHPCR repository
 and should not be confused with possible database credentials. They come from

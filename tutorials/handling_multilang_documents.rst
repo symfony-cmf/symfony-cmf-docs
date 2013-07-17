@@ -11,7 +11,7 @@ Please read this first
 ----------------------
 
 You need to understand how to use PHPCR-ODM. You find an introduction in
-:doc:`Documentation on the PHPCR-ODM Doctrine bundle <../bundles/phpcr-odm>`
+:doc:`Documentation on the PHPCR-ODM Doctrine bundle <../bundles/phpcr_odm>`
 
 Lunetics LocaleBundle
 ---------------------
@@ -101,7 +101,7 @@ Sonata PHPCR-ODM Admin
 This section explains how to make Sonata Admin handle multi-language
 documents. You should already have set up Sonata PHPCR-ODM Admin and
 understand how it works, see
-:doc:`Creating a CMS using the CMF and Sonata <creating-cms-using-cmf-and-sonata>`.
+:doc:`Creating a CMS using the CMF and Sonata <creating_cms_using_cmf_and_sonata>`.
 
 .. note::
 

@@ -202,5 +202,5 @@ These properties can then be accessed in your controller or templates via the
 
 .. _`SimpleCmsBundle`: https://github.com/symfony-cmf/SimpleCmsBundle#readme
 .. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/symfony-cmf-standard
-.. _`Getting started`: ../getting-started/simplecms
+.. _`Getting started`: ../getting_started/simplecms
 .. _`CMF website`: https://github.com/symfony-cmf/cmf-website/

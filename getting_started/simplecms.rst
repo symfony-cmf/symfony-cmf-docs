@@ -359,7 +359,7 @@ bundle's `documentation section`_.
 
 The included administration panels will automatically be loaded if you install
 the SonataDoctrinePHPCRAdminBundle (refer to
-:doc:`../tutorials/creating-cms-using-cmf-and-sonata` for instructions on how
+:doc:`../tutorials/creating_cms_using_cmf_and_sonata` for instructions on how
 to do so). You can change this behaviour with the following configuration
 option:
 
@@ -408,7 +408,7 @@ Configuration
 -------------
 
 This bundle is configurable using a set of parameters, but all of them are
-optional. You can go to the :doc:`../bundles/simple-cms` reference page for
+optional. You can go to the :doc:`../bundles/simple_cms` reference page for
 the full configuration options list and aditional information.
 
 Further Notes
@@ -416,13 +416,13 @@ Further Notes
 
 For more information on the SimpleCMSBundle, please refer to:
 
-* :doc:`../bundles/simple-cms` for configuration reference and advanced
+* :doc:`../bundles/simple_cms` for configuration reference and advanced
   details about the bundle.
-* :doc:`../getting-started/routing` for information about the routing
+* :doc:`../getting_started/routing` for information about the routing
   component in which the SimpleCMSBundle is based on.
-* :doc:`../getting-started/content` for information about the base content
+* :doc:`../getting_started/content` for information about the base content
   bundle that the SimpleCMSBundle depends on.
-* :doc:`../getting-started/menu` for information about the menu system used
+* :doc:`../getting_started/menu` for information about the menu system used
   by the SimpleCMSBundle.
 
 .. _`SonataDoctrinePHPCRAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle

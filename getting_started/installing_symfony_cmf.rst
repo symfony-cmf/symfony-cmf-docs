@@ -26,10 +26,10 @@ to first take a look at:
 
     For other Symfony CMF installation guides, please read:
 
-    * The cookbook entry on :doc:`../cookbook/installing-cmf-sandbox` for
+    * The cookbook entry on :doc:`../cookbook/installing_cmf_sandbox` for
       instructions on how to install a more complete demo instance of Symfony
       CMF.
-    * :doc:`../tutorials/installing-cmf-core` for step-by-step installation
+    * :doc:`../tutorials/installing_cmf_core` for step-by-step installation
       and configuration details of just the core components into an existing
       Symfony application.
 
@@ -48,7 +48,7 @@ storage medium.
     can use one of several available data storage mechanisms without having to
     rewrite your code. For more information on the different available
     mechanisms and how to install and configure them, refer to
-    :doc:`../tutorials/installing-configuring-doctrine-phpcr-odm`
+    :doc:`../tutorials/installing_configuring_doctrine_phpcr_odm`
 
 `Git`_ and `Curl`_ are also needed to follow the installation steps listed
 below.
@@ -196,7 +196,7 @@ Adding new pages
 
 Symfony CMF SE does not provide any admin tools to create new pages. If you
 are interested in adding an admin UI have a look at
-:doc:`../tutorials/creating-cms-using-cmf-and-sonata`. However if all you want
+:doc:`../tutorials/creating_cms_using_cmf_and_sonata`. However if all you want
 is a simple way to add new pages that you can then edit via the inline
 editing, then you can use the SimpleCmsBundle ``page`` migrator. The Symfony
 CMF SE ships with an example YAML file stored in

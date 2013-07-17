@@ -28,7 +28,7 @@ configuration of the Doctrine ORM and MongoDB bundles.
 Setup and Requirements
 ----------------------
 
-See :doc:`../tutorials/installing-configuring-doctrine-phpcr-odm`
+See :doc:`../tutorials/installing_configuring_doctrine_phpcr_odm`
 
 Configuration
 -------------
@@ -401,7 +401,7 @@ A full example looks as follows:
 
     This example also uses different configurations per repository (see the
     ``repository_id`` attribute). This case is explained in
-    :doc:`../cookbook/phpcr-odm-custom-documentclass-mapper`.
+    :doc:`../cookbook/phpcr_odm_custom_documentclass_mapper`.
 
 .. _bundle-phpcr-odm-commands:
 

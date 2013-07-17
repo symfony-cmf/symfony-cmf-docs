@@ -13,9 +13,9 @@ While it can be used as such, this sandbox does not intend to be a development
 platform. If you are looking for installation instructions for a development
 setup, please refer to:
 
-* :doc:`../getting-started/installing-symfony-cmf` page for instructions on
+* :doc:`../getting_started/installing_symfony_cmf` page for instructions on
   how to quickly install the CMF (recommended for development)
-* :doc:`../tutorials/installing-cmf-core` for step-by-step installation and
+* :doc:`../tutorials/installing_cmf_core` for step-by-step installation and
   configuration details (if you want to know all the details)
 
 .. index:: sandbox, install

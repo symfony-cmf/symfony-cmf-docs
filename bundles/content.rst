@@ -8,7 +8,7 @@ The ContentBundle
 This bundle provides a document for static content and the controller to
 render it.
 
-For an introduction see the :doc:`../getting-started/content` article in the
+For an introduction see the :doc:`../getting_started/content` article in the
 "Getting started" section.
 
 .. index:: ContentBundle
