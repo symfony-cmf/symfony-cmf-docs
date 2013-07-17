@@ -32,15 +32,15 @@ General Bundle Standards
 Composite filenames (and by extension class names) SHOULD place the subject
 first:
 
-+---------------------+----------------------+
-| Bad                 | Good                 |
-+=====================+======================+
-| phpcr-admin.xml     | admin-phpcr.xml      |
-+---------------------+----------------------+
-| FoobarMenuNode      | MenuNodeFoobar       |
-+---------------------+----------------------+
-| AdvancedSimpleBlock | SimpleBlockAdvanced  |
-+---------------------+----------------------+
++-------------------------+-------------------------+
+| Bad                     | Good                    |
++=========================+=========================+
+| phpcr-admin.xml         | admin-phpcr.xml         |
++-------------------------+-------------------------+
+| FoobarMenuNode          | MenuNodeFoobar          |
++-------------------------+-------------------------+
+| AllFeaturesSimpleBlock  | SimpleBlockAllFeatures  |
++-------------------------+-------------------------+
 
 Meta: README, CHANGELOG, etc
 ----------------------------
@@ -52,12 +52,14 @@ Bundles MUST have the following metafiles:
     ./README.md
     ./CHANGELOG.md
     ./CONTRIBUTING.md
+    ./Resources/meta/LICENSE
 
 See the following templates:
 
 * **README**: `README template on wiki`_;
 * **CHANGELOG**: `CHANGELOG template on wiki`_;
 * **CONTRIBUTING**: `CONTRIBUTING file from CoreBundle`_ (this should be
+* **LICENSE**: `LICENSE template on wiki`_ (this should be
   copied verbatim).
 
 Persistence
@@ -151,3 +153,4 @@ instructions on how the component should be integrated.
 .. _`XML schema`: https://en.wikipedia.org/wiki/.xsd
 .. _`XLIFF format`: http://symfony.com/doc/current/book/translation.html#basic-translation
 .. _`CONTRIBUTING file from CoreBundle`: https://github.com/symfony-cmf/CoreBundle/CONTRIBUTING.md
+.. _`LICENSE template on wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki/LICENSE-Template
