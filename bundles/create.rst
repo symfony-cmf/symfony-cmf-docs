@@ -32,6 +32,8 @@ AsseticBundle, FOSRestBundle and by inference also JmsSerializerBundle. Make
 sure you instantiate all those bundles in your kernel and properly configure
 assetic.
 
+To upload and display images the :doc:`MediaBundle <media>` is used.
+
 Installation
 ------------
 
@@ -240,16 +242,8 @@ Configuration
             # use a different class for the REST handler
             # rest_controller_class: FQN\Classname
 
-            # image handling
-            image:
-                model_class: ~
-                controller_class: ~
-
-            # access check role for js inclusion, default REST and image controllers
+            # access check role for js inclusion, default REST and image upload
             # role: IS_AUTHENTICATED_ANONYMOUSLY
-
-            # enable the doctrine PHPCR-ODM mapper
-            phpcr_odm: true
 
             # mapping from rdf type name => class name used when adding items to collections
             map:
@@ -270,6 +264,19 @@ Configuration
             # routes are in the same repository tree.
             # create_routes_types: ['http://schema.org/NewsArticle']
 
+            # enable the doctrine PHPCR-ODM mapper
+            persistence:
+                phpcr:
+                    enabled:       true
+            #        manager_name: ~
+
+                     # image handling - automatically enabled if the MediaBundle is installed
+            #        image:
+            #            enabled:          true
+            #            model_class:      ~
+            #            controller_class: ~
+            #            basepath:         ~
+
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
@@ -277,7 +284,6 @@ Configuration
             auto-mapping: look for mappings in <Bundle>/Resources/rdf-mappings
             rest-controller-class: use a different class for the REST handler
             role: access check role for js inclusion, default REST and image controllers
-            phpcr-odm: enable the doctrine PHPCR-ODM mapper
             stanbol-url: stanbol url for semantic enhancement, otherwise defaults to the demo install
             fixed-toolbar: fix the Hallo editor toolbar on top of the page
         -->
@@ -285,19 +291,12 @@ Configuration
             auto-mapping="true"
             rest-controller-class="FQN\ClassName"
             role="IS_AUTHENTICATED_ANONYMOUSLY"
-            phpcr-odm="true"
             stanbol-url="http://dev.iks-project.eu:8081"
             fixed-toolbar="true">
             <!-- metadata loading -->
 
             <!-- directory list to look for metadata -->
             <rdf-config-dir>%kernel.root_dir%/Resources/rdf-mappings</rdf-config-dir>
-
-            <!-- image handling -->
-            <image
-                model-class=""
-                controller-class=""
-            />
 
             <!-- mapping from rdf type name => class name used when adding items to collections -->
             <map
@@ -311,6 +310,22 @@ Configuration
                 content of these types has been added with Create.js. This is
                 not necessary with the SimpleCmsBundle, as the content and the
             -->
+
+            <!-- enable the doctrine PHPCR-ODM mapper -->
+            <persistence>
+                <phpcr
+                    enabled=""
+                    manager-name=""
+                >
+                    <!-- image handling - automatically enabled if the MediaBundle is installed -->
+                    <image
+                        enabled="true"
+                        model-class=""
+                        controller-class=""
+                        basepath=""
+                    />
+                </phpcr>
+            </persistence>
         </config>
 
     .. code-block:: php
@@ -330,17 +345,8 @@ Configuration
             // use a different class for the REST handler
             // 'rest_controller_class' => 'FQN\Classname'
 
-            // image handling
-            'image' => array(
-                'model_class'      => null,
-                'controller_class' => null,
-            ),
-
             // access check role for js inclusion, default REST and image controllers
             // 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY',
-
-            // enable the doctrine PHPCR-ODM mapper
-            'phpcr_odm' => true,
 
             // mapping from rdf type name => class name used when adding items to collections
             'map' => array(
@@ -359,6 +365,21 @@ Configuration
             // RDFa types for which to create the corresponding routes after
             // content of these types has been added with Create.js. This is
             // not necessary with the SimpleCmsBundle, as the content and the
+
+            // enable the doctrine PHPCR-ODM mapper
+            'persistence' => array(
+                'phpcr' => array(
+                    'enabled'      => true,
+                    'manager_name' => null,
+                    // image handling - automatically enabled if the MediaBundle is installed
+                    'image' => array(
+                        'enabled'          => true,
+                        'model_class'      => null,
+                        'controller_class' => null,
+                        'basepath'         => '/cms/media',
+                    ),
+                ),
+            ),
         ));
 
 The provided javascript file configures create.js and the hallo editor. It
@@ -394,9 +415,7 @@ isEditable to answer whether the passed domain object is editable.
 Image Handling
 ~~~~~~~~~~~~~~
 
-Enable the default simplistic image handler with the image > model_class |
-controller_class settings. This image handler just throws images into the
-PHPCR-ODM repository and also serves them in requests.
+For image handling the :doc:`MediaBundle <media>` is used if installed.
 
 If you need different image handling, you can either overwrite
 ``image.model_class`` and/or ``image.controller_class``, or implement a custom
