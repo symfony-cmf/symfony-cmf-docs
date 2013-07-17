@@ -88,6 +88,7 @@ to do it? In this case the reference is the right place for you.
 	bundles/core
 	bundles/create
 	bundles/phpcr_odm
+	bundles/media
 	bundles/menu
 	bundles/routing
 	bundles/routing_auto

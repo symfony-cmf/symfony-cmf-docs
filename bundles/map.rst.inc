@@ -26,6 +26,10 @@
 
   * :doc:`phpcr_odm`
 
+* **MediaBundle**
+
+  * :doc:`media`
+
 * **MenuBundle**
 
   * :doc:`menu`
