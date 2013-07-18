@@ -10,6 +10,7 @@ Bundles
 	core
 	create
 	phpcr_odm
+	media
 	menu
 	routing
 	routing_auto

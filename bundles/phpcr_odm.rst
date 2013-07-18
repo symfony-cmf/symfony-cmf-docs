@@ -528,107 +528,6 @@ Form Types
 The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM
 specific cases, along with form type guessers.
 
-phpcr_odm_image
-~~~~~~~~~~~~~~~
-
-The ``phpcr_odm_image`` form maps to a document of type
-``Doctrine\ODM\PHPCR\Document\Image`` and provides a preview of the uploaded
-image. To use it, you need to include the `LiipImagineBundle`_ in your project
-and define an imagine filter for thumbnails.
-
-This form type is only available if explicitly enabled in your application
-configuration by defining the ``imagine`` section under the ``odm`` section
-with at least ``enabled: true``.  You can also configure the imagine filter to
-use for the preview, as well as additional filters to remove from cache when
-the image is replaced. If the filter is not specified, it defaults to
-``image_upload_thumbnail``.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        doctrine_phpcr:
-            # ...
-            odm:
-                imagine:
-                    enabled: true
-                    # filter: image_upload_thumbnail
-                    # extra_filters:
-                    #    - imagine_filter_name1
-                    #    - imagine_filter_name2
-
-        # Imagine Configuration
-        liip_imagine:
-            # ...
-            filter_sets:
-                # define the filter to be used with the image preview
-                image_upload_thumbnail:
-                    data_loader: phpcr
-                    filters:
-                        thumbnail: { size: [100, 100], mode: outbound }
-
-Then you can add images to document forms as follows::
-
-    use Symfony\Component\Form\FormBuilderInterface;
-
-    protected function configureFormFields(FormBuilderInterface $formBuilder)
-    {
-         $formBuilder
-            ->add('image', 'phpcr_odm_image', array('required' => false))
-         ;
-    }
-
-.. tip::
-
-   If you set required to true for the image, the user must re-upload a new
-   image each time he edits the form. If the document must have an image, it
-   makes sense to require the field when creating a new document, but make it
-   optional when editing an existing document.  We are
-   `trying to make this automatic`_.
-
-Next you will need to add the ``fields.html.twig`` template from the
-DoctrinePHPCRBundle to the ``form.resources``, to actually see the preview of
-the uploaded image in the backend.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # Twig Configuration
-        twig:
-            form:
-                resources:
-                    - 'DoctrinePHPCRBundle:Form:fields.html.twig'
-
-The document that should contain the Image document has to implement a setter
-method.  To profit from the automatic guesser of the form layer, the name in
-the form element and this method name have to match::
-
-    public function setImage($image)
-    {
-        if (!$image) {
-            // this is normal and happens when no new image is uploaded
-            return;
-        } elseif ($this->image && $this->image->getFile()) {
-            // TODO: needed until this bug in PHPCRODM has been fixed: https://github.com/doctrine/phpcr-odm/pull/262
-            $this->image->getFile()->setFileContent($image->getFile()->getFileContent());
-        } else {
-            $this->image = $image;
-        }
-    }
-
-To delete an image, you need to delete the document containing the image.
-(There is a proposal to improve the user experience for that in a
-`DoctrinePHPCRBundle issue`_.)
-
-.. note::
-
-    There is a doctrine listener to invalidate the imagine cache for the
-    filters you specified. This listener will only operate when an Image is
-    changed in a web request, but not when a CLI command changes images. When
-    changing images with commands, you should handle cache invalidation in the
-    command or manually remove the imagine cache afterwards.
-
 phpcr_odm_reference_collection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -873,12 +772,8 @@ Dumping nodes under ``/cms/simple`` including their properties:
 .. _`the PHPCR-ODM documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html
 .. _`Symfony event subscriber`: http://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers
 .. _`Symfony cookbook entry`: http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html
-.. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle/
-.. _`trying to make this automatic`: https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4
-.. _`DoctrinePHPCRBundle issue`: https://github.com/doctrine/DoctrinePHPCRBundle/issues/40
 .. _`currently broken`: https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145
 .. _`DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`Doctrine data-fixtures`: https://github.com/doctrine/data-fixtures
 .. _`documentation of the DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
-.. _`DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`SQL2 queries`: http://www.h2database.com/jcr/grammar.html
