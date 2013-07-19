@@ -144,7 +144,8 @@ and re-run composer:
 
     $ php composer.phar update nothing
 
-In your application config file, define the editor base path:
+If you use a non-standard setup, you can adjust the editor base path
+configuration. The default value is:
 
 .. configuration-block::
 
