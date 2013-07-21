@@ -35,7 +35,7 @@ first:
 +-------------------------+-------------------------+
 | Bad                     | Good                    |
 +=========================+=========================+
-| phpcr-admin.xml         | admin-phpcr.xml         |
+| ``phpcr-admin.xml``     | ``admin-phpcr.xml``     |
 +-------------------------+-------------------------+
 | FoobarMenuNode          | MenuNodeFoobar          |
 +-------------------------+-------------------------+
@@ -71,7 +71,7 @@ Persistence
 * All CMF bundles MUST follow the following structure to enable future or
   current support of other persistence systems:
 * All CMF bundles MUST create implementation specific models in addition to
-  those in `/Model` (even if they are empty). See `Blog.php` and `Post.php`
+  those in ``/Model`` (even if they are empty). See ``Blog.php`` and ``Post.php``
   below.
 
 .. code-block:: text
@@ -91,7 +91,7 @@ Persistence
             ./doctrine-phpcr
                 ./Blog.phpcr.xml
 
-See the `Mapping Model Classes`_ chapter of the Symfony cookbook for more
+See the `Mapping Model Classes`_ chapter of the Symfony Cookbook for more
 information.
 
 Configuration, Files and Formats
@@ -115,14 +115,14 @@ as applicable:
     ./Resources/
         ./config/
             ./schema/
-                ./bundle_name-1.0.xsd
+                ./bundlename-1.0.xsd
             ./routing
                 ./my_service.xml
             ./admin.xml                # all sonata-admin stuff
             ./validation.xml           # all validation
-            ./my-related-services.xml  # semanticlly named file for specific services
+            ./my-related-services.xml  # semantically named file for specific services
 
-Bundles MUST define a ``Configuration`` class
+Bundles MUST define a ``Configuration`` class:
 
 .. code-block:: text
 
