@@ -59,6 +59,7 @@ See the following templates:
 * **README**: `README template on wiki`_;
 * **CHANGELOG**: `CHANGELOG template on wiki`_;
 * **CONTRIBUTING**: `CONTRIBUTING file from CoreBundle`_ (this should be
+  copied verbatim);
 * **LICENSE**: `LICENSE template on wiki`_ (this should be
   copied verbatim).
 
@@ -69,6 +70,9 @@ Persistence
 * A bundle MAY support other persistence layers like Doctrine ORM;
 * All CMF bundles MUST follow the following structure to enable future or
   current support of other persistence systems:
+* All CMF bundles MUST create implementation specific models in addition to
+  those in `/Model` (even if they are empty). See `Blog.php` and `Post.php`
+  below.
 
 .. code-block:: text
 
