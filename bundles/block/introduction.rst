@@ -242,7 +242,7 @@ Example of how settings can be specified through a template helper:
             'url': 'http://cmf.symfony.com/news.rss'
         }) }}
 
-    .. code-block:: php+html
+    .. code-block:: html+php
         
         <?php $view['blocks']->render(array('name' => 'rssBlock'), array(
             'title' => 'Symfony2 CMF news',
@@ -277,7 +277,7 @@ to render them:
         {{ sonata_block_include_javascripts() }}
         {{ sonata_block_include_stylesheets() }}
 
-    .. code-block:: php+html
+    .. code-block:: html+php
 
         <?php $view['blocks']->includeJavaScripts() ?>
         <?php $view['blocks']->includeStylesheets() ?>
@@ -307,7 +307,7 @@ the following code to your Twig template:
 
         {{ sonata_block_render({'name': '/cms/content/blocks/sidebarBlock'}) }}
 
-    .. code-block:: php+html
+    .. code-block:: html+php
 
         <?php echo $view['blocks']->render(array(
             'name' => '/cms/content/blocks/sidebarBlock',
@@ -323,7 +323,7 @@ as follows:
 
         {{ sonata_block_render({'name': 'sidebarBlock'}) }}
 
-    .. code-block:: php+html
+    .. code-block:: html+php
 
         <?php echo $view['blocks']->render(array(
             'name' => 'sidebarBlock',
