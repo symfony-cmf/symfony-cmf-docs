@@ -222,7 +222,7 @@ your Twig template when using cache:
             extra_cache_keys: { 'extra_key': 'my_block' }
         }) }}
 
-    .. code-block:: php+html
+    .. code-block:: html+php
 
         <?php echo $view['blocks']->render(array(
             'name' => 'rssBlock',
@@ -245,7 +245,7 @@ When using the Esi, Ssi or Js cache adapters the settings passed here are rememb
             'maxItems': 2
         }) }}
 
-    .. code-block:: php+html
+    .. code-block:: html+php
 
         <?php echo $view['blocks']->render(array(
             'name' => 'rssBlock',
