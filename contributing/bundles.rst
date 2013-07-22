@@ -6,22 +6,14 @@ part of a larger project, the CMF. As such, stable bundles should adhere to a
 core set of standards and goals in addition to the 
 `suggested bundle best practices`_. 
 
-All CMF bundles MUST meet the requirements set out in the following table in
+All CMF bundles MUST meet the requirements set out in the following list in
 order for them to be classified as stable:
 
-+-------------------------------------+----+
-| Feature                             | OK |
-+=====================================+====+
-| `General Bundle Standards`_         |    |
-+-------------------------------------+----+
-| `Meta: README, CHANGELOG, etc`_     |    |
-+-------------------------------------+----+
-| `Persistence`_                      |    |
-+-------------------------------------+----+
-| `Configuration, files and formats`_ |    |
-+-------------------------------------+----+
-| `Testing Component Integration`_    |    |
-+-------------------------------------+----+
+* `General Bundle Standards`_;
+* `Meta: README, CHANGELOG, etc`_;
+* `Persistence`_;
+* `Configuration, files and formats`_;
+* `Testing Component Integration`_.
 
 The rest of this document will explain each of the above requirements in
 detail.
