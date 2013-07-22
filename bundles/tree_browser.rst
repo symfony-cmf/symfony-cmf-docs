@@ -239,7 +239,7 @@ Here is a simple way to remove the context menu from the admin tree (add the
 
 .. configuration-block::
 
-    .. code-block:: jinja+html
+    .. code-block:: html+jinja
 
         {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with {
             'root':     websiteId ~ "/menu",
@@ -257,7 +257,7 @@ Here is a simple way to remove the context menu from the admin tree (add the
             });
         </script>
 
-    .. code-block:: php+html
+    .. code-block:: html+php
 
         <?php
         $view['actions']->render('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array(

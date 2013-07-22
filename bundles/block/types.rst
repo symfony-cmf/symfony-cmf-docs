@@ -245,7 +245,7 @@ contains a ``SlideshowBlock`` object, you can simply render it with:
             'name': 'slideshow'
         }) }}
 
-    .. code-block:: php+html
+    .. code-block:: html+php
 
         <?php echo $view['blocks']->render(array(
             'name' => 'slideshow',
