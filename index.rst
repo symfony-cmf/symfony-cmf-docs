@@ -126,6 +126,7 @@ Contributing
 	:maxdepth: 1
 
 	contributing/code
+	contributing/bundles
 	contributing/releases
 	contributing/license
 
