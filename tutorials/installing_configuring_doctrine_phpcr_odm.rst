@@ -346,7 +346,7 @@ See the `official Midgard PHPCR documentation`_.
 Registering System Node Types
 -----------------------------
 
-PHPCR-ODM uses a `custom node type <>`_ to track meta information without
+PHPCR-ODM uses a `custom node type`_ to track meta information without
 interfering with your content. There is a command that makes it trivial to
 register this type and the PHPCR namespace, as well as all base paths of
 bundles:

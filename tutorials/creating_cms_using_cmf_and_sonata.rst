@@ -14,7 +14,7 @@ using the CMF as well as `SonataAdminBundle`_ and
 Preconditions
 -------------
 
-* :doc:`installing-cmf-core`
+* :doc:`installing_cmf_core`
 * `Symfony SecurityBundle`_ (required by the SonataAdminBundle default templates)
 
 Installation
@@ -206,7 +206,7 @@ Further Reading
 ---------------
 
 * :doc:`../bundles/doctrine_phpcr_admin`
-* :doc:`handling-multilang-documents`
+* :doc:`handling_multilang_documents`
 
 .. _`SonataAdminBundle`: https://github.com/sonata-project/SonataAdminBundle
 .. _`Symfony SecurityBundle`: http://symfony.com/doc/master/book/security.html

@@ -33,7 +33,7 @@ Dependencies
 
 * :doc:`CmfRoutingBundle <routing>` is used to manage the routing;
 * :doc:`CmfRoutingAutoBundle<routing_auto>` is used to manage automatically generate routes;
-* :doc:`PHPCR-ODM<phpcr-odm>` is used to persist the bundles documents.
+* :doc:`PHPCR-ODM<phpcr_odm>` is used to persist the bundles documents.
 
 Configuration
 -------------
@@ -321,4 +321,4 @@ information.
 
 .. _`controllers as services`: http://symfony.com/doc/current/cookbook/controller/service.html
 .. _`Twitter Bootstrap`: http://twitter.github.com/bootstrap/
-.. _`Overrding Bundle Templates`: http://symfony.com/doc/current/book/templating.html#overriding-bundle-templates
+.. _`Overriding Bundle Templates`: http://symfony.com/doc/current/book/templating.html#overriding-bundle-templates
