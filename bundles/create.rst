@@ -557,7 +557,7 @@ Symfony 2.2, as in the example above.)
 
     Create.js has built in support for Aloha and ckeditor, as well as the
     default hallo editor. Those should be supported by the CreateBundle as
-    well. See these github issue for `ckeditor`_ and `alhoa`_ integration.
+    well. See these github issue for `ckeditor`_ and `aloha`_ integration.
 
     If you wrote the necessary code for one of those editors, or another
     editor that could be useful for others, please send a pull request.
@@ -656,5 +656,5 @@ The default values for the three parameters are
 .. _`documentation of createphp`: https://github.com/flack/createphp
 .. _`createphp library repository`: https://github.com/flack/createphp
 .. _`ckeditor`: https://github.com/symfony-cmf/CreateBundle/issues/33
-.. _`alhoa`: https://github.com/symfony-cmf/CreateBundle/issues/32
+.. _`aloha`: https://github.com/symfony-cmf/CreateBundle/issues/32
 .. _`coffee compiler set up correctly`: http://coffeescript.org/#installation
