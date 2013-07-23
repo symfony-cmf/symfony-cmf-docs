@@ -54,8 +54,8 @@ Why not just do this?
 
 3. Separate route documents are translateable - this means we can have a URL
    for *each language*, "/welcome" and "/bienvenue" would each reference the
-    same document in English and French respectively. This would be difficult
-    if the slug were embedded in the content document.
+   same document in English and French respectively. This would be difficult
+   if the slug were embedded in the content document.
 
 4. By decoupling route and content the application doesn't care *what* is
    referenced in the route document. This means that we can easily replace the
