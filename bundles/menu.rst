@@ -22,7 +22,7 @@ also depends on
   ``cmf_routing.dynamic_router``.  Note that you need to explicitly
   enable the dynamic router as per default it is not loaded.  See the
   :doc:`documentation of the cmf routing bundle <routing>` for how to do this.
-* :doc:`PHPCR-ODM <phpcr-odm>` to load route documents from the content repository
+* :doc:`PHPCR-ODM <phpcr_odm>` to load route documents from the content repository
 
 Configuration
 -------------
