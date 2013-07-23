@@ -12,7 +12,9 @@ order for them to be classified as stable:
 * `General Bundle Standards`_;
 * `Meta: README, CHANGELOG, etc`_;
 * `Persistence`_;
-* `Configuration, files and formats`_;
+* `Configuration, Files and Formats`_;
+* `Base and Normal Implementations`_;
+* `Standard CMF Features`_;
 * `Testing Component Integration`_.
 
 The rest of this document will explain each of the above requirements in
@@ -101,11 +103,13 @@ See the following templates:
 Persistence
 -----------
 
-* All CMF bundles MUST support PHPCR-ODM;
-* A bundle MAY support other persistence layers like Doctrine ORM;
-* All CMF bundles MUST follow the following structure to enable future or
+All CMF bundles:
+
+* MUST support PHPCR-ODM;
+* MAY support other persistence layers like Doctrine ORM;
+* MUST follow the following structure to enable future or
   current support of other persistence systems:
-* All CMF bundles MUST create implementation specific models in addition to
+* MUST create implementation specific models in addition to
   those in ``/Model`` (even if they are empty). See ``Blog.php`` and ``Post.php``
   below.
 
@@ -128,6 +132,37 @@ Persistence
 
 See the `Mapping Model Classes`_ chapter of the Symfony Cookbook for more
 information.
+
+Base and Normal Implementations
+-------------------------------
+
+The CMF offers various features which are expected to be applied respectively
+to qualifying classes. Examples of these features include multi-language
+and publish workflow support, but the potential list of features is unbounded.
+
+We want to implement all of the features the CMF has to offer while at the
+same time enabling the user to use only what they need.
+
+To facilitate this, when applicable, there should be **two implementations**,
+the *base* implementation and the *normal* implementation.
+
+* **base implementation**: This class should be suffixed with **Base**, e.g.
+  ``MenuNodeBase`` and it MUST be an implementation with the an absolute minimum
+  of logic needed for it to work;
+* **normal implementation**: This class has no additional prefix/suffix, e.g.
+  ``MenuNode``. This implementation MUST implement the standard CMF feature
+  set.
+
+The user can then extend the **base** implementation, adding any functionality
+they want, using the **normal** implementation as a reference.
+
+Standard CMF Features
+---------------------
+
+CMF Bundles MUST (where applicable) implement the following features:
+
+* PublishWorkflow;
+* Multiple language support.
 
 Configuration, Files and Formats
 --------------------------------
