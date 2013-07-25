@@ -145,7 +145,7 @@ instructions on how the component should be integrated.
 .. _`CONTRIBUTING document from CoreBundle`: https://github.com/symfony-cmf/CoreBundle/blob/master/CONTRIBUTING.md
 .. _`Mapping Model Classes`: http://symfony.com/doc/master/cookbook/doctrine/mapping_model_classes.html
 .. _`DI alias of the bundle`: http://symfony.com/doc/current/cookbook/bundles/extension.html#creating-an-extension-class
-.. _`XML in the configuration class`: ttp://symfony.com/doc/current/components/config/definition.html#normalization
+.. _`XML in the configuration class`: http://symfony.com/doc/current/components/config/definition.html#normalization
 .. _`XML schema`: https://en.wikipedia.org/wiki/.xsd
 .. _`XLIFF format`: http://symfony.com/doc/current/book/translation.html#basic-translation
 .. _`CONTRIBUTING file from CoreBundle`: https://github.com/symfony-cmf/CoreBundle/CONTRIBUTING.md
