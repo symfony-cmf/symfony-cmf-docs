@@ -78,7 +78,7 @@ display them in a list.
 
 Create a document::
 
-    use Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock;
 
     // ...
 
@@ -201,8 +201,8 @@ Creating a slideshow consists of creating the container ``SlideshowBlock`` and
 adding blocks to it. Those blocks can be anything, but an image makes a lot
 of sense::
 
-    use Symfony\Cmf\Bundle\BlockBundle\Document\SlideshowBlock;
-    use Symfony\Cmf\Bundle\BlockBundle\Document\ImagineBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock;
     // the Image will be moved to Symfony\Cmf\Bundle\MediaBundle\Model\Image
     use Doctrine\ODM\PHPCR\Document\Image;
     use Doctrine\ODM\PHPCR\Document\File;

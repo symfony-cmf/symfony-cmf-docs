@@ -85,7 +85,7 @@ CmfBlockBundle and the SonataBlockBundle:
                        cache: cmf.block.cache.js_async
                blocks_by_class:
                     # cache only the RssBlock and not all action blocks
-                    Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock:
+                    Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock:
                         cache: cmf.block.cache.js_async
 
        .. code-block:: xml

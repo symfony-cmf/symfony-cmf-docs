@@ -19,7 +19,7 @@ Create a block document
 -----------------------
 
 The first thing you need is an document that contains the data. It is
-recommended to extend ``Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock``
+recommended to extend ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock``
 contained in this bundle (however you are not forced to do so, as long as you
 implement ``Sonata\BlockBundle\Model\BlockInterface``). In your document, you
 need to define the ``getType`` method which just returns ``acme_main.block.rss``.
@@ -30,14 +30,14 @@ need to define the ``getType`` method which just returns ``acme_main.block.rss``
     namespace Acme\MainBundle\Document;
 
     use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
-    use Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock;
 
     /**
      * Rss Block
      *
      * @PHPCRODM\Document(referenceable=true)
      */
-    class RssBlock extends BaseBlock
+    class RssBlock extends AbstractBlock
     {
         public function getType()
         {

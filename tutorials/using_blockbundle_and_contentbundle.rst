@@ -259,7 +259,7 @@ your ``DataFixtures/PHPCR`` directory::
     use Doctrine\ODM\PHPCR\Document\Generic;
     use Symfony\Component\DependencyInjection\ContainerAwareInterface;
     use Symfony\Component\DependencyInjection\ContainerInterface;
-    use Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock;
 
     class LoadBlockWithPhpcrParent extends AbstractFixture implements ContainerAwareInterface
     {
@@ -370,7 +370,7 @@ sample block, so create the ``LoadBlockWithCmfParent.php`` class::
     use Symfony\Component\DependencyInjection\ContainerAwareInterface;
     use Symfony\Component\DependencyInjection\ContainerInterface;
     use PHPCR\Util\NodeHelper;
-    use Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock;
     use Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent;
 
     class LoadBlockWithCmfParent extends AbstractFixture implements ContainerAwareInterface
@@ -662,7 +662,7 @@ SimpleBlock class not found
 .. code-block:: text
 
     [Doctrine\Common\Persistence\Mapping\MappingException]
-    The class 'Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock' was not found in the chain configured namespaces Doctrine\ODM\PHPCR\Document, Sonata\UserBundle\Document, FOS\UserBundle\Document
+    The class 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock' was not found in the chain configured namespaces Doctrine\ODM\PHPCR\Document, Sonata\UserBundle\Document, FOS\UserBundle\Document
 
 Make sure the CMF BlockBundle is installed and loaded in ``app/AppKernel.php``::
 

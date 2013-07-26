@@ -89,7 +89,7 @@ specific settings for one of the block classes.
                     settings:
                         maxItems: 3
             blocks_by_class:
-                Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock:
+                Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock:
                     settings:
                         maxItems: 3
 
@@ -170,7 +170,7 @@ Block Document
 Before you can render a block, you need to create a data object representing
 your block in the repository. You can do so with the following code snippet::
 
-    use Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock;
 
     // ...
 
@@ -185,7 +185,7 @@ your block in the repository. You can do so with the following code snippet::
 Note the ``sidebarBlock`` is the identifier we chose for the block. Together
 with the parent document of the block, this makes the block unique. The other
 properties are specific to
-``Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock``.
+``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock``.
 
 The simple block is now ready to be rendered, see
 :ref:`bundle-block-rendering`.
@@ -194,7 +194,7 @@ The simple block is now ready to be rendered, see
 
     Always make sure you implement the interface
     ``Sonata\BlockBundle\Model\BlockInterface`` or an existing block document
-    like ``Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock``.
+    like ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock``.
 
 Block Context
 -------------
