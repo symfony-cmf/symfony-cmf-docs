@@ -34,6 +34,11 @@ first:
 | AllFeaturesSimpleBlock  | SimpleBlockAllFeatures  |
 +-------------------------+-------------------------+
 
+The word *content* has a special meaning in the CMF bundles. Bundles MUST use
+the word content to refer to:
+
+* A non-specific document representing visible data.
+
 Meta: README, CHANGELOG, etc
 ----------------------------
 
