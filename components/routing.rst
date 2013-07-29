@@ -11,21 +11,26 @@ Symfony2 Framework and can be used in standalone projects. For integration
 with the Symfony2 Framework, we provide :doc:`../bundles/routing`.
 
 At the core of the Symfony CMF Routing component is the `ChainRouter`_. The
-ChainRouter can chain several routers to determine what should handle each
-request. The default Symfony2 router can be added to this chain, so the
+ChainRouter tries to match a request with each of its registered routers,
+ignoring the :class:`Symfony\\Component\\Routing\\Exception\\ResourceNotFoundException`
+until all routers got a chance to match. The first match wins - if no router
+matched, the :class:`Symfony\\Component\\Routing\\Exception\\ResourceNotFoundException`
+is thrown. The default Symfony2 router can be added to this chain, so the
 standard routing mechanism can still be used.
 
 Additionally, this component is meant to provide useful implementations of the
-routing interfaces. Currently, it provides the `DynamicRouter`_, which uses
-a ``RequestMatcherInterface`` to dynamically load Routes, and can apply
-``RouteEnhancerInterface`` strategies in order to manipulate them. The
-provided `NestedMatcher`_ can dynamically retrieve Symfony2
+routing interfaces. Currently, it provides the
+:ref:`DynamicRouter <component-routing-dynamic>`. This flexible router uses
+an injected ``RequestMatcherInterface`` instance instead of the hardcoded way
+the Symfony2 core router works. ``DynamicRouter`` also can apply
+``RouteEnhancerInterface`` strategies in order to post-process the route match
+information. The provided `NestedMatcher`_ can dynamically retrieve Symfony2
 :class:`Symfony\\Component\\Routing\\Route` objects from a
 ``RouteProviderInterface``. The ``DynamicRouter`` is also able to generate
-Routes and an implementation is provided under ``ProviderBasedGenerator``, that
-can generate routes loaded from a ``RouteProviderInterface`` instance, and the
-``ContentAwareGenerator`` on top of it to determine the route object from a
-content object.
+Routes. The ``ProviderBasedGenerator`` can generate routes loaded from a
+``RouteProviderInterface`` instance, and the ``ContentAwareGenerator`` on top
+of it to determine the route object from any content object that implements the
+``RouteAwareInterface``.
 
 .. note::
 
@@ -51,8 +56,12 @@ The Component depends on the Symfony2 `Routing`_ component and the
 .. tip::
 
     For the ``DynamicRouter`` you will need something to implement the
-    ``RouteProviderInterface`` with. We suggest using Doctrine as this provides an
-    easy way to map classes into a database.
+    ``RouteProviderInterface`` with. We suggest using Doctrine as this
+    provides an easy way to map classes into a database.
+
+    The :doc:`../bundles/routing` provides implementations for everything
+    needed to get this component running with Doctrine PHPCR-ODM and soon
+    also the Doctrine ORM.
 
 ChainRouter
 -----------
@@ -93,7 +102,7 @@ Higher priorities are sorted first.
 
 .. code-block:: php
 
-    
+
     use Symfony\Cmf\Component\Routing\DynamicRouter;
     // ...
 
@@ -127,6 +136,8 @@ The Symfony2 routing mechanism is itself a ``RouterInterface`` implementation,
 which means you can use it as a Router in the ``ChainRouter``. This allows you
 to use the default routing declaration system. Read more about this router in
 the `Routing Component`_ article of the core documentation.
+
+.. _component-routing-dynamic:
 
 Dynamic Router
 ~~~~~~~~~~~~~~
@@ -209,7 +220,7 @@ the methods::
             foreach ($routes as $route) {
                 $collection->add($route);
             }
-            
+
             return $collection;
         }
 
@@ -245,17 +256,13 @@ The Route Provider is set using the first argument of the constructor for the
 2. The Route Filters
 """"""""""""""""""""
 
-.. some rewriting
-
-The ``NestedMatcher`` can apply user provided ``RouteFilterInterface`` implementations
-to reduce the provided ``Route`` objects, e.g. for doing content negotiation.
-It is the responsibility of each filter to throw the ``ResourceNotFoundException`` if
-no more routes are left in the collection.
+The ``NestedMatcher`` can apply user provided ``RouteFilterInterface``
+implementations to reduce the provided ``Route`` objects, e.g. for doing
+content negotiation. It is the responsibility of each filter to throw the
+``ResourceNotFoundException`` if no more routes are left in the collection.
 
 3. The Final Matcher
 """"""""""""""""""""
-
-.. some rewriting
 
 The ``FinalMatcherInterface`` implementation has to determine exactly one
 Route as the best match or throw an exception if no adequate match could
