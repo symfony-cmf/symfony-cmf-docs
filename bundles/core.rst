@@ -434,7 +434,6 @@ Templating
 Twig
 ~~~~
 
-<<<<<<< HEAD
 The core bundle contains a Twig extension that provides a set of useful
 functions for your templates. The functions respect the
 :ref:`publish workflow <bundle-core-publish_workflow>` if it is
