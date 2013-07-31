@@ -83,7 +83,6 @@ something bigger than 0.
                 #    'jackalope.fetch_depth': 1
 
 
-
 PHPCR Session with Jackalope Jackrabbit
 """""""""""""""""""""""""""""""""""""""
 
@@ -157,7 +156,6 @@ integrated into ``doctrine:schema:create|update|drop`` and also
     # Using Doctrine ORM
     $ php app/console doctrine:database:create
     $ php app/console doctrine:schema:create
-
 
 If you do not use the ORM, there is the specific ``doctrine:phpcr:init:dbal``
 command.
@@ -353,7 +351,6 @@ attribute.
                     # same keys as directly in odm, see above.
                     session: <sessionname>
 
-
 A full example looks as follows:
 
 .. configuration-block::
@@ -443,7 +440,6 @@ You can access the PHPCR services like this::
         }
     }
 
-
 Events
 ------
 
@@ -475,7 +471,6 @@ listeners resp. event subscribers.
                 class: Acme\SearchBundle\EventSubscriber\MySubscriber
                     tags:
                         - { name: doctrine_phpcr.event_subscriber }
-
 
 .. tip::
 
@@ -534,7 +529,6 @@ correct.
             </class>
 
         </constraint-mapping>
-
 
 Form Types
 ----------
@@ -743,7 +737,6 @@ A service to use the generic initializer looks like this:
 
 The ``doctrine:phpcr:repository:init`` command runs all tagged initializers.
 
-
 Fixture Loading
 ---------------
 
@@ -772,7 +765,6 @@ A simple example fixture class looks like this::
             // Create and persist your data here...
         }
     }
-
 
 For more on fixtures, see the `documentation of the DoctrineFixturesBundle`_.
 
@@ -845,7 +837,6 @@ If you are using ``jackalope-jackrabbit``, you also have a command to start and
 stop the jackrabbit server:
 
 * ``jackalope:run:jackrabbit``  Start and stop the Jackrabbit server
-
 
 Doctrine DBAL Specific Commands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

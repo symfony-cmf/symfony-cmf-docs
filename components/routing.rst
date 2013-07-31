@@ -102,7 +102,6 @@ Higher priorities are sorted first.
 
 .. code-block:: php
 
-
     use Symfony\Cmf\Component\Routing\DynamicRouter;
     // ...
 

@@ -26,7 +26,6 @@ represent content pages containing blocks.
     tutorial will also make use of `DoctrineFixturesBundle`_. This is because
     it provides an easy way to load in some test content.
 
-
 Preconditions
 -------------
 
@@ -39,7 +38,6 @@ Preconditions
     DBAL and a MySQL database. It should be easy to adapt this to work with
     one of the other PHPCR options documented in
     :doc:`installing_configuring_doctrine_phpcr_odm`.
-
 
 Create and Configure the Database
 ---------------------------------
@@ -67,7 +65,6 @@ Your ``parameters.yml`` file needs to match the above, for example:
             database_name:     symfony
             database_user:     symfony
             database_password: UseABetterPassword
-
 
 Configure the Doctrine PHPCR Component
 --------------------------------------
@@ -214,7 +211,6 @@ Add the following line to the ``registerBundles()`` method of the
 
         // ...
     }
-
 
 Loading Fixtures
 ----------------
@@ -554,7 +550,6 @@ and the default postfix is ``%</span>``. Say you want to write
                 cmf_embed_blocks:
                     prefix: %%%block:
                     postfix: %%%
-
 
 .. caution::
 

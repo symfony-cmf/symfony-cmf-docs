@@ -6,7 +6,6 @@ cases. It also has a couple of more specific blocks that integrate third
 party libraries. Those can be handy for some use cases and also serve as
 examples to build your own blocks.
 
-
 StringBlock
 -----------
 
@@ -195,7 +194,6 @@ types of blocks in the same slideshow.
     the slideshow. Chose your preferred library that plays well with the rest
     of your site and hook it on the slideshows. (See also below).
 
-
 Create your first Slideshow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -229,7 +227,6 @@ of sense::
     $image->setFile($file);
     $mySlideshowItem->setImage($image);
 
-
 Render the slideshow
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -251,7 +248,6 @@ contains a ``SlideshowBlock`` object, you can simply render it with:
             'name' => 'slideshow',
         )) ?>
 
-
 Make the slideshow work in the frontend
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -261,7 +257,6 @@ library to make the slideshow interactive. If special markup is needed for
 your slideshow code to work, just override
 ``BlockBundle:Block:block_slideshow.html.twig`` or the templates of the
 blocks you use as slideshow items and adapt them to your needs.
-
 
 Use the Sonata admin class
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

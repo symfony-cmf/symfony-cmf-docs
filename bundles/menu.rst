@@ -274,7 +274,6 @@ voters (see below), except you do not need to write your own PHP code:
         $definition->addTag('cmf_request_aware');
         $container->setDefinition('my_bundle.menu_voter.parent', $definition);
 
-
 Custom Voter
 ~~~~~~~~~~~~
 

@@ -27,7 +27,6 @@ Add the folowing dependency to the ``require-dev`` section of ``composer.json``:
     The Testing component does not automatically include the SonataAdminBundle. You
     will need to manually add this dependency if required.
 
-
 phpunit
 ~~~~~~~
 
@@ -75,10 +74,10 @@ The ``AppKernel`` should be placed in the ``./Tests/Resources/app`` folder.
 Below is the minimal ``AppKernel.php``::
 
     <?php
-    
+
     use Symfony\Cmf\Component\Testing\HttpKernel\TestKernel;
     use Symfony\Component\Config\Loader\LoaderInterface;
-    
+
     class AppKernel extends TestKernel
     {
         public function configure()
@@ -86,12 +85,12 @@ Below is the minimal ``AppKernel.php``::
             $this->requireBundleSets(array(
                 'default',
             ));
-    
+
             $this->addBundles(array(
                 new \Symfony\Cmf\Bundle\MyBundle\CmfMyBundle(),
             ));
         }
-    
+
         public function registerContainerConfiguration(LoaderInterface $loader)
         {
             $loader->load(__DIR__.'/config/config.php');

@@ -36,7 +36,7 @@ Then you can overwrite the ``doctrine.odm_configuration`` service to call
 
     .. code-block:: xml
 
-        <service id="doctrine.odm_configuration" 
+        <service id="doctrine.odm_configuration"
             class="%doctrine_phpcr.odm.configuration.class%">
             <call method="setDocumentClassMapper">
                 <argument type="service" id="sandbox_magnolia.odm_mapper" />
@@ -54,7 +54,7 @@ Then you can overwrite the ``doctrine.odm_configuration`` service to call
 
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
-        
+
         $container
             ->register('doctrine.odm_configuration', '%doctrine_phpcr.odm.configuration.class%')
             ->addMethodCall('setDocumentClassMapper', array(

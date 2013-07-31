@@ -11,7 +11,7 @@ necessary extension points to ensure the **CMF remains storage layer
 agnostic**.
 
 The goal of this tutorial is to explain the considerations and why Symfony CMF
-suggest `PHPCR`_  and `PHPCR-ODM`_ as the ideal basis for a CMS. However, all
+suggest `PHPCR`_ and `PHPCR-ODM`_ as the ideal basis for a CMS. However, all
 components and Bundles can be integrated with other solutions with a fairly
 small amount of work.
 
