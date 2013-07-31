@@ -8,9 +8,9 @@ The goal of this tutorial is to install the minimal CMF components ("core")
 with the minimum necessary configuration. From there, you can begin
 incorporating CMF functionality into your application as needed.
 
-This is aimed at experienced user who want to know all about the Symfony CMF
-details. If this is your first encounter with the Symfony CMF it would be a
-good idea to start with:
+This tutorial is aimed at the experienced user who wants to learn more
+about the details of the Symfony CMF. If this is your first encounter with
+the Symfony CMF it would be a good idea to start with:
 
 * :doc:`../getting_started/installing_symfony_cmf` page for instructions on
   how to quickly install the CMF (recommended for development)
