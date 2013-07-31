@@ -177,7 +177,8 @@ Events are dispatched during the Dynamic Router match process. Currently there a
 
 ``Symfony\Cmf\Component\Routing\Event\Events`` contains event constants
 
-See `How to create an Event Listener`_ in Symfony2
+The ``Symfony\Cmf\Component\Routing\Event\Events`` class contains the event constants. To learn
+how to register the events, see "`How to create an Event Listener`_" in the core documentation.
 
 .. _bundle-routing-route-enhancer:
 
