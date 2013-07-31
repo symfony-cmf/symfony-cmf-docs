@@ -40,6 +40,15 @@ There are basically two main target audiences:
 #. Developers that need to build a highly customized authoring and content delivery
    solution that no out-of-the-box CMS can properly provide through customization alone.
 
+.. toctree::
+    :hidden:
+
+    getting_started/index
+    tutorials/index
+    bundles/index
+    components/index
+    contributing/index
+
 Getting started
 ---------------
 
