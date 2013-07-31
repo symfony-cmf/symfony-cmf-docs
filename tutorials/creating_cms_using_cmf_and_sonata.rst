@@ -8,7 +8,6 @@ The goal of this tutorial is to create a simple content management system
 using the CMF as well as `SonataAdminBundle`_ and
 :doc:`../bundles/doctrine_phpcr_admin`.
 
-
 .. index:: Sonata, SonataAdminBundle, SonataDoctrinePHPCRAdminBundle, SonatajQueryBundle, FOSJsRoutingBundle, TreeBundle, TreeBrowserBundle
 
 Preconditions
@@ -138,7 +137,6 @@ Add route in to your routing configuration:
             resource: .
             type: 'cmf_tree'
 
-
 The FOSJsRoutingBundle is used to export sonata routes to javascript, to be
 used with the tree. All relevant routes have the ``expose`` option set. If you
 do custom routes that need to be used with the tree, you need to do that or
@@ -150,7 +148,6 @@ Sonata Assets
 .. code-block:: bash
 
     $ php app/console assets:install --symlink
-
 
 Defining own Admin Classes
 --------------------------
@@ -187,13 +184,11 @@ operations over the default sonata CRUD controller.
             </call>
         </service>
 
-
 Finally
 -------
 
 Now Sonata is configured to work with the PHPCR you can access the dashboard
 using via ``/admin/dashboard`` in your site.
-
 
 Tree Problems
 -------------

@@ -243,7 +243,7 @@ Example of how settings can be specified through a template helper:
         }) }}
 
     .. code-block:: html+php
-        
+
         <?php $view['blocks']->render(array('name' => 'rssBlock'), array(
             'title' => 'Symfony2 CMF news',
             'url'   => 'http://cmf.symfony.com/news.rss',
@@ -387,14 +387,12 @@ load into your project.
   code to make the slideshow work in the frontend. You can use your favourite
   Javascript library to do the animation.
 
-
 Examples
 --------
 
 You can find example usages of this bundle in the `Symfony CMF Sandbox`_
 (have a look at the BlockBundle). It also shows you how to make blocks
 editable using the :doc:`CreateBundle <../create>`.
-
 
 .. _`BlockBundle`: https://github.com/symfony-cmf/BlockBundle#readme
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox

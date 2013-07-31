@@ -40,7 +40,6 @@ There are basically two main target audiences:
 #. Developers that need to build a highly customized authoring and content delivery
    solution that no out-of-the-box CMS can properly provide through customization alone.
 
-
 Getting started
 ---------------
 
@@ -54,7 +53,6 @@ Just started learning about the CMF? Want to know if the CMF fits your project? 
 	getting_started/content
 	getting_started/menu
 	getting_started/simplecms
-
 
 Tutorials
 ---------

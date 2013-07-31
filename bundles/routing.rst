@@ -69,7 +69,7 @@ earlier this router service is asked to match a route or to generate a url
                     router.default: 100
                 # whether the chain router should replace the default router. defaults to true
                 # if you set this to false, the router is just available as service
-                # cmf_routing.router and you  need to do something to trigger it
+                # cmf_routing.router and you need to do something to trigger it
                 # replace_symfony_router: true
 
 Loading Routers with Tagging
@@ -230,7 +230,6 @@ The possible enhancements are (in order of precedence):
                 # cmf_routing.xml for an example if you need to define your own
                 # service
 
-
 To see some examples, please look at the `CMF sandbox`_ and specifically the
 routing fixtures loading.
 
@@ -337,7 +336,6 @@ to point to the root of your content documents.
         cmf_routing:
             use_sonata_admin: auto # use true/false to force using / not using sonata admin
             content_basepath: ~ # used with sonata admin to manage content, defaults to cmf_core.content_basepath
-
 
 Form Type
 ---------

@@ -69,7 +69,6 @@ extra parameters of ``composer.json`` file (here are the default values):
         }
     }
 
-
 Add this bundle (and its dependencies, if they are not already there) to your
 application's kernel::
 
@@ -270,7 +269,7 @@ Configuration
             # not necessary with the SimpleCmsBundle, as the content and the
             # routes are in the same repository tree.
             # create_routes_types: ['http://schema.org/NewsArticle']
-    
+
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
@@ -646,7 +645,7 @@ The default values for the three parameters are
 .. code-block:: yaml
 
     # app/config/parameters.yml
-    
+
     # ...
     coffee.bin: /usr/local/bin/coffee
     coffee.node: /usr/local/bin/node

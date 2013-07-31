@@ -75,7 +75,6 @@ The following documentation includes examples for all of the above options.
     PHP extension. Once you have a working application it should be easy to
     switch to another option.
 
-
 Download the Bundles
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -265,7 +264,6 @@ If you want to use the PHPCR-ODM as well, please also see the next section.
                 password: admin
             # odm configuration see below
 
-
 Doctrine PHPCR-ODM
 ~~~~~~~~~~~~~~~~~~
 
@@ -288,7 +286,6 @@ for details.
                 # ...
             odm:
                 auto_mapping: true
-
 
 Setting up the Content Repository
 ---------------------------------
