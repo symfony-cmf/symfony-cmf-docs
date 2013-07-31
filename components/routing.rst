@@ -160,6 +160,8 @@ which you can use straight away, or as reference for your own implementation.
 Its other feature is the ``RouteEnhancerInterface``, used to infer routing
 parameters from the information provided by the match.
 
+.. _components-routing-events:
+
 Events
 ~~~~~~
 
