@@ -2,7 +2,7 @@ Contributing
 ============
 
 .. toctree::
-	:hidden:
+    :hidden:
 
     code
     bundles
