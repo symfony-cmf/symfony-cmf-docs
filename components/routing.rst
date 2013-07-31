@@ -165,8 +165,8 @@ Events
 
 Events are dispatched during the Dynamic Router match process. Currently there are 2 events:
 
-* cmf_routing.pre_dynamic_match (Dispatched at the beginning of the match method)
-* cmf_routing.pre_dynamic_match_request (Dispatched at the beginning of the matchRequest method)
+* **cmf_routing.pre_dynamic_match** (Dispatched at the beginning of the match method)
+* **cmf_routing.pre_dynamic_match_request** (Dispatched at the beginning of the matchRequest method)
 
 Optionally, you can provide an `Event Dispatcher`_ to the dynamic router.
 
