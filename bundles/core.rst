@@ -441,7 +441,7 @@ functions for your templates. The functions respect the
 * **cmf_find**: returns the document for the provided path
 * **cmf_find_many**: returns an array of documents for the provided paths
 * **cmf_is_published**: checks if the provided document is published, see
-  :ref:`bundle-core-publish_workflow-twig_function`.
+  :ref:`cmf_is_published <bundle-core-publish_workflow-twig_function>`.
 * **cmf_prev**: returns the previous document by examining the child nodes of
   the provided parent
 * **cmf_prev_linkable**: returns the previous linkable document by examining
