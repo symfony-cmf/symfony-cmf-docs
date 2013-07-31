@@ -167,7 +167,10 @@ by the routes.  See
 ``Symfony\Cmf\Bundle\ContentBundle\Controller\ContentController`` for an
 example.
 
-.. _bundle-routing-route-enhancer:
+.. note::
+
+    The DynamicRouter fires some events, read more about this in
+    ":ref:`the component documentation <components-routing-events>`"
 
 Configuration
 ~~~~~~~~~~~~~
