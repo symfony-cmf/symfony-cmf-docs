@@ -165,7 +165,6 @@ This configuration is set for all your application trees regardless their type
                     valid_children: []
                 # ...
 
-
 How to add an Admin Tree to Your Page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

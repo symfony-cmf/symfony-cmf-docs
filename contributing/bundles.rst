@@ -3,8 +3,8 @@ Bundles
 
 Perhaps unlike many other community bundles, each individual CMF bundle is
 part of a larger project, the CMF. As such, stable bundles should adhere to a
-core set of standards and goals in addition to the 
-`suggested bundle best practices`_. 
+core set of standards and goals in addition to the
+`suggested bundle best practices`_.
 
 All CMF bundles MUST meet the requirements set out in the following list in
 order for them to be classified as stable:

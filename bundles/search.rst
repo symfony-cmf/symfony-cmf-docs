@@ -37,7 +37,7 @@ The configuration key for this bundle is ``cmf_search``
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        
+
         <!-- translation-strategy: can also be set to an empty string or attribute -->
         <config xmlns="http://cmf.symfony.com/schema/dic/search"
             document-manager-name="default"

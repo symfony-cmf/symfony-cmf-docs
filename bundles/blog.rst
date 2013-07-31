@@ -58,10 +58,10 @@ Example:
 
         <!-- app/config/config.xml -->
         <config xmlns="http://cmf.symfony.com/schema/dic/blog"
-            use-sonata-admin="auto" 
+            use-sonata-admin="auto"
             blog-basepath="/cms/blog"
         >
-            <class 
+            <class
                 blog-admin="Symfony\Cmf\Bundle\BlogBundle\Admin\BlogAdmin"
                 post-admin="Symfony\Cmf\Bundle\BlogBundle\Admin\PostAdmin"
                 blog="Symfony\Cmf\Bundle\BlogBundle\Document\Blog"
@@ -110,7 +110,7 @@ You can include the default in the main configuration file as follows:
 .. configuration-block::
 
     .. code-block:: yaml
-        
+
         # app/config/config.yml
         imports:
             # ...

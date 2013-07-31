@@ -546,7 +546,7 @@ contains the following methods:
             <span style="float: right; padding-right: 40px;">
                 <a href="<?php echo $view['router']->generate($next) ?>">next</a>
             </span>
-        <?php  endif ?>
+        <?php endif ?>
 
         <?php foreach (array_reverse($view['cmf']->getChildren($page)) as $news) : ?>
             <li>

@@ -10,7 +10,7 @@ documents. This implies a separation of the ``Route`` and ``Content``
 documents. If your needs are simple this bundle may not be for you and you
 should have a look at :doc:`SimpleCmsBundle <simple_cms>`.
 
-For the sake of example, we will imagine a  blog application that has two
+For the sake of example, we will imagine a blog application that has two
 routeable contents, the blog itself, and the posts for the blog.  We will call
 these documents ``Blog`` and ``Post``, and we will class them as *content
 documents*.
@@ -78,7 +78,7 @@ tree.
 
     Although routes in this case can be of any document class, only objects
     which extend the :class:`Symfony\\Component\\Routing\\Route` object will
-    be considered when matching a URL. 
+    be considered when matching a URL.
 
     The default behavior is to use Generic documents when generating a content
     path, and these documents will result in a 404 when accessed directly.
@@ -94,7 +94,7 @@ The configuration for the example above could be as follows:
 .. code-block:: yaml
 
     cmf_routing_auto:
-        
+
         auto_route_mapping:
             My\Namespace\Bundle\BlogBundle\Document\Post:
                 content_path:
@@ -123,18 +123,17 @@ The configuration for the example above could be as follows:
                     provider:
                         name: content_method
                         method: getTitle
-                    exists_action: 
+                    exists_action:
                         strategy: auto_increment
                         pattern: -%d
-                    not_exists_action: 
+                    not_exists_action:
                         strategy: create
-
 
 The ``Post`` document would then need to implement the methods named above as
 follows::
 
     <?php
-    
+
     class Post
     {
         public function getBlog()
@@ -178,10 +177,10 @@ This is the most basic path provider and allows you to specify an exact
 
 Options:
 
-* ``path`` - **required** The path to provide. 
+* ``path`` - **required** The path to provide.
 
 .. note::
-   
+
     You never specifiy absolute paths in the auto route system. If the builder
     unit is the first content path chain it is understood that it is the base
     of an absolute path.
@@ -406,8 +405,8 @@ To use the path provider you must register it in the **DIC** and add the
 
     .. code-block:: xml
 
-        <service 
-            id="my_cms.some_bundle.path_provider.foobar" 
+        <service
+            id="my_cms.some_bundle.path_provider.foobar"
             class="FoobarProvider"
             scope="prototype"
         >
@@ -423,7 +422,7 @@ To use the path provider you must register it in the **DIC** and add the
                 - { name: cmf_routing_auto.provider, alias: "foobar"}
 
     .. code-block:: php
-    
+
         use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition('FooBarProvider');
@@ -479,8 +478,8 @@ It is registered in the DI configuration as follows:
 
     .. code-block:: xml
 
-        <service 
-            id="my_cms.not_exists_action.throw_exception" 
+        <service
+            id="my_cms.not_exists_action.throw_exception"
             class="My\Cms\AutoRoute\PathNotExists\ThrowException"
             scope="prototype"
             >
@@ -496,7 +495,7 @@ It is registered in the DI configuration as follows:
                 - { name: cmf_routing_auto.provider, alias: "throw_exception"}
 
     .. code-block:: php
-    
+
         use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition('My\Cms\AutoRoute\PathNotExists\ThrowException');
