@@ -113,8 +113,8 @@ Higher priorities are sorted first.
 
 .. note::
 
-    You'll learn how to instantiate the `DynamicRouter`_ further in this
-    article.
+    You'll learn how to instantiate the :ref:`DynamicRouter <component-routing-dynamic>`
+    further in this article.
 
 Routers
 -------
