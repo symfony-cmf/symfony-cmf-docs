@@ -160,6 +160,16 @@ which you can use straight away, or as reference for your own implementation.
 Its other feature is the ``RouteEnhancerInterface``, used to infer routing
 parameters from the information provided by the match.
 
+Events
+~~~~~~
+
+Events are dispatched during the Dynamic Router match process. Currently there are 2 events:
+
+* cmf_routing.pre_dynamic_match (Dispatched at the beginning of the match method)
+* cmf_routing.pre_dynamic_match (Dispatched at the beginning of the matchRequest method)
+
+``Symfony\Cmf\Component\Routing\Event\Events`` contains event constants
+
 NestedMatcher
 .............
 

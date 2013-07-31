@@ -167,6 +167,18 @@ by the routes.  See
 ``Symfony\Cmf\Bundle\ContentBundle\Controller\ContentController`` for an
 example.
 
+Events
+~~~~~~
+
+Events are dispatched during the Dynamic Router match process. Currently there are 2 events:
+
+* cmf_routing.pre_dynamic_match (Dispatched at the beginning of the match method)
+* cmf_routing.pre_dynamic_match (Dispatched at the beginning of the matchRequest method)
+
+``Symfony\Cmf\Component\Routing\Event\Events`` contains event constants
+
+See `How to create an Event Listener`_ in Symfony2
+
 .. _bundle-routing-route-enhancer:
 
 Configuration
@@ -414,3 +426,4 @@ For more information on the Routing component of Symfony CMF, please refer to:
 .. _`CMF Routing component`: https://github.com/symfony-cmf/Routing
 .. _`PHPCR-ODM`: https://github.com/doctrine/phpcr-odm
 .. _`Routing`: http://symfony.com/doc/current/components/routing/introduction.html
+.. _`How to create an Event Listener`: http://symfony.com/doc/current/cookbook/service_container/event_listener.html
