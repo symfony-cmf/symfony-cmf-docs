@@ -21,6 +21,9 @@ detail.
 General Bundle Standards
 ------------------------
 
+File Naming
+~~~~~~~~~~~
+
 Composite filenames (and by extension class names) SHOULD place the subject
 first:
 
@@ -33,6 +36,24 @@ first:
 +-------------------------+-------------------------+
 | AllFeaturesSimpleBlock  | SimpleBlockAllFeatures  |
 +-------------------------+-------------------------+
+
+Interface Naming
+~~~~~~~~~~~~~~~~
+
+*Setter* (write) interfaces MUST be of the form ``<Context>WriteInterface``,
+examples:
+
+* ``MenuNodeReferrerWriteInterface``
+* ``PublishableWriteInterface``
+
+*Getter* (read) interfaces MUST be of the form ``<Context>Interface``, examples:
+
+* ``PublishableInterface``
+
+Write interfaces MAY incorporate read interfaces IF a read interface does not yet
+exist.
+
+Write interfaces MUST extend a read interface IF a read interface does exist.
 
 Meta: README, CHANGELOG, etc
 ----------------------------
