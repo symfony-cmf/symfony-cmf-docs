@@ -175,8 +175,6 @@ Events are dispatched during the Dynamic Router match process. Currently there a
 * **cmf_routing.pre_dynamic_match** (Dispatched at the beginning of the match method)
 * **cmf_routing.pre_dynamic_match_request** (Dispatched at the beginning of the matchRequest method)
 
-``Symfony\Cmf\Component\Routing\Event\Events`` contains event constants
-
 The ``Symfony\Cmf\Component\Routing\Event\Events`` class contains the event constants. To learn
 how to register the events, see "`How to create an Event Listener`_" in the core documentation.
 
