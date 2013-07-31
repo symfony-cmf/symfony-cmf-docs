@@ -46,6 +46,7 @@ There are basically two main target audiences:
     getting_started/index
     tutorials/index
     bundles/index
+    cookbook/index
     components/index
     contributing/index
 
