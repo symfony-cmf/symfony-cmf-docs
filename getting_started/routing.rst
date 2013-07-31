@@ -336,7 +336,7 @@ as soon as you add any other configuration to the ``dynamic`` entry.
 Linking a Route with a Model Instance
 -------------------------------------
 
-Depending on you application's logic, a requested URL may have an associated
+Depending on your application's logic, a requested URL may have an associated
 model instance from the database. Those Routes can implement the
 ``RouteObjectInterface``, and optionally return a model instance, that will be
 automatically passed to the Controller as the ``$contentDocument`` variable,
