@@ -164,15 +164,19 @@ parameters from the information provided by the match.
 Events
 ~~~~~~
 
-Events are dispatched during the Dynamic Router match process. Currently there are 2 events:
+Events are dispatched during the Dynamic Router match process. Currently there
+are 2 events:
 
-* **cmf_routing.pre_dynamic_match** (Dispatched at the beginning of the match method)
-* **cmf_routing.pre_dynamic_match_request** (Dispatched at the beginning of the matchRequest method)
+* **cmf_routing.pre_dynamic_match** (Dispatched at the beginning of the match
+  method)
+* **cmf_routing.pre_dynamic_match_request** (Dispatched at the beginning of the
+  matchRequest method)
 
 Optionally, you can provide an `Event Dispatcher`_ to the dynamic router.
 
-The ``Symfony\Cmf\Component\Routing\Event\Events`` class contains the event constants. To learn
-how to register the events, see "`How to create an Event Listener`_" in the core documentation.
+The ``Symfony\Cmf\Component\Routing\Event\Events`` class contains the event
+constants. To learn how to register the events, see "`How to create an Event
+Listener`_" in the core documentation.
 
 NestedMatcher
 .............
@@ -427,4 +431,5 @@ page, as it's the base of this bundle's implementation.
 .. _`FieldMapEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/blob/master/Enhancer/FieldMapEnhancer.php
 .. _`FieldPresenceEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/blob/master/Enhancer/FieldPresenceEnhancer.php
 .. _`RouteContentEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/blob/master/Enhancer/RouteContentEnhancer.php
-.. _`Event Dispatcher`: http://symfony.com/doc/master/components/event_dispatcher/index.html
+.. _`Event Dispatcher`: http://symfony.com/doc/current/components/event_dispatcher/index.html
+.. _`How to create an Event Listener`: http://symfony.com/doc/current/cookbook/service_container/event_listener.html 
