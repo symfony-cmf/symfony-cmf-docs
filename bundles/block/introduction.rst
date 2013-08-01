@@ -178,7 +178,7 @@ your block in the repository. You can do so with the following code snippet::
     $myBlock->setParentDocument($parentDocument);
     $myBlock->setName('sidebarBlock');
     $myBlock->setTitle('My first block');
-    $myBlock->setContent('Hello block world!');
+    $myBlock->setBody('Hello block world!');
 
     $documentManager->persist($myBlock);
 

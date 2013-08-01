@@ -230,7 +230,7 @@ like this::
     $myBlock->setParentDocument($parentPage);
     $myBlock->setName('sidebarBlock');
     $myBlock->setTitle('My first block');
-    $myBlock->setContent('Hello block world!');
+    $myBlock->setBody('Hello block world!');
 
     $documentManager->persist($myBlock);
 
@@ -279,7 +279,7 @@ your ``DataFixtures/PHPCR`` directory::
             $myBlock->setParentDocument($document);
             $myBlock->setName('testBlock');
             $myBlock->setTitle('CMF BlockBundle only');
-            $myBlock->setContent('Block from CMF BlockBundle, parent from the PHPCR (Generic document).');
+            $myBlock->setBody('Block from CMF BlockBundle, parent from the PHPCR (Generic document).');
             $manager->persist($myBlock);
 
             // Commit $document and $block to the database
@@ -394,7 +394,7 @@ sample block, so create the ``LoadBlockWithCmfParent.php`` class::
             $myBlock->setParentDocument($document);
             $myBlock->setName('testBlock');
             $myBlock->setTitle('CMF BlockBundle and ContentBundle');
-            $myBlock->setContent('Block from CMF BlockBundle, parent from CMF ContentBundle (StaticContent).');
+            $myBlock->setBody('Block from CMF BlockBundle, parent from CMF ContentBundle (StaticContent).');
             $manager->persist($myBlock);
 
             // Commit $document and $block to the database

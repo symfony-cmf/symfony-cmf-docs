@@ -10,14 +10,14 @@ StringBlock
 -----------
 
 This is a very simple block that just provides one string field called
-``content`` and the default template renders the content as ``raw`` to
+``body`` and the default template renders the content as ``raw`` to
 allow HTML in the field. The template outputs no HTML tags around the string
 at all.
 
 SimpleBlock
 -----------
 
-Just a text block with a ``title`` and a ``content``. The default template
+Just a text block with a ``title`` and a ``body``. The default template
 renders both title and content as ``raw``, meaning HTML is allowed in those
 fields.
 
