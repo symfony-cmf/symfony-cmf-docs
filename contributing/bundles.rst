@@ -46,9 +46,13 @@ Interfaces which exist to provide *getters* MUST be suffixed with
 Interfaces which exist to provide *setters* MUST be suffixed with
 "WriteInterface"
 
-Interfaces which provide both getters and setters MUST not specify either
-"Read" or "Write" and MUST either contain the interface contract or extend
-one of "ReadInterface" or "WriteInterface" to fulfil the contract::
+"Read/Write" Interfaces, which provide *both* getters and setters, MUST not
+have an additional suffix and MUST extend the "Read" and "Write" interfaces IF
+either exists.
+
+If either or both "Read" and "Write" interfaces do not exist, then the
+"Read/Write" interface MUST incorporate the methods required to fulfil the
+"Read/Write" contract::
 
     <?php
 
