@@ -40,20 +40,42 @@ first:
 Interface Naming
 ~~~~~~~~~~~~~~~~
 
-*Setter* (write) interfaces MUST be of the form ``<Context>WriteInterface``,
-examples:
+Interfaces which exist to provide *getters* MUST be suffixed with
+"ReadInterface"
 
-* ``MenuNodeReferrerWriteInterface``
-* ``PublishableWriteInterface``
+Interfaces which exist to provide *setters* MUST be suffixed with
+"WriteInterface"
 
-*Getter* (read) interfaces MUST be of the form ``<Context>Interface``, examples:
+"Read/Write" Interfaces, which provide *both* getters and setters, MUST not
+have an additional suffix and MUST extend the "Read" and "Write" interfaces IF
+either exists.
 
-* ``PublishableInterface``
+If either or both "Read" and "Write" interfaces do not exist, then the
+"Read/Write" interface MUST incorporate the methods required to fulfil the
+"Read/Write" contract::
 
-Write interfaces MAY incorporate read interfaces IF a read interface does not yet
-exist.
+    <?php
 
-Write interfaces MUST extend a read interface IF a read interface does exist.
+    interface FoobarInterface extends FoobarReadInterface, FoobarWriteInterface
+    {
+    }
+
+    // or
+
+    interface FoobarInterface extends FoobarReadInterface
+    {
+        public function setFoobar($foobar);
+    }
+
+    // or
+
+    interface FoobarInterface
+    {
+        public function getFoobar();
+
+        public function setFoobar($foobar);
+    }
+
 
 Meta: README, CHANGELOG, etc
 ----------------------------
