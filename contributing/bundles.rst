@@ -41,12 +41,12 @@ Interface Naming
 ~~~~~~~~~~~~~~~~
 
 Interfaces which exist to provide *getters* MUST be suffixed with
-"ReadInterface"
+"ReadInterface".
 
 Interfaces which exist to provide *setters* MUST be suffixed with
-"WriteInterface"
+"WriteInterface".
 
-"Read/Write" Interfaces, which provide *both* getters and setters, MUST not
+"Read/Write" Interfaces, which provide **both** getters and setters, MUST not
 have an additional suffix and MUST extend the "Read" and "Write" interfaces IF
 either exists.
 
@@ -76,6 +76,15 @@ If either or both "Read" and "Write" interfaces do not exist, then the
         public function setFoobar($foobar);
     }
 
+Dependency Container Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Parameters representing class names MUST be of the form
+``cmf_bundlename.foo.bar.class``, example:
+
+.. code-block:: xml
+
+    <parameter key="cmf_menu.persistence.phpcr.menu_document.class">Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu</parameter>
 
 Meta: README, CHANGELOG, etc
 ----------------------------
