@@ -51,7 +51,6 @@ named ``phpunit.xml.dist``:
             <whitelist addUncoveredFilesFromWhitelist="true">
                 <directory>.</directory>
                 <exclude>
-                    <file>*Bundle.php</file>
                     <directory>Resources/</directory>
                     <directory>Admin/</directory>
                     <directory>Tests/</directory>
