@@ -120,6 +120,51 @@ specific settings for one of the block classes.
             ),
         ));
 
+If you want to make the base fields (f.e. the TTL for caching) of your 
+block document based on ``BaseBlock`` editable, just use the existing 
+admin extension by adding the following lines to your sonata admin 
+configuration ``sonata_admin``. Admin extensions allow you to add or 
+change features of one or more Admin instances. Read more about 
+`Sonata Admin Extensions`_ for more details.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_admin:
+            extensions:
+                cmf.block.admin.base.extension:
+                    extends:
+                        - Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+            <config xmlns="http://example.org/schema/dic/sonata_admin">
+                <extensions id="cmf.block.admin.base.extension">
+                    <extends>Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock</admins>
+                </extensions>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_admin', array(
+            'extensions' => array(
+                'cmf.block.admin.base.extension' => array(
+                    'extends' => array(
+                        Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock,
+                    ),
+                ),
+            ),
+        ));
+
 .. _bundle-block-document:
 
 Block Document
@@ -398,3 +443,4 @@ editable using the :doc:`CreateBundle <../create>`.
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`prepended configuration`: http://symfony.com/doc/current/components/dependency_injection/compilation.html#prepending-configuration-passed-to-the-extension
 .. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle
+.. _`Sonata Admin Extensions`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
