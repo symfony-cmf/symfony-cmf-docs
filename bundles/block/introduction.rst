@@ -145,10 +145,10 @@ change features of one or more Admin instances. Read more about
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <config xmlns="http://example.org/schema/dic/sonata_admin">
-                <extensions id="cmf.block.admin.base.extension">
-                    <extends>Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock</admins>
-                </extensions>
+            <config xmlns="http://sonata-project.org/schema/dic/admin">
+                <extension id="cmf.block.admin.base.extension">
+                    <extend>Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock</extend>
+                </extension>
             </config>
         </container>
 
@@ -159,7 +159,7 @@ change features of one or more Admin instances. Read more about
             'extensions' => array(
                 'cmf.block.admin.base.extension' => array(
                     'extends' => array(
-                        Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock,
+                        'Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock',
                     ),
                 ),
             ),
