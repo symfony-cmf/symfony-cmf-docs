@@ -52,7 +52,6 @@ named ``phpunit.xml.dist``:
                 <directory>.</directory>
                 <exclude>
                     <directory>Resources/</directory>
-                    <directory>Admin/</directory>
                     <directory>Tests/</directory>
                     <directory>vendor/</directory>
                 </exclude>
