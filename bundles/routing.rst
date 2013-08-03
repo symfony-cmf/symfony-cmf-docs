@@ -314,6 +314,24 @@ as we set a content on the route. The content could be used to define an intro
 section that is the same for each project or other shared data. If you don't
 need content, you can just not set it in the document.
 
+.. _component-route-generator-and-locales:
+
+.. sidebar:: ContentAwareGenerator and locales
+
+    You can use the ``_locale`` default value in a Route to create one Route
+    per locale, all referencing the same multilingual content instance. The
+    ``ContentAwareGenerator`` respects the ``_locale`` when generating routes
+    from content instances. When resolving the route, the ``_locale`` gets
+    into the request and is picked up by the Symfony2 locale system.
+
+.. note::
+
+    Under PHPCR-ODM, Routes should never be translatable documents, as one
+    Route document represents one single url, and serving several translations
+    under the same url is not recommended.
+
+    If you need translated URLs, make the locale part of the route name.
+
 Sonata Admin Configuration
 --------------------------
 
