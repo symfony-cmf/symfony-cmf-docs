@@ -182,7 +182,7 @@ All bundles MUST implement the CMF Testing component.
 The :doc:`testing component documentation <../components/testing>` includes
 instructions on how the component should be integrated.
 
-.. _`README template on wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki/README-format-proposal
+.. _`README template on wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki/README
 .. _`CHANGELOG template on wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki/Change-log-format
 .. _`suggested bundle best practices`: http://symfony.com/doc/current/cookbook/bundles/best_practices.html
 .. _`Mapping Model Classes`: http://symfony.com/doc/master/cookbook/doctrine/mapping_model_classes.html
