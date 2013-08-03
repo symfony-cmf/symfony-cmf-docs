@@ -158,7 +158,7 @@ related to the way ``Route`` instances are stored by RoutingBundle.
 By default, the ``path`` parameter will hold the prefixed full URI, including
 the locale identifier. This would mean an independent ``Route`` instance
 should exist for each translation of the same ``Content``. However, as we've
-seen, ``MultilangPage```stores all translations in the same entry. So, to
+seen, ``MultilangPage`` stores all translations in the same entry. So, to
 avoid duplication, the locale prefix is stripped from the URI prior to
 persistence, and SimpleCMSBundle includes ``MultilangRouteProvider``, which is
 responsible for fetching ``Route`` instances taking that into account.
