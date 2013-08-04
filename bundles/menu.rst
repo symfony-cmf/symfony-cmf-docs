@@ -5,24 +5,31 @@
 MenuBundle
 ==========
 
-The `MenuBundle`_ provides menus from a doctrine object manager with the help
-of `KnpMenuBundle`_.
+The CmfMenuBundle extends the `KnpMenuBundle`_ by adding a menu provider
+that loads menus from a doctrine object manager and generating menu URLs
+from content.
+
+.. caution::
+
+    Make sure you understand how the `KnpMenuBundle`_ works when you want to
+    customize the CmfMenuBundle. The CMF menu bundle is just adding
+    functionality on top of the Knp menu bundle and this documentation is
+    focused on the additional functionality.
 
 .. index:: MenuBundle
 
 Dependencies
 ------------
 
-This bundle is extending the `KnpMenuBundle`_.
+This bundle is extending the `KnpMenuBundle`_. Unless you change defaults and
+provide your own implementations, this bundle also depends on:
 
-Unless you change defaults and provide your own implementations, this bundle
-also depends on
-
-* ``SymfonyRoutingBundle`` for the router service
-  ``cmf_routing.dynamic_router``.  Note that you need to explicitly
-  enable the dynamic router as per default it is not loaded.  See the
-  :doc:`documentation of the cmf routing bundle <routing>` for how to do this.
-* :doc:`PHPCR-ODM <phpcr_odm>` to load route documents from the content repository
+* **CmfRoutingBundle** - if you want to generate routes for content objects.
+  Note that you need to explicitly enable the dynamic router as per default it
+  is not loaded. See the
+  :doc:`documentation of the cmf routing bundle <routing>` for more information.
+* :doc:`PHPCR-ODM <phpcr_odm>` - to load route documents from the content
+  repository when using the ``PHPCRMenuProvider``.
 
 Configuration
 -------------
@@ -57,34 +64,80 @@ The values are:
 If you want to render the menu from twig, make sure you have not disabled twig
 in the ``knp_menu`` configuration section.
 
-If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the
-composer.json require section, the menu documents are exposed in the
-SonataDoctrinePhpcrAdminBundle.  For instructions on how to configure this
+If you have ``sonata-project/doctrine-phpcr-admin-bundle`` in your
+``composer.json`` require section, the menu documents are exposed in the
+SonataDoctrinePhpcrAdminBundle. For instructions on how to configure this
 Bundle see :doc:`doctrine_phpcr_admin`.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
-SonataDoctrinePhpcrAdminBundle is available but you can explicitly disable it
+SonataDoctrinePhpcrAdminBundle is available, but you can explicitly disable it
 to not have it even if sonata is enabled, or explicitly enable to get an error
 if Sonata becomes unavailable.
 
-By default, menu nodes that have neither the uri nor the route field set and no
-route can be generated from the content they link to are skipped by the
+By default, menu nodes that have neither the URI nor the routeName field set
+and no route can be generated from the linked content are skipped by the
 ``ContentAwareFactory``. This also leads to their descendants not showing up.
 If you want to generate menu items without a link instead, set the
 ``allow_empty_items`` parameter to true to make the menu items show up as
-static text instead.
+plain text instead.
 
 Menu Entries
 ------------
 
-A ``MenuItem`` document defines menu entries. You can build menu items based
-on symfony routes, absolute or relative urls or referenceable PHPCR-ODM
-content documents.
+A ``MenuNode`` document defines a menu entry. You can build entries based
+on symfony route names, absolute or relative URLs or referenceable PHPCR-ODM
+content documents. Route names and URLs are provided directly by `KnpMenu`_.
+Generating routes from content objects is a feature of the CmfRoutingBundle.
 
-The menu tree is built from documents under [menu_basepath]/[menuname]. You
-can use different document classes for menu items as long as they implement
-``Knp\Menu\NodeInterface`` to integrate with KnpMenuBundle. The default
-``MenuNode`` document discards children that do not implement this interface.
+Menu Provider
+~~~~~~~~~~~~~
+
+A menu provider is responsible to load a menu when it is requested. KnpMenu
+supports having several providers. The CmfMenuBundle provides the
+``PHPCRMenuProvider`` to load menu items from PHPCR-ODM.
+
+Every menu has a name and is loaded by that name. The ``PHPCRMenuProvider``
+locates menus by looking at ``persistence.phpcr.menu_basepath``/``<menuname>``.
+You can use custom document classes for menu nodes if needed, as long as they
+implement ``Knp\Menu\NodeInterface`` to integrate with KnpMenuBundle. The
+default ``MenuNode`` class discards children that do not implement the
+``Knp\Menu\NodeInterface``.
+
+.. note::
+
+    There is currently no support for Doctrine ORM or other persistence
+    managers. This is not by design, but only because nobody built that yet.
+    We would be glad for a pull request refactoring ``PHPCRMenuProvider`` into
+    a base class suitable for all doctrine implementations, and storage
+    specific providers.
+
+You can also write your completely custom provider and register it with the
+KnpMenu as explained in the `KnpMenuBundle custom provider documentation`_.
+
+Menu Factory
+~~~~~~~~~~~~
+
+The menu nodes need to be converted into menu items. This is the job of the
+menu factory. A menu item should have a URL associated with it. KnpMenu can
+either take the ``uri`` field from the options, or generate a URL from the
+``route`` and ``routeParameters`` options. The CmfMenuBundle provides the
+``ContentAwareFactory`` that supports to generate the URL from the ``content``
+option that contains an object the ``DynamicRouter`` can generate a URL for, plus
+eventual ``routeParameters``. Thus a menu node can link to a content object or
+a route object in the database and put that object into the options to have the
+URL generated.
+
+URL generation is absolute or relative, depending on ``routeAbsolute``.
+If you specify the ``linkType`` option, you can control how the URL is
+generated. If this parameter is missing, it is determined automatically,
+tacking in order ``uri``,``route`` or ``content``.
+
+.. note::
+
+    If you just want to generate normal Symfony routes with a menu that is in
+    the database, simply make sure to never provide a ``content`` option and
+    either provide the ``route`` and eventual ``routeParameters`` or the
+    ``uri``.
 
 Examples::
 
@@ -130,20 +183,8 @@ Examples::
 
     $dm->flush();
 
-By default content documents are created using a **weak** reference (this
-means you will be able to delete the referenced content). You can specify a
-strong reference by using ``setWeak(false)``::
-
-    <?php
-
-    $node = new MenuNode;
-    // ...
-    $node->setWeak(false);
-
-.. note::
-
-    When content is referenced weakly and subsequently deleted the rendered
-    menu will not provide a link to the content.
+The default PHPCR-ODM mapping links content documents by a **weak** reference,
+which means you are able to delete the referenced content.
 
 Current Menu Item
 -----------------
@@ -342,32 +383,6 @@ The menu name is the name of the node under ``menu_basepath``. For example if
 your repository stores the menu nodes under ``/cms/menu`` , rendering "main"
 would mean to render the menu that is at ``/cms/menu/main``
 
-How to use Non-Default Other Components
----------------------------------------
-
-If you use the cmf menu with PHPCR-ODM, you just need to store Route documents
-under ``menu_basepath``. If you use a different object manager, you need to
-make sure that the menu root document is found with::
-
-    $dm->find($menu_document_class, $menu_basepath . $menu_name)
-
-The route document must implement ``Knp\Menu\NodeInterface`` - see
-``MenuNode`` document for an example. You probably need to specify
-menu_document_class too, as only PHPCR-ODM can determine the document from the
-database content.
-
-If you use the cmf menu with the DynamicRouter, you need no route name as the
-menu document just needs to provide a field content_key in the options.  If
-you want to use a different service to generate URLs, you need to make sure
-your menu entries provide information in your selected content_key that the
-url generator can use to generate the url. Depending on your generator, you
-might need to specify a route_name too.
-
-Note that if you just want to generate normal symfony routes with a menu that
-is in the database, you can pass the core router service as
-content_url_generator, make sure the content_key never matches and make your
-menu documents provide the route name and eventual routeParameters.
-
 Publish Workflow Interface
 --------------------------
 
@@ -375,5 +390,6 @@ Menu nodes implement the write interfaces for publishable and publish time
 period, see the :ref:`publish workflow documentation <bundle-core-publish_workflow>`
 for more information.
 
-.. _`MenuBundle`: https://github.com/symfony-cmf/MenuBundle#readme
+.. _`KnpMenu`: https://github.com/knplabs/KnpMenu
 .. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle
+.. _`KnpMenuBundle custom provider documentation`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/custom_provider.md
