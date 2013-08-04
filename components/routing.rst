@@ -7,8 +7,7 @@ Routing
 
 The Symfony CMF Routing component extends the Symfony2 core routing
 component. Even though it has Symfony in its name, it does not need the full
-Symfony2 Framework and can be used in standalone projects. For integration
-with the Symfony2 Framework, we provide :doc:`../bundles/routing`.
+Symfony2 Framework and can be used in standalone projects.
 
 At the core of the Symfony CMF Routing component is the `ChainRouter`_. The
 ChainRouter tries to match a request with each of its registered routers,
@@ -162,7 +161,7 @@ parameters from the information provided by the match.
 .. _components-routing-events:
 
 Events
-~~~~~~
+......
 
 Events are dispatched during the Dynamic Router match process. Currently there
 are 2 events:
@@ -199,15 +198,14 @@ to use when handling the current Request:
 """"""""""""""""""""
 
 Although the ``RouteProviderInterface`` can be used in other ways, it's main
-goal is to be easily implemented on top of Doctrine PHPCR ODM or a relational
+goal is to be easily implemented on top of Doctrine PHPCR ODM or any other
 database, effectively allowing you to store and manage routes dynamically from
-database.
+the database.
 
 Based on the ``Request``, the ``NestedMatcher`` will retrieve an ordered
-collection of ``Route`` objects from the ``RouteProviderInterface``. The idea
-of this provider is to provide all routes that could potentially match, but
-**not** to do any elaborate matching operations yet - this is the job of the
-later steps.
+collection of ``Route`` objects from the Route Provider. The idea of this
+provider is to provide all routes that could potentially match, but **not** to
+do any elaborate matching operations yet - this will be done in the later steps.
 
 The underlying implementation of the ``RouteProviderInterface`` is not in the
 scope of this component. The :doc:`RoutingBundle <../bundles/routing>`
@@ -218,6 +216,7 @@ To create and register your own Route Provider, create a class extending
 the methods::
 
     use Symfony\Cmf\Component\Routing\RouteProviderInterface;
+
     use Symfony\Component\Routing\RouteCollection;
     use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
@@ -269,7 +268,7 @@ The Route Provider is set using the first argument of the constructor for the
     // ...
 
     $routeProvider = new DoctrineOrmRouteProvider(...);
-    $nestedMatcher = new NestedMatcher($routeProvider);
+    $nestedMatcher = new NestedMatcher($routeProvider, ...);
 
 2. The Route Filters
 """"""""""""""""""""
@@ -279,14 +278,32 @@ implementations to reduce the provided ``Route`` objects, e.g. for doing
 content negotiation. It is the responsibility of each filter to throw the
 ``ResourceNotFoundException`` if no more routes are left in the collection.
 
+Filters are created by implementing
+``Symfony\Cmf\Component\Routing\NestedMatcher\RouteFilterInterface``. They can
+be registered with the ``addRouteFilter`` method, which has an optional second
+argument to set the priority.
+
 3. The Final Matcher
 """"""""""""""""""""
 
-The ``FinalMatcherInterface`` implementation has to determine exactly one
-Route as the best match or throw an exception if no adequate match could
-be found. The default implementation uses the
+The ``FinalMatcherInterface`` implementation has to find exactly one Route or
+throw an exception if no adequate match could be found. The default
+implementation uses the
 :class:`Symfony\\Component\\Routing\\Matcher\\UrlMatcher` of the Symfony
-Routing Component.
+Routing Component and is called
+``Symfony\Cmf\Component\Routing\NestedMatcher\UrlMatcher``.
+
+You can create your own final matcher by implementing
+``Symfony\Cmf\Component\Routing\NestedMatcher\FinalMatcherInterface``.
+
+The final matcher is set using the second argument of the constructor of the
+``NestedMatcher``::
+
+    use Symfony\Cmf\Component\Routing\NestedMatcher\UrlMatcher
+    // ...
+
+    $finalMatcher  = new UrlMatcher(...);
+    $nestedMatcher = new NestedMatcher($routeProvider, $finalMatcher);
 
 .. _component-routing-enhancers:
 
@@ -306,40 +323,43 @@ already provides some simple enhancers:
 * `RouteContentEnhancer`_
 
 You can also create your own Route Enhancer by creating a class which
-implements ``Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancer``.
+implements ``Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancer``. Route
+Enhancers are registered using the ``addRouteEnhancer`` method, which has an
+optional second argument to provide the priority.
 
 Linking a Route with a Content
 ..............................
 
 Depending on your application's logic, a requested url may have an associated
-content from the database. Those Routes should implement the
-``RouteObjectInterface``, and can optionally return a model instance. If you
-configure the ``RouteContentEnhancer``, it will included that content in the
-match array, with the ``_content`` key. Notice that a Route can implement
-the above mentioned interface but still not to return any model instance,
-in which case no associated object will be returned.
+content object. A route for such URL may implement the ``RouteObjectInterface``
+to return a content object if present. If you configure the
+``RouteContentEnhancer``, it will included that content in the match array,
+using the ``_content`` key. Notice that a Route can implement the above
+mentioned interface but still not to return any model instance, in which case
+no associated object will be returned.
 
 Furthermore, routes that implement this interface can also provide a custom
 Route name. The key returned by ``getRouteKey`` will be used as route name
 instead of the Symfony core compatible route name and can contain any
 characters. This allows you, for example, to set a path as the route name. Both
-UrlMatchers provided with the NestedMatcher replace the _route key with the
-route instance and put the provided name into _route_name.
+UrlMatchers provided with the ``NestedMatcher`` replace the ``_route`` key
+with the route instance and put the provided name into ``_route_name``.
 
-All routes still need to extend the base class ``Symfony\Component\Routing\Route``.
+All routes still need to extend the base
+:class:`Symfony\\Component\\Routing\\Route <Symfony\\Component\\Routing\\Route>`
+class.
 
 Redirections
 ............
 
 You can build redirections by implementing the ``RedirectRouteInterface``.
-It can redirect either to an absolute URI, to a named Route that can be
-generated by any Router in the chain or to another Route object provided by the
-Route.
+It can redirect to an absolute URI, a named Route that can be generated by any
+Router in the chain or to another Route object provided by the Route.
 
 Notice that the actual redirection logic is not handled by the bundle. You
-should implement your own logic to handle the redirection. For an example on
+should implement your own logic to handle the redirection. For an example of
 implementing that redirection under the full Symfony2 stack, refer to
-:doc:`../bundles/routing`.
+:doc:`the RoutingBundle <../bundles/routing>`.
 
 Generating URLs
 ~~~~~~~~~~~~~~~
@@ -349,20 +369,20 @@ is also responsible for generating an URL from a Route and its parameters.
 The ``ChainRouter`` iterates over its known routers until one of them is
 able to generate a matching URL.
 
-Apart from using ``RequestMatcherInterface`` or ``UrlMatcherInterface`` to
-match a Request/URL to its corresponding parameters, the ``DynamicRouter``
-also uses an ``UrlGeneratorInterface`` instance, which allows it to
-generate an URL from a Route.
+Beside ``RequestMatcherInterface`` and ``UrlMatcherInterface`` to match a
+Request/URL to its corresponding parameters, the ``DynamicRouter`` also uses
+a ``UrlGeneratorInterface`` instance, which allows it to generate an URL from
+a Route.
 
 The included ``ProviderBasedGenerator`` extends Symfony2's default
-:class:`Symfony\\Component\\routing\\Generator\\UrlGenerator`
-(which, in turn, implements ``UrlGeneratorInterface``) and - if $name is
-not already a ``Route`` object - loads the route from the ``RouteProviderInterface``.
-It then lets the core logic generate the URL from that Route.
+:class:`Symfony\\Component\\routing\\Generator\\UrlGenerator` (which, in turn,
+implements ``UrlGeneratorInterface``) and - if the name is not already a
+``Route`` object - loads the Route from the Route provider. It then lets the
+core logic generate the URL from that Route.
 
-The bundle also include the ``ContentAwareGenerator``, which extends the
-``ProviderBasedGenerator`` to check if $name is an object implementing
-``RouteAwareInterface`` and, if so, gets the Route from the content.
+The component also includes the ``ContentAwareGenerator``, which extends the
+``ProviderBasedGenerator`` to check if the name is an object implementing
+``RouteReferrersReadInterface`` and, if so, gets the Route from the content.
 Using the ``ContentAwareGenerator``, you can generate urls for your content in
 three ways:
 
@@ -371,56 +391,13 @@ three ways:
 * Or provide an implementation of ``ContentRepositoryInterface`` and pass the id
   of the content object as parameter ``content_id`` and ``null`` as $name.
 
-.. _component-route-generator-and-locales:
-
-ContentAwareGenerator and locales
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-You can use the ``_locale`` default value in a Route to create one Route
-per locale, all referencing the same multilingual content instance. The ``ContentAwareGenerator``
-respects the ``_locale`` when generating routes from content instances. When resolving
-the route, the ``_locale`` gets into the request and is picked up by the Symfony2
-locale system.
-
-.. note::
-
-    Under PHPCR-ODM, Routes should never be translatable documents, as one
-    Route document represents one single url, and serving several translations
-    under the same url is not recommended.
-
-    If you need translated URLs, make the locale part of the route name.
-
-Customization
--------------
-
-The Routing bundles allows for several customization options, depending on
-your specific needs:
-
-* You can implement your own RouteProvider to load routes from a different source
-* Your Route parameters can be easily manipulated using the existing Enhancers
-* You can also add your own Enhancers to the DynamicRouter
-* You can add RouteFilterInterface instances to the NestedMatcher
-* The ``DynamicRouter`` or its components can be extended to allow modifications
-* You can implement your own Routers and add them to the ``ChainRouter``
-
-.. note::
-
-    If you feel like your specific Enhancer or Router can be useful to others,
-    get in touch with us and we'll try to include it in the bundle itself
-
 Symfony2 integration
 --------------------
 
-Like mentioned before, this bundle was designed to only require certain parts
-of Symfony2. However, if you wish to use it as part of your Symfony CMF project,
-an integration bundle is also available. We strongly recommend that you take
-a look at :doc:`../bundles/routing`.
-
-For a starter's guide to the Routing bundle and its integration with Symfony2,
-refer to :doc:`../getting_started/routing`
-
-We strongly recommend reading Symfony2's `Routing`_ component documentation
-page, as it's the base of this bundle's implementation.
+As mentioned before, this component was designed to use independently of the
+Symfony2 framework.  However, if you wish to use it as part of your Symfony
+CMF project, an integration bundle is also available. Read more about the
+RoutingBundle in ":doc:`../bundles/routing`" in the bundles documentation.
 
 .. _`Install it via Composer`: http://symfony.com/doc/current/components/using_components.html
 .. _`Packagist`: https://packagist.org/packages/symfony-cmf/routing
