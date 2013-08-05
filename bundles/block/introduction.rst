@@ -1,8 +1,7 @@
 The BlockBundle
 ===============
 
-The `BlockBundle`_ provides integration with
-`SonataBlockBundle <https://github.com/sonata-project/SonataBlockBundle>`_.
+The `BlockBundle`_ provides integration with `SonataBlockBundle`_.
 It is used to manage fragments of content, so-called blocks, that are persisted
 in a database and can be incorporated into any page layout.
 
