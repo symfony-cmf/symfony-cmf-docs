@@ -1,15 +1,12 @@
 The BlockBundle
 ===============
 
-The `BlockBundle`_ provides integration with SonataBlockBundle. It assists you
-in managing fragments of contents, so-called blocks. What the BlockBundle does
-is similar to what Twig does, but for blocks that are persisted in a DB.
-Thus, the blocks can be made editable for an editor.  Also the BlockBundle
-provides the logic to determine which block should be rendered on which pages.
+The `BlockBundle`_ provides integration with `SonataBlockBundle`_.
+It is used to manage fragments of content, so-called blocks, that are persisted
+in a database and can be incorporated into any page layout.
 
-The BlockBundle does not provide an editing functionality for blocks itself.
-However, you can find examples on how making blocks editable in the
-`Symfony CMF Sandbox`_.
+The BlockBundle also provides a few commonly used standard blocks, including the
+ability to edit them. See :doc:`types`.
 
 .. index:: BlockBundle
 
