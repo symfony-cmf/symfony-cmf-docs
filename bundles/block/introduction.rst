@@ -49,27 +49,10 @@ The configuration key for this bundle is ``cmf_block``:
 
         # app/config/config.yml
         cmf_block:
-            manager_name:  default
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:cmf-block="http://cmf.symfony.com/schema/dic/block"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-            <cmf-block:config
-                document-manager-name="default"
-            />
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('cmf_block', array(
-            'document_manager_name' => 'default',
-        ));
+            persistence:
+                phpcr:
+                    enabled: true
+                    manager_name: default
 
 The default settings of a block are defined in the block service. If you use a
 3rd party block you might want to alter these for your application. Use the
