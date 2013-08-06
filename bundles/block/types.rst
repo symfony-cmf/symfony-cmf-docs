@@ -10,14 +10,14 @@ StringBlock
 -----------
 
 This is a very simple block that just provides one string field called
-``content`` and the default template renders the content as ``raw`` to
+``body`` and the default template renders the content as ``raw`` to
 allow HTML in the field. The template outputs no HTML tags around the string
 at all.
 
 SimpleBlock
 -----------
 
-Just a text block with a ``title`` and a ``content``. The default template
+Just a text block with a ``title`` and a ``body``. The default template
 renders both title and content as ``raw``, meaning HTML is allowed in those
 fields.
 
@@ -78,7 +78,7 @@ display them in a list.
 
 Create a document::
 
-    use Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock;
 
     // ...
 
@@ -201,8 +201,8 @@ Creating a slideshow consists of creating the container ``SlideshowBlock`` and
 adding blocks to it. Those blocks can be anything, but an image makes a lot
 of sense::
 
-    use Symfony\Cmf\Bundle\BlockBundle\Document\SlideshowBlock;
-    use Symfony\Cmf\Bundle\BlockBundle\Document\ImagineBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock;
     // the Image will be moved to Symfony\Cmf\Bundle\MediaBundle\Model\Image
     use Doctrine\ODM\PHPCR\Document\Image;
     use Doctrine\ODM\PHPCR\Document\File;

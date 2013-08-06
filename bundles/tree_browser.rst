@@ -157,11 +157,11 @@ This configuration is set for all your application trees regardless their type
                         - all
                 Symfony\Cmf\Bundle\ContentBundle\Document\MultilangStaticContent:
                     valid_children:
-                        - Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock
-                        - Symfony\Cmf\Bundle\BlockBundle\Document\ContainerBlock
-                        - Symfony\Cmf\Bundle\BlockBundle\Document\ReferenceBlock
-                        - Symfony\Cmf\Bundle\BlockBundle\Document\ActionBlock
-                Symfony\Cmf\Bundle\BlockBundle\Document\ReferenceBlock:
+                        - Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock
+                        - Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock
+                        - Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock
+                        - Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock
+                Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock:
                     valid_children: []
                 # ...
 

@@ -49,27 +49,10 @@ The configuration key for this bundle is ``cmf_block``:
 
         # app/config/config.yml
         cmf_block:
-            manager_name:  default
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:cmf-block="http://cmf.symfony.com/schema/dic/block"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-            <cmf-block:config
-                document-manager-name="default"
-            />
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('cmf_block', array(
-            'document_manager_name' => 'default',
-        ));
+            persistence:
+                phpcr:
+                    enabled: true
+                    manager_name: default
 
 The default settings of a block are defined in the block service. If you use a
 3rd party block you might want to alter these for your application. Use the
@@ -89,7 +72,7 @@ specific settings for one of the block classes.
                     settings:
                         maxItems: 3
             blocks_by_class:
-                Symfony\Cmf\Bundle\BlockBundle\Document\RssBlock:
+                Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock:
                     settings:
                         maxItems: 3
 
@@ -170,7 +153,7 @@ Block Document
 Before you can render a block, you need to create a data object representing
 your block in the repository. You can do so with the following code snippet::
 
-    use Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock;
 
     // ...
 
@@ -178,14 +161,14 @@ your block in the repository. You can do so with the following code snippet::
     $myBlock->setParentDocument($parentDocument);
     $myBlock->setName('sidebarBlock');
     $myBlock->setTitle('My first block');
-    $myBlock->setContent('Hello block world!');
+    $myBlock->setBody('Hello block world!');
 
     $documentManager->persist($myBlock);
 
 Note the ``sidebarBlock`` is the identifier we chose for the block. Together
 with the parent document of the block, this makes the block unique. The other
 properties are specific to
-``Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock``.
+``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock``.
 
 The simple block is now ready to be rendered, see
 :ref:`bundle-block-rendering`.
@@ -194,7 +177,7 @@ The simple block is now ready to be rendered, see
 
     Always make sure you implement the interface
     ``Sonata\BlockBundle\Model\BlockInterface`` or an existing block document
-    like ``Symfony\Cmf\Bundle\BlockBundle\Document\BaseBlock``.
+    like ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock``.
 
 Block Context
 -------------
