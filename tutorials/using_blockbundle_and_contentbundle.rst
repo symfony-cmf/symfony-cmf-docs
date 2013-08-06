@@ -230,7 +230,7 @@ like this::
     $myBlock->setParentDocument($parentPage);
     $myBlock->setName('sidebarBlock');
     $myBlock->setTitle('My first block');
-    $myBlock->setContent('Hello block world!');
+    $myBlock->setBody('Hello block world!');
 
     $documentManager->persist($myBlock);
 
@@ -259,7 +259,7 @@ your ``DataFixtures/PHPCR`` directory::
     use Doctrine\ODM\PHPCR\Document\Generic;
     use Symfony\Component\DependencyInjection\ContainerAwareInterface;
     use Symfony\Component\DependencyInjection\ContainerInterface;
-    use Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock;
 
     class LoadBlockWithPhpcrParent extends AbstractFixture implements ContainerAwareInterface
     {
@@ -279,7 +279,7 @@ your ``DataFixtures/PHPCR`` directory::
             $myBlock->setParentDocument($document);
             $myBlock->setName('testBlock');
             $myBlock->setTitle('CMF BlockBundle only');
-            $myBlock->setContent('Block from CMF BlockBundle, parent from the PHPCR (Generic document).');
+            $myBlock->setBody('Block from CMF BlockBundle, parent from the PHPCR (Generic document).');
             $manager->persist($myBlock);
 
             // Commit $document and $block to the database
@@ -370,7 +370,7 @@ sample block, so create the ``LoadBlockWithCmfParent.php`` class::
     use Symfony\Component\DependencyInjection\ContainerAwareInterface;
     use Symfony\Component\DependencyInjection\ContainerInterface;
     use PHPCR\Util\NodeHelper;
-    use Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock;
+    use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock;
     use Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent;
 
     class LoadBlockWithCmfParent extends AbstractFixture implements ContainerAwareInterface
@@ -394,7 +394,7 @@ sample block, so create the ``LoadBlockWithCmfParent.php`` class::
             $myBlock->setParentDocument($document);
             $myBlock->setName('testBlock');
             $myBlock->setTitle('CMF BlockBundle and ContentBundle');
-            $myBlock->setContent('Block from CMF BlockBundle, parent from CMF ContentBundle (StaticContent).');
+            $myBlock->setBody('Block from CMF BlockBundle, parent from CMF ContentBundle (StaticContent).');
             $manager->persist($myBlock);
 
             // Commit $document and $block to the database
@@ -662,7 +662,7 @@ SimpleBlock class not found
 .. code-block:: text
 
     [Doctrine\Common\Persistence\Mapping\MappingException]
-    The class 'Symfony\Cmf\Bundle\BlockBundle\Document\SimpleBlock' was not found in the chain configured namespaces Doctrine\ODM\PHPCR\Document, Sonata\UserBundle\Document, FOS\UserBundle\Document
+    The class 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock' was not found in the chain configured namespaces Doctrine\ODM\PHPCR\Document, Sonata\UserBundle\Document, FOS\UserBundle\Document
 
 Make sure the CMF BlockBundle is installed and loaded in ``app/AppKernel.php``::
 
