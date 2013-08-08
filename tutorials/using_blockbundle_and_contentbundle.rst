@@ -525,8 +525,10 @@ might be a CMF bundle at some point for this).
     {# template.twig.html #}
     {{ page.content|cmf_embed_blocks }}
 
-When you apply the filter, your users can use this tag to embed a block in
-their HTML content:
+Make sure to only place this filter where you display the content and not where
+editing it, as otherwise your users would start to edit the rendered output of
+their blocks. When you apply the filter, your users can use this tag to embed a
+block in their HTML content:
 
 .. code-block:: html
 
@@ -534,11 +536,12 @@ their HTML content:
 
     <span>%embed-block:"local-block"%</span>
 
-The path to the block is either absolute or relative to the current main content.
-The actual path to the block must be enclosed with double quotes ``"``. But the
-prefix and postfix are configurable. The default prefix is ``<span>%embed-block:``
-and the default postfix is ``%</span>``. Say you want to write
-``%%%block:"/absolute/path"%%%`` and no ``<span>`` tag then you do:
+The path to the block is either absolute or relative to the current main
+content. The actual path to the block must be enclosed with double quotes
+``"``. But the prefix and postfix are configurable. The default prefix is
+``<span>%embed-block:`` and the default postfix is ``%</span>``. Say you want
+to use ``%%%block:"/absolute/path"%%%`` and no ``<span>`` tag to avoid
+problems with a wysiwyg editor, then you do:
 
 .. configuration-block::
 
@@ -553,10 +556,16 @@ and the default postfix is ``%</span>``. Say you want to write
 
 .. caution::
 
-    Currently there is no limitation built into this feature. Only enable it
-    on content for which you are sure only trusted users may edit it.
+    Currently there is no security built into this feature. Only enable the
+    filter for content for which you are sure only trusted users may edit it.
     Restrictions about what block can be where that are built into an admin
     interface are not respected here.
+
+.. note::
+
+    The block embed filter ignores all errors that might occur when rendering a
+    block and returns an empty string for each failed block instead. The errors
+    are logged at level WARNING.
 
 Next Steps
 ----------
