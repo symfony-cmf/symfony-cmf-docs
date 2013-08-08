@@ -6,6 +6,21 @@ cases. It also has a couple of more specific blocks that integrate third
 party libraries. Those can be handy for some use cases and also serve as
 examples to build your own blocks.
 
+Common Behaviour
+----------------
+
+There is an ``AbstractBlock`` base class that defines common behaviour for all
+blocks provided by this bundle. It also implements handling for locales, even
+though only those block that actually contain string content implement the
+``TranslatableInterface``.
+
+Publish Workflow Interfaces
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``AbstractBlock`` implements the write interfaces for publishable and publish time
+period, see the :ref:`publish workflow documentation <bundle-core-publish_workflow>`
+for more information.
+
 StringBlock
 -----------
 
