@@ -29,7 +29,7 @@ provide your own implementations, this bundle also depends on:
   is not loaded. See the
   :doc:`documentation of the cmf routing bundle <routing>` for more information.
 * :doc:`PHPCR-ODM <phpcr_odm>` - to load route documents from the content
-  repository when using the ``PHPCRMenuProvider``.
+  repository when using the ``PhpcrMenuProvider``.
 
 Configuration
 -------------
@@ -94,9 +94,9 @@ Menu Provider
 
 A menu provider is responsible to load a menu when it is requested. KnpMenu
 supports having several providers. The CmfMenuBundle provides the
-``PHPCRMenuProvider`` to load menu items from PHPCR-ODM.
+``PhpcrMenuProvider`` to load menu items from PHPCR-ODM.
 
-Every menu has a name and is loaded by that name. The ``PHPCRMenuProvider``
+Every menu has a name and is loaded by that name. The ``PhpcrMenuProvider``
 locates menus by looking at ``persistence.phpcr.menu_basepath``/``<menuname>``.
 You can use custom document classes for menu nodes if needed, as long as they
 implement ``Knp\Menu\NodeInterface`` to integrate with KnpMenuBundle. The
@@ -107,7 +107,7 @@ default ``MenuNode`` class discards children that do not implement the
 
     There is currently no support for Doctrine ORM or other persistence
     managers. This is not by design, but only because nobody built that yet.
-    We would be glad for a pull request refactoring ``PHPCRMenuProvider`` into
+    We would be glad for a pull request refactoring ``PhpcrMenuProvider`` into
     a base class suitable for all doctrine implementations, and storage
     specific providers.
 

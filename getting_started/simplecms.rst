@@ -304,7 +304,7 @@ can be used to generate a ``MenuItem`` that will, in turn, be rendered into HTML
 menus.
 
 To do so, the default ``MenuBundle`` mechanisms are used, only a custom
-``basepath`` is provided to the ``PHPCRMenuProvider`` instance. This is
+``basepath`` is provided to the ``PhpcrMenuProvider`` instance. This is
 defined in the SimpleCMSBundle configuration options, and used when handling
 content storage to support functionality as described in :doc:`menu`
 documentation. This parameter is optional, and can be configured as follows:

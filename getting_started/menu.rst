@@ -55,12 +55,12 @@ this specific section.
 The Provider
 ~~~~~~~~~~~~
 
-The core of the MenuBundle is ``PHPCRMenuProvider``, a
+The core of the MenuBundle is ``PhpcrMenuProvider``, a
 ``MenuProviderInterface`` implementation that's responsible for dynamically
 loading menus from a PHPCR database. The default provider service is
 configured with a ``menu_basepath`` to know where in the PHPCR tree it will
 find menus. The menu ``name`` is given when rendering the menu and must be a
-direct child of the menu base path. This allows the ``PHPCRMenuProvider`` to
+direct child of the menu base path. This allows the ``PhpcrMenuProvider`` to
 handle several menu hierarchies using a single storage mechanism.
 
 To give a concrete example, if we have the configuration as given below and
@@ -91,7 +91,7 @@ render the menu ``simple``, the menu root node must be stored at
             'menu_basepath' => '/cms/menu',
         ));
 
-If you need multiple menu roots, you can create further PHPCRMenuProvider
+If you need multiple menu roots, you can create further ``PhpcrMenuProvider``
 instances and register them with KnpMenu - see the CMF MenuBundle
 ``DependencyInjection`` code for the details.
 
