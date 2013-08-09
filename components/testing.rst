@@ -135,9 +135,10 @@ in the root directory of your bundle:
     env:
       - SYMFONY_VERSION=2.2.*
       - SYMFONY_VERSION=2.3.*
+      - SYMFONY_VERSION=dev-master
 
     before_script:
-      - composer require symfony/framework-bundle:${SYMFONY_VERSION}
+      - composer require symfony/symfony:${SYMFONY_VERSION}
       - vendor/symfony-cmf/testing/bin/travis/phpcr_odm_doctrine_dbal.sh
 
     script: phpunit --coverage-text
@@ -145,6 +146,10 @@ in the root directory of your bundle:
     notifications:
       irc: "irc.freenode.org#symfony-cmf"
       email: "symfony-cmf-devs@googlegroups.com"
+
+    matrix:
+      allow_failures:
+        - env: SYMFONY_VERSION=dev-master
 
 Implementing the Component
 --------------------------
