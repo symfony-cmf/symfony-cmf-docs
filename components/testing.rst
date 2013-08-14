@@ -194,6 +194,11 @@ Test files and tests should be organized as follows:
                 ./AppKernel.php
                 ./config/
                     ./config.php
+            ./DataFixtures/
+                ./Phpcr/
+                     ./LoadFoobarFixtures.php
+            ./Document/
+                Foobar.php
 
 Custom Documents
 ~~~~~~~~~~~~~~~~
