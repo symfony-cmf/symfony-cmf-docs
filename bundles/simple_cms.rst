@@ -54,23 +54,34 @@ See the section below for multilanguage support.
 
         # app/config/config.yml
         cmf_simple_cms:
-            use_menu:             auto # use true/false to force providing / not providing a menu
-            use_sonata_admin:     auto # use true/false to force using / not using sonata admin
-            sonata_admin:
-                sort:             false # set to asc|desc to sort children by publication date
-            document_class:       Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page
-            # controller to use to render documents with just custom template
-            generic_controller:   cmf_content.controller:indexAction
-            # where in the PHPCR tree to store the pages
-            basepath:             /cms/simple
+            persistence:
+                phpcr:
+                    enabled:              ~
+                    basepath:             /cms/simple
+                    manager_registry:     doctrine_phpcr
+                    manager_name:         ~
+                    document_class:       Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page
+                    use_sonata_admin:     auto
+                    sonata_admin:
+                        sort:                 false
+            use_menu:             auto
             routing:
+                generic_controller:   cmf_content.controller:indexAction
                 content_repository_id:  cmf_routing.content_repository
+                uri_filter_regexp:
+                controllers_by_alias:
+
+                    # Prototype
+                    alias:                []
                 controllers_by_class:
-                    # ...
+
+                    # Prototype
+                    alias:                []
                 templates_by_class:
-                    # ...
-            multilang:
-                locales:              []
+
+                    # Prototype
+                    alias:                []
+
 
 .. tip::
 
@@ -83,40 +94,15 @@ See the section below for multilanguage support.
         .. code-block:: yaml
 
             cmf_simple_cms:
-                use_sonata_admin: false
+                persistence:
+                    phpcr:
+                        sonata_admin: false
 
 Multi-language support
 ----------------------
 
-The multi-language-mode is enabled by providing the list of allowed locales in
-the ``multilang > locales`` field.
-
-In multi-language-mode the Bundle will automatically use the
-``Symfony\Cmf\Bundle\SimpleCmsBundle\Document\MultilangPage`` as the
-``document_class`` unless a different class is configured explicitly.
-
-This class will by default prefix all routes with ``/{_locale}``. This
-behavior can be disabled by setting the second parameter in the constructor of
-the model to false.
-
-Furthermore the routing layer will be configured to use
-``Symfony\Cmf\Bundle\SimpleCmsBundle\Document\MultilangRouteRepository`` which
-will ensure that even with the locale prefix the right content node will be
-found. Furthermore it will automatically add a ``_locale`` requirement listing
-the current available locales for the matched route.
-
-.. note::
-
-    Since SimpleCmsBundle only provides a single tree structure, all nodes
-    will have the same node name for all languages. So a url
-    ``http://foo.com/en/bar`` for english content will look like
-    ``http://foo.com/de/bar`` for german content. At times it might be most
-    feasible to use integers as the node names and simple append the title of
-    the node in the given locale as an anchor. So for example
-    ``http://foo.com/de/1#my title`` and ``http://foo.com/de/1#mein title``.
-    If you need language specific URLs, you want to use the CMF routing bundle
-    and content bundle directly to have a separate route document per
-    language.
+@todo: Explain how multilang works now, in particular the use of ``->addLocaleFormat`` on
+the ``Page`` document.
 
 Rendering
 ---------
@@ -157,7 +143,7 @@ chapter :doc:`create`.
 Extending the Page class
 ------------------------
 
-The default Page document ``Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page``
+The default Page document ``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page``
 is relatively simple, shipping with a handful of the most common properties
 for building a typical page: title, body, tags, publish dates etc.
 
@@ -171,9 +157,10 @@ configuration parameter to your own document class:
 
         # app/config/config.yml
         cmf_simple_cms:
-            # ...
-            document_class:       Acme\DemoBundle\Document\MySuperPage
-            # ...
+            persistence:
+                phpcr:
+                    document_class:       Acme\DemoBundle\Document\MySuperPage
+                    # ...
 
 Alternatively, the default Page document contains an ``extras`` property. This
 is a key - value store (where value must be string or null) which can be used
