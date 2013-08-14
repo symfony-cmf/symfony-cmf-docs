@@ -79,12 +79,7 @@ If either or both "Read" and "Write" interfaces do not exist, then the
 Dependency Container Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Parameters representing class names MUST be of the form
-``cmf_bundlename.foo.bar.class``, example:
-
-.. code-block:: xml
-
-    <parameter key="cmf_menu.persistence.phpcr.menu_document.class">Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu</parameter>
+Refer the the `service naming conventions`_ in the symfony documentation.
 
 Meta: README, CHANGELOG, etc
 ----------------------------
@@ -201,3 +196,4 @@ instructions on how the component should be integrated.
 .. _`XLIFF format`: http://symfony.com/doc/current/book/translation.html#basic-translation
 .. _`CONTRIBUTING file from CoreBundle`: https://github.com/symfony-cmf/CoreBundle/blob/master/CONTRIBUTING.md
 .. _`LICENSE template on wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki/LICENSE-Template
+.. _`service naming conventions`: http://symfony.com/doc/current/contributing/code/standards.html#service-naming-conventions
