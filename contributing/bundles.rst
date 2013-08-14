@@ -41,12 +41,12 @@ Interface Naming
 ~~~~~~~~~~~~~~~~
 
 Interfaces which exist to provide *getters* MUST be suffixed with
-"ReadInterface"
+"ReadInterface".
 
 Interfaces which exist to provide *setters* MUST be suffixed with
-"WriteInterface"
+"WriteInterface".
 
-"Read/Write" Interfaces, which provide *both* getters and setters, MUST not
+"Read/Write" Interfaces, which provide **both** getters and setters, MUST not
 have an additional suffix and MUST extend the "Read" and "Write" interfaces IF
 either exists.
 
@@ -76,6 +76,10 @@ If either or both "Read" and "Write" interfaces do not exist, then the
         public function setFoobar($foobar);
     }
 
+Dependency Container Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Refer the the `service naming conventions`_ in the symfony documentation.
 
 Meta: README, CHANGELOG, etc
 ----------------------------
@@ -192,3 +196,4 @@ instructions on how the component should be integrated.
 .. _`XLIFF format`: http://symfony.com/doc/current/book/translation.html#basic-translation
 .. _`CONTRIBUTING file from CoreBundle`: https://github.com/symfony-cmf/CoreBundle/blob/master/CONTRIBUTING.md
 .. _`LICENSE template on wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki/LICENSE-Template
+.. _`service naming conventions`: http://symfony.com/doc/current/contributing/code/standards.html#service-naming-conventions
