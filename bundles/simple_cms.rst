@@ -104,7 +104,9 @@ Multi-language support
 Setting ``addLocalePattern`` to ``true`` in ``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page``
 document will result in prefixing the associated route with ``/{_locale}``. Using the native
 translation capabilities of PHPCR ODM it is now possible to create different versions of the document
-for each language that should be available on the website::
+for each language that should be available on the website.
+
+For example::
 
     $page = new Page();
 
