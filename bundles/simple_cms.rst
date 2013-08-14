@@ -206,6 +206,7 @@ For example::
 
     $page->setTitle('Hello World!');
     $page->setBody('Really interesting stuff...');
+    $page->setLabel('Hello World');
 
     // set extras
     $extras = array(
