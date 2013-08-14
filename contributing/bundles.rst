@@ -13,7 +13,7 @@ order for them to be classified as stable:
 * `Meta: README, CHANGELOG, etc`_;
 * `Persistence`_;
 * `Configuration, Files and Formats`_;
-* `Base and Normal Implementations`_;
+* `Base and Standard Implementations`_;
 * `Standard CMF Features`_;
 * `Testing Component Integration`_.
 
@@ -133,28 +133,28 @@ All CMF bundles:
 See the `Mapping Model Classes`_ chapter of the Symfony Cookbook for more
 information.
 
-Base and Normal Implementations
--------------------------------
+Base and Standard Implementations
+---------------------------------
 
-The CMF offers various features which are expected to be applied respectively
-to qualifying classes. Examples of these features include multi-language
+The CMF offers various features which which add functionality beyond the basic
+use case of some classes. Examples of these features include multi-language
 and publish workflow support, but the potential list of features is unbounded.
 
-We want to implement all of the features the CMF has to offer while at the
-same time enabling the user to use only what they need.
+Bundles should offer ready-to-use **and** fully integrated implementations in
+addition to enabling the user to use only what they need.
 
 To facilitate this, when applicable, there should be **two implementations**,
-the *base* implementation and the *normal* implementation.
+the *base* implementation and the *standard* implementation.
 
 * **base implementation**: This class should be suffixed with **Base**, e.g.
-  ``MenuNodeBase`` and it MUST be an implementation with the an absolute minimum
-  of logic needed for it to work;
-* **normal implementation**: This class has no additional prefix/suffix, e.g.
+  ``MenuNodeBase`` and it MUST be an implementation with an absolute minimum
+  of logic needed for it to work, it SHOULD NOT have external dependencies;
+* **standard implementation**: This class has no additional prefix/suffix, e.g.
   ``MenuNode``. This implementation MUST implement the standard CMF feature
-  set.
+  set. This class MAY have external dependencies.
 
 The user can then extend the **base** implementation, adding any functionality
-they want, using the **normal** implementation as a reference.
+they want, using the **standard** implementation as a reference.
 
 Standard CMF Features
 ---------------------
