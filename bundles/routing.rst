@@ -42,6 +42,8 @@ enabled implementation. It does not route anything on its own, but only loops
 through all chained routers. To handle standard configured symfony routes, the
 symfony default router can be put into the chain.
 
+.. _bundle-routing-configuration:
+
 Configuration
 -------------
 
@@ -316,7 +318,7 @@ need content, you can just not set it in the document.
 
 .. _component-route-generator-and-locales:
 
-.. sidebar:: ContentAwareGenerator and locales
+.. sidebar:: ContentAwareGenerator and Locales
 
     You can use the ``_locale`` default value in a Route to create one Route
     per locale, all referencing the same multilingual content instance. The

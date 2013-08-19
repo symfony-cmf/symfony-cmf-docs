@@ -93,7 +93,8 @@ and set a default value for ``_locale`` to point to the locale of that route.
 
 As all routes point to the same content, the route generator can handle
 picking the correct route for you when you generate the route from the
-content.  See also :ref:`component-route-generator-and-locales`.
+content. See also
+":ref:`ContentAwareGeneator and Locales <component-route-generator-and-locales>`".
 
 Sonata PHPCR-ODM Admin
 ----------------------
