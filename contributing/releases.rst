@@ -71,8 +71,8 @@ Deprecations
 When a feature implementation cannot be replaced with a better one without
 breaking backward compatibility, there is still the possibility to deprecate
 the old implementation and add a new preferred one along side. Read the
-:ref:`conventions<contributing-code-conventions-deprecations>` document to
-learn more about how deprecations are handled in Symfony.
+`conventions`_ document to learn more about how deprecations are handled in
+Symfony.
 
 Rationale
 ---------
@@ -81,5 +81,6 @@ This release process was adopted to give more *predictability* and
 *transparency*. It is heavily inspired by the `core Symfony release process`_.
 
 .. _Git repository: https://github.com/symfony/symfony
-.. _SensioLabs:     http://sensiolabs.com/
+.. _SensioLabs: http://sensiolabs.com/
 .. _core Symfony release process: http://symfony.com/doc/current/contributing/community/releases.html
+.. _conventions: http://symfony.com/doc/current/contributing/code/conventions.html#contributing-code-conventions-deprecations

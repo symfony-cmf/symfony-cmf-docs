@@ -413,7 +413,7 @@ with a few added possibilities:
   the id of the model instance as parameter ``content_id``
 
 The route generation handles locales as well, see
-:ref:`component-route-generator-and-locales`.
+":ref:`ContentAwareGeneator and Locales <component-route-generator-and-locales>`".
 
 .. _start-routing-document:
 
