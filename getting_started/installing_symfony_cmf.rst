@@ -178,9 +178,9 @@ following commands:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:dump
-    $ php app/console doctrine:phpcr:dump --props
-    $ php app/console doctrine:phpcr:dump /path/to/node
+    $ php app/console doctrine:phpcr:node:dump
+    $ php app/console doctrine:phpcr:node:dump --props
+    $ php app/console doctrine:phpcr:node:dump /path/to/node
 
 The above examples respectively show a summary, a detailed view, and a summary
 of a node and all its children (instead of starting at the root node).
@@ -189,7 +189,7 @@ Don't forget to look at the ``--help`` output for more possibilities:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:dump
+    $ php app/console doctrine:phpcr:node:dump --help
 
 Adding new pages
 ~~~~~~~~~~~~~~~~
