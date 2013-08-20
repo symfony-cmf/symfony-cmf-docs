@@ -21,21 +21,38 @@ detail.
 General Bundle Standards
 ------------------------
 
-File Naming
-~~~~~~~~~~~
+Class File Naming
+~~~~~~~~~~~~~~~~~
 
-Composite filenames (and by extension class names) SHOULD place the subject
-first:
+Composite class names SHOULD place the subject first:
 
 +-------------------------+-------------------------+
 | Bad                     | Good                    |
 +=========================+=========================+
-| ``phpcr-admin.xml``     | ``admin-phpcr.xml``     |
-+-------------------------+-------------------------+
 | FoobarMenuNode          | MenuNodeFoobar          |
 +-------------------------+-------------------------+
 | AllFeaturesSimpleBlock  | SimpleBlockAllFeatures  |
 +-------------------------+-------------------------+
+
+Configuration File Naming
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Configuration files for services SHOULD copy structure of the namespace up to
+the level of abstraction required. Each element of a namespace MAY also be
+compressed (e.g. event-listener => event).
+
+A suffix may be added to allow different variations of the same configuration
+file.
+
+Examples:
+
+* ``event-imagine-phpcr.xml`` and ``event-imagine-orm.xml`` for an event
+  subscriber with namespace
+  ``[BundleName]\EventListener\ImagineCacheInvalidatorSubscriber``
+* ``doctrine-phpcr.xml`` for all classes in the ``[BundleName]\Doctrine\Phpcr``
+   namespace.
+* ``admin-imagine.xml`` for classes in the ``[BundleName]\Admin\Imagine``
+  namespace.
 
 Interface Naming
 ~~~~~~~~~~~~~~~~
@@ -79,7 +96,7 @@ If either or both "Read" and "Write" interfaces do not exist, then the
 Dependency Container Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Refer the the `service naming conventions`_ in the symfony documentation.
+Refer to the `service naming conventions`_ in the Symfony documentation.
 
 Meta: README, CHANGELOG, etc
 ----------------------------
