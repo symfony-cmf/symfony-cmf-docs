@@ -133,11 +133,12 @@ ImagineBlock
 ------------
 
 The imagine block uses the `LiipImagineBundle`_ to display images directly
-out of PHPCR. The block has a child of type ``nt:file`` and fields for the
-name of the imagine filter to use, an URL and an image caption. To use this
-block, you need to add ``liip/imagine-bundle`` to your composer.json and
-define the imagine filter you specify in the block. The default name is
-``cmf_block``. The filter must use the ``phpcr`` driver:
+out of PHPCR. The block has a child of type
+``Symfony\Cmf\Bundle\MediaBundle\ImageInterface`` and fields for the name of
+the imagine filter to use, an URL and an image caption. To use this block, you
+need to add ``liip/imagine-bundle`` to your ``composer.json`` and define the
+imagine filter you specify in the block. The default name is ``cmf_block``. The
+filter must use the ``cmf_media_doctrine_phpcr`` driver:
 
 .. configuration-block::
 
@@ -148,7 +149,7 @@ define the imagine filter you specify in the block. The default name is
             # ...
             filter_sets:
                 cmf_block:
-                    data_loader: phpcr
+                    data_loader: cmf_media_doctrine_phpcr
                     quality: 85
                     filters:
                         thumbnail: { size: [616, 419], mode: outbound }
@@ -159,10 +160,9 @@ define the imagine filter you specify in the block. The default name is
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-
             <config xmlns="http://example.org/dic/schema/liip_imagine">
                 <!-- ... -->
-                <filter-set name="cmf_block" data-loader="phpcr" quality="85">
+                <filter-set name="cmf_block" data-loader="cmf_media_doctrine_phpcr" quality="85">
                     <filter name="thumbnail" size="616,419" mode="outbound"/>
                 </filter-set>
                 <!-- ... -->
@@ -176,7 +176,7 @@ define the imagine filter you specify in the block. The default name is
             // ...
             'filter_sets' => array(
                 'cmf_block' => array(
-                    'data_loader' => 'phpcr',
+                    'data_loader' => 'cmf_media_doctrine_phpcr',
                     'quality'     => 85,
                     'filters'     => array(
                         'thumbnail' => array(
@@ -188,6 +188,10 @@ define the imagine filter you specify in the block. The default name is
                 // ...
             ),
         ));
+
+The ImagineBlock uses the template ``BlockBundle:Block:block_imagine.html.twig``
+template to render the layout. You may override this one if special markup is
+needed.
 
 Refer to the `LiipImagineBundle documentation`_ for further information.
 
@@ -218,9 +222,7 @@ of sense::
 
     use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock;
     use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock;
-    // the Image will be moved to Symfony\Cmf\Bundle\MediaBundle\Model\Image
-    use Doctrine\ODM\PHPCR\Document\Image;
-    use Doctrine\ODM\PHPCR\Document\File;
+    use Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image;
 
     // create slideshow
     $mySlideshow = new SlideshowBlock();
@@ -236,10 +238,8 @@ of sense::
     $mySlideshowItem->setParentDocument($mySlideshow);
     $manager->persist($mySlideshowItem);
 
-    $file = new File();
-    $file->setFileContentFromFilesystem('path/to/my/image.jpg');
     $image = new Image();
-    $image->setFile($file);
+    $image->setFileContentFromFilesystem('path/to/my/image.jpg');
     $mySlideshowItem->setImage($image);
 
 Render the slideshow
