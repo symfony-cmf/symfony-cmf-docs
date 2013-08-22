@@ -287,6 +287,12 @@ Which basically does the following:
 You can then access your test application in your browser at
 ``http://localhost:8000``.
 
+.. note::
+
+    The server and the requests default to using the ``phpcr`` configuration environment.
+    Its possible to use a different environment by using ``--env``/``-e`` as arguments
+    for the CLI command and a GET parameter ``env`` for web requests.
+
 Publish assets in the directory named above using the testing console as
 follows:
 
@@ -404,7 +410,8 @@ method of the ``BaseTestCase`` to set the environment to ``orm``::
 Running Commands using the ORM Configuration
 ............................................
 
-Add ``--env=orm`` to the commands which need to ORM configuration.
+Add ``--env=orm`` to the commands which need to ORM configuration as well as
+``&env=orm`` to web requests requiring the ORM configuration.
 
 Editing Travis Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
