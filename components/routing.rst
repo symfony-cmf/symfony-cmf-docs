@@ -404,9 +404,9 @@ RoutingBundle in ":doc:`../bundles/routing`" in the bundles documentation.
 .. _`Routing Component`: http://symfony.com/doc/current/components/routing/introduction.html
 .. _`Composer`: http://getcomposer.org
 .. _`HttpKernel`: http://symfony.com/doc/current/components/http_kernel/introduction.html
-.. _`FieldByClassEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/blob/master/Enhancer/FieldByClassEnhancer.php
-.. _`FieldMapEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/blob/master/Enhancer/FieldMapEnhancer.php
-.. _`FieldPresenceEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/blob/master/Enhancer/FieldPresenceEnhancer.php
-.. _`RouteContentEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/blob/master/Enhancer/RouteContentEnhancer.php
+.. _`FieldByClassEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/Enhancer/FieldByClassEnhancer.php
+.. _`FieldMapEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/Enhancer/FieldMapEnhancer.php
+.. _`FieldPresenceEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/Enhancer/FieldPresenceEnhancer.php
+.. _`RouteContentEnhancer`: https://github.com/symfony-cmf/Routing/blob/master/Enhancer/RouteContentEnhancer.php
 .. _`Event Dispatcher`: http://symfony.com/doc/current/components/event_dispatcher/index.html
 .. _`How to create an Event Listener`: http://symfony.com/doc/current/cookbook/service_container/event_listener.html 
