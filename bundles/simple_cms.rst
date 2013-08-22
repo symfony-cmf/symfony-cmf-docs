@@ -108,7 +108,8 @@ for each language that should be available on the website.
 
 For example::
 
-    $page = new Page();
+    // pass true as the 3rd parameter to prefix the route pattern with /{_locale}
+    $page = new Page(false, false, true);
 
     $page->setPosition($parent, 'hello-world');
     $page->setTitle('Hello World!');
