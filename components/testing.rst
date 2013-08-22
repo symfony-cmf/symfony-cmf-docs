@@ -294,7 +294,7 @@ follows:
 
 .. code-block:: bash
 
-    $ php vendor/symfony-cmf/testing/bin/cosole assets:install \
+    $ php vendor/symfony-cmf/testing/bin/console assets:install \
         vendor/symfony-cmf/testing/resources/web
 
 Initializing the Test Environment
