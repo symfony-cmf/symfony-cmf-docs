@@ -18,7 +18,7 @@ Preconditions
 
 .. caution::
 
-    Don't forget to create a security.yml after adding the SecurityBundle or you will get an 
+    Don't forget to add a configuration for the SecurityBundle or you will get an
     
     ``The function "is_granted" does not exist in SonataAdminBundle``
     
