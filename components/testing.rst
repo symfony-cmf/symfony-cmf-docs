@@ -11,10 +11,10 @@ It provides a way to easily bootstrap a consistent functional test environment.
 Configuration
 -------------
 
-composer
+Composer
 ~~~~~~~~
 
-Add the folowing dependency to the ``require-dev`` section of ``composer.json``:
+Add the following dependency to the ``require-dev`` section of ``composer.json``:
 
 .. code-block:: javascript
 
@@ -27,7 +27,7 @@ Add the folowing dependency to the ``require-dev`` section of ``composer.json``:
     The Testing component does not automatically include the SonataAdminBundle. You
     will need to manually add this dependency if required.
 
-phpunit
+PHPUnit
 ~~~~~~~
 
 The following file should be placed in the root directory of your bundle and
@@ -39,7 +39,7 @@ named ``phpunit.xml.dist``:
     <phpunit
         colors="true"
         bootstrap="vendor/symfony-cmf/testing/bootstrap/bootstrap.php"
-        >
+    >
 
         <testsuites>
             <testsuite name="Symfony <your bundle>Bundle Test Suite">
@@ -105,7 +105,7 @@ sets of bundles:
 For any other bundle requirements simply use ``$this->addBundles(array())`` as in
 the example above.
 
-git
+Git
 ~~~
 
 Place the following ``.gitignore`` file in your root directory:
@@ -117,7 +117,7 @@ Place the following ``.gitignore`` file in your root directory:
     composer.lock
     vendor
 
-travis
+Travis
 ~~~~~~
 
 The following file should be named ``.travis.yml`` (note the leading ".") and placed
@@ -203,24 +203,22 @@ Test files and tests should be organized as follows:
 Custom Documents
 ~~~~~~~~~~~~~~~~
 
-The testing component will automatically include PHPCR-ODM documents that are placed in
+The Testing component will automatically include PHPCR-ODM documents that are placed in
 ``Tests/Resources/Document``.
 
 Configuration
 ~~~~~~~~~~~~~
 
-The testing component includes some pre-defined configurations to get things
+The Testing component includes some pre-defined configurations to get things
 going with a minimum of effort and repetition.
 
 To implement the default configurations create the following PHP file::
 
-    <?php
     // Tests/Resources/app/config/config.php
-
     $loader->import(CMF_TEST_CONFIG_DIR.'/default.php');
     $loader->import(__DIR__.'/mybundleconfig.yml');
 
-Here you include the testing components **default** configuration, which will
+Here you include the Testing component's **default** configuration, which will
 get everything up-and-running. You can then optionally import configurations
 specific to your bundle.
 
@@ -257,8 +255,8 @@ The following default routing configurations are available:
 
 * **sonata_routing.yml**: sonata admin and dashboard.
 
-The above files must be prefixed with ``CMF_TEST_CONFIG_DIR.'routing'`` as in the
-example above.
+The above files must be prefixed with ``CMF_TEST_CONFIG_DIR.'/routing/'`` as
+in the example above.
 
 The Console
 ~~~~~~~~~~~
@@ -272,7 +270,7 @@ The console for your test application can be accessed as follows:
 Test Web Server
 ~~~~~~~~~~~~~~~
 
-The testing component provides a wrapper for the Symfony ``server:run`` command.
+The Testing component provides a wrapper for the Symfony ``server:run`` command.
 
 .. code-block:: bash
 
@@ -323,8 +321,6 @@ Accessing the Document Manager
 
 Access as::
 
-    <?php
-
     $manager = $this->db('PHPCR');
     $documentManager = $this->db('PHPCR')->getOm();
 
@@ -339,7 +335,94 @@ Access as::
 Support Files
 ~~~~~~~~~~~~~
 
-The testing component includes some basic documents which will automatically be
+The Testing component includes some basic documents which will automatically be
 mapped by PHPCR-ODM:
 
 * ``Symfony\Cmf\Testing\Document\Content``: Minimal referenceable content document.
+
+ORM
+---
+
+The Testing component also provides support for testing the ORM.
+
+Accessing the Entity Manager
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can access the Entity Manager and repository using::
+
+    $entityManager = $this->db('ORM')->getOm();
+
+Seperating PHPCR and ORM configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Most of the time, you cannot load both the PHPCR and ORM configuration. The
+Testing component uses environments to seperate these configurations. First,
+create a file ``config_phpcr.php`` which loads all needed configuration for
+the PHPCR and a file ``config_orm.php`` which loads all needed configuration
+for the ORM. After that, edit the
+``AppKernel::registerContainerConfiguration`` to be::
+
+    use Symfony\Cmf\Component\Testing\HttpKernel\TestKernel;
+    use Symfony\Component\Config\Loader\LoaderInterface;
+
+    class AppKernel extends TestKernel
+    {
+        // ...
+
+        public function registerContainerConfiguration(LoaderInterface $loader)
+        {
+            $loader->load(__DIR__.'/config/config_'.$this->environment.'.php');
+        }
+    }
+
+After that, all ORM tests should override the ``getKernelConfiguration``
+method of the ``BaseTestCase`` to set the environment to ``orm``::
+
+    // ...
+    use Symfony\Cmf\Component\Testing\Functional\BaseTestCase;
+
+    class MyOrmTest extends BaseTestCase
+    {
+        protected function getKernelConfiguration()
+        {
+            return array(
+                'environment' => 'orm',
+            );
+        }
+    }
+
+.. tip::
+
+    It's recommend to put this in a ``OrmTestCase`` class which lives inside
+    your bundle and let all Orm tests extends this class.
+
+.. note::
+
+    This isn't needed for PHPCR, as the environment automatically defaults to
+    ``phpcr``.
+
+Running Commands using the ORM Configuration
+............................................
+
+Add ``--env=orm`` to the commands which need to ORM configuration.
+
+Editing Travis Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If a bundle adds functional tests for ORM, the travis configuration needs to
+be changed in order to correctly setup the environment.
+
+Change the ``before_script`` section to:
+
+.. code-block:: yaml
+
+    before_script:
+      - composer require symfony/framework-bundle:${SYMFONY_VERSION}
+      - vendor/symfony-cmf/testing/bin/travis/phpcr_odm_doctrine_orm_dbal.sh
+
+.. caution::
+
+    This script executes the ``doctrine:schema:create`` command in the ``orm``
+    environment. This will set up both the PHPCR and ORM schemas. To make it
+    work, you have to include the PHPCR configuration in the ORM
+    configuration.
