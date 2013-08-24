@@ -17,8 +17,8 @@ items based on a single tree structure in the content repository.
 For a simple example installation of the bundle check out the
 `Symfony CMF Standard Edition`_
 
-You can find an introduction to the bundle in the `Getting started`_
-section.
+You can find an introduction to the bundle in the
+:doc:`Getting started <../book/simplecms>` section.
 
 The `CMF website`_ is another application using the SimpleCmsBundle.
 
@@ -224,5 +224,4 @@ These properties can then be accessed in your controller or templates via the
 
 .. _`SimpleCmsBundle`: https://github.com/symfony-cmf/SimpleCmsBundle#readme
 .. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/symfony-cmf-standard
-.. _`Getting started`: ../getting_started/simplecms
 .. _`CMF website`: https://github.com/symfony-cmf/cmf-website/

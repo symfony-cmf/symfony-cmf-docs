@@ -43,26 +43,27 @@ There are basically two main target audiences:
 .. toctree::
     :hidden:
 
-    getting_started/index
+    book/index
     tutorials/index
     bundles/index
     cookbook/index
     components/index
     contributing/index
 
-Getting started
----------------
+Book
+----
 
-Just started learning about the CMF? Want to know if the CMF fits your project? Start here.
+This is the Symfony CMF bible. It's the reference for any user of the CMF, who
+will typically want to keep this close at hand.
 
 .. toctree::
-	:maxdepth: 1
+    :maxdepth: 1
 
-	getting_started/installing_symfony_cmf
-	getting_started/routing
-	getting_started/content
-	getting_started/menu
-	getting_started/simplecms
+    book/installation
+    book/simplecms
+    book/routing
+    book/structuring_content
+    book/static_content
 
 Tutorials
 ---------
