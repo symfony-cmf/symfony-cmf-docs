@@ -8,30 +8,26 @@ Installing the Symfony CMF Standard Edition
 The Symfony CMF Standard Edition (SE) is a distribution based on all the
 main components needed for most common use cases.
 
-The goal of this tutorial is to install the CMF components, with the
-minimum necessary configuration and some very simple examples, into a working
-Symfony2 application.
+The goal of this tutorial is to install the CMF bundles, with the minimum
+necessary configuration and some very simple examples, into a working Symfony2
+application.
 
-We will then walk you through the components you have installed.
-This can be used to familiarize yourself with the CMF or
-as a starting point for a new custom application.
+After that, you get a quick introduction of the bundles you have installed.
+This can be used to familiarize yourself with the CMF or as a starting point
+for a new custom application.
 
-If this is your first encounter with the Symfony CMF it would be a good idea
-to first take a look at:
+.. tip::
 
-* `The Big Picture`_
-* The online sandbox demo at `cmf.liip.ch`_
+    If this is your first encounter with the Symfony CMF it can be a good idea
+    to first take a look at the online sandbox demo at `cmf.liip.ch`_.
 
 .. note::
 
-    For other Symfony CMF installation guides, please read:
-
-    * The cookbook entry on :doc:`../cookbook/installing_cmf_sandbox` for
-      instructions on how to install a more complete demo instance of Symfony
-      CMF.
-    * :doc:`../tutorials/installing_cmf_core` for step-by-step installation
-      and configuration details of just the core components into an existing
-      Symfony application.
+    You can also install the CMF Sandbox, this is a more complete demo
+    instance of the Symfony CMF. You can view it online at `cmf.liip.ch`_.
+    You can also install it locally, so you can play with the code. For
+    installation instructions for the sandbox, please read
+    ":doc:`../cookbook/installing_cmf_sandbox`".
 
 Preconditions
 -------------
@@ -50,11 +46,13 @@ storage medium.
     mechanisms and how to install and configure them, refer to
     :doc:`../tutorials/installing_configuring_doctrine_phpcr_odm`
 
-`Git`_ and `Curl`_ are also needed to follow the installation steps listed
-below.
-
 Installation
 ------------
+
+You can install the Standard Edition in 2 ways:
+
+1) Composer
+~~~~~~~~~~~
 
 The easiest way to install Symfony CMF is is using `Composer`_. Get it using
 
@@ -63,7 +61,7 @@ The easiest way to install Symfony CMF is is using `Composer`_. Get it using
     $ curl -sS https://getcomposer.org/installer | php
     $ sudo mv composer.phar /usr/local/bin/composer
 
-and then get the Symfony CMF code with it (this may take a while)
+and then get the Symfony CMF code with it (this may take a while):
 
 .. code-block:: bash
 
@@ -75,27 +73,37 @@ and then get the Symfony CMF code with it (this may take a while)
     The path ``<path-to-install>`` should either inside your web server doc
     root or configure a virtual host for ``<path-to-install>``.
 
-This will clone the standard edition and install all the dependencies and run
-some initial commands.  These commands require write permissions to the
+This will clone the Standard Edition and install all the dependencies and run
+some initial commands. These commands require write permissions to the
 ``app/cache`` and ``app/logs`` directory. In case the final commands end up
-giving permissions errors, please follow the `guidelines in the symfony book`_
-for configuring the permissions and then run the ``composer.phar install``
-command mentioned below.
-
-If you prefer you can also just clone the project:
-
-.. code-block:: bash
-
-    $ git clone git://github.com/symfony-cmf/symfony-cmf-standard.git <dir-name>
-    $ cd <dir-name>
-
-If there were problems during the ``create-project`` command, if you used
-``git clone`` or if you updated the checkout later, always run the following
-command to update the dependencies:
+giving permissions errors, please follow the `guidelines in the Symfony Book`_
+to configure the permissions and then run the ``install`` command:
 
 .. code-block:: bash
 
     $ php composer.phar install
+
+2) GIT
+~~~~~~
+
+You can also install the Standard Edition using GIT. Just clone the repository
+from github:
+
+.. code-block:: bash
+
+    $ git clone git://github.com/symfony-cmf/symfony-cmf-standard.git <path-to-install>
+    $ cd <path-to-install>
+
+You still need Composer to get the dependencies. To install or update the
+dependencies, use the ``install`` command:
+
+.. code-block:: bash
+
+    $ php composer.phar install
+
+
+Set up the Database
+-------------------
 
 The next step is to set up the database. If you want to use SQLite as your
 database backend just go ahead and run the following:
@@ -107,8 +115,10 @@ database backend just go ahead and run the following:
     $ php app/console doctrine:phpcr:repository:init
     $ php app/console doctrine:phpcr:fixtures:load
 
-This will create a file called ``app.sqlite`` inside your app folder,
-containing the database content.
+The first command will create a file called ``app.sqlite`` inside your app
+folder, containing the database content. The two commands after it will setup
+PHPCR and the final command will load some fixtures, so you can access the
+Standard Edition using a web server.
 
 The project should now be accessible on your web server. If you have PHP 5.4
 installed you can alternatively use the PHP internal web server:
@@ -123,12 +133,14 @@ And then access the CMF via:
 
     http://localhost:8000
 
-If you prefer to use another database backend, for example MySQL, run the
-configurator (point your browser to ``/web/config.php``) or set your database
-connection parameters in ``app/config/parameters.yml``. Make sure you leave
-the ``database_path`` property at ``null`` in order to use another driver than
-SQLite. Leaving the field blank in the web-configurator should set it to
-``null``.
+.. sidebar:: Using Other Database Backends
+
+    If you prefer to use another database backend, for example MySQL, run the
+    configurator (point your browser to ``http://localhost:8000/config.php``)
+    or set your database connection parameters in ``app/config/parameters.yml``.
+    Make sure you leave the ``database_path`` property at ``null`` in order to
+    use another driver than SQLite. Leaving the field blank in the
+    web-configurator will set it to ``null``.
 
 Overview
 --------
@@ -170,8 +182,8 @@ into a browsable website. The overall, simplified process is:
   ``layout.html.twig``.
 
 Again, this is simplified view of a very simple CMS built on top of Symfony
-CMF.  To fully understand all the possibilities of the CMF, a careful look
-into each component is needed.
+CMF. To fully understand all the possibilities of the CMF, continue reading
+this Book section.
 
 If you want to review the contents of the PHPCR database you can use the
 following commands:
@@ -209,7 +221,7 @@ into the PHPCR database by calling:
 
 Note that the above identifier is mapped to
 ``app/Resources/data/pages/test.yml`` by stripping off the ``basepath``
-configuration of the SimpleCmsBundle, which defaults to ``/cms/simple``.
+configuration of the SimpleCmsBundle (which defaults to ``/cms/simple``)....
 Therefore if you want to define a child page ``foo`` for ``/cms/simple/test``
 you would need to create a file ``app/Resources/data/pages/test/foo.yml``
 and then run the following command:
@@ -218,12 +230,9 @@ and then run the following command:
 
     $ php app/console doctrine:phpcr:migrator page --identifier=/cms/simple/test/foo
 
-.. _`The Big Picture`: http://slides.liip.ch/static/2012-01-17_symfony_cmf_big_picture.html#1
 .. _`cmf.liip.ch`: http://cmf.liip.ch
 .. _`Requirements for running Symfony2`: http://symfony.com/doc/current/reference/requirements.html
 .. _`SQLite`: http://www.sqlite.org/
-.. _`Git`: http://git-scm.com/
-.. _`Curl`: http://curl.haxx.se/
 .. _`Composer`: http://getcomposer.org/
 .. _`guidelines in the symfony book`: http://symfony.com/doc/master/book/installation.html#configuration-and-setup
 .. _`the Symfony2 book`: http://symfony.com/doc/current/book/
