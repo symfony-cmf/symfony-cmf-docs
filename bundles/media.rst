@@ -314,27 +314,13 @@ uploaded image in the backend.
                     - 'CmfMediaBundle:Form:fields.html.twig'
 
 The document that should contain the Image document has to implement a setter
-method.  To profit from the automatic guesser of the form layer, the name in
-the form element and this method name have to match::
-
-    public function setImage(ImageInterface $image = null)
-    {
-        if (!$image) {
-            return;
-        } elseif ($this->image) {
-            // TODO: https://github.com/doctrine/phpcr-odm/pull/262
-            $this->image->copyContentFromFile($image);
-        } elseif ($image instanceof Image) {
-            $this->image = $image;
-        } else {
-            $this->image = new Image();
-            $this->image->copyContentFromFile($image);
-        }
-    }
+method. To profit from the automatic guesser of the form layer, the name in
+the form element and this method name have to match. See
+`ImagineBlock::setImage`_ for an example implementation.
 
 To delete an image, you need to delete the document containing the image.
 (There is a proposal to improve the user experience for that in a
-`DoctrinePHPCRBundle issue`_.)
+`MediaBundle issue`_.)
 
 .. note::
 
@@ -490,7 +476,8 @@ The Gaufrette adapter currently only has a Phpcr version:
 .. _`MediaBundle`: https://github.com/symfony-cmf/MediaBundle#readme
 .. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
 .. _`trying to make this automatic`: https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4
-.. _`DoctrinePHPCRBundle issue`: https://github.com/doctrine/DoctrinePHPCRBundle/issues/40
+.. _`MediaBundle issue`: https://github.com/symfony-cmf/MediaBundle/issues/9
 .. _`KnpLabs/Gaufrette`: https://github.com/KnpLabs/Gaufrette
 .. _`phpcr/phpcr-utils`: https://github.com/phpcr/phpcr-utils
 .. _`SonataMediaBundle`: https://github.com/sonata-project/SonataMediaBundle
+.. _`ImagineBlock::setImage`: https://github.com/symfony-cmf/BlockBundle/blob/master/Doctrine/Phpcr/ImagineBlock.php#L121
