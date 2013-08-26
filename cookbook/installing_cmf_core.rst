@@ -133,7 +133,7 @@ choose controllers based on content.  See :doc:`../bundles/routing` for
 details.
 
 For now this is the only configuration we need. Mastering the configuration of
-the different bundles will be handled in further tutorials. If you're looking
+the different bundles will be handled in further articles. If you're looking
 for the configuration of a specific bundle take a look at the corresponding
 :doc:`bundles entry <../index>`.
 

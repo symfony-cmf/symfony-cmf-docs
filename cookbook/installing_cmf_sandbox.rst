@@ -15,7 +15,7 @@ setup, please refer to:
 
 * :doc:`../book/installation` page for instructions on
   how to quickly install the CMF (recommended for development)
-* :doc:`../tutorials/installing_cmf_core` for step-by-step installation and
+* :doc:`installing_cmf_core` for step-by-step installation and
   configuration details (if you want to know all the details)
 
 .. index:: sandbox, install
@@ -28,7 +28,7 @@ As Symfony CMF Sandbox is based on Symfony2, you should make sure you meet the
 also needed to follow the installation steps listed below.
 
 For the PHPCR repository requirements, see
-:ref:`PHPCR-ODM requirements <tutorials-phpcr-odm-requirements>`
+:ref:`PHPCR-ODM requirements <cookbook-phpcr-odm-requirements>`
 
 Installation
 ------------

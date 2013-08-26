@@ -560,7 +560,7 @@ For more information on the Routing component of Symfony CMF, please refer to:
 * :doc:`../components/routing` for most of the actual functionality implementation
 * :doc:`../bundles/routing` for Symfony2 integration bundle for Routing Bundle
 * Symfony2's `Routing`_ component page
-* :doc:`../tutorials/handling_multilang_documents` for some notes on multilingual routing
+* :doc:`../cookbook/handling_multilang_documents` for some notes on multilingual routing
 
 .. _`PHPCR-ODM`: https://github.com/doctrine/phpcr-odm
 .. _`Routing`: http://symfony.com/doc/current/components/routing/introduction.html

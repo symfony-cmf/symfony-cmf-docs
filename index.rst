@@ -44,9 +44,8 @@ There are basically two main target audiences:
     :hidden:
 
     book/index
-    tutorials/index
-    bundles/index
     cookbook/index
+    bundles/index
     components/index
     contributing/index
     reference/index
@@ -66,21 +65,26 @@ will typically want to keep this close at hand.
     book/structuring_content
     book/simplecms
 
-Tutorials
----------
+Cookbook
+--------
+
+Special solutions for specific use cases that go beyond standard usage.
 
 Want to know more about the CMF and how each part can be configured? There's a tutorial for each one.
 
 .. toctree::
 	:maxdepth: 1
 
-	tutorials/choosing_a_storage_layer
-	tutorials/installing_cmf_core
-	tutorials/installing_configuring_doctrine_phpcr_odm
-	tutorials/installing_configuring_inline_editing
-	tutorials/creating_cms_using_cmf_and_sonata
-	tutorials/using_blockbundle_and_contentbundle
-	tutorials/handling_multilang_documents
+    cookbook/choosing_a_storage_layer
+    cookbook/installing_cmf_sandbox
+    cookbook/installing_cmf_core
+    cookbook/installing_configuring_doctrine_phpcr_odm
+    cookbook/installing_configuring_inline_editing
+    cookbook/creating_cms_using_cmf_and_sonata
+    cookbook/using_blockbundle_and_contentbundle
+    cookbook/handling_multilang_documents
+    cookbook/phpcr_odm_custom_documentclass_mapper
+    cookbook/using_a_custom_route_repository
 
 Bundles
 -------
@@ -106,18 +110,6 @@ to do it? In this case the reference is the right place for you.
 	bundles/simple_cms
 	bundles/doctrine_phpcr_admin
 	bundles/tree_browser
-
-Cookbook
---------
-
-Special solutions for specific use cases that go beyond standard usage.
-
-.. toctree::
-	:maxdepth: 1
-
-	cookbook/phpcr_odm_custom_documentclass_mapper
-	cookbook/using_a_custom_route_repository
-	cookbook/installing_cmf_sandbox
 
 Components
 ----------
