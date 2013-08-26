@@ -73,7 +73,7 @@ Special solutions for specific use cases that go beyond standard usage.
 Want to know more about the CMF and how each part can be configured? There's a tutorial for each one.
 
 .. toctree::
-	:maxdepth: 1
+    :maxdepth: 1
 
     cookbook/choosing_a_storage_layer
     cookbook/installing_cmf_sandbox
