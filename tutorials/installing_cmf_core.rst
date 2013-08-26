@@ -12,7 +12,7 @@ This tutorial is aimed at the experienced user who wants to learn more
 about the details of the Symfony CMF. If this is your first encounter with
 the Symfony CMF it would be a good idea to start with:
 
-* :doc:`../getting_started/installing_symfony_cmf` page for instructions on
+* :doc:`../book/installation` page for instructions on
   how to quickly install the CMF (recommended for development)
 * :doc:`../cookbook/installing_cmf_sandbox` for instructions on how to install
   a demonstration sandbox.

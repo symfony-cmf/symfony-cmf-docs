@@ -4,10 +4,10 @@ Getting Started
 .. toctree::
     :hidden:
 
-    installing_symfony_cmf
-    routing
-    content
-    menu
+    installation
     simplecms
+    routing
+    structuring_content
+    static_content
 
 .. include:: map.rst.inc
