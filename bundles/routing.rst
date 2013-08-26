@@ -424,7 +424,7 @@ Further notes
 
 For more information on the Routing component of Symfony CMF, please refer to:
 
-* :doc:`../getting_started/routing` for an introductory guide on Routing bundle
+* ":doc:`../book/routing`" for an introductory guide on Routing bundle
 * :doc:`../components/routing` for most of the actual functionality implementation
 * Symfony2's `Routing`_ component page
 

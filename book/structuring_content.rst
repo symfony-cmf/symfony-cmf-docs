@@ -2,11 +2,14 @@
     single: Menu; Getting Started
     single: CmfMenuBundle
 
-Menu
-====
+Structuring Content
+===================
+
+Menu Bundle
+-----------
 
 Concept
--------
+~~~~~~~
 
 No CMS system is complete without a menu system that allows users to navigate
 between content pages and perform certain actions. While it usually maps
@@ -15,7 +18,7 @@ include options not mapped by content or exist in multiple contexts with
 multiple options, thus making them a complex problem themselves.
 
 Symfony CMF Menu System
------------------------
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Symfony CMF SE includes the MenuBundle, a tool that allow you to dynamically
 define your menus. It extends the `KnpMenuBundle`_, with a set of
@@ -32,7 +35,7 @@ definitions and related services needed for integration with the
     Menu Providers and Menu Factories.
 
 Usage
-~~~~~
+.....
 
 The MenuBundle uses KnpMenuBundle's default renderers and helpers to print out
 menus. You can refer to the `respective documentation page`_ for more
@@ -53,7 +56,7 @@ implementation, which will use it to identify which menu you want rendered in
 this specific section.
 
 The Provider
-~~~~~~~~~~~~
+............
 
 The core of the MenuBundle is ``PhpcrMenuProvider``, a
 ``MenuProviderInterface`` implementation that's responsible for dynamically
@@ -100,7 +103,7 @@ its children will be loaded progressively as the full menu structure is
 rendered by the ``MenuFactory``.
 
 The Factory
-~~~~~~~~~~~
+...........
 
 The ``ContentAwareFactory`` is a ``FactoryInterface`` implementation, which
 generates the full ``MenuItem`` hierarchy from the provided MenuNode. The data
@@ -134,11 +137,11 @@ be of any class, even if it's different from the root's, but all must
 implement ``NodeInterface`` in order to be included in the generated menu.
 
 The Menu Nodes
-~~~~~~~~~~~~~~
+..............
 
 Also included in the MenuBundle are two menu node content types: ``MenuNode``
 and ``MultilangMenuNode``. If you have read the documentation page regarding
-:doc:`content`, you'll find this implementation somewhat familiar.
+:doc:`static_content`, you'll find this implementation somewhat familiar.
 
 ``MenuNode`` implements the above mentioned ``NodeInterface``, and holds the
 information regarding a single menu entry: a ``label`` and a ``uri``, a
@@ -172,7 +175,7 @@ For information on the available translation strategies, refer to the Doctrine
 page regarding `Multi language support in PHPCR-ODM`_
 
 Admin Support
--------------
+~~~~~~~~~~~~~
 
 The MenuBundle also includes the administration panels and respective services
 needed for integration with the backend admin tool
@@ -184,21 +187,11 @@ be explicitly put on the dashboard if you want to use them. See
 to install SonataDoctrinePhpcrAdminBundle.
 
 Configuration
--------------
+~~~~~~~~~~~~~
 
 This bundle is configurable using a set of parameters, but all of them are
 optional. You can go to the :doc:`../bundles/menu` reference page for the full
 configuration options list and additional information.
-
-Further Notes
--------------
-
-For more information on the MenuBundle of Symfony CMF, please refer to:
-
-* :doc:`../bundles/menu` for advanced details and configuration reference
-* `KnpMenuBundle`_ page for information on the bundle on which the MenuBundle
-* relies `KnpMenu`_ page for information on the underlying library used by the
-  KnpMenuBundle
 
 .. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle
 .. _`SonataDoctrinePhpcrAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle

@@ -1,9 +1,9 @@
 .. index::
-    single: Content; Getting Started
+    single: Static Content; Book
     single: CmfContentBundle
 
-Content
-=======
+Static Content
+==============
 
 Concept
 -------
