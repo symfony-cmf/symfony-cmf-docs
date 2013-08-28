@@ -105,7 +105,7 @@ Persistence
 
 All CMF bundles:
 
-* MUST support PHPCR-ODM;
+* MUST support PHPCR-ODM for persistence;
 * MAY support other persistence layers like Doctrine ORM;
 * MUST follow the following structure to enable future or
   current support of other persistence systems:
@@ -136,7 +136,7 @@ information.
 Base and Standard Implementations
 ---------------------------------
 
-The CMF offers various features which which add functionality beyond the basic
+The CMF offers various features which add functionality beyond the basic
 use case of some classes. Examples of these features include multi-language
 and publish workflow support, but the potential list of features is unbounded.
 
@@ -162,7 +162,7 @@ Standard CMF Features
 CMF Bundles MUST (where applicable) implement the following features:
 
 * PublishWorkflow;
-* Multiple language support.
+* Translatable support.
 
 Configuration, Files and Formats
 --------------------------------
