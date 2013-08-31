@@ -532,16 +532,15 @@ block in their HTML content:
 
 .. code-block:: html
 
-    <span>%embed-block:"/absolute/path/to/block"%</span>
+    %embed-block|/absolute/path/to/block|end%
 
-    <span>%embed-block:"local-block"%</span>
+    %embed-block|local-block|end%
 
 The path to the block is either absolute or relative to the current main
 content. The actual path to the block must be enclosed with double quotes
 ``"``. But the prefix and postfix are configurable. The default prefix is
-``<span>%embed-block:`` and the default postfix is ``%</span>``. Say you want
-to use ``%%%block:"/absolute/path"%%%`` and no ``<span>`` tag to avoid
-problems with a wysiwyg editor, then you do:
+``%embed-block|`` and the default postfix is ``|end%``. Say you want
+to use ``%%%block:"/absolute/path"%%%`` then you do:
 
 .. configuration-block::
 
@@ -551,8 +550,8 @@ problems with a wysiwyg editor, then you do:
         cmf_block:
             twig:
                 cmf_embed_blocks:
-                    prefix: %%%block:
-                    postfix: %%%
+                    prefix: %%%block:"
+                    postfix: "%%%
 
 .. caution::
 
