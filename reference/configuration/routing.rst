@@ -98,8 +98,8 @@ controllers_by_type
 **prototype**: ``array``
 
 If the matching route has a ``type`` value in its defaults and no explicit
-controller or template is set, the route is handled by the controller
-configured for that type:
+controller is set, the route is handled by the controller configured for that
+type:
 
 .. configuration-block::
 
