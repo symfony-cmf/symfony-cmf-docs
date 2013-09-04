@@ -270,6 +270,8 @@ The Route Provider is set using the first argument of the constructor for the
     $routeProvider = new DoctrineOrmRouteProvider(...);
     $nestedMatcher = new NestedMatcher($routeProvider, ...);
 
+.. _components-routing-filters:
+
 2. The Route Filters
 """"""""""""""""""""
 
