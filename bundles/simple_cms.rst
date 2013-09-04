@@ -43,7 +43,8 @@ unavailable.
 
 The routing section is configuring what template or controller to use for a
 content class. This is reusing what the cmf routing bundle does, please see
-the corresponding :ref:`routing configuration section <bundle-routing-configuration>`.
+the corresponding
+:doc:`routing configuration reference <../reference/configuration/routing>`.
 It also explains the ``generic_controller``.
 
 See the section below for multilanguage support.

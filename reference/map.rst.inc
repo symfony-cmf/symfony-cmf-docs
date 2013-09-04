@@ -1,0 +1,3 @@
+* **Configuration**
+
+  * :doc:`configuration/routing`

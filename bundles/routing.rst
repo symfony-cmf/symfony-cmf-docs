@@ -42,43 +42,13 @@ enabled implementation. It does not route anything on its own, but only loops
 through all chained routers. To handle standard configured symfony routes, the
 symfony default router can be put into the chain.
 
-.. _bundle-routing-configuration:
-
-Configuration
--------------
-
-In your ``app/config/config.yml``, you can specify which router services you
-want to use. If you do not specify the ``routers_by_id`` map at all, by default
-the chain router will just load the built-in symfony router. When you specify
-the ``routers_by_id`` list, you need to have an entry for ``router.default`` if
-you want the Symfony2 router (that reads the routes from
-``app/config/routing.yml``).
-
-The format is ``service_name: priority`` - the higher the priority number the
-earlier this router service is asked to match a route or to generate a url
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_routing:
-            chain:
-                routers_by_id:
-                    # enable the DynamicRouter with high priority to allow overwriting configured routes with content
-                    cmf_routing.dynamic_router: 200
-                    # enable the symfony default router with a lower priority
-                    router.default: 100
-                # whether the chain router should replace the default router. defaults to true
-                # if you set this to false, the router is just available as service
-                # cmf_routing.router and you need to do something to trigger it
-                # replace_symfony_router: true
+.. _routing-chain-router-tag:
 
 Loading Routers with Tagging
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 Your routers can automatically register, just add it as a service tagged with
-``router`` and an optional ``priority``.  The higher the priority, the earlier
+``router`` and an optional ``priority``. The higher the priority, the earlier
 your router will be asked to match the route. If you do not specify the
 priority, your router will come last.  If there are several routers with the
 same priority, the order between them is undetermined.  The tagged service
@@ -89,17 +59,24 @@ will look like this
     .. code-block:: yaml
 
         services:
-            my_namespace.my_router:
+            acme_core.my_router:
                 class: %my_namespace.my_router_class%
                 tags:
-                    - { name: router, priority: 300 }
+                    - { name: cmf_routing.router, priority: 300 }
 
     .. code-block:: xml
 
-        <service id="my_namespace.my_router" class="%my_namespace.my_router_class%">
+        <service id="acme_core.my_router" class="%my_namespace.my_router_class%">
             <tag name="router" priority="300" />
-            ..
+            <!-- ... -->
         </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('acme_core.my_router', '%acme_core.my_router')
+            ->addTag('router', array('priority' => 300))
+        ;
 
 See also official Symfony2 `documentation for DependencyInjection tags`_
 
@@ -140,6 +117,25 @@ your own routers
             dynamic:
                 enabled: true
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic enabled="true" />
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_routing', array(
+            'dynamic' => array(
+                'enabled' => true,
+            ),
+        ));
+
 PHPCR-ODM integration
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -174,14 +170,11 @@ example.
     The DynamicRouter fires some events, read more about this in
     ":ref:`the component documentation <components-routing-events>`"
 
-Configuration
-~~~~~~~~~~~~~
+Enhancers
+~~~~~~~~~
 
 To configure what controller is used for which content, you can specify route
-enhancers. Presence of each of any enhancer configuration makes the DI
-container inject the respective enhancer into the DynamicRouter.
-
-The possible enhancements are (in order of precedence):
+enhancers. The possible enhancements are (in order of precedence):
 
 * (Explicit controller): If there is a _controller set in ``getRouteDefaults()``,
   no enhancer will overwrite it.
@@ -200,40 +193,8 @@ The possible enhancements are (in order of precedence):
   class names in the map and if matched that template will be set as
   ``'_template'`` in the ``$defaults`` and the generic controller used as controller.
 
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_routing:
-            dynamic:
-                generic_controller: cmf_content.controller:indexAction
-                controllers_by_type:
-                    editablestatic: sandbox_main.controller:indexAction
-                controllers_by_class:
-                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: cmf_content.controller:indexAction
-                templates_by_class:
-                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: CmfContentBundle:StaticContent:index.html.twig
-
-                # the route provider is responsible for loading routes.
-                manager_registry: doctrine_phpcr
-                manager_name: default
-
-                # if you use the default doctrine route repository service, you
-                # can use this to customize the root path for the `PHPCR-ODM`_
-                # RouteProvider. This base path will be injected by the
-                # Listener\IdPrefix - but only to routes matching the prefix,
-                # to allow for more than one route source.
-                routing_repositoryroot: /cms/routes
-
-                # If you want to replace the default route provider or content repository
-                # you can specify their service IDs here.
-                route_provider_service_id: my_bundle.provider.endpoint
-                content_repository_service_id: my_bundle.repository.endpoint
-
-                # an orm provider might need different configuration. look at
-                # cmf_routing.xml for an example if you need to define your own
-                # service
+See :ref:`the configuration reference <reference-routing-config-dynamic>` to
+learn how to configure these enhancers.
 
 To see some examples, please look at the `CMF sandbox`_ and specifically the
 routing fixtures loading.
@@ -261,25 +222,26 @@ trailing slash because this can not be expressed with a PHPCR name. The default
 is to have no trailing slash.
 
 All routes are located under a configured root path, for example '/cms/routes'.
-A new route can be created in PHP code as follows:
+A new route can be created in PHP code as follows::
 
-.. code-block:: php
+    use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
-    use Symfony\Cmf\Bundle\RoutingBundle\Document\Route;
-    $route = new Route;
+    $route = new Route();
     $route->setParent($dm->find(null, '/routes'));
     $route->setName('projects');
+
     // set explicit controller (both service and Bundle:Name:action syntax work)
     $route->setDefault('_controller', 'sandbox_main.controller:specialAction');
 
 The above example should probably be done as a route configured in a Symfony
-xml/yml file however, unless the end user is supposed to change the URL or the
-controller.
+configuration file however, unless the end user is supposed to change the URL
+or the controller.
 
-To link a content to this route, simply set it on the document.
+To link a content to this route, simply set it on the document::
 
-.. code-block:: php
+    use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\Content;
 
+    // ...
     $content = new Content('my content'); // Content must be a mapped class
     $route->setRouteContent($content);
 
@@ -340,7 +302,7 @@ Sonata Admin Configuration
 If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the
 composer.json require section and the SonataDoctrinePhpcrAdminBundle is loaded
 in the application kernel, the route documents are exposed in the
-SonataDoctrinePhpcrAdminBundle.  For instructions on how to configure this
+SonataDoctrinePhpcrAdminBundle. For instructions on how to configure this
 Bundle see :doc:`doctrine_phpcr_admin`.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
@@ -357,8 +319,32 @@ to point to the root of your content documents.
 
         # app/config/config.yml
         cmf_routing:
-            use_sonata_admin: auto # use true/false to force using / not using sonata admin
-            content_basepath: ~ # used with sonata admin to manage content, defaults to cmf_core.content_basepath
+            persistence:
+                phpcr:
+                    enabled: true
+                    use_sonata_admin: auto # use true/false to force using / not using sonata admin
+                    content_basepath: ~ # used with sonata admin to manage content, defaults to %cmf_core.content_basepath%/content
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic>
+                    <persistence>
+                        <!--
+                            use-sonata-admin: use true/false to force using / not using sonata admin
+                            content-basepath: used with sonata admin to manage content, defaults to
+                                            %cmf_core.content_basepath%/content
+                        -->
+                        <phpcr enabled="true"
+                            use-sonata-admin="auto"
+                            content-basepath="null"
+                        />
+                    </persistence>
+                </dynamic>
+            </config>
+        </container>
 
 Form Type
 ---------
@@ -370,7 +356,10 @@ label and an array with ``content_ids`` in the options::
 
     $form->add('terms', 'cmf_routing_terms_form_type', array(
         'label' => 'I have seen the <a href="%team%">Team</a> and <a href="%more%">More</a> pages ...',
-        'content_ids' => array('%team%' => '/cms/content/static/team', '%more%' => '/cms/content/static/more')
+        'content_ids' => array(
+            '%team%' => '/cms/content/static/team',
+            '%more%' => '/cms/content/static/more',
+        ),
     ));
 
 The form type automatically generates the routes for the specified content and
@@ -395,8 +384,23 @@ Notes:
 
         # app/config/config.yml
         cmf_routing:
-            controllers_by_class:
-                Symfony\Cmf\Component\Routing\RedirectRouteInterface:  cmf_routing.redirect_controller:redirectAction
+            dynamic:
+                controllers_by_class:
+                    Symfony\Cmf\Component\Routing\RedirectRouteInterface: cmf_routing.redirect_controller:redirectAction
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic>
+                    <controller-by-class class="Symfony\Cmf\Component\Routing\RedirectRouteInterface">
+                        cmf_routing.redirect_controller:redirectAction
+                    </controller-by-class>
+                </dynamic>
+            </config>
+        </container>
 
 .. _bundle-routing-customize:
 

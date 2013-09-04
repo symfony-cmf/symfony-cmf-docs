@@ -49,6 +49,7 @@ There are basically two main target audiences:
     cookbook/index
     components/index
     contributing/index
+    reference/index
 
 Book
 ----
@@ -128,6 +129,18 @@ Looking for some information about the low level components of the CMF?
 
 	components/routing
 	components/testing
+
+Reference
+---------
+
+Ever wondered what configuration options you have available to you in files
+such as ``app/config/config.yml``? In this section, all available
+configuration is broken down per bundle.
+
+.. toctree::
+    :maxdepth: 1
+
+    reference/configuration/routing
 
 Contributing
 ------------
