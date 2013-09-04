@@ -42,43 +42,13 @@ enabled implementation. It does not route anything on its own, but only loops
 through all chained routers. To handle standard configured symfony routes, the
 symfony default router can be put into the chain.
 
-.. _bundle-routing-configuration:
-
-Configuration
--------------
-
-In your ``app/config/config.yml``, you can specify which router services you
-want to use. If you do not specify the ``routers_by_id`` map at all, by default
-the chain router will just load the built-in symfony router. When you specify
-the ``routers_by_id`` list, you need to have an entry for ``router.default`` if
-you want the Symfony2 router (that reads the routes from
-``app/config/routing.yml``).
-
-The format is ``service_name: priority`` - the higher the priority number the
-earlier this router service is asked to match a route or to generate a url
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_routing:
-            chain:
-                routers_by_id:
-                    # enable the DynamicRouter with high priority to allow overwriting configured routes with content
-                    cmf_routing.dynamic_router: 200
-                    # enable the symfony default router with a lower priority
-                    router.default: 100
-                # whether the chain router should replace the default router. defaults to true
-                # if you set this to false, the router is just available as service
-                # cmf_routing.router and you need to do something to trigger it
-                # replace_symfony_router: true
+.. _routing-chain-router-tag:
 
 Loading Routers with Tagging
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 Your routers can automatically register, just add it as a service tagged with
-``router`` and an optional ``priority``.  The higher the priority, the earlier
+``router`` and an optional ``priority``. The higher the priority, the earlier
 your router will be asked to match the route. If you do not specify the
 priority, your router will come last.  If there are several routers with the
 same priority, the order between them is undetermined.  The tagged service
@@ -92,7 +62,7 @@ will look like this
             my_namespace.my_router:
                 class: %my_namespace.my_router_class%
                 tags:
-                    - { name: router, priority: 300 }
+                    - { name: cmf_routing.router, priority: 300 }
 
     .. code-block:: xml
 
@@ -174,14 +144,11 @@ example.
     The DynamicRouter fires some events, read more about this in
     ":ref:`the component documentation <components-routing-events>`"
 
-Configuration
-~~~~~~~~~~~~~
+Enhancers
+~~~~~~~~~
 
 To configure what controller is used for which content, you can specify route
-enhancers. Presence of each of any enhancer configuration makes the DI
-container inject the respective enhancer into the DynamicRouter.
-
-The possible enhancements are (in order of precedence):
+enhancers. The possible enhancements are (in order of precedence):
 
 * (Explicit controller): If there is a _controller set in ``getRouteDefaults()``,
   no enhancer will overwrite it.
@@ -200,40 +167,8 @@ The possible enhancements are (in order of precedence):
   class names in the map and if matched that template will be set as
   ``'_template'`` in the ``$defaults`` and the generic controller used as controller.
 
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_routing:
-            dynamic:
-                generic_controller: cmf_content.controller:indexAction
-                controllers_by_type:
-                    editablestatic: sandbox_main.controller:indexAction
-                controllers_by_class:
-                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: cmf_content.controller:indexAction
-                templates_by_class:
-                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: CmfContentBundle:StaticContent:index.html.twig
-
-                # the route provider is responsible for loading routes.
-                manager_registry: doctrine_phpcr
-                manager_name: default
-
-                # if you use the default doctrine route repository service, you
-                # can use this to customize the root path for the `PHPCR-ODM`_
-                # RouteProvider. This base path will be injected by the
-                # Listener\IdPrefix - but only to routes matching the prefix,
-                # to allow for more than one route source.
-                routing_repositoryroot: /cms/routes
-
-                # If you want to replace the default route provider or content repository
-                # you can specify their service IDs here.
-                route_provider_service_id: my_bundle.provider.endpoint
-                content_repository_service_id: my_bundle.repository.endpoint
-
-                # an orm provider might need different configuration. look at
-                # cmf_routing.xml for an example if you need to define your own
-                # service
+See :ref:`the configuration reference <reference-routing-config-dynamic>` to
+learn how to configure these enhancers.
 
 To see some examples, please look at the `CMF sandbox`_ and specifically the
 routing fixtures loading.
