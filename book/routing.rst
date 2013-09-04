@@ -366,8 +366,9 @@ configured as follows:
 
         # app/config/config.yml
         cmf_routing:
-            controllers_by_class:
-                Symfony\Cmf\Component\Routing\RedirectRouteInterface:  cmf_routing.redirect_controller:redirectAction
+            dynamic:
+                controllers_by_class:
+                    Symfony\Cmf\Component\Routing\RedirectRouteInterface:  cmf_routing.redirect_controller:redirectAction
 
     .. code-block:: xml
 
@@ -378,10 +379,12 @@ configured as follows:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-                <controllers-by-class
-                    class="Symfony\Cmf\Component\Routing\RedirectRouteInterface">
-                    cmf_routing.redirect_controller:redirectAction
-                </controllers-by-class>
+                <dynamic>
+                    <controllers-by-class
+                        class="Symfony\Cmf\Component\Routing\RedirectRouteInterface">
+                        cmf_routing.redirect_controller:redirectAction
+                    </controllers-by-class>
+                </dynamic>
             </config>
         </container>
 
@@ -389,8 +392,10 @@ configured as follows:
 
         // app/config/config.php
         $container->loadFromExtension('cmf_routing', array(
-            'controllers_by_class' => array(
-                'Symfony\Cmf\Component\Routing\RedirectRouteInterface' => 'cmf_routing.redirect_controller:redirectAction',
+            'dynamic' => array(
+                'controllers_by_class' => array(
+                    'Symfony\Cmf\Component\Routing\RedirectRouteInterface' => 'cmf_routing.redirect_controller:redirectAction',
+                ),
             ),
         ));
 
@@ -427,9 +432,10 @@ section applies if you use the default PHPCR-ODM route provider
 All routes are located under a configured root path, for example
 ``/cms/routes``. A new route can be created in PHP code as follows::
 
-    use Symfony\Cmf\Bundle\RoutingBundle\Document\Route;
+    use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+    use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\Content;
 
-    $route = new Route;
+    $route = new Route();
     $route->setParent($dm->find(null, '/routes'));
     $route->setName('projects');
 
@@ -437,7 +443,8 @@ All routes are located under a configured root path, for example
     $content = new Content('my content');
     $route->setRouteContent($content);
 
-    // now define an id parameter; do not forget the leading slash if you want /projects/{id} and not /projects{id}
+    // now define an id parameter; do not forget the leading slash if you
+    // want /projects/{id} and not /projects{id}
     $route->setVariablePattern('/{id}');
     $route->setRequirement('id', '\d+');
     $route->setDefault('id', 1);
@@ -477,11 +484,14 @@ There are a couple of configuration options for the admin. The
 
         # app/config/config.yml
         cmf_routing:
-            # use true/false to force using / not using sonata admin
-            use_sonata_admin: auto
+            dynamic:
+                persistence:
+                    phpcr:
+                        # use true/false to force using / not using sonata admin
+                        use_sonata_admin: auto
 
-            # used with Sonata Admin to manage content; defaults to cmf_core.content_basepath
-            content_basepath: ~
+                        # used with Sonata Admin to manage content; defaults to cmf_core.content_basepath
+                        content_basepath: ~
 
     .. code-block:: xml
 
@@ -489,26 +499,38 @@ There are a couple of configuration options for the admin. The
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:cmf-routing="http://cmf.symfony.com/schema/dic/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-            <!-- use-sonata-admin: use true/false to force using / not using sonata admin -->
-            <!-- content-basepath: used with Sonata Admin to manage content; defaults to cmf_core.content_basepath -->
-            <cmf-routing:config
-                use-sonata-admin="auto"
-                content-basepath="null"
-            />
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic>
+                    <persistence>
+                        <!-- use-sonata-admin: use true/false to force using / not using sonata admin -->
+                        <!-- content-basepath: used with Sonata Admin to manage content;
+                                               defaults to cmf_core.content_basepath -->
+                        <phpcr
+                            use-sonata-admin="auto"
+                            content-basepath="null"
+                        />
+                    </persistence>
+                </dynamic>
+            </config>
         </container>
 
     .. code-block:: php
 
         // app/config/config.php
         $container->loadFromExtension('cmf_routing', array(
-            // use true/false to force using / not using sonata admin
-            'use_sonata_admin' => 'auto',
+            'dynamic' => array(
+                'persistence' => array(
+                    'phpcr' => array(
+                        // use true/false to force using / not using sonata admin
+                        'use_sonata_admin' => 'auto',
 
-            // used with Sonata Admin to manage content; defaults to cmf_core.content_basepath
-            'content_basepath' => null,
+                        // used with Sonata Admin to manage content; defaults to cmf_core.content_basepath
+                        'content_basepath' => null,
+                    ),
+                ),
+            ),
         ));
 
 Terms Form Type

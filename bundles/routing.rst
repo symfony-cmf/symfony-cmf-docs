@@ -59,17 +59,24 @@ will look like this
     .. code-block:: yaml
 
         services:
-            my_namespace.my_router:
+            acme_core.my_router:
                 class: %my_namespace.my_router_class%
                 tags:
                     - { name: cmf_routing.router, priority: 300 }
 
     .. code-block:: xml
 
-        <service id="my_namespace.my_router" class="%my_namespace.my_router_class%">
+        <service id="acme_core.my_router" class="%my_namespace.my_router_class%">
             <tag name="router" priority="300" />
-            ..
+            <!-- ... -->
         </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('acme_core.my_router', '%acme_core.my_router')
+            ->addTag('router', array('priority' => 300))
+        ;
 
 See also official Symfony2 `documentation for DependencyInjection tags`_
 
@@ -109,6 +116,25 @@ your own routers
         cmf_routing:
             dynamic:
                 enabled: true
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic enabled="true" />
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_routing', array(
+            'dynamic' => array(
+                'enabled' => true,
+            ),
+        ));
 
 PHPCR-ODM integration
 ~~~~~~~~~~~~~~~~~~~~~
@@ -196,25 +222,26 @@ trailing slash because this can not be expressed with a PHPCR name. The default
 is to have no trailing slash.
 
 All routes are located under a configured root path, for example '/cms/routes'.
-A new route can be created in PHP code as follows:
+A new route can be created in PHP code as follows::
 
-.. code-block:: php
+    use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
-    use Symfony\Cmf\Bundle\RoutingBundle\Document\Route;
-    $route = new Route;
+    $route = new Route();
     $route->setParent($dm->find(null, '/routes'));
     $route->setName('projects');
+
     // set explicit controller (both service and Bundle:Name:action syntax work)
     $route->setDefault('_controller', 'sandbox_main.controller:specialAction');
 
 The above example should probably be done as a route configured in a Symfony
-xml/yml file however, unless the end user is supposed to change the URL or the
-controller.
+configuration file however, unless the end user is supposed to change the URL
+or the controller.
 
-To link a content to this route, simply set it on the document.
+To link a content to this route, simply set it on the document::
 
-.. code-block:: php
+    use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\Content;
 
+    // ...
     $content = new Content('my content'); // Content must be a mapped class
     $route->setRouteContent($content);
 
@@ -275,7 +302,7 @@ Sonata Admin Configuration
 If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the
 composer.json require section and the SonataDoctrinePhpcrAdminBundle is loaded
 in the application kernel, the route documents are exposed in the
-SonataDoctrinePhpcrAdminBundle.  For instructions on how to configure this
+SonataDoctrinePhpcrAdminBundle. For instructions on how to configure this
 Bundle see :doc:`doctrine_phpcr_admin`.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
@@ -292,8 +319,32 @@ to point to the root of your content documents.
 
         # app/config/config.yml
         cmf_routing:
-            use_sonata_admin: auto # use true/false to force using / not using sonata admin
-            content_basepath: ~ # used with sonata admin to manage content, defaults to cmf_core.content_basepath
+            persistence:
+                phpcr:
+                    enabled: true
+                    use_sonata_admin: auto # use true/false to force using / not using sonata admin
+                    content_basepath: ~ # used with sonata admin to manage content, defaults to %cmf_core.content_basepath%/content
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic>
+                    <persistence>
+                        <!--
+                            use-sonata-admin: use true/false to force using / not using sonata admin
+                            content-basepath: used with sonata admin to manage content, defaults to
+                                            %cmf_core.content_basepath%/content
+                        -->
+                        <phpcr enabled="true"
+                            use-sonata-admin="auto"
+                            content-basepath="null"
+                        />
+                    </persistence>
+                </dynamic>
+            </config>
+        </container>
 
 Form Type
 ---------
@@ -305,7 +356,10 @@ label and an array with ``content_ids`` in the options::
 
     $form->add('terms', 'cmf_routing_terms_form_type', array(
         'label' => 'I have seen the <a href="%team%">Team</a> and <a href="%more%">More</a> pages ...',
-        'content_ids' => array('%team%' => '/cms/content/static/team', '%more%' => '/cms/content/static/more')
+        'content_ids' => array(
+            '%team%' => '/cms/content/static/team',
+            '%more%' => '/cms/content/static/more',
+        ),
     ));
 
 The form type automatically generates the routes for the specified content and
@@ -330,8 +384,23 @@ Notes:
 
         # app/config/config.yml
         cmf_routing:
-            controllers_by_class:
-                Symfony\Cmf\Component\Routing\RedirectRouteInterface:  cmf_routing.redirect_controller:redirectAction
+            dynamic:
+                controllers_by_class:
+                    Symfony\Cmf\Component\Routing\RedirectRouteInterface: cmf_routing.redirect_controller:redirectAction
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic>
+                    <controller-by-class class="Symfony\Cmf\Component\Routing\RedirectRouteInterface">
+                        cmf_routing.redirect_controller:redirectAction
+                    </controller-by-class>
+                </dynamic>
+            </config>
+        </container>
 
 .. _bundle-routing-customize:
 
