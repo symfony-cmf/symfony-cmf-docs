@@ -45,6 +45,18 @@ For PHPCR:
 * :doc:`PHPCR-ODM <phpcr_odm>` is used to persist the bundles documents;
 * `phpcr/phpcr-utils`_.
 
+When using the CreateBundle:
+
+* `jms/serializer-bundle`_ to serialize ImageInterface objects.
+
+When using the LiipImagine adapter:
+
+* `LiipImagineBundle`_.
+
+When using the elFinder adapter:
+
+* `FMElfinderBundle`_.
+
 When using the Gaufrette adapter:
 
 * `KnpLabs/Gaufrette`_.
@@ -62,15 +74,18 @@ Configuration
                 phpcr:
                     enabled:         true
                     manager_name:    ~
-                    media_basepath:  /cms/media
+                    media_basepath:  ~ # default: /cms/media
                     media_class:     ~
                     file_class:      ~
                     directory_class: ~
                     image_class:     ~
-            upload_file_role:   ROLE_CAN_UPLOAD_FILE
-            use_jms_serializer: auto
-            use_imagine:        auto
-            imagine_filter:     image_upload_thumbnail
+            upload_file_role:   ~ # default: ROLE_CAN_UPLOAD_FILE
+            use_jms_serializer: ~ # default: auto
+            use_elfinder:       ~ # default: auto
+            use_imagine:        ~ # default: auto
+            imagine_filter:
+                upload_thumbnail:   ~ # default: image_upload_thumbnail
+                elfinder_thumbnail: ~ # default: elfinder_thumbnail
             extra_filters:
                 - imagine_filter_name1
                 - imagine_filter_name2
@@ -78,23 +93,38 @@ Configuration
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
+        <!--
+            upload-file-role:   ROLE_CAN_UPLOAD_FILE by default
+            use-jms-serializer: auto by default
+            use-elfinder:       auto by default
+            use-imagine:        auto by default
+        -->
         <config xmlns="http://cmf.symfony.com/schema/dic/media"
-            upload-file-role="ROLE_CAN_UPLOAD_FILE"
-            use-jms-serializer="auto"
-            use-imagine="auto"
-            imagine-filter="image_upload_thumbnail"
+            upload-file-role="null"
+            use-jms-serializer="null"
+            use-elfinder="null"
+            use-imagine="null"
         >
             <persistence>
+                <!-- media-basepath: /cms/media by default -->
                 <phpcr
                     enabled="true"
-                    manager-name=""
-                    media-basepath="/cms/media"
-                    media-class=""
-                    file-class=""
-                    directory-class=""
-                    image-class=""
+                    manager-name="null"
+                    media-basepath="null"
+                    media-class="null"
+                    file-class="null"
+                    directory-class="null"
+                    image-class="null"
                 />
             </persistence>
+            <!--
+                upload_thumbnail:   image_upload_thumbnail by default
+                elfinder_thumbnail: elfinder_thumbnail by default
+            -->
+            <imagine-filter
+                upload_thumbnail="null"
+                elfinder_thumbnail="null"
+            />
             <extra-filter>imagine_filter_name1</extra-filter>
             <extra-filter>imagine_filter_name2</extra-filter>
         </config>
@@ -107,17 +137,21 @@ Configuration
                 'phpcr' => array(
                     'enabled'         => true,
                     'manager_name'    => null,
-                    'media_basepath'  => '/cms/media',
+                    'media_basepath'  => null, // default: /cms/media
                     'media_class'     => null,
                     'file_class'      => null,
                     'directory_class' => null,
                     'image_class'     => null,
                 ),
              ),
-            'upload_file_role'   => 'ROLE_CAN_UPLOAD_FILE',
-            'use_jms_serializer' => 'auto',
-            'use_imagine'        => 'auto',
-            'imagine_filter'     => 'image_upload_thumbnail',
+            'upload_file_role'   => null, // default: ROLE_CAN_UPLOAD_FILE
+            'use_jms_serializer' => null, // default: auto
+            'use_elfinder'       => null, // default: auto
+            'use_imagine'        => null, // default: auto
+            'imagine_filter'     => array(
+                'upload_thumbnail'   => null, // default: image_upload_thumbnail
+                'elfinder_thumbnail' => null, // default: elfinder_thumbnail
+            ),
             'extra_filters'      => array(
                 'imagine_filter_name1',
                 'imagine_filter_name2',
@@ -398,6 +432,14 @@ helper name. The ``UploadFileHelper`` checks the request for the parameter
 ``editor`` to select the requested ``UploadEditorHelperInterface`` to create
 the response.
 
+Browsing and Selecting Media
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When a file, image or other media has to be inserted in a WYSIWYG editor the
+user first has to browse and find the media. A media browser is a separate
+tool that can be integrated with the WYSIWYG editor and assists the user with
+this task.
+
 Adapters
 --------
 
@@ -408,7 +450,7 @@ LiipImagine
 ~~~~~~~~~~~
 
 For LiipImagine a data loader is included:
-``Symfony\Cmf\Bundle\MediaBundle\Adapter\LiipImagine\CmfMediaDoctrineLoader''.
+``Symfony\Cmf\Bundle\MediaBundle\Adapter\LiipImagine\CmfMediaDoctrineLoader``.
 It will work for all image object implementing
 ``Symfony\Cmf\Bundle\MediaBundle\ImageInterface`` and is automatically enabled
 if the LiipImagineBundle is installed.
@@ -458,7 +500,7 @@ The dataloader has the name: ``cmf_media_doctrine_phpcr``.
                     'quality'     => 85,
                     'filters'     => array(
                         'thumbnail' => array(
-                            'size' => array(616, 419),
+                            'size' => array(100, 100),
                             'mode' => 'outbound',
                         ),
                     ),
@@ -467,11 +509,152 @@ The dataloader has the name: ``cmf_media_doctrine_phpcr``.
             ),
         ));
 
+elFinder
+~~~~~~~~
+
+The media browser `elFinder`_ is integrated with Symfony using the
+`FMElfinderBundle`_. The MediaBundle provides an adapter to use it with objects
+implementing the MediaBundle interfaces.
+
+.. note::
+
+    The MediaBundle elFinder adapter is currently only implemented for Doctrine
+    PHPCR-ODM.
+
+Installation
+............
+
+1. *FMElfinderBundle* - Follow the installation instructions from the
+   `FMElfinderBundle documentation`_.
+2. *FMElfinderBundle* - Use the MediaBundle adapter:
+
+   .. configuration-block::
+
+       .. code-block:: yaml
+
+           # app/config/config.yml
+           fm_elfinder:
+               locale: "%locale%"
+               editor: ckeditor
+               connector:
+                   roots:
+                       media:
+                           driver: cmf_media.adapter.elfinder.phpcr_driver
+                           path: "%cmf_media.persistence.phpcr.media_basepath%"
+                           upload_allow: ['all']
+                           upload_max_size: 2M
+
+       .. code-block:: xml
+
+           <!-- app/config/config.xml -->
+           <?xml version="1.0" charset="UTF-8" ?>
+           <container xmlns="http://symfony.com/schema/dic/services">
+
+                <config xmlns="http://example.org/dic/schema/fm_elfinder"
+                    locale="%locale%"
+                    editor="ckeditor"
+                >
+                    <connector>
+                        <root
+                            name="media"
+                            driver="cmf_media.adapter.elfinder.phpcr_driver"
+                            path="%cmf_media.persistence.phpcr.media_basepath%"
+                            upload-max-size="2M"
+                            upload-allow="all"
+                        />
+                    </connector>
+                </config>
+
+           </container>
+
+       .. code-block:: php
+
+           // app/config/config.php
+           $container->loadFromExtension('fm_elfinder', array(
+               'locale' => '%locale%',
+               'editor' => 'ckeditor',
+               'connector' => array(
+                   'roots' => array(
+                       'media' => array(
+                           'driver' => 'cmf_media.adapter.elfinder.phpcr_driver',
+                           'path' => '%cmf_media.persistence.phpcr.media_basepath%',
+                           'upload_allow': array('all'),
+                           'upload_max_size' => '2M',
+                       ),
+                   ),
+               ),
+           ));
+
+3. *LiipImagineBundle* - When using LiipImagineBundle, add an imagine filter
+   for the thumbnails:
+
+   .. configuration-block::
+
+       .. code-block:: yaml
+
+           # app/config/config.yml
+           liip_imagine:
+               # ...
+               filter_sets:
+                   # default filter to be used for elfinder thumbnails
+                   elfinder_thumbnail:
+                       data_loader: cmf_media_doctrine_phpcr
+                       quality: 85
+                       filters:
+                           thumbnail: { size: [48, 48], mode: inset }
+                   # ...
+
+       .. code-block:: xml
+
+           <!-- app/config/config.xml -->
+           <?xml version="1.0" charset="UTF-8" ?>
+           <container xmlns="http://symfony.com/schema/dic/services">
+
+                <config xmlns="http://example.org/dic/schema/liip_imagine">
+                    <!-- ... -->
+                    <!-- default filter to be used for elfinder thumbnails -->
+                    <filter-set name="elfinder_thumbnail" data-loader="cmf_media_doctrine_phpcr" quality="85">
+                        <filter name="thumbnail" size="48,48" mode="inset"/>
+                    </filter-set>
+                    <!-- ... -->
+                </config>
+
+           </container>
+
+       .. code-block:: php
+
+           // app/config/config.php
+           $container->loadFromExtension('liip_imagine', array(
+               // ...
+               'filter_sets' => array(
+                   // default filter to be used for elfinder thumbnails
+                   'elfinder_thumbnail' => array(
+                       'data_loader' => 'cmf_media_doctrine_phpcr',
+                       'quality'     => 85,
+                       'filters'     => array(
+                           'thumbnail' => array(
+                               'size' => array(48, 48),
+                               'mode' => 'inset',
+                           ),
+                       ),
+                   ),
+                   // ...
+               ),
+           ));
+
+4. Test the elFinder browser by navigating to: http://localhost:8000/app_dev.php/elfinder
+
 Gaufrette
 ~~~~~~~~~
 
-The Gaufrette adapter currently only has a Phpcr version:
-``Symfony\Cmf\Bundle\MediaBundle\Gaufrette\Adapter\PhpcrCmfMediaDoctrine``.
+Gaufrette is a PHP5 library that provides a filesystem abstraction layer. The
+MediaBundle provides an adapter to use it with objects implementing the
+MediaBundle interfaces.
+
+.. note::
+
+    The MediaBundle Gaufrette adapter is currently only implemented for Doctrine
+    PHPCR-ODM.
 
 .. _`MediaBundle`: https://github.com/symfony-cmf/MediaBundle#readme
 .. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
@@ -479,5 +662,9 @@ The Gaufrette adapter currently only has a Phpcr version:
 .. _`MediaBundle issue`: https://github.com/symfony-cmf/MediaBundle/issues/9
 .. _`KnpLabs/Gaufrette`: https://github.com/KnpLabs/Gaufrette
 .. _`phpcr/phpcr-utils`: https://github.com/phpcr/phpcr-utils
+.. _`jms/serializer-bundle`: https://github.com/schmittjoh/JMSSerializerBundle
 .. _`SonataMediaBundle`: https://github.com/sonata-project/SonataMediaBundle
 .. _`ImagineBlock::setImage`: https://github.com/symfony-cmf/BlockBundle/blob/master/Doctrine/Phpcr/ImagineBlock.php#L121
+.. _`elFinder`: http://elfinder.org
+.. _`FMElfinderBundle`: https://github.com/helios-ag/FMElfinderBundle
+.. _`FMElfinderBundle documentation`: https://github.com/helios-ag/FMElfinderBundle#readme
