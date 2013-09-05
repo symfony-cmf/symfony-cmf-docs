@@ -411,8 +411,7 @@ A full example looks as follows:
 .. tip::
 
     This example also uses different configurations per repository (see the
-    ``repository_id`` attribute). This case is explained in
-    :doc:`../cookbook/phpcr_odm_custom_documentclass_mapper`.
+    ``repository_id`` attribute).
 
 .. _bundle-phpcr-odm-commands:
 

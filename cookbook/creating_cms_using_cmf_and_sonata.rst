@@ -13,7 +13,7 @@ using the CMF as well as `SonataAdminBundle`_ and
 Preconditions
 -------------
 
-* :doc:`installing_cmf_core`
+* :doc:`editions/cmf_core`
 * `Symfony SecurityBundle`_ (required by the SonataAdminBundle default templates)
 
 .. caution::

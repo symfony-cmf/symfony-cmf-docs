@@ -15,7 +15,7 @@ setup, please refer to:
 
 * :doc:`../book/installation` page for instructions on
   how to quickly install the CMF (recommended for development)
-* :doc:`installing_cmf_core` for step-by-step installation and
+* :doc:`cmf_core` for step-by-step installation and
   configuration details (if you want to know all the details)
 
 .. index:: sandbox, install

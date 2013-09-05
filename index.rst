@@ -75,15 +75,14 @@ Want to know more about the CMF and how each part can be configured? There's a t
 .. toctree::
     :maxdepth: 1
 
-    cookbook/choosing_a_storage_layer
-    cookbook/installing_cmf_sandbox
-    cookbook/installing_cmf_core
+    cookbook/database/choosing_storage_layer
+    cookbook/editions/cmf_sandbox
+    cookbook/editions/cmf_core
     cookbook/installing_configuring_doctrine_phpcr_odm
     cookbook/installing_configuring_inline_editing
     cookbook/creating_cms_using_cmf_and_sonata
     cookbook/using_blockbundle_and_contentbundle
     cookbook/handling_multilang_documents
-    cookbook/phpcr_odm_custom_documentclass_mapper
     cookbook/using_a_custom_route_repository
 
 Bundles

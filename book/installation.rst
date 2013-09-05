@@ -27,7 +27,7 @@ for a new custom application.
     instance of the Symfony CMF. You can view it online at `cmf.liip.ch`_.
     You can also install it locally, so you can play with the code. For
     installation instructions for the sandbox, please read
-    ":doc:`../cookbook/installing_cmf_sandbox`".
+    ":doc:`../cookbook/editions/cmf_sandbox`".
 
 Preconditions
 -------------
