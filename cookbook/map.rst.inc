@@ -1,4 +1,7 @@
-* :doc:`choosing_a_storage_layer`
+* **Database**
+
+   * :doc:`choosing_a_storage_layer`
+
 * :doc:`installing_cmf_sandbox`
 * :doc:`installing_cmf_core`
 * :doc:`installing_configuring_doctrine_phpcr_odm`
