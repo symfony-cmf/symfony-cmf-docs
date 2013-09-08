@@ -103,21 +103,18 @@ Add the sonata bundles to your application configuration:
                 Doctrine\ODM\PHPCR\Document\Generic:
                     valid_children:
                         - all
-                Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page: ~
-                Symfony\Cmf\Bundle\RoutingBundle\Document\Route:
+                Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page:
                     valid_children:
-                        - Symfony\Cmf\Bundle\RoutingBundle\Document\Route
-                        - Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute
-                Symfony\Cmf\Bundle\RoutingBundle\Document\RedirectRoute:
+                        - all
+                Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route:
+                    valid_children:
+                        - Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route
+                        - Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute
+                Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute:
                     valid_children: []
-                Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode:
+                Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode:
                     valid_children:
-                        - Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode
-                        - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode
-                Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode:
-                    valid_children:
-                        - Symfony\Cmf\Bundle\MenuBundle\Document\MenuNode
-                        - Symfony\Cmf\Bundle\MenuBundle\Document\MultilangMenuNode
+                        - Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode
 
 Add route in to your routing configuration:
 
