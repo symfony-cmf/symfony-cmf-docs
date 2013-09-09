@@ -1,8 +1,8 @@
 .. index::
-    single: SimpleCMS; Getting Started
-    single: CmfSimpleCMSBundle
+    single: SimpleCms; Getting Started
+    single: CmfSimpleCmsBundle
 
-A simple CMS
+A Simple CMS
 ============
 
 Concept
@@ -13,31 +13,31 @@ that allows you to associate URLs with your :doc:`content <static_content>`
 as well as a way to :doc:`structuring content <structuring_content>`, so
 users can browse the content in a menu.
 
-In the CMF these features are provided by the RoutingBundle, the ContentBundle
-and the MenuBundle. These bundles complement each other but are independent:
-they work without each other, allowing you to choose which ones you want to use,
+In the CMF these features are provided by the :doc:`../bundles/routing`, the
+:doc:`../bundles/content` and the :doc:`../bundles/menu`. These bundles complement
+each other but are independent, allowing you to choose which ones you want to use,
 extend or ignore. However, in some cases, you might just want a simple implementation
 that gathers all those capabilities into a ready-to-go package. That's exactly
-what the SimpleCMSBundle provides.
+what the :doc:`../bundles/simple_cms` provides.
 
-SimpleCMSBundle
+SimpleCmsBundle
 ---------------
 
-The SimpleCMSBundle is implemented on top of most of the other Symfony CMF
+The SimpleCmsBundle is implemented on top of most of the other Symfony CMF
 Bundles, combining them into a functional CMS. It is a simple solution, but you
 will find it very useful when you start implementing your own CMS using
 Symfony CMF.
 
 .. tip::
 
-    The SimpleCMSBundle is just an example how you can do it. Whether you
+    The SimpleCmsBundle is just an example how you can do it. Whether you
     decide to extend or replace it, it's up to you, but in both cases, the
-    SimpleCMSBundle is a good place to start developing your first CMS.
+    SimpleCmsBundle is a good place to start developing your first CMS.
 
 Page Document
 ~~~~~~~~~~~~~
 
-The SimpleCMSBundle provides a ``Page`` document which provides all roles in
+The SimpleCmsBundle provides a ``Page`` document which provides all roles in
 one class:
 
 * It has properties for title and text body;
@@ -71,7 +71,7 @@ This three-in-one approach is the key concept behind the bundle.
 Configuring the Content Class
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-SimpleCMSBundle will use
+SimpleCmsBundle will use
 ``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page`` as the content
 class (which extends ``Symfony\Cmf\Bundle\SimpleCmsBundle\Model\Page``). You
 can explicitly specify your content class using the configuration parameters:
@@ -110,6 +110,6 @@ can explicitly specify your content class using the configuration parameters:
 Learn More
 ----------
 
-For more information on the SimpleCMSBundle, please refer to:
+For more information on the SimpleCmsBundle, please refer to:
 
-* ":doc:`../bundles/simple_cms`" - for more details about the SimpleCMSBundle.
+* ":doc:`../bundles/simple_cms`" - for more details about the SimpleCmsBundle.

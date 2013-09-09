@@ -152,7 +152,7 @@ see when browsing the Symfony CMF SE installation.
 It assumes you have already installed Symfony CMF SE and have carefully read
 `the Symfony2 book`_.
 
-AcmeMainBundle and SimpleCMSBundle
+AcmeMainBundle and SimpleCmsBundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Symfony CMF SE comes with a default AcmeMainBundle to help you get started,
