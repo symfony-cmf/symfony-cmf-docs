@@ -5,9 +5,9 @@ Getting Started
     :hidden:
 
     installation
-    simplecms
     routing
-    structuring_content
     static_content
+    structuring_content
+    simplecms
 
 .. include:: map.rst.inc

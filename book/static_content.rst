@@ -13,15 +13,14 @@ publishers can manipulate and that will later be presented to the page's
 users. The content's structure greatly depends on the project's needs, and it
 will have a significant impact on future development and use of the platform.
 
-Symfony CMF SE comes with the ContentBundle: a basic implementation of a
-content structure, including support for multiple languages and database
-storage of Routes.
+The ContentBundle provides a basic implementation of a content document classes,
+including support for multiple languages and association to Routes.
 
 Static Content
 --------------
 
-The ``StaticContent`` class declares the basic content's structure. Its structure is
-very similar to the ones used on Symfony2's ORM systems. Most of its
+The ``StaticContent`` class declares the basic content's structure. Its structure
+is very similar to the ones used on Symfony2's ORM systems. Most of its
 fields are self explanatory and are what you would expect from a basic CMS:
 title, body, publishing information and a parent reference, to accommodate a
 tree-like hierarchy. It also includes a Block reference (more on that later).
