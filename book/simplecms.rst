@@ -2,22 +2,23 @@
     single: SimpleCMS; Getting Started
     single: CmfSimpleCMSBundle
 
-SimpleCMS
-=========
+A simple CMS
+============
 
 Concept
 -------
 
-The CMF contains 2 main bundles, the :doc:`RoutingBundle <routing>`, that
-allows you to associate URLs with your :doc:`content <static_content>`. It
-also provides a :doc:`MenuBundle <structuring_content>`, so users can browse
-the content in a menu.
+In most CMS use cases the most basic needs are :doc:`routing <routing>`,
+that allows you to associate URLs with your :doc:`content <static_content>`
+as well as a way to :doc:`structuring content <structuring_content>`, so
+users can browse the content in a menu.
 
-These three bundles complement each other but are independent: they work
-without each other, allowing you to choose which ones you want to use, extend
-or ignore. In some cases, however, you might just want a simple implementation
+In the CMF these features are provided by the RoutingBundle, the ContentBundle
+and the MenuBundle. These bundles complement each other but are independent:
+they work without each other, allowing you to choose which ones you want to use,
+extend or ignore. However, in some cases, you might just want a simple implementation
 that gathers all those capabilities into a ready-to-go package. That's exactly
-what the SimpleCMSBundle is doing.
+what the SimpleCMSBundle provides.
 
 SimpleCMSBundle
 ---------------
