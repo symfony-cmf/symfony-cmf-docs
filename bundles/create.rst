@@ -243,7 +243,7 @@ Configuration
             # rest_controller_class: FQN\Classname
 
             # access check role for js inclusion, default REST and image upload
-            # role: IS_AUTHENTICATED_ANONYMOUSLY
+            # role: ROLE_ADMIN
 
             # mapping from rdf type name => class name used when adding items to collections
             map:
@@ -290,7 +290,7 @@ Configuration
         <config xmlns="http://cmf.symfony.com/schema/dic/create"
             auto-mapping="true"
             rest-controller-class="FQN\ClassName"
-            role="IS_AUTHENTICATED_ANONYMOUSLY"
+            role="ROLE_ADMIN"
             stanbol-url="http://dev.iks-project.eu:8081"
             fixed-toolbar="true">
             <!-- metadata loading -->
@@ -346,7 +346,7 @@ Configuration
             // 'rest_controller_class' => 'FQN\Classname'
 
             // access check role for js inclusion, default REST and image controllers
-            // 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY',
+            // 'role' => 'ROLE_ADMIN',
 
             // mapping from rdf type name => class name used when adding items to collections
             'map' => array(
@@ -402,13 +402,12 @@ See the `documentation of createphp`_ for the format of the XML metadata format.
 Access Control
 ~~~~~~~~~~~~~~
 
-If you use the default REST controller, everybody can edit content once you
-enabled the create bundle. To restrict access, specify a role other than the
-default IS_AUTHENTICATED_ANONYMOUSLY to the bundle. If you specify a
-different role, create.js will only be loaded if the user has that role and
-the REST handler (and image handler if enabled) will check the role.
+In order to limit who can edit content, the default REST and image upload
+controller as well as the js loader check if the current user is granted the
+configured ``role``. By default the role is ROLE_ADMIN, but you can change it
+to the role you need.
 
-If you need more fine grained access control, look into the mapper
+If you need more fine grained access control, look into the createphp mapper
 ``isEditable`` method.  You can extend the mapper you use and overwrite
 isEditable to answer whether the passed domain object is editable.
 
