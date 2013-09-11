@@ -6,7 +6,7 @@ RoutingBundle
 =============
 
 The `RoutingBundle`_ integrates dynamic routing into Symfony using
-:doc:`../components/routing`.
+:doc:`../../components/routing`.
 
 The ``ChainRouter`` is meant to replace the default Symfony Router. All it
 does is collect a prioritized list of routers and try to match requests and
@@ -303,7 +303,7 @@ If ``sonata-project/doctrine-phpcr-admin-bundle`` is added to the
 composer.json require section and the SonataDoctrinePhpcrAdminBundle is loaded
 in the application kernel, the route documents are exposed in the
 SonataDoctrinePhpcrAdminBundle. For instructions on how to configure this
-Bundle see :doc:`doctrine_phpcr_admin`.
+Bundle see :doc:`../doctrine_phpcr_admin`.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
 ``SonataDoctrinePhpcrAdminBundle`` is available, but you can explicitly
@@ -428,8 +428,8 @@ Further notes
 
 For more information on the Routing component of Symfony CMF, please refer to:
 
-* ":doc:`../book/routing`" for an introductory guide on Routing bundle
-* :doc:`../components/routing` for most of the actual functionality implementation
+* ":doc:`../../book/routing`" for an introductory guide on Routing bundle
+* :doc:`../../components/routing` for most of the actual functionality implementation
 * Symfony2's `Routing`_ component page
 
 .. _`RoutingBundle`: https://github.com/symfony-cmf/RoutingBundle#readme

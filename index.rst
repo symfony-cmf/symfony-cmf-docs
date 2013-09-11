@@ -103,7 +103,7 @@ to do it? In this case the reference is the right place for you.
 	bundles/phpcr_odm
 	bundles/media
 	bundles/menu
-	bundles/routing
+	bundles/routing/index
 	bundles/routing_auto
 	bundles/search
 	bundles/simple_cms

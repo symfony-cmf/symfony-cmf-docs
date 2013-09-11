@@ -12,8 +12,8 @@ Bundles
     phpcr_odm
     media
     menu
-    routing
     routing_auto
+    routing/index
     search
     simple_cms
     doctrine_phpcr_admin

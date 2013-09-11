@@ -129,8 +129,8 @@ which by default is not loaded, you will need to enable it as follows:
                 enabled: true
 
 You might want to configure more on the dynamic router, i.e. to automatically
-choose controllers based on content.  See :doc:`../bundles/routing` for
-details.
+choose controllers based on content.  See
+:doc:`../bundles/routing/introduction` for details.
 
 For now this is the only configuration we need. Mastering the configuration of
 the different bundles will be handled in further articles. If you're looking

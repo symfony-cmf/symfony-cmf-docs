@@ -78,7 +78,7 @@ following class provides a simple solution using an ODM Repository.
     return a single ``Route``? The Dynamic Router allows us to return many
     *candidate* routes, in other words, routes that *might* match the incoming
     URL. This is important to enable the possibility of matching *dynamic*
-    routes, ``/page/{page_id}/edit`` for example.  In our example we match the
+    routes, ``/page/{page_id}/edit`` for example. In our example we match the
     given URL exactly and only ever return a single ``Route``.
 
 Replacing the Default CMF Route Provider

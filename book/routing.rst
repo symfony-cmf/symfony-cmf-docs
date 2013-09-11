@@ -7,7 +7,7 @@ Routing
 
 This is an introduction to understand the concepts behind CMF routing. For the
 reference documentation please see :doc:`../components/routing` and
-:doc:`../bundles/routing`.
+:doc:`../bundles/routing/introduction`.
 
 Concept
 -------
@@ -213,7 +213,7 @@ provider loads the route at the path in the request and all parent paths to
 allow for some of the path segments being parameters.
 
 For more detailed information on this implementation and how you can customize
-or extend it, refer to :doc:`../bundles/routing`.
+or extend it, refer to :doc:`../bundles/routing/introduction`.
 
 The ``DynamicRouter`` is able to match the incoming request to a Route object
 from the underlying provider. The details on how this matching process is
@@ -558,7 +558,7 @@ Further Notes
 For more information on the Routing component of Symfony CMF, please refer to:
 
 * :doc:`../components/routing` for most of the actual functionality implementation
-* :doc:`../bundles/routing` for Symfony2 integration bundle for Routing Bundle
+* :doc:`../bundles/routing/introduction` for Symfony2 integration bundle for Routing Bundle
 * Symfony2's `Routing`_ component page
 * :doc:`../cookbook/handling_multilang_documents` for some notes on multilingual routing
 
