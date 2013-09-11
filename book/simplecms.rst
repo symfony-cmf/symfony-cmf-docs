@@ -13,10 +13,11 @@ that allows you to associate URLs with your :doc:`content <static_content>`
 as well as a way to :doc:`structuring content <structuring_content>`, so
 users can browse the content in a menu.
 
-In the CMF these features are provided by the :doc:`../bundles/routing`, the
-:doc:`../bundles/content` and the :doc:`../bundles/menu`. These bundles complement
-each other but are independent, allowing you to choose which ones you want to use,
-extend or ignore. However, in some cases, you might just want a simple implementation
+In the CMF these features are provided by the
+:doc:`../bundles/routing/introduction`, the :doc:`../bundles/content` and the
+:doc:`../bundles/menu`. These bundles complement each other but are
+independent, allowing you to choose which ones you want to use, extend or
+ignore. However, in some cases, you might just want a simple implementation
 that gathers all those capabilities into a ready-to-go package. That's exactly
 what the :doc:`../bundles/simple_cms` provides.
 
