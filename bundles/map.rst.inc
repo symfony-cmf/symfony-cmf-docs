@@ -34,9 +34,10 @@
 
   * :doc:`menu`
 
-* **RoutingBundle**
+* :doc:`routing/index`
 
-  * :doc:`routing`
+  * :doc:`routing/introduction`
+  * :doc:`routing/custom_repository`
 
 * **RoutingAutoBundle**
 

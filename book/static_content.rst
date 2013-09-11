@@ -82,7 +82,7 @@ information about it, please refer to the bundle's `documentation section`_.
 In ContentBundle, the required administration panels are already declared in
 the ``Admin`` folder and configured in ``Resources/config/admin.xml``, and
 will automatically be loaded if you install the SonataDoctrinePHPCRAdminBundle
-(refer to :doc:`../tutorials/creating_cms_using_cmf_and_sonata` for
+(refer to :doc:`../cookbook/creating_cms_using_cmf_and_sonata` for
 instructions on that).
 
 Configuration

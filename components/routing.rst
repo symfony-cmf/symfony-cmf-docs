@@ -58,9 +58,9 @@ The Component depends on the Symfony2 `Routing`_ component and the
     ``RouteProviderInterface`` with. We suggest using Doctrine as this
     provides an easy way to map classes into a database.
 
-    The :doc:`../bundles/routing` provides implementations for everything
-    needed to get this component running with Doctrine PHPCR-ODM and soon
-    also the Doctrine ORM.
+    The :doc:`../bundles/routing/introduction` provides implementations for
+    everything needed to get this component running with Doctrine PHPCR-ODM
+    and soon also the Doctrine ORM.
 
 ChainRouter
 -----------
@@ -208,7 +208,7 @@ provider is to provide all routes that could potentially match, but **not** to
 do any elaborate matching operations yet - this will be done in the later steps.
 
 The underlying implementation of the ``RouteProviderInterface`` is not in the
-scope of this component. The :doc:`RoutingBundle <../bundles/routing>`
+scope of this component. The :doc:`RoutingBundle <../bundles/routing/introduction>`
 provides a Route Provider for Doctrine PHPCR ODM.
 
 To create and register your own Route Provider, create a class extending
@@ -361,7 +361,7 @@ Router in the chain or to another Route object provided by the Route.
 Notice that the actual redirection logic is not handled by the bundle. You
 should implement your own logic to handle the redirection. For an example of
 implementing that redirection under the full Symfony2 stack, refer to
-:doc:`the RoutingBundle <../bundles/routing>`.
+:doc:`the RoutingBundle <../bundles/routing/introduction>`.
 
 Generating URLs
 ~~~~~~~~~~~~~~~
@@ -399,7 +399,8 @@ Symfony2 integration
 As mentioned before, this component was designed to use independently of the
 Symfony2 framework.  However, if you wish to use it as part of your Symfony
 CMF project, an integration bundle is also available. Read more about the
-RoutingBundle in ":doc:`../bundles/routing`" in the bundles documentation.
+RoutingBundle in ":doc:`../bundles/routing/introduction`" in the bundles
+documentation.
 
 .. _`Install it via Composer`: http://symfony.com/doc/current/components/using_components.html
 .. _`Packagist`: https://packagist.org/packages/symfony-cmf/routing

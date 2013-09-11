@@ -174,7 +174,7 @@ solutions like CouchDB or Cassandra is entirely possible. Again, switching the
 persistence solution would require no code changes as the business logic is
 only bound to the PHPCR interfaces.
 
-Please see :doc:`installing_configuring_doctrine_phpcr_odm` for more details
+Please see :doc:`../installing_configuring_doctrine_phpcr_odm` for more details
 on the available PHPCR implementations and their requirements and how to setup
 Symfony2 with one of them.
 
