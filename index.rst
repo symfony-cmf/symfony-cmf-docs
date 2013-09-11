@@ -83,7 +83,6 @@ Want to know more about the CMF and how each part can be configured? There's a t
     cookbook/creating_cms_using_cmf_and_sonata
     cookbook/using_blockbundle_and_contentbundle
     cookbook/handling_multilang_documents
-    cookbook/using_a_custom_route_repository
 
 Bundles
 -------

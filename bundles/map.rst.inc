@@ -37,6 +37,7 @@
 * :doc:`routing/index`
 
   * :doc:`routing/introduction`
+  * :doc:`routing/custom_repository`
 
 * **RoutingAutoBundle**
 

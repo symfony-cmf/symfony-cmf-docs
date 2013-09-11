@@ -12,6 +12,5 @@ The Cookbook
     creating_cms_using_cmf_and_sonata
     using_blockbundle_and_contentbundle
     handling_multilang_documents
-    using_a_custom_route_repository
 
 .. include:: map.rst.inc

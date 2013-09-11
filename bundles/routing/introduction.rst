@@ -421,7 +421,7 @@ into the chain.
 Learn more from the Cookbook
 ----------------------------
 
-* :doc:`../cookbook/using_a_custom_route_repository`
+* :doc:`custom_repository`
 
 Further notes
 -------------
