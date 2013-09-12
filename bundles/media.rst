@@ -213,7 +213,7 @@ Interfaces
 Using the interfaces leaves it open to use separate classes for each media type
 or one media class for all. Also how data is persisted can be changed depending
 on the situation, an example is that a file size can be persisted in the
-metadata but also can have it's own field. This way a project can start with an
+metadata but also can have its own field. This way a project can start with an
 Image class and later grow.
 
 The MediaBundle provides the following interfaces:
