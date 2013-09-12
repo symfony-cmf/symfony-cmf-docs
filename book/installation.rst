@@ -27,7 +27,7 @@ for a new custom application.
     instance of the Symfony CMF. You can view it online at `cmf.liip.ch`_.
     You can also install it locally, so you can play with the code. For
     installation instructions for the sandbox, please read
-    ":doc:`../cookbook/installing_cmf_sandbox`".
+    ":doc:`../cookbook/editions/cmf_sandbox`".
 
 Preconditions
 -------------
@@ -44,7 +44,7 @@ storage medium.
     can use one of several available data storage mechanisms without having to
     rewrite your code. For more information on the different available
     mechanisms and how to install and configure them, refer to
-    :doc:`../tutorials/installing_configuring_doctrine_phpcr_odm`
+    :doc:`../cookbook/installing_configuring_doctrine_phpcr_odm`
 
 Installation
 ------------
@@ -208,7 +208,7 @@ Adding new pages
 
 Symfony CMF SE does not provide any admin tools to create new pages. If you
 are interested in adding an admin UI have a look at
-:doc:`../tutorials/creating_cms_using_cmf_and_sonata`. However if all you want
+:doc:`../cookbook/creating_cms_using_cmf_and_sonata`. However if all you want
 is a simple way to add new pages that you can then edit via the inline
 editing, then you can use the SimpleCmsBundle ``page`` migrator. The Symfony
 CMF SE ships with an example YAML file stored in

@@ -12,9 +12,9 @@ This tutorial is aimed at the experienced user who wants to learn more
 about the details of the Symfony CMF. If this is your first encounter with
 the Symfony CMF it would be a good idea to start with:
 
-* :doc:`../book/installation` page for instructions on
+* :doc:`../../book/installation` page for instructions on
   how to quickly install the CMF (recommended for development)
-* :doc:`../cookbook/installing_cmf_sandbox` for instructions on how to install
+* :doc:`cmf_sandbox` for instructions on how to install
   a demonstration sandbox.
 
 .. index:: RoutingBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle, install
@@ -23,7 +23,7 @@ Preconditions
 -------------
 
 * `Installation of Symfony2`_ (2.1.x)
-* :doc:`installing_configuring_doctrine_phpcr_odm`
+* :doc:`../installing_configuring_doctrine_phpcr_odm`
 
 Installation
 ------------
@@ -93,7 +93,7 @@ Minimum Configuration
 These steps are needed to ensure your ``AppKernel`` still runs.
 
 If you haven't done so already, make sure you have followed these steps from
-:doc:`installing_configuring_doctrine_phpcr_odm`:
+:doc:`../installing_configuring_doctrine_phpcr_odm`:
 
 * Initialize ``DoctrinePHPCRBundle`` in ``app/AppKernel.php``
 * Ensure there is a ``doctrine_phpcr:`` section in ``app/config/config.yml``
@@ -129,12 +129,12 @@ which by default is not loaded, you will need to enable it as follows:
                 enabled: true
 
 You might want to configure more on the dynamic router, i.e. to automatically
-choose controllers based on content.  See :doc:`../bundles/routing` for
-details.
+choose controllers based on content.  See
+:doc:`../../bundles/routing/introduction` for details.
 
 For now this is the only configuration we need. Mastering the configuration of
-the different bundles will be handled in further tutorials. If you're looking
+the different bundles will be handled in further articles. If you're looking
 for the configuration of a specific bundle take a look at the corresponding
-:doc:`bundles entry <../index>`.
+:doc:`bundles reference <../../reference/index>`.
 
 .. _`Installation of Symfony2`: http://symfony.com/doc/2.1/book/installation.html

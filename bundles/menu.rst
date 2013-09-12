@@ -27,7 +27,7 @@ provide your own implementations, this bundle also depends on:
 * **CmfRoutingBundle** - if you want to generate routes for content objects.
   Note that you need to explicitly enable the dynamic router as per default it
   is not loaded. See the
-  :doc:`documentation of the cmf routing bundle <routing>` for more information.
+  :doc:`documentation of the cmf routing bundle <routing/introduction>` for more information.
 * :doc:`PHPCR-ODM <phpcr_odm>` - to load route documents from the content
   repository when using the ``PhpcrMenuProvider``.
 

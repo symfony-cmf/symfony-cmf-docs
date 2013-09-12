@@ -183,7 +183,7 @@ needed for integration with the backend admin tool
 
 The included administration panels are automatically available but need to
 be explicitly put on the dashboard if you want to use them. See
-:doc:`../tutorials/creating_cms_using_cmf_and_sonata` for instructions on how
+:doc:`../cookbook/creating_cms_using_cmf_and_sonata` for instructions on how
 to install SonataDoctrinePhpcrAdminBundle.
 
 Configuration

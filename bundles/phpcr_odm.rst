@@ -28,7 +28,7 @@ configuration of the Doctrine ORM and MongoDB bundles.
 Setup and Requirements
 ----------------------
 
-See :doc:`../tutorials/installing_configuring_doctrine_phpcr_odm`
+See :doc:`../cookbook/installing_configuring_doctrine_phpcr_odm`
 
 Configuration
 -------------
@@ -87,7 +87,7 @@ PHPCR Session with Jackalope Jackrabbit
 """""""""""""""""""""""""""""""""""""""
 
 The only setup required is to install Apache Jackrabbit (see
-:ref:`installing Jackrabbit <tutorials-installing-phpcr-jackrabbit>`).
+:ref:`installing Jackrabbit <cookbook-installing-phpcr-jackrabbit>`).
 
 The configuration needs the ``url`` parameter to point to your jackrabbit.
 Additionally you can tune some other jackrabbit-specific options, for example
@@ -411,8 +411,7 @@ A full example looks as follows:
 .. tip::
 
     This example also uses different configurations per repository (see the
-    ``repository_id`` attribute). This case is explained in
-    :doc:`../cookbook/phpcr_odm_custom_documentclass_mapper`.
+    ``repository_id`` attribute).
 
 .. _bundle-phpcr-odm-commands:
 

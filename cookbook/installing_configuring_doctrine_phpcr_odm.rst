@@ -27,7 +27,7 @@ Finally for information about PHPCR see the `official PHPCR website`_.
 
 .. index:: PHPCR, ODM
 
-.. _tutorials-phpcr-odm-requirements:
+.. _cookbook-phpcr-odm-requirements:
 
 Requirements
 ------------
@@ -292,7 +292,7 @@ Setting up the Content Repository
 
 .. index:: Jackrabbit
 
-.. _tutorials-installing-phpcr-jackrabbit:
+.. _cookbook-installing-phpcr-jackrabbit:
 
 **Jackalope Jackrabbit**
 
@@ -315,7 +315,7 @@ Jackalope wiki.
 
 .. index:: Doctrine, DBAL, RDBMS
 
-.. _tutorials-installing-phpcr-doctrinedbal:
+.. _cookbook-installing-phpcr-doctrinedbal:
 
 **Jackalope Doctrine DBAL**
 
@@ -332,7 +332,7 @@ For more information on how to configure Doctrine DBAL with Symfony2, see the
 
 .. index:: Midgard, RDBMS
 
-.. _tutorials-installing-phpcr-midgard:
+.. _cookbook-installing-phpcr-midgard:
 
 **Midgard**
 
