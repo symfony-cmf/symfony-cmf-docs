@@ -286,7 +286,8 @@ uri_filter_regexp
 **type**: ``string`` **default**: ``""``
 
 Sets a pattern to which the Route must match before getting the routes from a
-database. This can improve the performance a lot when using many routes.
+database. This can improve the performance a lot when only a subsection of your
+site is using the dynamic router.
 
 route_provider_service_id
 ~~~~~~~~~~~~~~~~~~~~~~~~~
