@@ -319,11 +319,12 @@ to point to the root of your content documents.
 
         # app/config/config.yml
         cmf_routing:
-            persistence:
-                phpcr:
-                    enabled: true
-                    use_sonata_admin: auto # use true/false to force using / not using sonata admin
-                    content_basepath: ~ # used with sonata admin to manage content, defaults to %cmf_core.content_basepath%/content
+            dynamic:
+                persistence:
+                    phpcr:
+                        enabled: true
+                        use_sonata_admin: auto # use true/false to force using / not using sonata admin
+                        content_basepath: ~ # used with sonata admin to manage content, defaults to %cmf_core.content_basepath%/content
 
     .. code-block:: xml
 
