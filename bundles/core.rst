@@ -236,7 +236,7 @@ for additional publication behaviour.
 PublishableVoter
 ................
 
-This voter checks on the ``PublishableInterface`` which simply has a method to
+This voter checks on the ``PublishableReadInterface`` which simply has a method to
 return a boolean value.
 
 * **isPublishable**: If the object should be considered for publication or not.
@@ -244,7 +244,7 @@ return a boolean value.
 TimePeriodVoter
 ...............
 
-This voter checks on the ``PublishTimePeriodInterface`` which defines a start
+This voter checks on the ``PublishTimePeriodReadInterface`` which defines a start
 and end date. A date may be null to indicate "always started" resp.
 "never ending".
 
@@ -326,9 +326,9 @@ There is a write interface for each publish workflow too, defining setter
 methods. The core bundle provides extensions for SonataAdminBundle to easily
 add editing of the publish workflow fields to all or selected admins.
 
-Instead of implementing ``PublishableInterface`` resp.
-``PublishTimePeriodInterface`` you models instead need to implement the
-``PublishableWriteInterface`` and / or ``PublishTimePeriodWriteInterface``.
+Instead of implementing ``PublishableReadInterface`` resp.
+``PublishTimePeriodReadInterface`` you models instead need to implement the
+``PublishableInterface`` and / or ``PublishTimePeriodInterface``.
 
 To enable the extensions in your admin classes, simply define the extension
 configuration in the ``sonata_admin`` section of your project configuration:
@@ -341,26 +341,26 @@ configuration in the ``sonata_admin`` section of your project configuration:
         sonata_admin:
             # ...
             extensions:
-                symfony_cmf_core.publish_workflow.admin_extension.publishable:
+                cmf_core.admin_extension.publish_workflow.publishable:
                     implements:
-                        - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableWriteInterface
-                symfony_cmf_core.publish_workflow.admin_extension.time_period:
+                        - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface
+                cmf_core.admin_extension.publish_workflow.time_period:
                     implements:
-                        - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodWriteInterface
+                        - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <config xmlns="http://sonata-project.org/schema/dic/admin">
             <!-- ... -->
-            <extension id="symfony_cmf_core.publish_workflow.admin_extension.publishable">
+            <extension id="cmf_core.admin_extension.publish_workflow.publishable">
                 <implement>
-                    Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableWriteInterface
+                    Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface
                 </implement>
             </extension>
-            <extension id="symfony_cmf_core.publish_workflow.admin_extension.time_period">
+            <extension id="cmf_core.admin_extension.publish_workflow.time_period">
                 <implement>
-                    Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodWriteInterface
+                    Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface
                </implement>
            </extension>
         </config>
@@ -370,9 +370,14 @@ configuration in the ``sonata_admin`` section of your project configuration:
         // app/config/config.php
         $container->loadFromExtension('sonata_admin', array(
             'extensions' => array(
-                'symfony_cmf_core.admin_extension.publish_workflow' => array(
+                'cmf_core.admin_extension.publish_workflow.publishable' => array(
                     'implements' => array(
-                        'Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowInterface',
+                        'Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface',
+                    ),
+                ),
+                'cmf_core.admin_extension.publish_workflow.time_period' => array(
+                    'implements' => array(
+                        'Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface',
                     ),
                 ),
             ),
