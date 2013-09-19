@@ -159,3 +159,12 @@ multilang
             multilang:
                 locales: [en, fr]
                 
+locales
+.......
+
+**type**: ``array`` **default**: ``null``
+
+This define languages that can be used.
+
+If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
+the value of ``cmf_core.multilang.locales``.
