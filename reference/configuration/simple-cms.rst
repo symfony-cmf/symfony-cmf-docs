@@ -1,5 +1,5 @@
-SimpleCms Configuration
-===========================
+SimpleCmsBundle Configuration
+=============================
 
 The SimpleCmsBundle provide a simple CMS solution and can be configured under
 the ``cmf_simple_cms`` key in your application configuration. When using
@@ -28,12 +28,12 @@ is the following configuration :
             phpcr:
                 enabled: false
                 basepath: /cms/simple
-		    manager_registry: doctrine_phpcr
-		    manager: 
-		    document_class: Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page
-		    use_sonata_admin: auto
-		    sonata_admin:
-		        sort: false
+                manager_registry: doctrine_phpcr
+                manager: 
+                document_class: Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page
+                use_sonata_admin: auto
+                sonata_admin:
+                    sort: false
 		    
     .. code-block:: php
 
@@ -55,26 +55,26 @@ is the following configuration :
 
 
 enabled
-*******
+,,,,,,,
 
 **type**: ``boolean`` **default**: ``false``
 
 If ``true``, PHPCR is enabled in the service container.
 
 basepath
-**************
+,,,,,,,,
 
 **type**: ``string`` **default**: ``/cms/simple``
 
 The basepath for CMS documents in the PHPCR tree.
 
 manager_registry
-**************
+,,,,,,,,,,,,,,,,
 
 **type**: ``string`` **default**: ``doctrine_phpcr``
 
 manager_name
-************
+,,,,,,,,,,,,
 
 **type**: ``string`` **default**: ``null``
 
@@ -84,14 +84,14 @@ If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default t
 the value of ``cmf_core.persistence.phpcr.enabled``.
 
 document_class
-*******
+,,,,,,,,,,,,,,
 
 **type**: ``string`` **default**: ``'Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page'``
 
 The class for the pages.
 
 use_sonata_admin
-****************
+,,,,,,,,,,,,,,,,
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 
@@ -117,3 +117,36 @@ use_menu
         cmf_simple_cms:
             use_menu: auto
 
+routing
+~~~~~~~
+
+.. _config-routing:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_simple_cms:
+            routing:
+                controller_by_alias: []
+                controller_by_class: []
+                templates_by_class: 
+                  Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page: CmfSimpleCmsBundle:Page:index.html.twig
+                generic_controller: cmf_content.controller:indexAction
+                content_repository_id: cmf_routing.content_repository
+                uri_filter_regexp:
+                
+
+multilang
+~~~~~~~~~
+
+.. _config-multilang:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_simple_cms:
+            multilang:
+                locales: [en, fr]
+                
