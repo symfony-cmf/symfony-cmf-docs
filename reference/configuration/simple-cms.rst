@@ -71,10 +71,16 @@ basepath
 
 The basepath for CMS documents in the PHPCR tree.
 
+If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
+the value of ``cmf_core.persistence.phpcr.basepath``.
+
 manager_registry
 ,,,,,,,,,,,,,,,,
 
 **type**: ``string`` **default**: ``doctrine_phpcr``
+
+If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
+the value of ``cmf_core.persistence.phpcr.manager_registry``.
 
 manager_name
 ,,,,,,,,,,,,
@@ -82,6 +88,9 @@ manager_name
 **type**: ``string`` **default**: ``null``
 
 The name of the Doctrine Manager to use.
+
+If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
+the value of ``cmf_core.persistence.phpcr.manager_name``.
 
 document_class
 ,,,,,,,,,,,,,,
