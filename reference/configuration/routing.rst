@@ -221,6 +221,9 @@ enabled
 
 If ``true``, PHPCR is enabled in the service container.
 
+If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
+the value of ``cmf_core.persistence.phpcr.enabled``.
+
 manager_name
 ************
 
@@ -229,7 +232,7 @@ manager_name
 The name of the Doctrine Manager to use.
 
 If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
-the value of ``cmf_core.persistence.phpcr.enabled``.
+the value of ``cmf_core.persistence.phpcr.manager_name``.
 
 route_basepath
 **************
