@@ -193,7 +193,7 @@ enhancers. The possible enhancements are (in order of precedence):
   class names in the map and if matched that template will be set as
   ``'_template'`` in the ``$defaults`` and the generic controller used as controller.
 
-See :ref:`the configuration reference <reference-routing-config-dynamic>` to
+See :ref:`the configuration reference <reference-config-routing-dynamic>` to
 learn how to configure these enhancers.
 
 To see some examples, please look at the `CMF sandbox`_ and specifically the
