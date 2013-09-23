@@ -344,7 +344,7 @@ SimpleCmsBundle or in CoreBundle).
 
     .. code-block:: php
 
-        $container->loadFromExtension('simple_cms', array(
+        $container->loadFromExtension('cmf_simple_cms', array(
             'multilang' => array(
                 'locales' => array(
                     'en',
