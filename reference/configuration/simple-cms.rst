@@ -40,7 +40,7 @@ is the following configuration:
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://cmf.symfony.com/schema/dic/simple_cms">
+            <config xmlns="http://cmf.symfony.com/schema/dic/simplecms">
                 <persistence>
                     <phpcr
                         enabled="false"
@@ -86,7 +86,7 @@ If ``true``, PHPCR is enabled in the service container.
 If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
 the value of ``cmf_core.persistence.phpcr.enabled``.
 
-PHPCR can be enabled by multiples ways such as:
+PHPCR can be enabled by multiple ways such as:
 
 .. configuration-block::
 
@@ -99,15 +99,52 @@ PHPCR can be enabled by multiples ways such as:
         phpcr:
             manager: ... # or any other option under 'phpcr'
 
+    .. code-block:: xml
+
+        <persistence>
+            <!-- use default configuration -->
+            <phpcr />
+
+            <!-- or setting it the straight way -->
+            <phpcr>true</phpcr>
+
+            <!-- or setting an option under 'phpcr' -->
+            <phpcr manager="..." />
+        </persistence>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_simple_cms', array(
+            // ...
+            'persistence' => array(
+                'phpcr' => null, // use default configuration
+                // or
+                'phpcr' => true, // straight way
+                // or
+                'phpcr' => array(
+                    'manager' => '...', // or any other option under 'phpcr'
+                ),
+            ),
+        ));
+
 basepath
 """"""""
 
 **type**: ``string`` **default**: ``/cms/simple``
 
 The basepath for CMS documents in the PHPCR tree.
+<persistence>
+    <!-- use default configuration -->
+    <phpcr />
 
+    <!-- or setting it the straight way -->
+    <phpcr>true</phpcr>
+
+    <!-- or setting an option under 'phpcr' -->
+    <phpcr manager="..." />
+</persistence>
 If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
-the value of ``%cmf_core.persistence.phpcr.basepath%/simple`` .
+the value of ``%cmf_core.persistence.phpcr.basepath%/simple``.
 
 manager_registry
 """"""""""""""""
@@ -122,8 +159,17 @@ manager_name
 
 **type**: ``string`` **default**: ``null``
 
-The name of the Doctrine Manager to use. Null tells the manager registry to
-retrieve the default manager.
+The name of the Doctrine Manager to use. ``null`` tells the manager registry to
+retrieve the default manager.<persistence>
+    <!-- use default configuration -->
+    <phpcr />
+
+    <!-- or setting it the straight way -->
+    <phpcr>true</phpcr>
+
+    <!-- or setting an option under 'phpcr' -->
+    <phpcr manager="..." />
+</persistence>
 
 If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
 the value of ``cmf_core.persistence.phpcr.manager_name``.
@@ -175,14 +221,14 @@ Configure integration with CmfMenuBundle.
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://cmf.symfony.com/schema/dic/simple_cms"
+            <config xmlns="http://cmf.symfony.com/schema/dic/simplecms"
                 use-menu="auto"
             />
         </container>
 
     .. code-block:: php
 
-        $container->loadFromExtension('simple_cms', array(
+        $container->loadFromExtension('cmf_simple_cms', array(
             'use_menu' => 'auto'
         ));
 
@@ -223,26 +269,28 @@ routing
                   Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page: CmfSimpleCmsBundle:Page:index.html.twig
                 generic_controller: cmf_content.controller:indexAction
                 content_repository_id: cmf_routing.content_repository
-                uri_filter_regexp:
+                uri_filter_regexp: ~
 
     .. code-block:: xml
 
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <routing xmlns="http://cmf.symfony.com/schema/dic/simple_cms">
-                <controller-by-alias></controller-by-alias>
-                <controller-by-class></controller-by-class>
-                <template-by-class alias="Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page">CmfSimpleCmsBundle:Page:index.html.twig</template-by-class>
-                <generic-controller>cmf_content.controller:indexAction</generic-controller>
-                <content-repository-id>cmf_routing.content_repository</content-repository-id>
-                <uri-filter-regexp></uri-filter-regexp>
-            </routing>
+            <config xmlns="http://cmf.symfony.com/schema/dic/simplecms">
+                <routing xmlns="http://cmf.symfony.com/schema/dic/simplecms">
+                    <controller-by-alias></controller-by-alias>
+                    <controller-by-class></controller-by-class>
+                    <template-by-class alias="Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page">CmfSimpleCmsBundle:Page:index.html.twig</template-by-class>
+                    <generic-controller>cmf_content.controller:indexAction</generic-controller>
+                    <content-repository-id>cmf_routing.content_repository</content-repository-id>
+                    <uri-filter-regexp>null</uri-filter-regexp>
+                </routing>
+            </config>
         </container>
 
     .. code-block:: php
 
-        $container->loadFromExtension('simple_cms', array(
+        $container->loadFromExtension('cmf_simple_cms', array(
             'routing' => array(
                 'controller_by_alias' => array(),
                 'controller_by_class' => array(),
@@ -251,7 +299,7 @@ routing
                 ),
                 'generic_controller' => 'cmf_content.controller:indexAction',
                 'content_repository_id' => 'cmf_routing.content_repository',
-                'uri_filter_regexp' => '',
+                'uri_filter_regexp' => null,
             ),
         ));
 
@@ -270,6 +318,9 @@ CmfRoutingBundle configuration.
 multilang
 ~~~~~~~~~
 
+Multilanguage is activated if the ``locales`` option is configured (either in
+SimpleCmsBundle or in CoreBundle).
+
 .. configuration-block::
 
     .. code-block:: yaml
@@ -283,7 +334,7 @@ multilang
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://cmf.symfony.com/schema/dic/simple_cms">
+            <config xmlns="http://cmf.symfony.com/schema/dic/simplecms">
                 <multilang>
                     <locales>en</locales>
                     <locales>fr</locales>
@@ -311,6 +362,3 @@ This define languages that can be used.
 
 If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
 the value of ``cmf_core.multilang.locales``.
-
-Multilanguage is activated if the ``locales`` option is configured (either in
-SimpleCmsBundle or in CoreBundle).
