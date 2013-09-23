@@ -278,6 +278,30 @@ multilang
             multilang:
                 locales: [en, fr]
 
+    .. code-block:: xml
+
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/simple_cms">
+                <multilang>
+                    <locales>en</locales>
+                    <locales>fr</locales>
+                </multilang>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('simple_cms', array(
+            'multilang' => array(
+                'locales' => array(
+                    'en',
+                    'fr',
+                ),
+            ),
+        ));
+
 locales
 .......
 
