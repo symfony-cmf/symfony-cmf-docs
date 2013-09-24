@@ -133,16 +133,7 @@ basepath
 **type**: ``string`` **default**: ``/cms/simple``
 
 The basepath for CMS documents in the PHPCR tree.
-<persistence>
-    <!-- use default configuration -->
-    <phpcr />
 
-    <!-- or setting it the straight way -->
-    <phpcr>true</phpcr>
-
-    <!-- or setting an option under 'phpcr' -->
-    <phpcr manager="..." />
-</persistence>
 If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/simple``.
 
@@ -161,15 +152,6 @@ manager_name
 
 The name of the Doctrine Manager to use. ``null`` tells the manager registry to
 retrieve the default manager.<persistence>
-    <!-- use default configuration -->
-    <phpcr />
-
-    <!-- or setting it the straight way -->
-    <phpcr>true</phpcr>
-
-    <!-- or setting an option under 'phpcr' -->
-    <phpcr manager="..." />
-</persistence>
 
 If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
 the value of ``cmf_core.persistence.phpcr.manager_name``.
@@ -207,6 +189,23 @@ date first, then creation date.
 use_menu
 ~~~~~~~~
 
+**type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
+
+If set to ``auto``, menu integration is loaded if the CmfMenuBundle is
+registered with the kernel. If set to ``true``, the integration is always
+loaded, leading to an error should CmfMenuBundle not be available. Setting it
+to ``false`` does not load the menu integration even if the CmfMenuBundle is
+registered.
+
+The menu integration loads a menu provider that provides the tree of Pages as
+menu. The name of that menu is the name used in the ``basepath``.
+
+.. note::
+
+    The default ``Page`` model class implements on an interface from
+    KnpMenuBundle, meaning at least that bundle must be in the code base. This
+    is reflected by the composer.json requiring it.
+
 Configure integration with CmfMenuBundle.
 
 .. configuration-block::
@@ -232,30 +231,19 @@ Configure integration with CmfMenuBundle.
             'use_menu' => 'auto'
         ));
 
-use_menu
-""""""""
-
-**type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
-
-If set to ``auto``, menu integration is loaded if the CmfMenuBundle is
-registered with the kernel. If set to ``true``, the integration is always
-loaded, leading to an error should CmfMenuBundle not be available. Setting it
-to ``false`` does not load the menu integration even if the CmfMenuBundle is
-registered.
-
-The menu integration loads a menu provider that provides the tree of Pages as
-menu. The name of that menu is the name used in the ``basepath``.
-
-.. note::
-
-    The default ``Page`` model class implements on an interface from
-    KnpMenuBundle, meaning at least that bundle must be in the code base. This
-    is reflected by the composer.json requiring it.
-
 .. _config-simple_cms-routing:
 
 routing
 ~~~~~~~
+
+This configures how pages should be rendered. The simple cms uses its own
+instance of the ``DynamicRouter``. The options here are the same as described
+in :ref:`routing configuration <reference-routing-config-dynamic>`.
+
+Pages that are loaded from the ``cmf_simple_cms.persistence.phpcr.basepath``
+need to be configured here. Pages loaded from the
+``cmf_routing.persistence.phpcr.basepath`` must be configured in the
+CmfRoutingBundle configuration.
 
 .. configuration-block::
 
@@ -302,16 +290,6 @@ routing
                 'uri_filter_regexp' => null,
             ),
         ));
-
-
-This configures how pages should be rendered. The simple cms uses its own
-instance of the ``DynamicRouter``. The options here are the same as described
-in :ref:`routing configuration <config-routing-dynamic>`.
-
-Pages that are loaded from the ``cmf_simple_cms.persistence.phpcr.basepath``
-need to be configured here. Pages loaded from the
-``cmf_routing.persistence.phpcr.basepath`` must be configured in the
-CmfRoutingBundle configuration.
 
 .. _config-simple_cms-multilang:
 
