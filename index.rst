@@ -131,6 +131,7 @@ configuration is broken down per bundle.
     :maxdepth: 1
 
     reference/configuration/routing
+    reference/configuration/simple-cms
 
 Contributing
 ------------
