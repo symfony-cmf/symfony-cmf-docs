@@ -228,7 +228,7 @@ Configure integration with CmfMenuBundle.
     .. code-block:: php
 
         $container->loadFromExtension('cmf_simple_cms', array(
-            'use_menu' => 'auto'
+            'use_menu' => 'auto',
         ));
 
 .. _config-simple_cms-routing:
