@@ -23,7 +23,7 @@ from content.
 Dependencies
 ------------
 
-This bundle is extending the `KnpMenuBundle`_. Unless you change defaults and
+This bundle extends the `KnpMenuBundle`_. Unless you change defaults and
 provide your own implementations, this bundle also depends on:
 
 * **CmfRoutingBundle** - if you want to generate routes for content objects.
@@ -33,60 +33,36 @@ provide your own implementations, this bundle also depends on:
 * :doc:`PHPCR-ODM <phpcr_odm>` - to load route documents from the content
   repository when using the ``PhpcrMenuProvider``.
 
-Configuration
--------------
+PHPCR Menu Tree
+---------------
 
-If you want to use default configurations, you do not need to change anything.
-The values are:
+The PHPCR ODM menu tree is typically composed of a root PHPCR document of class
+``Menu``. All decedent documents must be instances of the PHPCR ``MenuNode``.
 
-.. configuration-block::
+The ``MenuNode`` document implements the ``NodeInterface`` provided by the `KnpMenu`_
+component.
 
-    .. code-block:: yaml
+The ``Menu`` root document simply extends ``MenuNode``, this enables you to
+select only root menu items.
 
-        cmf_menu:
-            menu_basepath:        /cms/menu
-            document_manager_name: default
-            admin_class:          ~
-            document_class:       ~
-            content_url_generator:  router
-            route_name:           ~ # cmf routes are created by content instead of name
-            content_basepath:     ~ # defaults to cmf_core.content_basepath
-            allow_empty_items:    ~ # defaults to false
-            voters:
-                uri_prefix:       false # enable the UriPrefixVoter for current menu item
-                content_identity: not set # enable the RequestContentIdentityVoter
-                    content_key:  not set # override DynamicRouter::CONTENT_KEY
-            use_sonata_admin:     auto # use true/false to force using / not using sonata admin
-            multilang:            # the whole multilang section is optional
-                use_sonata_admin:     auto # use true/false to force using / not using sonata admin
-                admin_class:          ~
-                document_class:       ~
-                locales:              [] # if you use multilang, you have to define at least one locale
+The example below creates a new menu with a single menu item::
 
-If you want to render the menu from twig, make sure you have not disabled twig
-in the ``knp_menu`` configuration section.
+    <?php
 
-If you have ``sonata-project/doctrine-phpcr-admin-bundle`` in your
-``composer.json`` require section, the menu documents are exposed in the
-SonataDoctrinePhpcrAdminBundle. For instructions on how to configure this
-Bundle see :doc:`doctrine_phpcr_admin`.
+    use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
+    use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
 
-By default, ``use_sonata_admin`` is automatically set based on whether
-SonataDoctrinePhpcrAdminBundle is available, but you can explicitly disable it
-to not have it even if sonata is enabled, or explicitly enable to get an error
-if Sonata becomes unavailable.
+    $menu = new Menu;
+    $menu->setName('main-menu');
+    $menu->setLabel('Main Menu');
+    $manager->persist($menu);
 
-By default, menu nodes that have neither the URI nor the routeName field set
-and no route can be generated from the linked content are skipped by the
-``ContentAwareFactory``. This also leads to their descendants not showing up.
-If you want to generate menu items without a link instead, set the
-``allow_empty_items`` parameter to true to make the menu items show up as
-plain text instead.
+    $menuNode = new MenuNode;
+    $menuNode->setName('item-1');
+    $menuNode->setLabel('Item 1');
+    $menuNode->setParent($menu);
+    $manager->persist($menuNode);
 
-Menus
------
-
-@todo: Describe Menu features
 
 Menu Entries
 ~~~~~~~~~~~~
