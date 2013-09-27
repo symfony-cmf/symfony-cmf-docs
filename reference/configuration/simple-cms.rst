@@ -238,7 +238,7 @@ routing
 
 This configures how pages should be rendered. The simple cms uses its own
 instance of the ``DynamicRouter``. The options here are the same as described
-in :ref:`routing configuration <reference-routing-config-dynamic>`.
+in :ref:`routing configuration <reference-config-routing-dynamic>`.
 
 Pages that are loaded from the ``cmf_simple_cms.persistence.phpcr.basepath``
 need to be configured here. Pages loaded from the
