@@ -60,10 +60,10 @@ will typically want to keep this close at hand.
     :maxdepth: 1
 
     book/installation
+    book/simplecms
     book/routing
     book/static_content
     book/structuring_content
-    book/simplecms
 
 Cookbook
 --------

@@ -6,8 +6,8 @@ Getting Started
 
     installation
     routing
+    simplecms
     static_content
     structuring_content
-    simplecms
 
 .. include:: map.rst.inc
