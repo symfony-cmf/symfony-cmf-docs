@@ -5,6 +5,8 @@
 TreeBrowserBundle
 =================
 
+.. include:: _outdate-caution.rst.inc
+
 The `TreeBrowserBundle`_ provides a tree navigation on top of a PHPCR
 repository.
 

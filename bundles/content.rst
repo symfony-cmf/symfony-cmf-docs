@@ -5,6 +5,8 @@
 ContentBundle
 =============
 
+.. include:: _outdate-caution.rst.inc
+
 This bundle provides a document for static content and the controller to
 render it.
 

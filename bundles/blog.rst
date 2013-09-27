@@ -5,6 +5,8 @@
 BlogBundle
 ==========
 
+.. include:: _outdate-caution.rst.inc
+
 This bundle aims to provide everything you need to create a full blog or
 blog-like system. It also includes in-built support for the Sonata Admin
 bundle to help you get up-and-running quickly.

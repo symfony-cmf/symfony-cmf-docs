@@ -1,6 +1,8 @@
 Create your own Blocks
 ======================
 
+.. include:: ../_outdate-caution.rst.inc
+
 Follow these steps to create a block:
 
 * create a block document;

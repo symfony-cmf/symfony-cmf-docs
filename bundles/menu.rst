@@ -5,6 +5,8 @@
 MenuBundle
 ==========
 
+.. include:: _outdate-caution.rst.inc
+
 The CmfMenuBundle extends the `KnpMenuBundle`_ by adding a menu provider
 that loads menus from a doctrine object manager and generating menu URLs
 from content.

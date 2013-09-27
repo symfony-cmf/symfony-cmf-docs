@@ -1,6 +1,8 @@
 The BlockBundle
 ===============
 
+.. include:: ../_outdate-caution.rst.inc
+
 The `BlockBundle`_ provides integration with `SonataBlockBundle`_.
 It is used to manage fragments of content, so-called blocks, that are persisted
 in a database and can be incorporated into any page layout.
