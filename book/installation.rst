@@ -16,11 +16,6 @@ After that, you get a quick introduction of the bundles you have installed.
 This can be used to familiarize yourself with the CMF or as a starting point
 for a new custom application.
 
-.. tip::
-
-    If this is your first encounter with the Symfony CMF it can be a good idea
-    to first take a look at the online sandbox demo at `cmf.liip.ch`_.
-
 .. note::
 
     You can also install the CMF Sandbox, this is a more complete demo
