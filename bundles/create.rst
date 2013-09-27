@@ -5,6 +5,8 @@
 CreateBundle
 ============
 
+.. include:: _outdate-caution.rst.inc
+
 The `CreateBundle`_ integrates create.js and the createphp helper library into
 Symfony2.
 

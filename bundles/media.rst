@@ -5,6 +5,8 @@
 MediaBundle
 ===========
 
+.. include:: _outdate-caution.rst.inc
+
 The `MediaBundle`_ provides a way to store and edit any media and provides a
 generic base of common interfaces and models that allow the user to build media
 management solutions for a CMS. Media can be images, binary documents (like pdf

@@ -5,6 +5,8 @@
 RoutingAutoBundle
 =================
 
+.. include:: _outdate-caution.rst.inc
+
 The RoutingAutoBundle allows you to define automatically created routes for
 documents. This implies a separation of the ``Route`` and ``Content``
 documents. If your needs are simple this bundle may not be for you and you

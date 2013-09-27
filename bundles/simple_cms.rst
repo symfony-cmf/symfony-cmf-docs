@@ -5,6 +5,8 @@
 SimpleCmsBundle
 ===============
 
+.. include:: _outdate-caution.rst.inc
+
 The `SimpleCmsBundle`_ provides a simplistic CMS on top of the CMF components
 and bundles.
 

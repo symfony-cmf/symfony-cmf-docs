@@ -4,6 +4,8 @@
 Using a Custom Route Repository with Dynamic Router
 ===================================================
 
+.. include:: ../_outdate-caution.rst.inc
+
 The Dynamic Router allows you to customize the Route Provider (i.e. the class
 responsible for retrieving routes from the database) and, by extension, the
 Route objects.

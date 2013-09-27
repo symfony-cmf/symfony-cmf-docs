@@ -1,6 +1,8 @@
 Block Types
 ===========
 
+.. include:: ../_outdate-caution.rst.inc
+
 The BlockBundle provides a couple of default block types for general use
 cases. It also has a couple of more specific blocks that integrate third
 party libraries. Those can be handy for some use cases and also serve as

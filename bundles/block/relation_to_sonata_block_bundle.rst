@@ -1,6 +1,8 @@
 Relation to Sonata Block Bundle
 ===============================
 
+.. include:: ../_outdate-caution.rst.inc
+
 The BlockBundle is based on the `SonataBlockBundle`_.  It replaces components
 of the bundle where needed to be compatible with PHPCR.
 
