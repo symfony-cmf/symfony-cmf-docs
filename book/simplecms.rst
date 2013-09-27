@@ -1,116 +1,122 @@
 .. index::
-    single: SimpleCms; Getting Started
-    single: CmfSimpleCmsBundle
+    single: SimpleCms
 
 A Simple CMS
 ============
 
-Concept
--------
+In most CMS use cases the most basic need is to associate content with a URL.
+In the Symfony CMF, this is done by using a powerfull routing system, provided
+by the RoutingBundle, and a ContentBundle. The RoutingBundle provides a
+``Route`` object which can be associated with the ``Content`` object of the
+ContentBundle.
 
-In most CMS use cases the most basic needs are :doc:`routing <routing>`,
-that allows you to associate URLs with your :doc:`content <static_content>`
-as well as a way to :doc:`structuring content <structuring_content>`, so
-users can browse the content in a menu.
+Having two objects is the most flexible solution. You can have different
+routes (e.g. per language) for the same content. Or you can organize your
+content in a different logic than your URL tree. But in many situations,
+having the route and the content be one and the same simplifies things. That
+is exactly what the SimpleCmsBundle is doing. 
 
-In the CMF these features are provided by the
-:doc:`../bundles/routing/introduction`, the :doc:`../bundles/content` and the
-:doc:`../bundles/menu`. These bundles complement each other but are
-independent, allowing you to choose which ones you want to use, extend or
-ignore. However, in some cases, you might just want a simple implementation
-that gathers all those capabilities into a ready-to-go package. That's exactly
-what the :doc:`../bundles/simple_cms` provides.
+.. note::
 
-SimpleCmsBundle
----------------
-
-The SimpleCmsBundle is implemented on top of most of the other Symfony CMF
-Bundles, combining them into a functional CMS. It is a simple solution, but you
-will find it very useful when you start implementing your own CMS using
-Symfony CMF.
+    It's important to know that the SimpleCmsBundle is just a simple example
+    how you can combine the CMF bundles into a complete CMS. Feel free to
+    extend the SimpleCmsBundle or create your own bundle to do this task.
 
 .. tip::
 
-    The SimpleCmsBundle is just an example how you can do it. Whether you
-    decide to extend or replace it, it's up to you, but in both cases, the
-    SimpleCmsBundle is a good place to start developing your first CMS.
+    To learn more about the menu, see ":doc:`structuring_content`".
 
 Page Document
 ~~~~~~~~~~~~~
 
-The SimpleCmsBundle provides a ``Page`` document which provides all roles in
-one class:
+The SimpleCmsBundle provides an object called ``Page`` which implements both
+``Route`` and ``Content`` objects and also a ``NodeInterface``, so you can use it in
+your menu. This three-in-one approach is the key concept behind the bundle.
 
-* It has properties for title and text body;
-* It extends the ``Route`` class from the CMF RoutingBundle to work with the
-  CMF router component;
-* It implements the ``RouteAwareInterface`` to allow the CMF router to
-  generate the URL to a page;
-* It implements ``NodeInterface``, which means it can be used by
-  CMF MenuBundle to generate a menu structure;
-* It implements the ``PublishWorkflowInterface`` to be used with the
-  :ref:`publish workflow checker <bundle-core-publish_workflow>`.
+Creating a new Page
+~~~~~~~~~~~~~~~~~~~
 
-Here's how that works in practice:
+To create a page, use the
+``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page`` object (which
+extends from ``Symfony\Cmf\Bundle\SimpleCmsBundle\Model\Page``)::
 
-* The routing component receives a request that it matches to a ``Route``
-  instance loaded from persistent storage. That ``Route`` is a ``Page``
-  instance;
-* The route enhancer asks the page for its content and will receive ``$this``,
-  putting the page into the request attributes;
-* Other route enhancers determine the controller to use with this class
-  and optionally the template to use (either a specific template stored with
-  the page or one configured in the application configuration for the
-  SimpleCmsBundle);
-* The controller renders the page using the template, usually generating
-  HTML content.
-* The template might also render the menu, which will load all Pages and
-  build a menu with them.
+    use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
 
-This three-in-one approach is the key concept behind the bundle.
+    $page = new Page();
+    $page->setTitle('About Symfony CMF');
+    $page->setLabel('About');
+    $page->setBody(...);
 
-Configuring the Content Class
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+You can also set other things (e.g. tags).
 
-SimpleCmsBundle will use
-``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page`` as the content
-class (which extends ``Symfony\Cmf\Bundle\SimpleCmsBundle\Model\Page``). You
-can explicitly specify your content class using the configuration parameters:
+All pages are stored in a simple tree structure. To set the position, use
+``setPosition``. The first argument is the name for current page and the
+second argument is the parent node. The name of the first argument is used as
+the route. For instance, if you have this tree structure:
 
-.. configuration-block::
+.. code-block:: text
 
-    .. code-block:: yaml
+    /cmf/simple/
+        home/
+        about/
+        blog/
+            symfony-cmf-is-great/
 
-        # app/config/config.yml
-        cmf_simple_cms:
-            # defaults to Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page (see above)
-            document_class: ~
+In this case, you have 4 pages: ``home``, ``about``, ``blog`` and
+``symfony-cmf-is-great``. The page ``symfony-cmf-is-great`` is a child of
+``blog`` and thus has the url ``/blog/symfony-cmf-is-great``. To create such a
+structure, the code looks like this::
 
-    .. code-block:: xml
+    use PHPCR\Util\NodeHelper;
+    use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
 
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
+    // the PHPCR-ODM manager, more on that later
+    $manager = ...;
 
-        <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    $root = NodeHelper::createPath($manager->getPhpcrSession(), '/cmf/simple');
 
-            <!-- document-class: defaults to Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page (see above) -->
-            <config xmlns="http://cmf.symfony.com/schema/dic/simplecms"
-                document-class="null"
-            />
-        </container>
+    $home = new Page();
+    // ... set up home
+    $home->setPosition($root, 'home');
 
-    .. code-block:: php
+    $manager->persist($home); // add home to the database
 
-        // app/config/config.php
-        $container->loadFromExtension('cmf_simple_cms', array(
-            // defaults to Symfony\Cmf\Bundle\SimpleCmsBundle\Document\Page or MultilangPage (see above)
-            'document_class' => null,
-        ));
+    $about = new Page();
+    // ... set up about
+    $about->setPosition($root, 'about');
 
-Learn More
-----------
+    $manager->persist($home); // add about to the database
+    
+    $blog = new Page();
+    // ... set up blog
+    $blog->setPosition($root, 'blog');
 
-For more information on the SimpleCmsBundle, please refer to:
+    $manager->persist($home); // add blog to the database
 
-* ":doc:`../bundles/simple_cms`" - for more details about the SimpleCmsBundle.
+    $blogPost = new Page();
+    // ... set up blog post
+    $blogPost->setPostion($blog, 'symfony-cmf-is-great');
+
+    $manager->persist($home); // add blog post to the database
+
+    // as with all doctrine variants, the changes are only saved when the
+    // flush method is called
+    $manager->flush(); 
+
+Every PHPCR-ODM document must have a parent document. Parents are never
+created automatically, so we use the PHPCR NodeHelper to ensure we have
+the root element (``/cmf/simple`` in this case).
+
+.. note::
+
+    The ``/cmf/simple`` basepath is actually already created by an
+    :ref`initializer <phpcr-odm-repository-initializers>` of the
+    SimpleCmsBundle.
+
+Summary
+-------
+
+Congratulations! You are now able to create a simple web site using the
+Symfony CMF. From here, each chapter will tell you a bit more about the CMF
+and more about the things behind the SimpleCMSBundle. In the end, you'll be
+able to create more advanced blog systems and other CMS websites.
