@@ -11,7 +11,7 @@ Configuration
 chain
 ~~~~~
 
-.. _config-chain-routers:
+.. _reference-config-routing-chain_routers:
 
 routers_by_id
 .............
@@ -67,9 +67,9 @@ replace_symfony_router
 If this option is set to ``false``, the default Symfony2 router will *not* be
 overriden by the ``ChainRouter``. By default, the ``ChainRouter`` will
 override the default Symfony2 router, but it will pass all requests to the
-default router, because :ref:`no other routers were set <config-chain-routers>`.
+default router, because :ref:`no other routers were set <reference-config-routing-chain_routers>`.
 
-.. _reference-routing-config-dynamic:
+.. _reference-config-routing-dynamic:
 
 dynamic
 ~~~~~~~
@@ -108,7 +108,7 @@ type:
         cmf_routing:
             dynamic:
                 controllers_by_type:
-                    editable: acme_main.controller:editableAction 
+                    editable: acme_main.controller:editableAction
 
     .. code-block:: xml
 
@@ -321,7 +321,7 @@ priority.
                     acme_main.routing.foo_filter: 100
 
     .. code-block:: xml
-    
+
         <config xmlns="http://cmf.symfony.com/schema/dic/routing">
             <dynamic>
                 <route-filter-by-id id="acme_main.routing.foo_filter">100</route-filter-by-id>
@@ -347,7 +347,7 @@ To use a content repository when creating URIs, this option can be set to the
 content repository service.
 
 .. note::
-    
+
     If PHPCR is enabled, it'll automatically use the phpcr content repository.
     This can be overriden by this option. ORM doesn't have a content
     repository at the moment.
@@ -355,7 +355,7 @@ content repository service.
 locales
 ~~~~~~~
 
-**type**: ``array`` **default**: 
+**type**: ``array`` **default**:
 
 To enable multilanguage, set the valid locales in this option.
 
