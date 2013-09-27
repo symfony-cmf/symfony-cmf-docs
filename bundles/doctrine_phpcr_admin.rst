@@ -5,6 +5,8 @@
 SonataDoctrinePhpcrAdminBundle
 ==============================
 
+.. include:: _outdate-caution.rst.inc
+
 The `SonataDoctrinePhpcrAdminBundle`_ provides integration with the
 SonataAdminBundle to enable easy creation of admin UIs.
 

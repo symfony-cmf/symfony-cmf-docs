@@ -5,6 +5,8 @@
 SearchBundle
 ============
 
+.. include:: _outdate-caution.rst.inc
+
 The `SearchBundle`_ provides integration with `LiipSearchBundle`_ to provide a
 site wide search.
 

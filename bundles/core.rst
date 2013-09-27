@@ -5,6 +5,8 @@
 CoreBundle
 ==========
 
+.. include:: _outdate-caution.rst.inc
+
 This is the `CoreBundle`_ for the Symfony2 content management framework. This
 bundle provides common functionality, helpers and utilities for the other CMF
 bundles.

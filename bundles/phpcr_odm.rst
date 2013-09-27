@@ -5,6 +5,8 @@
 DoctrinePHPCRBundle
 ===================
 
+.. include:: _outdate-caution.rst.inc
+
 The `DoctrinePHPCRBundle`_ provides integration with the PHP content
 repository and optionally with Doctrine PHPCR-ODM to provide the ODM document
 manager in symfony.

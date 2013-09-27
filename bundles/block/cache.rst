@@ -1,6 +1,8 @@
 Cache
 =====
 
+.. include:: ../_outdate-caution.rst.inc
+
 The BlockBundle integrates with the `SonataCacheBundle`_ to provide several
 caching solutions. Have a look at the available adapters in the
 SonataCacheBundle to see all options.

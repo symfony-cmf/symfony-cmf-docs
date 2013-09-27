@@ -5,6 +5,8 @@
 RoutingBundle
 =============
 
+.. include:: ../_outdate-caution.rst.inc
+
 The `RoutingBundle`_ integrates dynamic routing into Symfony using
 :doc:`../../components/routing`.
 
