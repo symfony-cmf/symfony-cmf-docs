@@ -69,6 +69,32 @@ overriden by the ``ChainRouter``. By default, the ``ChainRouter`` will
 override the default Symfony2 router, but it will pass all requests to the
 default router, because :ref:`no other routers were set <reference-config-routing-chain_routers>`.
 
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_routing:
+            chain:
+                replace_symfony_router: true
+
+    .. code-block:: xml
+
+        <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+            <cmf-routing>
+                <chain replace-symfony-router="true"/>
+            </cmf-routing>
+        </config>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_routing', array(
+            'chain' => array(
+                'replace_symfony_router' => true,
+            ),
+        ));
+
+
 .. _reference-config-routing-dynamic:
 
 dynamic
@@ -87,8 +113,8 @@ generic_controller
 
 **type**: ``string`` **default**: ``null``
 
-The controller to use when no controllers are configured for the matching
-``Route``. The value is the name of a controller using either the
+The controller to use when the route enhancers only determined the template but
+no explicit controller. The value is the name of a controller using either the
 ``AcmeDemoBundle::Page::index`` or ``acme_demo.controller.page:indexAction``
 notation.
 
@@ -133,10 +159,15 @@ controllers_by_class
 
 **prototype**: ``array``
 
-The controller to use when the matching route returns an object for
-``getRouteContent()``. This object is checked for being ``instanceof`` the
-class names in this map. Instanceof is used instead of direct comparison to
-work with proxy classes and other extending classes.
+The controller to use when the matching route implements
+``RouteObjectInterface`` and returns an object for ``getRouteContent()``.
+This object is checked for being ``instanceof`` the class names in this map.
+Instanceof is used instead of direct comparison to work with proxy classes and
+other extending classes. The order in which the classes are specified, matters.
+The first match is taken.
+
+If matched, the controller will be set as ``_controller``, making Symfony2
+choose this controller to handle the request.
 
 .. configuration-block::
 
@@ -173,10 +204,15 @@ template_by_class
 
 **prototype**: ``array``
 
-The template to use when the object returning from ``getRouteContent()`` is
-``instanceof`` the class names in this map. If matched, the template will be
-set as ``_template`` in the defaults and the generic controller is used as
-controller.
+The template to use when the route implements ``RouteObjectInterface`` and
+returns an object for ``getRouteContent()``. This object is checked for being
+``instanceof`` the class names in this map. Instanceof is used instead of
+direct comparison to work with proxy classes and other extending classes. The
+order in which the classes are specified, matters. The first match is taken.
+
+If matched, the template will be set as ``_template`` in the defaults and
+unless another mapping specifies a controller, the ``generic_controller``
+setting is set as controller.
 
 .. configuration-block::
 
@@ -249,7 +285,8 @@ content_basepath
 
 **type**: ``content_basepath`` **default**: ``/cms/content``
 
-The basepath for content objects in the PHPCR tree.
+The basepath for content objects in the PHPCR tree. This information is used
+with the sonata admin to offer the correct subtree to select content documents.
 
 If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
 ``%cmf_core.persistence.phpcr.basepath%/content``.
@@ -259,9 +296,15 @@ use_sonata_admin
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 
-If ``true``, the admin classes for the routing are activated on the sonata
-admin panel. If set to ``auto``, the admin services are activated only if the
+If ``true``, the admin classes for the routing are loaded and available for
+sonata. If set to ``auto``, the admin services are activated only if the
 SonataPhpcrAdminBundle is present.
+
+.. note::
+
+    To see the route administration on the sonata dashboard, you still need to
+    configure it to show the items ``cmf_routing.route_admin`` and
+    ``cmf_routing.redirect_route_admin``.
 
 If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to the value
 of ``cmf_core.persistence.phpcr.use_sonata_admin``.
@@ -274,7 +317,7 @@ enabled
 
 **type**: ``boolean`` **default**: ``false``
 
-If ``true``, PHPCR is included in the service container.
+If ``true``, the ORM is included in the service container.
 
 manager_name
 ************
@@ -288,17 +331,17 @@ uri_filter_regexp
 
 **type**: ``string`` **default**: ``""``
 
-Sets a pattern to which the Route must match before getting the routes from a
-database. This can improve the performance a lot when only a subsection of your
-site is using the dynamic router.
+Sets a pattern to which the Route must match before attempting to get any
+routes from a database. This can improve the performance a lot when only a
+subsection of your site is using the dynamic router.
 
 route_provider_service_id
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **type**: ``string``
 
-When no persistence layer is enabled, a route provider service *must* be
-provided in order to get the routes. This is done by using the
+When none of the persistence layers is enabled, a route provider service *must*
+be provided in order to get the routes. This is done by using the
 ``route_provider_service_id`` setting.
 
 route_filters_by_id
@@ -343,7 +386,7 @@ content_repository_service_id
 
 **type**: ``scalar`` **default**: ``null``
 
-To use a content repository when creating URIs, this option can be set to the
+To use a content repository when creating URLs, this option can be set to the
 content repository service.
 
 .. note::
