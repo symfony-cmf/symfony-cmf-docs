@@ -1,3 +1,6 @@
+.. index::
+    single: Rendering; SimpleCmsBundle
+
 Rendering
 ---------
 
@@ -9,19 +12,35 @@ configure the template and controller also via the SimpleCmsBundle
 
 A simple example for such a template could look like this:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {% block content %}
-        <h1>{{ page.title }}</h1>
+    .. code-block:: html+jinja
 
-        <div>{{ page.body|raw }}</div>
+        {% block content -%}
+            <h1>{{ page.title }}</h1>
+
+            <div>{{ page.body|raw }}</div>
+
+            <ul>
+                {% for tag in page.tags -%}
+                    <li>{{ tag }}</li>
+                {%- endfor %}
+            </ul>
+        {%- endblock %}
+
+    .. code-block:: html+php
+    
+        <?php $view['slots']->start('content') ?>
+        <h1><?php $page->getTitle() ?></h1>
+
+        <div><?php $page->getBody() ?></div>
 
         <ul>
-        {% for tag in page.tags %}
-            <li>{{ tag }}</li>
-        {% endfor %}
+        <?php foreach ($page->getTags() as $tag) : ?>
+            <li><?php echo $tag ?></li>
+        <?php endforeach ?>
         </ul>
-    {% endblock %}
+        <?php $view['slots']->stop() ?>
 
 If you have the CreateBundle enabled, you can also output the document with
 RDFa annotations, allowing you to edit the content as well as the tags in the

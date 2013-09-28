@@ -1,12 +1,15 @@
+.. index::
+    single: Extending Page; SimpleCmsBundle
+
 Extending the Page class
 ------------------------
 
-The default Page document ``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page``
+The default Page document (``Symfony\Cmf\Bundle\SimpleCmsBundle\Model\Page``)
 is relatively simple, shipping with a handful of the most common properties
 for building a typical page: title, body, tags, publish dates etc.
 
 If this is not enough for your project you can easily provide your own
-document by extending the default Page document and explicitly setting the
+document by extending the default ``Page`` document and explicitly setting the
 configuration parameter to your own document class:
 
 .. configuration-block::
@@ -43,12 +46,15 @@ configuration parameter to your own document class:
             ),
         ));
 
-Alternatively, the default Page document contains an ``extras`` property. This
-is a key - value store (where value must be string or null) which can be used
-for small trivial additions, without having to extend the default Page
+Alternatively, the default ``Page`` document contains an ``extras`` property.
+This is a key - value store (where value must be string or ``null``) which can be
+used for small trivial additions, without having to extend the default Page
 document.
 
 For example::
+
+    use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
+    // ...
 
     $page = new Page();
 

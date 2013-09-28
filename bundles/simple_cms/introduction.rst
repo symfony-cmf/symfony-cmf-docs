@@ -14,13 +14,15 @@ some of that flexibility in favor of simplicity.
 The SimpleCmsBundle provides a solution to easily map content, routes and menu
 items based on a single tree structure in the content repository.
 
-For a simple example installation of the bundle check out the
-`Symfony CMF Standard Edition`_
-
 You can find an introduction to the bundle in the
 :doc:`Getting started <../../book/simplecms>` section.
 
-The `CMF website`_ is another application using the SimpleCmsBundle.
+The `CMF website`_ is an application using the SimpleCmsBundle.
+
+.. tip::
+
+    For a simple example installation of the bundle check out the
+    `Symfony CMF Standard Edition`_
 
 Installation
 ------------
