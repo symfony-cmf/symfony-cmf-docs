@@ -14,9 +14,13 @@
 
   * :doc:`content`
 
-* **CoreBundle**
+* :doc:`block/index`
 
-  * :doc:`core`
+  * :doc:`core/introduction`
+  * :doc:`core/publish_workflow`
+  * :doc:`core/dependency_injection_tags`
+  * :doc:`core/templating`
+  * :doc:`core/multilang`
 
 * **CreateBundle**
 
