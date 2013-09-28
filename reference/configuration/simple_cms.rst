@@ -231,7 +231,7 @@ Configure integration with CmfMenuBundle.
             'use_menu' => 'auto',
         ));
 
-.. _config-simple_cms-routing:
+.. _config-simple-cms-routing:
 
 routing
 ~~~~~~~

@@ -51,9 +51,12 @@
 
   * :doc:`search`
 
-* **SimpleCmsbundle**
+* :doc:`simple_cms/index`
 
-  * :doc:`simple_cms`
+  * :doc:`simple_cms/introduction`
+  * :doc:`simple_cms/multilang`
+  * :doc:`simple_cms/rendering`
+  * :doc:`simple_cms/extending_page_class`
 
 * **SonataDoctrinePhpcrAdminBundle**
 
