@@ -7,7 +7,7 @@ Bundles
     block/index
     blog
     content
-    core
+    core/index
     create
     phpcr_odm
     media

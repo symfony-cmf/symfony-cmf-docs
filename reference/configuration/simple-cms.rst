@@ -83,7 +83,7 @@ enabled
 
 If ``true``, PHPCR is enabled in the service container.
 
-If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
+If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
 the value of ``cmf_core.persistence.phpcr.enabled``.
 
 PHPCR can be enabled by multiple ways such as:
@@ -134,7 +134,7 @@ basepath
 
 The basepath for CMS documents in the PHPCR tree.
 
-If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
+If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/simple``.
 
 manager_registry
@@ -142,7 +142,7 @@ manager_registry
 
 **type**: ``string`` **default**: ``doctrine_phpcr``
 
-If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
+If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
 the value of ``cmf_core.persistence.phpcr.manager_registry``.
 
 manager_name
@@ -153,7 +153,7 @@ manager_name
 The name of the Doctrine Manager to use. ``null`` tells the manager registry to
 retrieve the default manager.<persistence>
 
-If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
+If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
 the value of ``cmf_core.persistence.phpcr.manager_name``.
 
 document_class
@@ -172,7 +172,7 @@ If ``true``, the admin classes for SimpleCmsBundle pages are activated. If set
 to ``auto``, the admin services are activated only if the
 SonataPhpcrAdminBundle is present.
 
-If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to the value
+If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to the value
 of ``cmf_core.persistence.phpcr.use_sonata_admin``.
 
 sonata_admin.sort
@@ -338,5 +338,5 @@ locales
 
 This define languages that can be used.
 
-If the :doc:`CoreBundle <../../bundles/core>` is registered, this will default to
+If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
 the value of ``cmf_core.multilang.locales``.
