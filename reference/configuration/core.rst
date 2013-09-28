@@ -82,7 +82,7 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SearchBundle <../../bundles/search>`
-* :doc:`SimpleCmsBundle <../../bundles/simple_cms>`
+* :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 * :doc:`TreeBrowserCmsBundle <../../bundles/tree_browser>`
 
 PHPCR can be enabled by multiple ways such as:
@@ -141,7 +141,7 @@ Enabling this setting will also automatically enable the equivalent settings in 
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SearchBundle <../../bundles/search>`
-* :doc:`SimpleCmsBundle <../../bundles/simple_cms>`
+* :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 
 manager_registry
 """"""""""""""""
@@ -151,7 +151,7 @@ manager_registry
 Enabling this setting will also automatically enable the equivalent settings in the following Bundles:
 
 * :doc:`SearchBundle <../../bundles/search>`
-* :doc:`SimpleCmsBundle <../../bundles/simple_cms>`
+* :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 
 manager_name
 """"""""""""
@@ -168,7 +168,7 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SearchBundle <../../bundles/search>`
-* :doc:`SimpleCmsBundle <../../bundles/simple_cms>`
+* :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 
 use_sonata_admin
 """"""""""""""""
@@ -185,7 +185,7 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`ContentBundle <../../bundles/content>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SimpleCmsBundle <../../bundles/simple_cms>`
+* :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 
 .. _config-core-multilang:
 
@@ -198,7 +198,7 @@ enables the ``TranslatableExtension`` for ``SonataAdminBundle``.
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
 
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SimpleCmsBundle <../../bundles/simple_cms>`
+* :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 
 .. configuration-block::
 
