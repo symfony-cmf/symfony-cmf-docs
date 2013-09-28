@@ -15,7 +15,7 @@ Bundles
     routing_auto
     routing/index
     search
-    simple_cms
+    simple_cms/index
     doctrine_phpcr_admin
     tree_browser
 
