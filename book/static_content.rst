@@ -28,7 +28,7 @@ tree-like hierarchy. It also includes a Block reference (more on that later).
 The two implemented interfaces reveal two of the features included in this
 implementation:
 
-* ``RouteAwareInterface`` means that the content has associated Routes.
+* ``RouteReferrersInterface`` means that the content has associated Routes.
 * ``PublishWorkflowInterface`` means that the content has publishing and
    unpublishing dates, which will be handled by Symfony CMF's core to
    determine whether or not to display the content from ``StaticContent``.

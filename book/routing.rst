@@ -413,7 +413,7 @@ route generation, so you can use the default methods for generating your URLs
 with a few added possibilities:
 
 * Pass an implementation of either ``RouteObjectInterface`` or
-  ``RouteAwareInterface`` as the ``name`` parameter
+  ``RouteReferrersInterface`` as the ``name`` parameter
 * Alternatively, supply an implementation of ``ContentRepositoryInterface`` and
   the id of the model instance as parameter ``content_id``
 

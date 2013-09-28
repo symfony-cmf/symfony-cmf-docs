@@ -676,12 +676,12 @@ Make sure the CMF BlockBundle is installed and loaded in ``app/AppKernel.php``::
 
     new Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
 
-RouteAwareInterface not found
+RouteReferrersInterface not found
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: text
 
-    Fatal error: Interface 'Symfony\Cmf\Component\Routing\RouteAwareInterface' not found in /var/www/your-site/vendor/symfony-cmf/content-bundle/Symfony/Cmf/Bundle/ContentBundle/Document/StaticContent.php on line 15
+    Fatal error: Interface 'Symfony\Cmf\Component\Routing\RouteReferrersInterface' not found in /var/www/your-site/vendor/symfony-cmf/content-bundle/Symfony/Cmf/Bundle/ContentBundle/Document/StaticContent.php on line 15
 
 If you are using ContentBundle, make sure you have also installed the RoutingBundle:
 

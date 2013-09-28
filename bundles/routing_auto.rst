@@ -191,7 +191,7 @@ content_object (base provider)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The content object provider will try and provide a path from an object
-implementing ``RouteAwareInterface`` provided by a designated method on the
+implementing ``RouteReferrersInterface`` provided by a designated method on the
 content document. For example, if you have a ``Post`` class, which has a
 ``getBlog`` method, using this provider you can tell the ``Post`` auto route
 to use the route of the blog as a base.
