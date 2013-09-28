@@ -677,7 +677,7 @@ Make sure the CMF BlockBundle is installed and loaded in ``app/AppKernel.php``::
     new Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
 
 RouteReferrersInterface not found
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: text
 
