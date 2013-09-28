@@ -11,21 +11,23 @@ site. This is similar to the `Symfony2 Security component`_. But contrary to the
 security context, the publish check can be executed even when no firewall is in
 place and the security context thus has no token (see `Symfony2 Authorization`_).
 
-The publish workflow is also tied into the security workflow: The core bundle
+The publish workflow is also tied into the security workflow: The CoreBundle
 registers a security voter that forwards security checks to the publish
 workflow. This means that if you always have a firewall, you can just use
 the normal security context and the twig function ``is_granted`` to check for
 publication.
 
-A good introduction to the Symfony core security is the `Security Chapter`_ in
-the Symfony2 book.
+.. tip::
+
+    A good introduction to the Symfony core security can be found in the
+    `Security Chapter`_ of the Symfony2 book.
 
 Check if Content is Published
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Bundle provides the ``cmf_core.publish_workflow.checker`` service which
+The Bundle provides the ``cmf_core.publish_workflow.checker`` service, which
 implements the :class:`Symfony\\Component\\Security\\Core\\SecurityContextInterface`
-of the Symfony security component. The method to check publication is
+of the Symfony Security component. The method to check publication is
 :method:`Symfony\\Component\\Security\\Core\\SecurityContextInterface::isGranted`,
 same as with the security context.
 
@@ -55,9 +57,15 @@ given to editors. The default name of the role is ``ROLE_CAN_VIEW_NON_PUBLISHED`
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
-        <config xmlns="http://symfony.com/schema/dic/security">
-            <role id="ROLE_EDITOR">ROLE_CAN_VIEW_NON_PUBLISHED</role>
-        </config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:srv="http://symfony.com/schema/dic/services">
+
+            <config>
+                <role id="ROLE_EDITOR">ROLE_CAN_VIEW_NON_PUBLISHED</role>
+            </config>
+
+        </srv:container>
 
     .. code-block:: php
 
@@ -76,18 +84,21 @@ the path in question - he will have the permission to view unpublished content a
     // check if current user is allowed to see this document
     $publishWorkflowChecker = $container->get('cmf_core.publish_workflow.checker');
     if ($publishWorkflowChecker->isGranted(
-        PublishWorkflowChecker::VIEW_ATTRIBUTE,
-        $document)
+            PublishWorkflowChecker::VIEW_ATTRIBUTE,
+            $document
+        )
     ) {
         // ...
     }
+
     // check if the document is published. even if the current role would allow
     // to see the document, this will still return false if the documet is not
     // published
     if ($publishWorkflowChecker->isGranted(
-        PublishWorkflowChecker::VIEW_ANONYMOUS_ATTRIBUTE,
-        $document
-    )) {
+            PublishWorkflowChecker::VIEW_ANONYMOUS_ATTRIBUTE,
+            $document
+        )
+    ) {
         // ...
     }
 
@@ -113,7 +124,7 @@ To check publication in a template, use the twig function ``cmf_is_published``:
             {# ... output the document #}
         {% endif %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- check if document is published, regardless of current users role -->
         <?php if ($view['cmf']->isPublished($page)) : ?>
@@ -158,14 +169,14 @@ content is still considered published.
 Publish Voters
 ~~~~~~~~~~~~~~
 
-A voter has to implement the
+A voter must implement the
 :class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface`.
-It will get passed a content object and has to decide whether it is published
+A content object will be passed and it has to decide whether it is published
 according to its rules. The CoreBundle provides a couple of generic voters
-that check the content for having an interface exposing the methods they need.
-If the content implements the interface, they check the parameter and return
-``ACCESS_GRANTED`` or ``ACCESS_DENIED``, otherwise they return
-``ACCESS_ABSTAIN``.
+(`PublishableVoter`_ and `TimePeriodVoter`_) that check the content for having
+an interface exposing the methods they need.  If the content implements the
+interface, they check the parameter and return ``ACCESS_GRANTED`` or
+``ACCESS_DENIED``, otherwise they return ``ACCESS_ABSTAIN``.
 
 As voting is unanimous, each voter returns ``ACCESS_GRANTED`` if its criteria
 is met, but if a single voter returns ``ACCESS_DENIED``, the content is
@@ -219,9 +230,14 @@ you can lower the priority of those voters.
 
     .. code-block:: xml
 
-        <service id="acme.security.publishable_voter" class="%acme.security.publishable_voter.class%">
-            <tag name="cmf_published_voter" priority="30"/>
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <service id="acme.security.publishable_voter"
+                class="%acme.security.publishable_voter.class%">
+
+                <tag name="cmf_published_voter" priority="30"/>
+            </service>
+        </container>
 
     .. code-block:: php
 
@@ -235,14 +251,14 @@ you can lower the priority of those voters.
             ->addTag('cmf_published_voter', array('priority' => 30))
         ;
 
-As the workflow checker will create an
+The workflow checker will create an 
 :class:`Symfony\\Component\\Security\\Core\\Authentication\\Token\\AnonymousToken` on
-the fly if the security context has none, voters must be able to handle this
-situation when accessing the user. Also when accessing the security context,
-they first must check if it has a token and otherwise not call it to avoid
-triggering an exception. If a voter only gives access if there is a current
-user fulfills some requirement, it simply has to return ``ACCESS_DENIED`` if
-there is no current user.
+the fly if the securty context has none. This means that voters must be able
+to handle this situation when accessing the user. Also when accessing the
+security context, they first must check if it has a token and otherwise they
+should not call it to avoid triggering an exception. If a voter only gives
+access if the current user fulfills some requirement, it simply has to return
+``ACCESS_DENIED`` if there is no current user.
 
 .. _bundle-core-workflow-request_listener:
 
@@ -292,24 +308,29 @@ configuration in the ``sonata_admin`` section of your project configuration:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <config xmlns="http://sonata-project.org/schema/dic/admin">
-            <!-- ... -->
-            <extension id="cmf_core.admin_extension.publish_workflow.publishable">
-                <implement>
-                    Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface
-                </implement>
-            </extension>
-            <extension id="cmf_core.admin_extension.publish_workflow.time_period">
-                <implement>
-                    Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface
-               </implement>
-           </extension>
-        </config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://sonata-project.org/schema/dic/admin">
+                <!-- ... -->
+                <extension id="cmf_core.admin_extension.publish_workflow.publishable">
+                    <implement>
+                        Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface
+                    </implement>
+                </extension>
+
+                <extension id="cmf_core.admin_extension.publish_workflow.time_period">
+                    <implement>
+                        Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface
+                    </implement>
+                </extension>
+            </config>
+        </container>
 
     .. code-block:: php
 
         // app/config/config.php
         $container->loadFromExtension('sonata_admin', array(
+            // ...
             'extensions' => array(
                 'cmf_core.admin_extension.publish_workflow.publishable' => array(
                     'implements' => array(

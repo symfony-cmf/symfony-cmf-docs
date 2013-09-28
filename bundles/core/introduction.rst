@@ -8,13 +8,13 @@ CoreBundle
     other CMF bundles.
 
 One of the provided features is an interface and implementation of a publish
-workflow checker with an accompanying interface that models can implement that
-want to support this checker.
+workflow checker with an accompanying interface that models can implement if
+they want to support this checker.
 
-Furthermore it provides a twig helper exposing several useful functions for
+Furthermore, it provides a twig helper exposing several useful functions for
 twig templates to interact with PHPCR-ODM documents.
 
-Finally it most of its configuration settings are automatically applied as
+Finally, most of its configuration settings are automatically applied as
 defaults for most of the other CMF Bundles.
 
 Installation

@@ -24,7 +24,7 @@ service must have the ``setRequest`` method or you will get a fatal error::
         }
     }
 
-.. note::
+.. caution::
 
     You should only use this tag on services that will be needed on every
     request. If you use this tag excessively you will run into performance
@@ -33,8 +33,8 @@ service must have the ``setRequest`` method or you will get a fatal error::
     code when you actually need the request.
 
 For Symfony 2.3, this tag is automatically translated to a
-`synchronized service`_ but as Symfony 2.2 does not have that feature, you can
-use this tag for bundles that you want to be able to use with Symfony 2.2. In
+`synchronized service`_ but Symfony 2.2 does not have that feature, so you can
+use this tag for bundles that you want to be able to work with Symfony 2.2. In
 custom applications that run with Symfony 2.3, there is no need for this tag,
 just use the synchronized service feature.
 
@@ -42,7 +42,7 @@ cmf_published_voter
 ~~~~~~~~~~~~~~~~~~~
 
 Used to activate :ref:`custom voters <bundle-core-workflow_custom_voters>` for the
-:ref:`publish workflow <bundle-core-publish_workflow>` . Tagging a service with
+:ref:`publish workflow <bundle-core-publish_workflow>`. Tagging a service with
 ``cmf_published_voter`` integrates it into the access decision of the publish
 workflow.
 

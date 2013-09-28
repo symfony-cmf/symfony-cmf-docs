@@ -47,6 +47,7 @@ configuration in the ``sonata_admin`` section of your project configuration:
 
         // app/config/config.php
         $container->loadFromExtension('sonata_admin', array(
+            // ...
             'extensions' => array(
                 'cmf_core.admin_extension.translatable' => array(
                     'implements' => array(

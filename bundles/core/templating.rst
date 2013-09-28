@@ -4,6 +4,8 @@
 Templating
 ----------
 
+The CoreBundle also provides a lot of functions to use in templates.
+
 Twig
 ~~~~
 
@@ -36,7 +38,9 @@ functions for your templates. The functions respect the
 * **cmf_parent_path**: returns the parent path of the provided document
 * **cmf_path**: returns the path of the provided document
 
-.. code-block:: jinja
+An example of these functions can be:
+
+.. code-block:: html+jinja
 
     {% set page = cmf_find('/some/path') %}
 
@@ -103,7 +107,9 @@ contains the following methods:
 * **getParentPath**: returns the parent path of the provided document
 * **getPath**: returns the path of the provided document
 
-.. code-block:: php
+An example of these functions can be:
+
+.. code-block:: html+php
 
     <?php $page = $view['cmf']->find('/some/path') ?>
 
