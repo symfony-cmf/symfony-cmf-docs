@@ -184,6 +184,22 @@ upload_file_role
 The role used to protect the default upload action of the file and image
 controller of the MediaBundle.
 
+upload_file_helper_service_id
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**type**: ``string`` **default**: ``null``
+
+The service id to override the default service the alias
+``cmf_media.upload_file_helper`` points to.
+
+upload_image_helper_service_id
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**type**: ``string`` **default**: ``null``
+
+The service id to override the default service the alias
+``cmf_media.upload_image_helper`` points to.
+
 use_jms_serializer
 ~~~~~~~~~~~~~~~~~~
 
