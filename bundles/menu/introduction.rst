@@ -24,7 +24,7 @@ Note that only the Doctrine PHPCR-ODM persistance layer is supported in the
 Installation
 ------------
 
-You can install this bundle `using composer`_ using the
+You can install this bundle `with composer`_ using the
 ``symfony-cmf/menu-bundle`` package.
 
 Dependencies
@@ -33,28 +33,28 @@ Dependencies
 This bundle extends the `KnpMenuBundle`_. Unless you change defaults and
 provide your own implementations, this bundle also depends on:
 
-* **CmfRoutingBundle** - if you want to generate routes for content objects.
+* :doc:`CmfRoutingBundle <../routing/introduction>`- if you want to generate routes for content objects.
   Note that you need to explicitly enable the dynamic router as per default it
   is not loaded. See the
-  :doc:`documentation of the cmf routing bundle <routing/introduction>` for more information.
-* :doc:`PHPCR-ODM <phpcr_odm>` - to load route documents from the content
+* :doc:`PHPCR-ODM <../phpcr_odm>` - to load route documents from the content
   repository when using the ``PhpcrMenuProvider``.
 
 Creating a Simple Persistant Menu
 ---------------------------------
 
-A menu created using the *KnpMenuBundle* is made up of a heierachy of class
-instances implementing ``NodeInterface``. The same is true of a menu created
+A menu created using the KnpMenuBundle is made up of a heierachy of class
+instances implementing ``NodeInterface``. This is also true of a menu created
 using MenuBundle documents.
 
-It is recommended that the root document of the menu tree should a ``Menu``
+It is recommended that the root document of the menu tree is a ``Menu``
 document, all descendant documents should be ``MenuNode`` instances.
 
 The root document should be a child of the document specified in the configuration
-as ``persistence.phpcr.menu_basepath``, which defaults to ``/cms/menu``. Note
+by the parameter ``persistence.phpcr.menu_basepath``, which defaults to ``/cms/menu``. Note
 that if this document does not exist it must be created.
 
-The example below creates a new menu with a single menu item::
+The example below creates a new menu with two items, "Home" and "Contact" and
+we specify a URI for each::
 
     <?php
 
@@ -76,12 +76,14 @@ The example below creates a new menu with a single menu item::
     $home->setName('home');
     $home->setLabel('Home');
     $home->setParent($menu);
+    $home->setUri('http://www.example.com/home');
     $manager->persist($home);
 
     $contact = new MenuNode;
     $contact->setName('contact');
     $contact->setLabel('Contact');
     $contact->setParent($menu);
+    $contact->setUri('http://www.example.com/contact');
     $manager->persist($contact);
 
     $manager->flush();
@@ -89,34 +91,41 @@ The example below creates a new menu with a single menu item::
 Rendering Menus
 ---------------
 
-You render the menu in the same way you would with the
-`KnpMenuBundle`_. The name of the menu will correspond to the name of the root
-document in your menu tree::
+You render menus in the same way you would with the `KnpMenuBundle`_. The name
+of the menu will correspond to the name of the root document in your menu
+tree:
 
 .. code-block:: jinja
 
     {{ knp_menu_render('main-menu') }}
 
-In this example we specify the ``main-menu`` document from the previous
-example.
+Here we have specified the ``main-menu`` document from the previous
+example. This will render an unordered list as follows:
+
+.. code-block:: html
+
+    <ul>
+        <li class="first">
+          <a href="http://www.example.com/home">Home</a>
+        </li>
+        <li class="last">
+          <a href="http://www.example.com/contact">Contact</a>
+        </li>
+    </ul>
+
+For more information see the `rendering menus`_ section of the KnpMenuBundle documentation.
 
 Menu Documents
 --------------
 
-@todo: Explain link type
-@todo: Explain automatic link type resolve priority (uri, route, content)
+In accordance with the :ref:`CMF bundle standards
+<contrib_bundles_baseandstandardimplementations>` you are provided with two
+menu node implementations, a base document and a standard document.
 
-According with the CMF bundle standards you are provided with two menu node
-implementations, a base document and a standard document. The base document
-implements only what is fundamentally required, the standard document
-implements as many CMF features as possible. If you require only some of the
-CMF features, you can extend the base document and copy the relevant parts of
-the standard document.
+Base Menu Node
+~~~~~~~~~~~~~~
 
-The Base Menu Node
-~~~~~~~~~~~~~~~~~~
-
-The ``BaseMenuNode`` document is a no-extras implementation of the KnpMenu MenuItem class.
+The ``MenuNodeBase`` document implements only those features available in the original KnpMenu node.
 
 .. code-block:: php
 
@@ -161,30 +170,21 @@ The ``BaseMenuNode`` document is a no-extras implementation of the KnpMenu MenuI
     // Specify a URI
     $node->setUri('http://www.example.com');
 
-If specify both a Route object *and* a URI then the URI will win. The
-``MenuNode`` document described in the next section allows you to explicitly
-specify which "link type" to use when generating the menu items target URL.
-
 The Standard Menu Node
 ~~~~~~~~~~~~~~~~~~~~~~
 
-The standard menu node adds the following features:
+The standard menu node adds the following CMF specific features:
 
 * Ability to specify a link type (URI, route or content)
-* Integration with publish workflow;
-  * Flag to indicate if node should be published;
-  * Publish start and end dates;
+* Standard :ref:`publish workflow <bundle-core-publish_workflow>` integration;
 * Ability to specify content as a link type.
 * Translation.
 
+Publish Workflow
+""""""""""""""""
 
-.. code-block:: php
-    
-    $node = new MenuNode;    
-    // all the methods from base menu node apply
-
-    $node->setContent($content);
-    $node->setLinkType('link');
+The standard menu node implements ``PublishTimePeriodInterface`` and
+``PublishableInterface``. Please refer to the :ref:`publish workflow documentation <bundle-core-publish_workflow>`.
 
 Menu Provider
 ~~~~~~~~~~~~~
@@ -478,4 +478,5 @@ for more information.
 .. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle
 .. _`KnpMenuBundle custom provider documentation`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/custom_provider.md
 
-.. _`using composer`: http://getcomposer.org
+.. _`with composer`: http://getcomposer.org
+.. _`rendering menus`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md#rendering-menus
