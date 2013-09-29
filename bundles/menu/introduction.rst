@@ -5,11 +5,14 @@
 MenuBundle
 ==========
 
-.. include:: _outdate-caution.rst.inc
+The CmfMenuBundle extends the `KnpMenuBundle`_ and adds the following
+features:
 
-The CmfMenuBundle extends the `KnpMenuBundle`_ by adding a menu provider
-that loads menus from a doctrine object manager and generating menu URLs
-from content.
+* Render menus stored in the persistance layer;
+* Generate menu node URLs from linked Content or Route.
+
+Note that only the Doctrine PHPCR-ODM persistance layer is supported in the
+1.0 release.
 
 .. caution::
 
@@ -18,7 +21,11 @@ from content.
     functionality on top of the Knp menu bundle and this documentation is
     focused on the additional functionality.
 
-.. index:: MenuBundle
+Installation
+------------
+
+You can install this bundle `using composer`_ using the
+``symfony-cmf/menu-bundle`` package.
 
 Dependencies
 ------------
@@ -33,17 +40,19 @@ provide your own implementations, this bundle also depends on:
 * :doc:`PHPCR-ODM <phpcr_odm>` - to load route documents from the content
   repository when using the ``PhpcrMenuProvider``.
 
-PHPCR Menu Tree
----------------
+Creating a Simple Persistant Menu
+---------------------------------
 
-The PHPCR ODM menu tree is typically composed of a root PHPCR document of class
-``Menu``. All decedent documents must be instances of the PHPCR ``MenuNode``.
+A menu created using the *KnpMenuBundle* is made up of a heierachy of class
+instances implementing ``NodeInterface``. The same is true of a menu created
+using MenuBundle documents.
 
-The ``MenuNode`` document implements the ``NodeInterface`` provided by the `KnpMenu`_
-component.
+It is recommended that the root document of the menu tree should a ``Menu``
+document, all descendant documents should be ``MenuNode`` instances.
 
-The ``Menu`` root document simply extends ``MenuNode``, this enables you to
-select only root menu items.
+The root document should be a child of the document specified in the configuration
+as ``persistence.phpcr.menu_basepath``, which defaults to ``/cms/menu``. Note
+that if this document does not exist it must be created.
 
 The example below creates a new menu with a single menu item::
 
@@ -51,29 +60,131 @@ The example below creates a new menu with a single menu item::
 
     use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
     use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
+    use PHPCR\Util\NodeHelper;
+
+    // create the menu root (assuming it doesn't already exist)
+    NodeHelper::createPath('/cms/menu');
+    $menuParent = $dm->find('/cms/menu');
 
     $menu = new Menu;
     $menu->setName('main-menu');
     $menu->setLabel('Main Menu');
+    $menu->setParent($menuParent);
     $manager->persist($menu);
 
-    $menuNode = new MenuNode;
-    $menuNode->setName('item-1');
-    $menuNode->setLabel('Item 1');
-    $menuNode->setParent($menu);
-    $manager->persist($menuNode);
+    $home = new MenuNode;
+    $home->setName('home');
+    $home->setLabel('Home');
+    $home->setParent($menu);
+    $manager->persist($home);
 
+    $contact = new MenuNode;
+    $contact->setName('contact');
+    $contact->setLabel('Contact');
+    $contact->setParent($menu);
+    $manager->persist($contact);
 
-Menu Entries
-~~~~~~~~~~~~
+    $manager->flush();
+
+Rendering Menus
+---------------
+
+You render the menu in the same way you would with the
+`KnpMenuBundle`_. The name of the menu will correspond to the name of the root
+document in your menu tree::
+
+.. code-block:: jinja
+
+    {{ knp_menu_render('main-menu') }}
+
+In this example we specify the ``main-menu`` document from the previous
+example.
+
+Menu Documents
+--------------
 
 @todo: Explain link type
 @todo: Explain automatic link type resolve priority (uri, route, content)
 
-A ``MenuNode`` document defines a menu entry. You can build entries based
-on symfony route names, absolute or relative URLs or referenceable PHPCR-ODM
-content documents. Route names and URLs are provided directly by `KnpMenu`_.
-Generating routes from content objects is a feature of the CmfRoutingBundle.
+According with the CMF bundle standards you are provided with two menu node
+implementations, a base document and a standard document. The base document
+implements only what is fundamentally required, the standard document
+implements as many CMF features as possible. If you require only some of the
+CMF features, you can extend the base document and copy the relevant parts of
+the standard document.
+
+The Base Menu Node
+~~~~~~~~~~~~~~~~~~
+
+The ``BaseMenuNode`` document is a no-extras implementation of the KnpMenu MenuItem class.
+
+.. code-block:: php
+
+    <?php
+
+    use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNodeBase;
+
+    $parent = // get parent node
+
+    // ODM specific
+    $node = new MenuNodeBase;
+    $node->setParent($parent);
+    $node->setName('home');
+
+    // Attributes are the HTML attributes of the DOM element representing the
+    // menu node (e.g. <li/>)
+    $node->setAttribute('attr_name', 'attr_value');
+    $node->setAttributes(array('attr_name', 'attr_value'));
+    $node->setChildrenAttributes(array('attr_name', 'attr_value'));
+
+    // Display the node or not
+    $node->setDisplay(true);
+    $node->setDisplayChildren(true);
+
+    // Any extra attributes you wish to associate with the menu node
+    $node->setExtras(array('extra_param_1' => 'value'));
+
+    // The label and the HTML attributes of the label
+    $node->setLabel('Menu Node');
+    $node->setLabelAttributes(array('style' => 'color: red;'));
+
+    // The HTML attributes of the link (i.e. <a href=.../>
+    $node->setLinkAttributes(array('style' => 'color: yellow;'));
+
+    // Associate an implementation of Symfony\Component\Routing\RouteInterface
+    $node->setRoute($route);
+    // Specify if the route should be rendered absolute (otherwise relative)
+    $node->setRouteAbsolute(true);
+    // Parameters of the route
+    $node->setRouteParameters(array());    
+
+    // Specify a URI
+    $node->setUri('http://www.example.com');
+
+If specify both a Route object *and* a URI then the URI will win. The
+``MenuNode`` document described in the next section allows you to explicitly
+specify which "link type" to use when generating the menu items target URL.
+
+The Standard Menu Node
+~~~~~~~~~~~~~~~~~~~~~~
+
+The standard menu node adds the following features:
+
+* Ability to specify a link type (URI, route or content)
+* Integration with publish workflow;
+  * Flag to indicate if node should be published;
+  * Publish start and end dates;
+* Ability to specify content as a link type.
+* Translation.
+
+
+.. code-block:: php
+    
+    $node = new MenuNode;    
+    // all the methods from base menu node apply
+
+    $node->setContent($content);
+    $node->setLinkType('link');
 
 Menu Provider
 ~~~~~~~~~~~~~
@@ -356,19 +467,6 @@ A voter will look something like this::
         }
     }
 
-Rendering Menus
----------------
-
-Adjust your twig template to load the menu.
-
-.. code-block:: jinja
-
-    {{ knp_menu_render('simple') }}
-
-The menu name is the name of the node under ``menu_basepath``. For example if
-your repository stores the menu nodes under ``/cms/menu`` , rendering "main"
-would mean to render the menu that is at ``/cms/menu/main``
-
 Publish Workflow Interface
 --------------------------
 
@@ -379,3 +477,5 @@ for more information.
 .. _`KnpMenu`: https://github.com/knplabs/KnpMenu
 .. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle
 .. _`KnpMenuBundle custom provider documentation`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/custom_provider.md
+
+.. _`using composer`: http://getcomposer.org
