@@ -100,7 +100,7 @@ to do it? In this case the reference is the right place for you.
 	bundles/core/index
 	bundles/create
 	bundles/phpcr_odm
-	bundles/media
+	bundles/media/index
 	bundles/menu
 	bundles/routing/index
 	bundles/routing_auto

@@ -5,14 +5,15 @@
 MediaBundle
 ===========
 
-The `MediaBundle`_ provides a way to store and edit any media and provides a
-generic base of common interfaces and models that allow the user to build media
-management solutions for a CMS. Media can be images, binary documents (like pdf
-files), embedded movies, uploaded movies, MP3s, etc. The implementation of this
-bundle is **very** minimalistic and is focused on images and download files.
-If you need more functionality (like cdn, thumbnail generation, providers for
-different media types and more) take a look at `SonataMediaBundle`_. The
-MediaBundle provides integration with SonataMediaBundle.
+    The `MediaBundle`_ provides a way to store and edit any media and provides
+    a generic base of common interfaces and models that allow the user to build
+    media management solutions for a CMS. Media can be images, binary documents
+    (like pdf files), embedded movies, uploaded movies, MP3s, etc. The
+    implementation of this bundle is **very** minimalistic and is focused on
+    images and download files. If you need more functionality (like cdn,
+    thumbnail generation, providers for different media types and more) take a
+    look at `SonataMediaBundle`_. The MediaBundle provides integration with
+    SonataMediaBundle.
 
 This bundle provides:
 
@@ -37,34 +38,15 @@ persisted using Doctrine PHPCR-ODM, Doctrine ORM or something else.
 
 .. index:: MediaBundle, PHPCR, ODM, ORM
 
-Dependencies
-------------
-
-For PHPCR:
-
-* :doc:`PHPCR-ODM <phpcr_odm>` is used to persist the bundles documents;
-* `phpcr/phpcr-utils`_.
-
-When using the CreateBundle:
-
-* `jms/serializer-bundle`_ to serialize ImageInterface objects.
-
-When using the LiipImagine adapter:
-
-* `LiipImagineBundle`_.
-
-When using the elFinder adapter:
-
-* `FMElfinderBundle`_.
-
-When using the Gaufrette adapter:
-
-* `KnpLabs/Gaufrette`_.
-
 Installation
 ------------
 
-1. When using the file and image controller for downloading, uploading and
+1. You can install the bundle in 2 different ways:
+
+  * Use the official Git repository (https://github.com/symfony-cmf/MediaBundle);
+  * Install it via Composer (``symfony-cmf/media-bundle`` on `Packagist`_).
+
+2. When using the file and image controller for downloading, uploading and
    displaying, add the following lines to the end of your routing file:
 
    .. configuration-block::
@@ -106,7 +88,7 @@ Installation
 
            return $collection;
 
-2. Run the ``doctrine:phpcr:repository:init`` command, it runs all tagged
+3. Run the ``doctrine:phpcr:repository:init`` command, it runs all tagged
    :ref:`phpcr-odm-repository-initializers` including the MediaBundle
    initializer.
 
@@ -313,7 +295,7 @@ Web editing tools
 -----------------
 
 The MediaBundle provides integration with WYSIWYG editors and
-:doc:`Create <create>`. Media support is mostly split in:
+:doc:`Create <../create>`. Media support is mostly split in:
 
 * uploading a file
 * browsing and selecting media
@@ -561,6 +543,7 @@ MediaBundle interfaces.
     PHPCR-ODM.
 
 .. _`MediaBundle`: https://github.com/symfony-cmf/MediaBundle#readme
+.. _`Packagist`: https://packagist.org/packages/symfony-cmf/media-bundle
 .. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
 .. _`trying to make this automatic`: https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4
 .. _`MediaBundle issue`: https://github.com/symfony-cmf/MediaBundle/issues/9
