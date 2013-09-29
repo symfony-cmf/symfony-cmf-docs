@@ -89,7 +89,7 @@ Configuration
 -------------
 
 The ContentBundle also supports a set of optional configuration parameters. Refer to
-:doc:`../bundles/content` for the full configuration reference.
+:doc:`../bundles/content/index` for the full configuration reference.
 
 Final Thoughts
 --------------

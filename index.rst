@@ -96,7 +96,7 @@ to do it? In this case the reference is the right place for you.
 
 	bundles/block/index
 	bundles/blog
-	bundles/content
+	bundles/content/index
 	bundles/core/index
 	bundles/create
 	bundles/phpcr_odm

@@ -168,6 +168,8 @@ work with proxy classes and other extending classes.
             ),
         ));
 
+.. _reference-config-routing-template_by_class:
+
 template_by_class
 .................
 

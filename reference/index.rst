@@ -5,6 +5,7 @@ Reference
     :hidden:
 
     configuration/core.rst
+    configuration/content.rst
     configuration/routing.rst
     configuration/simple_cms.rst
 

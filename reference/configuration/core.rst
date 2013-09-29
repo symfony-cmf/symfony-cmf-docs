@@ -76,7 +76,7 @@ If ``true``, PHPCR is enabled in the service container.
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`ContentBundle <../../bundles/content>`
+* :doc:`ContentBundle <../../bundles/content/introduction>`
 * :doc:`CreateBundle <../../bundles/create>`
 * :doc:`MediaBundle <../../bundles/media>`
 * :doc:`MenuBundle <../../bundles/menu>`
@@ -136,7 +136,7 @@ The basepath for CMS documents in the PHPCR tree.
 Enabling this setting will also automatically enable the equivalent settings in the following Bundles:
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`ContentBundle <../../bundles/content>`
+* :doc:`ContentBundle <../../bundles/content/introduction>`
 * :doc:`MediaBundle <../../bundles/media>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
@@ -182,7 +182,7 @@ SonataPhpcrAdminBundle is present.
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`ContentBundle <../../bundles/content>`
+* :doc:`ContentBundle <../../bundles/content/introduction>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
