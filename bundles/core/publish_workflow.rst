@@ -22,6 +22,15 @@ publication.
     A good introduction to the Symfony core security can be found in the
     `Security Chapter`_ of the Symfony2 book.
 
+
+In general the publish workflow works as follows:
+
+.. image:: ../../_images/bundles/core_pwf_workflow.png
+
+The **publishStartDate** and **publishEndDate** can each be set to ``NULL``, in which case the start or end date
+is unbounded. For example, if the end date is ``NULL`` and the start date is ``2013-09-29`` then the object will be published
+on the start date and will never be "unpublished".
+
 Check if Content is Published
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -165,6 +174,83 @@ abstain". This means a single voter saying ``ACCESS_DENIED`` is enough for
 the content to be considered not published. If all voters abstain (for example
 when the content in question does not implement any workflow features) the
 content is still considered published.
+
+Making Documents Publish Workflow Aware
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The publish workflow component features 4 interfaces:
+``PublishableInterface``, ``PublishTimePeriodInterface`` and corresponding
+read-only interfaces.
+
+.. image:: ../../_images/bundles/core_pwf_interfaces.png
+
+The read-only interfaces should be used when setting a value is not required.
+
+Below is an example publish workflow implementation using PHPCR-ODM:
+
+.. code-block:: php
+
+    <?php
+    namespace MyProject\Bundle\BlogBundle\Document;
+    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+    use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface;
+    use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface;
+
+    /**
+     * @PHPCR\Document()
+     */
+    class Post implements PublishableInterface, PublishTimePeriodInterface
+    {
+        // .. standard properties and methods
+
+        /**
+         * @PHPCR\Date()
+         */
+        protected $publishStartDate;
+
+        /**
+         * @PHPCR\Date()
+         */
+        protected $publishEndDate;
+
+        /**
+         * @PHPCR\Boolean()
+         */
+        protected $isPublishable;
+
+        public function setPublishStartDate(\DateTime $startDate)
+        {
+            $this->publishStartDate = $startDate;
+        }
+ 
+        public function getPublishStartDate()
+        {
+            return $this->publishStartDate;
+        }
+ 
+        public function setPublishEndDate(\DateTime $startDate)
+        {
+            $this->publishEndDate = $startDate;
+        }
+ 
+        public function getPublishEndDate()
+        {
+            return $this->publishEndDate;
+        }
+
+        public function isPublishable()
+        {
+            return $this->isPublishable;
+        }
+
+        public function setIsPublishable($boolean)
+        {
+            $this->isPublishable = $boolean;
+        }
+    }
+
+Note that we have used a PHPCR-ODM class only because it is a common use case, you can of course implement these
+interfaces on any class, persisted or otherwise.
 
 Publish Voters
 ~~~~~~~~~~~~~~
