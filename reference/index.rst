@@ -12,5 +12,6 @@ Reference
     configuration/routing.rst
     configuration/search.rst
     configuration/simple_cms.rst
+    configuration/tree_browser
 
 .. include:: map.rst.inc
