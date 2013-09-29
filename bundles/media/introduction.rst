@@ -1,11 +1,9 @@
 .. index::
-    single: Media; Bundles
+single: Media; Bundles
     single: MediaBundle
 
 MediaBundle
 ===========
-
-.. include:: _outdate-caution.rst.inc
 
 The `MediaBundle`_ provides a way to store and edit any media and provides a
 generic base of common interfaces and models that allow the user to build media
@@ -62,103 +60,6 @@ When using the elFinder adapter:
 When using the Gaufrette adapter:
 
 * `KnpLabs/Gaufrette`_.
-
-Configuration
--------------
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_media:
-            persistence:
-                phpcr:
-                    enabled:         true
-                    manager_name:    ~
-                    media_basepath:  ~ # default: /cms/media
-                    media_class:     ~
-                    file_class:      ~
-                    directory_class: ~
-                    image_class:     ~
-            upload_file_role:   ~ # default: ROLE_CAN_UPLOAD_FILE
-            use_jms_serializer: ~ # default: auto
-            use_elfinder:       ~ # default: auto
-            use_imagine:        ~ # default: auto
-            imagine_filter:
-                upload_thumbnail:   ~ # default: image_upload_thumbnail
-                elfinder_thumbnail: ~ # default: elfinder_thumbnail
-            extra_filters:
-                - imagine_filter_name1
-                - imagine_filter_name2
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <!--
-            upload-file-role:   ROLE_CAN_UPLOAD_FILE by default
-            use-jms-serializer: auto by default
-            use-elfinder:       auto by default
-            use-imagine:        auto by default
-        -->
-        <config xmlns="http://cmf.symfony.com/schema/dic/media"
-            upload-file-role="null"
-            use-jms-serializer="null"
-            use-elfinder="null"
-            use-imagine="null"
-        >
-            <persistence>
-                <!-- media-basepath: /cms/media by default -->
-                <phpcr
-                    enabled="true"
-                    manager-name="null"
-                    media-basepath="null"
-                    media-class="null"
-                    file-class="null"
-                    directory-class="null"
-                    image-class="null"
-                />
-            </persistence>
-            <!--
-                upload_thumbnail:   image_upload_thumbnail by default
-                elfinder_thumbnail: elfinder_thumbnail by default
-            -->
-            <imagine-filter
-                upload_thumbnail="null"
-                elfinder_thumbnail="null"
-            />
-            <extra-filter>imagine_filter_name1</extra-filter>
-            <extra-filter>imagine_filter_name2</extra-filter>
-        </config>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('cmf_media', array(
-            'persistence' => array(
-                'phpcr' => array(
-                    'enabled'         => true,
-                    'manager_name'    => null,
-                    'media_basepath'  => null, // default: /cms/media
-                    'media_class'     => null,
-                    'file_class'      => null,
-                    'directory_class' => null,
-                    'image_class'     => null,
-                ),
-             ),
-            'upload_file_role'   => null, // default: ROLE_CAN_UPLOAD_FILE
-            'use_jms_serializer' => null, // default: auto
-            'use_elfinder'       => null, // default: auto
-            'use_imagine'        => null, // default: auto
-            'imagine_filter'     => array(
-                'upload_thumbnail'   => null, // default: image_upload_thumbnail
-                'elfinder_thumbnail' => null, // default: elfinder_thumbnail
-            ),
-            'extra_filters'      => array(
-                'imagine_filter_name1',
-                'imagine_filter_name2',
-            ),
-        ));
 
 Installation
 ------------
@@ -421,9 +322,10 @@ Uploading files
 ~~~~~~~~~~~~~~~
 
 The file and image controller of the MediaBundle provide an upload action, it
-uses the ``UploadFileHelper``. If you want to make your own upload
-implementation you can use the ``UploadFileHelper`` directly. The default
-upload action is protected by the ``ROLE_CAN_UPLOAD_FILE`` role.
+uses an ``UploadFileHelperInterface`` instance. If you want to make your own upload
+implementation you can use the ``cmf_media.upload_file_helper`` or
+``cmf_media.upload_image_helper`` service directly. The default upload action
+is protected by the ``ROLE_CAN_UPLOAD_FILE`` role.
 
 The ``UploadFileHelper`` contains ``UploadEditorHelperInterface`` instances.
 This handles the response returned of the file upload depending on the web

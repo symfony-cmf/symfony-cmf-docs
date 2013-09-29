@@ -30,9 +30,9 @@
 
   * :doc:`phpcr_odm`
 
-* **MediaBundle**
+* :doc:`media/index`
 
-  * :doc:`media`
+  * :doc:`media/introduction`
 
 * **MenuBundle**
 
