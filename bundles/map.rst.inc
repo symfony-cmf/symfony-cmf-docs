@@ -65,6 +65,6 @@
 
   * :doc:`doctrine_phpcr_admin`
 
-* **TreeBrowserBundle**
+* :doc:`tree_browser/index`
 
-  * :doc:`tree_browser`
+  * :doc:`tree_browser/introduction`

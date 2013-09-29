@@ -5,50 +5,21 @@
 TreeBrowserBundle
 =================
 
-.. include:: _outdate-caution.rst.inc
-
-The `TreeBrowserBundle`_ provides a tree navigation on top of a PHPCR
-repository.
+    The TreeBrowserBundle provides a tree navigation on top of a PHPCR
+    repository.
 
 This bundle consists of two parts:
 
 * Generic Tree Browser with a TreeInterface
 * PHPCR tree implementation and GUI for a PHPCR browser
 
-.. index:: TreeBrowserBundle
-
-Dependencies
+Installation
 ------------
 
-* `FOSJsRoutingBundle`_
-* Install jQuery. `SonatajQueryBundle`_ strongly suggested.
+You can install the bundle in 2 different ways:
 
-Configuration
--------------
-
-The configuration key for this bundle is ``cmf_tree_browser``:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_tree_browser:
-            session:  default
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <config xmlns="http://cmf.symfony.com/schema/dic/treebrowser"
-            session-name="default"
-        />
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('cmf_tree_browser', array(
-            'session_name' => 'default',
-        ));
+* Use the official Git repository (https://github.com/symfony-cmf/TreeBrowserBundle);
+* Install it via Composer (``symfony-cmf/tree-browser-bundle`` on `Packagist`_).
 
 Routing
 -------
@@ -360,7 +331,7 @@ Don't forget to add your custom route to the
             ),
         ));
 
-.. _`TreeBrowserBundle`: https://github.com/symfony-cmf/TreeBrowserBundle#readme
+.. _`Packagist`: https://packagist.org/packages/symfony-cmf/simple-cms-bundle
 .. _`FOSJsRoutingBundle`: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle
 .. _`SonatajQueryBundle`: https://github.com/sonata-project/SonatajQueryBundle
 .. _`init.js`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle/blob/master/Resources/views/Tree/tree.html.twig
