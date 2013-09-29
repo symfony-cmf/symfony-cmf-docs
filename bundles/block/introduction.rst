@@ -1,60 +1,21 @@
+.. index::
+    single: Block; Bundles
+    single: BlockBundle
+
 The BlockBundle
 ===============
 
-.. include:: ../_outdate-caution.rst.inc
-
-The `BlockBundle`_ provides integration with `SonataBlockBundle`_.
-It is used to manage fragments of content, so-called blocks, that are persisted
-in a database and can be incorporated into any page layout.
+    The `BlockBundle`_ provides integration with `SonataBlockBundle`_.
+    It is used to manage fragments of content, so-called blocks, that are
+    persisted in a database and can be incorporated into any page layout.
 
 The BlockBundle also provides a few commonly used standard blocks, including the
 ability to edit them. See :doc:`types`.
 
-.. index:: BlockBundle
-
-Dependencies
-------------
-
-This bundle is based on the `SonataBlockBundle`_.
-
 .. _bundle-block-configuration:
 
-Configuration
--------------
-
-.. sidebar:: Updated SonataBlockBundle defaults
-    :subtitle: Prepended Configuration
-
-    The BlockBundle *automatically* changes some defaults and adds configuration
-    to the `SonataBlockBundle`_ to make it work nicely. This is done using the
-    `prepended configuration`_ option of Symfony available since version 2.2.
-    See ``DependencyInjection\CmfBlockExtension::prepend``.
-
-    Updated defaults:
-
-    * **templates.block_base** the cmf base template wraps the block output in
-      a div and dashifies the PHPCR path as id; The base template is
-      kept compatible with the Sonata base template for non-cmf blocks;
-    * **RssBlock configuration** adds the
-      :ref:`default RssBlock settings <bundle-block-rss-settings>`.
-
-    .. note::
-
-        Settings are only prepended, define the settings explicitly inside
-        the ``app/config/config.yml`` to override them.
-
-The configuration key for this bundle is ``cmf_block``:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_block:
-            persistence:
-                phpcr:
-                    enabled: true
-                    manager_name: default
+Usage
+-----
 
 The default settings of a block are defined in the block service. If you use a
 3rd party block you might want to alter these for your application. Use the
