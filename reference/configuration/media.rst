@@ -1,5 +1,5 @@
 MediaBundle Configuration
-=============================
+=========================
 
 The MediaBundle provides a way to store and edit any media and provides a
 generic base of common interfaces and models that allow the user to build media

@@ -1,5 +1,5 @@
 .. index::
-single: Media; Bundles
+    single: Media; Bundles
     single: MediaBundle
 
 MediaBundle
