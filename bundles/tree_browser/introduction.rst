@@ -10,7 +10,7 @@ TreeBrowserBundle
 
 This bundle consists of two parts:
 
-* Generic Tree Browser with a TreeInterface
+* Generic Tree Browser with a ``TreeInterface``
 * PHPCR tree implementation and GUI for a PHPCR browser
 
 Installation
@@ -40,8 +40,15 @@ configuration:
     .. code-block:: xml
 
         <!-- app/config/routing.xml -->
-        <import resource="."
-            type="cmf_tree" />
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <import resource="." type="cmf_tree" />
+
+        </routes>
 
     .. code-block:: php
 
@@ -56,40 +63,40 @@ configuration:
 Usage
 -----
 
-You have select.js and init.js which are a wrapper to build a jquery tree. Use
-them with ``SelectTree.initTree`` resp. ``AdminTree.initTree``
+The TreeBrowserBundle provides a ``select.js`` and ``init.js`` file, which are
+a wrapper to build a jQuery tree. Use them with ``SelectTree.initTree`` resp.
+``AdminTree.initTree``.
 
-* SelectTree in select.js is a tree to select a node to put its id into a
-  field
-* AdminTree in init.js is a tree to create, move and edit nodes
+* ``SelectTree`` in ``select.js`` is a tree to select a node to put its id
+  into a field;
+* ``AdminTree`` in ``init.js`` is a tree to create, move and edit nodes.
 
 Both have the following options when creating:
 
-* **config.selector**: jquery selector where to hook in the js tree
-* **config.rootNode**: id to the root node of your tree, defaults to "/"
-* **config.selected**: id of the selected node
-* **config.ajax.children_url**: Url to the controller that provides the
-  children of a node
-* **config.routing_defaults**: array for route parameters (such as _locale
-  etc.)
+* **config.selector**: jQuery selector where to hook in the js tree;
+* **config.rootNode**: id to the root node of the tree, defaults to ``/``;
+* **config.selected**: id of the selected node;
+* **config.ajax.children_url**: URL to the controller that provides the
+  children of a node;
+* **config.routing_defaults**: array for route parameters (e.g. ``_locale``);
 * **config.path.expanded**: tree path where the tree should be expanded to at
-  the moment
+  the moment;
 * **config.path.preloaded**: tree path what node should be preloaded for
-  faster user experience
+  faster user experience.
 
 select.js only
 ~~~~~~~~~~~~~~
 
-* **config.output**: where to write the id of the selected node
+* **config.output**: where to write the id of the selected node.
 
 init.js only
 ~~~~~~~~~~~~
 
 * **config.labels**: array containing the translations for the labels of the
-  context menu (keys ``createItem`` and ``deleteItem``)
+  context menu (keys ``createItem`` and ``deleteItem``);
 * **config.ajax.move_url**: Url to the controller for moving a child (i.e.
-  giving it a new parent node)
-* **config.ajax.reorder_url**: Url to the controller for reordering siblings
+  giving it a new parent node);
+* **config.ajax.reorder_url**: Url to the controller for reordering siblings;
 * **config.types**: array indexed with the node types containing information
   about valid_children, icons and available routes, used for the creation of
   context menus and checking during move operations.
@@ -97,7 +104,7 @@ init.js only
 Examples
 --------
 
-Look at the templates in the Sonata Admin Bundle for examples how to build the
+Look at the templates in the SonataAdminBundle for examples how to build the
 tree:
 
 * `init.js`_
