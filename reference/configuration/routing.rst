@@ -273,7 +273,7 @@ setting is set as controller.
 persistence
 ...........
 
-.. _reference_configuration_routing_persistence_phpcr:
+.. _reference-configuration-routing-persistence-phpcr:
 
 phpcr
 """""
@@ -288,7 +288,7 @@ phpcr
                 persistence:
                     phpcr:
                         enabled: false
-                        manager_name: null
+                        manager_name: ~
                         route_basepath: /cms/routes
                         content_basepath: /cms/content
                         use_sonata_admin: auto
@@ -303,10 +303,10 @@ phpcr
                     <persistence>
                         <phpcr
                             enabled="false"
-                            manager_name="null"
-                            route_basepath="/cms/routes"
-                            content_basepath="/cms/content"
-                            use_sonata_admin="auto"
+                            manager-name="null"
+                            route-basepath="/cms/routes"
+                            content-basepath="/cms/content"
+                            use-sonata-admin="auto"
                         />
                     </persistence>
                 </dynamic>

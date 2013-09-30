@@ -144,7 +144,7 @@ Code that loads content should do the publish checks. Note that the twig
 functions already check for publication. Thanks to a
 :ref:`request listener <bundle-core-workflow-request_listener>`, routes and
 the main content provided by the
-:ref:`DynamicRouter <bundles-routing-dynamic_router>` are checked automatically
+:doc:`DynamicRouter <../routing/dynamic>` are checked automatically
 as well.
 
 It is possible to set the security token explicitly on the workflow checker.
@@ -251,7 +251,7 @@ you can lower the priority of those voters.
             ->addTag('cmf_published_voter', array('priority' => 30))
         ;
 
-The workflow checker will create an 
+The workflow checker will create an
 :class:`Symfony\\Component\\Security\\Core\\Authentication\\Token\\AnonymousToken` on
 the fly if the securty context has none. This means that voters must be able
 to handle this situation when accessing the user. Also when accessing the
@@ -265,7 +265,7 @@ access if the current user fulfills some requirement, it simply has to return
 Publication Request Listener
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The :ref:`DynamicRouter <bundles-routing-dynamic_router>` places the route
+The :ref:`DynamicRouter <../routing/dynamic>` places the route
 object and the main content - if the route has a main content - into the
 request attributes. Unless you disable the
 ``cmf_core.publish_workflow.request_listener``, this listener will listen

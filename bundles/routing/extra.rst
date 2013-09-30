@@ -1,3 +1,6 @@
+.. index::
+    single: Routing; Bundles
+
 Extra features of the RoutingBundle
 ===================================
 

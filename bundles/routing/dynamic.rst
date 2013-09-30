@@ -1,5 +1,5 @@
-
-.. _bundles-routing-dynamic_router:
+.. index::
+    single: Routing; DynamicRouter
 
 Dynamic Router
 ==============
@@ -17,8 +17,8 @@ The minimum configuration required to load the dynamic router as service
 ``cmf_routing.dynamic_router`` is to have ``enabled: true`` in your application
 configuration. The router is automatically enabled as soon as you add any other
 configuration to the ``dynamic`` entry. When not enabled, the dynamic router
-services will not be loaded at all, allowing you to use the ChainRouter with
-your own routers
+services will not be loaded at all, allowing you to use the ``ChainRouter`` with
+your own routers.
 
 .. configuration-block::
 
@@ -51,12 +51,12 @@ your own routers
 Match Process
 ~~~~~~~~~~~~~
 
-Most of the match process is described in the documentation of the `CMF
-Routing component`_. The only difference is that this bundle will place the
-``contentDocument`` into the request attributes instead of into the route
+Most of the match process is described in the documentation of the
+`CMF Routing component`_. The only difference is that this bundle will place
+the ``contentDocument`` into the request attributes instead of into the route
 defaults to avoid issues when generating the URL for the current request.
 
-Your controllers can (and should) declare the parameter $contentDocument in
+Your controllers can (and should) declare the parameter ``$contentDocument`` in
 their ``Action`` methods if they are supposed to work with content referenced
 by the routes.  See
 ``Symfony\Cmf\Bundle\ContentBundle\Controller\ContentController`` for an
@@ -64,7 +64,7 @@ example.
 
 .. note::
 
-    The DynamicRouter fires an event at the start of the matching process, read
+    The ``DynamicRouter`` fires an event at the start of the matching process, read
     more about this in :ref:`the component documentation <components-routing-events>`.
 
 .. _bundles-routing-dynamic_router-enhancer:
@@ -101,20 +101,22 @@ The possible enhancements are (in order of precedence):
 See :ref:`the configuration reference <reference-config-routing-dynamic>` to
 learn how to configure these enhancers.
 
-To see some examples, please look at the `CMF sandbox`_ and specifically the
-routing fixtures loading.
+.. tip::
+
+    To see some examples, please look at the `CMF sandbox`_ and specifically
+    the routing fixtures loading.
 
 .. tip::
 
-    You can also define your own RouteEnhancer classes for specific use cases.
-    See :ref:`bundle-routing-customize`.
+    You can also define your own ``RouteEnhancer`` classes for specific use
+    cases. See :ref:`bundle-routing-customize`.
 
 .. _bundle-routing-document:
 
 Doctrine PHPCR-ODM Integration
 ------------------------------
 
-This bundle comes with a route provider implementation for `PHPCR-ODM`_.
+The RoutingBundle comes with a route provider implementation for `PHPCR-ODM`_.
 PHPCR is well suited to the tree nature of the data. If you use `PHPCR-ODM`_
 with a route document like the one provided, you can just leave the provider
 service at the default.
@@ -122,8 +124,12 @@ service at the default.
 The default provider loads the route at the path in the request and all
 parent paths to allow for some of the path segments being parameters. If you
 need a different way to load routes or for example never use parameters, you
-can write your own provider implementation to optimize (see
-``cmf_routing.xml`` for how to configure the service).
+can write your own provider implementation to optimize.
+
+.. tip::
+
+    Look at the file ``Resources/config/provider-phpcr.xml`` to see how the
+    CMF configures the provider.
 
 .. index:: PHPCR, ODM
 
@@ -135,13 +141,14 @@ PHPCR-ODM route document also implements the ``RouteObjectInterface`` to link
 routes with content. It maps all features of the core route to the storage, so
 you can use ``setDefault``, ``setRequirement``, ``setOption`` and
 ``setHostnamePattern``. Additionally when creating a route, you can define
-whether .{_format} should be appended to the pattern and configure the required
-_format with a requirements. The other constructor option lets you control
-whether the route should append a trailing slash because this can not be
-expressed with a PHPCR name. The default is to have no trailing slash.
+whether ``.{_format}`` should be appended to the pattern and configure the
+required ``_format`` with a requirements. The other constructor argument lets
+you control whether the route should append a trailing slash because this can
+not be expressed with a PHPCR name. The default is to have no trailing slash.
+Both options can also be changed later through setter methods.
 
-All routes are located under a configured root path, for example '/cms/routes'.
-A new route can be created in PHP code as follows::
+All routes are located under a configured root path, for example
+``/cms/routes``. A new route can be created in PHP code as follows::
 
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
@@ -153,7 +160,7 @@ A new route can be created in PHP code as follows::
     $route->setDefault('_controller', 'sandbox_main.controller:specialAction');
 
 The above example should probably be done as a route configured in a Symfony
-configuration file however, unless the end user is supposed to change the URL
+configuration file, unless the end user is supposed to change the URL
 or the controller.
 
 To link a content to this route, simply set it on the document::
@@ -164,36 +171,35 @@ To link a content to this route, simply set it on the document::
     $content = new Content('my content'); // Content must be a mapped class
     $route->setRouteContent($content);
 
-This will put the document into the request parameters and if your controller
-specifies a parameter called ``$contentDocument``, it will be passed this
-document.
+This will make the routing put the document into the request parameters and if
+your controller specifies a parameter called ``$contentDocument``, it will be
+passed this document.
 
 You can also use variable patterns for the URL and define requirements and
-defaults.
-
-.. code-block:: php
+defaults::
 
     // do not forget leading slash if you want /projects/{id} and not /projects{id}
     $route->setVariablePattern('/{id}');
     $route->setRequirement('id', '\d+');
     $route->setDefault('id', 1);
 
-This will give you a route that matches the URL ``/projects/<number>`` but
-also /projects as there is a default for the id parameter. This will match
-``/projects/7`` as well as ``/projects`` but not ``/projects/x-4``.  The
+This defines a route that matches the URL ``/projects/<number>`` but also
+``/projects`` as there is a default for the ``id`` parameter. This will match
+``/projects/7`` as well as ``/projects`` but not ``/projects/x-4``. The
 document is still stored at ``/routes/projects``. This will work because, as
 mentioned above, the route provider will look for route documents at all
 possible paths and pick the first that matches. In our example, if there is a
-route document at ``/routes/projects/7`` that matches (no further parameters)
-it is selected. Otherwise we check if /routes/projects has a pattern that
-matches. If not, the top document at /routes is checked.
+route document at ``/routes/projects/7`` that matches (no further parameters),
+it gets chosen. Otherwise, routing checks if ``/routes/projects`` has a pattern
+that matches. If not, the top document at ``/routes`` is checked for a matching
+pattern.
 
 Of course you can also have several parameters, as with normal Symfony
 routes. The semantics and rules for patterns, defaults and requirements are
 exactly the same as in core routes.
 
-Your controller can expect the $id parameter as well as the $contentDocument
-as we set a content on the route. The content could be used to define an intro
+Your controller can expect the ``$id`` parameter as well as the ``$contentDocument``
+as you set a content on the route. The content could be used to define an intro
 section that is the same for each project or other shared data. If you don't
 need content, you can just not set it in the route document.
 
@@ -220,27 +226,28 @@ need content, you can just not set it in the route document.
 Sonata Doctrine PHPCR-ODM Admin classes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If the SonataDoctrinePhpcrAdminBundle is loaded in the application kernel,
-route and redirect route documents can be administrated in sonata admin. For
-instructions on how to configure Sonata, see :doc:`../doctrine_phpcr_admin`.
+If the :doc:`SonataDoctrinePhpcrAdminBundle <../doctrine_phpcr_admin>` is
+loaded in the application kernel, route and redirect route documents can be
+administrated in sonata admin. For instructions on how to configure Sonata,
+see :doc:`../doctrine_phpcr_admin`.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
-``SonataDoctrinePhpcrAdminBundle`` is available, but you can explicitly
+SonataDoctrinePhpcrAdminBundle is available, but you can explicitly
 disable it to not have it even if sonata is enabled, or explicitly enable to
 get an error if Sonata becomes unavailable.
 
 Sonata admin is using the ``content_basepath`` to show the tree of content to
 select the route target.
 
-See the :ref:`routing configuration reference PHPCR section <reference_configuration_routing_persistence_phpcr>`
+See the :ref:`routing configuration reference PHPCR section <reference-configuration-routing-persistence-phpcr>`
 for more details.
 
 Doctrine ORM integration
 ------------------------
 
 Alternatively, you can use the Doctrine ORM provider by specifying the
-persistence.orm part of the configuration. It does a similar job but, as the
-name indicates, loads ``Route`` entities from an ORM database.
+``persistence.orm`` part of the configuration. It does a similar job but, as
+the name indicates, loads ``Route`` entities from an ORM database.
 
 .. _bundles_routing_dynamic_generator:
 
@@ -249,9 +256,10 @@ URL generation with the DynamicRouter
 
 Apart from matching an incoming request to a set of parameters, a Router is
 also responsible for generating an URL from a route and its parameters. The
-DynamicRouter adds more power to the `URL generating capabilities of Symfony2`_.
+``DynamicRouter`` adds more power to the
+`URL generating capabilities of Symfony2`_.
 
-.. hint::
+.. tip::
 
     All Twig examples below are given with the ``path`` function that generates
     the URL without domain, but will work with the ``url`` function as well.
@@ -265,14 +273,12 @@ This will look as follows:
 
 .. configuration-block::
 
-    .. code-block:: jinja
+    .. code-block:: html+jinja
 
         {# myRoute is an object of class Symfony\Component\Routing\Route #}
-        <a href="{{ path(myRoute) }}>
-            Read on
-        </a>
+        <a href="{{ path(myRoute) }}>Read on</a>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- $myRoute is an object of class Symfony\Component\Routing\Route -->
         <a href="<?php echo $view['router']->generate($myRoute) ?>">
@@ -285,14 +291,12 @@ to generate a route:
 
 .. configuration-block::
 
-    .. code-block:: jinja
+    .. code-block:: html+jinja
 
         {# Create a link to / on this server #}
-        <a href="{{ path('/cms/routes') }}>
-            Home
-        </a>
+        <a href="{{ path('/cms/routes') }}>Home</a>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- Create a link to / on this server -->
         <a href="<?php echo $view['router']->generate('/cms/routes') ?>">
@@ -312,21 +316,19 @@ object that implements this interface and provides a route for it:
 
 .. configuration-block::
 
-    .. code-block:: jinja
+    .. code-block:: html+jinja
 
         {# myContent implements RouteReferrersInterface #}
-        <a href="{{ path(myContent) }}>
-            Read on
-        </a>
+        <a href="{{ path(myContent) }}>Read on</a>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- $myContent implements RouteReferrersInterface -->
         <a href="<?php echo $view['router']->generate($myContent) ?>">
             Home
         </a>
 
-.. hint::
+.. tip::
 
     If there are several routes for the same content, the one with the locale
     matching the current request locale is preferred
@@ -337,13 +339,13 @@ an empty route name and tries to find a content implementing the
 
 .. configuration-block::
 
-    .. code-block:: jinja
+    .. code-block:: html+jinja
 
         <a href="{{ path(null, {'content_id': '/cms/content/my-content'}) }}>
             Read on
         </a>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- $myContent implements RouteReferrersInterface -->
         <a href="<?php echo $view['router']->generate(null, array(
@@ -407,7 +409,6 @@ RouteReferrersInterface Sonata Admin Extension
 
 This bundle provides an extension to edit referring routes for content that
 implements the ``RouteReferrersInterface``.
-
 
 To enable the extensions in your admin classes, simply define the extension
 configuration in the ``sonata_admin`` section of your project configuration:

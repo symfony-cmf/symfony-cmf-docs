@@ -14,10 +14,10 @@ and look into the source code.
 If the ``DynamicRouter`` does not fit your needs at all, you have the option
 of writing your own routers to hook into the ``ChainRouter``.
 
+.. index:: Route Enhancer
+
 Writing your own Route Enhancers
 --------------------------------
-
-.. index:: Custom Route Enhancer
 
 You can add your own :ref:`RouteEnhancerInterface <bundles-routing-dynamic_router-enhancer>`
 implementations if you have a case not handled by the
@@ -25,10 +25,10 @@ implementations if you have a case not handled by the
 for your enhancers and tag them with ``dynamic_router_route_enhancer`` to have
 them added to the routing.
 
+.. index:: Route Provider
+
 Using a Custom Route Provider
 -----------------------------
-
-.. index:: Custom Route Provider
 
 The Dynamic Router allows you to customize the Route Provider (i.e. the class
 responsible for retrieving routes from the database) and, by extension, the
