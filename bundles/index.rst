@@ -6,7 +6,7 @@ Bundles
 
     block/index
     blog
-    content
+    content/index
     core/index
     create
     phpcr_odm
