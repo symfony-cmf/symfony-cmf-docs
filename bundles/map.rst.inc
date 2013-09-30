@@ -10,9 +10,9 @@
 
   * :doc:`blog`
 
-* **ContentBundle**
+* :doc:`content/index`
 
-  * :doc:`content`
+  * :doc:`content/introduction`
 
 * :doc:`core/index`
 
