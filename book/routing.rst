@@ -417,7 +417,7 @@ with a few added possibilities:
 * Alternatively, supply an implementation of ``ContentRepositoryInterface`` and
   the id of the model instance as parameter ``content_id``
 
-See :ref:`bundles_routing_dynamic_generator` for code examples of all above
+See :ref:`bundles-routing-dynamic-generator` for code examples of all above
 cases.
 
 The route generation handles locales as well, see

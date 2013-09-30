@@ -58,9 +58,38 @@ defaults to avoid issues when generating the URL for the current request.
 
 Your controllers can (and should) declare the parameter ``$contentDocument`` in
 their ``Action`` methods if they are supposed to work with content referenced
-by the routes.  See
-``Symfony\Cmf\Bundle\ContentBundle\Controller\ContentController`` for an
-example.
+by the routes.  Note that the :doc:`../content/introduction` provides a default
+controller that renders the content with a specified template for when you do
+not need any logic.
+
+A custom controller action action can look like this::
+
+.. code-block:: php
+
+    namespace Acme\DemoBundle\Controller;
+
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+    class ContentController extends Controller
+    {
+        /**
+         * @param object $contentDocument the name of this parameter is defined
+         *      by the RoutingBundle. You can also expect any route parameters
+         *      or $contentTemplate if you configured templates_by_class (see below).
+         *
+         * @return Response
+         */
+        public function demoAction($contentDocument)
+        {
+            // do things with $contentDocument and gather other information ...
+            $customValue = 42;
+
+            return $this->render('AcmeDemoBundle:Content:demo.html.twig', array(
+                'cmfMainContent' => $contentDocument,
+                'custom_parameter' => $customValue,
+            ));
+        }
+    }
 
 .. note::
 
@@ -249,7 +278,7 @@ Alternatively, you can use the Doctrine ORM provider by specifying the
 ``persistence.orm`` part of the configuration. It does a similar job but, as
 the name indicates, loads ``Route`` entities from an ORM database.
 
-.. _bundles_routing_dynamic_generator:
+.. _bundles-routing-dynamic-generator:
 
 URL generation with the DynamicRouter
 -------------------------------------
@@ -358,7 +387,7 @@ an empty route name and tries to find a content implementing the
 
     To be precise, it is enough for the content to implement the
     ``RouteReferrersReadInterface`` if writing the routes is not desired. See
-    :ref:`contributing_bundles_interface-naming` for more on the naming scheme.)
+    :ref:`contributing-bundles-interface_naming` for more on the naming scheme.)
 
 For the implementation details, please refer to the
 :ref:`component-routing-generator` section in the the cmf routing component
