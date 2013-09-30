@@ -7,13 +7,14 @@ MediaBundle
 
     The `MediaBundle`_ provides a way to store and edit any media and provides
     a generic base of common interfaces and models that allow the user to build
-    media management solutions for a CMS. Media can be images, binary documents
-    (like pdf files), embedded movies, uploaded movies, MP3s, etc. The
-    implementation of this bundle is **very** minimalistic and is focused on
-    images and download files. If you need more functionality (like cdn,
-    thumbnail generation, providers for different media types and more) take a
-    look at `SonataMediaBundle`_. The MediaBundle provides integration with
-    SonataMediaBundle.
+    media management solutions for a CMS.
+    
+Media can be images, binary documents (like pdf files), embedded movies,
+uploaded movies, MP3s, etc. The implementation of this bundle is **very**
+minimalistic and is focused on images and download files. If you need more
+functionality (like cdn, thumbnail generation, providers for different media
+types and more) take a look at `SonataMediaBundle`_. The MediaBundle provides
+integration with SonataMediaBundle.
 
 This bundle provides:
 
@@ -35,8 +36,6 @@ persisted using Doctrine PHPCR-ODM, Doctrine ORM or something else.
 
     The bundle is built to support several persistence layers. Only the
     Doctrine PHPCR-ODM is implemented in version 1.0.
-
-.. index:: MediaBundle, PHPCR, ODM, ORM
 
 Installation
 ------------
@@ -99,7 +98,7 @@ Using the interfaces leaves it open to use separate classes for each media type
 or one media class for all. Also how data is persisted can be changed depending
 on the situation, an example is that a file size can be persisted in the
 metadata but also can have its own field. This way a project can start with an
-Image class and later grow.
+``Image`` class and later grow.
 
 The MediaBundle provides the following interfaces:
 
@@ -127,38 +126,39 @@ Terminology
 The MediaBundle provides a generic base of common models to work with media.
 When working with them several terms can be used.
 
-Let's take the example of an image. In general we know how to store images,
-we organize them in a folder, maybe we added some subfolders and then the
+For instance, take an image. In general you know how to store images and how
+to organize them in a folder, maybe you added some subfolders and then the
 images.
 
-On a windows machine the image file has a **path** that can look like this:
+On a Windows machine the image file has a **path** that can look like this:
 ``C:\path\to\my\image.jpg``
 
-On a linux or Mac OSX machine the image file has a **path** that can look like
+On a Linux or Mac OSX machine the image file has a **path** that can look like
 this: ``/path/to/my/image.jpg``
 
-Above paths are called a filesystem path and contain the following information:
+The above paths are called a filesystem path and contain the following
+information:
 
-* the name of the file: *image.jpg*
-* and the path to the subfolder is ``/path/to/my``, the folder above has
+* the name of the file: ``image.jpg``;
+* the path to the subfolder is ``/path/to/my``, the folder above has
   ``/path/to`` as path, etc.
 
-What we see is that a path contains both information about the file and its
-parents.
+As you can see, the path contains both information about the file and about
+its parents.
 
-For the MediaBundle we re-use the **path** idea to make media objects unique
-and be able to get the parent from it when needed:
+The MediaBundle re-used the **path** idea to make media objects unique and to
+be able to get the parent from it when needed:
 
-* parents are always separated by a "/": ``/path``, ``/path/to`` and
+* parents are always separated by a ``/``: ``/path``, ``/path/to`` and
   ``/path/to/my`` are all parents;
-* and combined with the media name after the last "/": ``image.jpg``;
-* it also always starts with a "/".
+* parents are combined with the media name after the last "/": ``image.jpg``;
+* parents always start with a ``/``.
 
-Phpcr also uses the **path** in a similar way, for Phpcr the path is also used
-as media object id. For ORM or ODM storage the id is more likely a number.
+PHPCR also uses the **path** in a similar way, for PHPCR the path is also used
+as media object id. For ORM or ODM storage, the id is more likely a number.
 
-If you look at the MediaManagerInterface you will see several methods using
-this **path**:
+If you look at the ``MediaManagerInterface`` you will see several methods
+using this **path**:
 
 * **getPath**: allows you to create a path for a media object stored
   in Phpcr, ORM or another Doctrine storage;
@@ -180,16 +180,15 @@ The ``cmf_media_image`` form maps to an object that implements the
 ``Symfony\Cmf\Bundle\MediaBundle\ImageInterface`` and provides a preview of the
 uploaded image.
 
-if `LiipImagineBundle`_ is used in your project you can configure the imagine
-filter to use for the preview, as well as additional filters to remove from
-cache when the image is replaced. If the filter is not specified, it defaults
-to ``image_upload_thumbnail``.
+If the `LiipImagineBundle`_ is used in your project, you can configure the
+imagine filter to use for the preview, as well as additional filters to remove
+from cache when the image is replaced. If the filter is not specified, it
+defaults to ``image_upload_thumbnail``.
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # Imagine Configuration
         liip_imagine:
             # ...
             filter_sets:
@@ -198,6 +197,44 @@ to ``image_upload_thumbnail``.
                     data_loader: cmf_media_doctrine_phpcr
                     filters:
                         thumbnail: { size: [100, 100], mode: outbound }
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://example.org/schema/dic/liip_imagine">
+
+                <!-- define the filter to be used with the image preview -->
+                <filter-set name="image_upload_thumbnail"
+                    data-loader="cmf_media_doctrine_phpcr">
+
+                    <filter name="thumbnail"
+                        size="100, 100"
+                        mode="outbound"
+                    />
+                </filter-set>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('liip_imagine', array(
+            // ...
+
+            'filter_sets' => array(
+                // define the filter to be used with the image preview
+                'image_upload_thumbnail' => array(
+                    'data_loader' => 'cmf_media_doctrine_phpcr',
+                    'filters' => array(
+                        'thumbnail' => array(
+                            'size' => array(100, 100),
+                            'mode' => 'outbound',
+                        ),
+                    ),
+                ),
+            ),
+        ));
 
 Then you can add images to document forms as follows::
 
@@ -212,29 +249,51 @@ Then you can add images to document forms as follows::
 
 .. tip::
 
-   If you set required to true for the image, the user must re-upload a new
-   image each time he edits the form. If the document must have an image, it
-   makes sense to require the field when creating a new document, but make it
-   optional when editing an existing document. We are
+   If you set required to ``true`` for the image, the user must re-upload a
+   new image each time he edits the form. If the document must have an image,
+   it makes sense to require the field when creating a new document, but make
+   it optional when editing an existing document. We are
    `trying to make this automatic`_.
 
 Next you will need to add the ``fields.html.twig`` template from the
 MediaBundle to the ``form.resources``, to actually see the preview of the
-uploaded image in the backend.
+uploaded image in the backend:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # Twig Configuration
         twig:
             form:
                 resources:
                     - 'CmfMediaBundle:Form:fields.html.twig'
 
-The document that should contain the Image document has to implement a setter
-method. To profit from the automatic guesser of the form layer, the name in
-the form element and this method name have to match. See
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://symfony.com/schem/dic/twig">
+
+                <form>
+                    <resource>CmfMediaBundle:Form:fields.html.twig</resource>
+                </form>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('twig', array(
+            'form' => array(
+                'resources' => array(
+                    'CmfMediaBundle:Form:fields.html.twig',
+                ),
+            ),
+        ));
+
+The document that should contain the ``Image`` document has to implement a
+setter method. To profit from the automatic guesser of the form layer, the
+name in the form element and this method name have to match. See
 `ImagineBlock::setImage`_ for an example implementation.
 
 To delete an image, you need to delete the document containing the image.
@@ -243,7 +302,7 @@ To delete an image, you need to delete the document containing the image.
 
 .. note::
 
-    There is a doctrine listener to invalidate the imagine cache for the
+    There is a Doctrine listener to invalidate the imagine cache for the
     filters you specified. This listener will only operate when an Image is
     changed in a web request, but not when a CLI command changes images. When
     changing images with commands, you should handle cache invalidation in the
@@ -259,7 +318,7 @@ The media bundle contains a Twig extension, it contains the following functions:
 
   .. configuration-block::
 
-      .. code-block:: jinja
+      .. code-block:: html+jinja
 
           <a href="{{ cmf_media_download_url(file) }}" title="Download">Download</a>
 
@@ -272,7 +331,7 @@ The media bundle contains a Twig extension, it contains the following functions:
 
   .. configuration-block::
 
-      .. code-block:: jinja
+      .. code-block:: html+jinja
 
           <img src="{{ cmf_media_display_url(image) }}" alt="" />
 
@@ -280,7 +339,7 @@ The media bundle contains a Twig extension, it contains the following functions:
 
           <img src="<?php echo $view['cmf_media']->displayUrl($image) ?>" alt="" />
 
-SonataMediaBundle integration
+SonataMediaBundle Integration
 -----------------------------
 
 If you want to have more advanced features you can use the `SonataMediaBundle`_.
@@ -289,18 +348,18 @@ The MediaBundle is built to be fully compatible with the SonataMediaBundle.
 .. note::
 
     For version 1.1 the integration with the SonataMediaBundle is planned, and
-    if possible an upgrade command and documentation is added.
+    - if possible - an upgrade command and documentation is added.
 
-Web editing tools
+Web Editing Tools
 -----------------
 
 The MediaBundle provides integration with WYSIWYG editors and
 :doc:`Create <../create>`. Media support is mostly split in:
 
-* uploading a file
-* browsing and selecting media
+* `Uploading Files`_
+* `browsing and Selecting Media`_
 
-Uploading files
+Uploading Files
 ~~~~~~~~~~~~~~~
 
 The file and image controller of the MediaBundle provide an upload action, it
@@ -335,7 +394,7 @@ and Symfony bundles.
 LiipImagine
 ~~~~~~~~~~~
 
-For LiipImagine a data loader is included:
+For LiipImagine, a data loader is included:
 ``Symfony\Cmf\Bundle\MediaBundle\Adapter\LiipImagine\CmfMediaDoctrineLoader``.
 It will work for all image object implementing
 ``Symfony\Cmf\Bundle\MediaBundle\ImageInterface`` and is automatically enabled
