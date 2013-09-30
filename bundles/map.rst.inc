@@ -49,9 +49,9 @@
 
   * :doc:`routing_auto`
 
-* **SearchBundle**
+* :doc:`search/index`
 
-  * :doc:`search`
+* :doc:`search/introduction`
 
 * :doc:`simple_cms/index`
 
