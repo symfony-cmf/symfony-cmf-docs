@@ -14,7 +14,7 @@
 
   * :doc:`content`
 
-* :doc:`block/index`
+* :doc:`core/index`
 
   * :doc:`core/introduction`
   * :doc:`core/publish_workflow`
