@@ -1,7 +1,7 @@
 .. index::
     single: Core; Bundles; publish workflow
 
-.. _bundle-core-publish_workflow:
+.. _bundle-core-publish-workflow:
 
 Publish Workflow
 ----------------
@@ -102,7 +102,7 @@ the path in question - he will have the permission to view unpublished content a
         // ...
     }
 
-.. _bundle-core-publish_workflow-twig_function:
+.. _bundle-core-publish-workflow-twig_function:
 
 To check publication in a template, use the twig function ``cmf_is_published``:
 
@@ -182,7 +182,7 @@ As voting is unanimous, each voter returns ``ACCESS_GRANTED`` if its criteria
 is met, but if a single voter returns ``ACCESS_DENIED``, the content is
 considered not published.
 
-You can also implement your :ref:`own voters <bundle-core-workflow_custom_voters>`
+You can also implement your :ref:`own voters <bundle-core-workflow-custom-voters>`
 for additional publication behaviour.
 
 PublishableVoter
@@ -205,7 +205,7 @@ and end date. A date may be null to indicate "always started" resp.
 * **getPublishEndDate**: If non-null, the date from which the document
   should stop being published.
 
-.. _bundle-core-workflow_custom_voters:
+.. _bundle-core-workflow-custom-voters:
 
 Custom Voters
 .............

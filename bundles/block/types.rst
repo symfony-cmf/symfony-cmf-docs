@@ -20,7 +20,7 @@ Publish Workflow Interfaces
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``AbstractBlock`` implements the write interfaces for publishable and publish time
-period, see the :ref:`publish workflow documentation <bundle-core-publish_workflow>`
+period, see the :ref:`publish workflow documentation <bundle-core-publish-workflow>`
 for more information.
 
 StringBlock
