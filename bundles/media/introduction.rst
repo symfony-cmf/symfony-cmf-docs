@@ -5,16 +5,15 @@
 MediaBundle
 ===========
 
-.. include:: _outdate-caution.rst.inc
-
-The `MediaBundle`_ provides a way to store and edit any media and provides a
-generic base of common interfaces and models that allow the user to build media
-management solutions for a CMS. Media can be images, binary documents (like pdf
-files), embedded movies, uploaded movies, MP3s, etc. The implementation of this
-bundle is **very** minimalistic and is focused on images and download files.
-If you need more functionality (like cdn, thumbnail generation, providers for
-different media types and more) take a look at `SonataMediaBundle`_. The
-MediaBundle provides integration with SonataMediaBundle.
+    The `MediaBundle`_ provides a way to store and edit any media and provides
+    a generic base of common interfaces and models that allow the user to build
+    media management solutions for a CMS. Media can be images, binary documents
+    (like pdf files), embedded movies, uploaded movies, MP3s, etc. The
+    implementation of this bundle is **very** minimalistic and is focused on
+    images and download files. If you need more functionality (like cdn,
+    thumbnail generation, providers for different media types and more) take a
+    look at `SonataMediaBundle`_. The MediaBundle provides integration with
+    SonataMediaBundle.
 
 This bundle provides:
 
@@ -39,131 +38,15 @@ persisted using Doctrine PHPCR-ODM, Doctrine ORM or something else.
 
 .. index:: MediaBundle, PHPCR, ODM, ORM
 
-Dependencies
-------------
-
-For PHPCR:
-
-* :doc:`PHPCR-ODM <phpcr_odm>` is used to persist the bundles documents;
-* `phpcr/phpcr-utils`_.
-
-When using the CreateBundle:
-
-* `jms/serializer-bundle`_ to serialize ImageInterface objects.
-
-When using the LiipImagine adapter:
-
-* `LiipImagineBundle`_.
-
-When using the elFinder adapter:
-
-* `FMElfinderBundle`_.
-
-When using the Gaufrette adapter:
-
-* `KnpLabs/Gaufrette`_.
-
-Configuration
--------------
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_media:
-            persistence:
-                phpcr:
-                    enabled:         true
-                    manager_name:    ~
-                    media_basepath:  ~ # default: /cms/media
-                    media_class:     ~
-                    file_class:      ~
-                    directory_class: ~
-                    image_class:     ~
-            upload_file_role:   ~ # default: ROLE_CAN_UPLOAD_FILE
-            use_jms_serializer: ~ # default: auto
-            use_elfinder:       ~ # default: auto
-            use_imagine:        ~ # default: auto
-            imagine_filter:
-                upload_thumbnail:   ~ # default: image_upload_thumbnail
-                elfinder_thumbnail: ~ # default: elfinder_thumbnail
-            extra_filters:
-                - imagine_filter_name1
-                - imagine_filter_name2
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <!--
-            upload-file-role:   ROLE_CAN_UPLOAD_FILE by default
-            use-jms-serializer: auto by default
-            use-elfinder:       auto by default
-            use-imagine:        auto by default
-        -->
-        <config xmlns="http://cmf.symfony.com/schema/dic/media"
-            upload-file-role="null"
-            use-jms-serializer="null"
-            use-elfinder="null"
-            use-imagine="null"
-        >
-            <persistence>
-                <!-- media-basepath: /cms/media by default -->
-                <phpcr
-                    enabled="true"
-                    manager-name="null"
-                    media-basepath="null"
-                    media-class="null"
-                    file-class="null"
-                    directory-class="null"
-                    image-class="null"
-                />
-            </persistence>
-            <!--
-                upload_thumbnail:   image_upload_thumbnail by default
-                elfinder_thumbnail: elfinder_thumbnail by default
-            -->
-            <imagine-filter
-                upload_thumbnail="null"
-                elfinder_thumbnail="null"
-            />
-            <extra-filter>imagine_filter_name1</extra-filter>
-            <extra-filter>imagine_filter_name2</extra-filter>
-        </config>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('cmf_media', array(
-            'persistence' => array(
-                'phpcr' => array(
-                    'enabled'         => true,
-                    'manager_name'    => null,
-                    'media_basepath'  => null, // default: /cms/media
-                    'media_class'     => null,
-                    'file_class'      => null,
-                    'directory_class' => null,
-                    'image_class'     => null,
-                ),
-             ),
-            'upload_file_role'   => null, // default: ROLE_CAN_UPLOAD_FILE
-            'use_jms_serializer' => null, // default: auto
-            'use_elfinder'       => null, // default: auto
-            'use_imagine'        => null, // default: auto
-            'imagine_filter'     => array(
-                'upload_thumbnail'   => null, // default: image_upload_thumbnail
-                'elfinder_thumbnail' => null, // default: elfinder_thumbnail
-            ),
-            'extra_filters'      => array(
-                'imagine_filter_name1',
-                'imagine_filter_name2',
-            ),
-        ));
-
 Installation
 ------------
 
-1. When using the file and image controller for downloading, uploading and
+1. You can install the bundle in 2 different ways:
+
+  * Use the official Git repository (https://github.com/symfony-cmf/MediaBundle);
+  * Install it via Composer (``symfony-cmf/media-bundle`` on `Packagist`_).
+
+2. When using the file and image controller for downloading, uploading and
    displaying, add the following lines to the end of your routing file:
 
    .. configuration-block::
@@ -205,7 +88,7 @@ Installation
 
            return $collection;
 
-2. Run the ``doctrine:phpcr:repository:init`` command, it runs all tagged
+3. Run the ``doctrine:phpcr:repository:init`` command, it runs all tagged
    :ref:`phpcr-odm-repository-initializers` including the MediaBundle
    initializer.
 
@@ -412,7 +295,7 @@ Web editing tools
 -----------------
 
 The MediaBundle provides integration with WYSIWYG editors and
-:doc:`Create <create>`. Media support is mostly split in:
+:doc:`Create <../create>`. Media support is mostly split in:
 
 * uploading a file
 * browsing and selecting media
@@ -421,9 +304,10 @@ Uploading files
 ~~~~~~~~~~~~~~~
 
 The file and image controller of the MediaBundle provide an upload action, it
-uses the ``UploadFileHelper``. If you want to make your own upload
-implementation you can use the ``UploadFileHelper`` directly. The default
-upload action is protected by the ``ROLE_CAN_UPLOAD_FILE`` role.
+uses an ``UploadFileHelperInterface`` instance. If you want to make your own upload
+implementation you can use the ``cmf_media.upload_file_helper`` or
+``cmf_media.upload_image_helper`` service directly. The default upload action
+is protected by the ``ROLE_CAN_UPLOAD_FILE`` role.
 
 The ``UploadFileHelper`` contains ``UploadEditorHelperInterface`` instances.
 This handles the response returned of the file upload depending on the web
@@ -659,6 +543,7 @@ MediaBundle interfaces.
     PHPCR-ODM.
 
 .. _`MediaBundle`: https://github.com/symfony-cmf/MediaBundle#readme
+.. _`Packagist`: https://packagist.org/packages/symfony-cmf/media-bundle
 .. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
 .. _`trying to make this automatic`: https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4
 .. _`MediaBundle issue`: https://github.com/symfony-cmf/MediaBundle/issues/9

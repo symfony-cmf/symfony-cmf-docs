@@ -78,7 +78,7 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`BlockBundle <../../bundles/block/introduction>`
 * :doc:`ContentBundle <../../bundles/content>`
 * :doc:`CreateBundle <../../bundles/create>`
-* :doc:`MediaBundle <../../bundles/media>`
+* :doc:`MediaBundle <../../bundles/media/introduction>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SearchBundle <../../bundles/search>`
@@ -137,7 +137,7 @@ Enabling this setting will also automatically enable the equivalent settings in 
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
 * :doc:`ContentBundle <../../bundles/content>`
-* :doc:`MediaBundle <../../bundles/media>`
+* :doc:`MediaBundle <../../bundles/media/introduction>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SearchBundle <../../bundles/search>`
@@ -164,7 +164,7 @@ retrieve the default manager.<persistence>
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`MediaBundle <../../bundles/media>`
+* :doc:`MediaBundle <../../bundles/media/introduction>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SearchBundle <../../bundles/search>`

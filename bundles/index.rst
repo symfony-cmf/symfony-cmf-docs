@@ -10,7 +10,7 @@ Bundles
     core/index
     create
     phpcr_odm
-    media
+    media/index
     menu
     routing_auto
     routing/index
