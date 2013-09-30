@@ -104,7 +104,7 @@ to do it? In this case the reference is the right place for you.
 	bundles/menu
 	bundles/routing/index
 	bundles/routing_auto
-	bundles/search
+	bundles/search/index
 	bundles/simple_cms/index
 	bundles/doctrine_phpcr_admin
 	bundles/tree_browser
