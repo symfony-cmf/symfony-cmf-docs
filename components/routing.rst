@@ -398,6 +398,8 @@ should implement your own logic to handle the redirection. For an example of
 implementing that redirection under the full Symfony2 stack, refer to
 :doc:`the RoutingBundle <../bundles/routing/introduction>`.
 
+.. _component-routing-generator:
+
 Generating URLs
 ~~~~~~~~~~~~~~~
 

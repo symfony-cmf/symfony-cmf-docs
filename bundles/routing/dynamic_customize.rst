@@ -1,17 +1,41 @@
-.. index::
-    single: Custom Route Repository
+.. _bundle-routing-customize:
 
-Using a Custom Route Repository with Dynamic Router
-===================================================
+Customizing the Dynamic Router
+==============================
 
-.. include:: ../_outdate-caution.rst.inc
+The ``DynamicRouter`` is built to be customized. Both route matching and URL
+generation services can be injected, and the provided route matcher and
+URL generator classes are built to be further customizable.
+
+This chapter describes the most common customization. If you want to go
+further, you will need to read the :doc:`component documentation <../../components/routing>`
+and look into the source code.
+
+If the ``DynamicRouter`` does not fit your needs at all, you have the option
+of writing your own routers to hook into the ``ChainRouter``.
+
+Writing your own Route Enhancers
+--------------------------------
+
+.. index:: Custom Route Enhancer
+
+You can add your own :ref:`RouteEnhancerInterface <bundles-routing-dynamic_router-enhancer>`
+implementations if you have a case not handled by the
+:ref:`provided enhancers <component-routing-enhancers>`. Simply define services
+for your enhancers and tag them with ``dynamic_router_route_enhancer`` to have
+them added to the routing.
+
+Using a Custom Route Provider
+-----------------------------
+
+.. index:: Custom Route Provider
 
 The Dynamic Router allows you to customize the Route Provider (i.e. the class
 responsible for retrieving routes from the database) and, by extension, the
 Route objects.
 
 Creating the Route Provider
----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The route provider must implement the ``RouteProviderInterface``. The
 following class provides a simple solution using an ODM Repository.
@@ -84,7 +108,7 @@ following class provides a simple solution using an ODM Repository.
     given URL exactly and only ever return a single ``Route``.
 
 Replacing the Default CMF Route Provider
-----------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To replace the default ``RouteProvider``, it is necessary to modify your
 configuration as follows:
@@ -127,3 +151,4 @@ provider.  See `Creating and configuring services in the container`_ for
 information on creating custom services.
 
 .. _`Creating and configuring services in the container`: http://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container/
+.. _`PHPCR-ODM`: https://github.com/doctrine/phpcr-odm

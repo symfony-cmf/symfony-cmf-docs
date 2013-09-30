@@ -36,12 +36,17 @@ To add the ``DynamicRouter``, use the following configuration:
 
     .. code-block:: xml
 
-        <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-            <chain>
-                <router-by-id id="cmf_routing.dynamic_router">200</router-by-id>
-                <router-by-id id="router.default">100</router-by-id>
-            </chain>
-        </config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <chain>
+                    <router-by-id id="cmf_routing.dynamic_router">200</router-by-id>
+                    <router-by-id id="router.default">100</router-by-id>
+                </chain>
+            </config>
+
+        </container>
 
     .. code-block:: php
 
@@ -80,11 +85,16 @@ default router, because :ref:`no other routers were set <reference-config-routin
 
     .. code-block:: xml
 
-        <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-            <cmf-routing>
-                <chain replace-symfony-router="true"/>
-            </cmf-routing>
-        </config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <cmf-routing>
+                    <chain replace-symfony-router="true"/>
+                </cmf-routing>
+            </config>
+
+        </container>
 
     .. code-block:: php
 
@@ -138,11 +148,17 @@ type:
 
     .. code-block:: xml
 
-        <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-            <dynamic>
-                <controller-by-type type="editable">acme_main.controller:editableAction</controller-by-type>
-            </dynamic>
-        </config>
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic>
+                    <controller-by-type type="editable">acme_main.controller:editableAction</controller-by-type>
+                </dynamic>
+            </config>
+
+        </container>
 
     .. code-block:: php
 
@@ -180,14 +196,19 @@ choose this controller to handle the request.
 
     .. code-block:: xml
 
-        <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-            <dynamic>
-                <controller-by-class
-                    class="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent">
-                    cmf_content.controller:indexAction
-                </controller-by-class>
-            </dynamic>
-        </config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic>
+                    <controller-by-class
+                        class="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent">
+                        cmf_content.controller:indexAction
+                    </controller-by-class>
+                </dynamic>
+            </config>
+
+        </container>
 
     .. code-block:: php
 
@@ -225,14 +246,19 @@ setting is set as controller.
 
     .. code-block:: xml
 
-        <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-            <dynamic>
-                <template-by-class
-                    class="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent">
-                    CmfContentBundle:StaticContent:index.html.twig
-                </template-by-class>
-            </dynamic>
-        </config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic>
+                    <template-by-class
+                        class="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent">
+                        CmfContentBundle:StaticContent:index.html.twig
+                    </template-by-class>
+                </dynamic>
+            </config>
+
+        </container>
 
     .. code-block:: php
 
@@ -247,8 +273,62 @@ setting is set as controller.
 persistence
 ...........
 
+.. _reference_configuration_routing_persistence_phpcr:
+
 phpcr
 """""
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_routing:
+            dynamic:
+                persistence:
+                    phpcr:
+                        enabled: false
+                        manager_name: null
+                        route_basepath: /cms/routes
+                        content_basepath: /cms/content
+                        use_sonata_admin: auto
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic>
+                    <persistence>
+                        <phpcr
+                            enabled="false"
+                            manager_name="null"
+                            route_basepath="/cms/routes"
+                            content_basepath="/cms/content"
+                            use_sonata_admin="auto"
+                        />
+                    </persistence>
+                </dynamic>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_routing', array(
+            'dynamic' => array(
+                'persistence' => array(
+                    'phpcr' => array(
+                        'enabled' => false,
+                        'manager_name' => null,
+                        'route_basepath' => '/cms/routes',
+                        'content_basepath' => '/cms/content',
+                        'use_sonata_admin' => 'auto',
+                    ),
+                ),
+            ),
+        ));
+
 
 enabled
 *******
@@ -365,11 +445,17 @@ priority.
 
     .. code-block:: xml
 
-        <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-            <dynamic>
-                <route-filter-by-id id="acme_main.routing.foo_filter">100</route-filter-by-id>
-            </dynamic>
-        </config>
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic>
+                    <route-filter-by-id id="acme_main.routing.foo_filter">100</route-filter-by-id>
+                </dynamic>
+            </config>
+
+        </container>
 
     .. code-block:: php
 
