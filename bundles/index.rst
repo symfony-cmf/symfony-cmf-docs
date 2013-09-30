@@ -6,15 +6,15 @@ Bundles
 
     block/index
     blog
-    content
+    content/index
     core/index
     create
     phpcr_odm
-    media
+    media/index
     menu
     routing_auto
     routing/index
-    search
+    search/index
     simple_cms/index
     doctrine_phpcr_admin
     tree_browser

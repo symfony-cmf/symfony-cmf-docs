@@ -220,6 +220,8 @@ choose this controller to handle the request.
             ),
         ));
 
+.. _reference-config-routing-template_by_class:
+
 template_by_class
 .................
 

@@ -34,7 +34,7 @@ AsseticBundle, FOSRestBundle and by inference also JmsSerializerBundle. Make
 sure you instantiate all those bundles in your kernel and properly configure
 assetic.
 
-To upload and display images the :doc:`MediaBundle <media>` is used.
+To upload and display images the :doc:`MediaBundle <media/introduction>` is used.
 
 Installation
 ------------
@@ -416,7 +416,7 @@ isEditable to answer whether the passed domain object is editable.
 Image Handling
 ~~~~~~~~~~~~~~
 
-For image handling the :doc:`MediaBundle <media>` is used if installed.
+For image handling the :doc:`MediaBundle <media/introduction>` is used if installed.
 
 If you need different image handling, you can either overwrite
 ``image.model_class`` and/or ``image.controller_class``, or implement a custom

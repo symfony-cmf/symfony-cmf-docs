@@ -7,9 +7,9 @@ Using the BlockBundle and ContentBundle with PHPCR
 ==================================================
 
 The goal of this tutorial is to demonstrate how the CMF
-:doc:`BlockBundle <../bundles/block/index>` and :doc:`ContentBundle
-<../bundles/content>` can be used as stand-alone components, and to show how
-they fit into the PHPCR.
+:doc:`BlockBundle <../bundles/block/index>` and
+:doc:`ContentBundle <../bundles/content/index>` can be used as stand-alone
+components, and to show how they fit into the PHPCR.
 
 This tutorial demonstrates the simplest possible usage, to get you up and
 running quickly. Once you are familiar with basic usage, the in-depth
@@ -575,9 +575,9 @@ Next Steps
 You should now be ready to use the BlockBundle and/or the ContentBundle in
 your application, or to explore the other available CMF bundles.
 
-* See the :doc:`BlockBundle <../bundles/block/index>` and :doc:`ContentBundle
-  <../bundles/content>` documentation to learn about more advanced usage of
-  these bundles
+* See the :doc:`BlockBundle <../bundles/block/introduction>` and
+  :doc:`ContentBundle <../bundles/content/introduction>` documentation to
+  learn about more advanced usage of these bundles
 * To see a better way of loading fixtures, look at the
   `fixtures in the CMF Sandbox`_
 * Take a look at the `PHPCR Tutorial`_ for a better understanding of the

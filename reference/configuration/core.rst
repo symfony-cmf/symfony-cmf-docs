@@ -76,12 +76,12 @@ If ``true``, PHPCR is enabled in the service container.
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`ContentBundle <../../bundles/content>`
+* :doc:`ContentBundle <../../bundles/content/introduction>`
 * :doc:`CreateBundle <../../bundles/create>`
-* :doc:`MediaBundle <../../bundles/media>`
+* :doc:`MediaBundle <../../bundles/media/introduction>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SearchBundle <../../bundles/search>`
+* :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 * :doc:`TreeBrowserCmsBundle <../../bundles/tree_browser>`
 
@@ -136,11 +136,11 @@ The basepath for CMS documents in the PHPCR tree.
 Enabling this setting will also automatically enable the equivalent settings in the following Bundles:
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`ContentBundle <../../bundles/content>`
-* :doc:`MediaBundle <../../bundles/media>`
+* :doc:`ContentBundle <../../bundles/content/introduction>`
+* :doc:`MediaBundle <../../bundles/media/introduction>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SearchBundle <../../bundles/search>`
+* :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 
 manager_registry
@@ -150,7 +150,7 @@ manager_registry
 
 Enabling this setting will also automatically enable the equivalent settings in the following Bundles:
 
-* :doc:`SearchBundle <../../bundles/search>`
+* :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 
 manager_name
@@ -164,10 +164,10 @@ retrieve the default manager.<persistence>
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`MediaBundle <../../bundles/media>`
+* :doc:`MediaBundle <../../bundles/media/introduction>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SearchBundle <../../bundles/search>`
+* :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 
 use_sonata_admin
@@ -182,7 +182,7 @@ SonataPhpcrAdminBundle is present.
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`ContentBundle <../../bundles/content>`
+* :doc:`ContentBundle <../../bundles/content/introduction>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
