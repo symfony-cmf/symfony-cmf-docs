@@ -33,6 +33,8 @@
 * :doc:`media/index`
 
   * :doc:`media/introduction`
+  * :doc:`media/form_types`
+  * :doc:`media/adapters/index`
 
 * **MenuBundle**
 
