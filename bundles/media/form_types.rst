@@ -141,3 +141,8 @@ To delete an image, you need to delete the document containing the image.
     changed in a web request, but not when a CLI command changes images. When
     changing images with commands, you should handle cache invalidation in the
     command or manually remove the imagine cache afterwards.
+
+.. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
+.. _`trying to make this automatic`: https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4
+.. _`ImagineBlock::setImage`: https://github.com/symfony-cmf/BlockBundle/blob/master/Doctrine/Phpcr/ImagineBlock.php#L121
+.. _`MediaBundle issue`: https://github.com/symfony-cmf/MediaBundle/issues/9

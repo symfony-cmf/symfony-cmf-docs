@@ -262,11 +262,7 @@ and Symfony bundles:
 
 .. _`MediaBundle`: https://github.com/symfony-cmf/MediaBundle#readme
 .. _`Packagist`: https://packagist.org/packages/symfony-cmf/media-bundle
-.. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
-.. _`trying to make this automatic`: https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4
-.. _`MediaBundle issue`: https://github.com/symfony-cmf/MediaBundle/issues/9
 .. _`KnpLabs/Gaufrette`: https://github.com/KnpLabs/Gaufrette
 .. _`phpcr/phpcr-utils`: https://github.com/phpcr/phpcr-utils
 .. _`jms/serializer-bundle`: https://github.com/schmittjoh/JMSSerializerBundle
 .. _`SonataMediaBundle`: https://github.com/sonata-project/SonataMediaBundle
-.. _`ImagineBlock::setImage`: https://github.com/symfony-cmf/BlockBundle/blob/master/Doctrine/Phpcr/ImagineBlock.php#L121
