@@ -389,7 +389,7 @@ Publish Workflow Interface
 --------------------------
 
 Menu nodes implement the write interfaces for publishable and publish time
-period, see the :ref:`publish workflow documentation <bundle-core-publish_workflow>`
+period, see the :ref:`publish workflow documentation <bundle-core-publish-workflow>`
 for more information.
 
 .. _`KnpMenu`: https://github.com/knplabs/KnpMenu

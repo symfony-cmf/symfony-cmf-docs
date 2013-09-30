@@ -97,7 +97,7 @@ to do it? In this case the reference is the right place for you.
 	bundles/block/index
 	bundles/blog
 	bundles/content
-	bundles/core
+	bundles/core/index
 	bundles/create
 	bundles/phpcr_odm
 	bundles/media
@@ -105,7 +105,7 @@ to do it? In this case the reference is the right place for you.
 	bundles/routing/index
 	bundles/routing_auto
 	bundles/search
-	bundles/simple_cms
+	bundles/simple_cms/index
 	bundles/doctrine_phpcr_admin
 	bundles/tree_browser
 
@@ -131,7 +131,8 @@ configuration is broken down per bundle.
     :maxdepth: 1
 
     reference/configuration/routing
-    reference/configuration/simple-cms
+    reference/configuration/simple_cms
+    reference/configuration/block
 
 Contributing
 ------------

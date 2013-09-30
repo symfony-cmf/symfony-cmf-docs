@@ -7,10 +7,12 @@ RoutingAutoBundle
 
 .. include:: _outdate-caution.rst.inc
 
+.. include:: _not-stable-caution.rst.inc
+
 The RoutingAutoBundle allows you to define automatically created routes for
 documents. This implies a separation of the ``Route`` and ``Content``
 documents. If your needs are simple this bundle may not be for you and you
-should have a look at :doc:`SimpleCmsBundle <simple_cms>`.
+should have a look at :doc:`SimpleCmsBundle <simple_cms/introduction>`.
 
 For the sake of example, we will imagine a blog application that has two
 routeable contents, the blog itself, and the posts for the blog.  We will call

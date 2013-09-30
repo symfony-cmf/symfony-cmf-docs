@@ -14,9 +14,13 @@
 
   * :doc:`content`
 
-* **CoreBundle**
+* :doc:`core/index`
 
-  * :doc:`core`
+  * :doc:`core/introduction`
+  * :doc:`core/publish_workflow`
+  * :doc:`core/dependency_injection_tags`
+  * :doc:`core/templating`
+  * :doc:`core/multilang`
 
 * **CreateBundle**
 
@@ -49,9 +53,12 @@
 
   * :doc:`search`
 
-* **SimpleCmsbundle**
+* :doc:`simple_cms/index`
 
-  * :doc:`simple_cms`
+  * :doc:`simple_cms/introduction`
+  * :doc:`simple_cms/multilang`
+  * :doc:`simple_cms/rendering`
+  * :doc:`simple_cms/extending_page_class`
 
 * **SonataDoctrinePhpcrAdminBundle**
 
