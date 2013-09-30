@@ -6,7 +6,7 @@ ContentBundle
 =============
 
     The ContentBundle provides a document for static content and the controller
-    to render it.
+    to render any content that needs no special handling in the controller.
 
 For an introduction see the ":doc:`../../book/static_content`" article of the
 "Book" section.
@@ -38,7 +38,7 @@ to multiple routes and menu items. A simple page can be::
     $documentManager->persist($route); // add the route
 
     // retrieve the content root node
-    $contentRoot = $documentManager->find(null, 'content');
+    $contentRoot = $documentManager->find(null, '/cms/content');
 
     $content = new StaticContent();
     $content->setTitle('Hello World');
@@ -60,15 +60,21 @@ The ContentController
 ~~~~~~~~~~~~~~~~~~~~~
 
 The ContentBundle provides a ``ContentController``. This will handle all
-incomming requests for static content. This can only be done when it's
+incoming requests for static content. This can only be done when it's
 configured correctly.
 
 Create the Template
 ...................
 
 In order to render the content, you need to create and configure a template.
-The template will recieve a ``cmfMainContent`` variabele, which contains the
-current ``Content`` document.
+This can be done either by using the ``templates_by_class`` setting (see
+below) or by using the default template. The standard case is to use the
+``templates_by_class``, but it is always a good idea to create a default
+template.
+
+Any template rendered by the ``ContentController`` will recieve a
+``cmfMainContent`` variabele, which contains the current ``StaticContent``
+document.
 
 For instance, a very simple template looks like:
 
@@ -76,7 +82,7 @@ For instance, a very simple template looks like:
 
     .. code-block:: html+jinja
 
-        {# src/Acme/MainBundle/Resources/views/Content/static.html.twig #}
+        {# src/Acme/BlogBundle/Resources/views/Post/index.html.twig #}
         {% extends '::layout.html.twig' %}
 
         {% block title -%}
@@ -91,7 +97,7 @@ For instance, a very simple template looks like:
 
     .. code-block:: html+php
 
-        <!-- src/Acme/MainBundle/Resources/views/Content/static.html.php -->
+        <!-- src/Acme/BlogBundle/Resources/views/Post/index.html.php -->
         <?php $view->extend('::layout.html.twig') ?>
 
         <?php $view['slots']->set('title', $cmfMainContent->getTitle()) ?>
@@ -102,7 +108,7 @@ For instance, a very simple template looks like:
         <?php echo $cmfMainContent->getBody() ?>
         <?php $view['slots']->stop() ?>
 
-Next, configure this template as the default template:
+To configure a default template, use the ``default_template`` option:
 
 .. configuration-block::
 
@@ -112,7 +118,7 @@ Next, configure this template as the default template:
 
         # ...
         cmf_content:
-            default_template: AcmeMainBundle:Content:static.html.twig
+            default_template: AcmeBlogBundle:Content:static.html.twig
 
     .. code-block:: xml
 
@@ -142,7 +148,7 @@ Setting up the Routing
 The router needs to know that the route ``hello``, and all other routes
 connect to a ``Content`` document, should be passed to the
 ``ContentController``. To configure this, use the
-``cmf_routing.dynamic.templates_by_class`` configuration option:
+``cmf_routing.dynamic.controllers_by_class`` configuration option:
 
 .. configuration-block::
 
@@ -153,8 +159,8 @@ connect to a ``Content`` document, should be passed to the
         # ...
         cmf_routing:
             dynamic:
-                templates_by_class:
-                    Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent: AcmeMainBundle:Content:static.html.twig
+                controllers_by_class:
+                    Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent: cmf_content.controller:indexAction
 
     .. code-block:: xml
 
@@ -166,10 +172,10 @@ connect to a ``Content`` document, should be passed to the
 
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic>
-                    <template-by-class
+                    <controller-by-class
                         class="Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent">
-                        AcmeMainBundle:Content:static.html.twig
-                    </template-by-class>
+                        cmf_content.controller:indexAction
+                    </controller-by-class>
         </container>
 
     .. code-block:: php
@@ -179,19 +185,24 @@ connect to a ``Content`` document, should be passed to the
         // ...
         $container->loadFromExtension('cmf_routing', array(
             'dynamic' => array(
-                'templates_by_class' => array(
-                    'Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent' => 'AcmeMainBundle:Content:static.html.twig',
+                'controller_by_class' => array(
+                    'Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent' => 'cmf_content.controller:indexAction',
                 ),
             ),
         ));
 
-.. tip::
-
-    Learn more about the ``templates_by_class`` in
-    :ref:`reference-config-routing-template_by_class`
-
 Now everything is configured correctly, navigating to ``/hello`` results in a
 page displaying your content.
+
+Using templates_by_class
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+It's common to assign a template to a route and content, instead of depending
+on the default template. This is done because different documents can mean
+different properties and thus different renderings. To assign a template to a
+route, use ``templates_by_class``. The ``ContentController`` is still used to
+render the content. Read more about this in the
+:ref:`routing documentation <reference-config-routing-template_by_class>`.
 
 SonataAdminBundle Integration
 -----------------------------
