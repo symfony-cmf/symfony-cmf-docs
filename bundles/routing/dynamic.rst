@@ -62,14 +62,16 @@ by the routes.  Note that the :doc:`../content/introduction` provides a default
 controller that renders the content with a specified template for when you do
 not need any logic.
 
-A custom controller action action can look like this::
-
-.. code-block:: php
+A custom controller action can look like this::
 
     namespace Acme\DemoBundle\Controller;
 
+    use Symfony\Component\HttpFoundation\Response;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+    /**
+     * A custom controller to handle a content specified by a route.
+     */
     class ContentController extends Controller
     {
         /**
@@ -81,7 +83,7 @@ A custom controller action action can look like this::
          */
         public function demoAction($contentDocument)
         {
-            // do things with $contentDocument and gather other information ...
+            // ... do things with $contentDocument and gather other information
             $customValue = 42;
 
             return $this->render('AcmeDemoBundle:Content:demo.html.twig', array(
