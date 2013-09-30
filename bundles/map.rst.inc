@@ -14,7 +14,7 @@
 
   * :doc:`content/introduction`
 
-* :doc:`block/index`
+* :doc:`core/index`
 
   * :doc:`core/introduction`
   * :doc:`core/publish_workflow`
@@ -30,9 +30,11 @@
 
   * :doc:`phpcr_odm`
 
-* **MediaBundle**
+* :doc:`media/index`
 
-  * :doc:`media`
+  * :doc:`media/introduction`
+  * :doc:`media/form_types`
+  * :doc:`media/adapters/index`
 
 * **MenuBundle**
 
@@ -47,9 +49,9 @@
 
   * :doc:`routing_auto`
 
-* **SearchBundle**
+* :doc:`search/index`
 
-  * :doc:`search`
+* :doc:`search/introduction`
 
 * :doc:`simple_cms/index`
 

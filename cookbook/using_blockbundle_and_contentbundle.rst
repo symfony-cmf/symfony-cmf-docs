@@ -553,6 +553,9 @@ to use ``%%%block:"/absolute/path"%%%`` then you do:
                     prefix: %%%block:"
                     postfix: "%%%
 
+See also the :ref:`the configuration reference
+<reference-config-block-twig-cmf-embed-blocks>`.
+
 .. caution::
 
     Currently there is no security built into this feature. Only enable the

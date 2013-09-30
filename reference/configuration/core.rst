@@ -78,10 +78,10 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`BlockBundle <../../bundles/block/introduction>`
 * :doc:`ContentBundle <../../bundles/content/introduction>`
 * :doc:`CreateBundle <../../bundles/create>`
-* :doc:`MediaBundle <../../bundles/media>`
+* :doc:`MediaBundle <../../bundles/media/introduction>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SearchBundle <../../bundles/search>`
+* :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 * :doc:`TreeBrowserCmsBundle <../../bundles/tree_browser>`
 
@@ -137,10 +137,10 @@ Enabling this setting will also automatically enable the equivalent settings in 
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
 * :doc:`ContentBundle <../../bundles/content/introduction>`
-* :doc:`MediaBundle <../../bundles/media>`
+* :doc:`MediaBundle <../../bundles/media/introduction>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SearchBundle <../../bundles/search>`
+* :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 
 manager_registry
@@ -150,7 +150,7 @@ manager_registry
 
 Enabling this setting will also automatically enable the equivalent settings in the following Bundles:
 
-* :doc:`SearchBundle <../../bundles/search>`
+* :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 
 manager_name
@@ -164,10 +164,10 @@ retrieve the default manager.<persistence>
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`MediaBundle <../../bundles/media>`
+* :doc:`MediaBundle <../../bundles/media/introduction>`
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SearchBundle <../../bundles/search>`
+* :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 
 use_sonata_admin

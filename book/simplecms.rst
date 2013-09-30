@@ -14,7 +14,7 @@ Having two objects is the most flexible solution. You can have different
 routes (e.g. per language) for the same content. Or you can organize your
 content in a different logic than your URL tree. But in many situations,
 having the route and the content be one and the same simplifies things. That
-is exactly what the SimpleCmsBundle is doing. 
+is exactly what the SimpleCmsBundle is doing.
 
 .. note::
 
@@ -86,7 +86,7 @@ structure, the code looks like this::
     $about->setPosition($root, 'about');
 
     $manager->persist($home); // add about to the database
-    
+
     $blog = new Page();
     // ... set up blog
     $blog->setPosition($root, 'blog');
@@ -101,7 +101,7 @@ structure, the code looks like this::
 
     // as with all doctrine variants, the changes are only saved when the
     // flush method is called
-    $manager->flush(); 
+    $manager->flush();
 
 Every PHPCR-ODM document must have a parent document. Parents are never
 created automatically, so we use the PHPCR NodeHelper to ensure we have
@@ -110,7 +110,7 @@ the root element (``/cmf/simple`` in this case).
 .. note::
 
     The ``/cmf/simple`` basepath is actually already created by an
-    :ref`initializer <phpcr-odm-repository-initializers>` of the
+    :ref:`initializer <phpcr-odm-repository-initializers>` of the
     SimpleCmsBundle.
 
 Summary

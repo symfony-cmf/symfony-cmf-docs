@@ -41,8 +41,8 @@ just use the synchronized service feature.
 cmf_published_voter
 ~~~~~~~~~~~~~~~~~~~
 
-Used to activate :ref:`custom voters <bundle-core-workflow_custom_voters>` for the
-:ref:`publish workflow <bundle-core-publish_workflow>`. Tagging a service with
+Used to activate :ref:`custom voters <bundle-core-workflow-custom-voters>` for the
+:ref:`publish workflow <bundle-core-publish-workflow>`. Tagging a service with
 ``cmf_published_voter`` integrates it into the access decision of the publish
 workflow.
 
