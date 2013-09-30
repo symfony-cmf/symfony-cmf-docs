@@ -31,7 +31,7 @@ to multiple routes and menu items. A simple page can be::
 
     // retrieve the route root node
     $routeRoot = $documentManager->find(null, '/cms/routes');
-    
+
     $route = new Route();
     $route->setPosition($routeRoot, 'hello');
 
@@ -125,7 +125,7 @@ To configure a default template, use the ``default_template`` option:
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            
+
             <!-- ... -->
 
             <config xmlns="http://cmf.symfony.com/schema/dic/content"
@@ -167,7 +167,7 @@ connect to a ``Content`` document, should be passed to the
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            
+
             <!-- ... -->
 
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
@@ -193,6 +193,16 @@ connect to a ``Content`` document, should be passed to the
 
 Now everything is configured correctly, navigating to ``/hello`` results in a
 page displaying your content.
+
+.. note::
+
+    You use ``controllers_by_class`` when you have a specific controller doing
+    something extra. Otherwise you can simply configure ``templates_by_class``
+    and the ``ContentController`` will automatically be added to the routing
+    information to render your content with your configured template.
+
+    Read more about configuration of the routing in
+    :ref:`bundles-routing-dynamic_router-enhancer`.
 
 Using templates_by_class
 ~~~~~~~~~~~~~~~~~~~~~~~~
