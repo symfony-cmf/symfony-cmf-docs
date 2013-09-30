@@ -190,8 +190,7 @@ desired.
 
 Below is an example publish workflow implementation::
 
-    <?php
-    namespace MyProject\Bundle\BlogBundle\Document;
+    namespace Acme\BlogBundle\Document;
 
     use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface;
     use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface;
