@@ -5,12 +5,20 @@
 The BlockBundle
 ===============
 
-    The `BlockBundle`_ provides integration with `SonataBlockBundle`_.
-    It is used to manage fragments of content, so-called blocks, that are
-    persisted in a database and can be incorporated into any page layout.
+    This bundle provides integration with `SonataBlockBundle`_. It is used to
+    manage fragments of content, so-called blocks, that are persisted in a
+    database and can be incorporated into any page layout.
 
 The BlockBundle also provides a few commonly used standard blocks, including the
 ability to edit them. See :doc:`types`.
+
+Installation
+------------
+
+You can install the bundle in 2 different ways:
+
+* Use the official Git repository (https://github.com/symfony-cmf/BlockBundle);
+* Install it via Composer (``symfony-cmf/block-bundle`` on `Packagist`_).
 
 .. _bundle-block-configuration:
 
@@ -382,7 +390,7 @@ You can find example usages of this bundle in the `Symfony CMF Sandbox`_
 (have a look at the BlockBundle). It also shows you how to make blocks
 editable using the :doc:`CreateBundle <../create>`.
 
-.. _`BlockBundle`: https://github.com/symfony-cmf/BlockBundle#readme
+.. _`Packagist`: https://packagist.org/packages/symfony-cmf/block-bundle
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`prepended configuration`: http://symfony.com/doc/current/components/dependency_injection/compilation.html#prepending-configuration-passed-to-the-extension
 .. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle

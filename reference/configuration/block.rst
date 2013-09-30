@@ -9,7 +9,7 @@ namespace.
 Configuration
 -------------
 
-.. _config-block-persistence:
+.. _reference-config-block-persistence:
 
 persistence
 ~~~~~~~~~~~
@@ -24,7 +24,7 @@ is the following configuration:
 
     .. code-block:: yaml
 
-        cmf_simple_cms:
+        cmf_block:
             persistence:
                 phpcr:
                     enabled: false
@@ -76,7 +76,7 @@ is the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_simple_cms', array(
+        $container->loadFromExtension('cmf_block', array(
             'persistence' => array(
                 'phpcr' => array(
                     'enabled' => false,
@@ -138,7 +138,7 @@ PHPCR can be enabled by multiple ways such as:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_simple_cms', array(
+        $container->loadFromExtension('cmf_block', array(
             // ...
             'persistence' => array(
                 'phpcr' => null, // use default configuration
@@ -151,15 +151,15 @@ PHPCR can be enabled by multiple ways such as:
             ),
         ));
 
-basepath
-""""""""
+block_basepath
+""""""""""""""
 
-**type**: ``string`` **default**: ``/cms/simple``
+**type**: ``string`` **default**: ``/cms/content``
 
-The basepath for CMS documents in the PHPCR tree.
+The basepath for blocks in the PHPCR tree.
 
 If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
-the value of ``%cmf_core.persistence.phpcr.basepath%/simple``.
+the value of ``%cmf_core.persistence.phpcr.basepath%/content``.
 
 manager_name
 """"""""""""
@@ -177,83 +177,298 @@ simple_document_class
 
 **type**: ``string`` **default**: ``null``
 
+The simple block document class.
+
+If phpcr is enabled ``use_sonata_admin`` is enabled, the class value is set in
+``Resources/config/admin.xml``.
+
 container_document_class
 """"""""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
+
+The container block document class.
+
+If phpcr is enabled ``use_sonata_admin`` is enabled, the class value is set in
+``Resources/config/admin.xml``.
 
 reference_document_class
 """"""""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
 
+The reference block document class.
+
+If phpcr is enabled ``use_sonata_admin`` is enabled, the class value is set in
+``Resources/config/admin.xml``.
+
 action_document_class
 """""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
+
+The action block document class.
+
+If phpcr is enabled ``use_sonata_admin`` is enabled, the class value is set in
+``Resources/config/admin.xml``.
 
 slideshow_document_class
 """"""""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
 
+The slideshow block document class.
+
+If phpcr is enabled and ``use_imagine`` is enabled, the class value is set in
+``Resources/config/admin-imagine.xml``.
+
 imagine_document_class
 """"""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
+
+The imagine block document class.
+
+If phpcr is enabled, ``use_sonata_admin`` is enabled and ``use_imagine`` is
+enabled, the class value is set in ``Resources/config/admin-imagine.xml``.
 
 simple_admin_class
 """"""""""""""""""
 
 **type**: ``string`` **default**: ``null``
 
+The sonata admin class of the simple block.
+
+If phpcr is enabled and ``use_sonata_admin`` is enabled, the class value is set
+in ``Resources/config/admin.xml``.
+
 container_admin_class
 """""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
+
+The sonata admin class of the container block.
+
+If phpcr is enabled and ``use_sonata_admin`` is enabled, the class value is set
+in ``Resources/config/admin.xml``.
 
 reference_admin_class
 """""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
 
+The sonata admin class of the reference block.
+
+If phpcr is enabled and ``use_sonata_admin`` is enabled, the class value is set
+in ``Resources/config/admin.xml``.
+
 action_admin_class
 """"""""""""""""""
 
 **type**: ``string`` **default**: ``null``
+
+The sonata admin class of the action block.
+
+If phpcr is enabled and ``use_sonata_admin`` is enabled, the class value is set
+in ``Resources/config/admin.xml``.
 
 slideshow_admin_class
 """""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
 
+The sonata admin class of the slideshow block.
+
+If phpcr is enabled, ``use_sonata_admin`` is enabled and ``use_imagine`` is
+enabled, the class value is set in ``Resources/config/admin-imagine.xml``.
+
 imagine_admin_class
 """""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
+
+The sonata admin class of the imagine block.
+
+If phpcr is enabled, ``use_sonata_admin`` is enabled and ``use_imagine`` is
+enabled, the class value is set in ``Resources/config/admin-imagine.xml``.
 
 use_sonata_admin
 """"""""""""""""
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 
+If ``true``, the block classes and admin classes are activated. If set to
+``auto``, they are activated only if the SonataPhpcrAdminBundle is present.
+
+If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to the value
+of ``cmf_core.persistence.phpcr.use_sonata_admin``.
+
 twig
 ~~~~
 
+.. _reference-config-block-twig-cmf-embed-blocks:
+
 cmf_embed_blocks
 ................
+
+The BlockBundle provides a twig filter ``cmf_embed_blocks`` that
+looks through the content and looks for special tags to render blocks.
+
+See :ref:`embed blocks in content <tutorial-block-embed>` for using the
+``cmf_embed_blocks`` filter.
 
 prefix
 """"""
 
 **type**: ``string`` **default**: ``%embed-block|``
 
+The part before the actual path to the block.
+
 postfix
 """""""
 
 **type**: ``string`` **default**: ``|end%``
 
+The part after the actual path to the block.
+
 use_imagine
 ~~~~~~~~~~~
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
+
+If ``true``, the imagine related block classes and admin classes are activated.
+If set to ``auto``, they are activated only if the LiipImagineBundle is present.
+
+caches
+~~~~~~
+
+The BlockBundle integrates with the `SonataCacheBundle`_ to provide several
+caching solutions.
+
+.. _reference-config-block-caches-esi:
+
+varnish
+.......
+
+This extends the default VarnishCache adapter of the SonataCacheBundle.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        framework:
+            # ...
+            esi: { enabled: true }
+            # enable FragmentListener to automatically validate and secure fragments
+            fragments: { path: /_fragment }
+            # add varnish server ip-address(es)
+            trusted_proxies: [192.0.0.1, 10.0.0.0/8]
+
+        cmf_block:
+            # ...
+            caches:
+                varnish:
+                    token: a unique security key # a random one is generated by default
+                    servers:
+                        - varnishadm -T 127.0.0.1:2000 {{ COMMAND }} "{{ EXPRESSION }}"
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/block">
+                <caches>
+                    <!-- token: a random one is generated by default -->
+                    <varnish token="a unique security key">
+                        <server>varnishadm -T 127.0.0.1:2000 {{ COMMAND }} "{{ EXPRESSION }}"</server>
+                    </varnish>
+                </caches>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_block', array(
+            // ...
+            'caches' => array(
+                'varnish' => array(
+                    'token' => 'a unique security key', // a random one is generated by default
+                    'servers' => array(
+                        'varnishadm -T 127.0.0.1:2000 {{ COMMAND }} "{{ EXPRESSION }}"',
+                    ),
+                ),
+            ),
+        ));
+
+token
+"""""
+
+**type**: ``string`` **default**: ``hash('sha256', uniqid(mt_rand(), true))``
+
+A unique secret key. A random one is generated by default.
+
+servers
+"""""""
+
+**type**: ``array``
+
+.. _reference-config-block-caches-ssi:
+
+ssi
+...
+
+This extends the default SsiCache adapter of the SonataCacheBundle.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_block:
+            # ...
+            caches:
+                ssi:
+                   token: a unique security key # a random one is generated by default
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/block">
+                <caches>
+                    <!-- token: a random one is generated by default -->
+                    <ssi
+                        token="a unique security key"
+                    />
+                </caches>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_block', array(
+            // ...
+            'caches' => array(
+                'ssi' => array(
+                    'token' => 'a unique security key', // a random one is generated by default
+                ),
+            ),
+        ));
+
+token
+"""""
+
+**type**: ``string`` **default**: ``hash('sha256', uniqid(mt_rand(), true))``
+
+A unique secret key. A random one is generated by default.
+
+.. _`SonataCacheBundle`: https://github.com/sonata-project/SonataCacheBundle
