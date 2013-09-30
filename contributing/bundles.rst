@@ -56,6 +56,8 @@ Examples:
 * ``admin-imagine.xml`` for classes in the ``[BundleName]\Admin\Imagine``
   namespace.
 
+.. _contributing-bundles-interface_naming:
+
 Interface Naming
 ~~~~~~~~~~~~~~~~
 

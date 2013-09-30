@@ -43,7 +43,9 @@
 * :doc:`routing/index`
 
   * :doc:`routing/introduction`
-  * :doc:`routing/custom_repository`
+  * :doc:`routing/dynamic`
+  * :doc:`routing/dynamic_customize`
+  * :doc:`routing/extra`
 
 * **RoutingAutoBundle**
 

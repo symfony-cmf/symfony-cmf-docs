@@ -417,6 +417,9 @@ with a few added possibilities:
 * Alternatively, supply an implementation of ``ContentRepositoryInterface`` and
   the id of the model instance as parameter ``content_id``
 
+See :ref:`bundles-routing-dynamic-generator` for code examples of all above
+cases.
+
 The route generation handles locales as well, see
 ":ref:`ContentAwareGeneator and Locales <component-route-generator-and-locales>`".
 
@@ -427,7 +430,7 @@ The PHPCR-ODM Route Document
 
 As mentioned above, you can use any route provider. The example in this
 section applies if you use the default PHPCR-ODM route provider
-(``Symfony\Cmf\Bundle\RoutingBundle\Document\RouteProvider``).
+(``Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider``).
 
 All routes are located under a configured root path, for example
 ``/cms/routes``. A new route can be created in PHP code as follows::
