@@ -22,6 +22,16 @@ publication.
     A good introduction to the Symfony core security can be found in the
     `Security Chapter`_ of the Symfony2 book.
 
+
+The default publish workflow corresponds to the following diagram:
+
+.. image:: ../../_images/bundles/core_pwf_workflow.png
+
+The return values for ``getPublishStartDate`` and ``getPublishEndDate`` can be ``null``,
+in which case the start or end date is unbounded. For example, if the end date
+is ``null`` and the start date is ``2013-09-29`` then the object will be
+published on the start date and will never be "unpublished".
+
 Check if Content is Published
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -166,6 +176,75 @@ the content to be considered not published. If all voters abstain (for example
 when the content in question does not implement any workflow features) the
 content is still considered published.
 
+Making Documents Publish Workflow Aware
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The publish workflow component features 4 interfaces:
+``PublishableInterface``, ``PublishTimePeriodInterface`` and corresponding
+read-only interfaces.
+
+.. image:: ../../_images/bundles/core_pwf_interfaces.png
+
+The read-only interfaces should be used when modifying the information is not
+desired.
+
+Below is an example publish workflow implementation::
+
+    namespace Acme\BlogBundle\Document;
+
+    use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface;
+    use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface;
+
+    class Post implements PublishableInterface, PublishTimePeriodInterface
+    {
+        // ... properties and methods
+
+        /**
+         * @var \DateTime
+         */
+        protected $publishStartDate;
+
+        /**
+         * @var \DateTime
+         */
+        protected $publishEndDate;
+
+        /**
+         * @var boolean
+         */
+        protected $isPublishable;
+
+        public function setPublishStartDate(\DateTime $startDate = null)
+        {
+            $this->publishStartDate = $startDate;
+        }
+ 
+        public function getPublishStartDate()
+        {
+            return $this->publishStartDate;
+        }
+ 
+        public function setPublishEndDate(\DateTime $endDate = null)
+        {
+            $this->publishEndDate = $endDate;
+        }
+ 
+        public function getPublishEndDate()
+        {
+            return $this->publishEndDate;
+        }
+
+        public function isPublishable()
+        {
+            return $this->isPublishable;
+        }
+
+        public function setIsPublishable($boolean)
+        {
+            $this->isPublishable = $boolean;
+        }
+    }
+
 Publish Voters
 ~~~~~~~~~~~~~~
 
@@ -253,7 +332,7 @@ you can lower the priority of those voters.
 
 The workflow checker will create an
 :class:`Symfony\\Component\\Security\\Core\\Authentication\\Token\\AnonymousToken` on
-the fly if the securty context has none. This means that voters must be able
+the fly if the security context has none. This means that voters must be able
 to handle this situation when accessing the user. Also when accessing the
 security context, they first must check if it has a token and otherwise they
 should not call it to avoid triggering an exception. If a voter only gives
