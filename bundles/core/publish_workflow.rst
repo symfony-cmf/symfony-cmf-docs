@@ -23,13 +23,14 @@ publication.
     `Security Chapter`_ of the Symfony2 book.
 
 
-In general the publish workflow works as follows:
+The default publish workflow corresponds to the following diagram:
 
 .. image:: ../../_images/bundles/core_pwf_workflow.png
 
-The **publishStartDate** and **publishEndDate** can each be set to ``NULL``, in which case the start or end date
-is unbounded. For example, if the end date is ``NULL`` and the start date is ``2013-09-29`` then the object will be published
-on the start date and will never be "unpublished".
+The return values for ``getPublishStartDate`` and ``getPublishEndDate`` can be ``null``,
+in which case the start or end date is unbounded. For example, if the end date
+is ``null`` and the start date is ``2013-09-29`` then the object will be
+published on the start date and will never be "unpublished".
 
 Check if Content is Published
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -184,41 +185,37 @@ read-only interfaces.
 
 .. image:: ../../_images/bundles/core_pwf_interfaces.png
 
-The read-only interfaces should be used when setting a value is not required.
+The read-only interfaces should be used when modifying the information is not
+desired.
 
-Below is an example publish workflow implementation using PHPCR-ODM:
-
-.. code-block:: php
+Below is an example publish workflow implementation::
 
     <?php
     namespace MyProject\Bundle\BlogBundle\Document;
-    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+
     use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface;
     use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface;
 
-    /**
-     * @PHPCR\Document()
-     */
     class Post implements PublishableInterface, PublishTimePeriodInterface
     {
-        // .. standard properties and methods
+        // ... properties and methods
 
         /**
-         * @PHPCR\Date()
+         * @var \DateTime
          */
         protected $publishStartDate;
 
         /**
-         * @PHPCR\Date()
+         * @var \DateTime
          */
         protected $publishEndDate;
 
         /**
-         * @PHPCR\Boolean()
+         * @var boolean
          */
         protected $isPublishable;
 
-        public function setPublishStartDate(\DateTime $startDate)
+        public function setPublishStartDate(\DateTime $startDate = null)
         {
             $this->publishStartDate = $startDate;
         }
@@ -228,9 +225,9 @@ Below is an example publish workflow implementation using PHPCR-ODM:
             return $this->publishStartDate;
         }
  
-        public function setPublishEndDate(\DateTime $startDate)
+        public function setPublishEndDate(\DateTime $endDate = null)
         {
-            $this->publishEndDate = $startDate;
+            $this->publishEndDate = $endDate;
         }
  
         public function getPublishEndDate()
@@ -248,9 +245,6 @@ Below is an example publish workflow implementation using PHPCR-ODM:
             $this->isPublishable = $boolean;
         }
     }
-
-Note that we have used a PHPCR-ODM class only because it is a common use case, you can of course implement these
-interfaces on any class, persisted or otherwise.
 
 Publish Voters
 ~~~~~~~~~~~~~~
@@ -339,7 +333,7 @@ you can lower the priority of those voters.
 
 The workflow checker will create an
 :class:`Symfony\\Component\\Security\\Core\\Authentication\\Token\\AnonymousToken` on
-the fly if the securty context has none. This means that voters must be able
+the fly if the security context has none. This means that voters must be able
 to handle this situation when accessing the user. Also when accessing the
 security context, they first must check if it has a token and otherwise they
 should not call it to avoid triggering an exception. If a voter only gives
