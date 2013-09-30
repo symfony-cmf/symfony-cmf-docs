@@ -155,12 +155,9 @@ service at the default.
 The default provider loads the route at the path in the request and all
 parent paths to allow for some of the path segments being parameters. If you
 need a different way to load routes or for example never use parameters, you
-can write your own provider implementation to optimize.
-
-.. tip::
-
-    Look at the file ``Resources/config/provider-phpcr.xml`` to see how the
-    CMF configures the provider.
+can write your own provider implementation to optimize by implementing the
+``RouteProviderInterface`` with your own service and specify that service
+as ``cmf_routing.dynamic.route_provider_service_id``.
 
 .. index:: PHPCR, ODM
 
