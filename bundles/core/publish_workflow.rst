@@ -265,7 +265,7 @@ access if the current user fulfills some requirement, it simply has to return
 Publication Request Listener
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The :ref:`DynamicRouter <../routing/dynamic>` places the route
+The :doc:`DynamicRouter <../routing/dynamic>` places the route
 object and the main content - if the route has a main content - into the
 request attributes. Unless you disable the
 ``cmf_core.publish_workflow.request_listener``, this listener will listen
