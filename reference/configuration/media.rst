@@ -25,16 +25,16 @@ is the following configuration:
 
     .. code-block:: yaml
 
-        cmf_simple_cms:
+        cmf_media:
             persistence:
                 phpcr:
-                    enabled:         false
-                    manager_name:    ~
-                    media_basepath:  /cms/media
-                    media_class:     Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Media
-                    file_class:      Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File
+                    enabled: false
+                    manager_name: ~
+                    media_basepath: /cms/media
+                    media_class: Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Media
+                    file_class: Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File
                     directory_class: Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Directory
-                    image_class:     Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image
+                    image_class: Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image
 
     .. code-block:: xml
 
@@ -62,13 +62,13 @@ is the following configuration:
         $container->loadFromExtension('cmf_media', array(
             'persistence' => array(
                 'phpcr' => array(
-                    'enabled'         => false,
-                    'manager_name'    => null,
-                    'media_basepath'  => '/cms/media',
-                    'media_class'     => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Media',
-                    'file_class'      => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File',
+                    'enabled' => false,
+                    'manager_name' => null,
+                    'media_basepath' => '/cms/media',
+                    'media_class' => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Media',
+                    'file_class' => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File',
                     'directory_class' => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Directory',
-                    'image_class'     => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image',
+                    'image_class' => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image',
                 ),
             ),
         ));
@@ -112,7 +112,7 @@ PHPCR can be enabled by multiple ways such as:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_simple_cms', array(
+        $container->loadFromExtension('cmf_block', array(
             // ...
             'persistence' => array(
                 'phpcr' => null, // use default configuration
@@ -125,12 +125,12 @@ PHPCR can be enabled by multiple ways such as:
             ),
         ));
 
-basepath
-""""""""
+media_basepath
+""""""""""""""
 
 **type**: ``string`` **default**: ``/cms/media``
 
-The basepath for CMS documents in the PHPCR tree.
+The basepath for CMS media documents in the PHPCR tree.
 
 If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/media``.
@@ -158,14 +158,14 @@ file_class
 
 **type**: ``string`` **default**: ``'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File'``
 
-The class for objects containing a file.
+The class for objects representing a file.
 
 directory_class
 """""""""""""""
 
 **type**: ``string`` **default**: ``'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Directory'``
 
-The class for objects containing directories.
+The class for objects representing directories.
 
 image_class
 """""""""""
@@ -205,15 +205,35 @@ use_jms_serializer
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 
+If ``true``, the serializer handler for images is activated. If set to
+``auto``, this is activated only if the JMSSerializerBundle is present.
+
+The serializer handler adds an url to the serialized representation of an image
+object.
+
 use_elfinder
 ~~~~~~~~~~~~
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 
+If ``true``, the elfinder adaper is activated and ``cmf_media.default_browser``
+is set. If set to ``auto``, this is activated only if the FMElfinderBundle is
+present.
+
 use_imagine
 ~~~~~~~~~~~
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
+
+If ``true``, imagine related parameters are set. If set to ``auto``, this is
+activated only if the LiipImagineBundle is present.
+
+If enabled and if phpcr is enabled, the imagine data loader and cache
+invalidation listener are activated.
+
+The LiipImagineBundle is able to provide scaled images. Otherwise images are
+always provided in the original resolution (and scaling might happen in the
+browser through the img width and height attributes).
 
 imagine_filters
 ~~~~~~~~~~~~~~~
@@ -250,15 +270,23 @@ upload_thumbnail
 
 **type**: ``string`` **default**: ``image_upload_thumbnail``
 
+The imagine filter to be used as thumbnail for uploaded images.
+
 elfinder_thumbnail
 ..................
 
 **type**: ``string`` **default**: ``elfinder_thumbnail``
 
+The imagine filter to be used for elfinder thumbnails.
+
 extra_filters
 ~~~~~~~~~~~~~
 
 **prototype**: ``array``
+
+This is a list of filters that should be invalidated when images are uploaded.
+(a LiipImagineBundle shortcoming that we can't just invalidate a file in all
+caches in one go)
 
 .. configuration-block::
 
