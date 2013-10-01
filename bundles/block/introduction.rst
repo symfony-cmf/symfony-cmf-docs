@@ -116,6 +116,29 @@ change features of one or more Admin instances. Read more about
             ),
         ));
 
+.. _bundle-block-updated-sonata-defaults:
+
+Updated SonataBlockBundle defaults
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The BlockBundle *automatically* changes some defaults and adds configuration
+to the `SonataBlockBundle`_ to make it work nicely. This is done using the
+`prepended configuration`_ option of Symfony available since version 2.2.
+See ``DependencyInjection\CmfBlockExtension::prepend``.
+
+Updated defaults:
+
+* **templates.block_base** the cmf base template wraps the block output in
+  a div and dashifies the PHPCR path as id; The base template is
+  kept compatible with the Sonata base template for non-cmf blocks;
+* **RssBlock configuration** adds the
+  :ref:`default RssBlock settings <bundle-block-rss-settings>`.
+
+.. note::
+
+    Settings are only prepended, define the settings explicitly inside
+    the ``app/config/config.yml`` to override them.
+
 .. _bundle-block-document:
 
 Block Document

@@ -6,6 +6,10 @@ configured under the ``cmf_block`` key in your application configuration. When
 using XML, you can use the ``http://cmf.symfony.com/schema/dic/block``
 namespace.
 
+The BlockBundle *automatically* changes some defaults and adds configuration
+to the SonataBlockBundle to make it work nicely. See the
+:ref:`updated SonataBlockBundle defaults <bundle-block-updated-sonata-defaults>`.
+
 Configuration
 -------------
 
