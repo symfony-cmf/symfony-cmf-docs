@@ -1,12 +1,13 @@
 Block Types
 ===========
 
-.. include:: ../_outdate-caution.rst.inc
-
 The BlockBundle provides a couple of default block types for general use
 cases. It also has a couple of more specific blocks that integrate third
 party libraries. Those can be handy for some use cases and also serve as
 examples to build your own blocks.
+
+You can also :doc:`create your own blocks <create_your_own_blocks>`, but
+the provided block types should cover many standard cases.
 
 Common Behaviour
 ----------------
@@ -29,17 +30,14 @@ StringBlock
 This is a very simple block that just provides one string field called
 ``body`` and the default template renders the content as ``raw`` to
 allow HTML in the field. The template outputs no HTML tags around the string
-at all.
+at all. This can be useful for editable page fragments.
 
 SimpleBlock
 -----------
 
 Just a text block with a ``title`` and a ``body``. The default template
-renders both title and content as ``raw``, meaning HTML is allowed in those
-fields.
-
-This block also exists in a MultilangSimpleBlock variant that can be
-translated.
+renders both title and body with the twig ``raw`` filter, meaning HTML is
+allowed in those fields.
 
 This block is useful to edit static text fragments and for example display
 it in several places using the ``ReferenceBlock``.
@@ -48,7 +46,9 @@ ContainerBlock
 --------------
 
 A container can hold a list of arbitrary child blocks (even other
-``ContainerBlocks``) and just renders one child after the other.
+``ContainerBlocks``) and just renders one child after the other. The list can
+also be empty, in which case only the wrapping element of the container block
+will be rendered.
 
 This block has the methods ``setChildren`` to overwrite the current
 children with a new list and ``addChild`` and ``removeChild`` to individually
@@ -57,9 +57,9 @@ add resp. remove child blocks.
 ReferenceBlock
 --------------
 
-This block has no content of its own but points to a target block.
-When rendered, this block renders the target node as if the target
-node was directly used in that place.
+This block has no content of its own, but points to a target block.
+When rendered, this block renders the target block as if the target
+block was directly used in that place.
 
 This block simply has the method ``setReferencedBlock`` that accepts any
 block mapped by the persistence layer as argument. If you set this to
@@ -70,28 +70,29 @@ ActionBlock
 -----------
 
 The action block allows to configure a controller action that will be called
-in a subrequest when rendering the block. Instead of directly calling the
-action from a template, your CMS users can define and parametrize their own
-actions, and decide where to put this block.
+in a `sub-request`_ when rendering the block. Instead of directly calling the
+action from a template, your CMS users can define and parametrize what action
+to call, and decide where they want to put this block.
 
-This block is also a good base to implement specific actions if you need
+This block is also a good base to implement specific actions, if you want
 something more user friendly. See the ``RssBlock`` below for an example.
 
-As the ``ActionBlock`` does a subrequest, you may also need to control the
-parameters that are passed to the subrequest. The block service calls
+As the ``ActionBlock`` does a sub-request, you may also need to control the
+parameters that are passed to the sub-request. The block service calls
 ``resolveRequestParams($request, $blockContext)`` to let the block decide
-what needs to be passed to the subrequest. The ActionBlock implementation
-lets you configure the fields with ``setRequestParams`` and persists them
-in the database. It does not matter whether the field is found in the
-request attributes or the request parameters, it is found in both by using
+what needs to be passed to the sub-request. The ``ActionBlock`` lets you
+configure the fields with ``setRequestParams`` and persists them in the
+database. It does not matter whether the field is found in the request
+attributes or the request parameters, it is found in both by using
 ``$request->get()``. The only request attribute propagated by default is
 the ``_locale``.
 
 RssBlock
 --------
 
-The RssBlock extends the ActionBlock and allows you to read feed items and
-display them in a list.
+The ``RssBlock`` extends the ``ActionBlock`` and allows you to read feed items and
+display them in a list. It depends on the ``eko/feedbundle`` which you need to add
+to your ``composer.json`` and instantiate in the ``AppKernel``.
 
 Create a document::
 
@@ -110,7 +111,7 @@ Create a document::
 
 .. _bundle-block-rss-settings:
 
-All available settings are:
+The available settings are:
 
 * **url**: the url of the rss feed (*required*)
 * **title**: the title for the list (*default*: Insert the rss title)
@@ -121,7 +122,7 @@ All available settings are:
 * **ItemClass**: the class used for the item objects that are passed to the
   template (*default*: ``Symfony\Cmf\Bundle\BlockBundle\Model\FeedItem``)
 
-The controller to get the feed items can also be changed:
+The controller used to fetch the feed items can also be changed:
 
 * Define a different class for the controller service in your configuration
   using the DI service parameter ``cmf_block.rss_controller_class``
@@ -129,18 +130,19 @@ The controller to get the feed items can also be changed:
 
 .. note::
 
-        The `Symfony CMF Sandbox`_ contains an example of the RssBlock.
+        The `Symfony CMF Sandbox`_ contains an example of the ``RssBlock``.
 
 ImagineBlock
 ------------
 
 The imagine block uses the `LiipImagineBundle`_ to display images directly
 out of PHPCR. The block has a child of type
-``Symfony\Cmf\Bundle\MediaBundle\ImageInterface`` and fields for the name of
-the imagine filter to use, an URL and an image caption. To use this block, you
-need to add ``liip/imagine-bundle`` to your ``composer.json`` and define the
-imagine filter you specify in the block. The default name is ``cmf_block``. The
-filter must use the ``cmf_media_doctrine_phpcr`` driver:
+``Symfony\Cmf\Bundle\MediaBundle\ImageInterface`` for the image, and fields for
+the name of the imagine filter to use, an URL and an image caption. To use this
+block, you need to add ``liip/imagine-bundle`` to your ``composer.json`` and
+define the imagine filter you specify in the block. The default name is
+``cmf_block``. The filter must use the ``cmf_media_doctrine_phpcr`` driver if
+you use the PHPCR-ODM ``ImagineBlock``:
 
 .. configuration-block::
 
@@ -191,22 +193,22 @@ filter must use the ``cmf_media_doctrine_phpcr`` driver:
             ),
         ));
 
-The ImagineBlock uses the template ``BlockBundle:Block:block_imagine.html.twig``
-template to render the layout. You may override this one if special markup is
-needed.
+The ``ImagineBlock`` uses the template ``BlockBundle:Block:block_imagine.html.twig``
+to render the layout. You may override this or configure a different template if
+you need a specific markup.
 
-Refer to the `LiipImagineBundle documentation`_ for further information.
-
-See the example below for how to create an ``ImagineBlock`` programmatically.
+See also the example below for how to create an ``ImagineBlock`` programmatically.
+Please refer to the `LiipImagineBundle documentation`_ for further information.
 
 SlideshowBlock
 --------------
 
-The ``SlideshowBlock`` is just a special kind of ``ContainerBlock``. It
-can contain any kind of blocks that will be rendered with a wrapper div
-to help a javascript slideshow library to slide them.
+The ``SlideshowBlock`` is a special kind of ``ContainerBlock``. It can contain
+any kind of blocks that will be rendered with a wrapper div to help a
+javascript slideshow library to slide them.
+
 The ``ImagineBlock`` is particularly suited if you want to do an image
-slideshow but the ``SlideshowBlock`` can handle any kind of blocks, also mixed
+slideshow, but the ``SlideshowBlock`` can handle any kind of blocks, also mixed
 types of blocks in the same slideshow.
 
 .. note::
@@ -218,9 +220,9 @@ types of blocks in the same slideshow.
 Create your first Slideshow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Creating a slideshow consists of creating the container ``SlideshowBlock`` and
-adding blocks to it. Those blocks can be anything, but an image makes a lot
-of sense::
+Building a slideshow consists of creating the container ``SlideshowBlock`` and
+adding blocks to it. Those blocks can be any kind of blocks, but the
+``ImagineBlock`` makes a lot of sense::
 
     use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock;
     use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock;
@@ -247,9 +249,9 @@ of sense::
 Render the slideshow
 ~~~~~~~~~~~~~~~~~~~~
 
-Rendering your slideshow is as easy as just rendering the according block
-in your template. If your ``contentDocument`` has a field ``slideshow`` that
-contains a ``SlideshowBlock`` object, you can simply render it with:
+Rendering your slideshow simply means rendering the ``SlideshowBlock`` in your
+template. If your ``contentDocument`` has a field ``slideshow`` that contains
+a ``SlideshowBlock`` object, you can render it with:
 
 .. configuration-block::
 
@@ -269,17 +271,17 @@ Make the slideshow work in the frontend
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Since the BlockBundle doesn't contain anything to make the slideshow work
-in the frontend, you need to do this yourself. Just use your favourite JS
+in the frontend, you need to do this yourself. Use your favourite javascript
 library to make the slideshow interactive. If special markup is needed for
-your slideshow code to work, just override
-``BlockBundle:Block:block_slideshow.html.twig`` or the templates of the
+your slideshow code to work, you can override
+``BlockBundle:Block:block_slideshow.html.twig`` and/or the templates of the
 blocks you use as slideshow items and adapt them to your needs.
 
 Use the Sonata admin class
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The BlockBundle comes with an admin class for managing slideshow blocks. All
-you need to do to administrate slideshows in your project is to add the
+The BlockBundle comes with a sonata admin class for managing slideshow blocks.
+All you need to do to administrate slideshows in your project is to add the
 following line to your sonata admin configuration:
 
 .. configuration-block::
@@ -335,3 +337,4 @@ for further information.
 .. _`Sonata Admin documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/form_types.html
 .. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
 .. _`LiipImagineBundle documentation`: https://github.com/liip/LiipImagineBundle/tree/master/Resources/doc
+.. _`sub-request`: http://symfony.com/doc/current/book/internals.html#internal-requests
