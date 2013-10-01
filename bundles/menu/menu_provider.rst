@@ -1,18 +1,33 @@
-.. _bundles_menu_menu_provider:
+.. index::
+    single: menu factory; MenuBundle
 
 Menu Provider
-~~~~~~~~~~~~~
+=============
 
 A menu provider is responsible for loading a menu when it is requested. KnpMenu
-supports having several providers. The CmfMenuBundle provides the
+supports having several providers. The MenuBundle provides the
 ``PhpcrMenuProvider`` to load menu items from PHPCR-ODM.
 
-Every menu has a name and is loaded by that name. The ``PhpcrMenuProvider``
-locates menus by looking at ``persistence.phpcr.menu_basepath``/``<menuname>``.
+Every menu is identified by the name of its root node under the path given by
+the configuration key ``persistence.phpcr.menu_basepath``. The default path is
+``/cms/menu``, so in the following docuemnt structure example ``main-menu`` and
+``side-menu`` are both valid menu names:
+
+.. code-block:: text
+
+    ROOT
+        cms:
+            menu:
+                main-menu:
+                    item-1:
+                    item-2:
+                side-menu:
+                    item-1:
+
 You can use custom document classes for menu nodes if needed, as long as they
-implement ``Knp\Menu\NodeInterface`` to integrate with KnpMenuBundle. The
-default ``MenuNode`` class discards children that do not implement the
-``Knp\Menu\NodeInterface``.
+implement ``Knp\Menu\NodeInterface`` (so that they integrate with
+KnpMenuBundle). The default ``MenuNode`` class discards children that do not
+implement the ``Knp\Menu\NodeInterface``.
 
 .. note::
 

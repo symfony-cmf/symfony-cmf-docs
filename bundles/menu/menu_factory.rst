@@ -1,4 +1,5 @@
-.. _bundles_menu_menu_factory:
+.. index::
+    single: menu factory; MenuBundle
 
 Menu Factory
 ============

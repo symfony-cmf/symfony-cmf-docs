@@ -1,25 +1,28 @@
-.. _bundles_menu_menu_documents:
+.. index::
+    single: menu documents; MenuBundle
 
 Menu Documents
 ==============
 
-In accordance with the :ref:`CMF bundle standards
-<contrib_bundles_baseandstandardimplementations>` you are provided with two
-menu node implementations, a base document and a standard document.
+In accordance with the 
+:ref:`CMF bundle standards <contrib_bundles_baseandstandardimplementations>`
+you are provided with two menu node implementations, a base document and a
+standard document.
 
 Base Menu Node
 --------------
 
-The ``MenuNodeBase`` document implements only those features available in the original KnpMenu node.
+The ``MenuNodeBase`` document implements only those features available in the
+original KnpMenu node.
 
 .. code-block:: php
 
     use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNodeBase;
 
-    $parent = // get parent node
+    $parent = ...;
 
     // ODM specific
-    $node = new MenuNodeBase;
+    $node = new MenuNodeBase();
     $node->setParent($parent);
     $node->setName('home');
 
@@ -71,7 +74,7 @@ In addition to sourcing the menu items link URL from an explicit URI or a
 route object, the standard menu node provides a method to associate a
 content document from which the URL can be generated::
 
-    $menuItem = // ... you have a menu item
+    $menuItem = ...;
     $menuItem->setContent($content);
 
 The content document can be any document which implements the
@@ -86,7 +89,7 @@ Link Type Specification
 The standard menu node supports specifying the menu items link type via the
 ``setLinkType`` method::
 
-    $menuItem = // ... you have a menu item
+    $menuItem = ...;
     $menuItem->setLinkType('content');
 
 See the :ref:`Menu Factory documentation <bundles_menu_menu_factory_link_type>` for
@@ -98,7 +101,7 @@ Translation
 The standard menu node supports translation when it is enabled, allowing the
 locale to be set via. the ``setLocale`` method::
 
-    $menuItem = // ... you have a menu item
+    $menuItem = ...;
     $menuItem->setLocale('fr');
 
 See :ref:`bundles_core_multilang`.
@@ -107,5 +110,5 @@ Publish Workflow
 ~~~~~~~~~~~~~~~~
 
 The standard menu node implements ``PublishTimePeriodInterface`` and
-``PublishableInterface``. Please refer to the :ref:`publish workflow documentation <bundle-core-publish_workflow>`.
-
+``PublishableInterface``. Please refer to the 
+:ref:`publish workflow documentation <bundle-core-publish_workflow>`.

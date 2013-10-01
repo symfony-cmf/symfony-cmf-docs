@@ -1,31 +1,32 @@
-.. _bundles_menu_current_menu_item:
+.. index::
+    single: current menu item; MenuBundle;
 
 Current Menu Item
------------------
+=================
 
 A menu item can be the current item. If it is the current item, this
 information is passed to the twig template which by default adds the css class
-``current`` and all menu items that are ancestors of that item get the class
-``current_ancestor``. This will typically used in CSS to highlight menu
-entries.
+``current``. All menu items that are ancestors of that item get the class
+``current_ancestor`` by default. This will typically be used in CSS to
+highlight menu entries.
 
-The decision about being current item happens by comparing the URI associated
-with the menu item with the request URI. Additionally, the CMF menu bundle
+The decision about being the current item is made by comparing the URI associated
+with the menu item with the request URI. This is handled by the Additionally, the CMF menu bundle
 supports voters that can look at the ``MenuItem`` and optionally the request.
 
-There are two voter services configured but not enabled by default, another
-voter that you can use to configure services and you can write your own voter
-classes.
+There are two voter services configured but not enabled by default and another
+voter that you can use to configure services and you can write your :ref:`own voter
+classes <bundles_menu_custom_voter>`.
 
 .. note::
 
     The CMF MenuBundle is based on Knp Menu 1.x. The 2.0 rewrite of Knp Menu
-    will add current item voters in the core Knp library.  The CMF bundle
+    will add current item voters in the core Knp library. The CMF bundle
     voters are interface compatible and follow the same mechanism as Knp Menu
     to ease upgrading.
 
 RequestContentIdentityVoter
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 
 This voter looks at the ``content`` field of the menu item extras and compares
 it with the main content attribute of the request. The name for the main
@@ -33,7 +34,7 @@ content attribute in the request is configurable with the ``content_key``
 option - if not set it defaults to the constant ``DynamicRouter::CONTENT_KEY``.
 
 You can enable this voter by setting ``cmf_menu.voters.content_identity``
-to ``~`` in your config.yml to use a custom ``content_key`` for the main
+to ``null`` in your configuration to use a custom ``content_key`` for the main
 content attribute name, set it explicitly:
 
 .. configuration-block::
@@ -47,13 +48,12 @@ content attribute name, set it explicitly:
 
     .. code-block:: xml
 
+        <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/menu">
-                <voter>
-                    <content-identity>
-                        <content-key>myKey</content-key>
-                    </content-identity>
-                </voter>
+                <voters>
+                    <content-identity content-key="myKey" />
+                </voters>
             </config>
         </container>
 
@@ -68,19 +68,19 @@ content attribute name, set it explicitly:
         ));
 
 UriPrefixVoter
-~~~~~~~~~~~~~~
+--------------
 
 The uri prefix voter looks at the ``content`` field of the menu item extras and
-checks if it contains an instance of the symfony Route class. If so, it
+checks if it contains an instance of the Symfony ``Route`` class. If so, it
 compares the route option ``currentUriPrefix`` with the request URI. This
 allows you to make a whole sub-path of your site trigger the same menu item as
 current, but you need to configure the prefix option on your route documents.
 
 To enable the prefix voter, set the configuration key
-``cmf_menu.voters.uri_prefix: ~``.
+``cmf_menu.voters.uri_prefix`` to ``null``.
 
 RequestParentContentIdentityVoter
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------
 
 This voter has the same logic of looking for a request attribute to get the
 current content, but calls ``getParent`` on it. This parent is compared to the
@@ -111,15 +111,23 @@ voters (see below), except you do not need to write your own PHP code:
 
     .. code-block:: xml
 
-        <service id="my_bundle.menu_voter.parent"
-                 class="Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter">
-            <argument>contentDocument</argument>
-            <argument>%my_bundle.my_model_class%</argument>
-            <tag name="cmf_menu.voter"/>
-            <tag name="cmf_request_aware"/>
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            <services>
+                <service id="my_bundle.menu_voter.parent"
+                         class="Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter">
+                    <argument>contentDocument</argument>
+                    <argument>%my_bundle.my_model_class%</argument>
+                    <tag name="cmf_menu.voter"/>
+                    <tag name="cmf_request_aware"/>
+                </service>
+            </services>
 
     .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition(
             'Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter',
@@ -127,10 +135,13 @@ voters (see below), except you do not need to write your own PHP code:
         ));
         $definition->addTag('cmf_menu.voter');
         $definition->addTag('cmf_request_aware');
+
         $container->setDefinition('my_bundle.menu_voter.parent', $definition);
 
+.. _bundles_menu_custom_voter:
+
 Custom Voter
-~~~~~~~~~~~~
+------------
 
 Voters must implement the ``Symfony\Cmf\MenuBundle\Voter\VoterInterface``. To
 make the menu bundle notice the voter, tag it with ``cmf_menu.voter``.
@@ -149,7 +160,6 @@ For an example service definition see the section above for
 
 A voter will look something like this::
 
-    <?php
     namespace Acme\MenuBundle\Voter;
 
     use Symfony\Cmf\Bundle\MenuBundle\Voter\VoterInterface;
@@ -179,7 +189,7 @@ A voter will look something like this::
                 return false;
             }
 
-            // we dont know if this is the current item
+            // we don't know if this is the current item
             return null;
         }
     }

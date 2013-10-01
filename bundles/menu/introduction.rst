@@ -8,10 +8,10 @@ MenuBundle
 The CmfMenuBundle extends the `KnpMenuBundle`_ and adds the following
 features:
 
-* Render menus stored in the persistance layer;
+* Render menus stored in the persistence layer;
 * Generate menu node URLs from linked Content or Route.
 
-Note that only the Doctrine PHPCR-ODM persistance layer is supported in the
+Note that only the Doctrine PHPCR-ODM persistence layer is supported in the
 1.0 release.
 
 .. caution::
@@ -25,12 +25,12 @@ Installation
 ------------
 
 You can install this bundle `with composer`_ using the
-``symfony-cmf/menu-bundle`` package.
+`symfony-cmf/menu-bundle`_ package.
 
 Creating a Simple Persistant Menu
 ---------------------------------
 
-A menu created using the KnpMenuBundle is made up of a heierachy of class
+A menu created using the KnpMenuBundle is made up of a hierarchy of class
 instances implementing ``NodeInterface``. This is also true of a menu created
 using MenuBundle documents.
 
@@ -48,31 +48,39 @@ we specify a URI for each::
     use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
     use PHPCR\Util\NodeHelper;
 
-    // create the menu root (assuming it doesn't already exist)
-    NodeHelper::createPath('/cms/menu');
+    // this node should be created automatically, see note below this example
     $menuParent = $dm->find(null, '/cms/menu');
 
-    $menu = new Menu;
+    $menu = new Menu();
     $menu->setName('main-menu');
     $menu->setLabel('Main Menu');
     $menu->setParent($menuParent);
+
     $manager->persist($menu);
 
-    $home = new MenuNode;
+    $home = new MenuNode();
     $home->setName('home');
     $home->setLabel('Home');
     $home->setParent($menu);
     $home->setUri('http://www.example.com/home');
+
     $manager->persist($home);
 
-    $contact = new MenuNode;
+    $contact = new MenuNode();
     $contact->setName('contact');
     $contact->setLabel('Contact');
     $contact->setParent($menu);
     $contact->setUri('http://www.example.com/contact');
+
     $manager->persist($contact);
 
     $manager->flush();
+
+.. note::
+
+    When the bundle is registered, it will create the ``/cms/menu`` path
+    when executing ``doctrine:phpcr:repository:init``. For more information,
+    see :ref:`Repository Initializers <phpcr-odm-repository-initializers>`
 
 Rendering Menus
 ---------------
@@ -81,9 +89,15 @@ You render menus in the same way you would with the `KnpMenuBundle`_. The name
 of the menu will correspond to the name of the root document in your menu
 tree:
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {{ knp_menu_render('main-menu') }}
+    .. code-block:: jinja
+
+        {{ knp_menu_render('main-menu') }}
+
+    .. code-block:: php
+
+        echo $view['knp_menu']->render('main-menu');
 
 Here we have specified the ``main-menu`` document from the previous
 example. This will render an unordered list as follows:
@@ -102,8 +116,8 @@ example. This will render an unordered list as follows:
 .. note::
 
      It is the ``PhpcrMenuProvider`` class which allows us to specify a
-     PHPCR-ODM document as a menu. For more information see the :ref:`menu
-     provider documentation <bundles_menu_menu_provider>`.
+     PHPCR-ODM document as a menu. For more information see the 
+     :doc:`menu provider documentation <menu_provider>`.
 
 For more information see the `rendering menus`_ section of the KnpMenuBundle documentation.
 
@@ -112,3 +126,4 @@ For more information see the `rendering menus`_ section of the KnpMenuBundle doc
 
 .. _`with composer`: http://getcomposer.org
 .. _`rendering menus`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md#rendering-menus
+.. _`symfony-cmf/menu-bundle`: https://packagist.org/packages/symfony-cmf/menu-bundle
