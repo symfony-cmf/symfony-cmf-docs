@@ -28,21 +28,23 @@ is the following configuration:
             persistence:
                 phpcr:
                     enabled: false
-                    manager_name: ~
                     block_basepath: /cms/content
-                    simple_document_class: ~
-                    container_document_class: ~
-                    reference_document_class: ~
-                    action_document_class: ~
-                    slideshow_document_class: ~
-                    imagine_document_class: ~
-                    simple_admin_class: ~
-                    container_admin_class: ~
-                    reference_admin_class: ~
-                    action_admin_class: ~
-                    slideshow_admin_class: ~
-                    imagine_admin_class: ~
+                    manager_name: ~
+                    simple_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock
+                    container_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock
+                    reference_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock
+                    action_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock
+                    string_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\StringBlock
+                    slideshow_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock
+                    imagine_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock
                     use_sonata_admin: auto
+                    simple_admin_class: Symfony\Cmf\Bundle\BlockBundle\Admin\SimpleBlockAdmin
+                    container_admin_class: Symfony\Cmf\Bundle\BlockBundle\Admin\ContainerBlockAdmin
+                    reference_admin_class: Symfony\Cmf\Bundle\BlockBundle\Admin\ReferenceBlockAdmin
+                    action_admin_class: Symfony\Cmf\Bundle\BlockBundle\Admin\ActionBlockAdmin
+                    string_admin_class: Symfony\Cmf\Bundle\BlockBundle\Admin\StringBlockAdmin
+                    slideshow_admin_class: Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\SlideshowBlockAdmin
+                    imagine_admin_class: Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\ImagineBlockAdmin
 
     .. code-block:: xml
 
@@ -55,19 +57,21 @@ is the following configuration:
                         enabled="false"
                         manager-name="null"
                         block-basepath="/cms/content"
-                        simple-document-class="null"
-                        container-document-class="null"
-                        reference-document-class="null"
-                        action-document-class="null"
-                        slideshow-document-class="null"
-                        imagine-document-class="null"
-                        simple-admin-class="null"
-                        container-admin-class="null"
-                        reference-admin-class="null"
-                        action-admin-class="null"
-                        slideshow-admin-class="null"
-                        imagine-admin-class="null"
+                        simple-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock"
+                        container-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock"
+                        reference-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock"
+                        action-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock"
+                        string-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\StringBlock"
+                        slideshow-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock"
+                        imagine-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock"
                         use-sonata-admin="auto"
+                        simple-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\SimpleBlockAdmin"
+                        container-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\ContainerBlockAdmin"
+                        reference-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\ReferenceBlockAdmin"
+                        action-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\ActionBlockAdmin"
+                        string-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\StringBlockAdmin"
+                        slideshow-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\SlideshowBlockAdmin"
+                        imagine-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\ImagineBlockAdmin"
                     />
                 </persistence>
             </config>
@@ -80,21 +84,23 @@ is the following configuration:
             'persistence' => array(
                 'phpcr' => array(
                     'enabled' => false,
-                    'block-basepath' => '/cms/block',
+                    'block-basepath' => '/cms/content',
                     'manager_name' => null,
-                    'simple_document_class' => null,
-                    'container_document_class' => null,
-                    'reference_document_class' => null,
-                    'action_document_class' => null,
-                    'slideshow_document_class' => null,
-                    'imagine_document_class' => null,
-                    'simple_admin_class' => null,
-                    'container_admin_class' => null,
-                    'reference_admin_class' => null,
-                    'action_admin_class' => null,
-                    'slideshow_admin_class' => null,
-                    'imagine_admin_class' => null,
-                    'use_sonata_admin' => 'auto',
+                    'simple_document_class' => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock',
+                    'container_document_class' => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock',
+                    'reference_document_class' => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock',
+                    'action_document_class' => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock',
+                    'string_document_class' => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\StringBlock',
+                    'slideshow_document_class' => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock',
+                    'imagine_document_class' => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock',
+                    'use_sonata_admin:' => 'auto',
+                    'simple_admin_class' => 'Symfony\Cmf\Bundle\BlockBundle\Admin\SimpleBlockAdmin',
+                    'container_admin_class' => 'Symfony\Cmf\Bundle\BlockBundle\Admin\ContainerBlockAdmin',
+                    'reference_admin_class' => 'Symfony\Cmf\Bundle\BlockBundle\Admin\ReferenceBlockAdmin',
+                    'action_admin_class' => 'Symfony\Cmf\Bundle\BlockBundle\Admin\ActionBlockAdmin',
+                    'string_admin_class' => 'Symfony\Cmf\Bundle\BlockBundle\Admin\StringBlockAdmin',
+                    'slideshow_admin_class' => 'Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\SlideshowBlockAdmin',
+                    'imagine_admin_class' => 'Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\ImagineBlockAdmin',
                 ),
             ),
         ));
