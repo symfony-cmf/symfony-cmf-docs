@@ -64,7 +64,7 @@ out-of-the-box:
 
 * Content association;
 * Link type specification (URI, route or content);
-* Standard :ref:`publish workflow <bundle-core-publish_workflow>` integration;
+* Standard :doc:`publish workflow <../core/publish_workflow>` integration;
 * Translation.
 
 Content Association
@@ -104,11 +104,11 @@ locale to be set via. the ``setLocale`` method::
     $menuItem = ...;
     $menuItem->setLocale('fr');
 
-See :ref:`bundles_core_multilang`.
+See :doc:`../core/multilang`.
 
 Publish Workflow
 ~~~~~~~~~~~~~~~~
 
 The standard menu node implements ``PublishTimePeriodInterface`` and
 ``PublishableInterface``. Please refer to the 
-:ref:`publish workflow documentation <bundle-core-publish_workflow>`.
+:doc:`publish workflow documentation <../core/publish_workflow>`.

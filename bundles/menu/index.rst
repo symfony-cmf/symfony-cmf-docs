@@ -8,4 +8,4 @@ MenuBundle
     menu_documents
     menu_factory
     menu_provider
-    current_menu_item
+    voters

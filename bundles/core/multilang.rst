@@ -1,7 +1,6 @@
 .. index::
     single: Multi-Language; CoreBundle
 
-
 Multi-language support
 ----------------------
 
