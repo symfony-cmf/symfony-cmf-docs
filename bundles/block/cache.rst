@@ -1,13 +1,11 @@
 Cache
 =====
 
-.. include:: ../_outdate-caution.rst.inc
+The Symfony2 CMF BlockBundle integrates with the `SonataCacheBundle`_ to
+provide several caching solutions. Have a look at the available adapters in the
+`SonataCacheBundle`_ to see all options.
 
-The BlockBundle integrates with the `SonataCacheBundle`_ to provide several
-caching solutions. Have a look at the available adapters in the
-SonataCacheBundle to see all options.
-
-The BlockBundle additionally provides its own adapters for:
+The Symfony2 CMF BlockBundle additionally provides its own adapters for:
 
 * `ESI`_
 * `SSI`_
@@ -58,7 +56,8 @@ CmfBlockBundle and the SonataBlockBundle:
                <!-- ... -->
 
                <import resource="@SymfonyCmfBlockBundle/Resources/config/routing/cache.xml"
-                   prefix="/" />
+                   prefix="/"
+               />
            </routes>
 
        .. code-block:: php
@@ -74,70 +73,82 @@ CmfBlockBundle and the SonataBlockBundle:
 3. *SonataBlockBundle* - Use the ``sonata_block`` key to configure the cache
    adapter for each block service:
 
-   .. configuration-block::
+    .. configuration-block::
 
-       .. code-block:: yaml
+        .. code-block:: yaml
 
-           # app/config/config.yml
-           sonata_block:
-           # ...
-               blocks:
-                   acme_main.block.news:
-                       # use the service id of the cache adapter
-                       cache: cmf.block.cache.js_async
-               blocks_by_class:
-                    # cache only the RssBlock and not all action blocks
-                    Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock:
+            # app/config/config.yml
+            sonata_block:
+                # ...
+                blocks:
+                    symfony_cmf.block.action:
+                        # use the service id of the cache adapter
                         cache: cmf.block.cache.js_async
+                blocks_by_class:
+                     # cache only the RssBlock and not all action blocks
+                     Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock:
+                         cache: cmf.block.cache.js_async
 
-       .. code-block:: xml
+        .. code-block:: xml
 
-           <!-- app/config/config.xml -->
-           <?xml version="1.0" charset="UTF-8" ?>
-           <container xmlns="http://symfony.com/schema/dic/services">
+            <!-- app/config/config.xml -->
+            <?xml version="1.0" charset="UTF-8" ?>
+            <container xmlns="http://symfony.com/schema/dic/services">
 
                 <config xmlns="http://sonata-project.org/schema/dic/block">
                     <!-- use the service id of the cache adapter -->
-                    <blocks id="symfony_cmf.block.action"
+                    <block
+                        id="symfony_cmf.block.action"
+                        cache="symfony_cmf.block.cache.js_async"
+                    />
+                    <block-by-class
+                        class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock"
                         cache="symfony_cmf.block.cache.js_async"
                     />
                 </config>
             </container>
 
-       .. code-block:: php
+        .. code-block:: php
 
-           // app/config/config.php
-           $container->loadFromExtension('sonata_block', array(
-               'blocks' => array(
-                   'symfony_cmf.block.action' => array(
-                       // use the service id of the cache adapter
-                       'cache' => 'symfony_cmf.block.cache.js_async',
-                   ),
-               ),
-           ));
+            // app/config/config.php
+            $container->loadFromExtension('sonata_block', array(
+                'blocks' => array(
+                    'symfony_cmf.block.action' => array(
+                        // use the service id of the cache adapter
+                        'cache' => 'symfony_cmf.block.cache.js_async',
+                    ),
+                ),
+                'blocks_by_class' => array(
+                    'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock' => array(
+                            'cache' => 'symfony_cmf.block.cache.js_async',
+                        ),
+                    ),
+                ),
+            ));
 
 Workflow
 --------
 
-The following happens when a block is rendered using cache:
+When a block having a cache configured is rendered, the following process
+is triggered:
 
-* A document is loaded based on the name
+* The document is loaded based on the name;
 * If caching is configured, the cache is checked and content is returned if
-  found
+  found.
 
   * Cache keys are computed using:
 
-    * The cache keys of the block service
-    * The extraCacheKeys passed from the template
+    * The cache keys of the block service;
+    * The extraCacheKeys passed from the template.
 
-  * The cache adapter is asked for a cache element
+  * The cache adapter is asked for a cache element:
 
     * The ESI and SSI adapter add a specific tag and a url to retrieve the
-      block content
-    * The Javascript adapter adds javascript and a url to retrieve the block
-      content
+      block content;
+    * The javascript adapter adds javascript and a url to retrieve the block
+      content.
 
-  * If the cache element is not expired and has data it is returned
+  * If the cache element is not expired and has data it is returned.
 * The template is rendered:
 
   * For ESI and SSI the url is called to retrieve the block content
@@ -150,45 +161,47 @@ The following happens when a block is rendered using cache:
     cache is found, have a look at the ``has`` method of the adapters in the
     SonataCacheBundle to see how they respond.
 
-If cache is checked and the cache adapter returned that no cache was found,
+If the cache is checked and the cache adapter returned that no cache was found,
 the workflow proceeds like this:
 
-* Each block document also has a block service, the execute method of it is
-  called to render the block and return a response
-* If the response is cacheable the configured adapter creates a cache element,
-  it contains
+* The block service is asked to render the block
+  :ref:`as usual <bundle-block-execute>`;
+* If the ``Response`` is cacheable, the configured adapter creates a cache
+  element containing:
 
-  * The computed cache keys
-  * The ttl of the response
-  * The response
-  * And additional contextual keys
+  * The computed cache keys;
+  * The time to live (TTL) of the response;
+  * The ``Response``;
+  * Any additional contextual keys.
 
-* The template is rendered
+* The template is rendered.
 
 Cache Keys
 ----------
 
-The block service has the responsibility to generate the cache keys, the
-method ``getCacheKeys`` returns these keys, see :ref:`bundle-block-service`.
+It is the responsibility of the :ref:`block service <bundle-block-service>` to generate the cache keys in
+the method ``getCacheKeys``.
 
-The block services shipped with the BlockBunde use the ``getCacheKeys`` method
-of the ``Sonata\BlockBundle\Block\BaseBlockService``, and return:
+The block services shipped with the Symfony CMF BlockBunde use the
+``getCacheKeys`` method of the ``Sonata\BlockBundle\Block\BaseBlockService``
+which returns:
 
 * ``block_id``
 * ``updated_at``
 
-.. note::
+.. warning::
 
-    If block settings need to be persisted between requests it is advised to
-    store them in the block document. Alternatively they can be added to the
-    cache keys. However be very cautious because, depending on the adapter,
-    the cache keys can be send to the browser and are not secure.
+    If block settings need to be persisted between requests, it is advised to
+    store them in the block document. If you add them to the cache keys, you
+    have to be aware that depending on the adapter, the cache keys can be sent
+    to the browser and thus are neither hidden nor safe from manipulation by a
+    client.
 
 Extra Cache Keys
 ~~~~~~~~~~~~~~~~
 
 The extra cache keys array is used to store metadata along the cache element.
-The metadata can be used to invalidate a set of cache elements.
+The metadata can be used to invalidate a set of cached elements.
 
 Contextual Keys
 ~~~~~~~~~~~~~~~
@@ -196,9 +209,12 @@ Contextual Keys
 The contextual cache array hold the object class and id used inside the
 template. This contextual cache array is then added to the extra cache key.
 
-This feature can be use like this ``$cacheManager->remove(array('objectId' => 'id'))``.
+This feature can be use like this::
 
-Of course not all cache adapters support this feature, varnish and MongoDB do.
+    $cacheManager->remove(array('objectId' => 'id'));
+
+While not all cache adapters support this feature, the Varnish and MongoDB
+adapters do.
 
 The BlockBundle also has a cache invalidation listener that calls the
 ``flush`` method of a cache adapter automatically when a cached block document
@@ -235,7 +251,7 @@ your Twig template when using cache:
             ),
         )) ?>
 
-When using the Esi, Ssi or Js cache adapters the settings passed here are remembered:
+When using the Esi, Ssi or Js cache adapters, the settings passed here are remembered:
 
 .. configuration-block::
 
@@ -269,9 +285,9 @@ also the `SonataBlockBundle Advanced usage`_ documentation.
 
 .. caution::
 
-    Because, as mentioned above, settings can be added to the url as parameters
-    avoid exposing sensitive settings from ``sonata_block_render`` and try to
-    store them in the block document.
+    Because, as mentioned above, settings can be added to the URL as
+    parameters, you have to avoid exposing sensitive settings from
+    ``sonata_block_render`` and store them in the block document instead.
 
 Adapters
 --------

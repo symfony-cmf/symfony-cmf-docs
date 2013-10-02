@@ -141,15 +141,13 @@ lines to your sonata admin configuration.
 
 .. _bundle-block-updated-sonata-defaults:
 
-Updated SonataBlockBundle defaults
+Updated SonataBlockBundle Defaults
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The BlockBundle *automatically* changes some defaults and adds configuration
 to the `SonataBlockBundle`_ to make it work nicely. This is done using the
-`prepended configuration`_ option of Symfony available since version 2.2.
-See ``DependencyInjection\CmfBlockExtension::prepend``.
-
-Updated defaults:
+`prepended configuration`_ option of Symfony. The following defaults are
+updated:
 
 * **templates.block_base** the cmf base template wraps the block output in
   a div and dashifies the PHPCR path as id; The base template is
@@ -159,8 +157,9 @@ Updated defaults:
 
 .. note::
 
-    Settings are only prepended, define the settings explicitly inside
-    the ``app/config/config.yml`` to override them.
+    Settings are only prepended, meaning the default value is changed. You can
+    still change the values by setting the configuration values in your
+    application configuration file.
 
 .. _bundle-block-document:
 
