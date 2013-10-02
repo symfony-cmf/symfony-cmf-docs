@@ -33,8 +33,8 @@ is the following configuration:
             persistence:
                 phpcr:
                     enabled: false
-                    manager_name: ~
                     block_basepath: /cms/content
+                    manager_name: ~
                     string_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\StringBlock
                     simple_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock
                     container_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock
@@ -89,7 +89,7 @@ is the following configuration:
             'persistence' => array(
                 'phpcr' => array(
                     'enabled' => false,
-                    'block-basepath' => '/cms/block',
+                    'block-basepath' => '/cms/content',
                     'manager_name' => null,
                     'string_document_class' => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\StringBlock',
                     'simple_document_class' => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock',
