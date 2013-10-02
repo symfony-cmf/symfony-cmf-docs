@@ -87,7 +87,7 @@ create a service that knows how to handle ``RssBlocks``:
             $block = $blockContext->getBlock();
 
             if (!$block->getEnabled()) {
-                return new Response;
+                return new Response();
             }
 
             $requestParams = $block->resolveRequestParams($this->request, $blockContext);

@@ -83,63 +83,14 @@ specific settings for one of the block classes.
             ),
         ));
 
-Sonata Admin Extension for basic block settings
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. tip::
 
-If instead of (or in addition to) configuring block settings you want to make
-them editable in sonata admin, there is a sonata admin extension you can
-activate. This extension will add a tab to edit settings of base block options
-like the TTL (time to life, for caching purposes) editable.
+    You can also store settings in the single block objects themselves. This
+    allows to individually configure options per block instance.
 
-Assuming your blocks extend the ``BaseBlock`` class, you can add the following
-lines to your sonata admin configuration.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        sonata_admin:
-            extensions:
-                cmf.block.admin.base.extension:
-                    extends:
-                        - Symfony\Cmf\Bundle\BlockBundle\Model\BaseBlock
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-            <config xmlns="http://sonata-project.org/schema/dic/admin">
-                <extension id="cmf.block.admin.base.extension">
-                    <extend>Symfony\Cmf\Bundle\BlockBundle\Model\BaseBlock</extend>
-                </extension>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
-            'extensions' => array(
-                'cmf.block.admin.base.extension' => array(
-                    'extends' => array(
-                        'Symfony\Cmf\Bundle\BlockBundle\Model\BaseBlock',
-                    ),
-                ),
-            ),
-        ));
-
-.. note::
-
-    Admin extensions are a way to configure editing of common features on several
-    ``Admin`` classes without needing them to extend each other. If you want to
-    learn more about them, please read on in `Sonata Admin Extensions`_ for more
-    details.
-
-.. _bundle-block-updated-sonata-defaults:
+    If you edit the blocks using the Sonata admin, there is also the
+    :ref:`Block Sonata Admin Extension <bundles-block-types-admin_extension>`
+    that adds editing of the ``BaseBlock`` general block options.
 
 Updated SonataBlockBundle Defaults
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -411,4 +362,3 @@ Read on
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`prepended configuration`: http://symfony.com/doc/current/components/dependency_injection/compilation.html#prepending-configuration-passed-to-the-extension
 .. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle
-.. _`Sonata Admin Extensions`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html

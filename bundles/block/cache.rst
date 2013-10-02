@@ -189,7 +189,7 @@ which returns:
 * ``block_id``
 * ``updated_at``
 
-.. warning::
+.. caution::
 
     If block settings need to be persisted between requests, it is advised to
     store them in the block document. If you add them to the cache keys, you

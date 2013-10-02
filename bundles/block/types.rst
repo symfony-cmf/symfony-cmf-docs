@@ -24,6 +24,75 @@ The ``AbstractBlock`` implements the write interfaces for publishable and publis
 period, see the :ref:`publish workflow documentation <bundle-core-publish-workflow>`
 for more information.
 
+Sonata Admin
+~~~~~~~~~~~~
+
+All block types provided by the Symfony2 CMF BlockBundle come with a admin
+classes for :doc:`../doctrine_phpcr_admin`. To activate the admin services,
+it is enough to load the SonataDoctrinePhpcrAdminBundle in your application
+kernel and configure the sonata dashboard as desired.
+
+.. _bundles-block-types-admin_extension:
+
+Sonata Admin Extension for Basic Block Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This bundle also provides a sonata admin *extension* that you can activate.
+It adds a tab to edit settings of basic block options like the time to life
+(TTL, for caching purposes).
+
+Assuming your blocks extend the ``BaseBlock`` class (as all blocks provided by
+the CMF BlockBundle do), you can add the following lines to your sonata admin
+configuration.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_admin:
+            extensions:
+                cmf.block.admin.base.extension:
+                    extends:
+                        - Symfony\Cmf\Bundle\BlockBundle\Model\BaseBlock
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+            <config xmlns="http://sonata-project.org/schema/dic/admin">
+                <extension id="cmf.block.admin.base.extension">
+                    <extend>Symfony\Cmf\Bundle\BlockBundle\Model\BaseBlock</extend>
+                </extension>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_admin', array(
+            'extensions' => array(
+                'cmf.block.admin.base.extension' => array(
+                    'extends' => array(
+                        'Symfony\Cmf\Bundle\BlockBundle\Model\BaseBlock',
+                    ),
+                ),
+            ),
+        ));
+
+.. note::
+
+    Admin extensions are a way to configure editing of common features on several
+    ``Admin`` classes without needing them to extend each other. If you want to
+    learn more about them, please read on in `Sonata Admin Extensions`_ for more
+    details.
+
+.. _bundle-block-updated-sonata-defaults:
+
+
 StringBlock
 -----------
 
@@ -335,6 +404,7 @@ for further information.
 
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`Sonata Admin documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/form_types.html
+.. _`Sonata Admin Extensions`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
 .. _`LiipImagineBundle documentation`: https://github.com/liip/LiipImagineBundle/tree/master/Resources/doc
 .. _`sub-request`: http://symfony.com/doc/current/book/internals.html#internal-requests
