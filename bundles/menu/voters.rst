@@ -50,9 +50,9 @@ content attribute in the request is configurable with the ``content_key``
 option - if not set it defaults to the constant 
 ``Symfony\Cmf\Bundle\RoutingBundle\Routing\DynamicRouter::CONTENT_KEY`` (which resolves to ``contentDocument``).
 
-You can enable this voter by setting ``cmf_menu.voters.content_identity``
-to ``null`` in your configuration to use a custom ``content_key`` for the main
-content attribute name, set it explicitly:
+You can enable this voter by adding the ``cmf_menu.voters.content_identity``
+parameter to your configuration, note that the ``content_key`` parameter is
+optional::
 
 .. configuration-block::
 
@@ -104,30 +104,72 @@ compares the route option ``currentUriPrefix`` with the request URI. This
 allows you to make a whole sub-path of your site trigger the same menu item as
 current, but you need to configure the prefix option on your route documents.
 
-To enable the prefix voter, set the configuration key
-``cmf_menu.voters.uri_prefix`` to ``null``.
+To enable the prefix voter, add the ``cmf_menu.voters.uri_prefix`` to your
+configuration.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_menu:
+            voters:
+                uri-prefix: ~
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/menu">
+                <voters>
+                    <uri-prefix />
+                </voters>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_menu', array(
+            'voters' => array(
+                'uri_prefix' => null
+            ),
+        ));
 
 This voter is very useful when you have a deep heirarchy of arbitrary content documents
 (for example, articles and categories within categories).
 
-Imagine you have an articles section on your website. Articles are contained in
-categories and categories can contain both articles and further categories.
-There is a menu item "Articles" which has the URI ``/articles`` and there is an
-article which can be reached at ``/articles/computers/laptops/thinkpad/X200``.
-This voter will mark the "Articles" menu item as current as the start of the
-article URI matches ``/articles``.
+Imagine you have an articles section on your website. Articles are contained
+in categories and categories can contain both articles and further categories.
+There is a menu item "Articles" which has the URI ``/articles`` and there is
+an article which can be reached at
+``/articles/computers/laptops/thinkpad/X200``.  This voter will enable you to
+mark the "Articles" menu item as current as the start of the article URI
+matches ``/articles``.
 
 RequestParentContentIdentityVoter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This voter has the same logic as
-:ref:`bundles_menu_voters_request_identity_voter` which looks at a
-request attribute to get the current content, but instead of using the current
-content, it compares the value of that contents parent.
+This voter is similar in concept to the
+:ref:`bundles_menu_voters_request_identity_voter` but instead of comparing
+request content with the menu item content, it compares the *parent* of the
+request content with the menu item content.
 
-This parent is then compared to the ``content`` of the menu item extras. That way,
-content that does not have its own menu entry but a parent that does have a
-menu item can trigger the right menu entry to be highlighted.
+Imagine you are creating a blogging platform. Each blog is repersented by a
+document in the PHPCR-ODM tree. The posts of the blog are the children of this
+document. Each blog and each post is associated with a URI by way of an
+associated route and the blog document is associated with a menu item:
+
+.. code-block:: text
+
+    cms/
+        /blogs
+            /my-blog (Route URI = /blog, Menu Item = "Blog")
+                /my-first-post (Route URI = /blog/2013-10-02/my-first-post)
+                /my-second-post (Route URI = /blog/2013-10-03/my-second-post)
+
+This voter will enable you to make the "Blog" menu item "current" when viewing
+a post - for example ``/blog/2013-10-02/my-first-post``. This is because the
+parent of ``my-first-post`` is the blog document associated with the "Blog"
+menu item.
 
 To use this voter you need to configure a custom service with the name of the
 content in the request and your model class to avoid calling getParent on
@@ -186,9 +228,15 @@ Custom Voter
 
 Voters must implement the ``Symfony\Cmf\MenuBundle\Voter\VoterInterface``. To
 make the menu bundle notice the voter, tag it with ``cmf_menu.voter``.
-If the voter needs the request, add the tag ``cmf_request_aware`` to have a
-listener calling ``setRequest`` on the voter before it votes for the first
-time.
+
+If your voter requires the current ``Request`` object in its decision making
+process you can add the :ref:`synchronized <bundle-core-tags-request-aware>`
+tag to your service container definition. 
+
+.. note::
+
+    This tag is not required for versions of Symfony >= 2.3, see the
+    :ref:`documentation <bundle-core-tags-request-aware>` for more information.
 
 If you need to know the content the menu item points to, look in the
 ``content`` field of the menu item extras: ``$item->getExtra('content');``.

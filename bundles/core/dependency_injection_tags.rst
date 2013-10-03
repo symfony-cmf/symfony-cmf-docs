@@ -4,6 +4,8 @@
 Dependency Injection Tags
 -------------------------
 
+.. _bundle-core-tags-request-aware:
+
 cmf_request_aware
 ~~~~~~~~~~~~~~~~~
 
