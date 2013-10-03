@@ -2,8 +2,8 @@
     single: Installation; Getting Started
     single: Standard Edition
 
-Installing the Symfony CMF Standard Edition
-===========================================
+Installing the Standard Edition
+===============================
 
 The Symfony CMF Standard Edition (SE) is a distribution based on all the
 main components needed for most common use cases.
