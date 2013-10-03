@@ -34,8 +34,8 @@ Page Document
 
 The SimpleCmsBundle provides a class called ``Page`` which extends from the core
 ``Route`` class and provides properties to store content and also implements the
- ``NodeInterface``, so you can use inside th menu. This three-in-one approach is
- the key concept behind the bundle.
+``NodeInterface``, so you can use inside th menu. This three-in-one approach is
+the key concept behind the bundle.
 
 Creating a new Page
 ~~~~~~~~~~~~~~~~~~~
