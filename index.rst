@@ -130,10 +130,13 @@ configuration is broken down per bundle.
 .. toctree::
     :maxdepth: 1
 
-    reference/configuration/routing
-    reference/configuration/simple_cms
     reference/configuration/block
+    reference/configuration/content
+    reference/configuration/core
     reference/configuration/media
+    reference/configuration/routing
+    reference/configuration/search
+    reference/configuration/simple_cms
 
 Contributing
 ------------
