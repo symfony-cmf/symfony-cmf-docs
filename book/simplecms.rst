@@ -1,11 +1,11 @@
 .. index::
     single: SimpleCms
 
-A Simple CMS
-============
+First look at the internals
+===========================
 
 In most CMS use cases the most basic need is to associate content with a URL.
-In the Symfony CMF, this is done by using a powerfull routing system, provided
+In the Symfony CMF, this is done by using a powerful routing system, provided
 by the RoutingBundle, and a ContentBundle. The RoutingBundle provides a
 ``Route`` object which can be associated with the ``Content`` object of the
 ContentBundle.
@@ -14,7 +14,8 @@ Having two objects is the most flexible solution. You can have different
 routes (e.g. per language) for the same content. Or you can organize your
 content in a different logic than your URL tree. But in many situations,
 having the route and the content be one and the same simplifies things. That
-is exactly what the SimpleCmsBundle is doing.
+is exactly what the SimpleCmsBundle is doing, which is used by the Symfony
+CMF Standard Edition by default for routing, content and menus.
 
 .. note::
 
@@ -24,14 +25,17 @@ is exactly what the SimpleCmsBundle is doing.
 
 .. tip::
 
-    To learn more about the menu, see ":doc:`structuring_content`".
+    To learn more about the routing, see ":doc:`routing`". To learn more about
+    content storage, see ":doc:`static_content`". Finally, to learn more about
+    menus, see ":doc:`structuring_content`".
 
 Page Document
 ~~~~~~~~~~~~~
 
-The SimpleCmsBundle provides an object called ``Page`` which implements both
-``Route`` and ``Content`` objects and also a ``NodeInterface``, so you can use it in
-your menu. This three-in-one approach is the key concept behind the bundle.
+The SimpleCmsBundle provides a class called ``Page`` which extends from the core
+``Route`` class and provides properties to store content and also implements the
+ ``NodeInterface``, so you can use inside th menu. This three-in-one approach is
+ the key concept behind the bundle.
 
 Creating a new Page
 ~~~~~~~~~~~~~~~~~~~
@@ -95,7 +99,7 @@ structure, the code looks like this::
 
     $blogPost = new Page();
     // ... set up blog post
-    $blogPost->setPostion($blog, 'symfony-cmf-is-great');
+    $blogPost->setPosition($blog, 'symfony-cmf-is-great');
 
     $manager->persist($home); // add blog post to the database
 
