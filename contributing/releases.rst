@@ -1,5 +1,5 @@
-Symfony CMF Release Process
-===========================
+Release Process
+===============
 
 This document explains the release process for the Symfony Content Management
 Framework. See the core documentation for the `core Symfony release process`_.
