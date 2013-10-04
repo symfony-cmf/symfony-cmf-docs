@@ -77,53 +77,7 @@ is the following configuration:
 enabled
 """""""
 
-**type**: ``boolean`` **default**: ``false``
-
-If ``true``, PHPCR is enabled in the service container.
-
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
-the value of ``cmf_core.persistence.phpcr.enabled``.
-
-PHPCR can be enabled by multiple ways such as:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        phpcr: ~ # use default configuration
-        # or
-        phpcr: true # straight way
-        # or
-        phpcr:
-            manager_name: ... # or any other option under 'phpcr'
-
-    .. code-block:: xml
-
-        <persistence>
-            <!-- use default configuration -->
-            <phpcr />
-
-            <!-- or setting it the straight way -->
-            <phpcr>true</phpcr>
-
-            <!-- or setting an option under 'phpcr' -->
-            <phpcr manager-name="..." />
-        </persistence>
-
-    .. code-block:: php
-
-        $container->loadFromExtension('cmf_block', array(
-            // ...
-            'persistence' => array(
-                'phpcr' => null, // use default configuration
-                // or
-                'phpcr' => true, // straight way
-                // or
-                'phpcr' => array(
-                    'manager_name' => '...', // or any other option under 'phpcr'
-                ),
-            ),
-        ));
+.. include:: partials/persistence_phpcr_enabled.rst.inc
 
 media_basepath
 """"""""""""""
@@ -138,13 +92,7 @@ the value of ``%cmf_core.persistence.phpcr.basepath%/media``.
 manager_name
 """"""""""""
 
-**type**: ``string`` **default**: ``null``
-
-The name of the Doctrine Manager to use. ``null`` tells the manager registry to
-retrieve the default manager.<persistence>
-
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
-the value of ``cmf_core.persistence.phpcr.manager_name``.
+.. include:: partials/persistence_phpcr_manager_name.rst.inc
 
 media_class
 """""""""""
