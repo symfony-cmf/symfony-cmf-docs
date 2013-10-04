@@ -12,7 +12,7 @@ The KnpMenuBundle will identify a current menu item if the current request URI
 matches the URI of the menu item.
 
 This however only allows us to mark menu items as "current" where there is a
-direct correspondance between the current request URI and the menu item URI.
+direct correspondence between the current request URI and the menu item URI.
 In a CMS it is perhaps not desirable to have a menu item for each and every
 unique page and it is perhaps preferable instead to indicate which menu item most
 *closely corresponds* to the currently displayed page.
@@ -98,11 +98,46 @@ optional::
 UriPrefixVoter
 ~~~~~~~~~~~~~~
 
-The URI prefix voter looks at the ``content`` field of the menu item extras and
-checks if it contains an instance of the Symfony ``Route`` class. If so, it
-compares the route option ``currentUriPrefix`` with the request URI. This
-allows you to make a whole sub-path of your site trigger the same menu item as
-current, but you need to configure the prefix option on your route documents.
+The ``UriPrefixVoter`` allows you to specify a ``currentUriPrefix`` option on
+a ``Route`` instance associated with a menu item. When specified, this  will
+cause the menu item to be marked as current if the current request URI begins
+with, or matches, the ``currentUriPrefix`` option.
+
+This method will enable an entire sub-path of a site to cause a menu item
+to be marked as "current".
+
+Imagine you have an articles section on your website. Articles are contained
+in categories and categories can contain both articles and further categories.
+There is a menu item "Articles" which has the URI ``/articles`` and there is
+an article which can be reached at
+``/articles/computers/laptops/thinkpad/X200``::
+
+    use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+    use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuItem;
+    use Acme\FooBundle\Document\Article;
+
+    $dm = // get an instance of the document manager
+    $articlesRoute = new Route();
+    // ...
+    $articlesRoute->setId('/articles');
+    $articlesRoute->setOption('currentUriPrefix', '/articles');
+    $dm->persist($articlesRoute);
+
+    $menuItem = new MenuItem();
+    // ...
+    $menuItem->setLabel('Articles');
+    $menuItem->setContent($articlesRoute);
+    $dm->persist($menuItem);
+
+    $article = new Article();
+    $article->setId('/articles/computers/laptops/thinkpad/X200');
+    $article->setTitle('Thinkpad X200');
+    // ...
+    $dm->persist($article);
+
+By associating the ``$articlesRoute`` with the ``MenuItem`` and setting the
+``currentUriPrefix`` option to ``/articles`` the article "Thinkpad X200" will
+cause the "Articles" menu item to be marked as current.
 
 To enable the prefix voter, add the ``cmf_menu.voters.uri_prefix`` to your
 configuration.
@@ -134,17 +169,6 @@ configuration.
             ),
         ));
 
-This voter is very useful when you have a deep heirarchy of arbitrary content documents
-(for example, articles and categories within categories).
-
-Imagine you have an articles section on your website. Articles are contained
-in categories and categories can contain both articles and further categories.
-There is a menu item "Articles" which has the URI ``/articles`` and there is
-an article which can be reached at
-``/articles/computers/laptops/thinkpad/X200``.  This voter will enable you to
-mark the "Articles" menu item as current as the start of the article URI
-matches ``/articles``.
-
 RequestParentContentIdentityVoter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -153,7 +177,7 @@ This voter is similar in concept to the
 request content with the menu item content, it compares the *parent* of the
 request content with the menu item content.
 
-Imagine you are creating a blogging platform. Each blog is repersented by a
+Imagine you are creating a blogging platform. Each blog is represented by a
 document in the PHPCR-ODM tree. The posts of the blog are the children of this
 document. Each blog and each post is associated with a URI by way of an
 associated route and the blog document is associated with a menu item:
