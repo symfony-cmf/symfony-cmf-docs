@@ -33,7 +33,7 @@ PHPCR can be enabled by multiple ways such as:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_simple_cms', array(
+        $container->loadFromExtension(..., array( // bundle configuration key, e.g. cmf_menu
             // ...
             'persistence' => array(
                 'phpcr' => null, // use default configuration
