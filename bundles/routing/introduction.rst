@@ -30,11 +30,6 @@ ORM, as well as a controller for redirection routes.
 .. index:: RoutingBundle
 .. index:: Routing
 
-Dependencies
-------------
-
-* `Symfony CMF routing`_
-
 ChainRouter
 -----------
 
@@ -96,7 +91,6 @@ For more information on Routing in the Symfony CMF, please refer to:
 * Symfony2's `Routing`_ component documentation.
 
 .. _`RoutingBundle`: https://github.com/symfony-cmf/RoutingBundle#readme
-.. _`Symfony CMF routing`: https://github.com/symfony-cmf/Routing#readme
-.. _`PHPCR-ODM`: https://github.com/doctrine/phpcr-odm
+.. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
 .. _`documentation for DependencyInjection tags`: http://symfony.com/doc/2.1/reference/dic_tags.html
 .. _`Routing`: http://symfony.com/doc/current/components/routing/introduction.html
