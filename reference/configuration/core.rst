@@ -79,7 +79,7 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`ContentBundle <../../bundles/content/introduction>`
 * :doc:`CreateBundle <../../bundles/create>`
 * :doc:`MediaBundle <../../bundles/media/introduction>`
-* :doc:`MenuBundle <../../bundles/menu>`
+* :doc:`MenuBundle <../..//bundles/menu/index>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
@@ -97,7 +97,7 @@ Enabling this setting will also automatically enable the equivalent settings in 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
 * :doc:`ContentBundle <../../bundles/content/introduction>`
 * :doc:`MediaBundle <../../bundles/media/introduction>`
-* :doc:`MenuBundle <../../bundles/menu>`
+* :doc:`MenuBundle <../..//bundles/menu/index>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
@@ -124,7 +124,7 @@ Enabling this setting will also automatically enable the equivalent setting in t
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
 * :doc:`MediaBundle <../../bundles/media/introduction>`
-* :doc:`MenuBundle <../../bundles/menu>`
+* :doc:`MenuBundle <../..//bundles/menu/index>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
@@ -142,7 +142,7 @@ Enabling this setting will also automatically enable the equivalent setting in t
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
 * :doc:`ContentBundle <../../bundles/content/introduction>`
-* :doc:`MenuBundle <../../bundles/menu>`
+* :doc:`MenuBundle <../..//bundles/menu/index>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 
