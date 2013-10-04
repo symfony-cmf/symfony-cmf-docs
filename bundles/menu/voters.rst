@@ -21,7 +21,7 @@ For example, you are developing a homepage application which features a blog.
 The blog index page has a menu item but there are no menu items for the posts
 associated with the blog and so none of the menu items will be highlighted. 
 
-When the user is viewing a blog post we want the menu item for the blog to be
+When the user is viewing a blog post you want the menu item for the blog to be
 highlighted. The CMF facilitates this with current item *voter* classes.
 
 The voter system allows you to register voter classes implementing
@@ -302,7 +302,7 @@ A voter will look something like this::
                 return false;
             }
 
-            // we don't know if this is the current item
+            // can't determine if this is the current menu item
             return null;
         }
     }

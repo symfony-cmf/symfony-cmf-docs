@@ -6,7 +6,7 @@ Menu Factory
 
 The menu documents are only used for persisting the menu data, they are not
 actually used when rendering a menu. ``MenuItem`` classes from the KnpMenu
-component are the objects that we need, a menu factory takes data provided by
+component are the objects that are needed, a menu factory takes data provided by
 a class implementing ``NodeInterface`` and creates a ``MenuItem`` tree.
 
 .. _bundles_menu_menu_factory_url_generation:

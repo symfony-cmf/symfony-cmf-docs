@@ -41,8 +41,8 @@ The root document should be a child of the document specified in the configurati
 by the parameter ``persistence.phpcr.menu_basepath``, which defaults to ``/cms/menu``. Note
 that if this document does not exist it must be created.
 
-The example below creates a new menu with two items, "Home" and "Contact" and
-we specify a URI for each::
+The example below creates a new menu with two items, "Home" and "Contact",
+each of which specifies a URI::
 
     use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
     use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
@@ -99,8 +99,8 @@ tree:
 
         echo $view['knp_menu']->render('main-menu');
 
-Here we have specified the ``main-menu`` document from the previous
-example. This will render an unordered list as follows:
+Here the ``main-menu`` document from the previous
+example is specified. This will render an unordered list as follows:
 
 .. code-block:: html
 
