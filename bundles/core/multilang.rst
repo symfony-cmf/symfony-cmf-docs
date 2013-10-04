@@ -12,7 +12,7 @@ Persisting Documents in Different Languages
 
 Refer to the `PHPCR-ODM documentation`_ for details on persisting documents in different languages.
 
-Choosing a global translation strategy
+Choosing a Global Translation Strategy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 PHPCR-ODM supports multiple different strategies for persisting translations in the
