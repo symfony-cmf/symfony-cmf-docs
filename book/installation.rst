@@ -137,6 +137,15 @@ And then access the CMF via:
     use another driver than SQLite. Leaving the field blank in the
     web-configurator will set it to ``null``.
 
+.. note::
+
+    The proper term to use for the default database of the CMF is
+    *content repository*. The idea behind this name is essentially to describe a
+    specialized database created specifically for content management systems.
+    The acronym *PHPCR* actually stands for *PHP content repository*. But as
+    mentioned before, the CMF is storage agnostic so its possible to combine
+    the CMF with other storage mechanism, like Doctrine ORM, Propel etc.
+
 Overview
 --------
 
@@ -168,13 +177,13 @@ into a browsable website. The overall, simplified process is:
 
 * When a request is received, the :doc:`Symfony CMF Routing's Dynamic Router <routing>`
   is used to handle the incoming request;
-* The Dynamic Router is able to match the requested URL with a specific
-  ContentBundle's Content stored in the database;
-* The retrieved content's information is used to determine which controller to
+* The Dynamic Router is able to match the requested URL to a ``Page`` document
+  provided by SimpleCmsBundle and stored inside the database;
+* The retrieved document information is used to determine which controller to
   pass it on to, and which template to use;
-* As configured, the retrieved content is passed to ContentBundle's
-  ``ContentController``, which will handle it and render AcmeMainBundle's
-  ``layout.html.twig``.
+* As configured, the retrieved document is passed to ``ContentController``
+  provided by the ContentBundle, which render document into ``layout.html.twig``
+  of the AcmeMainBundle.
 
 Again, this is simplified view of a very simple CMS built on top of Symfony
 CMF. To fully understand all the possibilities of the CMF, continue reading
@@ -216,7 +225,8 @@ into the PHPCR database by calling:
 
 Note that the above identifier is mapped to
 ``app/Resources/data/pages/test.yml`` by stripping off the ``basepath``
-configuration of the SimpleCmsBundle (which defaults to ``/cms/simple``)....
+configuration of the SimpleCmsBundle (which defaults to ``/cms/simple``).
+
 Therefore if you want to define a child page ``foo`` for ``/cms/simple/test``
 you would need to create a file ``app/Resources/data/pages/test/foo.yml``
 and then run the following command:
