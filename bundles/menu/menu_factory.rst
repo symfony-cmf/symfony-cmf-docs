@@ -57,5 +57,5 @@ Publish Workflow
 ----------------
 
 The CMF menu factory also determines if menu nodes are published and therefore
-visible by use of the :ref:`publish workflow checker
-<bundle-core-publish-workflow>`.
+visible by use of the :doc:`publish workflow checker
+<../core/publish_workflow>`.

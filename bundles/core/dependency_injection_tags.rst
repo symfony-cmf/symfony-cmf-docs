@@ -44,7 +44,7 @@ cmf_published_voter
 ~~~~~~~~~~~~~~~~~~~
 
 Used to activate :ref:`custom voters <bundle-core-workflow-custom-voters>` for the
-:ref:`publish workflow <bundle-core-publish-workflow>`. Tagging a service with
+:doc:`publish workflow <publish_workflow>`. Tagging a service with
 ``cmf_published_voter`` integrates it into the access decision of the publish
 workflow.
 
