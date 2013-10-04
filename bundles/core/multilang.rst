@@ -12,6 +12,53 @@ Persisting Documents in Different Languages
 
 Refer to the `PHPCR-ODM documentation`_ for details on persisting documents in different languages.
 
+Choosing a global translation strategy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+PHPCR-ODM supports multiple different strategies for persisting translations in the
+repository. When combining Bundles its possible that one ends up with a mix of
+different strategies which can make providing a generic search across this data
+more complicated and might also be less efficient depending on the number of
+different languages used in the system.
+
+For this purpose the CoreBundle provides a Doctrine listener that can optionally
+enforce a single translation strategy for all documents:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_core:
+            persistence:
+                phpcr:
+                    translation_strategy:  attribute
+
+    .. code-block:: xml
+
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/core">
+                <persistence>
+                    <phpcr
+                        translation-strategy="attribute"
+                    />
+                </persistence>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_core', array(
+            'persistence' => array(
+                'phpcr' => array(
+                ),
+            ),
+        ));
+
+See the `PHPCR-ODM documentation`_ for more information.
+
 Editing Locale Information: Translatable Sonata Admin Extension
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -31,6 +31,7 @@ is the following configuration:
                     manager_registry:     doctrine_phpcr
                     manager_name:         ~
                     use_sonata_admin:     auto
+                    translation_strategy:  ~
 
     .. code-block:: xml
 
@@ -45,6 +46,7 @@ is the following configuration:
                         manager-registery="doctrine_phpcr"
                         manager-name="null"
                         use-sonata-admin="auto"
+                        translation-strategy="null"
                     />
                 </persistence>
             </config>
@@ -61,10 +63,10 @@ is the following configuration:
                     'manager_registry' => 'doctrine_phpcr',
                     'manager_name' => null,
                     'use_sonata_admin' => 'auto',
+                    'translation_strategy' => null,
                 ),
             ),
         ));
-
 
 enabled
 """""""
@@ -186,6 +188,13 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`MenuBundle <../../bundles/menu>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
+
+translation_strategy
+""""""""""""""""""""
+
+**type**: ``string`` **default**: ``null``
+
+This setting can be used to force a specific translation strategy for all documents.
 
 .. _config-core-multilang:
 
