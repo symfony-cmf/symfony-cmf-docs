@@ -57,6 +57,12 @@ enforce a single translation strategy for all documents:
             ),
         ));
 
+.. caution::
+
+    Changing this setting when data was already persisted with a different
+    translation strategy will require manually updating the current data
+    to match that of the chosen translation strategy.
+
 See the `PHPCR-ODM documentation`_ for more information.
 
 Editing Locale Information: Translatable Sonata Admin Extension
