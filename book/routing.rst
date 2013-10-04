@@ -6,8 +6,8 @@ Routing
 =======
 
 This is an introduction to understand the concepts behind CMF routing. For the
-reference documentation please see :doc:`../components/routing` and
-:doc:`../bundles/routing/introduction`.
+reference documentation please see the documentation for the
+:doc:`../components/routing` component and :doc:`../bundles/routing/introduction`.
 
 Concept
 -------
@@ -28,8 +28,8 @@ dynamic, user-defined routes, nor does it scale well to a large number of routes
 The Solution
 ~~~~~~~~~~~~
 
-In order to address these issues, a new routing system was developed that
-takes into account the typical needs of CMS routing:
+In order to address these issues, a new routing system needed to be developed
+that takes into account the typical needs of CMS routing:
 
 * User-defined URLs;
 * Multi-site;
@@ -37,8 +37,7 @@ takes into account the typical needs of CMS routing:
 * Tree-like structure for easier management;
 * Content, Menu and Route separation for added flexibility.
 
-With these requirements in mind, the Symfony CMF Routing component was
-developed.
+The Symfony CMF Routing component was created with these requirements in mind.
 
 The ``ChainRouter``
 -------------------
