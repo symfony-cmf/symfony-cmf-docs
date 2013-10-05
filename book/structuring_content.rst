@@ -190,7 +190,7 @@ Configuration
 ~~~~~~~~~~~~~
 
 This bundle is configurable using a set of parameters, but all of them are
-optional. You can go to the :doc:`../bundles/menu` reference page for the full
+optional. You can go to the :doc:`../bundles/menu/index` reference page for the full
 configuration options list and additional information.
 
 .. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle

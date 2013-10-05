@@ -19,9 +19,10 @@ though only those block that actually contain string content implement the
 Publish Workflow Interfaces
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``AbstractBlock`` implements the write interfaces for publishable and publish time
-period, see the :ref:`publish workflow documentation <bundle-core-publish-workflow>`
-for more information.
+The ``AbstractBlock`` implements the write interfaces for publishable and
+publish time period, see the 
+:doc:`publish workflow documentation <../core/publish_workflow>` for more 
+information.
 
 StringBlock
 -----------

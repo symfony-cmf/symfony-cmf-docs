@@ -1,8 +1,6 @@
 .. index::
     single: Core; Bundles; publish workflow
 
-.. _bundle-core-publish-workflow:
-
 Publish Workflow
 ----------------
 

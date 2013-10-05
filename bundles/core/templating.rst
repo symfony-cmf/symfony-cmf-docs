@@ -11,7 +11,7 @@ Twig
 
 The CoreBundle contains a Twig extension that provides a set of useful
 functions for your templates. The functions respect the
-:ref:`publish workflow <bundle-core-publish-workflow>` if it is enabled.
+:doc:`publish workflow <publish_workflow>` if it is enabled.
 
 * **cmf_find**: returns the document for the provided path
 * **cmf_find_many**: returns an array of documents for the provided paths

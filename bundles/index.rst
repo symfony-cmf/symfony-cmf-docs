@@ -11,7 +11,7 @@ Bundles
     create
     phpcr_odm
     media/index
-    menu
+    menu/index
     routing_auto
     routing/index
     search/index
