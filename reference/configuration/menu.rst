@@ -28,11 +28,11 @@ persistence configuration has the following configuration:
                     menu_basepath:        /cms/menu
                     content_basepath:     ~
                     manager_name:         ~
-                    menu_document_class:  ~
-                    node_document_class:  ~
+                    menu_document_class:  Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu
+                    node_document_class:  Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode
                     use_sonata_admin:     ~ # One of true; false; "auto"
-                    menu_admin_class:     ~
-                    node_admin_class:     ~
+                    menu_admin_class:     Symfony\Cmf\Bundle\MenuBundle\Admin\MenuAdmin
+                    node_admin_class:     Symfony\Cmf\Bundle\MenuBundle\Admin\MenuNodeAdmin
                     admin_recursive_breadcrumbs:  true
 
 
@@ -100,6 +100,9 @@ documents can be found.
 * This is the default location for newly created menus in the Sonata admin
   class.
 
+If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
+the value of ``%cmf_core.persistence.phpcr.basepath%/menu``
+
 content_basepath
 """"""""""""""""
 
@@ -108,6 +111,9 @@ content_basepath
 Specifies the path in the PHPCR-ODM document hierarchy under which the
 content documents can be found. This is used by the admin class to pre-select
 the content branch of the document hierarchy in forms.
+
+If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
+the value of ``%cmf_core.persistence.phpcr.basepath%/content``
 
 menu_document
 """""""""""""
@@ -155,15 +161,14 @@ admin_recursive_breadcrumbs
 
 **type**: ``boolean`` **default**: ``true``
 
-This class will cause the sonata breadcrumb to expand to include links to
-descendants when editing a menu node.
+When editing a node, this setting will cause the Sonata admin breadcrumb to include ancestors of the node being edited.
 
 Voter
 -----
 
 **type**: ``array``
 
-The voters section enables you to enable and configure *pre-defined* :doc:`voters <../../bundles/menu/voters>`.
+The ``voters`` section enables you to enable and configure *pre-defined* :doc:`voters <../../bundles/menu/voters>`.
 
 .. configuration-block::
 
@@ -215,6 +220,11 @@ content_key
 **type**: ``string`` **default**: ``contentDocument``
 
 The name of the parameter containing the content in the request.
+
+.. note::
+
+    If you are using the RoutingBundle, you do not need to set this as it will default to
+    ``DynamicRouter::CONTENT_KEY``. If however you do not use the RoutingBundle, you will have to specify a key.
 
 uri_prefix
 ~~~~~~~~~~
