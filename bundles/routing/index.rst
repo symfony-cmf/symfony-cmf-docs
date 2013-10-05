@@ -7,4 +7,3 @@ RoutingBundle
     introduction
     dynamic
     dynamic_customize
-    extra
