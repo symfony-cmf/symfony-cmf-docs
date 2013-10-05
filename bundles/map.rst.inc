@@ -38,7 +38,7 @@
 
 * **MenuBundle**
 
-  * :doc:`menu`
+  * :doc:`menu/index`
 
 * :doc:`routing/index`
 

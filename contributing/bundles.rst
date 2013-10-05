@@ -156,6 +156,8 @@ All CMF bundles:
 See the `Mapping Model Classes`_ chapter of the Symfony Cookbook for more
 information.
 
+.. _contrib_bundles_baseandstandardimplementations:
+
 Base and Standard Implementations
 ---------------------------------
 
