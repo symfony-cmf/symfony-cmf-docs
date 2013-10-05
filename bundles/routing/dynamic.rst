@@ -267,13 +267,65 @@ get an error if Sonata becomes unavailable.
 Sonata admin is using the ``content_basepath`` to show the tree of content to
 select the route target.
 
-See the :ref:`routing configuration reference PHPCR section <reference-configuration-routing-persistence-phpcr>`
-for more details.
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_routing:
+            dynamic:
+                persistence:
+                    phpcr:
+                        # use true/false to force using / not using sonata admin
+                        use_sonata_admin: auto
+
+                        # used with Sonata Admin to manage content; defaults to %cmf_core.basepath%/content
+                        content_basepath: ~
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <container xmlns="http://cmf.symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic>
+                    <persistence>
+                        <!-- use-sonata-admin: use true/false to force using / not using sonata admin -->
+                        <!-- content-basepath: used with Sonata Admin to manage content;
+                                               defaults to %cmf_core.basepath%/content -->
+                        <phpcr
+                            use-sonata-admin="auto"
+                            content-basepath="null"
+                        />
+                    </persistence>
+                </dynamic>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_routing', array(
+            'dynamic' => array(
+                'persistence' => array(
+                    'phpcr' => array(
+                        // use true/false to force using / not using sonata admin
+                        'use_sonata_admin' => 'auto',
+
+                        // used with Sonata Admin to manage content; defaults to %cmf_core.basepath%/content
+                        'content_basepath' => null,
+                    ),
+                ),
+            ),
+        ));
 
 Doctrine ORM integration
 ------------------------
 
-Alternatively, you can use the Doctrine ORM provider by specifying the
+Alternatively, you can use the `Doctrine ORM`_ provider by specifying the
 ``persistence.orm`` part of the configuration. It does a similar job but, as
 the name indicates, loads ``Route`` entities from an ORM database.
 
@@ -487,6 +539,7 @@ Read on in the chapter :doc:`customizing the dynamic router <dynamic_customize>`
 
 .. _`CMF sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`CMF Routing component`: https://github.com/symfony-cmf/Routing
-.. _`PHPCR-ODM`: https://github.com/doctrine/phpcr-odm
+.. _`Doctrine ORM`: http://www.doctrine-project.org/projects/orm.html
+.. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
 .. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _`URL generating capabilities of Symfony2`: http://symfony.com/doc/current/book/routing.html#generating-urls
