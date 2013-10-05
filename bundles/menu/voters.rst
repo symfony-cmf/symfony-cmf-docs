@@ -52,7 +52,7 @@ option - if not set it defaults to the constant
 
 You can enable this voter by adding the ``cmf_menu.voters.content_identity``
 parameter to your configuration, note that the ``content_key`` parameter is
-optional::
+optional:
 
 .. configuration-block::
 
