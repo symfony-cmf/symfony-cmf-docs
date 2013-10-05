@@ -335,22 +335,12 @@ phpcr
 enabled
 *******
 
-**type**: ``boolean`` **default**: ``false``
-
-If ``true``, PHPCR is enabled in the service container.
-
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
-the value of ``cmf_core.persistence.phpcr.enabled``.
+.. include:: partials/persistence_phpcr_enabled.rst.inc
 
 manager_name
 ************
 
-**type**: ``string`` **default**: ``null``
-
-The name of the Doctrine Manager to use.
-
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
-the value of ``cmf_core.persistence.phpcr.manager_name``.
+.. include:: partials/persistence_phpcr_manager_name.rst.inc
 
 route_basepath
 **************

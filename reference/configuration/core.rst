@@ -71,9 +71,7 @@ is the following configuration:
 enabled
 """""""
 
-**type**: ``boolean`` **default**: ``false``
-
-If ``true``, PHPCR is enabled in the service container.
+.. include:: partials/persistence_phpcr_enabled.rst.inc
 
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
 
@@ -86,47 +84,6 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
 * :doc:`TreeBrowserCmsBundle <../../bundles/tree_browser>`
-
-PHPCR can be enabled by multiple ways such as:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        phpcr: ~ # use default configuration
-        # or
-        phpcr: true # straight way
-        # or
-        phpcr:
-            manager: ... # or any other option under 'phpcr'
-
-    .. code-block:: xml
-
-        <persistence>
-            <!-- use default configuration -->
-            <phpcr />
-
-            <!-- or setting it the straight way -->
-            <phpcr>true</phpcr>
-
-            <!-- or setting an option under 'phpcr' -->
-            <phpcr manager="..." />
-        </persistence>
-
-    .. code-block:: php
-
-        $container->loadFromExtension('cmf_core', array(
-            // ...
-            'persistence' => array(
-                'phpcr' => null, // use default configuration
-                // or
-                'phpcr' => true, // straight way
-                // or
-                'phpcr' => array(
-                    'manager' => '...', // or any other option under 'phpcr'
-                ),
-            ),
-        ));
 
 basepath
 """"""""
