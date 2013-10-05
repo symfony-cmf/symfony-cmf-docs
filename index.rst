@@ -134,6 +134,7 @@ configuration is broken down per bundle.
     reference/configuration/content
     reference/configuration/core
     reference/configuration/media
+    reference/configuration/menu
     reference/configuration/routing
     reference/configuration/search
     reference/configuration/simple_cms
