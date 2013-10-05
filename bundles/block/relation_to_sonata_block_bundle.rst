@@ -1,15 +1,14 @@
 Relation to Sonata Block Bundle
 ===============================
 
-.. include:: ../_outdate-caution.rst.inc
-
-The BlockBundle is based on the `SonataBlockBundle`_.  It replaces components
-of the bundle where needed to be compatible with PHPCR.
+The Symfony2 CMF BlockBundle is based on the `SonataBlockBundle`_.  It replaces
+components of the SonataBlockBundle where needed to be compatible with PHPCR.
 
 Classdiagram
 ------------
 
-The following picture shows where we use our own components (blue):
+The following diagram shows the components the Symfony CMF BlockBundle replaces
+in blue color:
 
 .. image:: ../../_images/bundles/classdiagram.jpg
    :align: center
