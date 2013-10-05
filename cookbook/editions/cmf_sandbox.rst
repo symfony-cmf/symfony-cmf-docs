@@ -4,6 +4,8 @@
 Installing the CMF sandbox
 ==========================
 
+.. include:: ../_outdate-caution.rst.inc
+
 This tutorial shows how to install the Symfony CMF Sandbox, a demo platform
 aimed at showing the tool's basic features running on a demo environment.
 This can be used to evaluate the platform or to see actual code in action,

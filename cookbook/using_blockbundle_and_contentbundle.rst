@@ -6,6 +6,8 @@
 Using the BlockBundle and ContentBundle with PHPCR
 ==================================================
 
+.. include:: _outdate-caution.rst.inc
+
 The goal of this tutorial is to demonstrate how the CMF
 :doc:`BlockBundle <../bundles/block/index>` and
 :doc:`ContentBundle <../bundles/content/index>` can be used as stand-alone

@@ -4,6 +4,8 @@
 Installing and Configuring Doctrine PHPCR-ODM
 =============================================
 
+.. include:: _outdate-caution.rst.inc
+
 The Symfony2 CMF needs somewhere to store the content. Many of the bundles
 provide documents and mappings for the PHP Content Repository - Object
 Document Mapper (PHPCR-ODM), and the documentation is currently based around

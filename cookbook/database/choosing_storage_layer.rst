@@ -4,6 +4,8 @@
 Choosing a Storage Layer
 ========================
 
+.. include:: ../_outdate-caution.rst.inc
+
 When building a CMS, the choice of storage layer is one of the key decisions
 to take. Many factors must be considered, the good news is that with all the
 components and Bundles in the CMF, it takes extra care to provide the

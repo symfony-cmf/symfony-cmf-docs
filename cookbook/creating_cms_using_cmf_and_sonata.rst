@@ -4,6 +4,8 @@
 Creating a CMS using CMF and Sonata
 ===================================
 
+.. include:: _outdate-caution.rst.inc
+
 The goal of this tutorial is to create a simple content management system
 using the CMF as well as `SonataAdminBundle`_ and
 :doc:`../bundles/doctrine_phpcr_admin`.
@@ -19,9 +21,9 @@ Preconditions
 .. caution::
 
     Don't forget to add a configuration for the SecurityBundle or you will get an
-    
+
     ``The function "is_granted" does not exist in SonataAdminBundle``
-    
+
     error.
 
 Installation

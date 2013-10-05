@@ -4,6 +4,8 @@
 Installing and Configuring Inline Editing
 =========================================
 
+.. include:: _outdate-caution.rst.inc
+
 The goal of this tutorial is to install and configure the inline editing
 support.
 

@@ -4,6 +4,8 @@
 Handling Multi-Language Documents
 =================================
 
+.. include:: _outdate-caution.rst.inc
+
 The goal of the tutorial is to describe all the steps that are needed to be
 taken to use multi-language documents as clearly as possible.
 

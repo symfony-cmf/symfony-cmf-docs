@@ -4,6 +4,8 @@
 Installing and Configuring the CMF Core
 =======================================
 
+.. include:: ../_outdate-caution.rst.inc
+
 The goal of this tutorial is to install the minimal CMF components ("core")
 with the minimum necessary configuration. From there, you can begin
 incorporating CMF functionality into your application as needed.
