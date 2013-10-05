@@ -373,7 +373,7 @@ sample block, so create the ``LoadBlockWithCmfParent.php`` class::
     use Symfony\Component\DependencyInjection\ContainerInterface;
     use PHPCR\Util\NodeHelper;
     use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock;
-    use Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent;
+    use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
 
     class LoadBlockWithCmfParent extends AbstractFixture implements ContainerAwareInterface
     {
@@ -391,7 +391,7 @@ sample block, so create the ``LoadBlockWithCmfParent.php`` class::
             $document->setPath($basepath . '/blocks');
             $manager->persist($document);
 
-            // Create a new SimpleBlock (see http://symfony.com/doc/master/cmf/bundles/block.html#block-types)
+            // Create a new SimpleBlock
             $myBlock = new SimpleBlock();
             $myBlock->setParentDocument($document);
             $myBlock->setName('testBlock');
@@ -413,9 +413,9 @@ This class creates an example content page using the CMF ContentBundle. It
 then loads our example block as before, using the new content page as its
 parent.
 
-By default, the base path for the content is ``/cms/content/static``. To show
-how it can be configured to any path, add the following, optional entry to
-your ``config.yml``:
+By default, the base path for the content is ``/cms/content``. To show how it
+can be configured to any path, add the following, optional entry to your
+``config.yml``:
 
 .. configuration-block::
 
@@ -423,7 +423,7 @@ your ``config.yml``:
 
         # app/config/config.yml
         cmf_content:
-            static_basepath: /content
+            content_basepath: /content
 
 Now it should be possible to load in the above fixtures:
 

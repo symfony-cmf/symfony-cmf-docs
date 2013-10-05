@@ -1,30 +1,35 @@
 Create your own Blocks
 ======================
 
-.. include:: ../_outdate-caution.rst.inc
-
 Follow these steps to create a block:
 
-* create a block document;
-* create a block service and declare it (optional);
-* create a data object representing your block in the repository, see
+* define a block document class;
+* if needed, create a block service and declare it (optional);
+* instantiate a data object representing your block in the repository, see
   :ref:`bundle-block-document`;
 * render the block, see :ref:`bundle-block-rendering`;
 
 Lets say you are working on a project where you have to integrate data
 received from several RSS feeds.  Of course you could create an ActionBlock
-for each of these feeds, but wouldn't this be silly? In fact all those actions
+for each of these feeds, but wouldn't this be silly? In fact, all those actions
 would look similar: Receive data from a feed, sanitize it and pass the data to
-a template. So instead you decide to create your own block, the RSSBlock.
+a template. So instead you decide to create your own block, the ``RssBlock``.
+
+.. tip::
+
+    In this example, we create an ``RssBlock``. This particular block type
+    already exists in the Symfony2 CMF BlockBundle, so you can also look at
+    the end result if you want.
 
 Create a block document
 -----------------------
 
-The first thing you need is an document that contains the data. It is
-recommended to extend ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock``
-contained in this bundle (however you are not forced to do so, as long as you
-implement ``Sonata\BlockBundle\Model\BlockInterface``). In your document, you
-need to define the ``getType`` method which just returns ``acme_main.block.rss``.
+The first thing you need is an document that holds the data. It is
+recommended to extend ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock``.
+You are of course free to do your own document, but need to at least implement
+``Sonata\BlockBundle\Model\BlockInterface``. In your document, you
+need to define the ``getType`` method which returns the type name of your block,
+for instance ``acme_main.block.rss``.
 
 .. code-block:: php
 
@@ -51,33 +56,56 @@ Create a Block Service
 ----------------------
 
 You could choose to use a an already existing block service because the
-configuration and logic already satisfy your needs. For our rss block we
-create a service that knows how to handle RSSBlocks:
+configuration and logic already satisfy your needs. For our RSS block we
+create a service that knows how to handle ``RssBlocks``:
 
 * The method ``setDefaultSettings`` configures a template, title, url and the
   maximum amount of items::
 
-      // ...
-      public function setDefaultSettings(OptionsResolverInterface $resolver)
-      {
-          $resolver->setDefaults(array(
-              'template' => 'AcmeMainBundle::Block::block_rss.html.twig',
-              'url'      => false,
-              'title'    => 'Insert the rss title',
-              'maxItems' => 10,
-          ));
-      }
-      // ...
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+    use Symfony\Component\HttpFoundation\Response;
+    use Sonata\BlockBundle\Block\BaseBlockService;
+    use Sonata\BlockBundle\Block\BlockContextInterface;
 
-* The execute method passes the settings to an rss reader service and forwards
-* The feed items to a template, see :ref:`bundle-block-execute`
+    class RssBlockService extends extends BaseBlockService
+    {
+        // ...
+        public function setDefaultSettings(OptionsResolverInterface $resolver)
+        {
+            $resolver->setDefaults(array(
+                'template' => 'AcmeMainBundle::Block::block_rss.html.twig',
+                'url'      => false,
+                'title'    => 'Feed items',
+                'maxItems' => 10,
+            ));
+        }
+        // ...
 
-Make sure you implement the interface
-``Sonata\BlockBundle\Block\BlockServiceInterface`` or an existing block
-service like ``Sonata\BlockBundle\Block\BaseBlockService``.
+        public function execute(BlockContextInterface $blockContext, Response $response = null)
+        {
+            /** @var $block RssBlock */
+            $block = $blockContext->getBlock();
 
-Define the service in a config file. It is important to tag your BlockService
-with ``sonata.block``, otherwise it will not be known by the Bundle.
+            if (!$block->getEnabled()) {
+                return new Response();
+            }
+
+            $requestParams = $block->resolveRequestParams($this->request, $blockContext);
+
+            return new Response($this->renderer->render(new ControllerReference(
+                    'acme_main.controller.rss:block',
+                    $requestParams
+                )
+            ));
+        }
+    }
+
+The execute method passes the settings to an RSS reader service and forwards
+the feed items to a template. (See :ref:`bundle-block-execute` for more on the
+block service ``execute`` method).
+
+Define the service in a configuration file. It is important to tag your BlockService
+with ``sonata.block`` to make it known to the SonataBlockBundle.
 
 .. configuration-block::
 
@@ -116,13 +144,15 @@ with ``sonata.block``, otherwise it will not be known by the Bundle.
 
         $container->register('acme_main.rss_reader', 'Acme\MainBundle\Feed\SimpleReader');
 
-        $container->addDefinition('sandbox_main.block.rss', new Definition(
-            'Acme\MainBundle\Block\RssBlockService',
-            array(
-                'acme_main.block.rss',
-                new Reference('templating'),
-                new Reference('sonata.block.renderer'),
-                new Reference('acme_main.rss_reader'),
-            )
-        ))
-            ->addTag('sonata.block');
+        $container
+            ->addDefinition('sandbox_main.block.rss', new Definition(
+                'Acme\MainBundle\Block\RssBlockService',
+                array(
+                    'acme_main.block.rss',
+                    new Reference('templating'),
+                    new Reference('sonata.block.renderer'),
+                    new Reference('acme_main.rss_reader'),
+                )
+            ))
+            ->addTag('sonata.block')
+        ;
