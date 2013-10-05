@@ -117,7 +117,7 @@ Looking for some information about the low level components of the CMF?
 .. toctree::
 	:maxdepth: 1
 
-	components/routing
+	components/routing/introduction
 	components/testing
 
 Reference
