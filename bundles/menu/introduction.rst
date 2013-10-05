@@ -119,6 +119,11 @@ example is specified. This will render an unordered list as follows:
      PHPCR-ODM document as a menu. For more information see the 
      :doc:`menu provider documentation <menu_provider>`.
 
+.. note:: 
+
+    If you want to render the menu from twig, make sure you have not disabled
+    twig in the ``knp_menu`` configuration section.
+
 For more information see the `rendering menus`_ section of the KnpMenuBundle documentation.
 
 .. _`KnpMenu`: https://github.com/knplabs/KnpMenu
