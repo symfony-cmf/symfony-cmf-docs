@@ -4,7 +4,7 @@ MenuBundle configuration
 The MenuBundle provides a persistent menu system based on the KnpMenuBundle.
 It can be configured under the ``cmf_menu`` key in your application
 configuration. When using XML you should use the
-``http://cmf.symfony.com/schema/dic/content`` namespace.
+``http://cmf.symfony.com/schema/dic/menu`` namespace.
 
 Configuration
 -------------
