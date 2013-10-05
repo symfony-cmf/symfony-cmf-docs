@@ -151,4 +151,4 @@ provider.  See `Creating and configuring services in the container`_ for
 information on creating custom services.
 
 .. _`Creating and configuring services in the container`: http://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container/
-.. _`PHPCR-ODM`: https://github.com/doctrine/phpcr-odm
+.. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
