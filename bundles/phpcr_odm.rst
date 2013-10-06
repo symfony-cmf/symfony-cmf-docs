@@ -531,6 +531,9 @@ correct.
 
         </constraint-mapping>
 
+.. index::
+    single: Form Types; DoctrinePHPCRBundle
+
 Form Types
 ----------
 
