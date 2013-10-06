@@ -13,7 +13,8 @@ Base Menu Node
 --------------
 
 The ``MenuNodeBase`` document implements only those features available in the
-original KnpMenu node.
+original KnpMenu node. Please refer to the "`Creating Menus: The Basics`_" section of
+the KnpMenu component documentation for more information.
 
 .. code-block:: php
 
@@ -112,3 +113,5 @@ Publish Workflow
 The standard menu node implements ``PublishTimePeriodInterface`` and
 ``PublishableInterface``. Please refer to the 
 :doc:`publish workflow documentation <../core/publish_workflow>`.
+
+.. _`Creating Menus: The Basics`: https://github.com/KnpLabs/KnpMenu/blob/1.1.x/doc/01-Basic-Menus.markdown
