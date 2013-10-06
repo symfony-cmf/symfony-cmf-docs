@@ -67,18 +67,31 @@ Higher priorities are sorted first.
 Register Routers Compiler Pass
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This component provides a ``RegisterRoutersPass``. If you use the Symfony2
-Dependency Injection Container, you can use this compiler pass to register all
-routers with a specific tag::
+This component provides a ``RegisterRoutersPass``. If you use the
+`Symfony2 Dependency Injection Component`_, you can use this compiler pass to
+register all routers with a specific tag::
 
     use Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRoutersPass;
     use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-    $container = ... // ContainerBuilder
-    $pass = new RegisterRoutersPass();
-    $pass->process($container);
+    // a ContainerBuilder
+    $container = ...;
 
-The default tag is ``router``. If you are using the Symfony2 CMF RoutingBundle,
+    $pass = new RegisterRoutersPass('cmf_routing.router', 'router');
+    $container->addCompilerPass($pass);
+
+After adding the passes and configuring the container builder, you continue
+with compiling the container as explained in the
+`Symfony2 DI Component compilation section`_.
+
+You can optionally configure the chain router service name. The compiler pass
+will modify this service definition to register the routers when the chain
+router is loaded from the container. The default name if you do not specify
+anything is ``cmf_routing.router``.
+
+You can also configure the tag name you want to use with the second argument to
+the compiler pass constructor. If you don't, the default tag is ``router``. If
+you are using the :doc:`Symfony2 CMF RoutingBundle<../../bundles/routing/introduction>`,
 this tag is already active with the default name.
 
 Routers
@@ -110,3 +123,5 @@ is faster in taking routing decisions.
 Read on about the dynamic router in the :doc:`next section<dynamic>`.
 
 .. _`Routing Component`: http://symfony.com/doc/current/components/routing/introduction.html
+.. _`Symfony2 Dependency Injection Component`: http://symfony.com/doc/master/components/dependency_injection/index.html
+.. _`Symfony2 DI Component compilation section`: http://symfony.com/doc/current/components/dependency_injection/compilation.html

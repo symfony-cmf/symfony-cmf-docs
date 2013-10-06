@@ -75,15 +75,18 @@ the principle to never change and existing field but only add fields if they
 do not exist yet:
 
 * ``RouteContentEnhancer``: If the route is instanceof ``RouteObjectInterface``,
-  sets a field to the return value of ``getContent()``.
-* ``FieldMapEnhancer``: Configured with a map of key to value. If a specific
-  field of the match contains a key, another field is set to the value.
+  this enhancer sets the target field to the return value of ``getContent()``.
+* ``FieldMapEnhancer``: Configured with a key-value map. If a specified field of
+  the match contains a key, the target field is set to the value.
 * ``FieldByClassEnhancer``: Configured with a map of class names to values.
-  Adds a field with the value if another field contains an object that is
-  instanceof that class. For example to determine the controller or template
-  based on the content class.
-  This is similar to FieldMapEnhancer but doing an instanceof check rather than
-  string comparison for the map keys.
+  If the specified field contains an object that is an instance of a class in
+  the map, sets the target field to the corresponding value. Note that the
+  first match is taken, should the objects be instance of more than one of the
+  classes. This enhancer is for example used to determine the controller and
+  template based on the class of a Content document.
+  This enhancer is similar to ``FieldMapEnhancer``, but doing an
+  :phpfunction:`instanceof` check rather than string comparison for the map
+  keys.
 * ``FieldPresenceEnhancer``: If a field is present in the route match, sets an
   other field to a specified value if that field is not set yet.
 
@@ -97,18 +100,33 @@ Route Enhancer Compiler Pass
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This component provides a ``RegisterRouteEnhancersPass``. If you use the
-Symfony2 Dependency Injection Container, you can use this compiler pass to
+`Symfony2 Dependency Injection Component`_, you can use this compiler pass to
 register all enhancers having a specific tag with the dynamic router::
 
     use Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRouterEnhancersPass;
     use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-    $container = ... // ContainerBuilder
-    $pass = new RegisterRouterEnhancersPass();
-    $pass->process($container);
+    // a ContainerBuilder
+    $container = ...;
 
-The defalt tag is ``dynamic_router_route_enhancer``. If you are using the
-Symfony2 CMF RoutingBundle, this tag is already active with the default name.
+    $pass = new RegisterRouterEnhancersPass('cmf_routing.dynamic_router', 'dynamic_router_route_enhancer');
+    $container->addCompilerPass($pass);
+
+
+After adding the passes and configuring the container builder, you continue
+with compiling the container as explained in the
+`Symfony2 DI Component compilation section`_.
+
+You can optionally configure the dynamic router service name. The compiler pass
+will modify this service definition to register the enhancers when the dynamic
+router is loaded from the container. The default name if you do not specify
+anything is ``cmf_routing.dynamic_router``.
+
+You can also configure the tag name you want to use with the second argument to
+the compiler pass constructor. If you don't, the default tag is
+``dynamic_router_route_enhancer``. If you are using the
+:doc:`Symfony2 CMF RoutingBundle<../../bundles/routing/introduction>`, this tag is
+already active with the default name.
 
 Linking a Route with a Content
 ------------------------------
@@ -196,3 +214,5 @@ call  with any object they can handle.
 
 .. _`Event Dispatcher`: http://symfony.com/doc/current/components/event_dispatcher/index.html
 .. _`How to create an Event Listener`: http://symfony.com/doc/current/cookbook/service_container/event_listener.html
+.. _`Symfony2 Dependency Injection Component`: http://symfony.com/doc/master/components/dependency_injection/index.html
+.. _`Symfony2 DI Component compilation section`: http://symfony.com/doc/current/components/dependency_injection/compilation.html
