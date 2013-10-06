@@ -107,7 +107,7 @@ to do it? In this case the reference is the right place for you.
 	bundles/search/index
 	bundles/simple_cms/index
 	bundles/doctrine_phpcr_admin
-	bundles/tree_browser
+	bundles/tree_browser/index
 
 Components
 ----------
