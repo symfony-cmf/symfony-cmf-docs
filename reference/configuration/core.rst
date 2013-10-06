@@ -83,7 +83,7 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SearchBundle <../../bundles/search/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
-* :doc:`TreeBrowserCmsBundle <../../bundles/tree_browser>`
+* :doc:`TreeBrowserCmsBundle <../../bundles/tree_browser/introduction>`
 
 basepath
 """"""""
