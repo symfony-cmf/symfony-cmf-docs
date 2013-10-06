@@ -9,3 +9,4 @@ CoreBundle
     dependency_injection_tags
     templating
     multilang
+    forms
