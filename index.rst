@@ -138,6 +138,7 @@ configuration is broken down per bundle.
     reference/configuration/routing
     reference/configuration/search
     reference/configuration/simple_cms
+    reference/configuration/tree_browser
 
 Contributing
 ------------
