@@ -86,12 +86,12 @@ with compiling the container as explained in the
 
 You can optionally configure the chain router service name. The compiler pass
 will modify this service definition to register the routers when the chain
-router is loaded from the container. The default name if you do not specify
-anything is ``cmf_routing.router``.
+router is loaded from the container. If you do not specify anything, the
+service name is ``cmf_routing.router``.
 
 You can also configure the tag name you want to use with the second argument to
 the compiler pass constructor. If you don't, the default tag is ``router``. If
-you are using the :doc:`Symfony2 CMF RoutingBundle<../../bundles/routing/introduction>`,
+you are using the :doc:`Symfony2 CMF RoutingBundle <../../bundles/routing/introduction>`,
 this tag is already active with the default name.
 
 Routers

@@ -112,20 +112,19 @@ register all enhancers having a specific tag with the dynamic router::
     $pass = new RegisterRouterEnhancersPass('cmf_routing.dynamic_router', 'dynamic_router_route_enhancer');
     $container->addCompilerPass($pass);
 
-
 After adding the passes and configuring the container builder, you continue
 with compiling the container as explained in the
 `Symfony2 DI Component compilation section`_.
 
 You can optionally configure the dynamic router service name. The compiler pass
 will modify this service definition to register the enhancers when the dynamic
-router is loaded from the container. The default name if you do not specify
-anything is ``cmf_routing.dynamic_router``.
+router is loaded from the container. If you do not specify anything, the
+default service name is ``cmf_routing.dynamic_router``.
 
 You can also configure the tag name you want to use with the second argument to
 the compiler pass constructor. If you don't, the default tag is
 ``dynamic_router_route_enhancer``. If you are using the
-:doc:`Symfony2 CMF RoutingBundle<../../bundles/routing/introduction>`, this tag is
+:doc:`Symfony2 CMF RoutingBundle <../../bundles/routing/introduction>`, this tag is
 already active with the default name.
 
 Linking a Route with a Content
