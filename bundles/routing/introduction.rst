@@ -5,10 +5,11 @@
 RoutingBundle
 =============
 
-    The `RoutingBundle`_ integrates dynamic routing into Symfony using the
-    :doc:`CMF Routing component <../../components/routing>`. See the component
-    documentation if you are interested in the implementation details of the
-    services explained in this chapter.
+    The `RoutingBundle`_ integrates dynamic routing into Symfony using the CMF
+    Routing component . See the
+    :doc:`component documentation <../../components/routing/introduction>`
+    if you are interested in the implementation details of the services
+    explained in this chapter.
 
 The ``ChainRouter`` is meant to replace the default Symfony Router. All it
 does is manage a prioritized list of routers and try to match requests and
@@ -79,6 +80,12 @@ will look like this
 
 See also official Symfony2 `documentation for DependencyInjection tags`_
 
+Sections
+--------
+
+* :doc:`dynamic`
+* :doc:`dynamic_customize`
+
 Further reading
 ---------------
 
@@ -86,8 +93,8 @@ For more information on Routing in the Symfony CMF, please refer to:
 
 * The documentation of the :doc:`dynamic`.
 * The :doc:`routing introduction chapter <../../book/routing>` of the book.
-* The :doc:`routing component documentation <../../components/routing>` for
-  implementation details of the routers.
+* The :doc:`routing component documentation <../../components/routing/introduction>`
+  for implementation details of the routers.
 * Symfony2's `Routing`_ component documentation.
 
 .. _`RoutingBundle`: https://github.com/symfony-cmf/RoutingBundle#readme

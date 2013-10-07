@@ -4,7 +4,7 @@ The Components
 .. toctree::
     :hidden:
 
-    routing
+    routing/index
     testing
 
 .. include:: map.rst.inc
