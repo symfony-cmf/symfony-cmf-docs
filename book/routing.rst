@@ -7,7 +7,8 @@ Routing
 
 This is an introduction to understand the concepts behind CMF routing. For the
 reference documentation please see the documentation for the
-:doc:`../components/routing` component and :doc:`../bundles/routing/introduction`.
+:doc:`Routing component <../components/routing/introduction>` and the
+:doc:`RoutingBundle <../bundles/routing/introduction>`.
 
 Concept
 -------
@@ -223,7 +224,8 @@ or extend it, refer to :doc:`../bundles/routing/introduction`.
 
 The ``DynamicRouter`` is able to match the incoming request to a Route object
 from the underlying provider. The details on how this matching process is
-carried out can be found in the :doc:`../components/routing`.
+carried out can be found in the
+:doc:`component documentation <../components/routing/dynamic>`.
 
 .. note::
 
@@ -335,7 +337,8 @@ as soon as you add any other configuration to the ``dynamic`` entry.
     Internally, the routing component maps these configuration options to
     several ``RouteEnhancerInterface`` instances. The actual scope of these
     enhancers is much wider, and you can find more information about them in
-    the :doc:`../components/routing` documentation page.
+    the :ref:`routing enhancers <component-routing-enhancers>` documentation
+    section.
 
 .. _start-routing-linking-a-route-with-a-model-instance:
 
@@ -475,7 +478,7 @@ Further Notes
 
 For more information on the Routing component of Symfony CMF, please refer to:
 
-* :doc:`../components/routing` for most of the actual functionality implementation
+* :doc:`../components/routing/introduction` for most of the actual functionality implementation
 * :doc:`../bundles/routing/introduction` for Symfony2 integration bundle for Routing Bundle
 * Symfony2's `Routing`_ component page
 * :doc:`../cookbook/handling_multilang_documents` for some notes on multilingual routing

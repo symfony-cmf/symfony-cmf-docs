@@ -8,7 +8,8 @@ generation services can be injected, and the provided route matcher and
 URL generator classes are built to be further customizable.
 
 This chapter describes the most common customization. If you want to go
-further, you will need to read the :doc:`component documentation <../../components/routing>`
+further, you will need to read the
+:doc:`component documentation <../../components/routing/introduction>`
 and look into the source code.
 
 If the ``DynamicRouter`` does not fit your needs at all, you have the option
