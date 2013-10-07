@@ -1,5 +1,5 @@
-RoutingBundle
-=============
+Routing
+=======
 
 .. toctree::
     :maxdepth: 2

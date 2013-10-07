@@ -2,8 +2,8 @@
     single: Routing; Components
     single: Routing
 
-The Routing Component
-=====================
+Routing
+=======
 
     The Symfony CMF Routing component extends the Symfony2 core routing
     component to allow more flexibility. The most important difference is that
