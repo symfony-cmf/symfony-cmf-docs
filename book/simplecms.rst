@@ -89,19 +89,19 @@ structure, the code looks like this::
     // ... set up about
     $about->setPosition($root, 'about');
 
-    $manager->persist($home); // add about to the database
+    $manager->persist($about); // add about to the database
 
     $blog = new Page();
     // ... set up blog
     $blog->setPosition($root, 'blog');
 
-    $manager->persist($home); // add blog to the database
+    $manager->persist($blog); // add blog to the database
 
     $blogPost = new Page();
     // ... set up blog post
     $blogPost->setPosition($blog, 'symfony-cmf-is-great');
 
-    $manager->persist($home); // add blog post to the database
+    $manager->persist($blogPost); // add blog post to the database
 
     // as with all doctrine variants, the changes are only saved when the
     // flush method is called
