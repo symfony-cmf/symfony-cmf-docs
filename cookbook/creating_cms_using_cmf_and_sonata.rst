@@ -108,6 +108,9 @@ Add the sonata bundles to your application configuration:
                 Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page:
                     valid_children:
                         - all
+                Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent:
+                    valid_children:
+                        - all
                 Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route:
                     valid_children:
                         - Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route
