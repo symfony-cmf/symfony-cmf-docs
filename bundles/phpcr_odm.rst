@@ -282,7 +282,7 @@ documentation on Multilanguage`_.
             odm:
                 ...
                 locales:
-                    en: [e, fr]
+                    en: [de, fr]
                     de: [en, fr]
                     fr: [en, de]
 
