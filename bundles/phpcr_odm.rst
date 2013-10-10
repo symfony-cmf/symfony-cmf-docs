@@ -680,7 +680,10 @@ The DoctrinePHPCRBundle also ships with a simple command to run migration
 scripts. Migrations should implement the
 ``Doctrine\Bundle\PHPCRBundle\Migrator\MigratorInterface`` and registered as a
 service with a ``doctrine_phpcr.migrator`` tag contains an ``alias`` attribute
-uniquely identifying the migrator:
+uniquely identifying the migrator. There is an optional
+``Doctrine\Bundle\PHPCRBundle\Migrator\AbstractMigrator`` class to use as a
+basis:
+
 
 .. configuration-block::
 
@@ -720,9 +723,7 @@ uniquely identifying the migrator:
         $definition->addTag('doctrine_phpcr.migrator', array('alias' => 'acme.demo.migration.foo'));
         $container->setDefinition('acme.demo.migration.foo', $definition);
 
-There is an optional
-``Doctrine\Bundle\PHPCRBundle\Migrator\AbstractMigrator`` class to use as a
-basis. To find out available migrations run:
+To find out available migrations run:
 
 .. code-block:: bash
 
