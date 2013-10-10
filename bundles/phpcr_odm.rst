@@ -680,7 +680,48 @@ The DoctrinePHPCRBundle also ships with a simple command to run migration
 scripts. Migrations should implement the
 ``Doctrine\Bundle\PHPCRBundle\Migrator\MigratorInterface`` and registered as a
 service with a ``doctrine_phpcr.migrator`` tag contains an ``alias`` attribute
-uniquely identifying the migrator. There is an optional
+uniquely identifying the migrator::
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/ContentBundle/Resources/config/services.yml
+        acme.demo.migration.foo:
+            class: Acme\DemoBundle\Migration\Foo
+            arguments:
+                - { "%acme.content_basepath%", "%acme.menu_basepath%" }
+            tags:
+                - { name: "doctrine_phpcr.migrator", alias: "acme.demo.migration.foo" }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/ContentBundle/Resources/config/services.xml -->
+        <service id="acme.demo.migration.foo" class="Acme\DemoBundle\Migration\Foo">
+            <argument type="collection">
+                <argument>%acme.content_basepath%</argument>
+                <argument>%acme.menu_basepath%</argument>
+            </argument>
+            <tag name="doctrine_phpcr.migrator" alias="acme.demo.migration.foo"/>
+        </service>
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition
+
+        // ...
+
+        $definition = new Definition(
+            'Acme\DemoBundle\Migration\Foo',
+            array(
+                array('%acme.content_basepath%', '%acme.menu_basepath%'),
+            )
+        ));
+        $definition->addTag('doctrine_phpcr.migrator', array('alias' => 'acme.demo.migration.foo'));
+        $container->setDefinition('acme.demo.migration.foo', $definition);
+
+
+There is an optional
 ``Doctrine\Bundle\PHPCRBundle\Migrator\AbstractMigrator`` class to use as a
 basis. To find out available migrations run:
 
