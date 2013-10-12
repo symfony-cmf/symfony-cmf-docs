@@ -748,51 +748,34 @@ will only be available if such a backend is configured.
 Use ``app/console help <command>`` to see all options each of the commands
 has.
 
-* **doctrine:phpcr:workspace:create**: Create a workspace in the configured
-  repository;
-* **doctrine:phpcr:workspace:list**: List all available workspaces in the
-  configured repository;
-* **doctrine:phpcr:type:register**: Register node types from a .cnd file in
-  the PHPCR repository;
-* **doctrine:phpcr:type:list**: List all node types in the PHPCR repository;
-* **doctrine:phpcr:purge**: Remove a subtree or all content from the repository;
-* **doctrine:phpcr:repository:init**: Register node types and create base paths.
-  See above how to define custom initializers;
-* **doctrine:phpcr:fixtures:load**: Load data fixtures to your PHPCR database;
-* **doctrine:phpcr:import**: Import xml data into the repository, either in
-  JCR system view format or arbitrary xml;
-* **doctrine:phpcr:export**: Export nodes from the repository, either to the
-  JCR system view format or the document view format;
-* **doctrine:phpcr:dump**: Output all or some content of the repository;
-* **doctrine:phpcr:touch**: Create or modify a node at the specified path;
-* **doctrine:phpcr:move**: Move a node from one path to another;
-* **doctrine:phpcr:query**: Execute a JCR SQL2 statement;
-* **doctrine:phpcr:mapping:info**: Shows basic information about all mapped
-  documents.
+* **doctrine:phpcr:document:migrate-class**: Command to migrate document classes.
+* **doctrine:phpcr:fixtures:load**: Load data fixtures to your PHPCR database.
+* **doctrine:phpcr:init:dbal**: Prepare the database for Jackalope Doctrine-Dbal.
+* **doctrine:phpcr:jackrabbit**: Start and stop the Jackrabbit server
+* **doctrine:phpcr:mapping:info**: Shows basic information about all mapped documents
+* **doctrine:phpcr:migrator:migrate**: Migrates PHPCR data.
+* **doctrine:phpcr:node-type:list**: List all available node types in the repository
+* **doctrine:phpcr:node-type:register**: Register node types in the PHPCR repository
+* **doctrine:phpcr:node:dump**: Dump subtrees of the content repository
+* **doctrine:phpcr:node:move**: Moves a node from one path to another
+* **doctrine:phpcr:node:remove**: Remove content from the repository
+* **doctrine:phpcr:node:touch**: Create or modify a node
+* **doctrine:phpcr:nodes:update**: Command to manipulate the nodes in the workspace.
+* **doctrine:phpcr:repository:init**: Initialize the PHPCR repository.
+* **doctrine:phpcr:workspace:create**: Create a workspace in the configured repository
+* **doctrine:phpcr:workspace:export**: Export nodes from the repository,
+  either to the JCR system view format or the document view format
+* **doctrine:phpcr:workspace:import**: Import xml data into the repository,
+  either in JCR system view format or arbitrary xml
+* **doctrine:phpcr:workspace:list**: List all available workspaces in the configured repository
+* **doctrine:phpcr:workspace:purge**: Remove all nodes from a workspace
+* **doctrine:phpcr:workspace:query**: Execute a JCR SQL2 statement
 
 .. note::
 
     To use the ``doctrine:phpcr:fixtures:load`` command, you additionally need
     to install the `DoctrineFixturesBundle`_ and its dependencies. See that
     documentation page for how to use fixtures.
-
-Jackrabbit Specific Commands
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If you are using ``jackalope-jackrabbit``, you also have a command to start and
-stop the jackrabbit server:
-
-* ``jackalope:run:jackrabbit``  Start and stop the Jackrabbit server
-
-Doctrine DBAL Specific Commands
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If you are using ``jackalope-doctrine-dbal``, you have a command to initialize
-the database:
-
-* ``jackalope:init:dbal``   Prepare the database for Jackalope Doctrine DBAL
-
-Note that you can also use the doctrine dbal command to create the database.
 
 Some Example Command Runs
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -801,13 +784,13 @@ Running `SQL2 queries`_ against the repository:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:query "SELECT title FROM [nt:unstructured] WHERE NAME() = 'home'"
+    $ php app/console doctrine:phpcr:workspace:query "SELECT title FROM [nt:unstructured] WHERE NAME() = 'home'"
 
 Dumping nodes under ``/cms/simple`` including their properties:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:dump /cms/simple --props
+    $ php app/console doctrine:phpcr:node:dump /cms/simple --props
 
 .. _`DoctrinePHPCRBundle`: https://github.com/doctrine/DoctrinePHPCRBundle
 .. _`Jackalope`: http://jackalope.github.com/
