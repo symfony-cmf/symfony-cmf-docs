@@ -5,20 +5,22 @@
 CreateBundle
 ============
 
-.. include:: _outdate-caution.rst.inc
+    The CreateBundle provides modern front-end in-place editing for web
+    applications. It integrates create.js and the createphp library into
+    Symfony2.
 
-The `CreateBundle`_ integrates create.js and the createphp helper library into
-Symfony2.
+The javascript library `create.js`_ provides a comprehensive web editing
+interface for Content Management Systems. It is designed to provide a modern,
+fully browser-based HTML5 environment for managing content. Create can be
+adapted to work on almost any content management backend.
+Create.js renders your content editable based on RDFa annotations in the HTML
+content. Data is saved through backbone.js, CreateBundle providing the
+endpoint for the requests.
+The default editor used in the CreateBundle is CKEditor, but you can also use
+the lightweight hallo.js editor bundled with the create.js distribution.
 
-Create.js is a comprehensive web editing interface for Content Management
-Systems. It is designed to provide a modern, fully browser-based HTML5
-environment for managing content. Create can be adapted to work on almost any
-content management backend. The default editor is the Hallo Editor, but you
-can also use CKEditor. See http://createjs.org/ for more information.
-
-Createphp is a PHP library to help with RDFa annotating your
-documents/entities. See https://github.com/flack/createphp for documentation
-on how it works.
+`Createphp`_ is a PHP library to help with RDFa annotating your model classes to
+make them editable with create.js.
 
 .. index:: CreateBundle
 
@@ -36,25 +38,28 @@ assetic.
 
 To upload and display images the :doc:`MediaBundle <media/introduction>` is used.
 
+.. _bundle-create-ckeditor:
+
 Installation
 ------------
 
-This bundle is best included using Composer.
+You can install this bundle `with composer`_ using the
+`symfony-cmf/create-bundle`_ package.
 
-Edit your project composer file to add a new require for
-``symfony-cmf/create-bundle``. Then create a scripts section or add to the
-existing one:
+Additionally, you will need to provide the javascript libraries. The standard
+way to do this is to add a `scripts` section in your `composer.json` to have
+the composer handle of the CreateBundle download the necessary libraries:
 
 .. code-block:: javascript
 
     {
         "scripts": {
             "post-install-cmd": [
-                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreate",
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreateAndCkeditor",
                 ...
             ],
             "post-update-cmd": [
-                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreate",
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreateAndCkeditor",
                 ...
             ]
         }
@@ -70,6 +75,10 @@ extra parameters of ``composer.json`` file (here are the default values):
             "create-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/create",
             "create-repository": "https://github.com/bergie/create.git",
             "create-commit": "271e0114a039ab256ffcceacdf7f361803995e05"
+
+            "ckeditor-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/ckeditor",
+            "ckeditor-repository": "https://github.com/ckeditor/ckeditor-releases.git",
+            "ckeditor-commit": "bba29309f93a1ace1e2e3a3bd086025975abbad0"
         }
     }
 
@@ -118,102 +127,47 @@ You also need to configure FOSRestBundle to handle json:
             ),
         ));
 
-.. _bundle-create-ckeditor:
 
-Using CKEditor Instead
-~~~~~~~~~~~~~~~~~~~~~~
+Routing
+~~~~~~~
 
-If you want to use CKEditor, edit the ``composer.json`` file to call
-``downloadCreateAndCkeditor`` instead of ``downloadCreate``:
-
-.. code-block:: javascript
-
-    {
-        "scripts": {
-            "post-install-cmd": [
-                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreateAndCkeditor",
-                ...
-            ],
-            "post-update-cmd": [
-                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreateAndCkeditor",
-                ...
-            ]
-        }
-    }
-
-and re-run composer:
-
-.. code-block:: bash
-
-    $ php composer.phar update nothing
-
-If you use a non-standard setup, you can adjust the editor base path
-configuration. The default value is:
+Finally add the relevant routing to your configuration
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        cmf_create:
-            editor_base_path: /bundles/cmfcreate/vendor/ckeditor/
+        create:
+            resource: "@CmfCreateBundle/Resources/config/routing/rest.xml"
+        create_image:
+            resource: "@CmfCreateBundle/Resources/config/routing/image.xml"
 
     .. code-block:: xml
 
-        <cmf-create:config
-            editor-base-path="/bundles/cmfcreate/vendor/ckeditor/"
-        />
+        <import resource="@CmfCreateBundle/Resources/config/routing/rest.xml" />
+        <import resource="@CmfCreateBundle/Resources/config/routing/image.xml" />
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_create', array(
-            'editor_base_path': '/bundles/cmfcreate/vendor/ckeditor/',
-        ));
+        use Symfony\Component\Routing\RouteCollection;
 
-In your template, load the javascript files using:
+        $collection = new RouteCollection();
+        $collection->addCollection($loader->import("@CmfCreateBundle/Resources/config/routing/rest.xml"));
+        $collection->addCollection($loader->import("@CmfCreateBundle/Resources/config/routing/image.xml"));
 
-.. configuration-block::
-
-    .. code-block:: jinja
-
-        {% render controller(
-            "cmf_create.jsloader.controller:includeJSFilesAction",
-            {"editor": "ckeditor"}
-        ) %}
-
-    .. code-block:: php
-
-        <?php $view['actions']->render(
-            'cmf_create.jsloader.controller:includeJSFilesAction',
-            array(
-                'editor' => 'ckeditor',
-            )
-        ) ?>
-
-As for create.js, you can override the source of CKEditor to a different
-target directory, source repository or commit id in the extra parameters of
-the ``composer.json`` file (here are the default values):
-
-.. code-block:: javascript
-
-    {
-        "extra": {
-            "ckeditor-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/ckeditor",
-            "ckeditor-repository": "https://github.com/ckeditor/ckeditor-releases.git",
-            "ckeditor-commit": "bba29309f93a1ace1e2e3a3bd086025975abbad0"
-        }
-    }
+        return $collection;
 
 Concept
 -------
 
-Createphp uses RDFa metadata about your domain classes, much like doctrine
-knows the metadata how an object is stored in the database. The metadata is
-modelled by the type class and can come from any source. Createphp provides
+Createphp uses RDFa metadata about your domain classes, much like Doctrine
+is configured to know how an object is stored in the database. The metadata is
+modelled by the `Type` class and can come from any source. Createphp provides
 metadata drivers that read XML, php arrays and one that just introspects
 objects and creates non-semantical metadata that will be enough for create.js
 to edit.
 
-The RdfMapper is used to translate between your storage layer and createphp.
+An `RdfMapper` is used to translate between your storage layer and createphp.
 It is passed the domain object and the relevant metadata object.
 
 With the metadata and the twig helper, the content is rendered with RDFa
@@ -265,6 +219,8 @@ Configuration
             # not necessary with the SimpleCmsBundle, as the content and the
             # routes are in the same repository tree.
             # create_routes_types: ['http://schema.org/NewsArticle']
+
+TODO: custom service
 
             # enable the doctrine PHPCR-ODM mapper
             persistence:
@@ -384,7 +340,30 @@ Configuration
             ),
         ));
 
-The provided javascript file configures create.js and the hallo editor. It
+If you use a non-standard setup, you can adjust the editor base path
+configuration. The default value is:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_create:
+            editor_base_path: /bundles/cmfcreate/vendor/ckeditor/
+
+    .. code-block:: xml
+
+        <cmf-create:config
+            editor-base-path="/bundles/cmfcreate/vendor/ckeditor/"
+        />
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_create', array(
+            'editor_base_path': '/bundles/cmfcreate/vendor/ckeditor/',
+        ));
+
+
+The provided javascript file configures create.js and the ckeditor / hallo.js editor. It
 enables some plugins like the tag editor to edit ``skos:related`` collections
 of attributes. We hope to add some configuration options to tweak the
 configuration of create.js but you can also use the file as a template and do
@@ -398,6 +377,8 @@ default, the create bundle uses the XML metadata driver and looks for metadata
 in the enabled bundles at ``<Bundle>/Resources/rdf-mappings``. If you use a
 bundle that has no RDFa mapping, you can specify a list of ``rdf_config_dirs``
 that will additionally be checked for metadata.
+
+TODO
 
 See the `documentation of createphp`_ for the format of the XML metadata format.
 
@@ -441,35 +422,6 @@ To be able to create new objects, you need to provide a map between the RDFa
 types and the class names.
 
 .. TODO: can we not index all mappings and do this automatically?
-
-Routing
-~~~~~~~
-
-Finally add the relevant routing to your configuration
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        create:
-            resource: "@CmfCreateBundle/Resources/config/routing/rest.xml"
-        create_image:
-            resource: "@CmfCreateBundle/Resources/config/routing/image.xml"
-
-    .. code-block:: xml
-
-        <import resource="@CmfCreateBundle/Resources/config/routing/rest.xml" />
-        <import resource="@CmfCreateBundle/Resources/config/routing/image.xml" />
-
-    .. code-block:: php
-
-        use Symfony\Component\Routing\RouteCollection;
-
-        $collection = new RouteCollection();
-        $collection->addCollection($loader->import("@CmfCreateBundle/Resources/config/routing/rest.xml"));
-        $collection->addCollection($loader->import("@CmfCreateBundle/Resources/config/routing/image.xml"));
-
-        return $collection;
 
 .. _bundle-create-usage-embed:
 
@@ -541,7 +493,7 @@ Or if you need more control over the generated HTML:
 
 .. code-block:: html+jinja
 
-    {% createphp page as="rdf" %}
+    {% createphp page as="rdf" noautotag %}
     <div {{ createphp_attributes(rdf) }}>
         <h1 class="my-title" {{ createphp_attributes( rdf.title ) }}>{{ createphp_content( rdf.title ) }}</h1>
         <div {{ createphp_attributes( rdf.body ) }}>{{ createphp_content( rdf.body ) }}</div>
@@ -550,6 +502,60 @@ Or if you need more control over the generated HTML:
 
 Alternative Editors
 ~~~~~~~~~~~~~~~~~~~
+
+
+.. _bundle-create-hallo:
+
+Using Hallo.js Editor instead
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to use the hallo.js editor instead of CKEditor, you can use the
+``downloadCreate`` instead of ``downloadCreateAndCkeditor``. The file for
+hallo.js is already included in the create.js distribution:
+
+.. code-block:: javascript
+
+    {
+        "scripts": {
+            "post-install-cmd": [
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreate",
+                ...
+            ],
+            "post-update-cmd": [
+                "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreate",
+                ...
+            ]
+        }
+    }
+
+Then re-run composer:
+
+.. code-block:: bash
+
+    $ php composer.phar update nothing
+In your template, load the javascript files using:
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {% render controller(
+            "cmf_create.jsloader.controller:includeJSFilesAction",
+            {"editor": "hallo"}
+        )
+        %}
+
+    .. code-block:: php
+
+        <?php $view['actions']->render(
+            'cmf_create.jsloader.controller:includeJSFilesAction',
+            array(
+                'editor' => 'hallo',
+            )
+        ) ?>
+
+Custom Editors
+~~~~~~~~~~~~~~
 
 You can write your own templates to load a javascript editor. They have to
 follow the naming pattern
@@ -671,8 +677,10 @@ The default values for the three parameters are
     coffee.node: /usr/local/bin/node
     coffee.extension: \.coffee
 
-.. _`CreateBundle`: https://github.com/symfony-cmf/CreateBundle
-.. _`documentation of createphp`: https://github.com/flack/createphp
+.. _`Createphp`: https://github.com/flack/createphp
+.. _`create.js`: http://createjs.org
+.. _`with composer`: http://getcomposer.org
+.. _`symfony-cmf/create-bundle`: https://packagist.org/packages/symfony-cmf/create-bundle
 .. _`createphp library repository`: https://github.com/flack/createphp
 .. _`ckeditor`: https://github.com/symfony-cmf/CreateBundle/issues/33
 .. _`aloha`: https://github.com/symfony-cmf/CreateBundle/issues/32

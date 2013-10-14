@@ -33,11 +33,11 @@ Add the following to your ``composer.json`` file:
     },
     "scripts": {
         "post-install-cmd": [
-            "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreate",
+            "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreateAndCkeditor",
             ...
         ],
         "post-update-cmd": [
-            "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreate",
+            "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::downloadCreateAndCkeditor",
             ...
         ]
     },
@@ -48,8 +48,8 @@ And then run:
 
     $ php composer.phar update symfony-cmf/create-bundle
 
-See :ref:`bundle-create-ckeditor` if you want to use "CKEditor" instead of
-the default "hallo" editor.
+See :ref:`bundle-create-hallo` if you want to use hallo.js instead of
+the default CKEditor.
 
 Initialize Bundles
 ~~~~~~~~~~~~~~~~~~
