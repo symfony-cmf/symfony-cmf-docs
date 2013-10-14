@@ -123,8 +123,8 @@ generic_controller
 
 **type**: ``string`` **default**: ``null``
 
-The controller to use when the route enhancers only determined the template but
-no explicit controller. The value is the name of a controller using either the
+The controller to use when the route and none of the enhancers did determined
+an explicit controller. The value is the name of a controller using either the
 ``AcmeDemoBundle::Page::index`` or ``acme_demo.controller.page:indexAction``
 notation.
 
@@ -232,10 +232,7 @@ returns an object for ``getRouteContent()``. This object is checked for being
 ``instanceof`` the class names in this map. Instanceof is used instead of
 direct comparison to work with proxy classes and other extending classes. The
 order in which the classes are specified, matters. The first match is taken.
-
-If matched, the template will be set as ``_template`` in the defaults and
-unless another mapping specifies a controller, the ``generic_controller``
-setting is set as controller.
+If matched, the template will be set as ``_template`` in the defaults.
 
 .. configuration-block::
 
