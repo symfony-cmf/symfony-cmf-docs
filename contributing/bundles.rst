@@ -1,5 +1,5 @@
-Bundles
-=======
+Bundle Standards
+================
 
 Perhaps unlike many other community bundles, each individual CMF bundle is
 part of a larger project, the CMF. As such, stable bundles should adhere to a
