@@ -4,6 +4,7 @@ Getting Started
 .. toctree::
     :hidden:
 
+    database_layer
     installation
     routing
     simplecms

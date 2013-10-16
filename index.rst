@@ -63,6 +63,7 @@ will typically want to keep this close at hand.
     book/installation
     book/simplecms
     book/routing
+    book/database_layer
     book/static_content
     book/structuring_content
 
