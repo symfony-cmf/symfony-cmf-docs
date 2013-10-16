@@ -6,9 +6,10 @@ community and has several sponsoring companies and prominent open source leaders
 implementing the philosophy of the `decoupled CMS`_. You can learn more about the
 project on the `about`_ page.
 
-This documentation is currently in development and far from complete. See `Documentation planning`_
-for an overview of the work left to do. Want to help? Thank you, all help greatly appreciated!
-The source of the `documentation is hosted on github`_.
+This documentation is still in development. The bundles and reference sections
+are updated for the 1.0 release, but the book is still a bit sparse. Want to
+help? Thank you, all help greatly appreciated! The source of the
+`documentation is hosted on github`_.
 
 Mission Statement
 -----------------
@@ -44,11 +45,11 @@ There are basically two main target audiences:
     :hidden:
 
     book/index
-    cookbook/index
     bundles/index
     components/index
     contributing/index
     reference/index
+    cookbook/index
 
 Book
 ----
@@ -64,24 +65,6 @@ will typically want to keep this close at hand.
     book/routing
     book/static_content
     book/structuring_content
-
-Cookbook
---------
-
-Special solutions for specific use cases that go beyond standard usage.
-
-Want to know more about the CMF and how each part can be configured? There's a tutorial for each one.
-
-.. toctree::
-    :maxdepth: 1
-
-    cookbook/database/choosing_storage_layer
-    cookbook/editions/cmf_sandbox
-    cookbook/editions/cmf_core
-    cookbook/installing_configuring_doctrine_phpcr_odm
-    cookbook/creating_cms_using_cmf_and_sonata
-    cookbook/using_blockbundle_and_contentbundle
-    cookbook/handling_multilang_documents
 
 Bundles
 -------
@@ -139,6 +122,24 @@ configuration is broken down per bundle.
     reference/configuration/search
     reference/configuration/simple_cms
     reference/configuration/tree_browser
+
+Cookbook
+--------
+
+Special solutions for specific use cases that go beyond standard usage.
+
+Want to know more about the CMF and how each part can be configured? There's a tutorial for each one.
+
+.. toctree::
+:maxdepth: 1
+
+        cookbook/database/choosing_storage_layer
+        cookbook/editions/cmf_sandbox
+        cookbook/editions/cmf_core
+        cookbook/installing_configuring_doctrine_phpcr_odm
+        cookbook/creating_cms_using_cmf_and_sonata
+        cookbook/using_blockbundle_and_contentbundle
+        cookbook/handling_multilang_documents
 
 Contributing
 ------------

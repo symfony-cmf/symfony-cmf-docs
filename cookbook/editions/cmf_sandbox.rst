@@ -6,6 +6,11 @@ Installing the CMF sandbox
 
 .. include:: ../_outdate-caution.rst.inc
 
+.. hint::
+
+    The `CMF sandbox github repository`_ contains a README file with an up to date
+    installation instruction.
+
 This tutorial shows how to install the Symfony CMF Sandbox, a demo platform
 aimed at showing the tool's basic features running on a demo environment.
 This can be used to evaluate the platform or to see actual code in action,
@@ -302,6 +307,7 @@ or:
 After this, your should follow the steps in `Preparing the PHPCR repository`_
 to continue the installation process.
 
+.. _`CMF sandbox github repository`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`Requirements for running Symfony2`: http://symfony.com/doc/current/reference/requirements.html
 .. _`Git 1.6+`: http://git-scm.com/
 .. _`Curl`: http://curl.haxx.se/
