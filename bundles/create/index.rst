@@ -1,5 +1,5 @@
-MenuBundle
-==========
+CreateBundle
+============
 
 .. toctree::
     :maxdepth: 2

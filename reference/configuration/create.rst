@@ -30,21 +30,21 @@ activated, it checks for this role as well.
 
     .. code-block:: yaml
 
-        cmf_menu:
+        cmf_create:
             role: ROLE_ADMIN
 
     .. code-block:: xml
 
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://cmf.symfony.com/schema/dic/menu"
+            <config xmlns="http://cmf.symfony.com/schema/dic/create"
                 role="ROLE_ADMIN"
             />
         </container>
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_menu', array(
+        $container->loadFromExtension('cmf_create', array(
             'role' => 'ROLE_ADMIN',
         ));
 
@@ -60,7 +60,7 @@ persistence configuration has the following configuration:
 
     .. code-block:: yaml
 
-        cmf_menu:
+        cmf_create:
             object_mapper_service_id: ~
             persistence:
                 phpcr:
@@ -76,7 +76,7 @@ persistence configuration has the following configuration:
 
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://cmf.symfony.com/schema/dic/menu">
+            <config xmlns="http://cmf.symfony.com/schema/dic/create">
                 <persistence>
                     <phpcr
                         enabled="false"
@@ -95,7 +95,7 @@ persistence configuration has the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_menu', array(
+        $container->loadFromExtension('cmf_create', array(
             'persistence' => array(
                 'phpcr' => array(
                     'enabled' => false,
@@ -155,7 +155,7 @@ Metadata Handling
     .. code-block:: xml
 
         <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://cmf.symfony.com/schema/dic/menu"
+            <config xmlns="http://cmf.symfony.com/schema/dic/create"
                 auto-mapping="true"
             >
                 <rdf-config-dir>%kernel.root_dir%/Resources/rdf-mappings</rdf-config-dir>
@@ -215,7 +215,7 @@ setting is the ``plain_text_types``.
     .. code-block:: xml
 
         <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://cmf.symfony.com/schema/dic/menu"
+            <config xmlns="http://cmf.symfony.com/schema/dic/create"
                 editor-base-path="/bundles/cmfcreate/vendor/ckeditor/"
                 fixed-toolbar="true"
                 stanbol_url="http://dev.iks-project.eu:8081"
