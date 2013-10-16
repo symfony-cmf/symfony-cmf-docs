@@ -235,7 +235,7 @@ like schema.org, your annotations will actually make semantically sense. But
 you can also ignore this and use your own annotations, as long as you declare
 the namespaces you use.
 
-.. hint::
+.. tip::
 
     You need to clear the cache when adding a new mapping XML file, even in
     the dev environment. The CreateBundle caches where it found mapping files

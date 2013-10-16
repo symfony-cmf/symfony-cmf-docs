@@ -6,7 +6,7 @@ Installing the CMF sandbox
 
 .. include:: ../_outdate-caution.rst.inc
 
-.. hint::
+.. tip::
 
     The `CMF sandbox github repository`_ contains a README file with an up to date
     installation instruction.
