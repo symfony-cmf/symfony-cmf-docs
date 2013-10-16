@@ -8,7 +8,7 @@ MediaBundle
     The `MediaBundle`_ provides a way to store and edit any media and provides
     a generic base of common interfaces and models that allow the user to build
     media management solutions for a CMS.
-    
+
 Media can be images, binary documents (like pdf files), embedded movies,
 uploaded movies, MP3s, etc. The implementation of this bundle is **very**
 minimalistic and is focused on images and download files. If you need more
@@ -219,7 +219,7 @@ Web Editing Tools
 -----------------
 
 The MediaBundle provides integration with WYSIWYG editors and
-:doc:`Create <../create>`. Media support is mostly split in:
+:doc:`Create <../create/introduction>`. Media support is mostly split in:
 
 * `Uploading Files`_
 * `browsing and Selecting Media`_

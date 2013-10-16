@@ -8,7 +8,7 @@ Bundles
     blog
     content/index
     core/index
-    create
+    create/index
     phpcr_odm
     media/index
     menu/index

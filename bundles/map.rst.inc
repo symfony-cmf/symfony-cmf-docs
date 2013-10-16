@@ -22,9 +22,11 @@
   * :doc:`core/templating`
   * :doc:`core/multilang`
 
-* **CreateBundle**
+* :doc:`create/index`
 
-  * :doc:`create`
+  * :doc:`create/introduction`
+  * :doc:`create/other-editors`
+  * :doc:`create/developing-hallo`
 
 * **DoctrinePHPCRBundle**
 

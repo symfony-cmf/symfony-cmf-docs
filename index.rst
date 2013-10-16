@@ -79,7 +79,6 @@ Want to know more about the CMF and how each part can be configured? There's a t
     cookbook/editions/cmf_sandbox
     cookbook/editions/cmf_core
     cookbook/installing_configuring_doctrine_phpcr_odm
-    cookbook/installing_configuring_inline_editing
     cookbook/creating_cms_using_cmf_and_sonata
     cookbook/using_blockbundle_and_contentbundle
     cookbook/handling_multilang_documents
@@ -98,7 +97,7 @@ to do it? In this case the reference is the right place for you.
 	bundles/blog
 	bundles/content/index
 	bundles/core/index
-	bundles/create
+	bundles/create/index
 	bundles/phpcr_odm
 	bundles/media/index
 	bundles/menu/index
@@ -133,6 +132,7 @@ configuration is broken down per bundle.
     reference/configuration/block
     reference/configuration/content
     reference/configuration/core
+    reference/configuration/create
     reference/configuration/media
     reference/configuration/menu
     reference/configuration/routing

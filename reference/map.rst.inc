@@ -3,6 +3,7 @@
   * :doc:`configuration/block`
   * :doc:`configuration/content`
   * :doc:`configuration/core`
+  * :doc:`configuration/create`
   * :doc:`configuration/media`
   * :doc:`configuration/menu`
   * :doc:`configuration/routing`
