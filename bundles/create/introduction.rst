@@ -302,13 +302,15 @@ higher, the method reads:
 
     .. code-block:: jinja
 
-        {% render controller("cmf_create.jsloader.controller:includeJSFilesAction", {'_locale': app.request.locale}) %}
+        {% render(controller(
+            "cmf_create.jsloader.controller:includeJSFilesAction",
+            {'_locale': app.request.locale}
+        )) %}
 
     .. code-block:: php
 
         <?php $view['actions']->render(
-            new
-            ControllerReference('cmf_create.jsloader.controller:includeJSFilesAction', array(
+            new ControllerReference('cmf_create.jsloader.controller:includeJSFilesAction', array(
                 '_locale' => $app->getRequest()->getLocale(),
             ))
         ) ?>

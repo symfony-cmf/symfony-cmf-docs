@@ -17,7 +17,10 @@ just use the ``hallo-coffee`` editor with the includeJSFilesAction.
 
     .. code-block:: jinja
 
-        {% render controller("cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'hallo-coffee', '_locale': app.request.locale }) %}
+        {% render(controller(
+            "cmf_create.jsloader.controller:includeJSFilesAction",
+            {'editor': 'hallo-coffee', '_locale': app.request.locale }
+        )) %}
 
     .. code-block:: php
 

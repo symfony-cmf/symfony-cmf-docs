@@ -38,11 +38,10 @@ In your template, load the javascript files using:
 
     .. code-block:: jinja
 
-        {% render controller(
+        {% render(controller(
             "cmf_create.jsloader.controller:includeJSFilesAction",
-            {"editor": "hallo"}
-        )
-        %}
+            {"editor": "hallo", "_locale":app.request.locale}
+        )) %}
 
     .. code-block:: php
 
@@ -91,7 +90,10 @@ the includeJSFilesAction, you specify the editor parameter:
 
     .. code-block:: jinja
 
-        {% render controller("cmf_create.jsloader.controller:includeJSFilesAction" with {'editor': 'aloha', '_locale': app.request.locale }) %}
+        {% render(controller(
+                "cmf_create.jsloader.controller:includeJSFilesAction",
+                 {'editor': 'aloha', '_locale': app.request.locale }
+        )) %}
 
     .. code-block:: php
 

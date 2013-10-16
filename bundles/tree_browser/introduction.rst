@@ -164,7 +164,7 @@ This configuration is set for all your application trees regardless their type
                     <valid-child>Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock</valid-child>
                     <valid-child>Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock</valid-child>
                 </document-tree>
-                
+
                 <document-tree class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock" />
 
                 <!-- ... -->
@@ -207,11 +207,14 @@ you use menu elements it looks like:
 
     .. code-block:: jinja
 
-        {% render(controller('sonata.admin.doctrine_phpcr.tree_controller:treeAction')) with {
-            'root':     websiteId ~ "/menu",
-            'selected': menuNodeId,
-            '_locale':  app.request.locale
-        } %}
+        {% render(controller(
+            'sonata.admin.doctrine_phpcr.tree_controller:treeAction',
+             {
+                'root':     websiteId ~ "/menu",
+                'selected': menuNodeId,
+                '_locale':  app.request.locale
+            }
+        )) %}
 
     .. code-block:: php
 
