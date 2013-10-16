@@ -29,7 +29,7 @@ A simple example for such a template could look like this:
         {%- endblock %}
 
     .. code-block:: html+php
-    
+
         <?php $view['slots']->start('content') ?>
         <h1><?php $page->getTitle() ?></h1>
 
@@ -55,4 +55,4 @@ frontend. The most simple form is the following twig block:
     {% endblock %}
 
 If you want to control more detailed what should be shown with RDFa, see
-chapter :doc:`../create`.
+chapter :ref:`bundle-create-usage-embed`.
