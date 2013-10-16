@@ -348,7 +348,7 @@ Examples
 
 You can find example usages of this bundle in the `Symfony CMF Sandbox`_
 (have a look at the BlockBundle). It also shows you how to make blocks
-editable using the :doc:`CreateBundle <../create>`.
+editable using the :doc:`CreateBundle <../create/introduction>`.
 
 Read on
 -------

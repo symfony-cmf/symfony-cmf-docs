@@ -77,7 +77,7 @@ Enabling this setting will also automatically enable the equivalent setting in t
 
 * :doc:`BlockBundle <../../bundles/block/introduction>`
 * :doc:`ContentBundle <../../bundles/content/introduction>`
-* :doc:`CreateBundle <../../bundles/create>`
+* :doc:`CreateBundle <../../bundles/create/introduction>`
 * :doc:`MediaBundle <../../bundles/media/introduction>`
 * :doc:`MenuBundle <../..//bundles/menu/index>`
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`

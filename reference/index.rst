@@ -7,6 +7,7 @@ Reference
     configuration/block.rst
     configuration/content.rst
     configuration/core.rst
+    configuration/create.rst
     configuration/media.rst
     configuration/menu.rst
     configuration/routing.rst
