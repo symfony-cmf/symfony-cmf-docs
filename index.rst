@@ -75,22 +75,22 @@ configuration options of a bundle? Want to know if you can use a bundle independ
 to do it? In this case the reference is the right place for you.
 
 .. toctree::
-	:maxdepth: 1
+    :maxdepth: 1
 
-	bundles/block/index
-	bundles/blog
-	bundles/content/index
-	bundles/core/index
-	bundles/create/index
-	bundles/phpcr_odm
-	bundles/media/index
-	bundles/menu/index
-	bundles/routing/index
-	bundles/routing_auto
-	bundles/search/index
-	bundles/simple_cms/index
-	bundles/doctrine_phpcr_admin
-	bundles/tree_browser/index
+    bundles/block/index
+    bundles/blog
+    bundles/content/index
+    bundles/core/index
+    bundles/create/index
+    bundles/phpcr_odm
+    bundles/media/index
+    bundles/menu/index
+    bundles/routing/index
+    bundles/routing_auto
+    bundles/search/index
+    bundles/simple_cms/index
+    bundles/doctrine_phpcr_admin
+    bundles/tree_browser/index
 
 Components
 ----------
@@ -98,10 +98,10 @@ Components
 Looking for some information about the low level components of the CMF?
 
 .. toctree::
-	:maxdepth: 1
+    :maxdepth: 1
 
-	components/routing/introduction
-	components/testing
+    components/routing/introduction
+    components/testing
 
 Reference
 ---------
@@ -134,24 +134,24 @@ Want to know more about the CMF and how each part can be configured? There's a t
 .. toctree::
     :maxdepth: 1
 
-        cookbook/database/choosing_storage_layer
-        cookbook/editions/cmf_sandbox
-        cookbook/editions/cmf_core
-        cookbook/installing_configuring_doctrine_phpcr_odm
-        cookbook/creating_cms_using_cmf_and_sonata
-        cookbook/using_blockbundle_and_contentbundle
-        cookbook/handling_multilang_documents
+    cookbook/database/choosing_storage_layer
+    cookbook/editions/cmf_sandbox
+    cookbook/editions/cmf_core
+    cookbook/installing_configuring_doctrine_phpcr_odm
+    cookbook/creating_cms_using_cmf_and_sonata
+    cookbook/using_blockbundle_and_contentbundle
+    cookbook/handling_multilang_documents
 
 Contributing
 ------------
 
 .. toctree::
-	:maxdepth: 1
+    :maxdepth: 1
 
-	contributing/code
-	contributing/bundles
-	contributing/releases
-	contributing/license
+    contributing/code
+    contributing/bundles
+    contributing/releases
+    contributing/license
 
 .. _`decoupled CMS`: http://decoupledcms.org
 .. _`Symfony2`: http://symfony.com
