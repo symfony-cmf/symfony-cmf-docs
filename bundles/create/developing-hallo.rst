@@ -1,17 +1,21 @@
 Developing the Hallo Wysiwyg Editor
 ===================================
 
-    You can develop the hallo editor inside the Create bundle. By default, a
-    minimized version of hallo that is bundled with create is used. To develop
-    the actual code, you will need to checkout the full hallo repository first.
-    You can do this by running the following command from the command line:
+    You can use the CreateBundle as a development testbed for the hallo.js
+    editor.
+
+A compiled and minimized version of `hallo.js`_ is bundled with create.js. To
+develop the actual code, you will need to checkout the full
+`hallo.js repository`_ first. You can do this by running the following command
+in the symfony console:
 
 .. code-block:: bash
 
     $ php app/console cmf:create:init-hallo-devel
 
-There is a special template to load the coffee script files. To load this,
-just use the ``hallo-coffee`` editor with the includeJSFilesAction.
+The CreateBundle provides a special template that loads the coffeescript files.
+To use this template, specify ``hallo-coffee`` as editor in the
+``includeJSFilesAction``:
 
 .. configuration-block::
 
@@ -73,13 +77,13 @@ and you need the `coffee compiler set up correctly`_.
         ));
 
 In the cmf-sandbox we did a little hack to not always trigger coffee script
-compiling.  In config.yml we make the coffee extension configurable. Now if
-the parameters.yml sets ``coffee.extension`` to ``\.coffee`` the coffeescript
-is compiled and the coffee compiler needs to be installed. If you set it to
-anything else like ``\.nocoffee`` then you do not need the coffee compiler
-installed as no file has the extension ``\.nocoffee``.
+compiling.  In ``config.yml`` we make the coffee extension configurable. Now if
+the ``parameters.yml`` sets ``coffee.extension`` to ``\.coffee`` the
+coffeescript is compiled and the coffee compiler needs to be installed. If you
+set it to anything else like ``\.nocoffee`` then you do not need the coffee
+compiler installed as no file has the extension ``\.nocoffee``.
 
-The default values for the three parameters are
+The default values for the three parameters controlling coffeescript are:
 
 .. code-block:: yaml
 
@@ -90,4 +94,6 @@ The default values for the three parameters are
     coffee.node: /usr/local/bin/node
     coffee.extension: \.coffee
 
+.. _`hallo.js`: http://hallojs.org
+.. _`hallo.js repository`: https://github.com/bergie/hallo
 .. _`coffee compiler set up correctly`: http://coffeescript.org/#installation

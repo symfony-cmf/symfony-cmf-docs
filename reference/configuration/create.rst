@@ -1,7 +1,7 @@
 CreateBundle configuration
 ==========================
 
-The CreateBundle provides frontend editing based on create.js and createphp.
+The CreateBundle provides frontend editing based on create.js and CreatePHP.
 It can be configured under the ``cmf_create`` key in your application
 configuration. When using XML you should use the
 ``http://cmf.symfony.com/schema/dic/create`` namespace.
@@ -9,8 +9,8 @@ configuration. When using XML you should use the
 .. note::
 
     The CreateBundle provides no model classes of its own. It still needs to
-    know the persistence layer to be used in order to know what service to use
-    to interact with the storage layer during save operations.
+    know what persistence layer you are using, in order to decide what service
+    to use to interact with the storage layer during save operations.
 
 Configuration
 -------------
@@ -19,7 +19,7 @@ Security
 ~~~~~~~~
 
 The controller that receives save requests from create.js requires the user to
-have a specific role to avoid anybody being able to edit content. As it would
+have a specific role to control who is allowed to edit content. As it would
 not be convenient to show the create.js editor to users not allowed to edit the
 site, the controller loading the create.js javascripts with the
 ``includeJSFilesAction`` also checks this role. If the image controller is
@@ -115,7 +115,7 @@ object_mapper_service_id
 
 You can specify a service implementing ``Midgard\CreatePHP\RdfMapperInterface``
 that will handle objects that need to be stored by the REST handler of
-createphp. You need to either specify this service or enable the phpcr
+CreatePHP. You need to either specify this service or enable the phpcr
 persistence for this bundle to work.
 
 enabled
@@ -187,8 +187,8 @@ map
 """
 
 Mapping from RDF type name to class. This configuration is used when adding
-items to collections. Note that collection support is currently incomplete
-in the CreateBundle.
+items to collections. *Note that collection support is currently incomplete
+in the CreateBundle.*
 
 REST handler
 ~~~~~~~~~~~~
@@ -199,8 +199,8 @@ option.
 Editor configuration
 ~~~~~~~~~~~~~~~~~~~~
 
-You can tweak a few things on the editor. The relevant setting is the
-``plain_text_types``.
+You can tweak a few things on the editor. Most of the time, the only relevant
+setting is the ``plain_text_types``.
 
 .. configuration-block::
 
@@ -236,8 +236,9 @@ You can tweak a few things on the editor. The relevant setting is the
 plain_text_types
 """"""""""""""""
 
-A list of RDFa field types that will show a plain text editor without any
-formatting options.
+A list of RDFa field types that will be edited with a plain text editor without
+any formatting options. All other fields are edited with the WYSIWYG options
+activated.
 
 editor_base_path
 """"""""""""""""
@@ -249,10 +250,10 @@ fixed_toolbar
 """""""""""""
 
 Fix the editor toolbar on top of the page. Currently only supported by the
-hallo editor.
+hallo.js editor.
 
 stanbol_url
 """""""""""
 
-Apache stanbol can be used for semantic enhancement of content. This can
-optionally be used with the hallo editor.
+Apache stanbol can be used for semantic enhancement of content. This feature
+can optionally be used with the hallo.js editor.
