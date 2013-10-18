@@ -4,6 +4,9 @@ This is the document of the [Symfony Content Management Framework (CMF)](http://
 
 This documentation is rendered online at http://symfony.com/doc/master/cmf/index.html
 
+This documentation also contains a couple of slide decks done with <a href="https://github.com/Seldaek/slippy">Slippy</a>.
+Those slides are available for viewing on the <a href="http://cmf.symfony.com/#slides">CMF Website</a>.
+
 ## Contributing
 
 Pull requests are welcome. Please see our [CONTRIBUTING](https://github.com/symfony-cmf/symfony-cmf-docs/blob/master/CONTRIBUTING.md) guide.
