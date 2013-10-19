@@ -113,19 +113,21 @@ example is specified. This will render an unordered list as follows:
         </li>
     </ul>
 
-You can also render menus by providing an absolute path (starting with a 
-forward slash) in your call to ``knp_menu_render``. This is the way to 
-render menus that are not located within the ``persistence.phpcr.menu_basepath``.
+.. tip::
 
-.. configuration-block::
+    Sometimes, the menu is not located within the ``persistence.phpcr.menu_basepath``.
+    In this case, you can use an absolute path (starting with a forward slash) to render
+    the menu:
+    
+    .. configuration-block::
 
-    .. code-block:: jinja
+        .. code-block:: jinja
+        
+            {{ knp_menu_render('/cms/some/path/my-menu') }}
 
-        {{ knp_menu_render('/cms/some/path/my-menu') }}
+        .. code-block:: php
 
-    .. code-block:: php
-
-        echo $view['knp_menu']->render('/cms/some/path/my-menu');
+            echo $view['knp_menu']->render('/cms/some/path/my-menu');
 
 .. note::
 
