@@ -1,23 +1,39 @@
-This post will show you how to create a basic CMS from scratch using the following bundles:
+************************************************
+Creating a basic CMS using the RoutingAutoBundle
+************************************************
 
-* RoutingAutoBundle
-* DoctrinePhpcrAdminBundle
-* MenuBundle
+**Level**: Intermediate
 
-The resulting system will be equivalent to that provided by the SimpleCmsBundle but more powerful.
+This three part article will show you how to create a basic CMS from scratch using the following bundles:
 
-The SimpleCmsBundle combines the route, menu and content into a single document and uses a custom
-router. This approach will combine only the menu and content into a single document and the routes
-will be managed automatically and the native CMF ``DynamicRouter`` will be used.
+* :doc:`../bundles/routing_auto`;
+* :doc:`../bundles/phpcr_odm`;
+* :doc:`../bundles/menu/index`;
+* `SonataDoctrinePhpcrAdminBundle`_.
 
 The CMS will have two types of content:
 
-* Pages - HTML content accessed at, for example ``/page/home``, '`/page/about`', etc.
-* Blog Posts - Blog posts accessed as `/blog/2012/10/23/my-blog-post`.
+* **Pages**: HTML content accessed at, for example ``/page/home``, ``/page/about``', etc.
+* **Posts**: Blog posts accessed as ``/blog/2012/10/23/my-blog-post``.
+
+The auto routing integration will automatically create and update the routes (effectively the
+URLs with which you can access the content) for the page and post content documents. In addition each
+page content document will double up as a menu item.
 
 It is assumed that you have:
 
-* A working knowledge of the Symfony 2 framework
+* A working knowledge of the Symfony 2 framework;
+
+.. image:: ../_images/cookbook/basic-cms-intro-sketch.png
+
+.. note::
+
+    The SimpleCmsBundle combines the route, menu and content into a single document and uses a custom
+    router. This approach will combine only the menu and content into a single document and the routes
+    will be managed automatically and the native CMF ``DynamicRouter`` will be used.
+
+Part 1 - Getting Started
+========================
 
 Initializing the Project
 ------------------------
@@ -36,13 +52,8 @@ Get started by installing the following PHPCR ODM based Symfony distribution:
     The `PHPCR ODM Symfony distribtion`_ above is the same as the `Symfony Standard Edition`_ except
     that the Doctrine ORM is replaced by the PHPCR-ODM.
 
-.. note::
-
-    You could also use the `Symfony CMF Standard Edition`_. The CMF Standard Edition is also based
-    on the Symfony Standard Edition and replaces the ORM with the PHPCR-ODM, however it also includes
-    the entire CMF stack and some other dependencies which are not required for this tutorial.
-
-If you have got PHP 5.4 you can start the inbuilt web server:
+PHP 5.4 features an in-built web server. You can use this throughout the
+tutorial, run it as follows:
 
 .. code-block:: bash
 
@@ -50,10 +61,22 @@ If you have got PHP 5.4 you can start the inbuilt web server:
 
 and go to http://localhost:8000 to verify that everything is working.
 
-Add Additional Bundles
-~~~~~~~~~~~~~~~~~~~~~~
+.. note::
 
-Now update ``composer.json`` and add the following dependencies:
+    You could also use the `Symfony CMF Standard Edition`_. The CMF Standard Edition is also based
+    on the Symfony Standard Edition and replaces the ORM with the PHPCR-ODM, however it also includes
+    the entire CMF stack and some other dependencies which are not required for this tutorial.
+
+Install Additional Bundles
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This tutorial requires the following packages:
+
+* `symfony-cmf/routing-auto-bundle`_;
+* `sonata-project/doctrine-phpcr-admin-bundle`;
+* `doctrine/data-fixtures`.
+
+Update ``composer.json`` to require them:
 
 .. code-block:: javascript
 
@@ -64,13 +87,13 @@ Now update ``composer.json`` and add the following dependencies:
         "doctrine/data-fixtures": "1.0.0"
     },
 
-and the packages we are installing are not yet stable, so change the minimum stability from ``stable`` to ``dev``.
+the packages we are installing are not yet stable, so change the minimum stability from ``stable`` to ``dev``.
 
 .. code-block:: javascript
 
     "minimum-stability": "dev",
 
-Add the packages to the kernel:
+add the packages to the kernel:
 
 .. code-block:: php
 
@@ -98,20 +121,22 @@ with MySQL and you will need to create the MySQL database:
 
     $ mysqladmin create basic-cms -u root
 
-and initialize it:
+The Doctrine DBAL backend needs to be initialized:
 
 .. code-block:: bash
 
     $ php app/console doctrine:phpcr:dbal:init
 
+This command will create the MySQL schema required to store the hierarchical
+node content of the PHPCR content repository.
+
 .. note::
 
-    The `Apache Jackrabbit`_ backend is a good alternative Doctrine DBAL implementation.
+    The `Apache Jackrabbit`_ implementation is the reference java based backend and does not
+    require such initialization. It does however require the use of Java.
 
-Start Coding
-------------
-
-Generate a new bundle:
+Now you can generate the bundle in within which you will write most of your
+code:
 
 .. code-block:: bash
 
@@ -120,7 +145,7 @@ Generate a new bundle:
 The Documents
 ~~~~~~~~~~~~~
 
-You will create 2 document classes, one for the pages and one for the posts. These two documents
+You will create two document classes, one for the pages and one for the posts. These two documents
 share much of the same logic, so lets create a ``trait`` to reduce code duplication:
 
 .. code-block:: php
@@ -194,6 +219,13 @@ share much of the same logic, so lets create a ``trait`` to reduce code duplicat
         }
     }
 
+.. note::
+
+    Traits are only available as of PHP 5.4. If you are running a lesser
+    version of PHP you may copy the above code into each class to have the
+    same effect. You may not, however, use extension, as this will cause
+    unintended behavior in the admin integration later on.
+
 The ``Page`` class is therefore nice and simple:
 
 .. code-block:: php
@@ -212,7 +244,8 @@ The ``Page`` class is therefore nice and simple:
         use ContentTrait;
     }
 
-The ``Post`` class will automatically set the date if it has not been explicitly set using the `pre persist lifecycle event`_:
+The ``Post`` class will automatically set the date if it has not been
+explicitly set using the `pre persist lifecycle event`_:
 
 .. code-block:: php
 
@@ -258,12 +291,6 @@ The ``Post`` class will automatically set the date if it has not been explicitly
 
 Both the ``Post`` and ``Page`` classes implement the ``RouteReferrersReadInterface`` which 
 enables the `DynamicRouter to generate URLs`_. (for example with ``{{ path(content) }}`` in Twig).
-
-.. note::
-
-    You may be wondering why we simple do not extend the ``Page`` class instead of using a ``trait``. We
-    do this because PHPCR-ODM will take inheritance into account when querying objects - a search for ``Page`` documents
-    would also return any documents which extend ``Page``.
 
 Repository Initializer
 ----------------------
@@ -531,13 +558,13 @@ The routes have been automatically created!
     What are those numbers? These are node names which have been created automatically by the PHPCR-ODM. Normally
     you would assign a descriptive name (e.g. ``my-first-post``).
 
-Sonata Admin
-------------
+Part 2 - The Backend
+====================
 
-The `Sonata Admin`_ bundle will provide our administration interface.
+The `SonataAdminBundle`_ bundle will provide our administration interface.
 
 Configure Sonata
-~~~~~~~~~~~~~~~~
+----------------
 
 Enable the Sonata related bundles to your kernel:
 
@@ -621,7 +648,7 @@ routes will be handled autmatically disable this:
                     use_sonata_admin: false
 
 Creating the Admin Classes
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------
 
 Create the following admin classes, first for the ``Page`` document:
 
@@ -740,19 +767,29 @@ Now we just need to add the register these classes in the dependency injection c
 
 Check it out at http://localhost:8000/admin/dashboard
 
-The Frontend
-------------
+.. image:: ../_images/cookbook/basic-cms-sonata-admin.png
 
-Go to the URL http://localhost:8000/page/home in your browser - this should be our page, but it says
-that it cannot find a controller.
+Part 3 - The Frontend
+=====================
+
+Mapping Content to Controllers
+------------------------------
+
+Go to the URL http://localhost:8000/page/home in your browser - this should be
+our page, but it says that it cannot find a controller. In other words it has
+found the page referencing route for our page but Symfony does not know what
+to do with it.
 
 Lets map a default controller for all instances of ``Page``::
 
         controllers_by_class:
             Acme\BasicCmsBundle\Document\Page: Acme\BasicCmsBundle\Controller\BasicController::pageAction
 
-Now create the action in the default controller - we will pass the ``Page`` object and all the ``Posts`` to the
-view:
+This controller will now be used whenever one of our routes matches the
+request and the route references the above named page document.
+
+Now create the action in the default controller - you can pass the ``Page``
+object and all the ``Posts`` to the view:
 
 .. code-block:: php
 
@@ -781,6 +818,8 @@ Add a corresponding twig template:
 
 .. code-block:: jinja
 
+    {# src/Acme/BasicCmsBundle/Resources/Default/page.html.twig #}
+
     <h1>{{ page.title }}</h1>
     <p>{{ page.content|raw }}</p>
     <h2>Our Blog Posts</h2>
@@ -800,15 +839,16 @@ generate the URL.
 Click on a ``Post`` and you will have the same error that you had before when
 viewing the page at ``/home``.
 
-You should now have enough knowledge to finish this off as you like:
+You should now have enough knowledge to finish this off as you like, try the
+following:
 
-* Add the ``Post`` class to the controllers_by_type configuration setting in
+* Add the ``Post`` class to the ``controllers_by_type configuration`` setting in
   the configuration and route it to a new action in the controller;
 * Create a new template for the ``Post``;
-* Maybe you want to create a layout and make everything look good.
+* Create a layout and make everything look good.
 
-Making the Page Document Act Like a Menu
-----------------------------------------
+Creating a Menu
+---------------
 
 In this section we will modify our application so that the ``Page`` document
 acts as a menu node which can be rendered using the twig helper of the `KnpMenuBundle`_.
@@ -983,10 +1023,14 @@ Note that `main` refers to the name of the root page we added in the data
 fixtures.
 
 Conclusion
-----------
+==========
 
 And thats it! Well done. You have created a very minimum but functional
 CMS which can act as a good foundation for larger projects!
+
+You can checkout the completed CMS on Github:
+
+* https://github.com/dantleech/tutorial-basic-cms
 
 Things we should improve
 ------------------------
@@ -1018,3 +1062,5 @@ PHPCR-ODM
 .. _`knpmenubundle`: https://github.com/KnpLabs/KnpMenuBundle
 .. _`knpmenu`: https://github.com/KnpLabs/KnpMenu
 .. _`doctrine dbal jackalope`: https://github.com/jackalope/jackalope-doctrine-dbal
+.. _`SonataDoctrinePhpcrAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle
+.. _`SonataAdminBundle`: http://sonata-project.org/bundles/admin
