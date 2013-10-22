@@ -1,3 +1,7 @@
+.. index::
+    single: Tutorial, Creating a CMS, RoutingAuto, PHPCR-ODM
+    single: MenuBundle, SonataAdmin, SonataDoctrineAdminBundle
+
 ************************************************
 Creating a basic CMS using the RoutingAutoBundle
 ************************************************
@@ -9,18 +13,18 @@ This three part article will show you how to create a basic CMS from scratch usi
 * :doc:`../bundles/menu/index`;
 * `SonataDoctrinePhpcrAdminBundle`_.
 
+It is assumed that you have:
+
+* A working knowledge of the Symfony 2 framework;
+
 The CMS will have two types of content:
 
-* **Pages**: HTML content accessed at, for example ``/page/home``, ``/page/about``', etc.
+* **Pages**: HTML content accessed at, for example ``/page/home``, ``/page/about``, etc.
 * **Posts**: Blog posts accessed as ``/blog/2012/10/23/my-blog-post``.
 
 The auto routing integration will automatically create and update the routes (effectively the
 URLs with which you can access the content) for the page and post content documents. In addition each
 page content document will double up as a menu item.
-
-It is assumed that you have:
-
-* A working knowledge of the Symfony 2 framework;
 
 .. image:: ../_images/cookbook/basic-cms-intro-sketch.png
 
@@ -47,7 +51,7 @@ Get started by installing the following PHPCR ODM based Symfony distribution:
 
 .. note::
 
-    The `PHPCR ODM Symfony distribtion`_ above is the same as the `Symfony Standard Edition`_ except
+    The `PHPCR ODM Symfony distribution`_ above is the same as the `Symfony Standard Edition`_ except
     that the Doctrine ORM is replaced by the PHPCR-ODM.
 
 PHP 5.4 features an in-built web server. You can use this throughout the
@@ -150,22 +154,22 @@ share much of the same logic, so lets create a ``trait`` to reduce code duplicat
         protected $id;
 
         /**
-         * @PHPCRODM\ParentDocument()
+         * @PHPCR\ParentDocument()
          */
         protected $parent;
 
         /**
-         * @PHPCRODM\NodeName()
+         * @PHPCR\NodeName()
          */
         protected $title;
 
         /**
-         * @PHPCRODM\String(nullable=true)
+         * @PHPCR\String(nullable=true)
          */
         protected $content;
 
         /**
-         * @PHPCRODM\Referrers(referringDocument="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route", referencedBy="content")
+         * @PHPCR\Referrers(referringDocument="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route", referencedBy="content")
          */
         protected $routes;
 
@@ -179,7 +183,6 @@ share much of the same logic, so lets create a ``trait`` to reduce code duplicat
         {
             $this->parent = $parent;
         }
-        
         
         public function getTitle() 
         {
@@ -223,7 +226,7 @@ The ``Page`` class is therefore nice and simple::
     use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
 
     /**
-     * @PHPCRODM\Document(referenceable=true)
+     * @PHPCR\Document(referenceable=true)
      */
     class Page implements RouteReferrersReadInterface
     {
@@ -241,19 +244,19 @@ explicitly set using the `pre persist lifecycle event`_::
     use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
 
     /**
-     * @PHPCRODM\Document(referenceable=true)
+     * @PHPCR\Document(referenceable=true)
      */
     class Post implements RouteReferrersReadInterface
     {
         use ContentTrait;
 
         /**
-         * @PHPCRODM\Date()
+         * @PHPCR\Date()
          */
         protected $date;
 
         /**
-         * @PHPCRODM\PrePersist()
+         * @PHPCR\PrePersist()
          */
         public function updateDate()
         {
@@ -319,7 +322,7 @@ Create a page for your CMS::
             NodeHelper::createPath($dm->getPhpcrSession(), '/cms/pages');
             $parent = $dm->find(null, '/cms/pages');
 
-            $page = new Page;
+            $page = new Page();
             $page->setTitle('Home');
             $page->setParent($parent);
             $page->setContent(<<<HERE
@@ -351,7 +354,7 @@ and add some posts::
             $parent = $dm->find(null, '/cms/posts');
 
             foreach (array('First', 'Second', 'Third', 'Forth') as $title) {
-                $post = new Post;
+                $post = new Post();
                 $post->setTitle(sprintf('My %s Post', $title));
                 $post->setParent($parent);
                 $post->setContent(<<<HERE
@@ -379,17 +382,23 @@ You should now have some data in your content repository.
     The classes above use ``NodeHelper::createPath`` to create the paths ``/cms/posts`` and ``/cms/pages``,
     this is exactly what the initializer did -- why do the classes do it again? This is a known issue which
     is currently being worked on - the data fixtures loader will erase the database and it will **not** call
-    the initializer, so when using data fixtures it is currentl necessary to manually create the paths.
+    the initializer, so when using data fixtures it is currently necessary to manually create the paths.
 
-Automatic Routing
------------------
+Part 2: Automatic Routing
+=========================
 
 The routes (URLs) to your content will be automatically created and updated using the RoutingAutoBundle. This
-bundle is very powerful and quite complicated. For a full a full explanation refer to the
+bundle is very powerful and somewhat complicated. For a full a full explanation refer to the
 `RoutingAutoBundle documentation`_.
 
+In summary, you will configure the auto routing system to create a new auto routing document in the routing tree for
+every post or content created. The new route will be linked back to the target
+content:
+
+.. image:: ../_images/cookbook/basic-cms-objects.png
+
 Enable the Dynamic Router
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------
 
 The RoutingAutoBundle uses the CMFs `RoutingBundle`_ which enables routes to be provided from a database (as opposed
 to being provided from ``routing.[yml|xml|php]`` files for example).
@@ -399,8 +408,6 @@ Add the following to your application configuration:
 .. code-block:: yaml
 
     # /app/config/config.yml
-
-    # ...
     cmf_routing:
         chain:
             routers_by_id:
@@ -413,8 +420,20 @@ Add the following to your application configuration:
                     enabled: true
                     route_basepath: /cms/routes
 
+This will:
+
+#. Cause the default Symfony router to be replaced by the chain router.  The
+   chain router enables you to have multiple routers in your application. You
+   add the dynamic router (which can retrieve routes from the database) and
+   the default symfony router (which retrieves routes from configuration
+   files).  The number indicates the order of precedence - the router with the
+   lowest number will be called first.;
+#. Configure the **dynamic** router which you have added to the router chain.
+   You specify that it should use the PHPCR backend and that the *root* route
+   can be found at ``/cms/routes``.
+
 Auto Routing Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------
 
 Create the following file in your applications configuration directory:
 
@@ -473,24 +492,21 @@ Create the following file in your applications configuration directory:
                         strategy: create
 
 This will configure the routing auto system to automatically create and update
-routes for both the ``Page`` and ``Post`` documents. Let me shortly explain
-what the configuration for ``Post`` does:
+route documents for both the ``Page`` and ``Post`` documents. 
+
+In summary:
 
 * The ``content_path`` key represents the parent path of the content, e.g.
   ``/if/this/is/a/path`` then the ``content_path``
-  reperesents ``/if/this/is/a``;
-
-  * Each element under ``content_path`` reperesents a section of the URL.
-
+  represents ``/if/this/is/a``;
+  * Each element under ``content_path`` represents a section of the URL.
   * The first element ``block_path`` uses a *provider* which *specifies* a
     path. If that path exists then we will do nothing (i.e. we will *use* 
     it).
-
   * The second element uses the ``content_datetime`` provider, which will
     use a ``DateTime`` object returned from the specified method on the
     content object (the ``Post``) and create a path from it, e.g.
     ``2013/10/13``.
-
 * The ``content_name`` key represents the last part of the path, e.g. ``path`` from ``/if/this/is/a/path``.
 
 Now we will need to include this configuration:
@@ -503,7 +519,9 @@ Now we will need to include this configuration:
         - { resource: routing_auto.yml }
 
 
-Now reload the fixtures::
+Now reload the fixtures:
+
+.. code-block:: bash
 
     $ php app/console doctrine:phpcr:fixtures:load
 
@@ -538,7 +556,7 @@ The routes have been automatically created!
     What are those numbers? These are node names which have been created automatically by the PHPCR-ODM. Normally
     you would assign a descriptive name (e.g. ``my-first-post``).
 
-Part 2 - The Backend
+Part 3 - The Backend
 ====================
 
 The `SonataAdminBundle`_ bundle will provide our administration interface.
@@ -548,7 +566,6 @@ Configure Sonata
 
 Enable the Sonata related bundles to your kernel::
 
-    <?php
     // app/AppKernel.php
 
     class AppKernel extends Kernel
@@ -568,7 +585,7 @@ Enable the Sonata related bundles to your kernel::
         }
     }
 
-and publish your assets (ommit ``--symlink`` if you use Windows!):
+and publish your assets (omit ``--symlink`` if you use Windows!):
 
 .. code-block:: bash
 
@@ -579,7 +596,6 @@ Sonata requires the ``sonata_block`` bundle to be configured in your main config
 .. code-block:: yaml
 
     # app/config/config.yml
-
     # ...
     sonata_block:
         default_contexts: [cms]
@@ -594,7 +610,6 @@ and it needs the following entries in your routing file:
 .. code-block:: yaml
 
     # app/config/routing.yml
-
     admin:
         resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
         prefix: /admin
@@ -611,19 +626,19 @@ No translations? Uncomment the translator in the configuration file::
     translator:      { fallback: %locale% }
 
 Notice that the routing bundles administration class has been automatically registered - since your
-routes will be handled autmatically disable this:
+routes will be handled automatically disable this:
 
 .. code-block:: yaml
 
     # app/config/config.yml
 
     cmf_routing:
-        ...
+        # ...
         dynamic:
-            ...
+            # ...
             persistence:
                 phpcr:
-                    ...
+                    # ...
                     use_sonata_admin: false
 
 Creating the Admin Classes
@@ -700,7 +715,7 @@ so it extends the ``PageAdmin`` class to avoid code duplication::
         }
     }
 
-Now we just need to add the register these classes in the dependency injection container configuraiton:
+Now you just need to register these classes in the dependency injection container configuration:
 
 .. code-block:: xml
 
@@ -744,32 +759,34 @@ Check it out at http://localhost:8000/admin/dashboard
 
 .. image:: ../_images/cookbook/basic-cms-sonata-admin.png
 
-Part 3 - The Frontend
+Part 4 - The Frontend
 =====================
 
 Mapping Content to Controllers
 ------------------------------
 
 Go to the URL http://localhost:8000/page/home in your browser - this should be
-our page, but it says that it cannot find a controller. In other words it has
-found the page referencing route for our page but Symfony does not know what
+your page, but it says that it cannot find a controller. In other words it has
+found the *page referencing route* for your page but Symfony does not know what
 to do with it.
 
-Lets map a default controller for all instances of ``Page``::
+You can map a default controller for all instances of ``Page``:
+
+.. code-block:: yaml
 
         controllers_by_class:
             Acme\BasicCmsBundle\Document\Page: Acme\BasicCmsBundle\Controller\BasicController::pageAction
 
-This controller will now be used whenever one of our routes matches the
-request and the route references the above named page document.
+This will cause requests to be forwarded to this controller when the route
+which matches the incoming request is provided by the dynamic router **and**
+the content document that that route references is of class
+``Acme\BasicCmsBundle\Document\Page``
 
 Now create the action in the default controller - you can pass the ``Page``
 object and all the ``Posts`` to the view::
 
     // src/Acme/BasicCmsBundle/Controller/DefaultController.php
-
     //..
-
     class DefaultController extends Controller
     {
         // ...
@@ -781,6 +798,7 @@ object and all the ``Posts`` to the view::
         {
             $dm = $this->get('doctrine_phpcr')->getManager();
             $posts = $dm->getRepository('Acme\BasicCmsBundle\Document\Post')->findAll();
+
             return array('page' => $contentDocument);
         }
     }
@@ -804,7 +822,7 @@ Add a corresponding twig template:
 
 Now have another look at: http://localhost:8000/page/home
 
-Notice what is happening with the post routes - we pass the ``Post`` object to
+Notice what is happening with the post routes - you pass the ``Post`` object to
 the ``path`` helper and because it implements the
 ``RouteReferrersReadInterface`` it find the dynamic routes in our database and
 generate the URL.
@@ -823,7 +841,7 @@ following:
 Creating a Menu
 ---------------
 
-In this section we will modify our application so that the ``Page`` document
+In this section you will modify our application so that the ``Page`` document
 acts as a menu node which can be rendered using the twig helper of the `KnpMenuBundle`_.
 
 Modify the Page Document
@@ -845,7 +863,7 @@ KnpMenuBundle::
         // ...
 
         /**
-         * @PHPCRODM\Children()
+         * @PHPCR\Children()
          */
         protected $children;
 
@@ -874,24 +892,23 @@ KnpMenuBundle::
         }
     }
 
-
-Menus are heierachical, PHPCR-ODM is also hierachical, what a good fit! Here
-we add an additional mapping to enable us to get the children of this node and
+Menus are hierarchical, PHPCR-ODM is also hierarchical, what a good fit! Here
+you add an additional mapping to enable us to get the children of this node and
 fulfil the ``NodeInterface`` contract. 
 
 The options are the options used by KnpMenu system when rendering the menu.
-The menu URL is inferred from the ``content`` option (note that we added the
+The menu URL is inferred from the ``content`` option (note that you added the
 ``RouteReferrersReadInterface`` to ``Page`` earlier). 
 
 The attributes apply to the HTML elements. See the `KnpMenu`_ documentation
 for more information.
 
-Modify the data fixtures
+Modify the Data Fixtures
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 The menu system expects to be able to find a root item which contains the
 first level of child items. Modify your fixtures to declare a root element
-to which we will add the existing ``Home`` page and an additional ``About`` page::
+to which you will add the existing ``Home`` page and an additional ``About`` page::
 
     // src/Acme/BasicCmsBundle/DataFixtures/Phpcr/LoadPageData.php
 
@@ -901,12 +918,12 @@ to which we will add the existing ``Home`` page and an additional ``About`` page
         public function load(ObjectManager $dm)
         {
             // ...
-            $rootPage = new Page;
+            $rootPage = new Page();
             $rootPage->setTitle('main');
             $rootPage->setParent($parent);
             $dm->persist($rootPage);
 
-            $page = new Page;
+            $page = new Page();
             $page->setTitle('Home');
             $page->setParent($rootPage);
             $page->setContent(<<<HERE
@@ -915,7 +932,7 @@ to which we will add the existing ``Home`` page and an additional ``About`` page
             );
             $dm->persist($page);
 
-            $page = new Page;
+            $page = new Page();
             $page->setTitle('About');
             $page->setParent($rootPage);
             $page->setContent(<<<HERE
@@ -937,7 +954,7 @@ Load the fixtures again:
 Register the Menu Provider
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-First we will need to add the CMF `MenuBundle`_ and its dependency, `CoreBundle`_, to your
+First you will need to add the CMF `MenuBundle`_ and its dependency, `CoreBundle`_, to your
 applications kernel::
 
     class AppKernel extends Kernel
@@ -954,7 +971,7 @@ applications kernel::
         }
     }
 
-Now we can register the PhpcrMenuProvider from the menu bundle in the service container
+Now you can register the PhpcrMenuProvider from the menu bundle in the service container
 configuration:
 
 .. code-block:: xml
@@ -986,7 +1003,7 @@ and finally lets render the menu!
     {# ... #}
     {{ knp_menu_render('main') }}
 
-Note that `main` refers to the name of the root page we added in the data
+Note that `main` refers to the name of the root page you added in the data
 fixtures.
 
 Conclusion
@@ -1005,7 +1022,7 @@ Things we should improve
 Sonata:
 
 - Having to set the route builder manually sucks
-- Having to call prePersist to set parent -- we could add some mechanisim to file
+- Having to call ``prePersist`` to set parent -- we could add some mechanisim to file
   documents automatically where setting a deep tree position is not required. See next section.
 - Setting the document name - we should provide a mechanisim to slugify the name from something else,
   perhaps with the AutoId thingy?
