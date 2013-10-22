@@ -2,8 +2,6 @@
 Creating a basic CMS using the RoutingAutoBundle
 ************************************************
 
-**Level**: Intermediate
-
 This three part article will show you how to create a basic CMS from scratch using the following bundles:
 
 * :doc:`../bundles/routing_auto`;
@@ -72,7 +70,7 @@ Install Additional Bundles
 
 This tutorial requires the following packages:
 
-* `symfony-cmf/routing-auto-bundle`_;
+* `symfony-cmf/routing-auto-bundle`;
 * `sonata-project/doctrine-phpcr-admin-bundle`;
 * `doctrine/data-fixtures`.
 
@@ -87,15 +85,7 @@ Update ``composer.json`` to require them:
         "doctrine/data-fixtures": "1.0.0"
     },
 
-the packages we are installing are not yet stable, so change the minimum stability from ``stable`` to ``dev``.
-
-.. code-block:: javascript
-
-    "minimum-stability": "dev",
-
-add the packages to the kernel:
-
-.. code-block:: php
+add the packages to the kernel::
 
     class AppKernel extends Kernel
     {
@@ -146,9 +136,7 @@ The Documents
 ~~~~~~~~~~~~~
 
 You will create two document classes, one for the pages and one for the posts. These two documents
-share much of the same logic, so lets create a ``trait`` to reduce code duplication:
-
-.. code-block:: php
+share much of the same logic, so lets create a ``trait`` to reduce code duplication::
 
     // src/Acme/BasicCmsBundle/Document/ContentTrait.php
 
@@ -226,9 +214,7 @@ share much of the same logic, so lets create a ``trait`` to reduce code duplicat
     same effect. You may not, however, use extension, as this will cause
     unintended behavior in the admin integration later on.
 
-The ``Page`` class is therefore nice and simple:
-
-.. code-block:: php
+The ``Page`` class is therefore nice and simple::
 
     // src/Acme/BasicCmsBundle/Document/Page.php
 
@@ -245,9 +231,7 @@ The ``Page`` class is therefore nice and simple:
     }
 
 The ``Post`` class will automatically set the date if it has not been
-explicitly set using the `pre persist lifecycle event`_:
-
-.. code-block:: php
+explicitly set using the `pre persist lifecycle event`_::
 
     // src/Acme/BasicCms/Document/Post.php
 
@@ -317,9 +301,7 @@ And run the initializer:
 Create Data Fixtures
 --------------------
 
-Create a page for your CMS:
-
-.. code-block:: php
+Create a page for your CMS::
 
     // src/Acme/BasicCmsBundle/DataFixtures/PHPCR/LoadPageData.php
 
@@ -350,9 +332,7 @@ Create a page for your CMS:
         }
     }
 
-and add some posts:
-
-.. code-block:: php
+and add some posts::
 
     // src/Acme/BasicCmsBundle/DataFixtures/PHPCR/LoadPostData.php
 
@@ -566,10 +546,9 @@ The `SonataAdminBundle`_ bundle will provide our administration interface.
 Configure Sonata
 ----------------
 
-Enable the Sonata related bundles to your kernel:
+Enable the Sonata related bundles to your kernel::
 
-.. code-block:: php
-
+    <?php
     // app/AppKernel.php
 
     class AppKernel extends Kernel
@@ -650,9 +629,7 @@ routes will be handled autmatically disable this:
 Creating the Admin Classes
 --------------------------
 
-Create the following admin classes, first for the ``Page`` document:
-
-.. code-block:: php
+Create the following admin classes, first for the ``Page`` document::
 
     // src/Acme/BasicCmsBundle/Admin/PageAdmin.php
 
@@ -699,9 +676,7 @@ Create the following admin classes, first for the ``Page`` document:
     }
 
 and then for the ``Post`` document - as you have already seen this document is almost identical to the ``Page`` document,
-so it extends the ``PageAdmin`` class to avoid code duplication:
-
-.. code-block:: php
+so it extends the ``PageAdmin`` class to avoid code duplication::
 
     // src/Acme/BasicCmsBundle/Admin/PostAdmin.php
 
@@ -789,9 +764,7 @@ This controller will now be used whenever one of our routes matches the
 request and the route references the above named page document.
 
 Now create the action in the default controller - you can pass the ``Page``
-object and all the ``Posts`` to the view:
-
-.. code-block:: php
+object and all the ``Posts`` to the view::
 
     // src/Acme/BasicCmsBundle/Controller/DefaultController.php
 
@@ -857,9 +830,7 @@ Modify the Page Document
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 The menu document has to implement the ``NodeInterface`` provided by the
-KnpMenuBundle.
-
-.. code-block:: php
+KnpMenuBundle::
 
     // src/Acme/BasicCmsBundle/Document/Page.php
 
@@ -920,9 +891,7 @@ Modify the data fixtures
 
 The menu system expects to be able to find a root item which contains the
 first level of child items. Modify your fixtures to declare a root element
-to which we will add the existing ``Home`` page and an additional ``About`` page:
-
-.. code-block:: php
+to which we will add the existing ``Home`` page and an additional ``About`` page::
 
     // src/Acme/BasicCmsBundle/DataFixtures/Phpcr/LoadPageData.php
 
@@ -969,9 +938,7 @@ Register the Menu Provider
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 First we will need to add the CMF `MenuBundle`_ and its dependency, `CoreBundle`_, to your
-applications kernel:
-
-.. code-block:: php
+applications kernel::
 
     class AppKernel extends Kernel
     {
@@ -1050,7 +1017,7 @@ PHPCR-ODM
 - Having to do PathHelper::createPath in fixtures is not nice
 - Initializer should be configurable from config.yml -- why force user to create a service?
 
-.. _`phpcr odm symfony distribtion`: https://packagist.org/packages/dantleech/symfony-doctrine-phpcr-editioy
+.. _`phpcr odm symfony distribtion`: https://packagist.org/packages/dantleech/symfony-doctrine-phpcr-edition
 .. _`symfony standard edition`: https://packagist.org/packages/symfony/framework-standard-edition
 .. _`symfony cmf standard edition`: https://packagist.org/packages/symfony-cmf/standard-edition
 .. _`apache jackrabbit`: http://jackrabbit.apache.or
@@ -1058,6 +1025,9 @@ PHPCR-ODM
 .. _`dynamicrouter to generate urls`: http://symfony.com/doc/current/cmf/bundles/routing/dynamic.html#url-generation-with-the-dynamicrouterA
 .. _`repository initializers`: http://symfony.com/doc/current/cmf/bundles/phpcr_odm.html#repository-initializers
 .. _`routingautobundle documentation`: http://symfony.com/doc/current/cmf/bundles/routing_auto.html
+.. _`symfony-cmf/routing-auto-bundle`: https://packagist.org/packages/symfony-cmf/routing-auto-bundle
+.. _`sonata-project/doctrine-phpcr-admin-bundle`: https://packagist.org/packages/sonata-project/doctrine-phpcr-admin-bundle
+.. _`doctrine/data-fixtures`: https://packagist.org/packages/doctrine/data-fixtures
 .. _`routingbundle`: http://symfony.com/doc/master/cmf/bundles/routing/index.html
 .. _`knpmenubundle`: https://github.com/KnpLabs/KnpMenuBundle
 .. _`knpmenu`: https://github.com/KnpLabs/KnpMenu
