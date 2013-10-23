@@ -251,7 +251,7 @@ you've configured a route to display a specific task by name::
         $task = $repository->find('/task/'.$id);
 
         if (!$task) {
-            throw $this->createNotFoundException('No task found for id '.$name);
+            throw $this->createNotFoundException('No task found for id '.$id);
         }
 
         return new Response('['.($task->isDone() ? 'x' : ' ').'] '.$task->getDescription());
@@ -298,14 +298,14 @@ Updating an Object
 Once you've fetched an object from Doctrine, updating it is easy. Suppose you
 have a route that maps a task ID to an update action in a controller::
 
-    public function updateAction($name)
+    public function updateAction($id)
     {
         $documentManager = $this->get('doctrine_phpcr')->getManager();
         $repository = $documentManager->getRepository('AcmeTaskBundle:Task');
-        $task = $repository->find('/tasks/'.$name);
+        $task = $repository->find('/tasks/'.$id);
 
         if (!$task) {
-            throw $this->createNotFoundException('No task found for id '.$name);
+            throw $this->createNotFoundException('No task found for id '.$id);
         }
 
         if (!$task->isDone()) {
