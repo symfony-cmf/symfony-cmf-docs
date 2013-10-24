@@ -30,9 +30,12 @@ page content document will double up as a menu item.
 
 .. note::
 
-    The SimpleCmsBundle combines the route, menu and content into a single document and uses a custom
-    router. This approach will combine only the menu and content into a single document and the routes
-    will be managed automatically and the native CMF ``DynamicRouter`` will be used.
+    There exists a bundle called `SimpleCmsBundle`_ which provides a similar to
+    solution to the one proposed in this tutorial. It combines the route, menu
+    and content into a single document and uses a custom router. This approach
+    will combine only the menu and content into a single document and the
+    routes will be managed automatically and the native CMF ``DynamicRouter``
+    will be used.
 
 Part 1 - Getting Started
 ========================
@@ -173,6 +176,10 @@ share much of the same logic, so lets create a ``trait`` to reduce code duplicat
          */
         protected $routes;
 
+        public function getId()
+        {
+            return $this->id;
+        }
 
         public function getParent() 
         {
@@ -223,7 +230,7 @@ The ``Page`` class is therefore nice and simple::
 
     namespace Acme\BasicCmsBundle\Document;
 
-    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
+    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
     /**
      * @PHPCR\Document(referenceable=true)
@@ -240,7 +247,7 @@ explicitly set using the `pre persist lifecycle event`_::
 
     namespace Acme\BasicCmsBundle\Document;
 
-    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
+    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
     use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
 
     /**
@@ -282,15 +289,21 @@ enables the `DynamicRouter to generate URLs`_. (for example with ``{{ path(conte
 Repository Initializer
 ----------------------
 
-`Repository initializers`_ enable you to initialize required paths within your content repository, for example
-we will need the paths ``/cms/pages`` and ``/cms/posts``. We can use the register a ``GenericInitializer`` class:
+`Repository initializers`_ enable you to establish PHPCR nodes required by
+your application, for example you will need the paths ``/cms/pages``,
+``/cms/posts`` and ``/cms/routes``.  The ``GenericInitializer`` class can be
+used easily initize a list of paths. Add the following to your service
+container configuration:
 
 .. code-block:: xml
+
+    <!-- src/Acme\BasicCmsBundle\Resources\services.xml -->
 
     <service id="acme.basiccms.phpcr.initializer" class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
         <argument type="collection">
             <argument>/cms/pages</argument>
             <argument>/cms/posts</argument>
+            <argument>/cms/routes</argument>
         </argument>
         <tag name="doctrine_phpcr.initializer"/>
     </service>
@@ -894,7 +907,7 @@ KnpMenuBundle::
 
 Menus are hierarchical, PHPCR-ODM is also hierarchical, what a good fit! Here
 you add an additional mapping to enable us to get the children of this node and
-fulfil the ``NodeInterface`` contract. 
+satisfy the ``NodeInterface`` contract. 
 
 The options are the options used by KnpMenu system when rendering the menu.
 The menu URL is inferred from the ``content`` option (note that you added the
@@ -1003,8 +1016,308 @@ and finally lets render the menu!
     {# ... #}
     {{ knp_menu_render('main') }}
 
-Note that `main` refers to the name of the root page you added in the data
+Note that ``main`` refers to the name of the root page you added in the data
 fixtures.
+
+Part 5 - The "/" Home Route
+===========================
+
+All of your content should now be available at various URLs but your homepage
+(http://localhost:8000) still shows the default Symfony Standard Edition
+page. You need to add a mechanism to enable the administrator to specify a
+default page for your CMS.
+
+In this section you will add a side menu to Sonata Admin which will make
+enable the user to make a specified page act as the homepage of your CMS.
+
+Storing the Data
+----------------
+
+You need a document which can store data about your CMS - this will be known
+as the site document and it will contain a reference to the ``Page`` document
+which will act as the homepage.
+
+First create the site document::
+
+    // src/Acme/BasicCmsBundle/Document/Site.php
+
+    namespace Acme\BasicCmsBundle\Document;
+
+    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+
+    /**
+     * @PHPCR\Document()
+     */
+    class Site
+    {
+
+        /**
+         * @PHPCR\Id()
+         */
+        protected $id;
+
+        /**
+         * @PHPCR\ReferenceOne(targetDocument="Acme\BasicCmsBundle\Document\Page")
+         */
+        protected $homepage;
+
+        public function getHomepage() 
+        {
+            return $this->homepage;
+        }
+        
+        public function setHomepage($homepage)
+        {
+            $this->homepage = $homepage;
+        }
+    }
+
+Initializing the Site Document
+------------------------------
+
+Where should this site doument belong? Our document hierarchy currently looks
+like this:
+
+.. code-block:: text
+
+    ROOT/
+        cms/
+           posts/
+           pages/
+
+There is one ``cms`` node, and this node contains all the children nodes of
+our site. This node is therefore the logical position of our ``Site``
+document.
+
+??As with the ``pages`` and ``posts`` nodes the ``cms`` node is an integral
+part of our site and its existence should be a constant. It therefore makes
+sense for you to configure it in an initializer.??
+
+Earlier we used the ``GenericInitializer`` to initialize the base paths of
+our project, including the ``cms`` node. The nodes created by the
+``GenericInitializer`` have no PHPCR-ODM mapping however.
+
+You can replace the ``GenericInitializer`` with a custom initializer which
+will create the necessary paths **and** assign a document class to the ``cms``
+node::
+
+    // src/Acme/BasicCmsBundle/Intializer
+
+    namespace Acme\BasicCmsBundle\Initializer;
+
+    use Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface;
+    use PHPCR\SessionInterface;
+    use PHPCR\Util\NodeHelper;
+
+    class SiteInitializer implements InitializerInterface
+    {
+        public function init(SessionInterface $session)
+        {
+            // create the 'cms', 'pages', and 'posts' nodes
+            NodeHelper::createPath($session, '/cms/pages');
+            NodeHelper::createPath($session, '/cms/posts');
+            NodeHelper::createPath($session, '/cms/routes');
+            $session->save();
+
+            // map a document to the 'cms' node
+            $cms = $session->getNode('/cms');
+            $cms->setProperty(
+                'phpcr:class',  'Acme\BasicCmsBundle\Document\Site'
+            );
+
+            $session->save();
+        }
+    }
+
+Now modify the existing service configuration for ``GenericInitializer`` as
+follows:
+
+.. code-block:: xml
+
+    <?xml version="1.0" ?>
+
+    <container ...>
+        <!-- ... -->
+        <services>
+            <!-- Doctrine PHPCR Initializer !-->
+            <service id="acme.phpcr.initializer.site" class="Acme\BasicCmsBundle\Initializer\SiteInitializer">
+                <tag name="doctrine_phpcr.initializer"/>
+            </service>
+
+            <!-- ... -->
+        </services>
+    </container>
+
+Now reinitialize your repository:
+
+.. code-block:: bash
+
+    $ php app/console doctrine:phpcr:repository:init
+
+and verify that the ``cms`` node has been updated by using the
+``doctrine:phpcr:node:dump`` command with the ``props`` flag:
+
+.. code-block:: bash
+
+    $ php app/console doctrine:phpcr:node:dump --props
+    ROOT:
+      cms:
+        - jcr:primaryType = nt:unstructured
+        - phpcr:class = Acme\BasicCmsBundle\Document\Site
+        ...
+
+.. info::
+
+    Instead of *replacing* the ``GenericIntializer`` you could simply add
+    another initializer which takes the ``cms`` node created in the
+    ``GenericInitializer`` and maps the document class to it. The minor
+    disadvantage then is that there are two places where initialization
+    choices take place - do whatever you prefer.
+
+As noted earlier, currently when data fixtures are loaded they will erase the
+workspace, including the paths created by the initializers. You can either:
+
+* Re-initialize the repository after loading fixtures;
+* Modify your data fixtures to create the ``Site`` document.
+
+Create the Make Homepage Button
+-------------------------------
+
+You will need a way to allow the administrator of your site to select which
+page should act as the homepage. You will modify the ``PageAdmin`` class so
+that a "Make Homepage" button will appear when editing a page. You will
+achieve this by adding a "side menu".
+
+Firstly though you will need to create an action which will do the work of
+making a given page the homepage, add the following to the existing
+``DefaultController``::
+
+    // src/Acme/BasicCmsBundle/Controller/DefaultController.php
+    // ...
+    class DefaultController extends Controller
+    {
+        // ...
+
+        /**
+         * @Route(
+         *   name="make_homepage", 
+         *   pattern="/_cms/make_homepage/{id}", 
+         *   requirements={"id": ".+"}
+         * )
+         */
+        public function makeHomepageAction($id)
+        {
+            $dm = $this->get('doctrine_phpcr')->getManager();
+
+            $site = $dm->find(null, '/cms');
+            if (!$site) {
+                throw new NotFoundHttpException('Could not find /cms document!');
+            }
+
+            $page = $dm->find(null, $id);
+
+            $site->setHomepage($page);
+            $dm->persist($page);
+            $dm->flush();
+
+            return $this->redirect($this->generateUrl('admin_acme_basiccms_page_edit', array( 
+                'id' => $page->getId()
+            )));
+        }
+
+.. note::
+
+    You have specified a special requirement for the ``id`` parameter of the
+    route, this is because by default routes will not allow forward slahes "/"
+    in route parameters and our "id" is a path.
+
+Now modify the ``PageAdmin`` class to add the button in a side-menu::
+
+    // src/Acme/BasicCmsBundle/Admin/PageAdmin
+    //...
+
+    use Knp\Menu\ItemInterface;
+
+    class PageAdmin extends Admin
+    {
+        // ... 
+        protected function configureSideMenu(ItemInterface $menu, $action, AdminInterface $childAdmin = null)
+        {
+            if ($action != 'edit') {
+                return;
+            }
+
+            $page = $this->getSubject();
+
+            $menu->addChild('make-homepage', array(
+                'label' => 'Make Homepage',
+                'attributes' => array('class' => 'btn'),
+                'route' => 'make_homepage',
+                'routeParameters' => array(
+                    'id' => $page->getId()
+                ),
+            ));
+        }
+    }
+
+The two arguments which concern you here are:
+
+* ``$menu``: class which represents a root menu to which we can add menu
+  items (this is the same menu API you worked with earlier);
+* ``$action``: Indicates which kind of page is being configured;
+
+If the action is not ``edit`` we return early and no side-menu is created. Now
+that we know we are on an edit page we retrieve the *subject* from the admin
+class which is the ``Page`` currently being edited, we then add a menu item to
+the menu.
+
+.. image:: ../_images/cookbook/basic-cms-sonata-admin-make-homepage.png
+
+Routing the Homepage
+--------------------
+
+Now that you have enabled the administrator to designate a page to be used as
+a homepage you need to actually make the CMS use this information to render
+the designated page.
+
+This is easily accomplished by adding a new action to the
+``DefaultController`` which forwards requests matching the route pattern ``/`` to
+to the page action::
+
+    // src/Acme/BasicCmsBundle/Controller/DefaultController.php
+    // ...
+
+    class DefaultController extends Controller
+    {
+        // ...
+
+        /**
+         * @Route("/")
+         */
+        public function indexAction()
+        {
+            $dm = $this->get('doctrine_phpcr')->getManager();
+            $site = $dm->find('Acme\BasicCmsBundle\Document\Site', '/cms');
+            $homepage = $site->getHomepage();
+
+            if (!$homepage) {
+                throw new NotFoundHttpException('No homepage configured');
+            }
+
+            return $this->forward('AcmeBasicCmsBundle:Default:page', array(
+                'contentDocument' => $homepage
+            ));
+        }
+    }
+
+
+.. note::
+
+    In contrast to previous examples you specify a class when calling ``find`` -
+    this is because we need to be *sure* that the returned document is of class
+    ``Site``.
+
+Now test it out, visit: http://localhost:8000
 
 Conclusion
 ==========
@@ -1015,39 +1328,3 @@ CMS which can act as a good foundation for larger projects!
 You can checkout the completed CMS on Github:
 
 * https://github.com/dantleech/tutorial-basic-cms
-
-Things we should improve
-------------------------
-
-Sonata:
-
-- Having to set the route builder manually sucks
-- Having to call ``prePersist`` to set parent -- we could add some mechanisim to file
-  documents automatically where setting a deep tree position is not required. See next section.
-- Setting the document name - we should provide a mechanisim to slugify the name from something else,
-  perhaps with the AutoId thingy?
-- MenuBundle is dependent on CoreBundle -- requires PWF checker for factory
-
-PHPCR-ODM
-~~~~~~~~~
-
-- Having to do PathHelper::createPath in fixtures is not nice
-- Initializer should be configurable from config.yml -- why force user to create a service?
-
-.. _`phpcr odm symfony distribtion`: https://packagist.org/packages/dantleech/symfony-doctrine-phpcr-edition
-.. _`symfony standard edition`: https://packagist.org/packages/symfony/framework-standard-edition
-.. _`symfony cmf standard edition`: https://packagist.org/packages/symfony-cmf/standard-edition
-.. _`apache jackrabbit`: http://jackrabbit.apache.or
-.. _`pre persist lifecycle event`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html#lifecycle-events
-.. _`dynamicrouter to generate urls`: http://symfony.com/doc/current/cmf/bundles/routing/dynamic.html#url-generation-with-the-dynamicrouterA
-.. _`repository initializers`: http://symfony.com/doc/current/cmf/bundles/phpcr_odm.html#repository-initializers
-.. _`routingautobundle documentation`: http://symfony.com/doc/current/cmf/bundles/routing_auto.html
-.. _`symfony-cmf/routing-auto-bundle`: https://packagist.org/packages/symfony-cmf/routing-auto-bundle
-.. _`sonata-project/doctrine-phpcr-admin-bundle`: https://packagist.org/packages/sonata-project/doctrine-phpcr-admin-bundle
-.. _`doctrine/data-fixtures`: https://packagist.org/packages/doctrine/data-fixtures
-.. _`routingbundle`: http://symfony.com/doc/master/cmf/bundles/routing/index.html
-.. _`knpmenubundle`: https://github.com/KnpLabs/KnpMenuBundle
-.. _`knpmenu`: https://github.com/KnpLabs/KnpMenu
-.. _`doctrine dbal jackalope`: https://github.com/jackalope/jackalope-doctrine-dbal
-.. _`SonataDoctrinePhpcrAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle
-.. _`SonataAdminBundle`: http://sonata-project.org/bundles/admin
