@@ -302,29 +302,50 @@ required by your application, for example you will need the paths
 class can be used easily initialize a list of paths. Add the following to your
 service container configuration:
 
-.. code-block:: xml
+.. configutation-block::
 
-    <!-- src/Acme\BasicCmsBundle\Resources\services.xml -->
-    <?xml version="1.0" ?>
-    <container xmlns="http://symfony.com/schema/dic/services"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:acme_demo="http://www.example.com/symfony/schema/"
-        xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
+    .. code-block:: yaml
 
-        <!-- ... -->
-        <services>
+        # src/Acme/BasicCmsBundle/Resources/config/services.yml
+        services:
+            acme.basiccms.phpcr.initializer:
+                class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
+                arguments: [ "/cms/pages", "/cms/posts", "/cms/routes" ]
+                tags:
+                    - { name: doctrine_phpcr.initializer }
+
+    .. code-block:: xml
+
+        <!-- src/Acme\BasicCmsBundle\Resources\services.xml -->
+        <?xml version="1.0" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:acme_demo="http://www.example.com/symfony/schema/"
+            xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
+
             <!-- ... -->
+            <services>
+                <!-- ... -->
 
-            <service id="acme.basiccms.phpcr.initializer" class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
-                <argument type="collection">
-                    <argument>/cms/pages</argument>
-                    <argument>/cms/posts</argument>
-                    <argument>/cms/routes</argument>
-                </argument>
-                <tag name="doctrine_phpcr.initializer"/>
-            </service>
-        </services>
-    </container>
+                <service id="acme.basiccms.phpcr.initializer" class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
+                    <argument type="collection">
+                        <argument>/cms/pages</argument>
+                        <argument>/cms/posts</argument>
+                        <argument>/cms/routes</argument>
+                    </argument>
+                    <tag name="doctrine_phpcr.initializer"/>
+                </service>
+            </services>
+        </container>
+
+    .. code-block:: php
+
+        // src/Acme/BasicCmsBundle/Resources/config/services.php
+        $container->register('acme.basiccms.phpcr.initializer', 'Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer')
+            ->addArgument(array(
+                '/cms/pages', '/cms/posts', '/cms/routes'
+            ))
+            ->addTag('doctrine_phpcr.initializer');
 
 .. note::
 
@@ -448,20 +469,51 @@ to being provided from ``routing.[yml|xml|php]`` files for example).
 
 Add the following to your application configuration:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # /app/config/config.yml
-    cmf_routing:
-        chain:
-            routers_by_id:
-                cmf_routing.dynamic_router: 20
-                router.default: 100
-        dynamic:
-            enabled: true
-            persistence:
-                phpcr:
-                    enabled: true
-                    route_basepath: /cms/routes
+    .. code-block:: yaml
+
+        # /app/config/config.yml
+        cmf_routing:
+            chain:
+                routers_by_id:
+                    cmf_routing.dynamic_router: 20
+                    router.default: 100
+            dynamic:
+                enabled: true
+                persistence:
+                    phpcr:
+                        enabled: true
+                        route_basepath: /cms/routes
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic enabled="true" />
+                <persistence>
+                    <phpcr enabled="true" route_basepath="/cms/routes"/>
+                </persistence>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_routing', array(
+            'dynamic' => array(
+                'enabled' => true,
+                'persistence' => array(
+                    'phpcr' => array(
+                        'enabled' => true,
+                        'route_basepath' => '/cms/routes',
+                    ),
+                ),
+            ),
+        ));
+
 
 This will:
 
@@ -636,56 +688,165 @@ and publish your assets (omit ``--symlink`` if you use Windows!):
 
 Sonata requires the ``sonata_block`` bundle to be configured in your main configuration:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    # ...
-    sonata_block:
-        default_contexts: [cms]
-        blocks:
-            # Enable the SonataAdminBundle block
-            sonata.admin.block.admin_list:
-                contexts:   [admin]
+    .. code-block:: yaml
 
+        # app/config/config.yml
+        # ...
+        sonata_block:
+            default_contexts: [cms]
+            blocks:
+                # Enable the SonataAdminBundle block
+                sonata.admin.block.admin_list:
+                    contexts:   [admin]
+
+    .. code-block:: php
+
+        $container->loadFromExtension('sonata_block', array(
+            'default_contexts' => array('cms'),
+            'blocks' => array(
+                'sonata.admin.block.admin_list' => array(
+                    'contexts' => array('admin'),
+                ),
+            ),
+        ));
+
+    .. code-block:: xml
+
+       <!-- TODO -->
 
 and it needs the following entries in your routing file:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/routing.yml
-    admin:
-        resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-        prefix: /admin
+    .. code-block:: yaml
 
-    _sonata_admin:
-        resource: .
-        type: sonata_admin
-        prefix: /admin
+        # app/config/routing.yml
+        admin:
+            resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+            prefix: /admin
+
+        _sonata_admin:
+            resource: .
+            type: sonata_admin
+            prefix: /admin
+
+    .. code-block:: xml
+
+        <!-- app/config/routing.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <route id="admin" path="/blog/{slug}">
+                <import 
+                    resource="@SonataAdminBundle/Resources/config/sonata_admin.xml" 
+                    prefix="/admin"
+                />
+            </route>
+        </routes>
+
+    .. code-block:: php
+
+        // app/config/routing.php
+        use Symfony\Component\Routing\RouteCollection;
+
+        $collection = new RouteCollection();
+        $routing = $loader->import(
+            "@SonataAdminBundle/Resources/config/sonata_admin.xml"
+        );
+        $routing->setPrefix('/admin');
+        $collection->addCollection($routing);
+
+        return $collection;
 
 Great, now have a look at http://localhost:8000/admin/dashboard
 
-No translations? Uncomment the translator in the configuration file::
+No translations? Uncomment the translator in the configuration file:
 
-    # ...
-    framework:
+.. configuration-block::
+
+    .. code-block:: yaml
+
         # ...
-        translator:      { fallback: %locale% }
+        framework:
+            # ...
+            translator:      { fallback: %locale% }
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config>
+                <!-- ... -->
+                <framework:translator fallback="%locale%" />
+            </framework:config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('framework', array(
+            // ...
+            'translator' => array(
+                'fallback' => %locale%,
+            ),
+        ));
 
 Notice that adminstration class of the routing bundle has been automatically registered. Your routes
 will be managed automatically so you should disable this:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
+    .. code-block:: yaml
 
-    cmf_routing:
-        # ...
-        dynamic:
+        # app/config/config.yml
+
+        cmf_routing:
             # ...
-            persistence:
-                phpcr:
-                    # ...
-                    use_sonata_admin: false
+            dynamic:
+                # ...
+                persistence:
+                    phpcr:
+                        # ...
+                        use_sonata_admin: false
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <!-- ... -->
+                <persistence>
+                    <phpcr ... use_sonata_admin="false"/>
+                </persistence>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_routing', array(
+            // ...
+            'dynamic' => array(
+                'persistence' => array(
+                    'phpcr' => array(
+                        // ,,,
+                        'use_sonata_admin:' => false,
+                    ),
+                ),
+            ),
+        ));
 
 All Sonata Admin aware CMF bundles have such a configuration option and it prevents the admin class (or
 classes) from being registered.
