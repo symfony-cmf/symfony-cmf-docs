@@ -111,28 +111,40 @@ To configure what controller is used for which route, you can configure the
 content and returns it by the method ``getRouteContent()``. (See
 `CMF Routing component`_ if you want to know more about this interface.)
 
-The possible enhancements are (in order of precedence):
+The possible enhancements that take place, if configured, are (in order of
+precedence):
 
-* (Explicit controller): If there is a _controller set in ``getRouteDefaults()``,
-  no enhancer will overwrite it.
-* Controller by alias: requires the route document to return a 'type' value in
-  ``getRouteDefaults()``
-* Controller by class: requires the route document to be an instance of
+# (Explicit controller): If there is a ``_controller`` set in
+  ``getRouteDefaults()``, no enhancer will overwrite the controller.
+  ``_template`` will still be inserted if its not already set;
+# Controller by type: requires the route document to return a 'type' value in
+  ``getRouteDefaults()``. **priority: 60**;
+# Controller by class: requires the route document to be an instance of
   ``RouteObjectInterface`` and to return an object for ``getRouteContent()``.
   The content document is checked for being ``instanceof`` the class names in
   the map and if matched that controller is used. Instanceof is used instead of
   direct comparison to work with proxy classes and other extending classes.
-* Template by class: requires the route document to be an instance of
+  **priority: 50**;
+# Template by class: requires the route document to be an instance of
   ``RouteObjectInterface`` and to return an object for ``getRouteContent()``.
   The content document is checked for being ``instanceof`` the class names in
-  the map and if matched that template will be set as ``'_template'`` in the
-  ``$defaults``.
-* If a _template is specified but no explicit controller (either the route
-  document returned it in ``getRouteDefaults()`` or the template by class
-  provided a template), the generic controller is chosen.
+  the map and if matched that template will be set as ``'_template'``.
+  **priority: 40** for the template, generic controller is set at
+  **priority: 30**;
+# If a ``_template`` is in the ``$defaults`` but no controller was determined
+  so far (neither set on the route nor matched in controller by type or class),
+  the generic controller is chosen. **priority: 10**;
+# The default controller is chosen. This controller can use a default template
+  to render the content, which will likely further decide how to handle this
+  content. See also
+  :ref:`the content bundle documentation <bundles-content-introduction_default-template>`.
+  **priority: -100**.
 
 See :ref:`the configuration reference <reference-config-routing-dynamic>` to
 learn how to configure these enhancers.
+
+If the ContentBundle is present in your application, the generic and default
+controllers default to the ``ContentController`` provided by that bundle.
 
 .. tip::
 
@@ -142,7 +154,8 @@ learn how to configure these enhancers.
 .. tip::
 
     You can also define your own ``RouteEnhancer`` classes for specific use
-    cases. See :ref:`bundle-routing-customize`.
+    cases. See :ref:`bundle-routing-customize`. Use the priority to insert your
+    enhancers in the correct order.
 
 .. _bundle-routing-document:
 

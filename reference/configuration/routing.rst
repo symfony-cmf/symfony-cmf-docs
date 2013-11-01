@@ -128,6 +128,20 @@ no explicit controller. The value is the name of a controller using either the
 ``AcmeDemoBundle::Page::index`` or ``acme_demo.controller.page:indexAction``
 notation.
 
+If the :doc:`CoreBundle <../../bundles/core/index>` and
+:doc:`ContentBundle <../../bundles/content/index>` are registered, this
+defaults to ``cmf_content.controller:indexAction``.
+
+default_controller
+..................
+
+**type**: ``string`` **default**: value of ``generic_controller``
+
+The default controller to use if none of the enhancers found a controller. The
+value is the name of a controller using either the
+``AcmeDemoBundle::Page::index`` or ``acme_demo.controller.page:indexAction``
+notation.
+
 controllers_by_type
 ...................
 

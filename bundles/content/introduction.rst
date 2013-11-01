@@ -24,14 +24,14 @@ Usage
 
 The ContentBundle provides a ``StaticContent`` document which can be used for
 static content. This document requires a title and body and can be connected
-to multiple routes and menu items. A simple page can be::
+to multiple routes and menu items. A simple page can be created like this::
 
     use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
     // retrieve the route root node
     $routeRoot = $documentManager->find(null, '/cms/routes');
-    
+
     $route = new Route();
     $route->setPosition($routeRoot, 'hello');
 
@@ -59,21 +59,20 @@ be configured.
 The ContentController
 ~~~~~~~~~~~~~~~~~~~~~
 
-The ContentBundle provides a ``ContentController``. This will handle all
-incoming requests for static content. This can only be done when it's
-configured correctly.
+The ContentBundle provides a ``ContentController``. This controller can
+generically handle incoming requests and forward them to a template. This is
+usually used together with the
+:ref:`dynamic router <bundles-routing-dynamic_router-enhancer>`.
 
 Create the Template
 ...................
 
 In order to render the content, you need to create and configure a template.
 This can be done either by using the ``templates_by_class`` setting (see
-below) or by using the default template. The standard case is to use the
-``templates_by_class``, but it is always a good idea to create a default
-template.
+below) or by configuring the default template.
 
-Any template rendered by the ``ContentController`` will recieve a
-``cmfMainContent`` variabele, which contains the current ``StaticContent``
+Any template rendered by the ``ContentController`` will be passed the
+``cmfMainContent`` variable, which contains the current ``StaticContent``
 document.
 
 For instance, a very simple template looks like:
@@ -108,6 +107,11 @@ For instance, a very simple template looks like:
         <?php echo $cmfMainContent->getBody() ?>
         <?php $view['slots']->stop() ?>
 
+.. _bundles-content-introduction_default-template:
+
+Configuring a default template
+..............................
+
 To configure a default template, use the ``default_template`` option:
 
 .. configuration-block::
@@ -125,7 +129,7 @@ To configure a default template, use the ``default_template`` option:
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            
+
             <!-- ... -->
 
             <config xmlns="http://cmf.symfony.com/schema/dic/content"
@@ -142,12 +146,17 @@ To configure a default template, use the ``default_template`` option:
             'default_template' => 'AcmeMainBundle:Content:static.html.twig',
         ));
 
+Whenever the content controller gets called without a specified template, it
+will now use this template.
+
 Setting up the Routing
 ----------------------
 
-The router needs to know that the route ``hello``, and all other routes
-connect to a ``Content`` document, should be passed to the
-``ContentController``. To configure this, use the
+The RoutingBundle provides powerful tools to configure how dynamic routes and
+their content can be mapped to controllers and templates.
+
+Lets assume that you want to handle ``StaticContent`` with the default
+``ContentController``. To achieve this, you can use the
 ``cmf_routing.dynamic.controllers_by_class`` configuration option:
 
 .. configuration-block::
@@ -167,7 +176,7 @@ connect to a ``Content`` document, should be passed to the
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            
+
             <!-- ... -->
 
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
@@ -197,12 +206,18 @@ page displaying your content.
 Using templates_by_class
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-It's common to assign a template to a route and content, instead of depending
-on the default template. This is done because different documents can mean
-different properties and thus different renderings. To assign a template to a
-route, use ``templates_by_class``. The ``ContentController`` is still used to
-render the content. Read more about this in the
-:ref:`routing documentation <reference-config-routing-template_by_class>`.
+It is common to assign a template to a content, instead of depending on the
+default template. This way, you can have different templates for the different
+documents to handle their specific properties or produce custom HTML. To map a
+template to a content, use the ``templates_by_class`` option. If a template is
+found this way, the generic_controller is used to render the content, which by
+default is the ``ContentController``.
+
+.. tip::
+
+    The routing bundle provides many powerful features to configure the mapping
+    to controllers and templates. Read more about this topic in the
+    :ref:`routing configuration reference <reference-config-routing-template_by_class>`.
 
 SonataAdminBundle Integration
 -----------------------------
