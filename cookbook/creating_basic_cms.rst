@@ -317,11 +317,12 @@ service container configuration:
     .. code-block:: xml
 
         <!-- src/Acme\BasicCmsBundle\Resources\services.xml -->
-        <?xml version="1.0" ?>
+        <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:acme_demo="http://www.example.com/symfony/schema/"
-            xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services 
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <!-- ... -->
             <services>
@@ -486,19 +487,6 @@ Add the following to your application configuration:
                         enabled: true
                         route_basepath: /cms/routes
 
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-                <dynamic enabled="true" />
-                <persistence>
-                    <phpcr enabled="true" route_basepath="/cms/routes"/>
-                </persistence>
-            </config>
-        </container>
-
     .. code-block:: php
 
         // app/config/config.php
@@ -606,13 +594,34 @@ In summary:
 
 Now we will need to include this configuration:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    imports:
-        # ...
-        - { resource: routing_auto.yml }
+    .. code-block:: xml
 
+            <?xml version="1.0" encoding="UTF-8" ?>
+            <container 
+                xmlns="http://symfony.com/schema/dic/services" 
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                xsi:schemaLocation="http://symfony.com/schema/dic/services 
+                    http://symfony.com/schema/dic/services/services-1.0.xsd">
+                    <imports>
+                        <import resource="routing_auto.yml"/>
+                    </imports>
+             </container>
+    
+    .. code-block:: php
+
+            // src/Acme/BasicCmsBundle/Resources/config/config.php
+            use Symfony\Component\DependencyInjection\Reference;
+            // ...
+            
+            $this->import('routing_auto.yml');
+    
+    .. code-block:: yaml
+
+            # src/Acme/BasicCmsBundle/Resources/config/config.yml
+            imports:
+                - { resource: routing_auto.yml }
 
 and reload the fixtures:
 
@@ -693,6 +702,7 @@ Sonata requires the ``sonata_block`` bundle to be configured in your main config
     .. code-block:: yaml
 
         # app/config/config.yml
+
         # ...
         sonata_block:
             default_contexts: [cms]
@@ -702,6 +712,8 @@ Sonata requires the ``sonata_block`` bundle to be configured in your main config
                     contexts:   [admin]
 
     .. code-block:: php
+
+        // app/config/config.php
 
         $container->loadFromExtension('sonata_block', array(
             'default_contexts' => array('cms'),
@@ -714,7 +726,16 @@ Sonata requires the ``sonata_block`` bundle to be configured in your main config
 
     .. code-block:: xml
 
-       <!-- TODO -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="htp://symfony.com/schema/dic/services">
+            <config xmlns="http://sonata-project.org/schema/dic/block">
+                <default-context>cms</default-context>
+
+                <block id="sonata.admin.block.admin_list">
+                    <context>admin</context>
+                </block>
+            </config>
+        </container> 
 
 and it needs the following entries in your routing file:
 
@@ -741,12 +762,17 @@ and it needs the following entries in your routing file:
             xsi:schemaLocation="http://symfony.com/schema/routing
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="admin" path="/blog/{slug}">
-                <import 
-                    resource="@SonataAdminBundle/Resources/config/sonata_admin.xml" 
-                    prefix="/admin"
-                />
-            </route>
+            <import 
+                resource="@SonataAdminBundle/Resources/config/sonata_admin.xml" 
+                prefix="/admin"
+            />
+
+            <import
+                resource="."
+                type="sonata_admin"
+                prefix="/admin"
+            />
+
         </routes>
 
     .. code-block:: php
@@ -786,10 +812,11 @@ No translations? Uncomment the translator in the configuration file:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
                                 http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
-            <framework:config>
+            <config xmlns="http://symfony.com/schema/dic/symfony">
                 <!-- ... -->
-                <framework:translator fallback="%locale%" />
-            </framework:config>
+                <translator fallback="%locale%" />
+            </config>
+            <framework:config>
         </container>
 
     .. code-block:: php
@@ -798,7 +825,7 @@ No translations? Uncomment the translator in the configuration file:
         $container->loadFromExtension('framework', array(
             // ...
             'translator' => array(
-                'fallback' => %locale%,
+                'fallback' => '%locale%',
             ),
         ));
 
@@ -810,7 +837,6 @@ will be managed automatically so you should disable this:
     .. code-block:: yaml
 
         # app/config/config.yml
-
         cmf_routing:
             # ...
             dynamic:
@@ -826,10 +852,12 @@ will be managed automatically so you should disable this:
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-                <!-- ... -->
-                <persistence>
-                    <phpcr ... use_sonata_admin="false"/>
-                </persistence>
+                <dynamic>
+                    <!-- ... -->
+                    <persistence>
+                        <phpcr use-sonata-admin="false"/>
+                    </persistence>
+                </dynamic>
             </config>
         </container>
 
@@ -841,8 +869,8 @@ will be managed automatically so you should disable this:
             'dynamic' => array(
                 'persistence' => array(
                     'phpcr' => array(
-                        // ,,,
-                        'use_sonata_admin:' => false,
+                        // ...
+                        'use_sonata_admin' => false,
                     ),
                 ),
             ),
@@ -928,52 +956,116 @@ so extend the ``PageAdmin`` class to avoid code duplication::
 
 Now you just need to register these classes in the dependency injection container configuration:
 
-.. code-block:: xml
+.. configuration-block::
 
-    <?xml version="1.0" ?>
-    <container xmlns="http://symfony.com/schema/dic/services"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:acme_demo="http://www.example.com/symfony/schema/"
-        xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
+    .. code-block:: xml
 
-        <!-- ... -->
-        <services>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services 
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
             <!-- ... -->
-            <service id="acme.basiccms.admin.page" class="Acme\BasicCmsBundle\Admin\PageAdmin">
+            <services>
+                <!-- ... -->
+                <service id="acme.basiccms.admin.page" 
+                    class="Acme\BasicCmsBundle\Admin\PageAdmin">
+        
+                    <call method="setRouteBuilder">
+                        <argument type="service" id="sonata.admin.route.path_info_slashes" />
+                    </call>
+        
+                    <tag
+                        name="sonata.admin"
+                        manager_type="doctrine_phpcr"
+                        group="Basic CMS"
+                        label="Page"
+                    />
+                    <argument/>
+                    <argument>Acme\BasicCmsBundle\Document\Page</argument>
+                    <argument>SonataAdminBundle:CRUD</argument>
+                </service>
+        
+                <service id="acme.basiccms.admin.post" 
+                    class="Acme\BasicCmsBundle\Admin\PostAdmin">
+        
+                    <call method="setRouteBuilder">
+                        <argument type="service" id="sonata.admin.route.path_info_slashes" />
+                    </call>
+        
+                    <tag
+                        name="sonata.admin"
+                        manager_type="doctrine_phpcr"
+                        group="Basic CMS"
+                        label="Blog Posts"
+                    />
+                    <argument/>
+                    <argument>Acme\BasicCmsBundle\Document\Post</argument>
+                    <argument>SonataAdminBundle:CRUD</argument>
+                </service>
+            </services>
+        </container>
+
+    .. code-block:: php
+
+            // src/Acme/BasicCmsBundle/Resources/config/config.php
+            use Symfony\Component\DependencyInjection\Reference;
+            // ...
+            
+            $container->register('acme.basiccms.admin.page', 'Acme\BasicCmsBundle\Admin\PageAdmin')
+              ->addArgument('')
+              ->addArgument('Acme\BasicCmsBundle\Document\Page')
+              ->addArgument('SonataAdminBundle:CRUD')
+              ->addTag('sonata.admin', array(
+                  'name' => 'sonata.admin', 
+                  'manager_type' => 'doctrine_phpcr', 
+                  'group' => 'Basic CMS', 
+                  'label' => 'Page'
+              )
+              ->addMethodCall('setRouteBuilder', array(
+                  new Reference('sonata.admin.route.path_info_slashes'),
+              ))
+            ;
+            $container->register('acme.basiccms.admin.post', 'Acme\BasicCmsBundle\Admin\PostAdmin')
+              ->addArgument('')
+              ->addArgument('Acme\BasicCmsBundle\Document\Post')
+              ->addArgument('SonataAdminBundle:CRUD')
+              ->addTag('sonata.admin', array(
+                   'name' => 'sonata.admin', 
+                   'manager_type' => 'doctrine_phpcr', 
+                   'group' => 'Basic CMS', 
+                   'label' => 'Blog Posts'
+              )
+              ->addMethodCall('setRouteBuilder', array(
+                  new Reference('sonata.admin.route.path_info_slashes'),
+              ))
+            ;
     
-                <call method="setRouteBuilder">
-                    <argument type="service" id="sonata.admin.route.path_info_slashes" />
-                </call>
-    
-                <tag
-                    name="sonata.admin"
-                    manager_type="doctrine_phpcr"
-                    group="Basic CMS"
-                    label="Page"
-                />
-                <argument/>
-                <argument>Acme\BasicCmsBundle\Document\Page</argument>
-                <argument>SonataAdminBundle:CRUD</argument>
-            </service>
-    
-            <service id="acme.basiccms.admin.post" class="Acme\BasicCmsBundle\Admin\PostAdmin">
-    
-                <call method="setRouteBuilder">
-                    <argument type="service" id="sonata.admin.route.path_info_slashes" />
-                </call>
-    
-                <tag
-                    name="sonata.admin"
-                    manager_type="doctrine_phpcr"
-                    group="Basic CMS"
-                    label="Blog Posts"
-                />
-                <argument/>
-                <argument>Acme\BasicCmsBundle\Document\Post</argument>
-                <argument>SonataAdminBundle:CRUD</argument>
-            </service>
-        </services>
-    </container>
+    .. code-block:: yaml
+
+            # src/Acme/BasicCmsBundle/Resources/config/config.yml
+            services:
+                acme.basiccms.admin.page:
+                    class: Acme\BasicCmsBundle\Admin\PageAdmin
+                    arguments:
+                        - ''
+                        - Acme\BasicCmsBundle\Document\Page
+                        - 'SonataAdminBundle:CRUD'
+                    tags:
+                        - { name: sonata.admin, manager_type: doctrine_phpcr, group: 'Basic CMS', label: Page }
+                    calls:
+                        - [setRouteBuilder, ['@sonata.admin.route.path_info_slashes']]
+                acme.basiccms.admin.post:
+                    class: Acme\BasicCmsBundle\Admin\PostAdmin
+                    arguments:
+                        - ''
+                        - Acme\BasicCmsBundle\Document\Post
+                        - 'SonataAdminBundle:CRUD'
+                    tags:
+                        - { name: sonata.admin, manager_type: doctrine_phpcr, group: 'Basic CMS', label: 'Blog Posts' }
+                    calls:
+                        - [setRouteBuilder, ['@sonata.admin.route.path_info_slashes']]
 
 Check it out at http://localhost:8000/admin/dashboard
 
@@ -1031,18 +1123,33 @@ The ``Page`` object is passed automatically as ``$contentDocument``.
 Add a corresponding twig template (note that this works because we use the
 ``@Template`` annotation):
 
-.. code-block:: jinja
+.. configuration-block::
 
-    {# src/Acme/BasicCmsBundle/Resources/Default/page.html.twig #}
+    .. code-block:: jinja
 
-    <h1>{{ page.title }}</h1>
-    <p>{{ page.content|raw }}</p>
-    <h2>Our Blog Posts</h2>
-    <ul>
-        {% for post in posts %}
-            <li><a href="{{ path(post) }}">{{ post.title }}</a></li>
-        {% endfor %}
-    </ul>
+        {# src/Acme/BasicCmsBundle/Resources/Default/page.html.twig #}
+
+        <h1>{{ page.title }}</h1>
+        <p>{{ page.content|raw }}</p>
+        <h2>Our Blog Posts</h2>
+        <ul>
+            {% for post in posts %}
+                <li><a href="{{ path(post) }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+
+    .. code-block:: php
+
+        <?php src/Acme/BasicCmsBundle/Resources/Default/page.html.twig ?>
+
+        <h1><?php echo $page->getTitle() ?></h1>
+        <p><?php echo $page->content ?></p>
+        <h2>Our Blog Posts</h2>
+        <ul>
+            <?php foreach($posts as $post) { ?>
+                <li><a href="<?php $view['router']->generate($post) ?>"><?php $post->getTitle() ?></a></li>
+            <?php } ?>
+        </ul>
 
 Now have another look at: http://localhost:8000/page/home
 
@@ -1192,28 +1299,59 @@ applications kernel::
 Now you can register the PhpcrMenuProvider from the menu bundle in the service container
 configuration:
 
-.. code-block:: xml
+.. configuration-block::
 
-    <?xml version="1.0" ?>
-    <container xmlns="http://symfony.com/schema/dic/services"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:acme_demo="http://www.example.com/symfony/schema/"
-        xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
+    .. code-block:: xml
 
-        <!-- ... -->
-        <services>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:acme_demo="http://www.example.com/symfony/schema/"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services 
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
             <!-- ... -->
-            <service
-                id="acme.basiccms.menu_provider"
-                class="Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider">
-                <argument type="service" id="cmf_menu.factory"/>
-                <argument type="service" id="doctrine_phpcr"/>
-                <argument>/cms/pages</argument>
-                <tag name="knp_menu.provider" />
-                <tag name="cmf_request_aware"/>
-            </service>
-        </services>
-    </container>
+            <services>
+                <!-- ... -->
+                <service
+                    id="acme.basiccms.menu_provider"
+                    class="Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider">
+                    <argument type="service" id="cmf_menu.factory"/>
+                    <argument type="service" id="doctrine_phpcr"/>
+                    <argument>/cms/pages</argument>
+                    <tag name="knp_menu.provider" />
+                    <tag name="cmf_request_aware"/>
+                </service>
+            </services>
+        </container>
+        
+    .. code-block:: php
+
+            // src/Acme/BasicCmsBundle/Resources/config/config.php
+            use Symfony\Component\DependencyInjection\Reference;
+            // ...
+            
+            $container->register('acme.basiccms.menu_provider', 'Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider')
+              ->addArgument(new Reference('cmf_menu.factory'))
+              ->addArgument(new Reference('doctrine_phpcr'))
+              ->addArgument('/cms/pages')
+              ->addTag('knp_menu.provider', array('name' => 'knp_menu.provider')
+              ->addTag('cmf_request_aware', array('name' => 'cmf_request_aware')
+            ;
+    
+    .. code-block:: yaml
+
+            # src/Acme/BasicCmsBundle/Resources/config/config.yml
+            services:
+                acme.basiccms.menu_provider:
+                    class: Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider
+                    arguments:
+                        - '@cmf_menu.factory'
+                        - '@doctrine_phpcr'
+                        - /cms/pages
+                    tags:
+                        - { name: knp_menu.provider }
+                        - { name: cmf_request_aware }
 
 and enable the twig rendering functionality of the KnpMenu bundle:
 
@@ -1343,25 +1481,50 @@ node::
 Now modify the existing service configuration for ``GenericInitializer`` as
 follows:
 
-.. code-block:: xml
+.. configuration-block::
 
-    <?xml version="1.0" ?>
-    <container xmlns="http://symfony.com/schema/dic/services"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:acme_demo="http://www.example.com/symfony/schema/"
-        xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
+    .. code-block:: xml
 
-        <!-- ... -->
-        <services>
-            <!-- ... -->
-            <!-- Doctrine PHPCR Initializer !-->
-            <service id="acme.phpcr.initializer.site" class="Acme\BasicCmsBundle\Initializer\SiteInitializer">
-                <tag name="doctrine_phpcr.initializer"/>
-            </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:acme_demo="http://www.example.com/symfony/schema/"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services 
+                 http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <!-- ... -->
-        </services>
-    </container>
+            <services>
+                <!-- ... -->
+                <!-- Doctrine PHPCR Initializer !-->
+                <service id="acme.phpcr.initializer.site" class="Acme\BasicCmsBundle\Initializer\SiteInitializer">
+                    <tag name="doctrine_phpcr.initializer"/>
+                </service>
+            </services>
+
+        </container>
+
+    .. code-block:: php
+
+        // src/Acme/BasicCmsBundle/Resources/config/config.php
+        
+        //  ... 
+        $container->register('acme.phpcr.initializer.site', 'Acme\BasicCmsBundle\Initializer\SiteInitializer')
+          ->addTag('doctrine_phpcr.initializer', array('name' => 'doctrine_phpcr.initializer')
+        ;
+    
+    .. code-block:: yaml
+
+        # src/Acme/BasicCmsBundle/Resources/config/config.yml
+        services:
+            # ...
+            acme.phpcr.initializer.site:
+                class: Acme\BasicCmsBundle\Initializer\SiteInitializer
+                tags:
+                    - { name: doctrine_phpcr.initializer }
+        
+
+
+
 
 Now reinitialize your repository:
 
