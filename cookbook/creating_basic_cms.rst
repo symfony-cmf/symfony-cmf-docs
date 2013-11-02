@@ -5,7 +5,8 @@
 Creating a basic CMS using the RoutingAutoBundle
 ================================================
 
-This three part article will show you how to create a basic CMS from scratch using the following bundles:
+This three part article will show you how to create a basic CMS from scratch
+using the following bundles:
 
 * :doc:`../bundles/routing_auto`;
 * :doc:`../bundles/phpcr_odm`;
@@ -15,27 +16,28 @@ This three part article will show you how to create a basic CMS from scratch usi
 It is assumed that you have:
 
 * A working knowledge of the Symfony 2 framework;
-* Basic knowledge of PHPCR-ODM;
+* Basic knowledge of PHPCR-ODM.
 
 The CMS will have two types of content:
 
 * **Pages**: HTML content accessed at, for example ``/page/home``, ``/page/about``, etc.
 * **Posts**: Blog posts accessed as ``/blog/2012/10/23/my-blog-post``.
 
-The auto routing integration will automatically create and update the routes (effectively the
-URLs with which you can access the content) for the page and post content documents. In addition each
-page content document will double up as a menu item.
+The auto routing integration will automatically create and update the routes
+(effectively the URLs with which you can access the content) for the page and
+post content documents. In addition each page content document will double up
+as a menu item.
 
 .. image:: ../_images/cookbook/basic-cms-intro-sketch.png
 
 .. note::
 
-    There exists a bundle called :doc:`../bundles/simple_cms/index` which provides a similar
-    solution to the one proposed in this tutorial. It combines the route, menu
-    and content into a single document and uses a custom router. This approach
-    differs in that it will combine only the menu and content into a single
-    document, the routes will be managed automatically and the native CMF
-    ``DynamicRouter`` will be used.
+    There exists a bundle called :doc:`../bundles/simple_cms/index` which
+    provides a similar solution to the one proposed in this tutorial. It
+    combines the route, menu and content into a single document and uses a
+    custom router. This approach differs in that it will combine only the menu
+    and content into a single document, the routes will be managed
+    automatically and the native CMF ``DynamicRouter`` will be used.
 
 Part 1 - Getting Started
 ------------------------
@@ -54,8 +56,9 @@ Get started by installing the following PHPCR ODM based Symfony distribution:
 
 .. note::
 
-    The `PHPCR-ODM Symfony distribution`_ above is the same as the `Symfony Standard Edition`_ except
-    that the Doctrine ORM is replaced by the PHPCR-ODM.
+    The `PHPCR-ODM Symfony distribution`_ above is the same as the `Symfony
+    Standard Edition`_ except that the Doctrine ORM is replaced by the
+    PHPCR-ODM.
 
 PHP 5.4 features an in-built web server. You can use this throughout the
 tutorial, run it as follows:
@@ -68,9 +71,10 @@ and go to http://localhost:8000 to verify that everything is working.
 
 .. note::
 
-    You could also use the `Symfony CMF Standard Edition`_. The CMF Standard Edition is also based
-    on the Symfony Standard Edition and replaces the ORM with the PHPCR-ODM, however it also includes
-    the entire CMF stack and some other dependencies which are not required for this tutorial.
+    You could also use the `Symfony CMF Standard Edition`_. The CMF Standard
+    Edition is also based on the Symfony Standard Edition and replaces the ORM
+    with the PHPCR-ODM, however it also includes the entire CMF stack and some
+    other dependencies which are not required for this tutorial.
 
 Install Additional Bundles
 ..........................
@@ -134,8 +138,9 @@ node content of the PHPCR content repository:
 
 .. note::
 
-    The `Apache Jackrabbit`_ implementation is the reference java based backend and does not
-    require such initialization. It does however require the use of Java.
+    The `Apache Jackrabbit`_ implementation is the reference java based
+    backend and does not require such initialization. It does however require
+    the use of Java.
 
 Now you can generate the bundle in which you will write most of your code:
 
@@ -146,8 +151,9 @@ Now you can generate the bundle in which you will write most of your code:
 The Documents
 .............
 
-You will create two document classes, one for the pages and one for the posts. These two documents
-share much of the same logic, so lets create a ``trait`` to reduce code duplication::
+You will create two document classes, one for the pages and one for the posts.
+These two documents share much of the same logic, so you create a ``trait``
+to reduce code duplication::
 
     // src/Acme/BasicCmsBundle/Document/ContentTrait.php
     namespace Acme\BasicCmsBundle\Document;
@@ -175,7 +181,10 @@ share much of the same logic, so lets create a ``trait`` to reduce code duplicat
         protected $content;
 
         /**
-         * @PHPCR\Referrers(referringDocument="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route", referencedBy="content")
+         * @PHPCR\Referrers(
+         *     referringDocument="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route",
+         *     referencedBy="content"
+         * )
          */
         protected $routes;
 
@@ -223,14 +232,13 @@ share much of the same logic, so lets create a ``trait`` to reduce code duplicat
 .. note::
 
     Traits are only available as of PHP 5.4. If you are running a lesser
-    version of PHP you may copy the above code into each class to have the same
-    effect. You may not, however, ``extend`` one class from another, as this will
-    cause unintended behavior in the admin integration later on.
+    version of PHP you may copy the above code into each class to have the
+    same effect. You may not, however, ``extend`` one class from another, as
+    this will cause unintended behavior in the admin integration later on.
 
 The ``Page`` class is therefore nice and simple::
 
     // src/Acme/BasicCmsBundle/Document/Page.php
-
     namespace Acme\BasicCmsBundle\Document;
 
     use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
@@ -243,11 +251,11 @@ The ``Page`` class is therefore nice and simple::
         use ContentTrait;
     }
 
-Note that we have specified that the page document should be ``referenceable``.
-This will enable other documents to hold a reference to the page, we will also
-make the ``Post`` class referenceable and in addition the ``Post`` class will
-automatically set the date if it has not been explicitly set using the `pre
-persist lifecycle event`_::
+Note that the page documet should be ``referenceable``.  This will enable
+other documents to hold a reference to the page. The ``Post`` class will also
+be referenceable and in addition the ``Post`` class will automatically set the
+date if it has not been explicitly set using the `pre persist lifecycle
+event`_::
 
     // src/Acme/BasicCms/Document/Post.php
     namespace Acme\BasicCmsBundle\Document;
@@ -288,15 +296,17 @@ persist lifecycle event`_::
         }
     }
 
-Both the ``Post`` and ``Page`` classes implement the ``RouteReferrersReadInterface`` which 
-enables the `DynamicRouter to generate URLs`_. (for example with ``{{ path(content) }}`` in Twig).
+Both the ``Post`` and ``Page`` classes implement the
+``RouteReferrersReadInterface`` which enables the
+`DynamicRouter to generate URLs`_. (for example with ``{{ path(content) }}``
+in Twig).
 
 Repository Initializer
 ~~~~~~~~~~~~~~~~~~~~~~
 
 `Repository initializers`_ enable you to establish and maintain PHPCR nodes
 required by your application, for example you will need the paths
-``/cms/pages``, ``/cms/posts`` and ``/cms/routes``.  The ``GenericInitializer``
+``/cms/pages``, ``/cms/posts`` and ``/cms/routes``. The ``GenericInitializer``
 class can be used easily initialize a list of paths. Add the following to your
 service container configuration:
 
@@ -326,12 +336,15 @@ service container configuration:
             <services>
                 <!-- ... -->
 
-                <service id="acme.basiccms.phpcr.initializer" class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
+                <service id="acme.basiccms.phpcr.initializer"
+                    class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
+
                     <argument type="collection">
                         <argument>/cms/pages</argument>
                         <argument>/cms/posts</argument>
                         <argument>/cms/routes</argument>
                     </argument>
+
                     <tag name="doctrine_phpcr.initializer"/>
                 </service>
             </services>
@@ -340,18 +353,22 @@ service container configuration:
     .. code-block:: php
 
         // src/Acme/BasicCmsBundle/Resources/config/services.php
-        $container->register('acme.basiccms.phpcr.initializer', 'Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer')
-            ->addArgument(array(
-                '/cms/pages', '/cms/posts', '/cms/routes'
-            ))
-            ->addTag('doctrine_phpcr.initializer');
+        $container
+            ->register(
+                'acme.basiccms.phpcr.initializer',
+                'Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer'
+            )
+            ->addArgument(array('/cms/pages', '/cms/posts', '/cms/routes'))
+            ->addTag('doctrine_phpcr.initializer')
+        ;
 
 .. note::
 
     The initializers operate at the PHPCR level, not the PHPCR-ODM level - this
     means that you are dealing with nodes and not documents.
 
-Execute the ``doctrine:phpcr:repository:init`` command to initialize (or reinitialize) the repository:
+Execute the ``doctrine:phpcr:repository:init`` command to initialize (or
+reinitialize) the repository:
 
 .. code-block:: bash
 
@@ -448,21 +465,22 @@ You should now have some data in your content repository.
 Part 2: Automatic Routing
 -------------------------
 
-The routes (URLs) to your content will be automatically created and updated using the RoutingAutoBundle. This
-bundle is powerful and somewhat complicated. For a full a full explanation refer to the
-`RoutingAutoBundle documentation`_.
+The routes (URLs) to your content will be automatically created and updated
+using the RoutingAutoBundle. This bundle is powerful and somewhat complicated.
+For a full a full explanation refer to the `RoutingAutoBundle documentation`_.
 
-In summary, you will configure the auto routing system to create a new auto routing document in the routing tree for
-every post or content created. The new route will be linked back to the target
-content:
+In summary, you will configure the auto routing system to create a new auto
+routing document in the routing tree for every post or content created. The
+new route will be linked back to the target content:
 
 .. image:: ../_images/cookbook/basic-cms-objects.png
 
 Enable the Dynamic Router
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The RoutingAutoBundle uses the CMFs `RoutingBundle`_ which enables routes to be provided from a database (as opposed
-to being provided from ``routing.[yml|xml|php]`` files for example).
+The RoutingAutoBundle uses the CMFs `RoutingBundle`_ which enables routes to
+be provided from a database (as opposed to being provided from
+``routing.[yml|xml|php]`` files for example).
 
 Add the following to your application configuration:
 
@@ -482,6 +500,23 @@ Add the following to your application configuration:
                     phpcr:
                         route_basepath: /cms/routes
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+            <chain>
+                <router-by-id id="cmf_routing.dynamic_router">20</router-by-id>
+                <router-by-id id="router.default">100</router-by-id>
+            </chain>
+            <dynamic>
+                <persistence>
+                    <phpcr route-basepath="/cms/routes" />
+                </persistence>
+            </dynamic>
+        </config>
+       </container>
+
     .. code-block:: php
 
         // app/config/config.php
@@ -495,22 +530,6 @@ Add the following to your application configuration:
                 ),
             ),
         ));
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-           <chain>
-               <router-by-id id="cmf_routing.dynamic_router">20</router-by-id>
-               <router-by-id id="router.default">100</router-by-id>
-           </chain>
-           <dynamic>
-               <persistence>
-                   <phpcr route-basepath="/cms/routes" />
-               </persistence>
-           </dynamic>
-       </config>
-
 
 This will:
 
@@ -590,37 +609,19 @@ In summary:
 * The ``content_path`` key represents the parent path of the content, e.g.
   ``/if/this/is/a/path`` then the ``content_path``
   represents ``/if/this/is/a``;
- * Each element under ``content_path`` represents a section of the URL.
- * The first element ``block_path`` uses a *provider* which *specifies* a
-   path. If that path exists then we will do nothing (i.e. we will *use* 
-   it).
- * The second element uses the ``content_datetime`` provider, which will
-   use a ``DateTime`` object returned from the specified method on the
-   content object (the ``Post``) and create a path from it, e.g.
-   ``2013/10/13``.
-* The ``content_name`` key represents the last part of the path, e.g. ``path`` from ``/if/this/is/a/path``.
+* Each element under ``content_path`` represents a section of the URL;
+* The first element ``block_path`` uses a *provider* which *specifies* a
+  path. If that path exists then it will do nothing;
+* The second element uses the ``content_datetime`` provider, which will
+  use a ``DateTime`` object returned from the specified method on the
+  content object (the ``Post``) and create a path from it, e.g.
+  ``2013/10/13``;
+* The ``content_name`` key represents the last part of the path, e.g. ``path``
+  from ``/if/this/is/a/path``.
 
-Now we will need to include this configuration:
+Now you will need to include this configuration:
 
 .. configuration-block::
-
-    .. code-block:: xml
-
-        <!-- src/Acme/BasicCmsBUndle/Resources/config/config.yml -->
-        ?xml version="1.0" encoding="UTF-8" ?>
-        container 
-           xmlns="http://symfony.com/schema/dic/services" 
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-           xsi:schemaLocation="http://symfony.com/schema/dic/services 
-               http://symfony.com/schema/dic/services/services-1.0.xsd">
-               <import resource="routing_auto.yml"/>
-        </container>
-    
-    .. code-block:: php
-
-        // src/Acme/BasicCmsBundle/Resources/config/config.php
-        // ...
-        $this->import('routing_auto.yml');
     
     .. code-block:: yaml
 
@@ -628,13 +629,35 @@ Now we will need to include this configuration:
         imports:
             - { resource: routing_auto.yml }
 
+    .. code-block:: xml
+
+        <!-- src/Acme/BasicCmsBUndle/Resources/config/config.yml -->
+        ?xml version="1.0" encoding="UTF-8" ?>
+        <container 
+           xmlns="http://symfony.com/schema/dic/services" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xsi:schemaLocation="http://symfony.com/schema/dic/services 
+               http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <import resource="routing_auto.yml"/>
+        </container>
+    
+    .. code-block:: php
+
+        // src/Acme/BasicCmsBundle/Resources/config/config.php
+
+        // ...
+        $this->import('routing_auto.yml');
+
 and reload the fixtures:
 
 .. code-block:: bash
 
     $ php app/console doctrine:phpcr:fixtures:load
 
-Have a look at what you have::
+Have a look at what you have:
+
+.. code-block:: bash
 
     $ php app/console doctrine:phpcr:node:dump
     ROOT:
@@ -662,8 +685,9 @@ The routes have been automatically created!
 
 .. note::
 
-    What are those numbers? These are node names which have been created automatically by the PHPCR-ODM. Normally
-    you would assign a descriptive name (e.g. ``my-first-post``).
+    What are those numbers? These are node names which have been created
+    automatically by the PHPCR-ODM. Normally you would assign a descriptive
+    name (e.g. ``my-first-post``).
 
 Part 3 - The Backend
 --------------------
@@ -835,8 +859,9 @@ No translations? Uncomment the translator in the configuration file:
             ),
         ));
 
-Notice that adminstration class of the routing bundle has been automatically registered. Your routes
-will be managed automatically so you should disable this:
+Notice that adminstration class of the routing bundle has been automatically
+registered. Your routes will be managed automatically so you should disable
+this:
 
 .. configuration-block::
 
@@ -882,9 +907,8 @@ will be managed automatically so you should disable this:
             ),
         ));
 
-All Sonata Admin aware CMF bundles have such a configuration option and it prevents the admin class (or
-classes) from being registered.
-
+All Sonata Admin aware CMF bundles have such a configuration option and it
+prevents the admin class (or classes) from being registered.
 
 Creating the Admin Classes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -934,8 +958,9 @@ Create the following admin classes, first for the ``Page`` document::
         }
     }
 
-and then for the ``Post`` document - as you have already seen this document is almost identical to the ``Page`` document,
-so extend the ``PageAdmin`` class to avoid code duplication::
+and then for the ``Post`` document - as you have already seen this document is
+almost identical to the ``Page`` document, so extend the ``PageAdmin`` class
+to avoid code duplication::
 
     // src/Acme/BasicCmsBundle/Admin/PostAdmin.php
     namespace Acme\BasicCmsBundle\Admin;
@@ -958,7 +983,8 @@ so extend the ``PageAdmin`` class to avoid code duplication::
         }
     }
 
-Now you just need to register these classes in the dependency injection container configuration:
+Now you just need to register these classes in the dependency injection
+container configuration:
 
 .. configuration-block::
     
@@ -1123,7 +1149,7 @@ object and all the ``Posts`` to the view::
 
 The ``Page`` object is passed automatically as ``$contentDocument``.
 
-Add a corresponding twig template (note that this works because we use the
+Add a corresponding twig template (note that this works because you use the
 ``@Template`` annotation):
 
 .. configuration-block::
@@ -1148,7 +1174,11 @@ Add a corresponding twig template (note that this works because we use the
         <h2>Our Blog Posts</h2>
         <ul>
             <?php foreach($posts as $post) : ?>
-                <li><a href="<?php echo $view['router']->generate($post) ?>"><?php echo $post->getTitle() ?></a></li>
+                <li>
+                    <a href="<?php echo $view['router']->generate($post) ?>">
+                        <?php echo $post->getTitle() ?>
+                    </a>
+                </li>
             <?php endforeach ?>
         </ul>
 
@@ -1235,6 +1265,7 @@ first level of child items. Modify your fixtures to declare a root element
 to which you will add the existing ``Home`` page and an additional ``About`` page::
 
     // src/Acme/BasicCmsBundle/DataFixtures/Phpcr/LoadPageData.php
+
     // ...
     class LoadPageData implements FixtureInterface
     {
@@ -1343,12 +1374,16 @@ configuration:
         use Symfony\Component\DependencyInjection\Reference;
         // ...
         
-        $container->register('acme.basiccms.menu_provider', 'Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider')
-          ->addArgument(new Reference('cmf_menu.factory'))
-          ->addArgument(new Reference('doctrine_phpcr'))
-          ->addArgument('/cms/pages')
-          ->addTag('knp_menu.provider')
-          ->addTag('cmf_request_aware')
+        $container
+            ->register(
+                'acme.basiccms.menu_provider',
+                'Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider'
+            )
+            ->addArgument(new Reference('cmf_menu.factory'))
+            ->addArgument(new Reference('doctrine_phpcr'))
+            ->addArgument('/cms/pages')
+            ->addTag('knp_menu.provider')
+            ->addTag('cmf_request_aware')
         ;
 
 and enable the twig rendering functionality of the KnpMenu bundle:
@@ -1364,9 +1399,12 @@ and enable the twig rendering functionality of the KnpMenu bundle:
     .. code-block:: xml
 
         <!-- app/config/config.yml -->
-        <config xmlns="http://example.org/schema/dic/knp_menu">
-            <twig>true</twig>
-        </config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/knp_menu">
+                <twig>true</twig>
+            </config>
+        </container>
 
     .. code-block:: php
 
@@ -1377,11 +1415,20 @@ and enable the twig rendering functionality of the KnpMenu bundle:
 
 and finally lets render the menu!
 
-.. code-block:: jinja
-    
-    {# src/Acme/BasicCmsBundle/Resources/views/Default/page.html.twig #}
-    {# ... #}
-    {{ knp_menu_render('main') }}
+.. configuration-block::
+
+    .. code-block:: jinja
+        
+        {# src/Acme/BasicCmsBundle/Resources/views/Default/page.html.twig #}
+
+        {# ... #}
+        {{ knp_menu_render('main') }}
+
+    .. code-block:: html+php
+
+        <!-- src/Acme/BasicCmsBundle/Resources/views/Default/page.html.php -->
+        
+        <?php echo $view['knp_menu']->render('main') ?>
 
 Note that ``main`` refers to the name of the root page you added in the data
 fixtures.
@@ -1454,7 +1501,7 @@ There is one ``cms`` node, and this node contains all the children nodes of
 our site. This node is therefore the logical position of our ``Site``
 document.
 
-Earlier we used the ``GenericInitializer`` to initialize the base paths of
+Earlier you used the ``GenericInitializer`` to initialize the base paths of
 our project, including the ``cms`` node. The nodes created by the
 ``GenericInitializer`` have no PHPCR-ODM mapping however.
 
@@ -1493,6 +1540,16 @@ Now modify the existing service configuration for ``GenericInitializer`` as
 follows:
 
 .. configuration-block::
+    
+    .. code-block:: yaml
+
+        # src/Acme/BasicCmsBundle/Resources/config/config.yml
+        services:
+            # ...
+            acme.phpcr.initializer.site:
+                class: Acme\BasicCmsBundle\Initializer\SiteInitializer
+                tags:
+                    - { name: doctrine_phpcr.initializer }
 
     .. code-block:: xml
 
@@ -1507,8 +1564,8 @@ follows:
             <!-- ... -->
             <services>
                 <!-- ... -->
-                <!-- Doctrine PHPCR Initializer -->
-                <service id="acme.phpcr.initializer.site" class="Acme\BasicCmsBundle\Initializer\SiteInitializer">
+                <service id="acme.phpcr.initializer.site"
+                    class="Acme\BasicCmsBundle\Initializer\SiteInitializer">
                     <tag name="doctrine_phpcr.initializer"/>
                 </service>
             </services>
@@ -1518,24 +1575,15 @@ follows:
     .. code-block:: php
 
         // src/Acme/BasicCmsBundle/Resources/config/config.php
+
         //  ... 
-        $container->register('acme.phpcr.initializer.site', 'Acme\BasicCmsBundle\Initializer\SiteInitializer')
-          ->addTag('doctrine_phpcr.initializer', array('name' => 'doctrine_phpcr.initializer')
+        $container
+            ->register(
+                'acme.phpcr.initializer.site',
+                'Acme\BasicCmsBundle\Initializer\SiteInitializer'
+            )
+            ->addTag('doctrine_phpcr.initializer', array('name' => 'doctrine_phpcr.initializer')
         ;
-    
-    .. code-block:: yaml
-
-        # src/Acme/BasicCmsBundle/Resources/config/config.yml
-        services:
-            # ...
-            acme.phpcr.initializer.site:
-                class: Acme\BasicCmsBundle\Initializer\SiteInitializer
-                tags:
-                    - { name: doctrine_phpcr.initializer }
-        
-
-
-
 
 Now reinitialize your repository:
 
@@ -1586,6 +1634,7 @@ making a given page the homepage. Add the following to the existing
 ``DefaultController``::
 
     // src/Acme/BasicCmsBundle/Controller/DefaultController.php
+
     // ...
     class DefaultController extends Controller
     {
@@ -1604,7 +1653,7 @@ making a given page the homepage. Add the following to the existing
 
             $site = $dm->find(null, '/cms');
             if (!$site) {
-                throw new NotFoundHttpException('Could not find /cms document!');
+                throw $this->createNotFoundException('Could not find /cms document!');
             }
 
             $page = $dm->find(null, $id);
@@ -1627,8 +1676,8 @@ making a given page the homepage. Add the following to the existing
 Now modify the ``PageAdmin`` class to add the button in a side-menu::
 
     // src/Acme/BasicCmsBundle/Admin/PageAdmin
-    //...
 
+    //...
     use Knp\Menu\ItemInterface;
 
     class PageAdmin extends Admin
@@ -1655,13 +1704,13 @@ Now modify the ``PageAdmin`` class to add the button in a side-menu::
 
 The two arguments which concern you here are:
 
-* ``$menu``: This will be a root menu item to which we can add new menu items
+* ``$menu``: This will be a root menu item to which you can add new menu items
   (this is the same menu API you worked with earlier);
 * ``$action``: Indicates which kind of page is being configured;
 
-If the action is not ``edit`` we return early and no side-menu is created. Now
-that we know we are on an edit page we retrieve the *subject* from the admin
-class which is the ``Page`` currently being edited, we then add a menu item to
+If the action is not ``edit`` it returns early and no side-menu is created. Now
+that it knows the edit page is requested, it retrieves the *subject* from the admin
+class which is the ``Page`` currently being edited, it then adds a menu item to
 the menu.
 
 .. image:: ../_images/cookbook/basic-cms-sonata-admin-make-homepage.png
@@ -1678,8 +1727,8 @@ This is easily accomplished by adding a new action to the
 the page action::
 
     // src/Acme/BasicCmsBundle/Controller/DefaultController.php
-    // ...
 
+    // ...
     class DefaultController extends Controller
     {
         // ...
@@ -1694,7 +1743,7 @@ the page action::
             $homepage = $site->getHomepage();
 
             if (!$homepage) {
-                throw new NotFoundHttpException('No homepage configured');
+                throw $this>createNotFoundException('No homepage configured');
             }
 
             return $this->forward('AcmeBasicCmsBundle:Default:page', array(
@@ -1703,11 +1752,10 @@ the page action::
         }
     }
 
-
 .. note::
 
     In contrast to previous examples you specify a class when calling ``find`` -
-    this is because we need to be *sure* that the returned document is of class
+    this is because you need to be *sure* that the returned document is of class
     ``Site``.
 
 Now test it out, visit: http://localhost:8000
