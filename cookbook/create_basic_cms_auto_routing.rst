@@ -2,7 +2,7 @@
     single: Tutorial, Creating a CMS, RoutingAuto, PHPCR-ODM
     single: MenuBundle, SonataAdmin, SonataDoctrineAdminBundle
 
-Creating a basic CMS using the RoutingAutoBundle
+Creating a Basic CMS Using the RoutingAutoBundle
 ================================================
 
 This three part article will show you how to create a basic CMS from scratch
@@ -505,16 +505,16 @@ Add the following to your application configuration:
         <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-            <chain>
-                <router-by-id id="cmf_routing.dynamic_router">20</router-by-id>
-                <router-by-id id="router.default">100</router-by-id>
-            </chain>
-            <dynamic>
-                <persistence>
-                    <phpcr route-basepath="/cms/routes" />
-                </persistence>
-            </dynamic>
-        </config>
+                <chain>
+                    <router-by-id id="cmf_routing.dynamic_router">20</router-by-id>
+                    <router-by-id id="router.default">100</router-by-id>
+                </chain>
+                <dynamic>
+                    <persistence>
+                        <phpcr route-basepath="/cms/routes" />
+                    </persistence>
+                </dynamic>
+            </config>
        </container>
 
     .. code-block:: php
