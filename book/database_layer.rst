@@ -245,13 +245,13 @@ Fetching Objects from PHPCR
 Fetching an object back out of PHPCR is even easier. For example, suppose
 you've configured a route to display a specific task by name::
 
-    public function showAction($id)
+    public function showAction($name)
     {
         $repository = $this->get('doctrine_phpcr')->getRepository('AcmeTaskBundle:Task');
-        $task = $repository->find('/task/'.$id);
+        $task = $repository->find('/task/'.$name);
 
         if (!$task) {
-            throw $this->createNotFoundException('No task found for id '.$name);
+            throw $this->createNotFoundException('No task found with name '.$name);
         }
 
         return new Response('['.($task->isDone() ? 'x' : ' ').'] '.$task->getDescription());
@@ -305,7 +305,7 @@ have a route that maps a task ID to an update action in a controller::
         $task = $repository->find('/tasks/'.$name);
 
         if (!$task) {
-            throw $this->createNotFoundException('No task found for id '.$name);
+            throw $this->createNotFoundException('No task found for name '.$name);
         }
 
         if (!$task->isDone()) {
