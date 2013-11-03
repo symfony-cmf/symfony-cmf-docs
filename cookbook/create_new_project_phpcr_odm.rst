@@ -6,7 +6,10 @@ Create a New Project with PHPCR-ODM
 
 This article will show you how to create a new Symfony project from the
 `Symfony Standard Edition`_ using PHPCR-ODM instead of (or in addition to) the
-`Doctrine ORM`.
+`Doctrine ORM`_.
+
+For more information on the PHPCR-ODM see the
+:doc:`../book/database_layer` article.
 
 General Instructions using Jackalope Doctrine DBAL
 --------------------------------------------------
@@ -85,21 +88,54 @@ content repository.
 
 **Step 7**: Add the Doctrine PHPCR configuration to the main application configuration:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # ...
-    doctrine_phpcr:
-       # configure the PHPCR session
-       session:
-           backend: %phpcr_backend%
-           workspace: %phpcr_workspace%
-           username: %phpcr_user%
-           password: %phpcr_pass%
-       # enable the ODM layer
-       odm:
-           auto_mapping: true
-           auto_generate_proxy_classes: %kernel.debug%   
+    .. code-block:: yaml
 
+        # ...
+        doctrine_phpcr:
+           # configure the PHPCR session
+           session:
+               backend: %phpcr_backend%
+               workspace: %phpcr_workspace%
+               username: %phpcr_user%
+               password: %phpcr_pass%
+           # enable the ODM layer
+           odm:
+               auto_mapping: true
+               auto_generate_proxy_classes: %kernel.debug%   
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session backend="%phpcr_backend%"
+                    workspace="%phpcr_workspace%"
+                    username="%phpcr_user%"
+                    password="%phpcr_pass%"
+                />
+
+                <odm auto-mapping="true"
+                    auto-generate-proxy-classes="%kernel.debug%"
+                />
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'backend' => '%phpcr_backend%',
+                'workspace' => '%phpcr_workspace%',
+                'username' => '%phpcr_username%',
+                'password' => '%phpcr_password%',
+            ),
+            'odm' => array(
+                'auto_mapping' => true,
+                'auto_generate_proxy_classes' => '%kernel.debug%',
+            ),
+        ));
 
 Alternative Backend: Apache Jackrabbit
 --------------------------------------
