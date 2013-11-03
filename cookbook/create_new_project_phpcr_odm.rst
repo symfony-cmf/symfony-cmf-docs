@@ -24,25 +24,25 @@ content repository.
 
 .. code-block:: javascript
 
-    ...
-    "require": {
+    {
         ...
-        "doctrine/phpcr-bundle": "1.0.0",
-        "doctrine/doctrine-bundle": "1.2.*",
-        "doctrine/phpcr-odm": "1.0.*",
-        "jackalope/jackalope-doctrine-dbal": "1.0.0",
-    },
+        "require": {
+            ...
+            "doctrine/phpcr-bundle": "1.0.0",
+            "doctrine/doctrine-bundle": "1.2.*",
+            "doctrine/phpcr-odm": "1.0.*",
+            "jackalope/jackalope-doctrine-dbal": "1.0.0"
+        }
+    }
 
 **Step 3**: (*optional*) Remove the Doctrine ORM:
 
 -  Remove the ``doctrine\orm`` package from ``composer.json``.
 
-
 **Step 4**: Add the DoctrinePHPCRBundle to the AppKernel::
 
     // app/AppKernel.php
     // ...
-
     class AppKernel extends Kernel
     {
         public function registerBundles()
@@ -60,13 +60,15 @@ content repository.
 
     // app/autoload.php
     // ...
-    AnnotationRegistry::registerFile(__DIR__.'/../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php');
+    AnnotationRegistry::registerFile(
+        __DIR__.'/../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php'
+    );
 
 **Step 6**: Modify ``parameters.yml``, adding the required PHPCR-ODM settings:
 
 .. code-block:: yaml
 
-    // app/config/parameters.yml.dist
+    # app/config/parameters.yml.dist
     parameters:
         # ...
         phpcr_backend:
@@ -98,6 +100,7 @@ content repository.
            auto_mapping: true
            auto_generate_proxy_classes: %kernel.debug%   
 
+
 Alternative Backend: Apache Jackrabbit
 --------------------------------------
 
@@ -113,15 +116,19 @@ differences:
 Install and Run the Jackrabbit Server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Download jackrabbit in whatever way you prefer (for example using ``wget``)::
+Download Jackrabbit in whatever way you prefer (for example using ``wget``):
+
+.. code-block:: bash
 
     $ wget http://www.apache.org/dyn/closer.cgi/jackrabbit/2.4.5/jackrabbit-standalone-2.4.5.jar
 
-Start the jackrabbit server::
+Start the Jackrabbit server:
+
+.. code-block:: bash
 
     $ java -jar jackrabbit
 
-This will create a directory called "jackrabbit" in the current working
+This will create a directory called ``jackrabbit`` in the current working
 directory which will contain the data of the content repository.
 
 .. _`Symfony Standard Edition`: https://github.com/symfony/symfony-standard
