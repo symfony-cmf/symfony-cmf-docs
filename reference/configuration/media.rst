@@ -35,6 +35,10 @@ is the following configuration:
                     file_class: Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File
                     directory_class: Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Directory
                     image_class: Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image
+                    event_listeners:
+                        stream_rewind: true
+                        image_dimensions: true
+                        imagine_cache: auto
 
     .. code-block:: xml
 
@@ -51,7 +55,13 @@ is the following configuration:
                         file-class="Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File"
                         directory-class="Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Directory"
                         image-class="Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image"
-                    />
+                    >
+                        <event-listeners
+                            stream-rewind="true"
+                            image-dimensions="true"
+                            imagine-cache="auto"
+                        />
+                    </phpcr>
                 </persistence>
             </config>
 
@@ -69,6 +79,11 @@ is the following configuration:
                     'file_class' => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File',
                     'directory_class' => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Directory',
                     'image_class' => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image',
+                    'event_listeners' => array(
+                        'stream_rewind' => true,
+                        'image_dimensions' => true,
+                        'imagine_cache' => 'auto',
+                    ),
                 ),
             ),
         ));
@@ -123,6 +138,36 @@ image_class
 The class for image objects. This just adds methods to get the native image
 dimensions, but implicitly also tells applications that this object is suitable
 to view with an <img> HTML tag.
+
+event_listeners.stream_rewind
+"""""""""""""""""""""""""""""
+
+**type**: ``boolean`` **default**: ``true``
+
+Whether to enable the stream rewinding listener that will make sure that all
+streams are rewound before flushing. This makes sure all data is saved even if
+the stream was read before saving.
+
+event_listeners.image_dimension
+"""""""""""""""""""""""""""""""
+
+**type**: ``boolean`` **default**: ``true``
+
+Whether to enable the image dimension listener that will update image
+dimensions on any Image documents before saving.
+
+event_listeners.imagine_cache
+"""""""""""""""""""""""""""""
+
+**type**: ``enum`` **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
+
+Whether to enable the imagine cache invalidator listener. This listener
+invalidates the cache for the imagine filters configured in
+``imagine_filters`` and ``extra_filter``.
+
+If set to ``auto``, the filter is activated if the LiipImagineBundle is
+present. On ``true`` it is always activated, leading to an error should the
+imagine bundle not be configured, and on ``false`` it is never activated.
 
 upload_file_role
 ~~~~~~~~~~~~~~~~
