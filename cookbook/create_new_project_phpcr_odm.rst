@@ -40,11 +40,12 @@ content repository.
 
 **Step 3**: (*optional*) Remove the Doctrine ORM:
 
--  Remove the ``doctrine\orm`` package from ``composer.json``.
+Remove the ``doctrine\orm`` package from ``composer.json``.
 
 **Step 4**: Add the DoctrinePHPCRBundle to the AppKernel::
 
     // app/AppKernel.php
+
     // ...
     class AppKernel extends Kernel
     {
@@ -62,6 +63,7 @@ content repository.
 **Step 5**: (*optional*) Register the PHPCR-ODM annotations in ``app/autoload.php``::
 
     // app/autoload.php
+
     // ...
     AnnotationRegistry::registerFile(
         __DIR__.'/../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php'
