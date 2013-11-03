@@ -4,6 +4,7 @@ The Cookbook
 .. toctree::
     :hidden:
 
+    create_new_project_phpcr_odm
     database/choosing_storage_layer
     editions/cmf_sandbox
     editions/cmf_core
