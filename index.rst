@@ -134,6 +134,7 @@ Want to know more about the CMF and how each part can be configured? There's a t
 .. toctree::
     :maxdepth: 1
 
+    cookbook/create_new_project_phpcrodm
     cookbook/database/choosing_storage_layer
     cookbook/editions/cmf_sandbox
     cookbook/editions/cmf_core
