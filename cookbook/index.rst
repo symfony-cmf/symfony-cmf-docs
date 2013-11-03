@@ -5,6 +5,7 @@ The Cookbook
     :hidden:
 
     create_new_project_phpcr_odm
+    create_basic_cms_auto_routing
     database/choosing_storage_layer
     editions/cmf_sandbox
     editions/cmf_core

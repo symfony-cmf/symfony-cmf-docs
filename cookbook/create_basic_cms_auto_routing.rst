@@ -35,7 +35,7 @@ as a menu item.
     There exists a bundle called :doc:`../bundles/simple_cms/index` which
     provides a similar solution to the one proposed in this tutorial. It
     combines the route, menu and content into a single document and uses a
-    custom router. This approach differs in that it will combine only the menu
+    custom router. The approach taken in this tutorial will combine only the menu
     and content into a single document, the routes will be managed
     automatically and the native CMF ``DynamicRouter`` will be used.
 
@@ -45,36 +45,8 @@ Part 1 - Getting Started
 Initializing the Project
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Create a New Project
-....................
-
-Get started by installing the following PHPCR ODM based Symfony distribution:
-
-.. code-block:: bash
-
-    $ composer create-project --stablitiy=dev dantleech/symfony-doctrine-phpcr-edition basic-cms
-
-.. note::
-
-    The `PHPCR-ODM Symfony distribution`_ above is the same as the `Symfony
-    Standard Edition`_ except that the Doctrine ORM is replaced by the
-    PHPCR-ODM.
-
-PHP 5.4 features an in-built web server. You can use this throughout the
-tutorial, run it as follows:
-
-.. code-block:: bash
-
-    $ php app/console server:run
-
-and go to http://localhost:8000 to verify that everything is working.
-
-.. note::
-
-    You could also use the `Symfony CMF Standard Edition`_. The CMF Standard
-    Edition is also based on the Symfony Standard Edition and replaces the ORM
-    with the PHPCR-ODM, however it also includes the entire CMF stack and some
-    other dependencies which are not required for this tutorial.
+First, follow the generic steps in :doc:`create_new_project_phpcr_odm` to create a new project using
+the PHPCR-ODM.
 
 Install Additional Bundles
 ..........................
@@ -316,7 +288,7 @@ service container configuration:
 
         # src/Acme/BasicCmsBundle/Resources/config/services.yml
         services:
-            acme.basiccms.phpcr.initializer:
+            acme.basic_cms.phpcr.initializer:
                 class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
                 arguments: [ "/cms/pages", "/cms/posts", "/cms/routes" ]
                 tags:
@@ -336,7 +308,7 @@ service container configuration:
             <services>
                 <!-- ... -->
 
-                <service id="acme.basiccms.phpcr.initializer"
+                <service id="acme.basic_cms.phpcr.initializer"
                     class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
 
                     <argument type="collection">
@@ -355,7 +327,7 @@ service container configuration:
         // src/Acme/BasicCmsBundle/Resources/config/services.php
         $container
             ->register(
-                'acme.basiccms.phpcr.initializer',
+                'acme.basic_cms.phpcr.initializer',
                 'Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer'
             )
             ->addArgument(array('/cms/pages', '/cms/posts', '/cms/routes'))
@@ -475,6 +447,15 @@ new route will be linked back to the target content:
 
 .. image:: ../_images/cookbook/basic-cms-objects.png
 
+The paths above represent the path in the PHPCR-ODM document tree. In the next
+section you will define ``/cms/routes`` as the base path for routes, and subsequently
+the contents will be avilable at the following URLs:
+
+* **Home**: ``http://localhost:8000/page/home``
+* **About**: ``http://localhost:8000/page/about``
+* etc.
+
+
 Enable the Dynamic Router
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -536,7 +517,7 @@ This will:
 #. Cause the default Symfony router to be replaced by the chain router.  The
    chain router enables you to have multiple routers in your application. You
    add the dynamic router (which can retrieve routes from the database) and
-   the default symfony router (which retrieves routes from configuration
+   the default Symfony router (which retrieves routes from configuration
    files).  The number indicates the order of precedence - the router with the
    lowest number will be called first.;
 #. Configure the **dynamic** router which you have added to the router chain.
@@ -634,10 +615,10 @@ Now you will need to include this configuration:
         <!-- src/Acme/BasicCmsBUndle/Resources/config/config.yml -->
         ?xml version="1.0" encoding="UTF-8" ?>
         <container 
-           xmlns="http://symfony.com/schema/dic/services" 
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-           xsi:schemaLocation="http://symfony.com/schema/dic/services 
-               http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xmlns="http://symfony.com/schema/dic/services" 
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+            xsi:schemaLocation="http://symfony.com/schema/dic/services 
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <import resource="routing_auto.yml"/>
         </container>
@@ -717,7 +698,7 @@ Enable the Sonata related bundles to your kernel::
         }
     }
 
-and publish your assets (omit ``--symlink`` if you use Windows!):
+and publish your assets (remove ``--symlink`` if you use Windows!):
 
 .. code-block:: bash
 
@@ -764,7 +745,7 @@ Sonata requires the ``sonata_block`` bundle to be configured in your main config
             ),
         ));
 
-and it needs the following entries in your routing file:
+and it requires the following entries in your routing file:
 
 .. configuration-block::
 
@@ -859,9 +840,10 @@ No translations? Uncomment the translator in the configuration file:
             ),
         ));
 
-Notice that adminstration class of the routing bundle has been automatically
-registered. Your routes will be managed automatically so you should disable
-this:
+Notice that the adminstration class of the RoutingBundle has been automatically
+registered. However, this interface is not required in your application as the routes
+are managed by the RoutingAutoBundle and not the administrator. You can disable
+the RoutingBundle admin as follows:
 
 .. configuration-block::
 
@@ -907,8 +889,10 @@ this:
             ),
         ));
 
-All Sonata Admin aware CMF bundles have such a configuration option and it
-prevents the admin class (or classes) from being registered.
+.. note:: 
+
+    All Sonata Admin aware CMF bundles have such a configuration option and it
+    prevents the admin class (or classes) from being registered.
 
 Creating the Admin Classes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -992,7 +976,7 @@ container configuration:
 
             # src/Acme/BasicCmsBundle/Resources/config/config.yml
             services:
-                acme.basiccms.admin.page:
+                acme.basic_cms.admin.page:
                     class: Acme\BasicCmsBundle\Admin\PageAdmin
                     arguments:
                         - ''
@@ -1002,7 +986,7 @@ container configuration:
                         - { name: sonata.admin, manager_type: doctrine_phpcr, group: 'Basic CMS', label: Page }
                     calls:
                         - [setRouteBuilder, ['@sonata.admin.route.path_info_slashes']]
-                acme.basiccms.admin.post:
+                acme.basic_cms.admin.post:
                     class: Acme\BasicCmsBundle\Admin\PostAdmin
                     arguments:
                         - ''
@@ -1025,7 +1009,7 @@ container configuration:
             <!-- ... -->
             <services>
                 <!-- ... -->
-                <service id="acme.basiccms.admin.page" 
+                <service id="acme.basic_cms.admin.page" 
                     class="Acme\BasicCmsBundle\Admin\PageAdmin">
         
                     <call method="setRouteBuilder">
@@ -1043,7 +1027,7 @@ container configuration:
                     <argument>SonataAdminBundle:CRUD</argument>
                 </service>
         
-                <service id="acme.basiccms.admin.post" 
+                <service id="acme.basic_cms.admin.post" 
                     class="Acme\BasicCmsBundle\Admin\PostAdmin">
         
                     <call method="setRouteBuilder">
@@ -1069,7 +1053,7 @@ container configuration:
             use Symfony\Component\DependencyInjection\Reference;
             // ...
             
-            $container->register('acme.basiccms.admin.page', 'Acme\BasicCmsBundle\Admin\PageAdmin')
+            $container->register('acme.basic_cms.admin.page', 'Acme\BasicCmsBundle\Admin\PageAdmin')
               ->addArgument('')
               ->addArgument('Acme\BasicCmsBundle\Document\Page')
               ->addArgument('SonataAdminBundle:CRUD')
@@ -1082,7 +1066,7 @@ container configuration:
                   new Reference('sonata.admin.route.path_info_slashes'),
               ))
             ;
-            $container->register('acme.basiccms.admin.post', 'Acme\BasicCmsBundle\Admin\PostAdmin')
+            $container->register('acme.basic_cms.admin.post', 'Acme\BasicCmsBundle\Admin\PostAdmin')
               ->addArgument('')
               ->addArgument('Acme\BasicCmsBundle\Document\Post')
               ->addArgument('SonataAdminBundle:CRUD')
@@ -1245,10 +1229,12 @@ KnpMenuBundle::
         }
     }
 
-Menus are hierarchical, PHPCR-ODM is also hierarchical. Here you add an
-additional mapping, ``@Children``, which will cause PHPCR-ODM to populate the
-annotated property instance ``$children`` with the child documents of this
-document.
+Menus are hierarchical, PHPCR-ODM is also hierarchical and so lends itself
+well to this use case. 
+
+Here you add an additional mapping, ``@Children``, which will cause PHPCR-ODM
+to populate the annotated property instance ``$children`` with the child
+documents of this document.
 
 The options are the options used by KnpMenu system when rendering the menu.
 The menu URL is inferred from the ``content`` option (note that you added the
@@ -1334,7 +1320,7 @@ configuration:
 
          # src/Acme/BasicCmsBundle/Resources/config/config.yml
          services:
-             acme.basiccms.menu_provider:
+             acme.basic_cms.menu_provider:
                  class: Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider
                  arguments:
                      - '@cmf_menu.factory'
@@ -1357,7 +1343,7 @@ configuration:
             <services>
                 <!-- ... -->
                 <service
-                    id="acme.basiccms.menu_provider"
+                    id="acme.basic_cms.menu_provider"
                     class="Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider">
                     <argument type="service" id="cmf_menu.factory"/>
                     <argument type="service" id="doctrine_phpcr"/>
@@ -1376,7 +1362,7 @@ configuration:
         
         $container
             ->register(
-                'acme.basiccms.menu_provider',
+                'acme.basic_cms.menu_provider',
                 'Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider'
             )
             ->addArgument(new Reference('cmf_menu.factory'))
@@ -1438,8 +1424,7 @@ Part 5 - The "/" Home Route
 
 All of your content should now be available at various URLs but your homepage
 (http://localhost:8000) still shows the default Symfony Standard Edition
-page. You need to add a mechanism to enable the administrator to specify a
-default page for your CMS.
+index page.
 
 In this section you will add a side menu to Sonata Admin which will make
 enable the user to make a specified page act as the homepage of your CMS.
@@ -1662,7 +1647,7 @@ making a given page the homepage. Add the following to the existing
             $dm->persist($page);
             $dm->flush();
 
-            return $this->redirect($this->generateUrl('admin_acme_basiccms_page_edit', array( 
+            return $this->redirect($this->generateUrl('admin_acme_basic_cms_page_edit', array( 
                 'id' => $page->getId()
             )));
         }

@@ -135,13 +135,14 @@ Want to know more about the CMF and how each part can be configured? There's a t
     :maxdepth: 1
 
     cookbook/create_new_project_phpcr_odm
-    cookbook/database/choosing_storage_layer
-    cookbook/editions/cmf_sandbox
-    cookbook/editions/cmf_core
-    cookbook/installing_configuring_doctrine_phpcr_odm
+    cookbook/create_basic_cms_auto_routing
     cookbook/creating_cms_using_cmf_and_sonata
-    cookbook/using_blockbundle_and_contentbundle
+    cookbook/database/choosing_storage_layer
+    cookbook/editions/cmf_core
+    cookbook/editions/cmf_sandbox
     cookbook/handling_multilang_documents
+    cookbook/installing_configuring_doctrine_phpcr_odm
+    cookbook/using_blockbundle_and_contentbundle
 
 Contributing
 ------------
