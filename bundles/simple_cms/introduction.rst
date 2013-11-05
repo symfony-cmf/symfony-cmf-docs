@@ -38,6 +38,7 @@ Sections
 * :doc:`multilang`
 * :doc:`rendering`
 * :doc:`extending_page_class`
+* :doc:`routing`
 
 .. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/symfony-cmf-standard
 .. _`CMF website`: https://github.com/symfony-cmf/cmf-website/

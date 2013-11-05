@@ -8,3 +8,4 @@ SimpleCmsBundle
     multilang
     rendering
     extending_page_class
+    routing
