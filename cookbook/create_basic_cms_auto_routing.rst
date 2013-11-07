@@ -568,7 +568,7 @@ Create the following file in your applications configuration directory:
                         provider:
                             name: content_datetime
                             method: getDate
-                            
+                        exists_action:
                             strategy: use
                         not_exists_action:
                             strategy: create
