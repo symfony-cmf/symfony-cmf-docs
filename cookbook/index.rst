@@ -13,5 +13,6 @@ The Cookbook
     creating_cms_using_cmf_and_sonata
     using_blockbundle_and_contentbundle
     handling_multilang_documents
+    redirect_urls_with_trailing_slash
 
 .. include:: map.rst.inc
