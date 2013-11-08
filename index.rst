@@ -140,10 +140,10 @@ Want to know more about the CMF and how each part can be configured? There's a t
     cookbook/database/choosing_storage_layer
     cookbook/editions/cmf_core
     cookbook/editions/cmf_sandbox
+    cookbook/routing/remove_trailing_slash
     cookbook/handling_multilang_documents
     cookbook/installing_configuring_doctrine_phpcr_odm
     cookbook/using_blockbundle_and_contentbundle
-    cookbook/redirect_urls_with_trailing_slash
 
 Contributing
 ------------

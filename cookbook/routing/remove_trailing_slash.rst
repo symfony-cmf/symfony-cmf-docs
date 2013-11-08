@@ -1,7 +1,7 @@
 .. index::
     single: Redirect URLs with a trailing slash
 
-Redirect URLs with a trailing slash
+Redirect URLs With a Trailing Slash
 ===================================
 
 The goal of this tutorial is to demonstrate how to redirect URLs with
