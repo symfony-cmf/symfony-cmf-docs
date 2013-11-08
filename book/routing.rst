@@ -429,7 +429,7 @@ See :ref:`bundles-routing-dynamic-generator` for code examples of all above
 cases.
 
 The route generation handles locales as well, see
-":ref:`ContentAwareGeneator and Locales <component-route-generator-and-locales>`".
+":ref:`ContentAwareGenerator and Locales <component-route-generator-and-locales>`".
 
 .. _start-routing-document:
 
