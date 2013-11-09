@@ -95,6 +95,8 @@ If you have not changed the default settings, then you are using the
 `Doctrine DBAL Jackalope`_ PHPCR backend with MySQL and you will need to create the 
 MySQL database:
 
+@TODO: basic-cms is not the default database name (it is symfony)
+
 .. code-block:: bash
 
     $ mysqladmin create basic-cms -u root
@@ -209,6 +211,8 @@ to reduce code duplication::
     this will cause unintended behavior in the admin integration later on.
 
 The ``Page`` class is therefore nice and simple::
+
+@TODO: Missing use RouteReferrersReadInterface
 
     // src/Acme/BasicCmsBundle/Document/Page.php
     namespace Acme\BasicCmsBundle\Document;
@@ -664,6 +668,8 @@ Have a look at what you have:
 
 The routes have been automatically created!
 
+@TODO: The documents above no longer produce NUMBERS they have NodeName
+
 .. note::
 
     What are those numbers? These are node names which have been created
@@ -697,12 +703,6 @@ Enable the Sonata related bundles to your kernel::
             // ...
         }
     }
-
-and publish your assets (remove ``--symlink`` if you use Windows!):
-
-.. code-block:: bash
-
-    $ php app/console assets:install --symlink web/
 
 Sonata requires the ``sonata_block`` bundle to be configured in your main configuration:
 
@@ -800,6 +800,12 @@ and it requires the following entries in your routing file:
         $collection->addCollection($_sonataAdmin);
 
         return $collection;
+
+and publish your assets (remove ``--symlink`` if you use Windows!):
+
+.. code-block:: bash
+
+    $ php app/console assets:install --symlink web/
 
 Great, now have a look at http://localhost:8000/admin/dashboard
 
@@ -970,6 +976,8 @@ to avoid code duplication::
 Now you just need to register these classes in the dependency injection
 container configuration:
 
+@TODO: XML key manager-type does not work, manager_type does however @WouterJ
+
 .. configuration-block::
     
     .. code-block:: yaml
@@ -1097,10 +1105,12 @@ to do with it.
 
 You can map a default controller for all instances of ``Page``:
 
+@todo: Missing XML, PHP - should be under cmf_routing->dynamic_router
+
 .. code-block:: yaml
 
         controllers_by_class:
-            Acme\BasicCmsBundle\Document\Page: Acme\BasicCmsBundle\Controller\BasicController::pageAction
+            Acme\BasicCmsBundle\Document\Page: Acme\BasicCmsBundle\Controller\DefaultController::pageAction
 
 This will cause requests to be forwarded to this controller when the route
 which matches the incoming request is provided by the dynamic router **and**
@@ -1294,6 +1304,8 @@ Load the fixtures again:
 Register the Menu Provider
 ..........................
 
+@TODO: CMFMenuBundle not included in composer.json
+
 First you will need to add the CMF `MenuBundle`_ and its dependency, `CoreBundle`_, to your
 applications kernel::
 
@@ -1419,6 +1431,9 @@ and finally lets render the menu!
 Note that ``main`` refers to the name of the root page you added in the data
 fixtures.
 
+@TODO: I forgot to add NodeInterface to Page -- maybe add a note about that
+for the copy+pasters
+
 Part 5 - The "/" Home Route
 ---------------------------
 
@@ -1479,8 +1494,9 @@ like this:
 
     ROOT/
         cms/
-           posts/
            pages/
+           routes/
+           posts/
 
 There is one ``cms`` node, and this node contains all the children nodes of
 our site. This node is therefore the logical position of our ``Site``
@@ -1494,7 +1510,7 @@ You can replace the ``GenericInitializer`` with a custom initializer which
 will create the necessary paths **and** assign a document class to the ``cms``
 node::
 
-    // src/Acme/BasicCmsBundle/Intializer
+    // src/Acme/BasicCmsBundle/Intializer/SiteIntializer.php
     namespace Acme\BasicCmsBundle\Initializer;
 
     use Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface;
@@ -1651,6 +1667,7 @@ making a given page the homepage. Add the following to the existing
                 'id' => $page->getId()
             )));
         }
+    }
 
 .. note::
 

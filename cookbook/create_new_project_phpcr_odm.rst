@@ -17,6 +17,8 @@ General Instructions using Jackalope Doctrine DBAL
 The `Jackalope`_ Doctrine DBAL backend will use `Doctrine DBAL`_ to store the
 content repository.
 
+@TODO: Get Composer / Add prerequisite
+
 **Step 1**: Create a new Symfony project with composer based on the standard edition:
 
 .. code-block:: bash
@@ -41,6 +43,13 @@ content repository.
 **Step 3**: (*optional*) Remove the Doctrine ORM:
 
 Remove the ``doctrine\orm`` package from ``composer.json``.
+
+@TODO: Remove orm section from configuration (failing to do so will result in
+crash)::
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
 
 **Step 4**: Add the DoctrinePHPCRBundle to the AppKernel::
 
@@ -69,7 +78,7 @@ Remove the ``doctrine\orm`` package from ``composer.json``.
         __DIR__.'/../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php'
     );
 
-**Step 6**: Modify ``parameters.yml``, adding the required PHPCR-ODM settings:
+**Step 6**: Modify ``parameters.yml.dist``, adding the required PHPCR-ODM settings:
 
 .. code-block:: yaml
 
@@ -87,6 +96,8 @@ Remove the ``doctrine\orm`` package from ``composer.json``.
 
     The actual database backend (MySQL, sqlite3, Postgres etc) is handled by
     Doctrine DBAL.
+
+@TODO: Why are you modifying "dist" ?
 
 **Step 7**: Add the Doctrine PHPCR configuration to the main application configuration:
 
@@ -138,6 +149,8 @@ Remove the ``doctrine\orm`` package from ``composer.json``.
                 'auto_generate_proxy_classes' => '%kernel.debug%',
             ),
         ));
+
+@TODO: Composer update
 
 Alternative Backend: Apache Jackrabbit
 --------------------------------------
