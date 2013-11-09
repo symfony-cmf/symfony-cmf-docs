@@ -41,19 +41,40 @@ Basic repository operations
 Walking the PHPCR tree
 ......................
 
-* **cmf_prev|getPrev($current, $anchor = null, $depth = null, $ignoreRole = false, $class = null)**:
-  Get the previous sibling document of ``$current`` (a document or a path) in
-  PHPCR order. If ``$anchor`` (also a document or a path) is set, also walks up
-  the tree to find neighbours of ``$current``. If ``$depth`` is set, this
-  limits how deep below ``$current`` the tree is walked.
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
+| Twig Function         | Templating Helper   | Arguments            | Explanation                                                              |
++=======================+=====================+======================+==========================================================================+
+| cmf_prev              | getPrev             | $current,            | Get the previous sibling document of ``$current`` (a document or a path) |
+|                       |                     | $depth = null,       | in PHPCR order. If ``$anchor`` (also a document or a path) is set, also  |
+|                       |                     | $ignoreRole = false, | walks up the tree to find neighbours of ``$current``. If ``$depth`` is   |
+|                       |                     | $class = null        | set, this limits how deep below ``$current`` the tree is walked.         |
+|                       |                     | $anchor = null,      |                                                                          |
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
+| cmf_prev_linkable     | getPrevLinkable     |                      |                                                                          |
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
+| cmf_next              | getNext             |                      |                                                                          |
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
+| cmf_next_linkable     | getNextLinkable     |                      |                                                                          |
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
+| cmf_child             | getChild            |                      |                                                                          |
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
+| cmf_children          | getChildren         |                      |                                                                          |
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
+| cmf_linkable_children | getLinkableChildren |                      |                                                                          |
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
+| cmf_descendants       | getDescendants      |                      |                                                                          |
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
+
 * **cmf_prev_linkable|getPrevLinkable($current, $anchor = null, $depth = null, $ignoreRole = false)**:
   Get the previous document that has a route associated. This is a shortcut for
   ``getPrev`` with the ``$class`` filter set to
   ``Symfony\Cmf\Component\Routing\RouteReferrersReadInterface``.
+
 * **cmf_next|getNext($current, $anchor = null, $depth = null, $ignoreRole = false, $class = null)**:
   Get the next sibling document from ``$current`` (a document or a path) in
   PHPCR order. ``$anchor`` and ``$depth`` have the same semantics as in
   ``getPrev``.
+
 * **cmf_next_linkable|getNextLinkable($current, $anchor = null, $depth = null, $ignoreRole = false, $class = null)**:
   Get the next document that has a route associated. This is a shortcut for
   ``getNext`` with the ``$class`` filter set to
@@ -104,7 +125,7 @@ Code examples
                 <span style="float: right; padding-right: 40px;"><a href="{{ path(next) }}">next</a></span>
             {%  endif %}
 
-            {% for news in cmf_children(page)|reverse %}
+            {% for news in cmf_children(parent=cmfMainContent, class='Acme\\DemoBundle\\Document\\NewsItem')|reverse %}
                 <li><a href="{{ path(news) }}">{{ news.title }}</a> ({{ news.publishStartDate | date('Y-m-d')  }})</li>
             {% endfor %}
 
@@ -175,3 +196,12 @@ Code examples
                 ?>">FR</a>
             <?php endif ?>
         <?php endif ?>
+
+.. tip::
+
+    When you use the ``class`` argument, do not forget that Twig will
+    simply *ignore* single backslashes. If you would write
+    ``Acme\DemoBundle\Document\NewsItem``, this will make the cmf look
+    for the class AcmeDemoBundleDocumentNewsItem which will result in an
+    empty list. What you need to write in the template is
+    ``Acme\\DemoBundle\\Document\\NewsItem``.
