@@ -10,7 +10,7 @@ trailing slash to the same url without trailing slash
 
 .. note::
 
-    For the moment, the :doc:`RoutingBundle <../bundles/routing/introduction>`
+    For the moment, the :doc:`RoutingBundle <../../bundles/routing/introduction>`
     can't achieve this automatically.
 
 You have to create a controller which will match any URL with a trailing
