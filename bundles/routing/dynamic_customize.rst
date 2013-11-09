@@ -27,6 +27,7 @@ for your enhancers and tag them with ``dynamic_router_route_enhancer`` to have
 them added to the routing.
 
 .. index:: Route Provider
+.. _bundle-routing-custom_provider:
 
 Using a Custom Route Provider
 -----------------------------

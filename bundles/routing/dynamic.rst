@@ -6,19 +6,23 @@ Dynamic Router
 
 This implementation of a router is configured to load routes from a
 ``RouteProviderInterface``. This interface can be easily implemented with
-Doctrine for example. See the following section for more details about the
-default `PHPCR-ODM`_ and the next for the Doctrine ORM based implementation.
+Doctrine for example. See the :ref:`following section <bundle-routing-document>`
+for more details about the default `PHPCR-ODM`_ provider and
+:ref:`further below <bundle-routing-entity>` for the Doctrine ORM
+based implementation. If those do not match your needs, you can
+:ref:`build your own route provider <bundle-routing-custom_provider>`.
 
 You can configure the route enhancers that decide what controller is used to
 handle the request, to avoid hard coding controller names into your route
 documents.
 
 The minimum configuration required to load the dynamic router as service
-``cmf_routing.dynamic_router`` is to have ``enabled: true`` in your application
-configuration. The router is automatically enabled as soon as you add any other
+``cmf_routing.dynamic_router`` is to have ``enabled: true`` in your
+application configuration, and to specify what route provider to use.
+The dynamic router is automatically enabled as soon as you add any other
 configuration to the ``dynamic`` entry. When not enabled, the dynamic router
-services will not be loaded at all, allowing you to use the ``ChainRouter`` with
-your own routers.
+services will not be loaded at all, allowing you to use the ``ChainRouter``
+with your own routers.
 
 .. configuration-block::
 
@@ -28,6 +32,7 @@ your own routers.
         cmf_routing:
             dynamic:
                 enabled: true
+                # route provider configuration
 
     .. code-block:: xml
 
@@ -36,6 +41,7 @@ your own routers.
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic enabled="true" />
+                <! -- route provider configuration -->
             </config>
         </container>
 
@@ -45,6 +51,7 @@ your own routers.
         $container->loadFromExtension('cmf_routing', array(
             'dynamic' => array(
                 'enabled' => true,
+                // route provider configuration
             ),
         ));
 
@@ -336,6 +343,8 @@ select the route target.
                 ),
             ),
         ));
+
+.. _bundle-routing-entity:
 
 Doctrine ORM integration
 ------------------------
