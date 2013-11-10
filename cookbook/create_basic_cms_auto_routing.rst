@@ -55,7 +55,8 @@ This tutorial requires the following packages:
 
 * `symfony-cmf/routing-auto-bundle`_;
 * `sonata-project/doctrine-phpcr-admin-bundle`_;
-* `doctrine/data-fixtures`_.
+* `doctrine/data-fixtures`_;
+* `symfony-cmf/menu-bundle`_.
 
 Update ``composer.json`` to require them:
 
@@ -66,6 +67,7 @@ Update ``composer.json`` to require them:
         require: {
             ...
             "symfony-cmf/routing-auto-bundle": "dev-master",
+            "symfony-cmf/menu-bundle": "1.0",
             "sonata-project/doctrine-phpcr-admin-bundle": "dev-master",
             "doctrine/data-fixtures": "1.0.0"
         },
@@ -91,24 +93,25 @@ And add the packages to the kernel::
 Initialize the Database
 .......................
 
-If you have not changed the default settings, then you are using the 
-`Doctrine DBAL Jackalope`_ PHPCR backend with MySQL and you will need to create the 
-MySQL database:
-
-@TODO: basic-cms is not the default database name (it is symfony)
+If you have followed the main instructions in
+:doc:`create_new_project_phpcr_odm` then you are using the `Doctrine DBAL
+Jackalope`_ PHPCR backend with MySQL and you will need to create the MySQL
+database:
 
 .. code-block:: bash
 
-    $ mysqladmin create basic-cms -u root
+    $ mysqladmin create symfony -u root
 
-and the Doctrine DBAL backend needs to be initialized, the following command
+This will create a new database called ``symfony`` - this is the name used by
+default in the Symfony Standard Edition, change as might be necessary.
+
+The Doctrine DBAL backend needs to be initialized, the following command
 will create the MySQL schema required to store the hierarchical
 node content of the PHPCR content repository:
 
 .. code-block:: bash
 
     $ php app/console doctrine:phpcr:init:dbal
-
 
 .. note::
 
@@ -212,12 +215,11 @@ to reduce code duplication::
 
 The ``Page`` class is therefore nice and simple::
 
-@TODO: Missing use RouteReferrersReadInterface
-
     // src/Acme/BasicCmsBundle/Document/Page.php
     namespace Acme\BasicCmsBundle\Document;
 
     use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+    use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
 
     /**
      * @PHPCR\Document(referenceable=true)
@@ -648,7 +650,7 @@ Have a look at what you have:
     ROOT:
       cms:
         pages:
-          1076584180:
+          Home:
         routes:
           page:
             home:
@@ -661,20 +663,12 @@ Have a look at what you have:
                   my-third-post:
                   my-forth-post:
         posts:
-          390445918:
-          1584076545:
-          168754307:
-          1970620640:
+          My First Post:
+          My Second Post:
+          My Third Post:
+          My Forth Post:
 
 The routes have been automatically created!
-
-@TODO: The documents above no longer produce NUMBERS they have NodeName
-
-.. note::
-
-    What are those numbers? These are node names which have been created
-    automatically by the PHPCR-ODM. Normally you would assign a descriptive
-    name (e.g. ``my-first-post``).
 
 Part 3 - The Backend
 --------------------
@@ -976,8 +970,6 @@ to avoid code duplication::
 Now you just need to register these classes in the dependency injection
 container configuration:
 
-@TODO: XML key manager-type does not work, manager_type does however @WouterJ
-
 .. configuration-block::
     
     .. code-block:: yaml
@@ -1026,7 +1018,7 @@ container configuration:
         
                     <tag
                         name="sonata.admin"
-                        manager-type="doctrine_phpcr"
+                        manager_type="doctrine_phpcr"
                         group="Basic CMS"
                         label="Page"
                     />
@@ -1044,7 +1036,7 @@ container configuration:
         
                     <tag
                         name="sonata.admin"
-                        manager-type="doctrine_phpcr"
+                        manager_type="doctrine_phpcr"
                         group="Basic CMS"
                         label="Blog Posts"
                     />
@@ -1105,12 +1097,48 @@ to do with it.
 
 You can map a default controller for all instances of ``Page``:
 
-@todo: Missing XML, PHP - should be under cmf_routing->dynamic_router
+.. configuration-block::
 
-.. code-block:: yaml
+    .. code-block:: yaml
 
-        controllers_by_class:
-            Acme\BasicCmsBundle\Document\Page: Acme\BasicCmsBundle\Controller\DefaultController::pageAction
+        # app/config/config.yml
+        cmf_routing:
+            dynamic:
+                # ...
+                controllers_by_class:
+                    Acme\BasicCmsBundle\Document\Page: Acme\BasicCmsBundle\Controller\DefaultController::pageAction
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <container xmlns="http://cmf.symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <dynamic generic-controller="cmf_content.controller:indexAction">
+                    <!-- ... -->
+                    <controllers-by-class
+                        class="Acme\BasicCmsBundle\Document\Page"
+                    >
+                        Acme\BasicCmsBundle\Controller\DefaultController::pageAction
+                    </controllers-by-class>
+                </dynamic>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_routing', array(
+            'dynamic' => array(
+                // ...
+                'controllers_by_class' => array(
+                    'Acme\BasicCmsBundle\Document\Page' => 'Acme\BasicCmsBundle\Controller\DefaultController::pageAction',
+                ),
+            ),
+        ));
 
 This will cause requests to be forwarded to this controller when the route
 which matches the incoming request is provided by the dynamic router **and**
@@ -1239,6 +1267,10 @@ KnpMenuBundle::
         }
     }
 
+.. note::
+
+    Don't forget to add the ``Knp\Menu\NodeInterface`` use statement!
+
 Menus are hierarchical, PHPCR-ODM is also hierarchical and so lends itself
 well to this use case. 
 
@@ -1303,8 +1335,6 @@ Load the fixtures again:
 
 Register the Menu Provider
 ..........................
-
-@TODO: CMFMenuBundle not included in composer.json
 
 First you will need to add the CMF `MenuBundle`_ and its dependency, `CoreBundle`_, to your
 applications kernel::
@@ -1430,9 +1460,6 @@ and finally lets render the menu!
 
 Note that ``main`` refers to the name of the root page you added in the data
 fixtures.
-
-@TODO: I forgot to add NodeInterface to Page -- maybe add a note about that
-for the copy+pasters
 
 Part 5 - The "/" Home Route
 ---------------------------
@@ -1782,6 +1809,7 @@ You can checkout the completed CMS on Github:
 .. _`repository initializers`: http://symfony.com/doc/current/cmf/bundles/phpcr_odm.html#repository-initializers
 .. _`routingautobundle documentation`: http://symfony.com/doc/current/cmf/bundles/routing_auto.html
 .. _`symfony-cmf/routing-auto-bundle`: https://packagist.org/packages/symfony-cmf/routing-auto-bundle
+.. _`symfony-cmf/menu-bundle`: https://packagist.org/packages/symfony-cmf/menu-bundle
 .. _`sonata-project/doctrine-phpcr-admin-bundle`: https://packagist.org/packages/sonata-project/doctrine-phpcr-admin-bundle
 .. _`doctrine/data-fixtures`: https://packagist.org/packages/doctrine/data-fixtures
 .. _`routingbundle`: http://symfony.com/doc/master/cmf/bundles/routing/index.html
