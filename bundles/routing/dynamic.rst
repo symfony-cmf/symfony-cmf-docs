@@ -32,7 +32,7 @@ with your own routers.
         cmf_routing:
             dynamic:
                 enabled: true
-                # route provider configuration
+                # route provider configuration...
 
     .. code-block:: xml
 
@@ -41,7 +41,7 @@ with your own routers.
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic enabled="true" />
-                <! -- route provider configuration -->
+                <!-- route provider configuration... -->
             </config>
         </container>
 
@@ -51,7 +51,7 @@ with your own routers.
         $container->loadFromExtension('cmf_routing', array(
             'dynamic' => array(
                 'enabled' => true,
-                // route provider configuration
+                // route provider configuration...
             ),
         ));
 
