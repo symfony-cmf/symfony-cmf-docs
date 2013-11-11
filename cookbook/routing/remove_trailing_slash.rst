@@ -75,7 +75,7 @@ with a trailing slash is requested:
             '_method' => 'GET',
         )));
 
-.. warning::
+.. caution::
 
     Make sure to include this route *last* in your routing configuration.
     Otherwise you risk to redirect Symfony2 core routes that actually
