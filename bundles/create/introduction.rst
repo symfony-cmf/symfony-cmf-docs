@@ -309,7 +309,7 @@ after those to be able to customize as needed) with
 
     <?php echo $view->render("CmfCreateBundle::includecssfiles.html.twig"); ?>
 
-.. warning::
+.. caution::
 
     Make sure assetic is rewriting the paths in your CSS files properly or you
     might not see icon images.
