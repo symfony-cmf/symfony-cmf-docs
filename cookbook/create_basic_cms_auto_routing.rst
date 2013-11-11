@@ -214,6 +214,7 @@ The ``Page`` class is therefore nice and simple::
     namespace Acme\BasicCmsBundle\Document;
 
     use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+    use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
 
     /**
      * @PHPCR\Document(referenceable=true)
