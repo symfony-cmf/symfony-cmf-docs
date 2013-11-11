@@ -5,7 +5,7 @@ NestedMatcher
 =============
 
 The provided ``RequestMatcherInterface`` implementation is the
-``NestedMatcher``. It is suitable to use with :doc`DynamicRouter <dynamic>`,
+``NestedMatcher``. It is suitable to use with :doc:`DynamicRouter <dynamic>`,
 and it uses a multiple step matching process to determine the resulting routing
 parameters from a given :class:`Symfony\\Component\\HttpFoundation\\Request`.
 
