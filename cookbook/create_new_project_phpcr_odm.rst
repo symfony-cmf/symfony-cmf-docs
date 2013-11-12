@@ -8,6 +8,8 @@ This article will show you how to create a new Symfony project from the
 `Symfony Standard Edition`_ using PHPCR-ODM instead of (or in addition to) the
 `Doctrine ORM`_.
 
+It is assumed that you have `installed composer`_.
+
 For more information on the PHPCR-ODM see the
 :doc:`../book/database_layer` article.
 
@@ -40,7 +42,8 @@ content repository.
 
 **Step 3**: (*optional*) Remove the Doctrine ORM:
 
-Remove the ``doctrine\orm`` package from ``composer.json``.
+ * Remove the ``doctrine\orm`` package from ``composer.json``;
+ * Remove the ``orm`` section from ``app/config/config.yml``.
 
 **Step 4**: Add the DoctrinePHPCRBundle to the AppKernel::
 
@@ -69,7 +72,7 @@ Remove the ``doctrine\orm`` package from ``composer.json``.
         __DIR__.'/../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php'
     );
 
-**Step 6**: Modify ``parameters.yml``, adding the required PHPCR-ODM settings:
+**Step 6**: Modify ``parameters.yml.dist``, adding the required PHPCR-ODM settings:
 
 .. code-block:: yaml
 
@@ -85,8 +88,9 @@ Remove the ``doctrine\orm`` package from ``composer.json``.
 
 .. note::
 
-    The actual database backend (MySQL, sqlite3, Postgres etc) is handled by
-    Doctrine DBAL.
+    You are modififying ``parameters.yml.dist`` and not ``paramaters.yml``.
+    This is because the Standard Edition will use this file as a template when
+    updating the configuration.
 
 **Step 7**: Add the Doctrine PHPCR configuration to the main application configuration:
 
@@ -139,6 +143,18 @@ Remove the ``doctrine\orm`` package from ``composer.json``.
             ),
         ));
 
+**Step 8**: Run ``composer update``:
+
+.. code-block:: bash
+
+    $ composer update
+
+After installing the packages composer will ask you to confirm or modify the
+default parameters defined in ``parameters.yml.dist`` and then generate the
+``parameters.yml`` file.
+
+Your should now be all set to start using PHPCR-ODM in your project!
+
 Alternative Backend: Apache Jackrabbit
 --------------------------------------
 
@@ -174,3 +190,4 @@ directory which will contain the data of the content repository.
 .. _`Apache Jackrabbit`: https://jackrabbit.apache.org
 .. _`Jackalope`: https://github.com/jackalope/jackalope
 .. _`Doctrine DBAL`: https://github.com/doctrine/dbal
+.. _`installed composer`: http://getcomposer.org/doc/00-intro.md#system-requirements
