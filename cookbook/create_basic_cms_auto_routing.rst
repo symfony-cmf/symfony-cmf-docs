@@ -1080,6 +1080,12 @@ container configuration:
               ))
             ;
 
+.. note::
+
+    In the XML version of the above configuration you specify ``manager_type``
+    (with an underscore). This should be `manager-type` (with a hypen) and
+    will be fixed in Symfony version 2.4.
+
 Check it out at http://localhost:8000/admin/dashboard
 
 .. image:: ../_images/cookbook/basic-cms-sonata-admin.png
