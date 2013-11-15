@@ -13,7 +13,7 @@ The CoreBundle registers a Twig extension and a PHP templating helper. Both
 work the same way and are documented together. We always list both the Twig
 function name and the ``cmf`` helper method names.
 
- Many methods share the same common parameters:
+Many methods share the same common parameters:
 
 * **ignoreRole**: Methods having this parameter by default filter the
   resultset to only contain published documents, using
@@ -23,9 +23,6 @@ function name and the ``cmf`` helper method names.
   removing all documents that do not implement the specified class.
 * **limit, offset**: Used to slice the result list for paging. Note that
   slicing happens before the filtering.
-
-The available methods are the following:
-
 
 Basic repository operations
 ...........................
@@ -47,8 +44,8 @@ Walking the PHPCR tree
 | cmf_prev              | getPrev             | $current,            | Get the previous sibling document of ``$current`` (a document or a path) |
 |                       |                     | $depth = null,       | in PHPCR order. If ``$anchor`` (also a document or a path) is set, also  |
 |                       |                     | $ignoreRole = false, | walks up the tree to find neighbours of ``$current``. If ``$depth`` is   |
-|                       |                     | $class = null        | set, this limits how deep below ``$current`` the tree is walked.         |
-|                       |                     | $anchor = null,      |                                                                          |
+|                       |                     | $class = null,       | set, this limits how deep below ``$current`` the tree is walked.         |
+|                       |                     | $anchor = null       |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
 | cmf_prev_linkable     | getPrevLinkable     | $current,            | Get the previous document that has a route associated. This is a         |
 |                       |                     | $anchor = null,      | shortcut for ``getPrev`` with the ``$class`` filter set to               |
