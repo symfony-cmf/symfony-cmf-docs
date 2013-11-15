@@ -112,7 +112,8 @@ the path in question - he will have the permission to view unpublished content a
 
 .. _bundle-core-publish-workflow-twig_function:
 
-To check publication in a template, use the twig function ``cmf_is_published``:
+To check publication in a template, use the twig function ``cmf_is_published``
+or the ``$view['cmf']->isPublished`` method:
 
 .. configuration-block::
 
@@ -148,8 +149,12 @@ To check publication in a template, use the twig function ``cmf_is_published``:
             <!-- ... output the document -->
         <?php endif ?>
 
-Code that loads content should do the publish checks. Note that the twig
-functions already check for publication. Thanks to a
+.. note::
+
+    :doc:`templating` explains all templating helper functions provided by the
+    CMF. Those helpers already use the publish workflow where applicable.
+
+Code that loads content should do the publish checks. Thanks to a
 :ref:`request listener <bundle-core-workflow-request_listener>`, routes and
 the main content provided by the
 :doc:`DynamicRouter <../routing/dynamic>` are checked automatically
@@ -216,17 +221,17 @@ Below is an example publish workflow implementation::
         {
             $this->publishStartDate = $startDate;
         }
- 
+
         public function getPublishStartDate()
         {
             return $this->publishStartDate;
         }
- 
+
         public function setPublishEndDate(\DateTime $endDate = null)
         {
             $this->publishEndDate = $endDate;
         }
- 
+
         public function getPublishEndDate()
         {
             return $this->publishEndDate;
