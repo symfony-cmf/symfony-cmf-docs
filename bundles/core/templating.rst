@@ -50,60 +50,57 @@ Walking the PHPCR tree
 |                       |                     | $class = null        | set, this limits how deep below ``$current`` the tree is walked.         |
 |                       |                     | $anchor = null,      |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_prev_linkable     | getPrevLinkable     |                      |                                                                          |
+| cmf_prev_linkable     | getPrevLinkable     | $current,            | Get the previous document that has a route associated. This is a         |
+|                       |                     | $anchor = null,      | shortcut for ``getPrev`` with the ``$class`` filter set to               |
+|                       |                     | $depth = null,       | ``Symfony\Cmf\Component\Routing\RouteReferrersReadInterface``.           |
+|                       |                     | $ignoreRole = false  |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_next              | getNext             |                      |                                                                          |
+| cmf_next              | getNext             | $current,            | Get the next sibling document from ``$current`` (a document or a path)   |
+|                       |                     | $anchor = null,      | in PHPCR order. ``$anchor`` and ``$depth`` have the same semantics as in |
+|                       |                     | $depth = null,       | ``getPrev``.                                                             |
+|                       |                     | $ignoreRole = false, |                                                                          |
+|                       |                     | $class = null        |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_next_linkable     | getNextLinkable     |                      |                                                                          |
+| cmf_next_linkable     | getNextLinkable     | $current,            | Get the next document that has a route associated. This is a shortcut    |
+|                       |                     | $anchor = null,      | for ``getNext`` with the ``$class`` filter set to                        |
+|                       |                     | $depth = null,       | ``Symfony\Cmf\Component\Routing\RouteReferrersReadInterface``.           |
+|                       |                     | $ignoreRole = false  |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_child             | getChild            |                      |                                                                          |
+| cmf_child             | getChild            | $parent, $name       | Get child document named ``$name`` of the specified parent. The parent   |
+|                       |                     |                      | can be either the id or a document. No publish workflow check is done.   |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_children          | getChildren         |                      |                                                                          |
+| cmf_children          | getChildren         | $parent,             | Get all children of that parent in the order they appear in PHPCR. The   |
+|                       |                     | $limit = false,      | parent can be either the id or a document.                               |
+|                       |                     | $offset = false,     | *$filter is currently ignored*.                                          |
+|                       |                     | $filter = null,      |                                                                          |
+|                       |                     | $ignoreRole = false, |                                                                          |
+|                       |                     | $class = null        |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_linkable_children | getLinkableChildren |                      |                                                                          |
+| cmf_linkable_children | getLinkableChildren | $parent,             | Get all children of the parent that have a route associated. A shortcut  |
+|                       |                     | $limit = false,      | for ``getChildren`` with the ``$class`` filter set to                    |
+|                       |                     | $offset = false,     | ``Symfony\Cmf\Component\Routing\RouteReferrersReadInterface``.           |
+|                       |                     | $filter = null,      |                                                                          |
+|                       |                     | $ignoreRole = false  |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_descendants       | getDescendants      |                      |                                                                          |
+| cmf_descendants       | getDescendants      | $parent,             | Get all repository **paths** of descendants of ``$parent`` (a document   |
+|                       |                     | $depth = null        | or a path). ``$depth`` can be used to limit how deep into the hierarchy  |
+|                       |                     |                      | you want to descend. If not specified, depth is not limited. No publish  |
+|                       |                     |                      | workflow checks are attempted as documents are not even loaded.          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
 
-* **cmf_prev_linkable|getPrevLinkable($current, $anchor = null, $depth = null, $ignoreRole = false)**:
-  Get the previous document that has a route associated. This is a shortcut for
-  ``getPrev`` with the ``$class`` filter set to
-  ``Symfony\Cmf\Component\Routing\RouteReferrersReadInterface``.
-
-* **cmf_next|getNext($current, $anchor = null, $depth = null, $ignoreRole = false, $class = null)**:
-  Get the next sibling document from ``$current`` (a document or a path) in
-  PHPCR order. ``$anchor`` and ``$depth`` have the same semantics as in
-  ``getPrev``.
-
-* **cmf_next_linkable|getNextLinkable($current, $anchor = null, $depth = null, $ignoreRole = false, $class = null)**:
-  Get the next document that has a route associated. This is a shortcut for
-  ``getNext`` with the ``$class`` filter set to
-  ``Symfony\Cmf\Component\Routing\RouteReferrersReadInterface``.
-* **cmf_child|getChild($parent, $name)**: Get child document named ``$name`` of the
-  specified parent. The parent can be either the id or a document. No publish
-  workflow check is done.
-* **cmf_children|getChildren($parent, $limit = false, $offset = false, $filter = null, $ignoreRole = false, $class = null)**:
-  Get all children of that parent in the order they appear in PHPCR. The parent
-  can be either the id or a document. *Filter is currently unused*.
-* **cmf_linkable_children|getLinkableChildren($parent, $limit = false, $offset = false, $filter = null, $ignoreRole = false)**:
-  Get all children of the parent that have a route associated.
-  A shortcut for ``getChildren`` with the ``$class`` filter set to
-  ``Symfony\Cmf\Component\Routing\RouteReferrersReadInterface``.
-* **cmf_descendants|getDescendants($parent, $depth = null)**: Get all **paths**
-  of descendants of ``$parent`` (a document or a path). ``$depth`` can be used
-  to limit how deep into the hierarchy you want to descend.
 
 Helper methods
 ..............
 
-* **cmf_document_locales|getLocalesFor($document, $includeFallbacks = false)**:
-  Get the locales of the provided document. If ``$includeFallbacks`` is true,
-  all fallback locales are provided as well, even if no translation in that
-  language exists.
-* **cmf_is_published|isPublished($document)**: Check with the publish workflow
-  if the provided object is published. See also
-  :ref:`cmf_is_published <bundle-core-publish-workflow-twig_function>` for an
-  example.
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
+| cmf_document_locales  | getLocalesFor       | $document,           | Get the locales of the provided document. If ``$includeFallbacks`` is    |
+|                       |                     | $includeFallbacks =  | ``true``, all fallback locales are provided as well, even if no          |
+|                       |                     | false                | translation in that language exists.                                     |
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
+| cmf_is_published      | isPublished         | $document            | Check with the publish workflow if the provided object is published. See |
+|                       |                     |                      | also :ref:`cmf_is_published <bundle-core-publish-workflow-twig_function>`|
+|                       |                     |                      | for an example.                                                          |
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
 
 Code examples
 .............
