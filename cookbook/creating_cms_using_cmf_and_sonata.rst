@@ -105,9 +105,10 @@ Add the sonata bundles to your application configuration:
                 Doctrine\ODM\PHPCR\Document\Generic:
                     valid_children:
                         - all
-                Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page:
-                    valid_children:
-                        - all
+                # if you are using the SimpleCmsBundle, enable the Page as well
+                # Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page:
+                #     valid_children:
+                #         - all
                 Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent:
                     valid_children:
                         - all
@@ -120,6 +121,14 @@ Add the sonata bundles to your application configuration:
                 Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode:
                     valid_children:
                         - Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode
+
+This sets up a sonata dashboard with a document tree on the left side and all
+available admins on the right side.
+
+The ``document_tree`` configuration defines what kind of documents should be
+shown in the tree. It is also used by sonata widgets to know what can be added
+where. When you add your own classes, be sure to add them in the tree
+configuration.
 
 Add route in to your routing configuration:
 
