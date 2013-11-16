@@ -597,7 +597,7 @@ In summary:
   ``/if/this/is/a/path`` then the ``content_path``
   represents ``/if/this/is/a``;
 * Each element under ``content_path`` represents a section of the URL;
-* The first element ``block_path`` uses a *provider* which *specifies* a
+* The first element ``blog_path`` uses a *provider* which *specifies* a
   path. If that path exists then it will do nothing;
 * The second element uses the ``content_datetime`` provider, which will
   use a ``DateTime`` object returned from the specified method on the

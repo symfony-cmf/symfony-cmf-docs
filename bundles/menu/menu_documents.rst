@@ -105,7 +105,7 @@ locale to be set via. the ``setLocale`` method::
     $menuItem = ...;
     $menuItem->setLocale('fr');
 
-See :doc:`../core/multilang`.
+See :ref:`Persisting Multilang Documents <bundles-core-multilang-persisting_multilang_documents>` for more details.
 
 Publish Workflow
 ~~~~~~~~~~~~~~~~

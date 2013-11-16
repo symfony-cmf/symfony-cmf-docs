@@ -25,6 +25,44 @@ You can install the bundle in 2 different ways:
 Usage
 -----
 
+The BlockBundle needs a persistence layer to be configured. This can either be
+done globally with the :ref:`Core Bundle <bundles-core-persistence>` or
+individually as follows:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_core:
+            persistence:
+                phpcr:
+                    block_basepath: /cms/content
+
+    .. code-block:: xml
+
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/core">
+                <persistence>
+                    <phpcr
+                        block-basepath="/cms/block"
+                    />
+                </persistence>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_core', array(
+            'persistence' => array(
+                'phpcr' => array(
+                    'block_basepath' => '/cms/block',
+                ),
+            ),
+        ));
+
 The default settings of a block are defined in the block service. If you use a
 third party block, you might want to alter these for your application. Use the
 ``sonata_block`` key for this. You can define default settings for a block

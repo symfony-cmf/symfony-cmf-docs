@@ -1,8 +1,45 @@
 .. index::
     single: Multi-Language; CoreBundle
 
-Multi-language support
-----------------------
+.. _bundles-core-persistence:
+
+Persistence
+-----------
+
+The CoreBundle lets you to centrally configure the persistence layer for all
+CMF bundles.
+
+To make the PHPCR-ODM the default persistence layer for all CMF bundles add
+the following to your main configuration file:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_core:
+            persistence:
+                phpcr: ~
+
+    .. code-block:: xml
+
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/core">
+                <persistence>
+                    <phpcr />
+                </persistence>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_core', array(
+            'persistence' => array(
+                'phpcr' => array(),
+            ),
+        ));
 
 .. _bundles-core-multilang-persisting_multilang_documents:
 
@@ -52,6 +89,7 @@ enforce a single translation strategy for all documents:
         $container->loadFromExtension('cmf_core', array(
             'persistence' => array(
                 'phpcr' => array(
+                    'translation_strategy' => 'attribute',
                 ),
             ),
         ));
