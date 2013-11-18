@@ -8,6 +8,11 @@ request, please make yourself comfortable with [the format][2], follow the
 guidelines in the [Creating a Pull Request][3] section and use the [Pull Request
 Format][4].
 
+> :warning: **NOTE**
+> Unless you are documenting a features that's new in a specific bundle
+> version, all pull requests should be based on the **1.0** branch, **not**
+> the master branch.
+
  [1]: http://symfony.com/doc/current/contributing/documentation/index.html
  [2]: http://symfony.com/doc/current/contributing/documentation/format.html
  [3]: http://symfony.com/doc/current/contributing/documentation/overview.html#creating-a-pull-request
