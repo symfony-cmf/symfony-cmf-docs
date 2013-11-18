@@ -1184,7 +1184,7 @@ Add a corresponding twig template (note that this works because you use the
 
     .. code-block:: html+jinja
 
-        {# src/Acme/BasicCmsBundle/Resources/Default/page.html.twig #}
+        {# src/Acme/BasicCmsBundle/Resources/veiws/Default/page.html.twig #}
         <h1>{{ page.title }}</h1>
         <p>{{ page.content|raw }}</p>
         <h2>Our Blog Posts</h2>
@@ -1196,7 +1196,7 @@ Add a corresponding twig template (note that this works because you use the
 
     .. code-block:: html+php
 
-        <!-- src/Acme/BasicCmsBundle/Resources/Default/page.html.twig -->
+        <!-- src/Acme/BasicCmsBundle/Resources/views/Default/page.html.twig -->
         <h1><?php echo $page->getTitle() ?></h1>
         <p><?php echo $page->content ?></p>
         <h2>Our Blog Posts</h2>
