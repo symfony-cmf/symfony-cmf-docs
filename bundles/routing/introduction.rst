@@ -62,7 +62,7 @@ will look like this
             acme_core.my_router:
                 class: %my_namespace.my_router_class%
                 tags:
-                    - { name: cmf_routing.router, priority: 300 }
+                    - { name: router, priority: 300 }
 
     .. code-block:: xml
 
