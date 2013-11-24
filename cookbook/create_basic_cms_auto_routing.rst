@@ -345,8 +345,10 @@ service container configuration:
     The initializers operate at the PHPCR level, not the PHPCR-ODM level - this
     means that you are dealing with nodes and not documents.
 
-Execute the ``doctrine:phpcr:repository:init`` command to initialize (or
-reinitialize) the repository:
+
+The initalizers will be executed automatically when you load your data
+fixtures (as detailed in the next section) or alternatively you can execute
+them manually using the following command:
 
 .. code-block:: bash
 
@@ -354,8 +356,9 @@ reinitialize) the repository:
 
 .. note::
 
-    This command is an `idempotent`_, which means that it should be safe to run
-    it multiple times, even when you have data in your repository.
+    It is the responsiblity of the developer to ensure that each initializer
+    is  `idempotent`_ - that is to say initializers must be capable of being
+    run multiple times without data-loss even in a production environment.
 
 Create Data Fixtures
 ~~~~~~~~~~~~~~~~~~~~
@@ -374,7 +377,6 @@ Create a page for your CMS::
     {
         public function load(ObjectManager $dm)
         {
-            NodeHelper::createPath($dm->getPhpcrSession(), '/cms/pages');
             $parent = $dm->find(null, '/cms/pages');
 
             $page = new Page();
@@ -404,7 +406,6 @@ and add some posts::
     {
         public function load(ObjectManager $dm)
         {
-            NodeHelper::createPath($dm->getPhpcrSession(), '/cms/posts');
             $parent = $dm->find(null, '/cms/posts');
 
             foreach (array('First', 'Second', 'Third', 'Forth') as $title) {
@@ -430,15 +431,6 @@ and load the fixtures:
     $ php app/console doctrine:phpcr:fixtures:load
 
 You should now have some data in your content repository.
-
-.. note::
-
-    The classes above use ``NodeHelper::createPath`` to create the paths
-    ``/cms/posts`` and ``/cms/pages`` - this is exactly what the
-    initializer did -- why do the classes do it again? This is a known issue - the
-    data fixtures loader will purge the workspace and it will **not** call the
-    initializer, so when using data fixtures it is currently necessary to manually
-    create the paths.
 
 Part 2: Automatic Routing
 -------------------------
@@ -1644,11 +1636,6 @@ and verify that the ``cms`` node has been updated by using the
     ``GenericInitializer`` and maps the document class to it. The minor
     disadvantage then is that there are two places where initialization
     choices take place - do whatever you prefer.
-
-As noted earlier, currently when data fixtures are loaded they will erase the
-workspace, including the paths created by the initializers. This means that
-each time you load your data fixtures you must also reinitialize the
-repository.
 
 .. note::
 

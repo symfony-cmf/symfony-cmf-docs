@@ -640,7 +640,16 @@ A service to use the generic initializer looks like this:
         $definition->addTag('doctrine_phpcr.initializer');
         $container->setDefinition('acme.phpcr.initializer', $definition);
 
-The ``doctrine:phpcr:repository:init`` command runs all tagged initializers.
+You can execute your initializers using the following command:
+
+.. code-block:: bash
+
+    $ php app/console doctrine:phpcr:repository:init
+
+.. versionadded:: 1.1
+
+    Since DoctrinePHPCRBundle 1.1 the load data fixtures command will automatically
+    execute the initializers after purging the database.
 
 Fixture Loading
 ---------------
