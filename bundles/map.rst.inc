@@ -20,7 +20,7 @@
   * :doc:`core/publish_workflow`
   * :doc:`core/dependency_injection_tags`
   * :doc:`core/templating`
-  * :doc:`core/multilang`
+  * :doc:`core/persistence`
 
 * :doc:`create/index`
 
