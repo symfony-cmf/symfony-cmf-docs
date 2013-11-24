@@ -95,54 +95,122 @@ object for each element in that path.
 
 The configuration for the example above could be as follows:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    cmf_routing_auto:
+    .. code-block:: yaml
+    
+        # app/config/config.yml
+        cmf_routing_auto:
+            mappings:
 
-        auto_route_mapping:
-            My\Namespace\Bundle\BlogBundle\Document\Post:
-                content_path:
-                    # corresponds first route stack in diagram: my, blog, my-blog
-                    blog_path:
-                        provider:
-                            name: content_object
-                            method: getBlog
-                        exists_action:
-                            strategy: use
-                        not_exists_action:
-                            strategy: throw_exception
+                Acme\BlogBundle\Document\Post:
+                    content_path:
+                        # corresponds first route stack in diagram: my, blog, my-blog
+                        blog_path:
+                            provider: [content_object, { method: getBlog }]
+                            exists_action: use
+                            not_exists_action: throw_exception
 
-                    # corresponds to second route stack: 2013,04,06
-                    date:
-                        provider:
-                            name: content_datetime
-                            method: getPublishedDate
-                        exists_action:
-                            strategy: use
-                        not_exists_action:
-                            strategy: create
+                        # corresponds to second route stack: 2013,04,06
+                        date:
+                            provider: [content_datetime, { method: getPublishedDate } ]
+                            exists_action: use
+                            not_exists_action: create
 
-                # corresponds to the content name: My Post Title
-                content_name:
-                    provider:
-                        name: content_method
-                        method: getTitle
-                    exists_action:
-                        strategy: auto_increment
-                        pattern: -%d
-                    not_exists_action:
-                        strategy: create
+                    # corresponds to the content name: My Post Title
+                    content_name:
+                        provider: [content_method, { method: getTitle }]
+                        exists_action: [auto_increment, { pattern: -%d }]
+                        not_exists_action: create
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing_auto">
+
+                <mapping class="Acme\BlogBundle\Document\Post">
+
+                    <content-path>
+                        <!-- corresponds first route stack in diagram: my, blog, my-blog -->
+                        <path-unit name="blog_path">
+                            <provider name="content_object">
+                                <option name="method" value="getBlog" />
+                            </provider>
+                            <exists-action strategy="use" />
+                            <not-exists-action strategy="throw_exception" />
+                        </path-unit>
+
+                        <!-- corresponds to second route stack: 2013,04,06 -->
+                        <path-unit name="date">
+                            <provider name="content_datetime">
+                                <option name="method" value="getPublishedDate" />
+                            </provider>
+                        </path-unit>
+                    </content-path>
+
+
+                    <!-- corresponds to the content name: My Post Title -->
+                    <content-name>
+                        <provider name="content_method">
+                            <option name="method" value="getTitle" />
+                        </provider>
+                        <exists-action strategy="auto_increment">
+                            <option name="pattern" value="-%d" />
+                        </exists-action>
+                        <not-exists-action strategy="create" />
+                    </content-name>
+                </mapping>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_routing_auto', array(
+            'mappings' => array(
+                'Acme\BlogBundle\Document\Post' => array(
+                    'content_path' => array(
+                        // corresponds first route stack in diagram' =>  my, blog, my-blog
+                        'blog_path' => array(
+                            'provider' => array('content_object', array('method' => 'getBlog')),
+                            'exists_action' => 'use',
+                            'not_exists_action' => 'throw_exception',
+                        ),
+
+                        // corresponds to second route stack' =>  2013,04,06
+                        'date' => array(
+                            'provider' => array('content_datetime', array('method' => 'getPublishedDate')),
+                            'exists_action' => 'use',
+                            'not_exists_action' => 'create',
+                        ),
+                    ),
+
+                    // corresponds to the content name' =>  My Post Title
+                    'content_name' => array(
+                        'provider' => array('content_method', array('method' => 'getTitle')),
+                        'exists_action' => array('auto_increment', array('pattern' => '-%d')),
+                        'not_exists_action' => 'create',
+                    ),
+                ),
+            ),
+        ));
 
 The ``Post`` document would then need to implement the methods named above as
 follows::
 
-    <?php
+    // src/Acme/BlogBundle/Document/Post.php
+    namespace Acme/BlogBundle/Document;
 
     class Post
     {
+        /**
+         * Returns the blog object associated with the post.
+         */
         public function getBlog()
         {
-            // return the blog object associated with the post
             return $this->blog;
         }
 
@@ -173,11 +241,24 @@ specified (base provider)
 This is the most basic path provider and allows you to specify an exact
 (fixed) path.
 
-.. code-block:: yaml
+.. configuration-block::
 
-    path_provider:
-        name: specified
-        path: this/is/a/path
+    .. code-block:: yaml
+
+        provider: [specified, { path: this/is/a/path }]
+
+    .. code-block:: xml
+
+        <provider name="specified">
+            <option name="path" value="this/is/a/path" />
+        </provider>
+
+    .. code-block:: php
+
+        array(
+            // ...
+            'provider' => array('specified', array('path' => 'this/is/a/path')),
+        );
 
 Options:
 
@@ -203,11 +284,24 @@ use this path as the base of your ``Post`` auto-route.
 
 Example:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    provider:
-        name: content_object
-        method: getBlog
+    .. code-block:: yaml
+
+        provider: [content_object, { method: getBlog }]
+
+    .. code-block:: xml
+
+        <provider name="content_object">
+            <option name="method" value="getBlog" />
+        </provider>
+
+    .. code-block:: php
+
+        array(
+            // ...
+            'provider' => array('content_object', array('method' => 'getBlog')),
+        );
 
 .. note::
 
@@ -229,11 +323,24 @@ it.
 
 **Example 1**:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    path_provider:
-        name: content_method
-        method: getTitle
+    .. code-block:: yaml
+
+        provider: [content_method, { method: getTitle }]
+
+    .. code-block:: xml
+
+        <provider name="content_method">
+            <option name="method" value="getTitle" />
+        </provider>
+
+    .. code-block:: php
+
+        array(
+            // ...
+            'provider' => array('content_method', array('method' => 'getTitle')),
+        );
 
 This example will use the existing method "getTitle" of the ``Post`` document
 to retrieve the title. By default all strings are *slugified*.
@@ -241,18 +348,16 @@ to retrieve the title. By default all strings are *slugified*.
 The method can return the path either as a single string or an array of path
 elements as shown in the following example::
 
-    <?php
-
     class Post
     {
          public function getTitle()
          {
-            return "This is a post";
+             return "This is a post";
          }
 
          public function getPathElements()
          {
-            return array('this', 'is', 'a', 'path');
+             return array('this', 'is', 'a', 'path');
          }
     }
 
@@ -269,20 +374,49 @@ object provided by a designated method on the content document.
 
 **Example 1**:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    provider:
-        name: content_datetime
-        method: getDate
+    .. code-block:: yaml
+
+        provider: [content_datetime, { method: getDate }]
+
+    .. code-block:: xml
+
+        <provider name="content_datetime">
+            <option name="method" value="getDate" />
+        </provider>
+
+    .. code-block:: php
+
+        array(
+            // ...
+            'provider' => array('content_datetime', array('method' => 'getDate')),
+        );
 
 **Example 2**:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    provider:
-        name: content_datetime
-        method: getDate
-        date_format: Y/m/d
+    .. code-block:: yaml
+
+        provider: [content_datetime, { method: getDate, date_format: Y/m/d }]
+
+    .. code-block:: xml
+
+        <provider name="content_datetime">
+            <option name="method" value="getDate" />
+            <option name="date_format" value="Y/m/d" />
+        </provider>
+
+    .. code-block:: php
+
+        array(
+            // ...
+            'provider' => array('content_datetime', array(
+                'method' => 'getDate',
+                'date_format' => 'Y/m/d',
+            )),
+        );
 
 .. note::
 
@@ -322,10 +456,22 @@ make much sense (I can't imagine any use cases at the moment).
 
 Example:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    exists_action:
-        name: auto_increment
+    .. code-block:: yaml
+
+        exists_action: auto_increment
+
+    .. code-block:: xml
+
+        <exists-action name="auto_increment" />
+
+    .. code-block:: php
+
+        array(
+            // ...
+            'exists_action' => 'auto_increment',
+        );
 
 use
 ~~~
@@ -342,10 +488,22 @@ overwritten.
 
 Example:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    exists_action:
-        name: use
+    .. code-block:: yaml
+
+        exists_action: use
+
+    .. code-block:: xml
+
+        <exists-action name="use" />
+
+    .. code-block:: php
+
+        array(
+            // ...
+            'exists_action' => 'use',
+        );
 
 Path not Exists Actions
 -----------------------
@@ -360,10 +518,22 @@ The ``create`` action will create the path. **currently** all routes provided
 by the content path build units will be created as ``Generic`` documents,
 whilst the content name route will be created as an ``AutoRoute`` document.
 
-.. code-block:: yaml
+.. configuration-block::
 
-    not_exists_action:
-        name: create
+    .. code-block:: yaml
+
+        not_exists_action: create
+
+    .. code-block:: xml
+
+        <not-exists-action name="create" />
+
+    .. code-block:: php
+
+        array(
+            // ...
+            'not_exists_action' => 'create',
+        );
 
 throw_exception
 ~~~~~~~~~~~~~~~
@@ -372,10 +542,22 @@ This action will throw an exception if the route provided by the path provider
 does not exist. You should take this action if you are sure that the route
 *should* exist.
 
-.. code-block:: yaml
+.. configuration-block::
 
-    not_exists_action:
-        name: create
+    .. code-block:: yaml
+
+        not_exists_action: throw_exception
+
+    .. code-block:: xml
+
+        <not-exists-action name="throw_exception" />
+
+    .. code-block:: php
+
+        array(
+            // ...
+            'not_exists_action' => 'throw_exception',
+        );
 
 Customization
 -------------
@@ -407,6 +589,14 @@ To use the path provider you must register it in the **DIC** and add the
 
 .. configuration-block::
 
+    .. code-block:: yaml
+
+        my_cms.some_bundle.path_provider.foobar:
+            class: "FoobarProvider"
+            scope: prototype
+            tags:
+                - { name: cmf_routing_auto.provider, alias: "foobar"}
+
     .. code-block:: xml
 
         <service
@@ -416,14 +606,6 @@ To use the path provider you must register it in the **DIC** and add the
         >
             <tag name="cmf_routing_auto.provider" alias="foobar"/>
         </service>
-
-    .. code-block:: yaml
-
-        my_cms.some_bundle.path_provider.foobar:
-            class: "FoobarProvider"
-            scope: prototype
-            tags:
-                - { name: cmf_routing_auto.provider, alias: "foobar"}
 
     .. code-block:: php
 
@@ -456,8 +638,6 @@ registering your new class correctly in the DI configuration.
 This is a very simple implementation from the bundle - it is used to throw an
 exception when a path already exists::
 
-    <?php
-
     namespace Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\PathNotExists;
 
     use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\PathActionInterface;
@@ -480,6 +660,14 @@ It is registered in the DI configuration as follows:
 
 .. configuration-block::
 
+    .. code-block:: yaml
+
+        cmf_routing_auto.not_exists_action.throw_exception
+            class: "My\Cms\AutoRoute\PathNotExists\ThrowException"
+            scope: prototype
+            tags:
+                - { name: cmf_routing_auto.provider, alias: "throw_exception"}
+
     .. code-block:: xml
 
         <service
@@ -489,14 +677,6 @@ It is registered in the DI configuration as follows:
             >
             <tag name="cmf_routing_auto.not_exists_action" alias="throw_exception"/>
         </service>
-
-    .. code-block:: yaml
-
-        cmf_routing_auto.not_exists_action.throw_exception
-            class: "My\Cms\AutoRoute\PathNotExists\ThrowException"
-            scope: prototype
-            tags:
-                - { name: cmf_routing_auto.provider, alias: "throw_exception"}
 
     .. code-block:: php
 
