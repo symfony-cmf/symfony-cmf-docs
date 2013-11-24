@@ -31,6 +31,6 @@ Sections
 * :doc:`publish_workflow`
 * :doc:`dependency_injection_tags`
 * :doc:`templating`
-* :doc:`multilang`
+* :doc:`persistence`
 
 .. _`Packagist`: https://packagist.org/packages/symfony-cmf/core-bundle

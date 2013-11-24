@@ -8,5 +8,5 @@ CoreBundle
     publish_workflow
     dependency_injection_tags
     templating
-    multilang
+    persistence
     forms

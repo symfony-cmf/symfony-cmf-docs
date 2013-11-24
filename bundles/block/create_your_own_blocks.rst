@@ -62,12 +62,14 @@ create a service that knows how to handle ``RssBlocks``:
 * The method ``setDefaultSettings`` configures a template, title, url and the
   maximum amount of items::
 
+    
+    // src/Acme/MainBundle/Block/RssBlockService.php
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
     use Symfony\Component\HttpFoundation\Response;
     use Sonata\BlockBundle\Block\BaseBlockService;
     use Sonata\BlockBundle\Block\BlockContextInterface;
 
-    class RssBlockService extends extends BaseBlockService
+    class RssBlockService extends BaseBlockService
     {
         // ...
         public function setDefaultSettings(OptionsResolverInterface $resolver)
