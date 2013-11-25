@@ -236,6 +236,9 @@ Enable the :ref:`bundles_menu_voters_uri_prefix_voter`.
 publish_workflow
 ~~~~~~~~~~~~~~~~
 
+.. versionadded:: 1.1
+    The ``publish_workflow`` option was introduced in CmfMenuBundle 1.1.
+
 This configures if the menu content voter for the publish workflow should be
 disabled, by default it is enabled if the :doc:`CoreBundle <../../bundles/core/index>`
 is registered, and the ``cmf_core.publish_workflow`` is enabled.

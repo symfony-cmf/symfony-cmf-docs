@@ -114,7 +114,9 @@ The standard menu node implements ``PublishTimePeriodInterface`` and
 ``PublishableInterface``. Please refer to the 
 :doc:`publish workflow documentation <../core/publish_workflow>`.
 
-The CmfMenuBundle has a `MenuContentVoter`, this voter decides that a menu node
-is not published if the content it is pointing to is not published.
+.. versionadded:: 1.1
+    The ``MenuContentVoter`` was added in CmfMenuBundle 1.1. This voter decides
+    that a menu node is not published if the content it is pointing to is not
+    published.
 
 .. _`Creating Menus: The Basics`: https://github.com/KnpLabs/KnpMenu/blob/1.1.x/doc/01-Basic-Menus.markdown
