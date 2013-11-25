@@ -59,3 +59,8 @@ Publish Workflow
 The CMF menu factory also determines if menu nodes are published and therefore
 visible by use of the :doc:`publish workflow checker
 <../core/publish_workflow>`.
+
+.. versionadded:: 1.1
+    The ``MenuContentVoter`` was added in CmfMenuBundle 1.1. This voter decides 
+    that a menu node is not published if the content it is pointing to is not
+    published.

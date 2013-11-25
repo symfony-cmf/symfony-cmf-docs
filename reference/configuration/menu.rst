@@ -232,3 +232,46 @@ uri_prefix
 **type**: ``boolean``
 
 Enable the :ref:`bundles_menu_voters_uri_prefix_voter`.
+
+publish_workflow
+~~~~~~~~~~~~~~~~
+
+.. versionadded:: 1.1
+    The ``publish_workflow`` option was introduced in CmfMenuBundle 1.1.
+
+This configures if the menu content voter for the publish workflow should be
+disabled, by default it is enabled if the :doc:`CoreBundle <../../bundles/core/index>`
+is registered, and the ``cmf_core.publish_workflow`` is enabled.
+
+For more information refer to the
+:doc:`publish workflow documentation <../../bundles/core/publish_workflow>`.
+
+To disable the menu content voter, use:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_menu:
+            publish_workflow:
+                enabled: false
+
+    .. code-block:: xml
+
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/menu">
+                <publish-workflow
+                    enabled="false"
+                />
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_menu', array(
+            'publish_workflow' => array(
+                'enabled' => false,
+            ),
+        ));
