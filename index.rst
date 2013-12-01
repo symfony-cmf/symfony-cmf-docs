@@ -70,38 +70,73 @@ will typically want to keep this close at hand.
 Bundles
 -------
 
-Looking for some in depth information about a CMF Bundle? Want a list of all the
-configuration options of a bundle? Want to know if you can use a bundle independently and how
-to do it? In this case the reference is the right place for you.
+Looking for some in depth information about a CMF Bundle? Want to know if you
+can use a bundle independently and how to do it? In this case the bundles
+section is the right place for you!
+
+Core Bundles
+~~~~~~~~~~~~
+
+Most of the Symfony CMF bundles provide some functionality, they integrate a
+library or they introduce a complete new concept.
 
 .. toctree::
     :maxdepth: 1
 
     bundles/block/index
-    bundles/blog
-    bundles/content/index
     bundles/core/index
     bundles/create/index
-    bundles/phpcr_odm
     bundles/media/index
     bundles/menu/index
     bundles/routing/index
     bundles/routing_auto
     bundles/search/index
-    bundles/simple_cms/index
-    bundles/doctrine_phpcr_admin
     bundles/tree_browser/index
+
+Showcase Bundles
+~~~~~~~~~~~~~~~~
+
+Other bundles provide an example on how to use these core bundles. They all
+show a different way of implementing a concept. You can use these bundles in
+your project, but you can also get ideas from these bundles to create your own
+bundle based on the core bundles.
+
+.. toctree::
+    :maxdepth: 1
+
+    bundles/blog
+    bundles/content/index
+    bundles/simple_cms/index
+
+3th Party Bundles
+~~~~~~~~~~~~~~~~~
+
+Besides that, the Symfony CMF team also maintains some 3th party bundles which
+help with integrating PHPCR concepts into the Symfony Framework.
+
+.. toctree::
+    :maxdepth: 1
+
+    bundles/doctrine_phpcr_admin
+    bundles/phpcr_odm
 
 Components
 ----------
 
-Looking for some information about the low level components of the CMF?
+The Symfony CMF believes in a concept where bundles integrate library
+(components) into the framework. The components can be used in any PHP
+project, even when they are not using Symfony.
 
 .. toctree::
     :maxdepth: 1
 
     components/routing/introduction
     components/testing
+
+.. note::
+
+    The Testing component is a bit strange, as it can only be used with the
+    symfony framework. There are plans to change this in the feature.
 
 Reference
 ---------
@@ -127,9 +162,7 @@ configuration is broken down per bundle.
 Cookbook
 --------
 
-Special solutions for specific use cases that go beyond standard usage.
-
-Want to know more about the CMF and how each part can be configured? There's a tutorial for each one.
+The cookbook consist of articles about advanced concepts of the Symfony CMF.
 
 .. toctree::
     :maxdepth: 1
@@ -146,6 +179,8 @@ Want to know more about the CMF and how each part can be configured? There's a t
 
 Contributing
 ------------
+
+Do you want to contribute to the Symfony CMF? Start reading these articles!
 
 .. toctree::
     :maxdepth: 1
