@@ -84,7 +84,7 @@ Then you can add images to document forms as follows::
 .. tip::
 
    If you set required to ``true`` for the image, the user must re-upload a
-   new image each time he edits the form. If the document must have an image,
+   new image each time they edit the form. If the document must have an image,
    it makes sense to require the field when creating a new document, but make
    it optional when editing an existing document. We are
    `trying to make this automatic`_.
