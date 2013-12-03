@@ -199,7 +199,7 @@ The provided sonata admin classes map the locale field of the multi-language
 documents to the form. You need to do the same in your admins, in order to
 create new translations. Otherwise the language fallback of PHPCR-ODM will
 make you update the original language, even when you request a different
-locale.  With the mapped locale field, the editor can chose if he needs to
+locale.  With the mapped locale field, the editor can choose if they need to
 create a new language version or updates the loaded one.
 
 Frontend Editing and multi-language
@@ -216,7 +216,7 @@ save the edited document in the same language as it was loaded.
     the page but also when saving the changes, so you always update the
     current locale.
 
-    It would make sense to offer the user the choice whether he wants to
+    It would make sense to offer the user the choice whether they want to
     create a new translation or update the existing one. There is this
     `issue`_ in the CreateBundle issue tracker.
 

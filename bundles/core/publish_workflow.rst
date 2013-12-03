@@ -44,9 +44,9 @@ desired action, the second the content object you want to do the action on.
 
 Currently the only actions supported by the default voters are ``VIEW`` and
 ``VIEW_ANONYMOUS``. Having the right to view means that the current user is
-allowed to see this content either because it is published or because of his
+allowed to see this content either because it is published or because of their
 specific permissions. In some contexts, your application might not want to
-show unpublished content even to a privileged user so as not to confuse him.
+show unpublished content even to a privileged user so as not to confuse them.
 For this, the "view anonymous" permission is used.
 
 The workflow checker is configured with a role that is allowed to bypass
@@ -85,7 +85,7 @@ given to editors. The default name of the role is ``ROLE_CAN_VIEW_NON_PUBLISHED`
         ));
 
 Once a user with ``ROLE_EDITOR`` is logged in - meaning there is a firewall in place for
-the path in question - he will have the permission to view unpublished content as well::
+the path in question - they will have the permission to view unpublished content as well::
 
     use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowChecker;
 
