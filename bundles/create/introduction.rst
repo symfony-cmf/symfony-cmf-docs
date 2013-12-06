@@ -162,6 +162,37 @@ You also need to configure the FOSRestBundle to handle json:
             ),
         ));
 
+If you want to use Assetic to combine the CSS and Javascript used for
+create.js, you need to enable the CreateBundle in the assetic configuration.
+Find the configuration for `assetic.bundles`. If it is not present, assetic
+automatically scans all bundles for assets and you don't need to do anything.
+If you limit the bundles, you need to add ``CmfCreateBundle`` to the list of
+bundles.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        assetic:
+            bundles: [ ... , CmfCreateBundle, ...]
+
+    .. code-block:: xml
+
+        <config xmlns="http://example.org/schema/dic/assetic">
+            ...
+            <bundle>CmfCreateBundle</bundle>
+            ...
+        </config>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('assetic', array(
+            'bundles' => array(
+                ...
+                'CmfCreateBundle',
+                ...
+            ),
+        ));
 
 Routing
 ~~~~~~~
