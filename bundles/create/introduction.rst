@@ -22,6 +22,36 @@ the lightweight `hallo.js`_ editor bundled with the create.js distribution.
 your HTML for `create.js`_ and map back from the JSON-LD sent by backbone.js
 to your model classes.
 
+Concepts
+--------
+
+CreatePHP uses `RDFa`_ metadata about your model classes. This metadata is
+used to map between your model and the RDFa information. If you know Doctrine,
+you have seen the idea of metadata to know how class fields map to database
+columns.
+
+The CreatePHP metadata is modelled by the ``Type`` class. CreatePHP provides
+metadata loaders that read XML, php arrays and one that just introspects
+objects and creates non-semantical metadata that will be enough for create.js
+to edit.
+
+An ``RdfMapper`` is used to translate between your storage layer and CreatePHP.
+It is passed the model instance and the relevant metadata object.
+
+With the metadata and the twig helper, the content is rendered with RDFa
+annotations. create.js is loaded and enables editing the content. Note that
+you may have several objects editable on a single page. Save operations happen
+through backbone.js with ajax calls containing JSON-LD data. There is one
+request per editable content that was actually modified. The CreateBundle REST
+controller handles those ajax calls and maps the JSON-LD data back onto your
+model classes and stores them in the database.
+
+For image support, CKEditor can use elfinder to upload, browse and insert
+images into the content. See the
+:doc:`MediaBundle elfinder adapter documentation<../media/adapters/elfinder>`
+to enable this powerful image browser.
+
+
 .. index:: CreateBundle
 
 Dependencies
@@ -136,7 +166,7 @@ You also need to configure the FOSRestBundle to handle json:
 Routing
 ~~~~~~~
 
-Finally, you need to register the routing configuration file to your master
+You need to register the routing configuration file in your main
 routing configuration to enable the REST end point for saving content:
 
 .. configuration-block::
@@ -159,47 +189,169 @@ routing configuration to enable the REST end point for saving content:
 
         return $collection;
 
+If you have the :doc:`MediaBundle <../media/index>` present in your project as well, you
+additionally need to register the route for the image upload handler:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        create_image:
+            resource: "@CmfCreateBundle/Resources/config/routing/image.xml"
+
+    .. code-block:: xml
+
+        <import resource="@CmfCreateBundle/Resources/config/routing/image.xml" />
+
+    .. code-block:: php
+
+        use Symfony\Component\Routing\RouteCollection;
+
+        $collection = new RouteCollection();
+        $collection->addCollection($loader->import("@CmfCreateBundle/Resources/config/routing/image.xml"));
+
+        return $collection;
+
 Access Control
 ~~~~~~~~~~~~~~
 
 In order to limit who can edit content, the provided controllers as well as the
 javascript loader check if the current user is granted the configured
-``cmf_create.role``. By default the role is ROLE_ADMIN.
+``cmf_create.role``. By default the role is ``ROLE_ADMIN``.
+
+.. tip::
+
+    In order to have security in place, you need to configure a
+    "Symfony2 firewall". Read more in the `Symfony2 security chapter`_.
 
 If you need more fine grained access control, look into the CreatePHP
 ``RdfMapperInterface`` ``isEditable`` method.  You can extend a mapper and
 overwrite ``isEditable`` to answer whether the passed domain object is
 editable.
 
-Concepts
---------
+Load create.js Javascript and CSS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CreatePHP uses `RDFa`_ metadata about your model classes. If you know Doctrine,
-you should be familiar with this concept, as Doctrine uses such metadata to
-know how your class fields map to database columns.
+This bundle provides templates that load the required Javascript and CSS files
+based on Assetic. The Javascript loader also parametrizes the configuration
+for create.js and the chosen editor.
 
-The metadata is modelled by the ``Type`` class. CreatePHP provides metadata
-loaders that read XML, php arrays and one that just introspects objects and
-creates non-semantical metadata that will be enough for create.js to edit.
+Alternatively, you can of course use your own templates to include the assets
+needed by create.js.
 
-An ``RdfMapper`` is used to translate between your storage layer and CreatePHP.
-It is passed the model instance and the relevant metadata object.
+In the page header, include the base CSS files (and add your own CSS files
+after those to be able to customize as needed) with:
 
-With the metadata and the twig helper, the content is rendered with RDFa
-annotations. create.js is loaded and enables editing the content. Note that
-you may have several objects editable on a single page. Save operations happen
-through backbone.js with ajax calls containing JSON-LD data. There is one
-request per editable content that was actually modified. The CreateBundle REST
-controller handles those ajax calls and maps the JSON-LD data back onto your
-model classes and stores them in the database.
+.. configuration-block::
 
-For image support, CKEditor can use elfinder to upload, browse and insert
-images into the content. See the
-:doc:`MediaBundle elfinder adapter documentation<../media/adapters/elfinder>`
-to enable this powerful image browser.
+    .. code-block:: jinja
+
+        {% include "CmfCreateBundle::includecssfiles.html.twig" %}
+
+    .. code-block:: php
+
+        <?php echo $view->render("CmfCreateBundle::includecssfiles.html.twig"); ?>
+
+.. caution::
+
+    Make sure assetic is rewriting the paths in your CSS files properly or you
+    might not see icon images.
+
+In your page bottom area load the javascripts. If you are using Symfony 2.2 or
+higher, the method reads:
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {% render(controller(
+            "cmf_create.jsloader.controller:includeJSFilesAction",
+            {'_locale': app.request.locale}
+        )) %}
+
+    .. code-block:: php
+
+        <?php $view['actions']->render(
+            new ControllerReference('cmf_create.jsloader.controller:includeJSFilesAction', array(
+                '_locale' => $app->getRequest()->getLocale(),
+            ))
+        ) ?>
+
+For Symfony 2.1, the syntax is:
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {% render "cmf_create.jsloader.controller:includeJSFilesAction" with {'_locale': app.request.locale} %}
+
+    .. code-block:: php
+
+        <?php
+        $view['actions']->render('cmf_create.jsloader.controller:includeJSFilesAction', array(
+            '_locale' => $app->getRequest()->getLocale(),
+        ) ?>
+
+.. note::
+
+    The provided javascript file configures create.js and the editor. If you
+    use the hallo editor, a plugin is enabled to use the tag editor to edit
+    ``skos:related`` collections of attributes. For customization of the editor
+    configuration further, you will need to use a
+    :ref:`custom template to load the editor<bundle-create-custom>`.
+
+
+.. _bundle-create-usage-embed:
+
+Rendering Content
+-----------------
+
+Create.js needs to identify what is editable in your content. To do this,
+it needs the RDF attributes in the HTML. Now that everything is prepared,
+you need to adjust your templates to output that information.
+
+.. note::
+
+    If you use custom models that did not come with RDFa mapping files, see
+    the remainder of this page to learn how to define the mappings.
+
+To render your model named ``cmfMainContent`` with a handle you call ``rdf``, use the
+``createphp`` twig tag as follows:
+
+.. code-block:: html+jinja
+
+    {% createphp cmfMainContent as="rdf" noautotag %}
+    <div {{ createphp_attributes(rdf) }}>
+        <h1 class="my-title" {{ createphp_attributes( rdf.title ) }}>{{ createphp_content( rdf.title ) }}</h1>
+        <div {{ createphp_attributes( rdf.body ) }}>{{ createphp_content( rdf.body ) }}</div>
+    </div>
+    {% endcreatephp %}
+
+The ``noautotag`` tells CreatePHP to not automatically output a ``<div>`` with
+namespace declarations and the ``about`` property containing the id of your
+model. When using ``noautotag``, it is your responsibility to call
+``createphp_attributes()`` inside a container tag that contains all fields of
+one model instance.
+
+You can also output a whole field complete with tag, attributes and content by
+just calling ``{{ rdf.body|raw }}``. (Without the ``raw`` filter, the HTML
+output by CreatePHP would be escaped.) You can even output the whole document
+automatically:
+
+.. code-block:: html+jinja
+
+    {% createphp cmfMainContent as="rdf" %}
+    {{ rdf|raw }}
+    {% endcreatephp %}
+
+This will simply output all fields in the order they appear in the mapping
+file. With the optional ``tag-name`` attribute in the mapping file you can
+replace the default ``<div>`` tag with your own choice. And using an
+``<attribute>`` child to specify CSS classes, you can let CreatePHP generate
+your HTML structure if you want.
 
 Metadata
-~~~~~~~~
+--------
 
 CreatePHP needs metadata information for each class of your domain model. By
 default, the create bundle uses the XML metadata driver and looks for metadata
@@ -274,8 +426,11 @@ reads like this:
     All of these issues will hopefully be fixed in later versions if people
     step up and contribute pull requests.
 
-Mapping Requests to Objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Mapping Requests to Domain Model
+--------------------------------
+
+One last piece is the mapping between CreatePHP data and the application
+domain model. Data needs to be stored back into the database.
 
 In version 1.0, the CreateBundle only provides a service to map to Doctrine
 PHPCR-ODM. If you do not enable the phpcr persistence layer, you need to
@@ -290,112 +445,6 @@ configure the ``cmf_create.object_mapper_service_id``.
 CreatePHP would support specific mappers per RDFa type. If you need that, dig
 into the CreatePHP and CreateBundle and do a pull request to enable this feature.
 
-.. _bundle-create-usage-embed:
-
-Rendering Content
------------------
-
-Rendering the content for create.js consists of adjusting how you output your
-model classes and of loading the necessary javascript and css files.
-
-In the page header, include the base CSS files (and add your own CSS files
-after those to be able to customize as needed) with
-
-.. code-block:: jinja
-
-    {% include "CmfCreateBundle::includecssfiles.html.twig" %}
-
-.. code-block:: php
-
-    <?php echo $view->render("CmfCreateBundle::includecssfiles.html.twig"); ?>
-
-.. caution::
-
-    Make sure assetic is rewriting the paths in your CSS files properly or you
-    might not see icon images.
-
-In your page bottom area load the javascripts. If you are using Symfony 2.2 or
-higher, the method reads:
-
-.. configuration-block::
-
-    .. code-block:: jinja
-
-        {% render(controller(
-            "cmf_create.jsloader.controller:includeJSFilesAction",
-            {'_locale': app.request.locale}
-        )) %}
-
-    .. code-block:: php
-
-        <?php $view['actions']->render(
-            new ControllerReference('cmf_create.jsloader.controller:includeJSFilesAction', array(
-                '_locale' => $app->getRequest()->getLocale(),
-            ))
-        ) ?>
-
-For Symfony 2.1, the syntax is:
-
-.. configuration-block::
-
-    .. code-block:: jinja
-
-        {% render "cmf_create.jsloader.controller:includeJSFilesAction" with {'_locale': app.request.locale} %}
-
-    .. code-block:: php
-
-        <?php
-        $view['actions']->render('cmf_create.jsloader.controller:includeJSFilesAction', array(
-            '_locale' => $app->getRequest()->getLocale(),
-        ) ?>
-
-.. note::
-
-    The provided javascript file configures create.js and the editor. If you
-    use the hallo editor, a plugin is enabled to use the tag editor to edit
-    ``skos:related`` collections of attributes. For customization of the editor
-    configuration further, you will need to use a
-    :ref:`custom template to load the editor<bundle-create-custom>`.
-
-If you provided RDFa mappings for your model classes as explained above, you
-can now adjust your templates to render the RDFa annotations so that create.js
-knows what content is editable.
-
-To render your model named ``page`` with a handle you call ``rdf``, use the
-``createphp`` twig tag as follows:
-
-.. code-block:: html+jinja
-
-    {% createphp page as="rdf" noautotag %}
-    <div {{ createphp_attributes(rdf) }}>
-        <h1 class="my-title" {{ createphp_attributes( rdf.title ) }}>{{ createphp_content( rdf.title ) }}</h1>
-        <div {{ createphp_attributes( rdf.body ) }}>{{ createphp_content( rdf.body ) }}</div>
-    </div>
-    {% endcreatephp %}
-
-The ``noautotag`` tells CreatePHP to not automatically output a ``<div>`` with
-namespace declarations and the ``about`` property containing the id of your
-model. When using ``noautotag``, it is your responsibility to call
-``createphp_attributes()`` inside a container tag that contains all fields of
-one model instance.
-
-You can also output a whole field complete with tag, attributes and content by
-just calling ``{{ rdf.body|raw }}``. (Without the ``raw`` filter, the HTML
-output by CreatePHP would be escaped.) You can even output the whole document
-automatically:
-
-.. code-block:: html+jinja
-
-    {% createphp page as="rdf" %}
-    {{ rdf|raw }}
-    {% endcreatephp %}
-
-This will simply output all fields in the order they appear in the mapping
-file. With the optional ``tag-name`` attribute in the mapping file you can
-replace the default ``<div>`` tag with your own choice. And using an
-``<attribute>`` child to specify CSS classes, you can let CreatePHP generate
-your HTML structure if you want.
-
 
 .. _`create.js`: http://createjs.org
 .. _`hallo.js`: http://hallojs.org
@@ -403,3 +452,4 @@ your HTML structure if you want.
 .. _`with composer`: http://getcomposer.org
 .. _`symfony-cmf/create-bundle`: https://packagist.org/packages/symfony-cmf/create-bundle
 .. _`RDFa`: http://en.wikipedia.org/wiki/RDFa
+.. _`Symfony2 security chapter`: http://symfony.com/doc/current/book/security.html
