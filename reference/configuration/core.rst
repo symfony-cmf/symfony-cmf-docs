@@ -158,7 +158,7 @@ This setting can be used to force a specific translation strategy for all docume
 multilang
 ~~~~~~~~~
 
-This configures if multiple language mode should be activated. Specifically this
+This configures whether multiple language mode should be activated. Specifically this
 enables the ``TranslatableExtension`` for ``SonataAdminBundle``.
 
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
@@ -208,8 +208,8 @@ This define languages that can be used.
 publish_workflow
 ~~~~~~~~~~~~~~~~
 
-This configures if the publish workflow should be enabled, which service to use
-and what role may view not yet published content. The request listener ensures
+This configures whether the publish workflow should be enabled, which service to use
+and what role may view content not yet published. The request listener ensures
 only published routes and content can be accessed.
 
 .. configuration-block::
