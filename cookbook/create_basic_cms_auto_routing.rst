@@ -527,58 +527,142 @@ Auto Routing Configuration
 
 Create the following file in your applications configuration directory:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/routing_auto.yml
-    cmf_routing_auto:
-        auto_route_mapping:
-            Acme\BasicCmsBundle\Document\Page:
-                content_path:
-                    pages:
-                        provider:
-                            name: specified
-                            path: /cms/routes/page
-                        exists_action:
-                            strategy: use
-                        not_exists_action:
-                            strategy: create
-                content_name:
-                    provider:
-                        name: content_method
-                        method: getTitle
-                    exists_action:
-                        strategy: auto_increment
-                        pattern: -%d
-                    not_exists_action:
-                        strategy: create
+    .. code-block:: yaml
 
-            Acme\BasicCmsBundle\Document\Post:
-                content_path:
-                    blog_path:
-                        provider:
-                            name: specified
-                            path: /cms/routes/post
-                        exists_action:
-                            strategy: use
-                        not_exists_action:
-                            strategy: create
-                    date:
-                        provider:
-                            name: content_datetime
-                            method: getDate
-                        exists_action:
-                            strategy: use
-                        not_exists_action:
-                            strategy: create
-                content_name:
-                    provider:
-                        name: content_method
-                        method: getTitle
-                    exists_action:
-                        strategy: auto_increment
-                        pattern: -%d
-                    not_exists_action:
-                        strategy: create
+        # app/config/routing_auto.yml
+        cmf_routing_auto:
+            mappings:
+                Acme\BasicCmsBundle\Document\Page:
+                    content_path:
+                        pages:
+                            provider: [specified, { path: /cms/routes/page }]
+                            exists_action: use
+                            not_exists_action: create
+                    content_name:
+                        provider: [content_method, { method: getTitle }]
+                        exists_action: [auto_increment, { pattern: -%d }]
+                        not_exists_action: create
+
+                Acme\BasicCmsBundle\Document\Post:
+                    content_path:
+                        blog_path:
+                            provider: [specified, { path: /cms/routes/post }]
+                            exists_action: use
+                            not_exists_action: create
+                        date:
+                            provider: [content_datetime, { method: getDate}]
+                            exists_action: use
+                            not_exists_action: create
+                    content_name:
+                        provider: [content_method, { method: getTitle }]
+                        exists_action: [auto_increment, { pattern: -%d }]
+                        not_exists_action: create
+
+    .. code-block:: xml
+
+        <!-- app/config/routing_auto.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/routing_auto">
+
+                <mapping class="Acme\BasicCmsBundle\Document\Page">
+
+                    <content-path>
+                        <path-unit name="pages">
+                            <provider name="specified">
+                                <option name="path" value="/cms/routes/page" />
+                            </provider>
+                            <exists-action strategy="use" />
+                            <not-exists-action strategy="create" />
+                        </path-unit>
+                    </content-path>
+
+                    <content-name>
+                        <provider name="content_method">
+                            <option name="method" value="getTitle" />
+                        </provider>
+                        <exists-action strategy="auto_increment">
+                            <option name="pattern" value="-%d" />
+                        </exists-action>
+                        <not-exists-action strategy="create" />
+                    </content-name>
+                </mapping>
+
+                <mapping class="Acme\BasicCmsBundle\Document\Post">
+                    <content-path>
+                        <path-unit name="blog_path">
+                            <provider name="specified">
+                                <option name="path" value="/cms/routes/post" />
+                            </provider>
+                            <exists-action name="use" />
+                            <not-exists-action name="create" />
+                        </path-unit>
+
+                        <path-unit name="date">
+                            <provider name="content_datetime">
+                                <option name="method" value="getDate" />
+                            </provider>
+                            <exists-action name="use" />
+                            <not-exists-action name="create" />
+                        </path-unit>
+                    </content-path>
+
+                    <content-name>
+                        <provider name="content_method">
+                            <option name="method" value="getTitle" />
+                        </provider>
+                        <exists-action name="auto_increment">
+                            <option name="pattern" value="-%d" />
+                        </exists-action>
+                        <not-exists-action name="create" />
+                    </content-name>
+                </mapping>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/routing_auto.php
+        $container->loadFromExtension('cmf_routing_auto', array(
+            'mappings' => array(
+                'Acme\BasicCmsBundle\Document\Page' => array(
+                    'content_path' => array(
+                        'pages' => array(
+                            'provider' => array('specified', array('path' => '/cms/routes/page')),
+                            'exists_action' => 'use',
+                            'not_exists_action' => 'create',
+                        ),
+                    ),
+                    'content_name' => array(
+                        'provider' => array('content_method', array('method' => 'getTitle')),
+                        'exists_action' => array('auto_increment', array('pattern' => -%d)),
+                        'not_exists_action' => 'create',
+                    ),
+                ),
+
+                'Acme\BasicCmsBundle\Document\Post' => array(
+                    'content_path' => array(
+                        'blog_path' => array(
+                            'provider' => array('specified', array('path' => '/cms/routes/post')),
+                            'exists_action' => 'use',
+                            'not_exists_action' => 'create',
+                        'date' => array(
+                            'provider' => array('content_datetime', array('method' => 'getDate')),
+                            'exists_action' => 'use',
+                            'not_exists_action' => 'create',
+                        ),
+                    ),
+                    'content_name' => array(
+                        'provider' => array('content_method', array('method' => 'getTitle')),
+                        'exists_action' => array('auto_increment', array('pattern' => -%d')),
+                        'not_exists_action' => 'create',
+                    ),
+                ),
+            ),
+        ));
 
 This will configure the routing auto system to automatically create and update
 route documents for both the ``Page`` and ``Post`` documents. 
@@ -618,7 +702,7 @@ Now you will need to include this configuration:
             xsi:schemaLocation="http://symfony.com/schema/dic/services 
                 http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <import resource="routing_auto.yml"/>
+            <import resource="routing_auto.xml" />
         </container>
     
     .. code-block:: php
@@ -626,7 +710,7 @@ Now you will need to include this configuration:
         // src/Acme/BasicCmsBundle/Resources/config/config.php
 
         // ...
-        $this->import('routing_auto.yml');
+        $this->import('routing_auto.php');
 
 and reload the fixtures:
 
