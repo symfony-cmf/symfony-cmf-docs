@@ -13,44 +13,56 @@ The javascript library `create.js`_ provides a comprehensive web editing
 interface for Content Management Systems. It is designed to provide a modern,
 fully browser-based HTML5 environment for managing content. Create.js can be
 adapted to work on almost any content management backend. Create.js makes your
-content editable based on RDFa annotations in the HTML content. Data is saved
-through backbone.js, CreateBundle providing the endpoint for the requests.
-The default editor used in the CreateBundle is CKEditor, but you can also use
-the lightweight `hallo.js`_ editor bundled with the create.js distribution.
+content editable based on `RDF`_ information. The CreateBundle provides the
+means to load create.js, provide the RDF information and handle the save
+requests send by create.js.
 
-`CreatePHP`_ is a PHP library that helps you putting the RDFa attributes into
-your HTML for `create.js`_ and map back from the JSON-LD sent by backbone.js
-to your model classes.
+For WYSIWYG text, the default editor is `CKEditor`_, but you can also use
+the lightweight `hallo.js`_ editor bundled with the create.js distribution
+or integrate your own editor.
 
 Concepts
 --------
 
-CreatePHP uses `RDFa`_ metadata about your model classes. This metadata is
-used to map between your model and the RDFa information. If you know Doctrine,
-you have seen the idea of metadata to know how class fields map to database
-columns.
+To know the RDF model of your data, create.js parses the page DOM for `RDFa`_
+attributes. Whenever it encounters an `about` attribute, it knows that this
+section is an editable content. The `typeof` attribute tells what type the
+content has. The `property` attributes mean that the parts inside that tag are
+editable. An article might look like this:
 
-The CreatePHP metadata is modelled by the ``Type`` class. CreatePHP provides
-metadata loaders that read XML, php arrays and one that just introspects
-objects and creates non-semantical metadata that will be enough for create.js
-to edit.
+.. code-block:: html
 
-An ``RdfMapper`` is used to translate between your storage layer and CreatePHP.
-It is passed the model instance and the relevant metadata object.
+    <div about="/cms/content/home" typeof="schema:WebPage" xmlns:schema="http://schema.org/">
+        <h1 property="schema:headline">The Title</h1>
+        <div property="schema:text">
+            <h2>Welcome to the Symfony CMF Demo</h2>
+            <p>If you see this page, it means that the...</p>
+        </div>
+    </div>
 
-With the metadata and the twig helper, the content is rendered with RDFa
-annotations. create.js is loaded and enables editing the content. Note that
-you may have several objects editable on a single page. Save operations happen
-through backbone.js with ajax calls containing JSON-LD data. There is one
-request per editable content that was actually modified. The CreateBundle REST
-controller handles those ajax calls and maps the JSON-LD data back onto your
-model classes and stores them in the database.
+Each property has a type. You can configure what editor to use for which type.
+CreateBundle comes with two editors: `plaintext` with no formatting, and
+WYSIWYG editing. You can also define your own editors.
 
-For image support, CKEditor can use elfinder to upload, browse and insert
-images into the content. See the
-:doc:`MediaBundle elfinder adapter documentation<../media/adapters/elfinder>`
-to enable this powerful image browser.
+Create.js uses backbone.js to save edited data to the server in the JSON-LD
+format. You may have several objects editable on a single page. There will be
+one request per editable content that was actually modified.
 
+The `CreatePHP`_ library provides the RDF information for `create.js`_ by
+creating `RDFa`_ attributes on your data in the templates. It also maps
+the JSON-LD sent by backbone.js back to your domain objects.
+
+The `CreatePHP`_ library contains a metadata tool to define the mapping between
+your domain objects and the RDF information. It provides a twig extension to
+enrich your HTML pages with the RDFa attributes, similar to how you output forms.
+CreatePHP also provides the means to store the JSON-LD data sent by backbone.js
+back into your domain objects and save them. If you know Doctrine, this is a
+similar job to how Doctrine reads data from database columns and loads them
+into your domain objects.
+
+The CreateBundle finally registers the twig extension in Symfony and provides
+a REST controller for the backbone.js ajax calls. It also provides helpers to
+bootstrap create.js in your templates.
 
 .. index:: CreateBundle
 
@@ -68,7 +80,7 @@ which in turn needs the JmsSerializerBundle. Make sure you load all those
 bundles in your kernel and properly configure Assetic as described below.
 
 To upload and display images the :doc:`MediaBundle <../media/introduction>` is
-used.
+used. CKEditor uses the :doc:`elfinder adapter <../media/adapters/elfinder>`.
 
 .. _bundle-create-ckeditor:
 
@@ -343,10 +355,10 @@ you need to adjust your templates to output that information.
 
 .. note::
 
-    If you use custom models that did not come with RDFa mapping files, see
+    If you use custom types that did not come with RDFa mapping files, see
     the remainder of this page to learn how to define the mappings.
 
-To render your model named ``cmfMainContent`` with a handle you call ``rdf``, use the
+To render your data named ``cmfMainContent`` with a handle you call ``rdf``, use the
 ``createphp`` twig tag as follows:
 
 .. code-block:: html+jinja
@@ -360,9 +372,9 @@ To render your model named ``cmfMainContent`` with a handle you call ``rdf``, us
 
 The ``noautotag`` tells CreatePHP to not automatically output a ``<div>`` with
 namespace declarations and the ``about`` property containing the id of your
-model. When using ``noautotag``, it is your responsibility to call
-``createphp_attributes()`` inside a container tag that contains all fields of
-one model instance.
+object. When using ``noautotag``, it is your responsibility to call
+``createphp_attributes()`` inside a container tag that contains the fields of
+the object.
 
 You can also output a whole field complete with tag, attributes and content by
 just calling ``{{ rdf.body|raw }}``. (Without the ``raw`` filter, the HTML
@@ -384,15 +396,15 @@ your HTML structure if you want.
 Metadata
 --------
 
-CreatePHP needs metadata information for each class of your domain model. By
+CreatePHP needs metadata information for each class of your domain objects. By
 default, the create bundle uses the XML metadata driver and looks for metadata
 in every bundles at ``<Bundle>/Resources/rdf-mappings``. If you use a third
 party bundle that does not come with RDFa mapping, you can simply include a
 mapping file for it in any of your bundles, or specify a directory containing
 mapping files with the ``rdf_config_dirs`` option.
 
-The mapping file name needs to be the fully qualified class name of your model
-class, having the backslash (``\\``) replaced by a dot (``.``), i.e.
+The mapping file name needs to be the fully qualified class name, having the
+backslash (``\\``) replaced by a dot (``.``), i.e.
 ``Symfony.Cmf.Bundle.ContentBundle.Doctrine.Phpcr.StaticContent.xml``.
 
 A basic mapping look as follows:
@@ -457,11 +469,11 @@ reads like this:
     All of these issues will hopefully be fixed in later versions if people
     step up and contribute pull requests.
 
-Mapping Requests to Domain Model
---------------------------------
+Mapping Requests to Domain Objects
+----------------------------------
 
 One last piece is the mapping between CreatePHP data and the application
-domain model. Data needs to be stored back into the database.
+domain objects. Data needs to be stored back into the database.
 
 In version 1.0, the CreateBundle only provides a service to map to Doctrine
 PHPCR-ODM. If you do not enable the phpcr persistence layer, you need to
@@ -479,8 +491,10 @@ into the CreatePHP and CreateBundle and do a pull request to enable this feature
 
 .. _`create.js`: http://createjs.org
 .. _`hallo.js`: http://hallojs.org
+.. _`CKEditor`: http://ckeditor.com/
 .. _`CreatePHP`: https://github.com/flack/createphp
 .. _`with composer`: http://getcomposer.org
 .. _`symfony-cmf/create-bundle`: https://packagist.org/packages/symfony-cmf/create-bundle
+.. _`RDF`: http://en.wikipedia.org/wiki/Resource_Description_Framework
 .. _`RDFa`: http://en.wikipedia.org/wiki/RDFa
 .. _`Symfony2 security chapter`: http://symfony.com/doc/current/book/security.html
