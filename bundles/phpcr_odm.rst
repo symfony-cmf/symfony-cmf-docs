@@ -540,6 +540,51 @@ Form Types
 The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM
 specific cases, along with form type guessers.
 
+phpcr_document
+~~~~~~~~~~~~~~
+
+This form type is suitable to edit associations of PHPCR-ODM documents. It
+works for ReferenceOne, ReferenceMany and Referrers but also for
+ParentDocument associations. Make sure to set the ``multiple`` option
+for ReferenceMany and Referrers, and to not set it for the others.
+
+.. note::
+
+    While Children is also an association, it makes no sense to edit it
+    with this form type. Children are automatically attached to its parent.
+    MixedReferrers could be shown as a ``disabled`` but never edited,
+    because this association is immutable.
+
+This form type is equivalent to the ``entity`` form type provided by Symfony
+for Doctrine ORM. It has the same options as the ``entity`` type, including
+that the option for the document manager is called ``em``.
+
+A simple example of using the ``phpcr_document`` form type looks as follows::
+
+    $form
+        ->add(
+            'speakers',
+            'phpcr_document',
+            array(
+                'property' => 'title',
+                'class' => 'Acme\DemoBundle\Document\TargetClass',
+                'multiple' => true,
+            )
+        )
+    ;
+
+This will produce a multiple choice select field with the value of
+``getTitle`` called on each instance of ``TargetClass`` found in the
+content repository. Alternatively, you can set the ``choices`` option
+to a list of allowed managed documents. Please refer to the
+`Symfony documentation on the entity form type`_ for more details,
+including how you can configure a query.
+
+If you are using Sonata Admin, you might want to look into
+``sonata_type_collection``. This form type allows to edit related
+documents (references as well as children) inline and also to create
+and remove them on the fly.
+
 phpcr_odm_reference_collection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -816,6 +861,7 @@ Dumping nodes under ``/cms/simple`` including their properties:
 .. _`the PHPCR-ODM documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html
 .. _`Symfony event subscriber`: http://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers
 .. _`Symfony cookbook entry`: http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html
+.. _`Symfony documentation on the entity form type`: http://symfony.com/doc/current/reference/forms/types/entity.html
 .. _`currently broken`: https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145
 .. _`DoctrineMigrationsBundle`: http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
 .. _`DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
