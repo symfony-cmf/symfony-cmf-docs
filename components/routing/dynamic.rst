@@ -186,7 +186,7 @@ alternative semantics of ``$name``.
 
 The ``ProviderBasedGenerator`` extends Symfony2's default
 :class:`Symfony\\Component\\Routing\\Generator\\UrlGenerator` (which, in turn,
-implements :class:`Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface``)
+implements :class:`Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface`)
 and - if the name is not already a ``Route`` object - loads the Route from the
 Route provider. It then lets the core logic generate the URL from that ``Route``.
 
