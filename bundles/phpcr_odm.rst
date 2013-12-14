@@ -250,8 +250,8 @@ You can also enable `metadata caching`_.
                         alias:                ~
                         prefix:               ~
                         is_bundle:            ~
-                auto_generate_proxy_classes: %kernel.debug%
-                proxy_dir:            %kernel.cache_dir%/doctrine/PHPCRProxies
+                auto_generate_proxy_classes: "%kernel.debug%"
+                proxy_dir:            "%kernel.cache_dir%/doctrine/PHPCRProxies"
                 proxy_namespace:      PHPCRProxies
 
                 metadata_cache_driver:
@@ -365,26 +365,26 @@ A full example looks as follows:
                 sessions:
 
                     default:
-                        backend: %phpcr_backend%
-                        workspace: %phpcr_workspace%
-                        username: %phpcr_user%
-                        password: %phpcr_pass%
+                        backend: "%phpcr_backend%"
+                        workspace: "%phpcr_workspace%"
+                        username: "%phpcr_user%"
+                        password: "%phpcr_pass%"
 
                     website:
                         backend:
                             type: jackrabbit
-                            url: %magnolia_url%
+                            url: "%magnolia_url%"
                         workspace: website
-                        username: %magnolia_user%
-                        password: %magnolia_pass%
+                        username: "%magnolia_user%"
+                        password: "%magnolia_pass%"
 
                     dms:
                         backend:
                             type: jackrabbit
-                            url: %magnolia_url%
+                            url: "%magnolia_url%"
                         workspace: dms
-                        username: %magnolia_user%
-                        password: %magnolia_pass%
+                        username: "%magnolia_user%"
+                        password: "%magnolia_pass%"
             # enable the ODM layer
             odm:
                 document_managers:
@@ -408,7 +408,7 @@ A full example looks as follows:
                         mappings:
                             SandboxMagnoliaBundle: ~
 
-                auto_generate_proxy_classes: %kernel.debug%
+                auto_generate_proxy_classes: "%kernel.debug%"
 
 .. tip::
 

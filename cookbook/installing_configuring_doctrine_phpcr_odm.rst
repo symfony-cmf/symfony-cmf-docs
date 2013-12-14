@@ -232,15 +232,15 @@ If you want to use the PHPCR-ODM as well, please also see the next section.
 
         doctrine:
             dbal:
-                driver:   %database_driver%
-                host:     %database_host%
-                port:     %database_port%
-                dbname:   %database_name%
-                user:     %database_user%
-                password: %database_password%
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
                 charset:  UTF8
 
-     See `Databases and Doctrine`_ for more information.
+    See `Databases and Doctrine`_ for more information.
 
 **Midgard**
 

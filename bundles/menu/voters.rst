@@ -211,7 +211,7 @@ voters (see below), except you do not need to write your own PHP code:
                 class: Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter
                 arguments:
                     - contentDocument
-                    - %my_bundle.my_model_class%
+                    - "%my_bundle.my_model_class%"
                 tags:
                     - { name: "cmf_menu.voter" }
                     - { name: "cmf_request_aware" }
