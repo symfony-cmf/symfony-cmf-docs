@@ -888,7 +888,7 @@ No translations? Uncomment the translator in the configuration file:
         # ...
         framework:
             # ...
-            translator:      { fallback: %locale% }
+            translator:      { fallback: "%locale%" }
 
     .. code-block:: xml
 

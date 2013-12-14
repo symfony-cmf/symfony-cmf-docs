@@ -306,7 +306,7 @@ you can lower the priority of those voters.
 
         services:
             acme.security.publishable_voter:
-                class: %my_namespace.security.publishable_voter.class%
+                class: "%my_namespace.security.publishable_voter.class%"
                 tags:
                     - { name: cmf_published_voter, priority: 30 }
 

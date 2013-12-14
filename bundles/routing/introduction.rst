@@ -60,7 +60,7 @@ will look like this
 
         services:
             acme_core.my_router:
-                class: %my_namespace.my_router_class%
+                class: "%my_namespace.my_router_class%"
                 tags:
                     - { name: router, priority: 300 }
 

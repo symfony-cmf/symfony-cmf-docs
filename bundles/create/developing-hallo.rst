@@ -49,9 +49,9 @@ and you need the `coffee compiler set up correctly`_.
             filters:
                 cssrewrite: ~
                 coffee:
-                    bin: %coffee.bin%
-                    node: %coffee.node%
-                    apply_to: %coffee.extension%
+                    bin: "%coffee.bin%"
+                    node: "%coffee.node%"
+                    apply_to: "%coffee.extension%"
 
     .. code-block:: xml
 
