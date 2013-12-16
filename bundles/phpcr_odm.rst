@@ -588,6 +588,12 @@ and remove them on the fly.
 phpcr_odm_reference_collection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. caution::
+
+    This form type was deprecated in DoctrinePHPCRBundle 1.1 and will be
+    removed in DoctrinePHPCRBundle 1.2. You should use the `phpcr_document`_
+    type instead, which can do the same but better.
+
 This form type handles editing ``ReferenceMany`` collections on PHPCR-ODM
 documents.  It is a choice field with an added ``referenced_class`` required
 option that specifies the class of the referenced target document.
