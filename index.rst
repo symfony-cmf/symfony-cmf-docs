@@ -74,8 +74,8 @@ Looking for some in depth information about a CMF Bundle? Want to know if you
 can use a bundle independently and how to do it? In this case the bundles
 section is the right place for you!
 
-Core Bundles
-~~~~~~~~~~~~
+Key Bundles
+~~~~~~~~~~~
 
 Most of the Symfony CMF bundles provide some functionality, they integrate a
 library or they introduce a complete new concept.
@@ -96,10 +96,10 @@ library or they introduce a complete new concept.
 Showcase Bundles
 ~~~~~~~~~~~~~~~~
 
-Other bundles provide an example on how to use these core bundles. They all
+Other bundles provide an example on how to use these key bundles. They all
 show a different way of implementing a concept. You can use these bundles in
 your project, but you can also get ideas from these bundles to create your own
-bundle based on the core bundles.
+bundle based on the key bundles.
 
 .. toctree::
     :maxdepth: 1
@@ -108,8 +108,8 @@ bundle based on the core bundles.
     bundles/content/index
     bundles/simple_cms/index
 
-3th Party Bundles
-~~~~~~~~~~~~~~~~~
+Contributed Bundles
+~~~~~~~~~~~~~~~~~~~
 
 Besides that, the Symfony CMF team also maintains some 3th party bundles which
 help with integrating PHPCR concepts into the Symfony Framework.
