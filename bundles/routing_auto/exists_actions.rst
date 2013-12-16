@@ -5,7 +5,7 @@ Path Exists Actions
 -------------------
 
 These are the default actions available to take if the path provided by a
-`path_provider` already exists and so creating a new path would create a
+``path_provider`` already exists and so creating a new path would create a
 conflict.
 
 auto_increment
@@ -18,9 +18,7 @@ it finds a path which *doesn't* exist.
 
 This action should typically be used in the ``content_name`` builder unit to
 resolve conflicts. Using it in the ``content_path`` builder chain would not
-make much sense (I can't imagine any use cases at the moment).
-
-Example:
+make much sense.
 
 .. configuration-block::
 
@@ -43,16 +41,13 @@ use
 ~~~
 
 The ``use`` action will simply take the existing path and use it. For example,
-in our post example the first builder unit must first determine the blogs
-path, ``/my/blog``, if this path exists (and it should) then we will *use* it
-in the stack.
+in a forum the builder unit must first determine the category path, ``/my-category``,
+if this path exists (and it should) then it will be *used* in the stack.
 
 This action should typically be used in one of the content path builder units
-to specify that we should use the existing route, on the other hand, using
+to specify that it should use the existing route. On the other hand, using
 this as the content name builder action should cause the old route to be
 overwritten.
-
-Example:
 
 .. configuration-block::
 

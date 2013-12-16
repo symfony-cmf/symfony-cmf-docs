@@ -22,9 +22,6 @@ Options
 
 * ``path`` - **required** The path to provide.
 
-Example
-.......
-
 .. configuration-block::
 
     .. code-block:: yaml
@@ -67,9 +64,6 @@ Options
 
  - ``method``: **required** Method used to return the document whose route path you wish to use.
 
-Example
-.......
-
 .. configuration-block::
 
     .. code-block:: yaml
@@ -108,9 +102,6 @@ Options
 
 * ``method``: **required** Method used to return the route name/path/path elements.
 * ``slugify``: If the return value should be slugified, default is ``true``.
-
-Example
-.......
 
 .. configuration-block::
 
@@ -166,9 +157,6 @@ content_datetime
 
 The ``content_datettime`` provider will provide a path from a ``DateTime``
 object provided by a designated method on the content document.
-
-Example
-.......
 
 .. configuration-block::
 

@@ -10,9 +10,7 @@ These are the default actions available to take if the path provided by a
 create
 ~~~~~~
 
-The ``create`` action will create the path. **currently** all routes provided
-by the content path build units will be created as ``Generic`` documents,
-whilst the content name route will be created as an ``AutoRoute`` document.
+The ``create`` action will create the path.
 
 .. configuration-block::
 
@@ -30,6 +28,12 @@ whilst the content name route will be created as an ``AutoRoute`` document.
             // ...
             'not_exists_action' => 'create',
         );
+
+.. note::
+
+    **Currently** all routes provided by the content path build units will be
+    created as ``Generic`` documents, whilst the content name route will be
+    created as an ``AutoRoute`` document.
 
 throw_exception
 ~~~~~~~~~~~~~~~
