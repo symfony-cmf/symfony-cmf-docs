@@ -8,7 +8,7 @@ Path providers specify a target path which is used by the subsequent path
 actions to provide the actual route documents.
 
 **Base** providers must be the first configured as the first builder in the
-content path chain.  This is because the paths that they provide correspond
+content path chain. This is because the paths that they provide correspond
 directly to an existing path, i.e. they have an absolute reference.
 
 specified (base provider)
@@ -16,6 +16,14 @@ specified (base provider)
 
 This is the most basic path provider and allows you to specify an exact
 (fixed) path.
+
+Options
+.......
+
+* ``path`` - **required** The path to provide.
+
+Example
+.......
 
 .. configuration-block::
 
@@ -36,68 +44,73 @@ This is the most basic path provider and allows you to specify an exact
             'provider' => array('specified', array('path' => 'this/is/a/path')),
         );
 
-Options:
+.. caution::
 
-* ``path`` - **required** The path to provide.
-
-.. note::
-
-    You never specifiy absolute paths in the auto route system. If the builder
-    unit is the first content path chain it is understood that it is the base
-    of an absolute path.
+    You should never specifiy absolute paths in the auto route system. If the
+    builder unit is the first content path chain it is understood that it is
+    the base of an absolute path.
 
 content_object (base provider)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The content object provider will try and provide a path from an object
 implementing ``RouteReferrersInterface`` provided by a designated method on the
-content document. For example, if you have a ``Post`` class, which has a
-``getBlog`` method, using this provider you can tell the ``Post`` auto route
-to use the route of the blog as a base.
+content document. For example, if you have a ``Topic`` class, which has a
+``getCategory`` method, using this provider you can tell the ``Topic`` auto route
+to use the route of the category as a base.
 
-So basically, if your blog content has a path of ``/this/is/my/blog`` you can
-use this path as the base of your ``Post`` auto-route.
+So basically, if your category document has a path of ``/this/is/my/category``,
+you can use this path as the base of your ``Category`` auto-route.
 
-Example:
+Options
+.......
+
+ - ``method``: **required** Method used to return the document whose route path you wish to use.
+
+Example
+.......
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        provider: [content_object, { method: getBlog }]
+        provider: [content_object, { method: getCategory }]
 
     .. code-block:: xml
 
         <provider name="content_object">
-            <option name="method" value="getBlog" />
+            <option name="method" value="getCategory" />
         </provider>
 
     .. code-block:: php
 
         array(
             // ...
-            'provider' => array('content_object', array('method' => 'getBlog')),
+            'provider' => array('content_object', array('method' => 'getCategory')),
         );
 
 .. note::
 
-    At the time of writing translated objects are not supported. This isn't hard to do, but well, I just
-    havn't done it yet.
-
-Options:
-
- - ``method``: **required** Method used to return the document whose route path we wish to use.
+    At the time of writing translated objects are not supported. But a patch
+    is already created for this feature.
 
 content_method
 ~~~~~~~~~~~~~~
 
-The ``content_method`` provider allows the content object (e.g. a blog
-``Post``) to specify a path using one of its methods. This is quite a powerful
+The ``content_method`` provider allows the content object (e.g. a forum
+``Topic``) to specify a path using one of its methods. This is quite a powerful
 method as it allows the content document to do whatever it can to produce the
 route, the disadvantage is that your content document will have extra code in
 it.
 
-**Example 1**:
+Options
+.......
+
+* ``method``: **required** Method used to return the route name/path/path elements.
+* ``slugify``: If the return value should be slugified, default is ``true``.
+
+Example
+.......
 
 .. configuration-block::
 
@@ -118,29 +131,35 @@ it.
             'provider' => array('content_method', array('method' => 'getTitle')),
         );
 
-This example will use the existing method "getTitle" of the ``Post`` document
+This example will use the existing method "getTitle" of the ``Topic`` document
 to retrieve the title. By default all strings are *slugified*.
 
-The method can return the path either as a single string or an array of path
-elements as shown in the following example::
+The method can return the path either as a single string, an array of path
+elements or an object which can be converted into a string, as shown in the
+following example::
 
-    class Post
+    class Topic
     {
-         public function getTitle()
-         {
-             return "This is a post";
-         }
+        /* Using a string */
+        public function getTitle()
+        {
+            return "This is a topic";
+        }
 
-         public function getPathElements()
-         {
-             return array('this', 'is', 'a', 'path');
-         }
+        /* Using an array */
+        public function getPathElements()
+        {
+            return array('this', 'is', 'a', 'path');
+        }
+
+        /* Using an object */
+        public function getStringObject()
+        {
+            $object = ...; // an object which has a __toString() method
+
+            return $object;
+        }
     }
-
-Options:
-
-* ``method``: **required** Method used to return the route name/path/path elements.
-* ``slugify``: If we should use the slugifier, default is ``true``.
 
 content_datetime
 ~~~~~~~~~~~~~~~~
@@ -148,28 +167,8 @@ content_datetime
 The ``content_datettime`` provider will provide a path from a ``DateTime``
 object provided by a designated method on the content document.
 
-**Example 1**:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        provider: [content_datetime, { method: getDate }]
-
-    .. code-block:: xml
-
-        <provider name="content_datetime">
-            <option name="method" value="getDate" />
-        </provider>
-
-    .. code-block:: php
-
-        array(
-            // ...
-            'provider' => array('content_datetime', array('method' => 'getDate')),
-        );
-
-**Example 2**:
+Example
+.......
 
 .. configuration-block::
 
@@ -196,17 +195,18 @@ object provided by a designated method on the content document.
 
 .. note::
 
-    This method extends `content_method` and inherits the slugify feature.
-    Internally we return a string using the `DateTime->format()` method. This
+    This method extends `content_method`_ and inherits the slugify feature.
+    Internally, it returns a string using the `DateTime->format()` method. This
     means that you can specify your date in anyway you like and it will be
-    automatically slugified, also, by adding path separators in the
-    `date_format` you are effectively creating routes for each date component
+    automatically slugified. Also, by adding path separators in the
+    ``date_format`` you are effectively creating routes for each date component
     as slugify applies to **each element** of the path.
 
-Options:
+Options
+.......
 
 * ``method``: **required** Method used to return the route name/path/path
   elements.
-* ``slugify``: If we should use the slugifier, default is ``true``.
+* ``slugify``: If the return value should be slugified, default is ``true``.
 * ``date_format``: Any date format accepted by the `DateTime` class, default
   ``Y-m-d``.
