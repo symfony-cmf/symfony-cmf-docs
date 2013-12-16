@@ -1,0 +1,72 @@
+.. index::
+    single: Exists Actions; RoutingAutoBundle
+
+Path Exists Actions
+-------------------
+
+These are the default actions available to take if the path provided by a
+`path_provider` already exists and so creating a new path would create a
+conflict.
+
+auto_increment
+~~~~~~~~~~~~~~
+
+The ``auto_increment`` action will add a numerical suffix to the path, for
+example ``my/path`` would first become ``my/path-1`` and if that path *also*
+exists it will try ``my/path-2``, ``my/path-3`` and so on into infinity until
+it finds a path which *doesn't* exist.
+
+This action should typically be used in the ``content_name`` builder unit to
+resolve conflicts. Using it in the ``content_path`` builder chain would not
+make much sense (I can't imagine any use cases at the moment).
+
+Example:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        exists_action: auto_increment
+
+    .. code-block:: xml
+
+        <exists-action name="auto_increment" />
+
+    .. code-block:: php
+
+        array(
+            // ...
+            'exists_action' => 'auto_increment',
+        );
+
+use
+~~~
+
+The ``use`` action will simply take the existing path and use it. For example,
+in our post example the first builder unit must first determine the blogs
+path, ``/my/blog``, if this path exists (and it should) then we will *use* it
+in the stack.
+
+This action should typically be used in one of the content path builder units
+to specify that we should use the existing route, on the other hand, using
+this as the content name builder action should cause the old route to be
+overwritten.
+
+Example:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        exists_action: use
+
+    .. code-block:: xml
+
+        <exists-action name="use" />
+
+    .. code-block:: php
+
+        array(
+            // ...
+            'exists_action' => 'use',
+        );
