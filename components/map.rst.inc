@@ -9,3 +9,8 @@
 * **Testing**
 
   * :doc:`testing`
+
+.. note::
+
+    The Testing component is a bit strange, as it can only be used with the
+    symfony framework. There are plans to change this in the feature.

@@ -59,6 +59,7 @@ will typically want to keep this close at hand.
 
 .. toctree::
     :maxdepth: 1
+    :numbered:
 
     book/installation
     book/simplecms
@@ -74,51 +75,7 @@ Looking for some in depth information about a CMF Bundle? Want to know if you
 can use a bundle independently and how to do it? In this case the bundles
 section is the right place for you!
 
-Key Bundles
-~~~~~~~~~~~
-
-Most of the Symfony CMF bundles provide some functionality, they integrate a
-library or they introduce a complete new concept.
-
-.. toctree::
-    :maxdepth: 1
-
-    bundles/block/index
-    bundles/core/index
-    bundles/create/index
-    bundles/media/index
-    bundles/menu/index
-    bundles/routing/index
-    bundles/routing_auto
-    bundles/search/index
-    bundles/tree_browser/index
-
-Showcase Bundles
-~~~~~~~~~~~~~~~~
-
-Other bundles provide an example on how to use these key bundles. They all
-show a different way of implementing a concept. You can use these bundles in
-your project, but you can also get ideas from these bundles to create your own
-bundle based on the key bundles.
-
-.. toctree::
-    :maxdepth: 1
-
-    bundles/blog
-    bundles/content/index
-    bundles/simple_cms/index
-
-Contributed Bundles
-~~~~~~~~~~~~~~~~~~~
-
-Besides that, the Symfony CMF team also maintains some 3th party bundles which
-help with integrating PHPCR concepts into the Symfony Framework.
-
-.. toctree::
-    :maxdepth: 1
-
-    bundles/doctrine_phpcr_admin
-    bundles/phpcr_odm
+:doc:`Browse the bundles <bundles/index>`
 
 Components
 ----------
@@ -127,16 +84,7 @@ The Symfony CMF believes in a concept where bundles integrate library
 (components) into the framework. The components can be used in any PHP
 project, even when they are not using Symfony.
 
-.. toctree::
-    :maxdepth: 1
-
-    components/routing/introduction
-    components/testing
-
-.. note::
-
-    The Testing component is a bit strange, as it can only be used with the
-    symfony framework. There are plans to change this in the feature.
+:doc:`Browse the components <components/index>`
 
 Reference
 ---------
@@ -145,50 +93,21 @@ Ever wondered what configuration options you have available to you in files
 such as ``app/config/config.yml``? In this section, all available
 configuration is broken down per bundle.
 
-.. toctree::
-    :maxdepth: 1
-
-    reference/configuration/block
-    reference/configuration/content
-    reference/configuration/core
-    reference/configuration/create
-    reference/configuration/media
-    reference/configuration/menu
-    reference/configuration/routing
-    reference/configuration/search
-    reference/configuration/simple_cms
-    reference/configuration/tree_browser
+:doc:`Browse the reference <reference/index>`
 
 Cookbook
 --------
 
 The cookbook consist of articles about advanced concepts of the Symfony CMF.
 
-.. toctree::
-    :maxdepth: 1
-
-    cookbook/create_new_project_phpcr_odm
-    cookbook/create_basic_cms_auto_routing
-    cookbook/creating_cms_using_cmf_and_sonata
-    cookbook/database/choosing_storage_layer
-    cookbook/editions/cmf_core
-    cookbook/editions/cmf_sandbox
-    cookbook/handling_multilang_documents
-    cookbook/installing_configuring_doctrine_phpcr_odm
-    cookbook/using_blockbundle_and_contentbundle
+:doc:`Browse the cookbook <cookbook/index>`
 
 Contributing
 ------------
 
 Do you want to contribute to the Symfony CMF? Start reading these articles!
 
-.. toctree::
-    :maxdepth: 1
-
-    contributing/code
-    contributing/bundles
-    contributing/releases
-    contributing/license
+:doc:`Browse the contributing guide <cookbook/index>`
 
 .. _`decoupled CMS`: http://decoupledcms.org
 .. _`Symfony2`: http://symfony.com
