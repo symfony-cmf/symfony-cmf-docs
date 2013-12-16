@@ -25,12 +25,12 @@ Concepts
 --------
 
 To know the RDF model of your data, create.js parses the page DOM for `RDFa`_
-attributes. Whenever it encounters an `about` attribute, it knows that this
-section is an editable content. The `typeof` attribute tells what type the
-content has. The `property` attributes mean that the parts inside that tag are
-editable. An article might look like this:
+attributes. Whenever it encounters an ``about`` attribute, it knows that this
+section is an editable content. The ``typeof`` attribute tells what type the
+content has. The ``property`` attributes indicate that the parts inside that tag
+are editable. An article might look like this:
 
-.. code-block:: html
+.. code-block:: xml
 
     <div about="/cms/content/home" typeof="schema:WebPage" xmlns:schema="http://schema.org/">
         <h1 property="schema:headline">The Title</h1>
@@ -41,8 +41,8 @@ editable. An article might look like this:
     </div>
 
 Each property has a type. You can configure what editor to use for which type.
-CreateBundle comes with two editors: `plaintext` with no formatting, and
-WYSIWYG editing. You can also define your own editors.
+CreateBundle comes with two editors: **plaintext** (with no formatting) and
+**WYSIWYG**. You can also define your own editors.
 
 Create.js uses backbone.js to save edited data to the server in the JSON-LD
 format. You may have several objects editable on a single page. There will be
@@ -64,8 +64,6 @@ The CreateBundle finally registers the twig extension in Symfony and provides
 a REST controller for the backbone.js ajax calls. It also provides helpers to
 bootstrap create.js in your templates.
 
-.. index:: CreateBundle
-
 Dependencies
 ------------
 
@@ -74,8 +72,8 @@ create.js dependencies like jquery, vie, hallo, backbone and so on. Do not
 forget to add the composer script handler to your ``composer.json`` as described
 below to have CreateBundle clone that repository for you.
 
-PHP dependencies are managed through composer. Besides the aforementioned
-CreatePHP, CreateBundle also needs the AsseticBundle and the FOSRestBundle
+PHP dependencies are managed through composer. Besides the before mentioned
+CreatePHP, the CreateBundle also requires the AsseticBundle and the FOSRestBundle
 which in turn needs the JmsSerializerBundle. Make sure you load all those
 bundles in your kernel and properly configure Assetic as described below.
 
@@ -112,7 +110,7 @@ have the CreateBundle download the necessary libraries:
 It is possible to specify another target directory, repository URL or commit
 id in the extra parameters of ``composer.json`` file if you need to use a
 development version of CKEditor or create.js. The default values (note that you
-should **not hardcode** those in your composer.json unless you need to
+should **not hardcode** those in your ``composer.json`` unless you need to
 overwrite them) are:
 
 .. code-block:: javascript
@@ -133,16 +131,24 @@ Add this bundle (and its dependencies, if they are not already added) to your
 application's kernel::
 
     // app/AppKernel.php
-    public function registerBundles()
+
+    // ...
+    class AppKernel extends Kernel
     {
-        return array(
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+                new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+                new JMS\SerializerBundle\JMSSerializerBundle($this),
+                new FOS\RestBundle\FOSRestBundle(),
+                new Symfony\Cmf\Bundle\CreateBundle\CmfCreateBundle(),
+            );
+
             // ...
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle($this),
-            new FOS\RestBundle\FOSRestBundle(),
-            new Symfony\Cmf\Bundle\CreateBundle\CmfCreateBundle(),
-            // ...
-        );
+        }
+
+        // ...
     }
 
 You also need to configure the FOSRestBundle to handle json:
@@ -151,6 +157,7 @@ You also need to configure the FOSRestBundle to handle json:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         fos_rest:
             view:
                 formats:
@@ -158,14 +165,20 @@ You also need to configure the FOSRestBundle to handle json:
 
     .. code-block:: xml
 
-        <config xmlns="http://example.org/schema/dic/fos_rest">
-            <view>
-                <format name="json">true</format>
-            </view>
-        </config>
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://example.org/schema/dic/fos_rest">
+                <view>
+                    <format name="json">true</format>
+                </view>
+            </config>
+        </container>
 
     .. code-block:: php
 
+        // app/config/config.php
         $container->loadFromExtension('fos_rest', array(
             'view' => array(
                 'formats' => array(
@@ -176,7 +189,7 @@ You also need to configure the FOSRestBundle to handle json:
 
 If you want to use Assetic to combine the CSS and Javascript used for
 create.js, you need to enable the CreateBundle in the assetic configuration.
-Find the configuration for `assetic.bundles`. If it is not present, assetic
+Find the configuration for ``assetic.bundles``. If it is not present, assetic
 automatically scans all bundles for assets and you don't need to do anything.
 If you limit the bundles, you need to add ``CmfCreateBundle`` to the list of
 bundles.
@@ -186,23 +199,25 @@ bundles.
     .. code-block:: yaml
 
         assetic:
-            bundles: [ ... , CmfCreateBundle, ...]
+            bundles: [... , CmfCreateBundle]
 
     .. code-block:: xml
 
-        <config xmlns="http://example.org/schema/dic/assetic">
-            ...
-            <bundle>CmfCreateBundle</bundle>
-            ...
-        </config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://symfony.com/schema/dic/assetic">
+                <!-- ... -->
+                <bundle>CmfCreateBundle</bundle>
+            </config>
+        </container>
 
     .. code-block:: php
 
         $container->loadFromExtension('assetic', array(
             'bundles' => array(
-                ...
+                // ...
                 'CmfCreateBundle',
-                ...
             ),
         ));
 
@@ -221,7 +236,11 @@ routing configuration to enable the REST end point for saving content:
 
     .. code-block:: xml
 
-        <import resource="@CmfCreateBundle/Resources/config/routing/rest.xml" />
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <routes xmlns="http://symfony.com/schema/dic/routing">
+
+            <import resource="@CmfCreateBundle/Resources/config/routing/rest.xml" />
+        </routes>
 
     .. code-block:: php
 
@@ -442,22 +461,20 @@ rendering this field (see below). The default tag is ``div``. And you can
 specify additional HTML attributes like the ``class`` attribute. A full example
 reads like this:
 
-.. configuration-block::
+.. code-block:: xml
 
-    .. code-block:: xml
-
-        <!-- Resources/rdf-mappings/Symfony.Cmf.Bundle.ContentBundle.Doctrine.Phpcr.StaticContent.xml -->
-        <type
-                xmlns:schema="http://schema.org/"
-                typeof="schema:WebPage"
-                >
-            <children>
-                <property property="schema:headline" identifier="title" tag-name="h1"/>
-                <property property="schema:text" identifier="body">
-                    <attribute key="class" value="my-css-class"/>
-                </property>
-            </children>
-        </type>
+    <!-- Resources/rdf-mappings/Symfony.Cmf.Bundle.ContentBundle.Doctrine.Phpcr.StaticContent.xml -->
+    <type
+        xmlns:schema="http://schema.org/"
+        typeof="schema:WebPage"
+    >
+        <children>
+            <property property="schema:headline" identifier="title" tag-name="h1"/>
+            <property property="schema:text" identifier="body">
+                <attribute key="class" value="my-css-class"/>
+            </property>
+        </children>
+    </type>
 
 .. note::
 
