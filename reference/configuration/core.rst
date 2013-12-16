@@ -158,10 +158,15 @@ This setting can be used to force a specific translation strategy for all docume
 multilang
 ~~~~~~~~~
 
-This configures whether multiple language mode should be activated. Specifically this
-enables the ``TranslatableExtension`` for ``SonataAdminBundle``.
+This configures whether multiple languages mode should be activated.
 
-Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
+If the ``multilang`` option is *not* defined at all, the CoreBundle registers a
+listener for Doctrine PHPCR-ODM that modifies PHPCR-ODM metadata to remove the
+translatable attribute from all fields.
+
+If multilang is enabled, the ``TranslatableExtension`` for
+``SonataAdminBundle`` is enabled and the locales will be configured on all CMF
+bundles that use this configuration:
 
 * :doc:`RoutingBundle <../../bundles/routing/introduction>`
 * :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
