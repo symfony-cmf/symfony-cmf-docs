@@ -24,7 +24,7 @@ the route stack. For example, the following provider will add the path
     }
 
 To use the path provider you must register it in the **DIC** and add the
-``cmf_routing_auto.provider`` tag and set the **alias** accordingly.
+``cmf_routing_auto.provider`` tag and set the **alias** accordingly:
 
 .. configuration-block::
 
@@ -56,14 +56,14 @@ To use the path provider you must register it in the **DIC** and add the
 
         $container->setDefinition('my_cms.some_bundle.path_provider.foobar', $definition);
 
-The **foobar** path provider is now available as **foobar**.
+The ``FoobarProvider`` is now available as **foobar** in the routing auto
+configuration.
 
-.. note::
+.. caution::
 
-    The that both path providers and path actions need to be defined with a
-    scope of "prototype". This ensures that each time the auto routing system
-    requests the class a new one is given and we do not have any state
-    problems.
+    Both path providers and path actions need to be defined with a scope of
+    "prototype". This ensures that each time the auto routing system requests
+    the class a new one is given and you do not have any state problems.
 
 Adding Path Actions
 ~~~~~~~~~~~~~~~~~~~
@@ -77,7 +77,7 @@ registering your new class correctly in the DI configuration.
 This is a very simple implementation from the bundle - it is used to throw an
 exception when a path already exists::
 
-    namespace Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\PathNotExists;
+    namespace Acme\MainBundle\RoutingAuto\PathNotExists;
 
     use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\PathActionInterface;
     use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\Exception\CouldNotFindRouteException;
@@ -94,6 +94,9 @@ exception when a path already exists::
             throw new CouldNotFindRouteException('/'.$routeStack->getFullPath());
         }
     }
+
+The ``init()`` method checks if the required options exists and saves the options
+in property. The ``execute()`` method executes the action.
 
 It is registered in the DI configuration as follows:
 
@@ -130,7 +133,11 @@ It is registered in the DI configuration as follows:
 Note the following:
 
 * **Scope**: Must *always* be set to *prototype*;
-* **Tag**: The tag registers the service with the auto routing system, it can be one of the following;
-    * ``cmf_routing_auto.exists.action`` - if the action is to be used when a path exists;
-    * ``cmf_routing_auto.not_exists.action`` - if the action is to be used when a path does not exist;
-* **Alias**: The alias of the tag is the name by which you will reference this action in the auto routing schema.
+* **Tag**: The tag registers the service with the auto routing system, it can
+  be one of the following:
+    * ``cmf_routing_auto.exists.action`` - if the action is to be used when a
+      path exists;
+    * ``cmf_routing_auto.not_exists.action`` - if the action is to be used when
+      a path does not exist;
+* **Alias**: The alias of the tag is the name by which you will reference this
+  action in the auto routing configuration.
