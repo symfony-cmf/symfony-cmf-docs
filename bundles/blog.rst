@@ -36,8 +36,8 @@ Dependencies
 ------------
 
 * :doc:`CmfRoutingBundle <routing/introduction>` is used to manage the routing;
-* :doc:`CmfRoutingAutoBundle<routing_auto>` is used to manage automatically generate routes;
-* :doc:`PHPCR-ODM<phpcr_odm>` is used to persist the bundles documents.
+* :doc:`CmfRoutingAutoBundle <routing_auto/introduction>` is used to manage automatically generate routes;
+* :doc:`PHPCR-ODM <phpcr_odm>` is used to persist the bundles documents.
 
 Configuration
 -------------
@@ -140,7 +140,8 @@ The default configuration will produce URLs like the following::
 
     http://www.example.com/blogs/dtls-blog/2013-04-14/this-is-my-post
 
-Refer to the :doc:`routing_auto` documentation for more information.
+Refer to the :doc:`RoutingAutoBundle <routing_auto/introduction>` documentation
+for more information.
 
 Content Routing
 ~~~~~~~~~~~~~~~
