@@ -763,6 +763,7 @@ Enable the Sonata related bundles to your kernel::
         {
             $bundles = array(
                 // ...
+                new Sonata\CoreBundle\SonataCoreBundle(),
                 new Sonata\BlockBundle\SonataBlockBundle(),
                 new Sonata\jQueryBundle\SonatajQueryBundle(),
                 new Knp\Bundle\MenuBundle\KnpMenuBundle(),
