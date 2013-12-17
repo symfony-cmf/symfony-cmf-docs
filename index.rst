@@ -59,6 +59,7 @@ will typically want to keep this close at hand.
 
 .. toctree::
     :maxdepth: 1
+    :numbered:
 
     book/installation
     book/simplecms
@@ -70,38 +71,20 @@ will typically want to keep this close at hand.
 Bundles
 -------
 
-Looking for some in depth information about a CMF Bundle? Want a list of all the
-configuration options of a bundle? Want to know if you can use a bundle independently and how
-to do it? In this case the reference is the right place for you.
+Looking for some in depth information about a CMF Bundle? Want to know if you
+can use a bundle independently and how to do it? In this case the bundles
+section is the right place for you!
 
-.. toctree::
-    :maxdepth: 1
-
-    bundles/block/index
-    bundles/blog
-    bundles/content/index
-    bundles/core/index
-    bundles/create/index
-    bundles/phpcr_odm
-    bundles/media/index
-    bundles/menu/index
-    bundles/routing/index
-    bundles/routing_auto
-    bundles/search/index
-    bundles/simple_cms/index
-    bundles/doctrine_phpcr_admin
-    bundles/tree_browser/index
+:doc:`Browse the bundles <bundles/index>`
 
 Components
 ----------
 
-Looking for some information about the low level components of the CMF?
+The Symfony CMF believes in a concept where bundles integrate library
+(components) into the framework. The components can be used in any PHP
+project, even when they are not using Symfony.
 
-.. toctree::
-    :maxdepth: 1
-
-    components/routing/introduction
-    components/testing
+:doc:`Browse the components <components/index>`
 
 Reference
 ---------
@@ -110,50 +93,21 @@ Ever wondered what configuration options you have available to you in files
 such as ``app/config/config.yml``? In this section, all available
 configuration is broken down per bundle.
 
-.. toctree::
-    :maxdepth: 1
-
-    reference/configuration/block
-    reference/configuration/content
-    reference/configuration/core
-    reference/configuration/create
-    reference/configuration/media
-    reference/configuration/menu
-    reference/configuration/routing
-    reference/configuration/search
-    reference/configuration/simple_cms
-    reference/configuration/tree_browser
+:doc:`Browse the reference <reference/index>`
 
 Cookbook
 --------
 
-Special solutions for specific use cases that go beyond standard usage.
+The cookbook consist of articles about advanced concepts of the Symfony CMF.
 
-Want to know more about the CMF and how each part can be configured? There's a tutorial for each one.
-
-.. toctree::
-    :maxdepth: 1
-
-    cookbook/create_new_project_phpcr_odm
-    cookbook/create_basic_cms_auto_routing
-    cookbook/creating_cms_using_cmf_and_sonata
-    cookbook/database/choosing_storage_layer
-    cookbook/editions/cmf_core
-    cookbook/editions/cmf_sandbox
-    cookbook/handling_multilang_documents
-    cookbook/installing_configuring_doctrine_phpcr_odm
-    cookbook/using_blockbundle_and_contentbundle
+:doc:`Browse the cookbook <cookbook/index>`
 
 Contributing
 ------------
 
-.. toctree::
-    :maxdepth: 1
+Do you want to contribute to the Symfony CMF? Start reading these articles!
 
-    contributing/code
-    contributing/bundles
-    contributing/releases
-    contributing/license
+:doc:`Browse the contributing guide <cookbook/index>`
 
 .. _`decoupled CMS`: http://decoupledcms.org
 .. _`Symfony2`: http://symfony.com
