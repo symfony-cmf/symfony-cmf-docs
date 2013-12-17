@@ -1,3 +1,6 @@
+.. index::
+    single: Customization; RoutingAutoBundle
+
 Customization
 -------------
 
@@ -23,7 +26,7 @@ the route stack. For example, the following provider will add the path
         }
     }
 
-To use the path provider you must register it in the **DIC** and add the
+To use the path provider you must register it in the container and add the
 ``cmf_routing_auto.provider`` tag and set the **alias** accordingly:
 
 .. configuration-block::
@@ -95,8 +98,8 @@ exception when a path already exists::
         }
     }
 
-The ``init()`` method checks if the required options exists and saves the options
-in property. The ``execute()`` method executes the action.
+The ``init()`` method configures the provider (throwing errors when required
+options do not exists) and the ``execute()`` method executes the action.
 
 It is registered in the DI configuration as follows:
 
@@ -135,9 +138,11 @@ Note the following:
 * **Scope**: Must *always* be set to *prototype*;
 * **Tag**: The tag registers the service with the auto routing system, it can
   be one of the following:
+
     * ``cmf_routing_auto.exists.action`` - if the action is to be used when a
       path exists;
     * ``cmf_routing_auto.not_exists.action`` - if the action is to be used when
       a path does not exist;
+
 * **Alias**: The alias of the tag is the name by which you will reference this
   action in the auto routing configuration.

@@ -31,7 +31,7 @@ The ``create`` action will create the path.
 
 .. note::
 
-    **Currently** all routes provided by the content path build units will be
+    **Currently** all routes provided by the content path builder units will be
     created as ``Generic`` documents, whilst the content name route will be
     created as an ``AutoRoute`` document.
 

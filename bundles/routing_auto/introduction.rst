@@ -5,14 +5,14 @@
 RoutingAutoBundle
 =================
 
-.. include:: _not-stable-caution.rst.inc
-
     The RoutingAutoBundle allows you to define automatically created routes for
     documents.
 
+.. include:: ../_not-stable-caution.rst.inc
+
 This implies a separation of the ``Route`` and ``Content`` documents. If your
 needs are simple this bundle may not be for you and you should have a look at
-:doc:`the SimpleCmsBundle <simple_cms/introduction>`.
+:doc:`the SimpleCmsBundle <../simple_cms/introduction>`.
 
 Installation
 ------------
@@ -24,13 +24,14 @@ Features
 --------
 
 Imagine you are going to create a forum application that has two routeable
-contents, a category and the topics for that forum. These documents are called
+content documents - a category and the topics. These documents are called
 ``Category`` and ``Topic``, and they are called *content documents*.
 
-If you create a new category with the title "My New Category", the RoutingAutoBundle
-automatically create the route ``/forum/my-new-cateogry``. For each new ``Topic``
-it could create a route like ``/forum/my-new-category/my-topic-title``. This URL
-resolves to a special type of route that is called an *auto route*.
+If you create a new category with the title "My New Category", the
+RoutingAutoBundle will automatically create the route
+``/forum/my-new-cateogry``. For each new ``Topic`` it could create a route
+like ``/forum/my-new-category/my-new-topic``. This URL resolves to a special
+type of route that is called an *auto route*.
 
 By default, when you update a content document that has an auto route, the
 corresponding auto route will also be updated. When deleting a content
@@ -70,25 +71,23 @@ Usage
 The diagram below shows a fictional URL for a forum topic. The first 6 elements
 of the URL are called the *content path*. The last element is called the *content name*.
 
--- TODO update this image!!
+.. image:: ../../_images/bundles/routing_auto_post_schema.png
 
-.. image:: ../_images/bundles/routing_auto_post_schema.png
-
-The content path is further broken down into *route stacks* and *routes*. A
-route stack is a group of routes and routes are simply documents in the PHPCR
-tree.
+The content path is further broken down into *path units* and *path elements*. A
+path unit is a group of path elements and path elements are simply documents
+in the PHPCR tree.
 
 .. note::
 
-    Although routes can be of any document class in this case, only objects
-    which extend the :class:`Symfony\\Component\\Routing\\Route` object will
-    be considered when matching a URL.
+    Although path elements can be of any document class in this case, only
+    objects which extend the :class:`Symfony\\Component\\Routing\\Route`
+    object will be considered when matching a URL.
 
     The default behavior is to use ``Generic`` documents when generating a content
     path, and these documents will result in a 404 when accessed directly.
 
-Internally, each route stack is built up by a *builder unit*. Builder units
-contain one *path provider* class and two actions classes one action to take
+Internally, each path unit is built up by a *builder unit*. Builder units
+contain one *path provider* class and two actions classes - one action to take
 if the provided path exists in the PHPCR tree, the other if it does not. The
 goal of each builder unit is to generate a path and then provide a route
 object for each element in that path.
@@ -105,25 +104,19 @@ The configuration for the example above could be as follows:
 
                 Acme\ForumBundle\Document\Topic
                     content_path:
-                        # corresponds first route stack in diagram: my-forum
+                        # corresponds first path unit in diagram: my-forum
                         forum_path:
                             provider: [specified, { path: my-form }]
                             exists_action: use
                             not_exists_action: create
 
-                        # corresponds second route stack in diagram: my-category
+                        # corresponds second path unit in diagram: my-category
                         category_path:
                             provider: [content_object, { method: getCategory }]
                             exists_action: use
                             not_exists_action: throw_exception
 
-                        # corresponds third route stack in diagram: 2013/04/06
-                        date:
-                            provider: [content_datetime, { method: getPublishedDate } ]
-                            exists_action: use
-                            not_exists_action: create
-
-                    # corresponds to the content name: my-topic-title
+                    # corresponds to the content name: my-new-topic
                     content_name:
                         provider: [content_method, { method: getTitle }]
                         exists_action: [auto_increment, { pattern: -%d }]
@@ -140,14 +133,14 @@ The configuration for the example above could be as follows:
                 <mapping class="Acme\ForumBundle\Document\Topic">
 
                     <content-path>
-                        <!-- corresponds first route stack in diagram:  my-forum -->
+                        <!-- corresponds first path unit in diagram:  my-forum -->
                         <path-unit name="forum_path">
                             <provider name="specified">
                                 <option name="path" value="my-forum" />
                             </provider>
                         </path-unit>
 
-                        <!-- corresponds second route stack in diagram: my-category -->
+                        <!-- corresponds second path unit in diagram: my-category -->
                         <path-unit name="category_path">
                             <provider name="content_object">
                                 <option name="method" value="getCategory" />
@@ -155,17 +148,10 @@ The configuration for the example above could be as follows:
                             <exists-action strategy="use" />
                             <not-exists-action strategy="throw_exception" />
                         </path-unit>
-
-                        <!-- corresponds third route stack in diagram: 2013/04/06 -->
-                        <path-unit name="date">
-                            <provider name="content_datetime">
-                                <option name="method" value="getPublishedDate" />
-                            </provider>
-                        </path-unit>
                     </content-path>
 
 
-                    <!-- corresponds to the content name: my-topic-title -->
+                    <!-- corresponds to the content name: my-new-topic -->
                     <content-name>
                         <provider name="content_method">
                             <option name="method" value="getTitle" />
@@ -186,7 +172,7 @@ The configuration for the example above could be as follows:
             'mappings' => array(
                 'Acme\ForumBundle\Document\Topic' => array(
                     'content_path' => array(
-                        // corresponds first route stack in diagram: my-forum
+                        // corresponds first path unit in diagram: my-forum
                         'forum_path' => array(
                             'provider' => array('specified', array(
                                 'path' => 'my-forum',
@@ -195,7 +181,7 @@ The configuration for the example above could be as follows:
                             'not_exists_action' => 'create',
                         ),
 
-                        // corresponds second route stack in diagram: my-category
+                        // corresponds second path unit in diagram: my-category
                         'category_path' => array(
                             'provider' => array('content_object', array(
                                 'method' => 'getCategory',
@@ -203,18 +189,9 @@ The configuration for the example above could be as follows:
                             'exists_action' => 'use',
                             'not_exists_action' => 'throw_exception',
                         ),
-
-                        // corresponds third route stack in diagram:  2013/04/06
-                        'date' => array(
-                            'provider' => array('content_datetime', array(
-                                'method' => 'getPublishedDate',
-                            )),
-                            'exists_action' => 'use',
-                            'not_exists_action' => 'create',
-                        ),
                     ),
 
-                    // corresponds to the content name: my-topic-title
+                    // corresponds to the content name: my-new-topic
                     'content_name' => array(
                         'provider' => array('content_method', array(
                             'method' => 'getTitle',

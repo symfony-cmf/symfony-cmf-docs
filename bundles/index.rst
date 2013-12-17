@@ -12,7 +12,7 @@ Bundles
     phpcr_odm
     media/index
     menu/index
-    routing_auto
+    routing_auto/index
     routing/index
     search/index
     simple_cms/index
