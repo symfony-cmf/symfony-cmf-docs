@@ -15,9 +15,9 @@ have it, start by reading the `Symfony Framework Quick Tour`_.
 Solving the framework versus CMS dilemma
 ----------------------------------------
 
-Before starting a new project, there is a difficult decision whether it will
-be based on a framework or on a CMS. When choosing to use a framework, you
-need to spend much time into creating CMS features for the project. On the
+Before starting a new project, there is a difficult decision on whether it
+will be based on a framework or on a CMS. When choosing to use a framework,
+you need to spend much time creating CMS features for the project. On the
 other hand, when choosing to use a CMS, it's difficult to add more specific
 and custom things. You will need to combine a bunch of modules/extensions. In
 most cases, you also cannot customize the core parts of the CMS.
@@ -50,7 +50,7 @@ Setting up the Database
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Now, the only thing left to do is setting up the database. This is not
-something you are used to do when creating Symfony applications, but to make a
+something you are used to doing when creating Symfony applications, but to make a
 lot of things configurable using an admin, the Symfony CMF needs a database.
 
 To get quickly started, it is expected that you have enabled the sqlite
@@ -98,12 +98,12 @@ which executes the controller and that controller uses models to generate a
 view to put in the response.
 
 On top of this, the CMF adds the green blocks. In the comming sections, you'll
-learn more about these seperate.
+learn more about these seperately.
 
 The Model
 ~~~~~~~~~
 
-Before creating a CMF, the team has done a lot of research on which database
+Before creating the CMF, the team had done a lot of research on which database
 to use. They ended up finding JCR_, a Content Repository for Java. Together
 with some other developers they created PHPCR_, a PHP port of the JCR
 specification.
@@ -176,7 +176,7 @@ directory:
             body: "I've added this page while reading the quick tour"
 
 After this, you need to run the ``doctrine:phpcr:fixtures:load`` to reflect
-the changes and after refreshing, you can see your new page!
+the changes on the database and after refreshing, you can see your new page!
 
 .. image:: ../_images/quick_tour/big-picture-new-page.png
 
@@ -203,7 +203,7 @@ Final Thougths
 
 Congratulations! You've come to the end of your first introduction into the
 Symfony CMF. There is a lot more to discover, but you should already see how
-the Symfony CMF tries to make your live as a developer better by providing
+the Symfony CMF tries to make your life as a developer better by providing
 some CMS bundles. If you want to discover more, you can dive into the next
 section: ":doc:`the_router`".
 
