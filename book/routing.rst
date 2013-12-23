@@ -260,7 +260,7 @@ specifying which Template will be used, in a similar way to the one used to
 determine the Controller (in order of precedence):
 
 * Explicit: The stored Route document itself can explicitly declare the target
-  Template by returning the name of the template via ``getDefaults('_template')``.
+  Template by returning the name of the template via ``getDefault('_template')``.
 * By class: Requires the Route instance to implement ``RouteObjectInterface``
   and return an object for ``getContent()``. The returned class type is
   then matched against the provided configuration from config.yml.
