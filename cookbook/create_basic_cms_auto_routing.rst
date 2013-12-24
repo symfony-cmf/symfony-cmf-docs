@@ -296,7 +296,8 @@ service container configuration:
         services:
             acme.basic_cms.phpcr.initializer:
                 class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
-                arguments: [ "/cms/pages", "/cms/posts", "/cms/routes" ]
+                arguments: 
+                    - [ "/cms/pages", "/cms/posts", "/cms/routes" ]
                 tags:
                     - { name: doctrine_phpcr.initializer }
 
@@ -377,6 +378,7 @@ Create a page for your CMS::
     {
         public function load(ObjectManager $dm)
         {
+            NodeHelper::createPath($dm->getPhpcrSession(), '/cms/pages');
             $parent = $dm->find(null, '/cms/pages');
 
             $page = new Page();
@@ -406,6 +408,7 @@ and add some posts::
     {
         public function load(ObjectManager $dm)
         {
+            NodeHelper::createPath($dm->getPhpcrSession(), '/cms/posts');
             $parent = $dm->find(null, '/cms/posts');
 
             foreach (array('First', 'Second', 'Third', 'Forth') as $title) {
