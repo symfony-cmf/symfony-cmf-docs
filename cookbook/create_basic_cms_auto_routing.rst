@@ -8,7 +8,7 @@ Creating a Basic CMS Using the RoutingAutoBundle
 This three part article will show you how to create a basic CMS from scratch
 using the following bundles:
 
-* :doc:`../bundles/routing_auto`;
+* :doc:`../bundles/routing_auto/index`;
 * :doc:`../bundles/phpcr_odm`;
 * :doc:`../bundles/menu/index`;
 * `SonataDoctrinePhpcrAdminBundle`_.
@@ -446,7 +446,8 @@ Part 2: Automatic Routing
 
 The routes (URLs) to your content will be automatically created and updated
 using the RoutingAutoBundle. This bundle is powerful and somewhat complicated.
-For a full a full explanation refer to the `RoutingAutoBundle documentation`_.
+For a full a full explanation refer to the
+:doc:`RoutingAutoBundle documentation <../bundles/routing_auto/introduction>`.
 
 In summary, you will configure the auto routing system to create a new auto
 routing document in the routing tree for every post or content created. The
