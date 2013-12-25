@@ -107,7 +107,7 @@ Contributing
 
 Do you want to contribute to the Symfony CMF? Start reading these articles!
 
-:doc:`Browse the contributing guide <cookbook/index>`
+:doc:`Browse the contributing guide <contributing/index>`
 
 .. _`decoupled CMS`: http://decoupledcms.org
 .. _`Symfony2`: http://symfony.com
