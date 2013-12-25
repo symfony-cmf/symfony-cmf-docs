@@ -378,7 +378,10 @@ Create a page for your CMS::
     {
         public function load(ObjectManager $dm)
         {
+            // When using PHPCR-ODM 1.0, we need to create the root path
+            // manually. Not needed with PHPCR-ODM 1.1
             NodeHelper::createPath($dm->getPhpcrSession(), '/cms/pages');
+
             $parent = $dm->find(null, '/cms/pages');
 
             $page = new Page();
@@ -408,7 +411,10 @@ and add some posts::
     {
         public function load(ObjectManager $dm)
         {
+            // When using PHPCR-ODM 1.0, we need to create the root path
+            // manually. Not needed with PHPCR-ODM 1.1
             NodeHelper::createPath($dm->getPhpcrSession(), '/cms/posts');
+
             $parent = $dm->find(null, '/cms/posts');
 
             foreach (array('First', 'Second', 'Third', 'Forth') as $title) {
