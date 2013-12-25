@@ -691,8 +691,9 @@ Now you will need to include this configuration:
     
     .. code-block:: yaml
 
-        # src/Acme/BasicCmsBundle/Resources/config/config.yml
+        # app/config/config.yml
         imports:
+            // ...
             - { resource: routing_auto.yml }
 
     .. code-block:: xml
