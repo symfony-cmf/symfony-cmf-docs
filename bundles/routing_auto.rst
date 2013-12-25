@@ -591,16 +591,19 @@ To use the path provider you must register it in the **DIC** and add the
 
     .. code-block:: yaml
 
-        my_cms.some_bundle.path_provider.foobar:
-            class: "FoobarProvider"
-            scope: prototype
-            tags:
-                - { name: cmf_routing_auto.provider, alias: "foobar"}
+        # app/config/config.yml
+        services:
+            my_cms_bundle.path_provider.foobar:
+                class: "FoobarProvider"
+                scope: prototype
+                tags:
+                    - { name: cmf_routing_auto.provider, alias: "foobar"}
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <service
-            id="my_cms.some_bundle.path_provider.foobar"
+            id="my_cms_bundle.path_provider.foobar"
             class="FoobarProvider"
             scope="prototype"
         >
@@ -609,13 +612,14 @@ To use the path provider you must register it in the **DIC** and add the
 
     .. code-block:: php
 
+        // app/config/config.php
         use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition('FooBarProvider');
         $definition->addTag('cmf_routing_auto.provider', array('alias' => 'foobar'));
         $definition->setScope('prototype');
 
-        $container->setDefinition('my_cms.some_bundle.path_provider.foobar', $definition);
+        $container->setDefinition('my_cms_bundle.path_provider.foobar', $definition);
 
 The **foobar** path provider is now available as **foobar**.
 
@@ -662,16 +666,19 @@ It is registered in the DI configuration as follows:
 
     .. code-block:: yaml
 
-        cmf_routing_auto.not_exists_action.throw_exception
-            class: "My\Cms\AutoRoute\PathNotExists\ThrowException"
-            scope: prototype
-            tags:
-                - { name: cmf_routing_auto.provider, alias: "throw_exception"}
+        # app/config/config.yml
+        services:
+            my_cms_bundle.not_exists_action.throw_exception:
+                class: "My\Cms\AutoRoute\PathNotExists\ThrowException"
+                scope: prototype
+                tags:
+                    - { name: cmf_routing_auto.not_exists.action, alias: "throw_exception"}
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <service
-            id="my_cms.not_exists_action.throw_exception"
+            id="my_cms_bundle.not_exists_action.throw_exception"
             class="My\Cms\AutoRoute\PathNotExists\ThrowException"
             scope="prototype"
             >
@@ -680,13 +687,14 @@ It is registered in the DI configuration as follows:
 
     .. code-block:: php
 
+        // app/config/config.php
         use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition('My\Cms\AutoRoute\PathNotExists\ThrowException');
-        $definition->addTag('cmf_routing_auto.provider', array('alias' => 'throw_exception'));
+        $definition->addTag('cmf_routing_auto.not_exists.action', array('alias' => 'throw_exception'));
         $definition->setScope('prototype');
 
-        $container->setDefinition('my_cms.some_bundle.path_provider.throw_exception', $definition);
+        $container->setDefinition('my_cms_bundle.not_exists_action.throw_exception', $definition);
 
 Note the following:
 
