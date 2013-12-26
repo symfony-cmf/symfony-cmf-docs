@@ -4,7 +4,7 @@ Part 1 - Getting Started
 Initializing the Project
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-First, follow the generic steps in :doc:`create_new_project_phpcr_odm` to
+First, follow the generic steps in :doc:`../create_new_project_phpcr_odm` to
 create a new project using the PHPCR-ODM.
 
 Install Additional Bundles
@@ -53,7 +53,7 @@ Initialize the Database
 .......................
 
 If you have followed the main instructions in
-:doc:`create_new_project_phpcr_odm` then you are using the `Doctrine DBAL
+:doc:`../create_new_project_phpcr_odm` then you are using the `Doctrine DBAL
 Jackalope`_ PHPCR backend with MySQL and you will need to create the MySQL
 database:
 
@@ -243,7 +243,7 @@ example with ``{{ path(content) }}`` in Twig).
 Repository Initializer
 ~~~~~~~~~~~~~~~~~~~~~~
 
-:ref:`Repository initializers <../../bundles/phpcr_odm>` enable you to establish and maintain PHPCR nodes
+:ref:`Repository initializers <phpcr-odm-repository-initializers>` enable you to establish and maintain PHPCR nodes
 required by your application, for example you will need the paths
 ``/cms/pages``, ``/cms/posts`` and ``/cms/routes``. The ``GenericInitializer``
 class can be used easily initialize a list of paths. Add the following to your
@@ -305,7 +305,9 @@ service container configuration:
 .. note::
 
     The initializers operate at the PHPCR level, not the PHPCR-ODM level - this
-    means that you are dealing with nodes and not documents.
+    means that you are dealing with nodes and not documents. You do not have
+    to understand these details right now. To learn more about PHPCR read
+    :doc:`../database/choosing_storage_layer`.
 
 Execute the ``doctrine:phpcr:repository:init`` command to initialize (or
 reinitialize) the repository:
@@ -401,3 +403,5 @@ You should now have some data in your content repository.
 .. _`sonata-project/doctrine-phpcr-admin-bundle`: https://packagist.org/packages/sonata-project/doctrine-phpcr-admin-bundle
 .. _`doctrine/data-fixtures`: https://packagist.org/packages/doctrine/data-fixtures
 .. _`doctrine dbal jackalope`: https://github.com/jackalope/jackalope-doctrine-dbal
+.. _`Apache Jackrabbit`: `https://jackrabbit.apache.org`
+.. _`pre persist lifecycle event`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html#lifecycle-callbacks
