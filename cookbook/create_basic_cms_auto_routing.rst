@@ -1713,6 +1713,12 @@ Now reinitialize your repository:
 
     $ php app/console doctrine:phpcr:repository:init
 
+.. note::
+
+    For PHPCR-ODM 1.0, you would have to run the above initialize repository
+    command each time after you reload the data fixtures. This issue is only
+    in PHPCR-ODM 1.0. 
+    
 and verify that the ``cms`` node has been updated by using the
 ``doctrine:phpcr:node:dump`` command with the ``props`` flag:
 
@@ -1738,15 +1744,7 @@ and verify that the ``cms`` node has been updated by using the
     Alternatively you can modify your data fixtures to create a site document
     - its up to you.
 
-.. note::
 
-    You might have to run the below initializer command each time you reload
-    the data fixtures. But depending on how you have created the data fixtures
-    this may not be necessory.
-    
-.. code-block:: bash
-
-    $ php app/console doctrine:phpcr:repository:init
 
 Create the Make Homepage Button
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
