@@ -1744,8 +1744,6 @@ and verify that the ``cms`` node has been updated by using the
     Alternatively you can modify your data fixtures to create a site document
     - its up to you.
 
-
-
 Create the Make Homepage Button
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
