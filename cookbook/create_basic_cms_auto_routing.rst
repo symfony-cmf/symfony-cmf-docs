@@ -1738,6 +1738,16 @@ and verify that the ``cms`` node has been updated by using the
     Alternatively you can modify your data fixtures to create a site document
     - its up to you.
 
+.. note::
+
+    You might have to run the below initializer command each time you reload
+    the data fixtures. But depending on how you have created the data fixtures
+    this may not be necessory.
+    
+.. code-block:: bash
+
+    $ php app/console doctrine:phpcr:repository:init
+
 Create the Make Homepage Button
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
