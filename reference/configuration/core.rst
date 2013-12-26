@@ -248,3 +248,58 @@ only published routes and content can be accessed.
                 'request_listener' => true,
             ),
         ));
+
+Sonata Admin
+------------
+
+This section configures each of the Sonata Admin extensions.
+
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        sonata_admin:
+            extensions:
+                publishable:
+                    form_group:           form.group_publish_workflow
+                publish_time:
+                    form_group:           form.group_general
+                translatable:
+                    form_group:           form.group_general
+
+    .. code-block:: xml
+
+        <sonata-admin>
+            <extension>
+                <publishable form-group="form.group_publish_workflow" />
+                <publish-time form-group="form.group_general" />
+                <translatable form-group="form.group_general" />
+            </extension>
+        </sonata-admin>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_core', array(
+            'sonata_admin' => array(
+                'extensions' => array(
+                    'publishable' => array(
+                        'form_group' => 'form.group_publish_workflow',
+                    ),
+                    'publish_time' => array(
+                        'form_group' => 'form.group_general',
+                    ),
+                    'translatable' => array(
+                        'form_group' => 'form.group_general',
+                    ),
+                ),
+            ),
+        ));
+
+form_group
+~~~~~~~~~~
+
+**type**: ``string`` **default**: as in above example.
+
+Defines which form group the fields from this extension will appear in within
+the Sonata Admin edit interface.
