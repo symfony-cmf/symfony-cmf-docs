@@ -100,54 +100,32 @@ Create the following file in your applications configuration directory:
 
     # app/config/routing_auto.yml
     cmf_routing_auto:
-        auto_route_mapping:
+        mappings:
             Acme\BasicCmsBundle\Document\Page:
                 content_path:
                     pages:
-                        provider:
-                            name: specified
-                            path: /cms/routes/page
-                        exists_action:
-                            strategy: use
-                        not_exists_action:
-                            strategy: create
+                        provider: [specified, { path: /cms/routes/page }]
+                        exists_action: use
+                        not_exists_action: create
                 content_name:
-                    provider:
-                        name: content_method
-                        method: getTitle
-                    exists_action:
-                        strategy: auto_increment
-                        pattern: -%d
-                    not_exists_action:
-                        strategy: create
+                    provider: [content_method, { method: getTitle }]
+                    exists_action: auto_increment
+                    not_exists_action: create
 
             Acme\BasicCmsBundle\Document\Post:
                 content_path:
                     blog_path:
-                        provider:
-                            name: specified
-                            path: /cms/routes/post
-                        exists_action:
-                            strategy: use
-                        not_exists_action:
-                            strategy: create
+                        provider: [specified, { path: /cms/routes/post }]
+                        exists_action: use
+                        not_exists_action: create
                     date:
-                        provider:
-                            name: content_datetime
-                            method: getDate
-                        exists_action:
-                            strategy: use
-                        not_exists_action:
-                            strategy: create
+                        provider: [content_datetime, { method: getDate}]
+                        exists_action: use
+                        not_exists_action: create
                 content_name:
-                    provider:
-                        name: content_method
-                        method: getTitle
-                    exists_action:
-                        strategy: auto_increment
-                        pattern: -%d
-                    not_exists_action:
-                        strategy: create
+                    provider: [content_method, { method: getTitle }]
+                    exists_action: auto_increment
+                    not_exists_action: create
 
 This will configure the routing auto system to automatically create and update
 route documents for both the ``Page`` and ``Post`` documents. 
