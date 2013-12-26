@@ -8,7 +8,7 @@ Creating a Basic CMS using the RoutingAutoBundle
 This series of articles will show you how to create a basic CMS from scratch
 using the following bundles:
 
-* :doc:`../../bundles/routing_auto`;
+* :doc:`../../bundles/routing_auto/index`;
 * :doc:`../../bundles/phpcr_odm`;
 * :doc:`../../bundles/menu/index`;
 * `SonataDoctrinePhpcrAdminBundle`_.
@@ -32,7 +32,7 @@ as a menu item.
 
 .. note::
 
-    There exists a bundle called :doc:`../bundles/simple_cms/index` which
+    There exists a bundle called :doc:`../../bundles/simple_cms/index` which
     provides a similar solution to the one proposed in this tutorial. It
     combines the route, menu and content into a single document and uses a
     custom router. The approach taken in this tutorial will combine only the menu
