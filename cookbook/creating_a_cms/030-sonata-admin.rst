@@ -1,7 +1,8 @@
 Part 3 - The Backend
 --------------------
 
-The `SonataAdminBundle`_ bundle will provide our administration interface.
+In this chapter you will build an administration interface with the help
+of the `SonataAdminBundle`_.
 
 Configure Sonata
 ~~~~~~~~~~~~~~~~
@@ -33,13 +34,14 @@ Sonata requires the ``sonata_block`` bundle to be configured in your main config
     .. code-block:: yaml
 
         # app/config/config.yml
+
         # ...
         sonata_block:
             default_contexts: [cms]
             blocks:
                 # Enable the SonataAdminBundle block
                 sonata.admin.block.admin_list:
-                    contexts:   [admin]
+                    contexts: [admin]
 
     .. code-block:: xml
 
@@ -74,6 +76,7 @@ and it requires the following entries in your routing file:
     .. code-block:: yaml
 
         # app/config/routing.yml
+
         admin:
             resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
             prefix: /admin
@@ -136,6 +139,8 @@ No translations? Uncomment the translator in the configuration file:
 .. configuration-block::
 
     .. code-block:: yaml
+
+        # app/config/config.yml
 
         # ...
         framework:
@@ -217,7 +222,7 @@ the RoutingBundle admin as follows:
             ),
         ));
 
-.. note:: 
+.. tip:: 
 
     All Sonata Admin aware CMF bundles have such a configuration option and it
     prevents the admin class (or classes) from being registered.
@@ -294,6 +299,12 @@ to avoid code duplication::
             ->end();
         }
     }
+
+.. note::
+
+    In the ``prePersist`` method of the ``PageAdmin`` you specify always a
+    fixed path, in the future you may want to modify this behavior to
+    enable pages to be structured (for example to have nested menus).
 
 Now you just need to register these classes in the dependency injection
 container configuration:

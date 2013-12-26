@@ -2,8 +2,12 @@ Part 2: Automatic Routing
 -------------------------
 
 The routes (URLs) to your content will be automatically created and updated
-using the RoutingAutoBundle. This bundle is powerful and somewhat complicated.
-For a full a full explanation refer to the `RoutingAutoBundle documentation`_.
+using the RoutingAutoBundle. This bundle uses a configuration language to
+specify automatic creation of routes, which can be a bit hard to grasp the
+first time you see it.
+
+For a full a full explanation refer to the
+:doc:`../../bundles/routing_auto.rst`_.
 
 In summary, you will configure the auto routing system to create a new auto
 routing document in the routing tree for every post or content created. The
@@ -19,13 +23,12 @@ the contents will be avilable at the following URLs:
 * **About**: ``http://localhost:8000/page/about``
 * etc.
 
-
 Enable the Dynamic Router
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The RoutingAutoBundle uses the CMFs `RoutingBundle`_ which enables routes to
-be provided from a database (as opposed to being provided from
-``routing.[yml|xml|php]`` files for example).
+The RoutingAutoBundle uses the CMF `RoutingBundle`_ which enables routes to
+be provided from a database (in addition to being provided from
+the routing configuration files as in core Symfony 2).
 
 Add the following to your application configuration:
 
@@ -78,12 +81,12 @@ Add the following to your application configuration:
 
 This will:
 
-#. Cause the default Symfony router to be replaced by the chain router.  The
+#. Cause the default Symfony router to be replaced by the chain router. The
    chain router enables you to have multiple routers in your application. You
    add the dynamic router (which can retrieve routes from the database) and
    the default Symfony router (which retrieves routes from configuration
-   files).  The number indicates the order of precedence - the router with the
-   lowest number will be called first.;
+   files). The number indicates the order of precedence - the router with the
+   lowest number will be called first;
 #. Configure the **dynamic** router which you have added to the router chain.
    You specify that it should use the PHPCR backend and that the *root* route
    can be found at ``/cms/routes``.
@@ -177,7 +180,7 @@ Now you will need to include this configuration:
     .. code-block:: xml
 
         <!-- src/Acme/BasicCmsBUndle/Resources/config/config.yml -->
-        ?xml version="1.0" encoding="UTF-8" ?>
+        <?xml version="1.0" encoding="UTF-8" ?>
         <container 
             xmlns="http://symfony.com/schema/dic/services" 
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 

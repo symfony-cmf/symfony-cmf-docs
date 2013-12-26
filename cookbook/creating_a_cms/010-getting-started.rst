@@ -4,8 +4,8 @@ Part 1 - Getting Started
 Initializing the Project
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-First, follow the generic steps in :doc:`create_new_project_phpcr_odm` to create a new project using
-the PHPCR-ODM.
+First, follow the generic steps in :doc:`create_new_project_phpcr_odm` to
+create a new project using the PHPCR-ODM.
 
 Install Additional Bundles
 ..........................
@@ -25,7 +25,7 @@ Update ``composer.json`` to require them:
         ...
         require: {
             ...
-            "symfony-cmf/routing-auto-bundle": "dev-master",
+            "symfony-cmf/routing-auto-bundle": "1.0.0@alpha",
             "symfony-cmf/menu-bundle": "1.0",
             "sonata-project/doctrine-phpcr-admin-bundle": "dev-master",
             "doctrine/data-fixtures": "1.0.0"
@@ -62,7 +62,7 @@ database:
     $ mysqladmin create symfony -u root
 
 This will create a new database called ``symfony`` - this is the name used by
-default in the Symfony Standard Edition, change as might be necessary.
+default in the Symfony Standard Edition, change it as might be necessary.
 
 The Doctrine DBAL backend needs to be initialized, the following command
 will create the MySQL schema required to store the hierarchical
@@ -77,6 +77,9 @@ node content of the PHPCR content repository:
     The `Apache Jackrabbit`_ implementation is the reference java based
     backend and does not require such initialization. It does however require
     the use of Java.
+
+Generate the Bundle
+...................
 
 Now you can generate the bundle in which you will write most of your code:
 
@@ -169,7 +172,7 @@ to reduce code duplication::
 
     Traits are only available as of PHP 5.4. If you are running a lesser
     version of PHP you may copy the above code into each class to have the
-    same effect. You may not, however, ``extend`` one class from another, as
+    same effect. You may not, however, ``extend`` one class from the other, as
     this will cause unintended behavior in the admin integration later on.
 
 The ``Page`` class is therefore nice and simple::
@@ -188,11 +191,10 @@ The ``Page`` class is therefore nice and simple::
         use ContentTrait;
     }
 
-Note that the page documet should be ``referenceable``.  This will enable
+Note that the page document should be ``referenceable``. This will enable
 other documents to hold a reference to the page. The ``Post`` class will also
-be referenceable and in addition the ``Post`` class will automatically set the
-date if it has not been explicitly set using the `pre persist lifecycle
-event`_::
+be referenceable and in addition will automatically set the date using the
+`pre persist lifecycle event`_ if it has not been explicitly set previously::
 
     // src/Acme/BasicCms/Document/Post.php
     namespace Acme\BasicCmsBundle\Document;
@@ -227,21 +229,21 @@ event`_::
             return $this->date;
         }
 
-        public function setDate($date)
+        public function setDate(\DateTime $date)
         {
             $this->date = $date;
         }
     }
 
 Both the ``Post`` and ``Page`` classes implement the
-``RouteReferrersReadInterface`` which enables the
-`DynamicRouter to generate URLs`_. (for example with ``{{ path(content) }}``
-in Twig).
+``RouteReferrersReadInterface``. This interface enables the 
+`DynamicRouter to generate URLs`_ from instances of these classes. (for
+example with ``{{ path(content) }}`` in Twig).
 
 Repository Initializer
 ~~~~~~~~~~~~~~~~~~~~~~
 
-`Repository initializers`_ enable you to establish and maintain PHPCR nodes
+:ref:`Repository initializers <../../bundles/phpcr_odm>` enable you to establish and maintain PHPCR nodes
 required by your application, for example you will need the paths
 ``/cms/pages``, ``/cms/posts`` and ``/cms/routes``. The ``GenericInitializer``
 class can be used easily initialize a list of paths. Add the following to your
@@ -255,7 +257,8 @@ service container configuration:
         services:
             acme.basic_cms.phpcr.initializer:
                 class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
-                arguments: [ "/cms/pages", "/cms/posts", "/cms/routes" ]
+                arguments: 
+                    - ["/cms/pages", "/cms/posts", "/cms/routes"]
                 tags:
                     - { name: doctrine_phpcr.initializer }
 
@@ -313,8 +316,10 @@ reinitialize) the repository:
 
 .. note::
 
-    This command is an `idempotent`_, which means that it should be safe to run
-    it multiple times, even when you have data in your repository.
+    This command is `idempotent`_, which means that it is safe to run
+    it multiple times, even when you have data in your repository. Note
+    however that it is the responsibility of the initializer to respect
+    idempotency!
 
 Create Data Fixtures
 ~~~~~~~~~~~~~~~~~~~~
@@ -324,20 +329,19 @@ Create a page for your CMS::
     // src/Acme/BasicCmsBundle/DataFixtures/PHPCR/LoadPageData.php
     namespace Acme\BasicCmsBundle\DataFixtures\PHPCR;
 
+    use Acme\BasicCmsBundle\Document\Page;
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\Persistence\ObjectManager;
-    use Acme\BasicCmsBundle\Document\Page;
-    use PHPCR\Util\NodeHelper;
+    use PHPCR\Util\NodeHelpen;
 
     class LoadPageData implements FixtureInterface
     {
         public function load(ObjectManager $dm)
         {
-            NodeHelper::createPath($dm->getPhpcrSession(), '/cms/pages');
             $parent = $dm->find(null, '/cms/pages');
 
             $page = new Page();
-            $page->setTitle('Home');
+            $page->setTitle
             $page->setParent($parent);
             $page->setContent(<<<HERE
     Welcome to the homepage of this really basic CMS.
@@ -363,7 +367,6 @@ and add some posts::
     {
         public function load(ObjectManager $dm)
         {
-            NodeHelper::createPath($dm->getPhpcrSession(), '/cms/posts');
             $parent = $dm->find(null, '/cms/posts');
 
             foreach (array('First', 'Second', 'Third', 'Forth') as $title) {
@@ -389,16 +392,6 @@ and load the fixtures:
     $ php app/console doctrine:phpcr:fixtures:load
 
 You should now have some data in your content repository.
-
-.. note::
-
-    The classes above use ``NodeHelper::createPath`` to create the paths
-    ``/cms/posts`` and ``/cms/pages`` - this is exactly what the
-    initializer did -- why do the classes do it again? This is a known issue - the
-    data fixtures loader will purge the workspace and it will **not** call the
-    initializer, so when using data fixtures it is currently necessary to manually
-    create the paths.
-
 
 .. _`routingautobundle documentation`: http://symfony.com/doc/current/cmf/bundles/routing_auto.html
 .. _`dynamicrouter to generate urls`: http://symfony.com/doc/current/cmf/bundles/routing/dynamic.html#url-generation-with-the-dynamicrouterA

@@ -2,15 +2,15 @@
     single: Tutorial, Creating a CMS, RoutingAuto, PHPCR-ODM
     single: MenuBundle, SonataAdmin, SonataDoctrineAdminBundle
 
-Creating a Basic CMS Using the RoutingAutoBundle
+Creating a Basic CMS using the RoutingAutoBundle
 ================================================
 
-This three part article will show you how to create a basic CMS from scratch
+This series of articles will show you how to create a basic CMS from scratch
 using the following bundles:
 
-* :doc:`../bundles/routing_auto`;
-* :doc:`../bundles/phpcr_odm`;
-* :doc:`../bundles/menu/index`;
+* :doc:`../../bundles/routing_auto`;
+* :doc:`../../bundles/phpcr_odm`;
+* :doc:`../../bundles/menu/index`;
 * `SonataDoctrinePhpcrAdminBundle`_.
 
 It is assumed that you have:

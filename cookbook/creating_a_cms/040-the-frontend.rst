@@ -57,13 +57,14 @@ You can map a default controller for all instances of ``Page``:
 This will cause requests to be forwarded to this controller when the route
 which matches the incoming request is provided by the dynamic router **and**
 the content document that that route references is of class
-``Acme\BasicCmsBundle\Document\Page``
+``Acme\BasicCmsBundle\Document\Page``.
 
 Now create the action in the default controller - you can pass the ``Page``
 object and all the ``Posts`` to the view::
 
     // src/Acme/BasicCmsBundle/Controller/DefaultController.php
-    //..
+
+    // ...
     class DefaultController extends Controller
     {
         // ...
@@ -77,7 +78,7 @@ object and all the ``Posts`` to the view::
             $posts = $dm->getRepository('Acme\BasicCmsBundle\Document\Post')->findAll();
 
             return array(
-                'page' => $contentDocument,
+                'page'  => $contentDocument,
                 'posts' => $posts,
             );
         }
@@ -106,7 +107,7 @@ Add a corresponding twig template (note that this works because you use the
 
         <!-- src/Acme/BasicCmsBundle/Resources/views/Default/page.html.twig -->
         <h1><?php echo $page->getTitle() ?></h1>
-        <p><?php echo $page->content ?></p>
+        <p><?php echo $page->getContent() ?></p>
         <h2>Our Blog Posts</h2>
         <ul>
             <?php foreach($posts as $post) : ?>
@@ -172,16 +173,16 @@ KnpMenuBundle::
                 'label' => $this->title,
                 'content' => $this,
 
-                'attributes' => array(),
+                'attributes'         => array(),
                 'childrenAttributes' => array(),
-                'displayChildren' => true,
-                'linkAttributes' => array(),
-                'labelAttributes' => array(),
+                'displayChildren'    => true,
+                'linkAttributes'     => array(),
+                'labelAttributes'    => array(),
             );
         }
     }
 
-.. note::
+.. caution::
 
     Don't forget to add the ``Knp\Menu\NodeInterface`` use statement!
 
@@ -267,7 +268,7 @@ applications kernel::
         }
     }
 
-Now you can register the PhpcrMenuProvider from the menu bundle in the service container
+Now you can register the ``PhpcrMenuProvider`` from the menu bundle in the service container
 configuration:
 
 .. configuration-block::
@@ -370,6 +371,7 @@ and finally lets render the menu!
 
         <!-- src/Acme/BasicCmsBundle/Resources/views/Default/page.html.php -->
         
+        <!-- ... -->
         <?php echo $view['knp_menu']->render('main') ?>
 
 Note that ``main`` refers to the name of the root page you added in the data

@@ -243,7 +243,7 @@ Now modify the ``PageAdmin`` class to add the button in a side-menu::
 
     // src/Acme/BasicCmsBundle/Admin/PageAdmin
 
-    //...
+    // ...
     use Knp\Menu\ItemInterface;
 
     class PageAdmin extends Admin
@@ -251,7 +251,7 @@ Now modify the ``PageAdmin`` class to add the button in a side-menu::
         // ... 
         protected function configureSideMenu(ItemInterface $menu, $action, AdminInterface $childAdmin = null)
         {
-            if ($action != 'edit') {
+            if ('edit' !== $action) {
                 return;
             }
 
@@ -262,7 +262,7 @@ Now modify the ``PageAdmin`` class to add the button in a side-menu::
                 'attributes' => array('class' => 'btn'),
                 'route' => 'make_homepage',
                 'routeParameters' => array(
-                    'id' => $page->getId()
+                    'id' => $page->getId(),
                 ),
             ));
         }
@@ -323,5 +323,10 @@ the page action::
     In contrast to previous examples you specify a class when calling ``find`` -
     this is because you need to be *sure* that the returned document is of class
     ``Site``.
+
+.. note::
+
+    This is just one of many strategies for routing the homepage. For example,
+    another option would be put a `RedirectRoute` document at `/cms/routes`.
 
 Now test it out, visit: http://localhost:8000
