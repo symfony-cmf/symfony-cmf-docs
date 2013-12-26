@@ -1713,6 +1713,12 @@ Now reinitialize your repository:
 
     $ php app/console doctrine:phpcr:repository:init
 
+.. note::
+
+    For PHPCR-ODM 1.0, you would have to run the above initialize repository
+    command each time after you reload the data fixtures. This issue is only
+    in PHPCR-ODM 1.0. 
+    
 and verify that the ``cms`` node has been updated by using the
 ``doctrine:phpcr:node:dump`` command with the ``props`` flag:
 
