@@ -252,31 +252,40 @@ only published routes and content can be accessed.
 Sonata Admin
 ------------
 
-This section configures each of the Sonata Admin extensions.
+This section configures the Sonata Admin Extensions, see:
 
+* :ref:`Publish Workflow Admin Extensions <bundle-core-workflow-admin-extensions>`;
+* :ref:`Translatable Admin Extension <bundle-core-translatable-admin-extension>`.
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        sonata_admin:
-            extensions:
-                publishable:
-                    form_group:           form.group_publish_workflow
-                publish_time:
-                    form_group:           form.group_general
-                translatable:
-                    form_group:           form.group_general
+        cmf_core:
+            sonata_admin:
+                extensions:
+                    publishable:
+                        form_group: form.group_publish_workflow
+                    publish_time:
+                        form_group: form.group_general
+                    translatable:
+                        form_group: form.group_general
 
     .. code-block:: xml
 
-        <sonata-admin>
-            <extension>
-                <publishable form-group="form.group_publish_workflow" />
-                <publish-time form-group="form.group_general" />
-                <translatable form-group="form.group_general" />
-            </extension>
-        </sonata-admin>
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/core">
+                <sonata-admin>
+                    <extension>
+                        <publishable form-group="form.group_publish_workflow" />
+                        <publish-time form-group="form.group_general" />
+                        <translatable form-group="form.group_general" />
+                    </extension>
+                </sonata-admin>
+            </config>
+        </container>
 
     .. code-block:: php
 

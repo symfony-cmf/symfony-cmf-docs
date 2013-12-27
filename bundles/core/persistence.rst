@@ -102,6 +102,8 @@ enforce a single translation strategy for all documents:
 
 See the `PHPCR-ODM documentation`_ for more information.
 
+.. _bundle-core-translatable-admin-extension:
+
 Editing Locale Information: Translatable Sonata Admin Extension
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -129,7 +131,6 @@ configuration in the ``sonata_admin`` section of your project configuration:
         <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-
             <config xmlns="http://sonata-project.org/schema/dic/admin">
                 <!-- ... -->
                 <extension id="cmf_core.admin_extension.translatable">
