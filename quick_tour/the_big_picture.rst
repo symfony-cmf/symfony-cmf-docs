@@ -212,7 +212,7 @@ Congratulations! You've come to the end of your first introduction into the
 Symfony CMF. There is a lot more to discover, but you should already see how
 the Symfony CMF tries to make your life as a developer better by providing
 some CMS bundles. If you want to discover more, you can dive into the next
-section: ":doc:`the_router`".
+section: ":doc:`the_model`".
 
 .. _`Symfony Framework Quick Tour`: http://symfony.com/doc/current/quick_tour/the_big_picture.html
 .. _`Symfony Standard Edition`: https://github.com/symfony/symfony-standard
