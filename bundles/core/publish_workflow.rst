@@ -358,6 +358,8 @@ This means that custom templates for ``templates_by_class`` and the controllers
 of ``controllers_by_class`` need not check for publication explicitly as its
 already done.
 
+.. _bundle-core-workflow-admin-extensions:
+
 Editing publication information: Publish Workflow Sonata Admin Extension
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
