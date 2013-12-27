@@ -154,7 +154,7 @@ To install the BlockBundle, run:
 
 .. code-block:: bash
 
-    $ php composer.phar require symfony-cmf/block-bundle:master
+    $ php composer.phar require symfony-cmf/block-bundle:dev-master
 
 Add the following lines to ``AppKernel``::
 
@@ -165,6 +165,8 @@ Add the following lines to ``AppKernel``::
     {
         $bundles = array(
             // ...
+            // check that this bundle isn't already in list:
+            new Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
         );
@@ -680,6 +682,17 @@ SimpleBlock class not found
 Make sure the CMF BlockBundle is installed and loaded in ``app/AppKernel.php``::
 
     new Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
+
+Add the following configuration in your `config.yml` file to enable PHPCR with CmfBlockBundle:
+
+.. code-block:: yaml
+
+    cmf_block:
+        persistence:
+            phpcr:
+                enabled: true
+
+..
 
 RouteReferrersInterface not found
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
