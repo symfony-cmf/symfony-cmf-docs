@@ -328,10 +328,6 @@ time a block is rendered before the ``execute`` method is called.
 Block rendering
 ---------------
 
-Rendering is handled by the SonataBlockBundle ``sonata_block_render`` twig
-function. The block name is either an absolute PHPCR path or the name of the
-block relative to the ``cmfMainContent`` document.
-
 To render the example from the :ref:`bundle-block-document` section, just add
 the following code to your Twig template:
 
@@ -385,72 +381,6 @@ response object - typically by rendering a Twig template.
 You can also :ref:`embed blocks in WYSIWYG content <tutorial-block-embed>`
 using the ``cmf_embed_blocks`` filter.
 
-Embedding Blocks in WYSIWYG Content
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. note::
-
-    This feature conflicts with the frontend editing provided by CreateBundle,
-    editing the rendered content will store the rendered block HTML into the
-    database. There is `discussion going on to fix this`_
-
-The CmfBlockBundle provides a twig filter ``cmf_embed_blocks`` that
-looks through the content and looks for special tags to render blocks. To use
-the tag, you need to apply the ``cmf_embed_blocks`` filter to your output.  If
-you can, render your blocks directly in the template. This feature is only a
-cheap solution for web editors to place blocks anywhere in their HTML content.
-A better solution to build composed pages is to build it from blocks (there
-might be a CMF bundle at some point for this).
-
-.. code-block:: jinja
-
-    {# template.twig.html #}
-    {{ page.content|cmf_embed_blocks }}
-
-Make sure to only place this filter where you display the content and not where
-editing it, as otherwise your users would start to edit the rendered output of
-their blocks. When you apply the filter, your users can use this tag to embed a
-block in their HTML content:
-
-.. code-block:: html
-
-    %embed-block|/absolute/path/to/block|end%
-
-    %embed-block|local-block|end%
-
-The path to the block is either absolute or relative to the current main
-content. The actual path to the block must be enclosed with double quotes
-``"``. But the prefix and postfix are configurable. The default prefix is
-``%embed-block|`` and the default postfix is ``|end%``. Say you want
-to use ``%%%block:"/absolute/path"%%%`` then you do:
-
-.. configuration-block::
-
-     .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_block:
-            twig:
-                cmf_embed_blocks:
-                    prefix: %%%block:"
-                    postfix: "%%%
-
-See also the :ref:`the configuration reference
-    <reference-config-block-twig-cmf-embed-blocks>`.
-
-.. caution::
-
-    Currently there is no security built into this feature. Only enable the
-    filter for content for which you are sure only trusted users may edit it.
-    Restrictions about what block can be where that are built into an admin
-    interface are not respected here.
-
-.. note::
-
-    The block embed filter ignores all errors that might occur when rendering a
-    block and returns an empty string for each failed block instead. The errors
-    are logged at level WARNING.
-
 Examples
 --------
 
@@ -470,4 +400,3 @@ Read on
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`prepended configuration`: http://symfony.com/doc/current/components/dependency_injection/compilation.html#prepending-configuration-passed-to-the-extension
 .. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle
-.. _`discussion going on to fix this`: https://github.com/symfony-cmf/BlockBundle/issues/143
