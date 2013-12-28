@@ -33,7 +33,7 @@ individually as follows:
 
     .. code-block:: yaml
 
-        cmf_core:
+        cmf_block:
             persistence:
                 phpcr:
                     block_basepath: /cms/content
@@ -43,7 +43,7 @@ individually as follows:
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://cmf.symfony.com/schema/dic/core">
+            <config xmlns="http://cmf.symfony.com/schema/dic/block">
                 <persistence>
                     <phpcr
                         block-basepath="/cms/block"
@@ -55,7 +55,7 @@ individually as follows:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
+        $container->loadFromExtension('cmf_block', array(
             'persistence' => array(
                 'phpcr' => array(
                     'block_basepath' => '/cms/block',
@@ -328,6 +328,10 @@ time a block is rendered before the ``execute`` method is called.
 Block rendering
 ---------------
 
+Rendering is handled by the SonataBlockBundle ``sonata_block_render`` twig
+function. The block name is either an absolute PHPCR path or the name of the
+block relative to the ``cmfMainContent`` document.
+
 To render the example from the :ref:`bundle-block-document` section, just add
 the following code to your Twig template:
 
@@ -378,8 +382,107 @@ receives the block object (equivalent to a Request object) and a ``Response``
 object. The purpose of the ``execute`` method to set the content of the
 response object - typically by rendering a Twig template.
 
-You can also :ref:`embed blocks in WYSIWYG content <tutorial-block-embed>`
-using the ``cmf_embed_blocks`` filter.
+.. _bundle-block-embed:
+
+Embedding Blocks in WYSIWYG Content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The CmfBlockBundle provides a twig filter ``cmf_embed_blocks`` that
+looks through the content and looks for special tags to render blocks. To use
+the tag, you need to apply the ``cmf_embed_blocks`` filter to your output. If
+you can, render your blocks directly in the template. This feature is only a
+cheap solution for web editors to place blocks anywhere in their HTML content.
+A better solution to build composed pages is to build it from blocks (there
+might be a CMF bundle at some point for this).
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {{ page.content|cmf_embed_blocks }}
+
+    .. code-block:: html+php
+
+        <?php echo $view['blocks']->embedBlocks(
+            $page->getContent()
+        ) ?>
+
+.. caution::
+
+    Make sure to only place this filter where you display the content and not
+    where editing it, as otherwise your users would start to edit the rendered
+    output of their blocks.
+    This feature conflicts with the frontend editing provided by CreateBundle,
+    as create.js operates on the rendered content as displayed to the user.
+    There is an ongoing `discussion how to fix this`_.
+
+When you apply the filter, your users can use this tag to embed a block in
+their content:
+
+.. code-block:: text
+
+    %embed-block|/absolute/path/to/block|end%
+
+    %embed-block|local-block|end%
+
+The path to the block is either absolute or relative to the current main
+content. The prefix and postfix are configurable. The default prefix is
+``%embed-block|`` and the default postfix is ``|end%``. Say you want
+to use ``%%%block:"/absolute/path"%%%`` then you do:
+
+.. configuration-block::
+
+     .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_block:
+            twig:
+                cmf_embed_blocks:
+                    prefix: '%%%block:"'
+                    postfix: '"%%%'
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/block">
+                <twig>
+                    <cmf-embed-blocks
+                        prefix="%%%block:&quot;"
+                        postfix="&quot;%%%"
+                    />
+                </twig>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_block', array(
+            'twig' => array(
+                'cmf_embed_blocks' => array(
+                    'prefix' => '%%%block:"',
+                    'postfix' => '"%%%',
+                ),
+            ),
+        );
+
+See also the :ref:`the configuration reference <reference-config-block-twig-cmf-embed-blocks>`.
+
+.. caution::
+
+    Currently there is no security built into this feature. Only enable the
+    filter for content for which you are sure only trusted users may edit it.
+    Restrictions about what block can be where that are built into an admin
+    interface are not respected here.
+
+.. note::
+
+    The block embed filter ignores all errors that might occur when rendering a
+    block and returns an empty string for each failed block instead. The errors
+    are logged at level WARNING.
 
 Examples
 --------
@@ -400,3 +503,4 @@ Read on
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`prepended configuration`: http://symfony.com/doc/current/components/dependency_injection/compilation.html#prepending-configuration-passed-to-the-extension
 .. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle
+.. _`discussion how to fix this`: https://github.com/symfony-cmf/BlockBundle/issues/143

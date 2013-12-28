@@ -259,7 +259,7 @@ cmf_embed_blocks
 The BlockBundle provides a twig filter ``cmf_embed_blocks`` that
 looks through the content and looks for special tags to render blocks.
 
-See :ref:`embed blocks in content <tutorial-block-embed>` for using the
+See :ref:`embed blocks in content <bundle-block-embed>` for using the
 ``cmf_embed_blocks`` filter.
 
 prefix
