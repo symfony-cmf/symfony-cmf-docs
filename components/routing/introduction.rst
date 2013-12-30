@@ -29,7 +29,7 @@ is thrown. The default Symfony2 router can be added to this chain, so the
 standard routing mechanism can still be used in addition to any custom routing.
 
 Additionally, this component provides the :doc:`DynamicRouter <dynamic>`. This
-router is more configurable and flexible then the Symfony2 core router. It can
+router is more configurable and flexible than the Symfony2 core router. It can
 be configured to load routes from a database, dynamically add information to
 the routes and also generate URLs from model classes.
 
