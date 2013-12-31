@@ -1,5 +1,5 @@
-Part 1 - Getting Started
-------------------------
+Getting Started
+---------------
 
 Initializing the Project
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -10,14 +10,18 @@ create a new project using the PHPCR-ODM.
 Install Additional Bundles
 ..........................
 
-This tutorial requires the following packages:
+The complete tutorial requires the following packages:
 
 * `symfony-cmf/routing-auto-bundle`_;
 * `sonata-project/doctrine-phpcr-admin-bundle`_;
 * `doctrine/data-fixtures`_;
 * `symfony-cmf/menu-bundle`_.
 
-Update ``composer.json`` to require them:
+Each part of the tutorial will detail the packages that it requires (if any) in a
+section titled "installation".
+
+If you intend to complete the entire tutorial you can save some time by adding
+all of the required packages now.
 
 .. code-block:: javascript
 
@@ -28,26 +32,24 @@ Update ``composer.json`` to require them:
             "symfony-cmf/routing-auto-bundle": "1.0.0@alpha",
             "symfony-cmf/menu-bundle": "1.0",
             "sonata-project/doctrine-phpcr-admin-bundle": "dev-master",
-            "doctrine/data-fixtures": "1.0.0"
+            "doctrine/data-fixtures": "1.0.0",
+
+            "doctrine/phpcr-odm": "dev-master as 1.0.0",
+            "phpcr/phpcr-utils": "dev-master as 1.0.0",
+            "doctrine/phpcr-bundle": "dev-master as 1.0.0"
         },
         ...
     }
 
-And add the packages to the kernel::
+.. note::
 
-    class AppKernel extends Kernel
-    {
-        public function registerBundles()
-        {
-            $bundles = array(
-                // ...
-                new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
-                new Symfony\Cmf\Bundle\RoutingAutoBundle\CmfRoutingAutoBundle(),
-            );
+    This tutorial currently requires code only available in the lastest
+    unstable version of PHPCR-ODM, this is why you require the "dev-master as
+    1.0.0" constraints. When PHPCR-ODM 1.1 is released this will no longer be
+    necessary.
 
-            // ...
-        }
-    }
+Note that each time you modify your ``composer.json`` file you are required to
+run ``composer update``.
 
 Initialize the Database
 .......................
@@ -323,8 +325,31 @@ reinitialize) the repository:
     however that it is the responsibility of the initializer to respect
     idempotency!
 
+You can check to see that the repository has been initialized by dumping the
+content repository:
+
+.. code-block:: bash
+
+    $ php app/console doctrine:phpcr:node:dump
+
 Create Data Fixtures
 ~~~~~~~~~~~~~~~~~~~~
+
+You can use the doctrine data fixtures library to define some initial data for
+your CMS. 
+
+Ensure that you have the following package installed:
+
+.. code-block:: javascript
+
+    {
+        ...
+        require: {
+            ...
+            "doctrine/data-fixtures": "1.0.0"
+        },
+        ...
+    }
 
 Create a page for your CMS::
 
@@ -343,7 +368,7 @@ Create a page for your CMS::
             $parent = $dm->find(null, '/cms/pages');
 
             $page = new Page();
-            $page->setTitle
+            $page->setTitle('Home');
             $page->setParent($parent);
             $page->setContent(<<<HERE
     Welcome to the homepage of this really basic CMS.

@@ -1,5 +1,5 @@
-Part 5 - The "/" Home Route
----------------------------
+The Site Document and the Homepage
+----------------------------------
 
 All of your content should now be available at various URLs but your homepage
 (http://localhost:8000) still shows the default Symfony Standard Edition
@@ -7,6 +7,11 @@ index page.
 
 In this section you will add a side menu to Sonata Admin which will make
 enable the user to make a specified page act as the homepage of your CMS.
+
+.. note::
+
+    This is just one of many strategies for routing the homepage. For example,
+    another option would be put a `RedirectRoute` document at `/cms/routes`.
 
 Storing the Data
 ~~~~~~~~~~~~~~~~
@@ -70,7 +75,7 @@ Earlier you used the ``GenericInitializer`` to initialize the base paths of
 our project, including the ``cms`` node. The nodes created by the
 ``GenericInitializer`` have no PHPCR-ODM mapping however.
 
-You can replace the ``GenericInitializer`` with a custom initializer which
+You can *replace* the ``GenericInitializer`` with a custom initializer which
 will create the necessary paths **and** assign a document class to the ``cms``
 node::
 
@@ -100,6 +105,12 @@ node::
             $session->save();
         }
     }
+
+.. note::
+
+    It should be noted that modifying the ``phpcr:class`` property (which is
+    private to PHPCR-ODM) is not recommended - in the future there will be a
+    special way to intialize documents instead of PHPCR nodes.
 
 Now modify the existing service configuration for ``GenericInitializer`` as
 follows:
@@ -170,21 +181,19 @@ and verify that the ``cms`` node has been updated by using the
 
 .. note::
 
+    Why use an initializer instead of a data fixture? In this instance the
+    site object is a constant for your application. There is only one site
+    object, new sites will not be created and the existing site document will
+    not be removed. DataFixtures are intended to provide sample data, not
+    data which is integral to the functioning of your site.
+
+.. note::
+
     Instead of *replacing* the ``GenericIntializer`` you could simply add
     another initializer which takes the ``cms`` node created in the
     ``GenericInitializer`` and maps the document class to it. The minor
     disadvantage then is that there are two places where initialization
     choices take place - do whatever you prefer.
-
-As noted earlier, currently when data fixtures are loaded they will erase the
-workspace, including the paths created by the initializers. This means that
-each time you load your data fixtures you must also reinitialize the
-repository.
-
-.. note::
-
-    Alternatively you can modify your data fixtures to create a site document
-    - its up to you.
 
 Create the Make Homepage Button
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -227,7 +236,7 @@ making a given page the homepage. Add the following to the existing
             $dm->persist($page);
             $dm->flush();
 
-            return $this->redirect($this->generateUrl('admin_acme_basic_cms_page_edit', array( 
+            return $this->redirect($this->generateUrl('admin_acme_basiccms_page_edit', array( 
                 'id' => $page->getId()
             )));
         }
@@ -245,6 +254,7 @@ Now modify the ``PageAdmin`` class to add the button in a side-menu::
 
     // ...
     use Knp\Menu\ItemInterface;
+    use Sonata\AdminBundle\Admin\AdminInterface;
 
     class PageAdmin extends Admin
     {
@@ -288,8 +298,8 @@ Now that you have enabled the administrator to designate a page to be used as
 a homepage you need to actually make the CMS use this information to render
 the designated page.
 
-This is easily accomplished by adding a new action to the
-``DefaultController`` which forwards requests matching the route pattern ``/`` to
+This is easily accomplished by modifying the ``indexAction`` action of the
+``DefaultController`` to forward requests matching the route pattern ``/`` to
 the page action::
 
     // src/Acme/BasicCmsBundle/Controller/DefaultController.php
@@ -323,10 +333,5 @@ the page action::
     In contrast to previous examples you specify a class when calling ``find`` -
     this is because you need to be *sure* that the returned document is of class
     ``Site``.
-
-.. note::
-
-    This is just one of many strategies for routing the homepage. For example,
-    another option would be put a `RedirectRoute` document at `/cms/routes`.
 
 Now test it out, visit: http://localhost:8000

@@ -1,11 +1,24 @@
-Part 3 - The Backend
---------------------
+The Backend - Sonata Admin
+--------------------------
 
 In this chapter you will build an administration interface with the help
 of the `SonataAdminBundle`_.
 
-Configure Sonata
-~~~~~~~~~~~~~~~~
+Installation
+~~~~~~~~~~~~
+
+Install the following package is installed:
+
+.. code-block:: javascript
+
+    {
+        ...
+        require: {
+            ...
+            "sonata-project/doctrine-phpcr-admin-bundle": "dev-master",
+        },
+        ...
+    }
 
 Enable the Sonata related bundles to your kernel::
 
@@ -21,6 +34,7 @@ Enable the Sonata related bundles to your kernel::
                 new Knp\Bundle\MenuBundle\KnpMenuBundle(),
                 new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
                 new Sonata\AdminBundle\SonataAdminBundle(),
+                new Sonata\CoreBundle\SonataCoreBundle(),
             );
 
             // ...

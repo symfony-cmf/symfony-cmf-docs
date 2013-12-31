@@ -1,5 +1,5 @@
-Part 2: Automatic Routing
--------------------------
+Routing and Automatic Routing
+-----------------------------
 
 The routes (URLs) to your content will be automatically created and updated
 using the RoutingAutoBundle. This bundle uses a configuration language to
@@ -22,6 +22,47 @@ the contents will be avilable at the following URLs:
 * **Home**: ``http://localhost:8000/page/home``
 * **About**: ``http://localhost:8000/page/about``
 * etc.
+
+Installation
+~~~~~~~~~~~~
+
+Ensure that you have the following package installed:
+
+.. code-block:: javascript
+
+    {
+        ...
+        require: {
+            ...
+            "symfony-cmf/routing-auto-bundle": "1.0.*@alpha"
+        },
+        ...
+    }
+
+.. note::
+
+    You are installing the bleeding edge version of the routing-auto bundle.
+
+Enable the routing bundles to your kernel::
+
+    class AppKernel extends Kernel
+    {
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+                new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
+                new Symfony\Cmf\Bundle\RoutingAutoBundle\CmfRoutingAutoBundle(),
+            );
+
+            // ...
+        }
+    }
+
+.. note:: 
+
+    The `symfony-cmf/routing-bundle` package is installed automatically as
+    `symfony-cmf/routing-auto-bundle` depends on it.
 
 Enable the Dynamic Router
 ~~~~~~~~~~~~~~~~~~~~~~~~~
