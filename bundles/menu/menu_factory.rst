@@ -26,7 +26,7 @@ A menu item should have a URL associated with it. The CMF provides the
   from the ``content`` and ``routeParameters`` options when using the
   :ref:`dynamic router <bundles-routing-dynamic-generator>`.
 
-The ``content`` option, if specified, must contain an class which implements
+The ``content`` option, if specified, must contain a class which implements
 the ``RouteReferrersInterface``, see the :ref:`dynamic router
 <bundles-routing-dynamic-generator>` documentation for more information.
 
