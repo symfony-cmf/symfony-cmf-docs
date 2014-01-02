@@ -117,7 +117,7 @@ It is registered in the DI configuration as follows:
                 class: Symfony\Cmf\Bundle\RoutingAutoBundle\RoutingAuto\PathNotExists\ThrowException
                 scope: prototype
                 tags:
-                    - { name: cmf_routing_auto.provider, alias: "throw_exception"}
+                    - { name: cmf_routing_auto.not_exists_action, alias: "throw_exception"}
 
     .. code-block:: xml
 
