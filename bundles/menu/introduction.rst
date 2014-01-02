@@ -27,7 +27,7 @@ Installation
 You can install this bundle `with composer`_ using the
 `symfony-cmf/menu-bundle`_ package.
 
-Creating a Simple Persistant Menu
+Creating a Simple Persistent Menu
 ---------------------------------
 
 A menu created using the KnpMenuBundle is made up of a hierarchy of class
