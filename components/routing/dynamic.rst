@@ -71,7 +71,7 @@ parameters or "upcasting" request parameters to to the objects they correspond
 to.
 
 The component already provides some general purpose enhancers. They all follow
-the principle to never change and existing field but only add fields if they
+the principle to never change an existing field but only add fields if they
 do not exist yet:
 
 * ``RouteContentEnhancer``: If the route is instanceof ``RouteObjectInterface``,
