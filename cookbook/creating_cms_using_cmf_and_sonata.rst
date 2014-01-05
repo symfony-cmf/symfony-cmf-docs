@@ -39,6 +39,7 @@ Add the following to your ``composer.json`` file:
     "require": {
         ...
         "sonata-project/doctrine-phpcr-admin-bundle": "1.0.*",
+        "sonata-project/core-bundle": "~2.2@dev"
     }
 
 And then run:
@@ -63,6 +64,7 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
