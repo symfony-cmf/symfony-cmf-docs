@@ -9,7 +9,7 @@ CreateBundle
     applications. It integrates create.js and the CreatePHP library into
     Symfony2.
 
-The javascript library `create.js`_ provides a comprehensive web editing
+The JavaScript library `create.js`_ provides a comprehensive web editing
 interface for Content Management Systems. It is designed to provide a modern,
 fully browser-based HTML5 environment for managing content. Create.js can be
 adapted to work on almost any content management backend. Create.js makes your
@@ -88,7 +88,7 @@ Installation
 You can install this bundle `with composer`_ using the
 `symfony-cmf/create-bundle`_ package.
 
-Additionally, you will need to provide the javascript libraries. The standard
+Additionally, you will need to provide the JavaScript libraries. The standard
 way to do this is to add a ``scripts`` section in your ``composer.json`` to
 have the CreateBundle download the necessary libraries:
 
@@ -187,7 +187,7 @@ You also need to configure the FOSRestBundle to handle json:
             ),
         ));
 
-If you want to use Assetic to combine the CSS and Javascript used for
+If you want to use Assetic to combine the CSS and JavaScript used for
 create.js, you need to enable the CreateBundle in the assetic configuration.
 Find the configuration for ``assetic.bundles``. If it is not present, assetic
 automatically scans all bundles for assets and you don't need to do anything.
@@ -274,29 +274,52 @@ additionally need to register the route for the image upload handler:
 
         return $collection;
 
+.. _bundle_create_introduction_access_control:
+
 Access Control
 ~~~~~~~~~~~~~~
 
 In order to limit who can edit content, the provided controllers as well as the
-javascript loader check if the current user is granted the configured
-``cmf_create.role``. By default the role is ``ROLE_ADMIN``.
+JavaScript loader check if the current user is granted the configured
+``cmf_create.security.role``. By default the role is ``ROLE_ADMIN``.
 
 .. tip::
 
     In order to have security in place, you need to configure a
     "Symfony2 firewall". Read more in the `Symfony2 security chapter`_.
+    If you do not do that, create.js will not be loaded and editing
+    will be disabled.
+
+    If you do not want to edit on the production domain directly, e.g.
+    because of caching, you can provide a second domain where you have
+    security configured and do the editing there.
+
+You can completely disable security checks by setting the role parameter to
+boolean ``false``. Then you need to configure access permissions on the routes
+defined in ``Resources/routing/rest.xml`` and, if activated, in ``image.xml``.
+If you set the role to false but do not configure any security,
+**every visitor of your site will be able to edit the content**.
+You also will need custom logic to decide whether to include the create.js
+JavaScript files.
+
+You can also use a custom security check service by implementing
+``Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface``
+and setting this service in ``cmf_create.security.checker_service``.
 
 If you need more fine grained access control, look into the CreatePHP
 ``RdfMapperInterface`` ``isEditable`` method.  You can extend a mapper and
 overwrite ``isEditable`` to answer whether the passed domain object is
 editable.
 
-Load create.js Javascript and CSS
+Load create.js JavaScript and CSS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This bundle provides templates that load the required Javascript and CSS files
-based on Assetic. The Javascript loader also parametrizes the configuration
-for create.js and the chosen editor.
+This bundle provides a template that loads the required CSS files, as well as
+a controller action that loads the necessary JavaScript *if* the current user
+is allowed to edit according to
+:ref:`the security configuration <bundle_create_introduction_access_control>`.
+The JavaScript loader also parametrizes the configuration for create.js and
+WYSIWYG editor.
 
 Alternatively, you can of course use your own templates to include the assets
 needed by create.js.
@@ -319,7 +342,7 @@ after those to be able to customize as needed) with:
     Make sure assetic is rewriting the paths in your CSS files properly or you
     might not see icon images.
 
-In your page bottom area load the javascripts. If you are using Symfony 2.2 or
+In your page bottom area, load the JavaScript files. If you are using Symfony 2.2 or
 higher, the method reads:
 
 .. configuration-block::
@@ -354,9 +377,15 @@ For Symfony 2.1, the syntax is:
             '_locale' => $app->getRequest()->getLocale(),
         ) ?>
 
+.. tip::
+
+    You can include this call unconditionally. The controller checks if the
+    current user is allowed to edit and only in that case includes the
+    JavaScript.
+
 .. note::
 
-    The provided javascript file configures create.js and the editor. If you
+    The provided JavaScript file configures create.js and the editor. If you
     use the hallo editor, a plugin is enabled to use the tag editor to edit
     ``skos:related`` collections of attributes. For customization of the editor
     configuration further, you will need to use a

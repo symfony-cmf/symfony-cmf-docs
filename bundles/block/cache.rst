@@ -9,8 +9,8 @@ The Symfony2 CMF BlockBundle additionally provides its own adapters for:
 
 * `ESI`_
 * `SSI`_
-* Asynchronous javascript
-* Synchronous javascript
+* Asynchronous JavaScript
+* Synchronous JavaScript
 
 .. note::
 
@@ -145,14 +145,14 @@ is triggered:
 
     * The ESI and SSI adapter add a specific tag and a url to retrieve the
       block content;
-    * The javascript adapter adds javascript and a url to retrieve the block
+    * The JavaScript adapter adds JavaScript and a url to retrieve the block
       content.
 
   * If the cache element is not expired and has data it is returned.
 * The template is rendered:
 
   * For ESI and SSI the url is called to retrieve the block content
-  * For Javascript the browser calls a url and replaces a placeholder with the
+  * For JavaScript the browser calls a url and replaces a placeholder with the
   * returned block content
 
 .. note::
@@ -308,10 +308,10 @@ This extends the default SsiCache adapter of the SonataCacheBundle.
 See :ref:`the configuration reference <reference-config-block-caches-ssi>` to
 learn how to configure the ssi adapter.
 
-Javascript
+JavaScript
 ~~~~~~~~~~
 
-Renders the block using javascript, the page is loaded and not waiting for the
+Renders the block using JavaScript, the page is loaded and not waiting for the
 block to be finished rendering or retrieving data. The block is then
 asynchronously or synchronously loaded and added to the page.
 

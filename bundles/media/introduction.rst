@@ -235,7 +235,7 @@ is protected by the ``ROLE_CAN_UPLOAD_FILE`` role.
 
 The ``UploadFileHelper`` contains ``UploadEditorHelperInterface`` instances.
 This handles the response returned of the file upload depending on the web
-editing tool used and can be json, javascript or something else. Implement
+editing tool used and can be json, JavaScript or something else. Implement
 your own for specific needs, add it to the service configuration and tag the
 service with ``cmf_media.upload_editor_helper``, the tag alias is the editor
 helper name. The ``UploadFileHelper`` checks the request for the parameter
