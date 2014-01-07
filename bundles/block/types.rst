@@ -21,8 +21,8 @@ Publish Workflow Interfaces
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``AbstractBlock`` implements the write interfaces for publishable and
-publish time period, see the 
-:doc:`publish workflow documentation <../core/publish_workflow>` for more 
+publish time period, see the
+:doc:`publish workflow documentation <../core/publish_workflow>` for more
 information.
 
 Sonata Admin
@@ -275,7 +275,7 @@ SlideshowBlock
 
 The ``SlideshowBlock`` is a special kind of ``ContainerBlock``. It can contain
 any kind of blocks that will be rendered with a wrapper div to help a
-javascript slideshow library to slide them.
+JavaScript slideshow library to slide them.
 
 The ``ImagineBlock`` is particularly suited if you want to do an image
 slideshow, but the ``SlideshowBlock`` can handle any kind of blocks, also mixed
@@ -283,7 +283,7 @@ types of blocks in the same slideshow.
 
 .. note::
 
-    This bundle does not attempt to provide a javascript library for animating
+    This bundle does not attempt to provide a JavaScript library for animating
     the slideshow. Chose your preferred library that plays well with the rest
     of your site and hook it on the slideshows. (See also below).
 
@@ -341,7 +341,7 @@ Make the slideshow work in the frontend
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Since the BlockBundle doesn't contain anything to make the slideshow work
-in the frontend, you need to do this yourself. Use your favourite javascript
+in the frontend, you need to do this yourself. Use your favourite JavaScript
 library to make the slideshow interactive. If special markup is needed for
 your slideshow code to work, you can override
 ``BlockBundle:Block:block_slideshow.html.twig`` and/or the templates of the

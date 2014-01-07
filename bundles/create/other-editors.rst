@@ -36,7 +36,7 @@ Then re-run composer:
 
     $ php composer.phar run-scripts
 
-In your template, load the javascript files using:
+In your template, load the JavaScript files using:
 
 .. configuration-block::
 
@@ -85,7 +85,7 @@ Custom Editors
 --------------
 
 You can provide your own template to customize how to load CKEditor, hallo.js
-or a javascript editor not supported out of the box. The template has
+or a WYSIWYG editor not supported out of the box. The template has
 follow the naming pattern
 ``CmfCreateBundle::includejsfiles-%editor%.html.twig`` to be loaded. You custom
 file thus needs to reside in ``app/Resources/CmfCreateBundle/views/`` and has

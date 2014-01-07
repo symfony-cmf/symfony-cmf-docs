@@ -207,7 +207,7 @@ A block service contains:
 * Default settings;
 * Dorm configuration;
 * Cache configuration;
-* Javascript and stylesheet assets to be loaded;
+* JavaScript files and stylesheet assets to be loaded;
 * A load method.
 
 The block services provided by the Symfony2 CMF BlockBundle are in the
@@ -292,11 +292,11 @@ Cache Configuration
 The method ``getCacheKeys`` contains cache keys to be used for caching the
 block.
 
-Javascript and Stylesheets
+JavaScript and Stylesheets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The methods ``getJavascripts`` and ``getStylesheets`` can be used to define
-javascript and stylesheet assets needed by a block. Use the twig helpers
+The methods ``getJavaScripts`` and ``getStylesheets`` can be used to define
+JavaScript and stylesheet assets needed by a block. Use the twig helpers
 ``sonata_block_include_javascripts`` and ``sonata_block_include_stylesheets``
 to render them:
 
@@ -314,7 +314,7 @@ to render them:
 
 .. note::
 
-    This will output the javascripts and stylesheets for all blocks loaded in
+    This will output the JavaScript files and stylesheets for all blocks loaded in
     the service container of your application.
 
 The Load Method
