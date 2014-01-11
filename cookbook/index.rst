@@ -5,7 +5,7 @@ The Cookbook
     :hidden:
 
     create_new_project_phpcr_odm
-    creating_a_cms/000-index
+    creating_a_cms/index
     database/choosing_storage_layer
     editions/cmf_sandbox
     editions/cmf_core
