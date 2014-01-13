@@ -29,7 +29,7 @@ all of the required packages now.
         ...
         require: {
             ...
-            "symfony-cmf/routing-auto-bundle": "1.0.0@alpha",
+            "symfony-cmf/routing-auto-bundle": "1.0.0-alpha10 as 1.0.0",
             "symfony-cmf/menu-bundle": "1.0",
             "sonata-project/doctrine-phpcr-admin-bundle": "dev-master",
             "doctrine/data-fixtures": "1.0.0",
