@@ -19,8 +19,9 @@ Getting Familair with PHPCR
 
 PHPCR_ stores all data into one big tree structure. You can compare this to a
 filesystem where each file and directory contains data. This means that all
-data stored with PHPCR has a relation ship with at least one other data: his
-parent. Data can also have children and PHPCR.
+data stored with PHPCR has a relationship with at least one other data: its
+parent. The inverse relation also exists, you can also get the children of a
+data element.
 
 Let's take a look at the dump of the tree of the Standard Edition you
 downloaded in the previous chapter. Go to your directory and execute the
@@ -57,13 +58,14 @@ stored in the ``/cms/simple`` path.
 
 Each node has properties, which contain the data. The content, title and label
 you set for your page are saved in such properties for the ``quick_tour``
-node.
+node. You can view these properties by adding the ``--props`` switch to the
+dump command.
 
 .. note::
 
     Previously, the PHPCR tree was compared with a FileSystem. While this
     gives you a good imagine of what happends, it's not the truth. You can
-    better compare it to an XML file, where each node is an element and his
+    better compare it to an XML file, where each node is an element and its
     properties are attributes.
 
 Doctrine PHPCR-ODM
@@ -90,8 +92,6 @@ by creating a new class in the AcmeMainBundle::
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
-
-    use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
 
     class LoadPageData implements FixtureInterface
     {
@@ -144,18 +144,24 @@ document using the Doctrine API::
 Now you need to execute the ``doctrine:phpcr:fixtures:load`` command again and
 then you can visit your website again. You'll see your new page you added!
 
-.. image:: ...
+.. image:: ../_images/quick_tour/the-model-new-page.png
+
+.. seealso::
+
+    See ":doc:`../book/database_layer`" if you want to know more about using
+    PHPCR in a Symfony application.
 
 Final Thoughts
 --------------
 
 PHPCR is a powerfull way to store your pages in a CMS. But, if you're not
-comfortable with it, you can always switch to another storage layer.
+comfortable with it, you can always
+:doc:`switch to another storage layer <../cookbook/database/choosing_storage_layer>`.
 
-If you look back at these 20 minutes, you discover that you have learned how
-to work with a new storage layer and you have added 2 new pages. Do you see
-how easy the CMF works when making your application editable? It provides most
-of the things you previously had to do yourself.
+When looking back at these 20 minutes, you should have learned how to work
+with a new storage layer and you have added 2 new pages. Do you see how easy
+the CMF works when making your application editable? It provides most of the
+things you previously had to do yourself.
 
 But you have now only seen a small bit of the CMF, there is much more to learn
 about and many other bundles are waiting for you. Before you can do all this,

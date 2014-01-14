@@ -4,25 +4,25 @@
 The Router
 ==========
 
-Welcome at the 3th part of the Quick Tour. You must fell in love with the CMF
-if you came this far! And that's a good thing, as you will learn the backbone
-of the CMF in this chapter: The Router.
+Welcome at the third part of the Quick Tour. You seem to have fallen in love
+with the CMF, getting this far! And that's a good thing, as you will learn
+about the backbone of the CMF in this chapter: The Router.
 
 The Backbone of the CMF
 -----------------------
 
-It has already been said sometimes, the router is the backbone. To understand
-this, you have a good view of what a CMS tries to do. In a normal Symfony
-application, a route refers to a controller which can handle a specific
-entity. Another route refers to another controller which can handle another
-entity. This way, a route is tied to a controller. In fact, using the Symfony
-core you are also limited at this.
+As already said, the router is the backbone. To understand this, you have a
+good view of what a CMS tries to do. In a normal Symfony application, a route
+refers to a controller which can handle a specific entity. Another route
+refers to another controller which can handle another entity. This way, a
+route is tied to a controller. In fact, using the Symfony core you are also
+limited at this.
 
-But using a CMS, you only have 1 type of entity (document actually): The
-Content. So the routes don't have to be tied to a controller anymore, as only
-one controller is needed. The route has to be tied to a specific Content
-object, which -on his side- can reference to a specific template and
-controller.
+But if you look at the base of a CMS, it only needs to handle 1 type of
+entity: The Content. So most of the routes don't have to be tied to a
+controller anymore, as only one controller is needed. The Route has to be tied
+to a specific Content object, which - on its side - can reference a specific
+template and controller.
 
 Other parts of the CMF are also related to the Router. To give 2 examples: The
 menu is created by generating specific routes using the Router and the blocks
@@ -40,19 +40,18 @@ chapter, you know that you can get the ``quick_tour`` page from PHPCR using
 ``/cms/simple/quick_tour``. The URL to get this page is ``quick_tour``. Some
 other examples:
 
-+--------------------------+---------------+
-| PHPCR path               | Route         |
-+==========================+===============+
-| /cms/simple/about        | /about        |
-+--------------------------+---------------+
-| /cms/simple/contact/team | /contact/team |
-+--------------------------+---------------+
-| /cms/simple/docs         | /contact/docs |
-+--------------------------+---------------+
+.. code-block:: text
+
+    /cms
+        /simple
+            /about       # /about Route
+            /contact     # /contact Route
+                /team    # /contact/team Route
+                /docs    # /docs Route
 
 OK, you got it? The only thing the Router has to do is prefix the route with a
 specific path prefix and load that document. In the case of the SimpleCmsBundle,
-all routes are prefixed by ``/cms/simple``.
+all routes are prefixed with ``/cms/simple``.
 
 You see that a route like ``/contact/team``, which consist of 2 "path units",
 has 2 documents in the PHPCR tree: ``contact`` and ``team``.
@@ -190,12 +189,12 @@ Final Thoughts
 --------------
 
 Now you reached the end of this article, you can say you really know the
-basics of the Symfony CMF. You have learned about the Request flow and quickly
-learned each new step in this process. In the next chapters, you have learned
+basics of the Symfony CMF. First, you have learned about the Request flow and
+quickly learned each new step in this process. After that, you have learned
 more about the default storage layer and the routing system.
 
 The Routing system is created together with some developers from Drupal8. In
-fact, Drupal8 uses the Routing component of the Symfony CMF. The Symfony CMF
-also uses some 3th party bundles from others and integrated them into PHPCR.
+fact, Drupal 8 uses the Routing component of the Symfony CMF. The Symfony CMF
+also uses some 3rd party bundles from others and integrated them into PHPCR.
 In :doc:`the next chapter <oss>` you'll learn more about those bundles and
 other projects the Symfony CMF is helping.
