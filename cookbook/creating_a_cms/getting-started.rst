@@ -32,7 +32,7 @@ all of the required packages now.
             "symfony-cmf/routing-auto-bundle": "1.0.*@alpha",
             "symfony-cmf/menu-bundle": "1.0",
             "sonata-project/doctrine-phpcr-admin-bundle": "dev-master",
-            "symfony-cmf/tree-browser-bundle": "~1.1.0@dev",
+            "symfony-cmf/tree-browser-bundle": "@dev",
             "doctrine/data-fixtures": "1.0.0",
 
             "doctrine/phpcr-odm": "dev-master as 1.0.0",
