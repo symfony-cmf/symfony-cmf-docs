@@ -319,7 +319,7 @@ the page action::
             $homepage = $site->getHomepage();
 
             if (!$homepage) {
-                throw $this>createNotFoundException('No homepage configured');
+                throw $this->createNotFoundException('No homepage configured');
             }
 
             return $this->forward('AcmeBasicCmsBundle:Default:page', array(
