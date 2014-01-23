@@ -417,7 +417,7 @@ and load the fixtures:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:fixtures:load
+    $ php app/console doctrine:phpcr:fixtures:load --append
 
 You should now have some data in your content repository.
 
