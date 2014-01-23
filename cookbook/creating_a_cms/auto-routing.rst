@@ -6,7 +6,7 @@ using the RoutingAutoBundle. This bundle uses a configuration language to
 specify automatic creation of routes, which can be a bit hard to grasp the
 first time you see it.
 
-For a full a full explanation refer to the
+For a full explanation refer to the
 :doc:`../../bundles/routing_auto/index`.
 
 In summary, you will configure the auto routing system to create a new auto
