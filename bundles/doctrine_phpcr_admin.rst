@@ -49,4 +49,4 @@ Configuration
 
 .. _`SonataDoctrinePhpcrAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle#readme
 .. _`SonataAdminBundle`: https://github.com/sonata-project/SonataAdminBundle
-.. _`TreeBundle`: https://github.com/symfony-cmf/TreeBundle#readme
+.. _`TreeBundle`: https://github.com/symfony-cmf/TreeBrowserBundle#readme
