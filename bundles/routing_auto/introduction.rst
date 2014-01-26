@@ -209,7 +209,7 @@ The ``Topic`` document would then need to implement the methods named above as
 follows::
 
     // src/Acme/ForumBundle/Document/Topic.php
-    namespace Acme/ForumBundle/Document;
+    namespace Acme\ForumBundle\Document;
 
     class Topic
     {
