@@ -308,7 +308,6 @@ select the route target.
 
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
-
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
@@ -540,9 +539,7 @@ configuration in the ``sonata_admin`` section of your project configuration:
         <config xmlns="http://sonata-project.org/schema/dic/admin">
             <!-- ... -->
             <extension id="cmf_routing.admin_extension.route_referrers">
-                <implement>
-                    Symfony\Cmf\Component\Routing\RouteReferrersInterface
-                </implement>
+                <implement>Symfony\Cmf\Component\Routing\RouteReferrersInterface</implement>
             </extension>
         </config>
 
