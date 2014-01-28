@@ -292,7 +292,8 @@ Create your first Slideshow
 
 Building a slideshow consists of creating the container ``SlideshowBlock`` and
 adding blocks to it. Those blocks can be any kind of blocks, but the
-``ImagineBlock`` makes a lot of sense::
+``ImagineBlock`` makes a lot of sense. Make sure to have configured the imagine
+filter as explained `above <ImagineBlock>`_::
 
     use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock;
     use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock;
@@ -364,7 +365,7 @@ following line to your sonata admin configuration:
                     blocks:
                         label: Blocks
                         items:
-                            - cmf_block.slideshow_admin
+                            - cmf_block.imagine.slideshow_admin
 
     .. code-block:: xml
 
@@ -375,7 +376,7 @@ following line to your sonata admin configuration:
                 <dashboard>
                     <group id="blocks"
                         label="Blocks">
-                        <item>cmf_block.slideshow_admin</item>
+                        <item>cmf_block.imagine.slideshow_admin</item>
                     </group>
                 </dashboard>
             </config>
@@ -390,7 +391,7 @@ following line to your sonata admin configuration:
                     'blocks' => array(
                         'label' => 'Blocks',
                         'items' => array(
-                            'cmf_block.slideshow_admin',
+                            'cmf_block.imagine.slideshow_admin',
                         ),
                     ),
                 ),
