@@ -355,7 +355,7 @@ the name indicates, loads ``Route`` entities from an ORM database.
 
 .. caution::
 
-    You must install the CMF ``CoreBundle`` to utilize this feature if your app
+    You must install the CoreBundle to utilize this feature if your app
     does not have at least DoctrineBundle 1.3 installed.
 
 .. _bundles-routing-dynamic-generator:
