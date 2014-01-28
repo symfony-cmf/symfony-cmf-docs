@@ -353,7 +353,9 @@ Alternatively, you can use the `Doctrine ORM`_ provider by specifying the
 ``persistence.orm`` part of the configuration. It does a similar job but, as
 the name indicates, loads ``Route`` entities from an ORM database.
 
-    You must install the CMF `CoreBundle` to utilize this feature if your app
+.. caution::
+
+    You must install the CMF ``CoreBundle`` to utilize this feature if your app
     does not have at least DoctrineBundle 1.3 installed.
 
 .. _bundles-routing-dynamic-generator:
