@@ -360,7 +360,7 @@ Create a page for your CMS::
     use Acme\BasicCmsBundle\Document\Page;
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\Persistence\ObjectManager;
-    use PHPCR\Util\NodeHelpen;
+    use PHPCR\Util\NodeHelper;
 
     class LoadPageData implements FixtureInterface
     {
