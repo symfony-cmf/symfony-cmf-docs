@@ -5,6 +5,7 @@ Contributing
     :hidden:
 
     code
+    pr_style_and_commits
     bundles
     releases
     license
