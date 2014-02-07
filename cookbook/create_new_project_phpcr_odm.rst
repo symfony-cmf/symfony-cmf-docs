@@ -62,16 +62,7 @@ content repository.
         }
     }
 
-**Step 5**: (*optional*) Register the PHPCR-ODM annotations in ``app/autoload.php``::
-
-    // app/autoload.php
-
-    // ...
-    AnnotationRegistry::registerFile(
-        __DIR__.'/../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php'
-    );
-
-**Step 6**: Modify ``parameters.yml.dist``, adding the required PHPCR-ODM settings:
+**Step 5**: Modify ``parameters.yml.dist``, adding the required PHPCR-ODM settings:
 
 .. code-block:: yaml
 
@@ -83,7 +74,7 @@ content repository.
             connection: default
         phpcr_workspace: default
         phpcr_user: admin
-        phpcr_pass: admin 
+        phpcr_pass: admin
 
 .. note::
 
@@ -91,7 +82,7 @@ content repository.
     This is because the Standard Edition will use this file as a template when
     updating the configuration.
 
-**Step 7**: Add the Doctrine PHPCR configuration to the main application configuration:
+**Step 6**: Add the Doctrine PHPCR configuration to the main application configuration:
 
 .. configuration-block::
 
@@ -142,7 +133,7 @@ content repository.
             ),
         ));
 
-**Step 8**: Run ``composer update``:
+**Step 7**: Run ``composer update``:
 
 .. code-block:: bash
 
