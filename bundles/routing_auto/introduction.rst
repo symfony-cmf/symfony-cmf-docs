@@ -235,6 +235,13 @@ follows::
 After persisting this object, the route will be created. Of course, you need to make
 the properties editable and then you have a fully working routing system.
 
+.. note::
+
+    Any mapping applied to an object will also apply to subclasses of that
+    object. Imagine you have 2 documents, ``ContactPage`` and ``Page``, which
+    both extend ``AbstractPage``. When you map the ``AbstractPage`` class, it
+    will be applied to both documents.
+
 Provided Providers and Action
 -----------------------------
 
