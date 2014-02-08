@@ -238,9 +238,9 @@ the properties editable and then you have a fully working routing system.
 .. note::
 
     Any mapping applied to an object will also apply to subclasses of that
-    object. So for example, if you have an documents of types ``ContactPage``
-    and ``Page`` which both extend ``AbstractPage`` you can map
-    ``AbstractPage`` to have the same mapping apply to both documents.
+    object. Imagine you have 2 documents, ``ContactPage`` and ``Page``, which
+    both extend ``AbstractPage``. When you map the ``AbstractPage`` class, it
+    will be applied to both documents.
 
 Provided Providers and Action
 -----------------------------
