@@ -9,9 +9,8 @@ guidelines in the [Creating a Pull Request][3] section and use the [Pull Request
 Format][4].
 
 > :warning: **NOTE**
-> Unless you are documenting a features that's new in a specific bundle
-> version, all pull requests should be based on the **1.0** branch, **not**
-> the master branch.
+> If you are documenting new features you should base your PR on the
+> **dev branch**, *not* the master branch.
 
  [1]: http://symfony.com/doc/current/contributing/documentation/index.html
  [2]: http://symfony.com/doc/current/contributing/documentation/format.html
