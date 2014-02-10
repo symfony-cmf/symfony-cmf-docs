@@ -1,4 +1,4 @@
-﻿.. index::
+.. index::
     single: Menu; Bundles
     single: MenuBundle
 
@@ -129,6 +129,20 @@ example is specified. This will render an unordered list as follows:
 
             echo $view['knp_menu']->render('/cms/some/path/my-menu');
 
+.. tip::
+
+    You can reference menus in the`symfony-cmf/block-bundle`_ and render 
+    them in any places where you are using a Block:
+    
+    .. configuration-block::
+
+        .. code-block:: jinja
+        
+            {{ sonate_render_block('/cms/some/path/my-referencing-menu-block') }}
+
+        .. code-block:: php
+
+            echo $view['sonata_block']->render('/cms/some/path/my-referencing-menu-block');
 .. note::
 
      It is the ``PhpcrMenuProvider`` class which allows us to specify a

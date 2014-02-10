@@ -136,6 +136,18 @@ block mapped by the persistence layer as argument. If you set this to
 something that is not a valid block, the problem is only detected when
 rendering the block.
 
+MenuBlock
+---------
+
+This block has no content of its own, but points to a target menu.
+When rendered, this block renders the target menu just as if the target
+menu was directly used in that place.
+
+This block simply has the method ``setReferencedMenu`` that accepts any
+menu mapped by the persistence layer as argument. If you set this to
+something that is not a valid menu, the problem is only detected when
+rendering the block.
+
 ActionBlock
 -----------
 
