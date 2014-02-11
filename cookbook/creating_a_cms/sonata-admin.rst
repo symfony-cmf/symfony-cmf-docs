@@ -7,7 +7,7 @@ of the `SonataAdminBundle`_.
 Installation
 ~~~~~~~~~~~~
 
-Install the following package is installed:
+Ensure that you have the following package installed:
 
 .. code-block:: javascript
 
