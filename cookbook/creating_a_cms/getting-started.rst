@@ -62,7 +62,7 @@ database:
 
 .. code-block:: bash
 
-    $ mysqladmin create symfony -u root
+    $ php app/console doctrine:database:create
 
 This will create a new database called ``symfony`` - this is the name used by
 default in the Symfony Standard Edition, change it as might be necessary.
