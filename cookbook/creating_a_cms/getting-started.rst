@@ -64,8 +64,8 @@ database:
 
     $ php app/console doctrine:database:create
 
-This will create a new database called ``symfony`` - this is the name used by
-default in the Symfony Standard Edition, change it as might be necessary.
+This will create a new database according to the configuration file 
+``parameters.yml``.
 
 The Doctrine DBAL backend needs to be initialized, the following command
 will create the MySQL schema required to store the hierarchical
