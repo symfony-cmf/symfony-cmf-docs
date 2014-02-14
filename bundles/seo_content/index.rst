@@ -1,4 +1,4 @@
-ContentBundle
+SeoBundle
 =============
 
 .. toctree::
