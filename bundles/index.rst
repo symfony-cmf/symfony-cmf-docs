@@ -18,5 +18,6 @@ Bundles
     simple_cms/index
     doctrine_phpcr_admin
     tree_browser/index
+    seo_content/index
 
 .. include:: map.rst.inc
