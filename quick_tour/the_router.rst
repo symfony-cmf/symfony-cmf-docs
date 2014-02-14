@@ -196,5 +196,5 @@ more about the default storage layer and the routing system.
 The Routing system is created together with some developers from Drupal8. In
 fact, Drupal 8 uses the Routing component of the Symfony CMF. The Symfony CMF
 also uses some 3rd party bundles from others and integrated them into PHPCR.
-In :doc:`the next chapter <oss>` you'll learn more about those bundles and
-other projects the Symfony CMF is helping.
+In :doc:`the next chapter <the_third_party_bundles>` you'll learn more about
+those bundles and other projects the Symfony CMF is helping.
