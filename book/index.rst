@@ -1,5 +1,5 @@
-Getting Started
-===============
+The Book
+========
 
 .. toctree::
     :hidden:
