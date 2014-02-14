@@ -7,6 +7,24 @@ SeoContentBundle
 
     This bundle provides a soluton to make content bundles aware of SEO.
 
+Preface
+-------
+
+As the symfony cmf allows you to show one content on multiple routes, it is a must have to avoid
+duplicate content. There are two solutions to rid of it:
+
+Create a canonical link with the reference to THE original url:
+
+    <link rel="canonical" href="/route/org/content">
+
+or a redirect to the original url.
+
+Both take care on search engines, which does not like it to have same content under different routes.
+
+The SonataSeoBundle still does a good job on handling that stuff. But we need a thin wrapper around
+their service to get the cmf content documents be aware of those duplicate content problems.
+As sonatas SeoBundle provides solutions for setting values for meta tags and the page's title the SeoBundle
+will contain "out-of-the-box" solution for the cmf documents, too.
 
 Installation
 ------------
@@ -15,6 +33,41 @@ You can install the bundle in 2 different ways:
 
 * Use the official Git repository (https://github.com/symfony-cmf/SeoContentBundle);
 * Install it via Composer (``symfony-cmf/seo-content-bundle`` on `Packagist`_).
+
+Configuration
+-------------
+
+The first part of configuration is the one for the sonata seo bundle. These settings are handled as
+default values
+
+
+    sonata_seo:
+      page:
+        title: Default title
+        metas:
+          names:
+              description: default description
+              keywords: default, key, other
+
+Without any settings or work with the SeoBundle these settings are enough to let the sonatas ``PageService``
+know about your default. When you add the twig helpers to your template you will get the values in
+your title or your meta tags.
+
+The SeoBundle adds some more options:
+
+cmf_seo:
+    title:
+        strategy: append
+        bond_by: ' | '
+    content:
+      strategy: canonical
+
+Now you are able to decide if a title (set in a SeoAwareContent) is appending, prepending (default) the default
+title or replacing it. The strategy values can be ``prepend``, ``appen`` or ``replace``.
+You are also able to set a string, which bond the default and the contents own title property by
+setting a value to ``cmf_seo.title.bond_by``.
+In case of duplicate content it is the task of the developer to set the strategy either to
+``canonical`` (a canonical link will be created) or to ``redirect`` (default).
 
 Usage
 -----
@@ -73,179 +126,51 @@ look at the title or the meta tags, you will see something different. The title 
 ``Special Title | Default`` and the meta tags contain the description and keywords added by some
 default values. (See in the Configuration).
 
-The SeoAwareContentController
-~~~~~~~~~~~~~~~~~~~~~
+From SeoMetadata to MetadataTag
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-todo: work on here and replace the other stuff. ...
+As the the content document provides the ``SeoAwareInterface`` it should be able to return the
+``SeoMetadata``. But how does these properties get into your page?
+
+At the moment you need to add the following lines to your controller:
+
+    //when there are some seo meta data they will be handled by a special service
+    if ($contentDocument instanceof SeoAwareInterface) {
+        $this->seoPage->setSeoMetadata($contentDocument->getSeoMetadata());
+        $this->seoPage->setMetadataValues();
+
+        //have a look if the strategy is redirect and if there is a route to redirect to
+        if ($url = $this->seoPage->getRedirect()) {
+            print("should be redirected to $url");
+            exit;
+        }
+    }
+
+and implement the ``SeoAwareContentControllerInterface`` to get the ``SeoPresentation``-Model which is
+responsible to set the properties of the SeoMetadata to Sonatas ``PageService``. Sonata does not only
+provide its service, it delivers a bunch of twig helpers, which are able to put the seo metadata into
+your page. Have a look at these examples:
+
+    {% extends "::base.html.twig" %}
+
+    {% block seo_head %}
+        {{ sonata_seo_title() }}
+        {{ sonata_seo_metadatas() }}
+        {{ sonata_seo_link_canonical() }}
+        {{ sonata_seo_lang_alternates() }}
+    {% endblock %}
 
 
 
-The ContentBundle provides a ``ContentController``. This controller can
-generically handle incoming requests and forward them to a template. This is
-usually used together with the
-:ref:`dynamic router <bundles-routing-dynamic_router-enhancer>`.
+The FormType
+~~~~~~~~~~~~
 
-Create the Template
-...................
+To set all these metadata we provide a FormTye too. The ``SeoMetadataType`` contains all the fields you would
+need for the ``SeoMetadata`` an example for the SonataAdmin would look like this:
 
-In order to render the content, you need to create and configure a template.
-This can be done either by using the ``templates_by_class`` setting (see
-below) or by configuring the default template.
+    ->with('form.group_seo')
+        ->add('seoMetadata', 'seo_metadata', array('label'=>false))
+    ->end()
 
-Any template rendered by the ``ContentController`` will be passed the
-``cmfMainContent`` variable, which contains the current ``StaticContent``
-document.
 
-For instance, a very simple template looks like:
-
-.. configuration-block::
-
-    .. code-block:: html+jinja
-
-        {# src/Acme/BlogBundle/Resources/views/Post/index.html.twig #}
-        {% extends '::layout.html.twig' %}
-
-        {% block title -%}
-            {{ cmfMainContent.title }}
-        {%- endblock %}
-
-        {% block content -%}
-            <h1>{{ cmfMainContent.title }}</h1>
-
-            {{ cmfMainContent.body|raw }}
-        {%- endblock %}
-
-    .. code-block:: html+php
-
-        <!-- src/Acme/BlogBundle/Resources/views/Post/index.html.php -->
-        <?php $view->extend('::layout.html.twig') ?>
-
-        <?php $view['slots']->set('title', $cmfMainContent->getTitle()) ?>
-
-        <?php $view['slots']->start('content') ?>
-        <h1><?php echo $cmfMainContent->getTitle() ?></h1>
-
-        <?php echo $cmfMainContent->getBody() ?>
-        <?php $view['slots']->stop() ?>
-
-.. _bundles-content-introduction_default-template:
-
-Configuring a default template
-..............................
-
-To configure a default template, use the ``default_template`` option:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-
-        # ...
-        cmf_content:
-            default_template: AcmeBlogBundle:Content:static.html.twig
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-
-            <!-- ... -->
-
-            <config xmlns="http://cmf.symfony.com/schema/dic/content"
-                default-template="AcmeMainBundle:Content:static.html.twig"
-            />
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.yml
-
-        // ...
-        $container->loadFromExtension('cmf_content', array(
-            'default_template' => 'AcmeMainBundle:Content:static.html.twig',
-        ));
-
-Whenever the content controller gets called without a specified template, it
-will now use this template.
-
-Setting up the Routing
-----------------------
-
-The RoutingBundle provides powerful tools to configure how dynamic routes and
-their content can be mapped to controllers and templates.
-
-Lets assume that you want to handle ``StaticContent`` with the default
-``ContentController``. To achieve this, you can use the
-``cmf_routing.dynamic.controllers_by_class`` configuration option:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-
-        # ...
-        cmf_routing:
-            dynamic:
-                controllers_by_class:
-                    Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent: cmf_content.controller:indexAction
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-
-            <!-- ... -->
-
-            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-                <dynamic>
-                    <controller-by-class
-                        class="Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent">
-                        cmf_content.controller:indexAction
-                    </controller-by-class>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.yml
-
-        // ...
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'controller_by_class' => array(
-                    'Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent' => 'cmf_content.controller:indexAction',
-                ),
-            ),
-        ));
-
-Now everything is configured correctly, navigating to ``/hello`` results in a
-page displaying your content.
-
-Using templates_by_class
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-It is common to assign a template to a content, instead of depending on the
-default template. This way, you can have different templates for the different
-documents to handle their specific properties or produce custom HTML. To map a
-template to a content, use the ``templates_by_class`` option. If a template is
-found this way, the generic_controller is used to render the content, which by
-default is the ``ContentController``.
-
-.. tip::
-
-    The routing bundle provides many powerful features to configure the mapping
-    to controllers and templates. Read more about this topic in the
-    :ref:`routing configuration reference <reference-config-routing-template_by_class>`.
-
-SonataAdminBundle Integration
------------------------------
-
-The ContentBundle also provides an Admin class to enable creating, editing and
-removing static content from the admin panel. To enable the admin, use the
-``cmf_content.persistence.phpcr.use_sonata_admin`` setting.
-
-.. _`Packagist`: https://packagist.org/packages/symfony-cmf/content-bundle
