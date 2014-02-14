@@ -3,53 +3,40 @@ Symfony CMF Documentation
 
 The Symfony2 Content Management Framework (CMF) project is organized by the Symfony
 community and has several sponsoring companies and prominent open source leaders
-implementing the philosophy of the `decoupled CMS`_. You can learn more about the
-project on the `about`_ page.
+implementing the philosophy of the `decoupled CMS`_.
 
-This documentation is still in development. The bundles and reference sections
-are updated for the 1.0 release, but the book is still a bit sparse. Want to
-help? Thank you, all help greatly appreciated! The source of the
-`documentation is hosted on github`_.
+.. caution::
 
-Mission Statement
------------------
-
-    The Symfony CMF project makes it easier for developers to add CMS functionality to
-    applications built with the Symfony2 PHP framework. Key development principles for
-    the provided set of bundles are scalability, usability, documentation and testing.
-
-Why another CMS?
-----------------
-
-Actually we consider this project to be a CMF, a **content management framework**, rather
-than a CMS, a content management system. The reason is that we are only **providing the tools
-to build a custom CMS**. There are clearly many CMS solutions available already,
-but they tend to be monolithic packages tailored towards end users. Many carry a certain
-amount of legacy baggage which make them less than **ideal for developing highly
-custom applications**, in contrast to what is possible with `Symfony2`_.
-
-What is our target audience?
-----------------------------
-
-There are basically two main target audiences:
-
-#. Developers who have built an existing custom application with Symfony2 and need a fast
-   way to add support for content management. Be it sophisticated CMS features like semantic
-   content, inline editing, multi-channel delivery etc. or just a few content pages for things
-   like the about/contact pages.
-
-#. Developers that need to build a highly customized authoring and content delivery
-   solution that no out-of-the-box CMS can properly provide through customization alone.
+    This documentation is still in development. The bundles and reference sections
+    are updated for the 1.0 release, but the book is still a bit sparse. Want to
+    help? Thank you, all help greatly appreciated! The source of the
+    `documentation is hosted on github`_.
 
 .. toctree::
     :hidden:
 
+    quick_tour/index
     book/index
     bundles/index
     components/index
     contributing/index
     reference/index
     cookbook/index
+
+Quick Tour
+----------
+
+The best way to get started with the Symfony CMF is by reading the Quick Tour.
+This will guide you through the code, philosophy and architecture of the
+Symfony CMF project.
+
+.. toctree::
+    :maxdepth: 1
+
+    quick_tour/the_big_picture
+    quick_tour/the_model
+    quick_tour/the_router
+    quick_tour/the_third_party_bundles
 
 Book
 ----
@@ -111,7 +98,6 @@ Do you want to contribute to the Symfony CMF? Start reading these articles!
 
 .. _`decoupled CMS`: http://decoupledcms.org
 .. _`Symfony2`: http://symfony.com
-.. _`about`: http://cmf.symfony.com/about
 .. _`Documentation planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
 .. _`Symfony Content Management Framework`: http://cmf.symfony.com
 .. _`documentation is hosted on github`: https://github.com/symfony-cmf/symfony-cmf-docs
