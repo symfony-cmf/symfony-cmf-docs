@@ -177,7 +177,7 @@ this:
 
     //create the route for the document
     $route = new Route();
-    $route->setPosition($routeRoot, 'hello');
+    $route->setPosition($routeRoot, 'seo-content');
     $route->setDefaults(
                 array(
                     '_template' => 'Acme:Seo:index.html.twig'
@@ -198,7 +198,7 @@ this:
     //set the seo metadata
     $seoMetadata = new SeoMetadata();
     //additional page title
-    $seoMetadata->setTitle("Special Title");
+    $seoMetadata->setTitle("Documents own tile");
     $seoMetadata->setMetaKeywords('Seo, Content');
     $seoMetadata->setMetaDescription(
         'This ist the text for the description meta tag'
@@ -213,7 +213,7 @@ The code adds a ``/seo-content`` route and a seo-content-document
 ``seo-content`` This means if you visit the route you will se the
 content of the document. When you have a look at the title or the
 meta tags, you will see something different. The title looks like
-``Special Title | Default`` and the meta tags contain the
+``Documents own tile | Default title`` and the meta tags contain the
 description and keywords added by some default values.
 (See in the Configuration).
 
