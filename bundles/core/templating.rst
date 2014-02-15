@@ -47,9 +47,9 @@ Walking the PHPCR tree
 |                       |                     | $class = null,       | set, this limits how deep below ``$current`` the tree is walked.         |
 |                       |                     | $anchor = null       |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_prev_linkable     | getPrevLinkable     | $current,            | Get the previous document that has a route associated. This is a         |
-|                       |                     | $anchor = null,      | shortcut for ``getPrev`` with the ``$class`` filter set to               |
-|                       |                     | $depth = null,       | ``Symfony\Cmf\Component\Routing\RouteReferrersReadInterface``.           |
+| cmf_prev_linkable     | getPrevLinkable     | $current,            | Get the previous document that can be linked to, according to the        |
+|                       |                     | $anchor = null,      | ``isLinkable`` method below.                                             |
+|                       |                     | $depth = null,       |                                                                          |
 |                       |                     | $ignoreRole = false  |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
 | cmf_next              | getNext             | $current,            | Get the next sibling document from ``$current`` (a document or a path)   |
@@ -58,9 +58,9 @@ Walking the PHPCR tree
 |                       |                     | $ignoreRole = false, |                                                                          |
 |                       |                     | $class = null        |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_next_linkable     | getNextLinkable     | $current,            | Get the next document that has a route associated. This is a shortcut    |
-|                       |                     | $anchor = null,      | for ``getNext`` with the ``$class`` filter set to                        |
-|                       |                     | $depth = null,       | ``Symfony\Cmf\Component\Routing\RouteReferrersReadInterface``.           |
+| cmf_next_linkable     | getNextLinkable     | $current,            | Get the next document that can be linked to, according to the            |
+|                       |                     | $anchor = null,      | ``isLinkable`` method below.                                             |
+|                       |                     | $depth = null,       |                                                                          |
 |                       |                     | $ignoreRole = false  |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
 | cmf_child             | getChild            | $parent, $name       | Get child document named ``$name`` of the specified parent. The parent   |
@@ -73,9 +73,9 @@ Walking the PHPCR tree
 |                       |                     | $ignoreRole = false, |                                                                          |
 |                       |                     | $class = null        |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_linkable_children | getLinkableChildren | $parent,             | Get all children of the parent that have a route associated. A shortcut  |
-|                       |                     | $limit = false,      | for ``getChildren`` with the ``$class`` filter set to                    |
-|                       |                     | $offset = false,     | ``Symfony\Cmf\Component\Routing\RouteReferrersReadInterface``.           |
+| cmf_linkable_children | getLinkableChildren | $parent,             | Get all children of ``$parent`` that can be linked to, according to the  |
+|                       |                     | $limit = false,      | ``isLinkable`` method below.                                             |
+|                       |                     | $offset = false,     |                                                                          |
 |                       |                     | $filter = null,      |                                                                          |
 |                       |                     | $ignoreRole = false  |                                                                          |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
@@ -93,6 +93,12 @@ Helper methods
 | cmf_document_locales  | getLocalesFor       | $document,           | Get the locales of the provided document. If ``$includeFallbacks`` is    |
 |                       |                     | $includeFallbacks =  | ``true``, all fallback locales are provided as well, even if no          |
 |                       |                     | false                | translation in that language exists.                                     |
++-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
+| cmf_is_linkable       | isLinkable          | $document            | Check if the provided object can be used to generate a URL. If this      |
+|                       |                     |                      | check returns true, it should be save to pass it to ``path`` or ``url``. |
+|                       |                     |                      | An object is considered linkable if it either *is* an instance of        |
+|                       |                     |                      | ``Route`` or implements the ``RouteReferrersReadInterface`` *and*        |
+|                       |                     |                      | actually returns a route.                                                |
 +-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
 | cmf_is_published      | isPublished         | $document            | Check with the publish workflow if the provided object is published. See |
 |                       |                     |                      | also :ref:`cmf_is_published <bundle-core-publish-workflow-twig_function>`|
