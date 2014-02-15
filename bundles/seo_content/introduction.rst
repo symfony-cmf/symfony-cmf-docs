@@ -39,8 +39,27 @@ Installation
 
 You can install the bundle in 2 different ways:
 
-* Use the official Git repository (https://github.com/symfony-Symfony CMF/SeoContentBundle);
-* Install it via Composer (``symfony-Symfony CMF/seo-content-bundle`` on `Packagist`_).
+* Use the official Git repository `with github`_
+* Install it `with composer`_ (``symfony-Symfony CMF/seo-content-bundle`` on `Packagist`_).
+
+As this bundle uses the SonataSeoBundle you should have a look of its `sonata seo documentation`_
+
+Both bundles need to be registered in the ``appKernel``
+
+    public function registerBundles()
+    {
+        $bundles = array(
+
+            ...
+
+            new \Sonata\SeoBundle\SonataSeoBundle(),
+            new \Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle(),
+        );
+
+        ...
+
+        return $bundles;
+    }
 
 Configuration
 -------------
@@ -242,3 +261,8 @@ SonataAdmin would look like this:
     ->with('form.group_seo')
         ->add('seoMetadata', 'seo_metadata', array('label'=>false))
     ->end()
+
+.. _`with composer`: http://getcomposer.org
+.. _`symfony-cmf/menu-bundle`: https://packagist.org/packages/symfony-cmf/menu-bundle
+.. _`with github`: git clone https://github.com/symfony-cmf/SeoContentBundle version path/to/
+.. _`sonata seo documentation`: http://sonata-project.org/bundles/seo/master/doc/index.html
