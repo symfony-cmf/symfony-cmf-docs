@@ -74,25 +74,6 @@ default values
                 ),
             ),
         ));
-    .. code-block:: xml
-        <?xml version="1.0" charset="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-
-            <config xmlns="http://cmf.symfony.com/schema/dic/content">
-                <sonata_seo>
-                    <page>
-                        <title>Default title</title>
-                        <metas>
-                            <names
-                                description="default description"
-                                keywords="default, key, other"
-                             />
-                        </metas>
-                    </page>
-                </sonata_seo>
-            </config>
-
-        </container>
 
 Without any settings or work with the SeoBundle these settings
 are enough to let the sonatas ``PageService`` know about your
@@ -160,7 +141,7 @@ SeoContent bundle provides a ``SeoMetadate`` model. The
 ``SeoAwareInterface`` forces the content document to provide a
 getter for that metadata. The bundle provides a
 ``SeoAwareContent`` document as an example. You can add it like
-this::
+this:
 
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
     use Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoAwareContent;
@@ -172,10 +153,9 @@ this::
     //create the route for the document
     $route = new Route();
     $route->setPosition($routeRoot, 'hello');
-    $routeset->Defaults(
+    $route->setDefaults(
                 array(
-                    '_controller'=> 'cmf_seo.controller:indexAction',
-                    RouteObjectInterface::TEMPLATE_NAME => 'Acme:Seo:index.html.twig'
+                    '_template' => 'Acme:Seo:index.html.twig'
                 )
             );
 
@@ -198,12 +178,11 @@ this::
     $seoMetadata->setMetaDescription(
         'This ist the text for the description meta tag'
     );
-    $seoMetadata->setOriginalUrl("/org-ur");
+    $seoMetadata->setOriginalUrl("/original-url");
     $seoDocument->setSeoMetadata($seoMetadata);
 
     $manager->persist($seoDocument);
     $manager->flush();
-
 
 The code adds a ``/seo-content`` route and a seo-content-document
 ``seo-content`` This means if you visit the route you will se the
@@ -251,8 +230,6 @@ the seo metadata into your page. Have a look at these examples:
         {{ sonata_seo_link_canonical() }}
         {{ sonata_seo_lang_alternates() }}
     {% endblock %}
-
-
 
 The FormType
 ~~~~~~~~~~~~
