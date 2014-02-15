@@ -96,8 +96,12 @@ default values
 
 Without any settings or work with the SeoBundle these settings
 are enough to let the sonatas ``PageService`` know about your
-default. When you add the twig helpers to your template you
-will get the values in your title or your meta tags.
+defaults. These configs would cause a page title, a metatag for
+description and one for the keywords, if you add the following
+helpers to your html-head in your template:
+
+    {{ sonata_seo_title() }}
+    {{ sonata_seo_metadatas() }}
 
 The SeoBundle adds some more options:
 
@@ -108,7 +112,7 @@ The SeoBundle adds some more options:
         cmf_seo:
             title:
                 strategy: append
-                bond_by: ' | '
+                separator: ' | '
             content:
               strategy: canonical
 
@@ -117,7 +121,7 @@ The SeoBundle adds some more options:
         $container->loadFromExtension('cmf_seo', array(
             'title' => array(
                 'strategy' => 'append',
-                'bond_by'  => ' | '
+                'separator'  => ' | '
                 ),
             'content' => array(
                 'stragegy' => 'canonical'
@@ -131,7 +135,7 @@ The SeoBundle adds some more options:
                 <cmf_seo>
                     <title
                         strategy="append"
-                        bond_by=" | "
+                        separator=" | "
                     />
                     <content
                         strategy="canonical"
@@ -140,15 +144,17 @@ The SeoBundle adds some more options:
             </config>
         </container>
 
-Now you are able to decide if a title (set in a SeoAwareContent)
-is appending, prepending (default) the default title or replacing
-it. The strategy values can be ``prepend``, ``appen`` or
-``replace``. You are also able to set a string, which bond the
-default and the contents own title property by setting a value
-to ``Symfony CMF_seo.title.bond_by``. In case of duplicate
-content it is the task of the developer to set the strategy either
-to ``canonical`` (a canonical link will be created) or to
-``redirect`` (default).
+Now you are able to append or prepend a title to the default value.
+Even replacing it by your title is possible. That means you should
+set the ``cmf_seo.title.strategy`` either to `prepend` (default),
+``append`` or ``replace``. Your values for description and keywords
+will be appended to the sonatas default ones by a ". " or a ", ".
+The ``cmf_seo.title.separator`` will configures the string separator
+for appending or prepending the title.
+In case of duplicate content you will need the ``cmf_seo.content.strategy``
+The allowed values are ``canonical`` or ``redirect``. Firs will
+cause a canonical link, the last forces a redirect to the original
+url (set by the document's ``SeoMetadata``.
 
 Usage
 -----
