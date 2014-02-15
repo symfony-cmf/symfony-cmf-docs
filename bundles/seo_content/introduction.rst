@@ -5,8 +5,8 @@
 SeoContentBundle
 ================
 
-    This bundle provides a soluton to make content bundles
-    aware of SEO.
+    This bundle provides a solution to make content bundles
+    aware for Seach Engine Optimisation (SEO).
 
 Preface
 -------
@@ -220,53 +220,40 @@ description and keywords added by some default values.
 From SeoMetadata to MetadataTag
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Every document that implements the ``SeoAwareInterface`` contain
+some ``SeoMetadata``. Sonatas ``PageService`` works like a container
+and is able to store these values for us. When adding one of sonatas
+twig helpers
 
-As the the content document provides the ``SeoAwareInterface`` it
-should be able to return the ``SeoMetadata``. But how does these
-properties get into your page?
+    {{ sonata_seo_title() }}
+    {{ sonata_seo_metadatas() }}
+    {{ sonata_seo_link_canonical() }}
+    {{ sonata_seo_lang_alternates() }}
 
-At the moment you need to add the following lines to your
-controller:
+sonatas SeoBundle is able to create metatags from some values or setting
+the content to the title tag. Without adding any ``SeoMetadata`` to
+the document, sonatas SeoBundle would render the default values
+served in their own config block. Symfony CMF's SeoBundle has a
+Listener, which takes care on the documents. If there is a
+content of type ``SeoAwareInterface`` a ``SeoPresentation``-Model
+starts to work and fills sonatas PageService depending on the
+strategies set in the SeoBundle's configuration block.
 
-    //when there are some seo meta data they will be handled by a special service
-    if ($contentDocument instanceof SeoAwareInterface) {
-        $this->seoPage->setSeoMetadata($contentDocument->getSeoMetadata());
-        $this->seoPage->setMetadataValues();
 
-        //have a look if the strategy is redirect and if there is a route to redirect to
-        if ($url = $this->seoPage->getRedirect()) {
-            print("should be redirected to $url");
-            exit;
-        }
-    }
-
-and implement the ``SeoAwareContentControllerInterface`` to
-get the ``SeoPresentation``-Model which is responsible to
-set the properties of the SeoMetadata to Sonatas
-``PageService``. Sonata does not only provide its service,
-it delivers a bunch of twig helpers, which are able to put
-the seo metadata into your page. Have a look at these examples:
-
-    {% extends "::base.html.twig" %}
-
-    {% block seo_head %}
-        {{ sonata_seo_title() }}
-        {{ sonata_seo_metadatas() }}
-        {{ sonata_seo_link_canonical() }}
-        {{ sonata_seo_lang_alternates() }}
-    {% endblock %}
-
-The FormType
+AdminExtension - FormType
 ~~~~~~~~~~~~
 
-To set all these metadata we provide a FormTye too. The
-``SeoMetadataType`` contains all the fields you would
-need for the ``SeoMetadata`` an example for the
-SonataAdmin would look like this:
+The ``SeoBundle`` provides an admin extension and a special form
+type. If you are using SonataAdmin, you should add the extension
+to the ``sonata_admin.extension`` like this:
 
-    ->with('form.group_seo')
-        ->add('seoMetadata', 'seo_metadata', array('label'=>false))
-    ->end()
+    cmf_seo.content.admin_extension:
+        implements:
+          - Symfony\Cmf\Bundle\SeoBundle\Model\SeoAwareInterface
+
+This will enable the extension and you will get a new tab with
+a ``SeoMetadataType`` as a form type. This should help you on
+updating the documents ``SeoMetadata``.
 
 .. _`with composer`: http://getcomposer.org
 .. _`symfony-cmf/menu-bundle`: https://packagist.org/packages/symfony-cmf/menu-bundle
