@@ -110,6 +110,8 @@ The SeoBundle adds some more options:
     .. code-block:: yaml
 
         cmf_seo:
+            phpcr:
+                use_sonata_admin: true
             title:
                 strategy: append
                 separator: ' | '
@@ -119,6 +121,9 @@ The SeoBundle adds some more options:
     .. code-block:: php
 
         $container->loadFromExtension('cmf_seo', array(
+            'phpcr'     => array(
+                'use_sonata_admin'  => 'true'
+            )
             'title' => array(
                 'strategy' => 'append',
                 'separator'  => ' | '
@@ -133,6 +138,9 @@ The SeoBundle adds some more options:
 
             <config xmlns="http://cmf.symfony.com/schema/dic/content">
                 <cmf_seo>
+                    <phpcr
+                        use_sonata_admin="true"
+                    />
                     <title
                         strategy="append"
                         separator=" | "
@@ -155,6 +163,8 @@ In case of duplicate content you will need the ``cmf_seo.content.strategy``
 The allowed values are ``canonical`` or ``redirect``. Firs will
 cause a canonical link, the last forces a redirect to the original
 url (set by the document's ``SeoMetadata``.
+As every Symfony CMF bundle the SeoBundle serves an option for disabling
+the the sonata admin support.
 
 Usage
 -----
