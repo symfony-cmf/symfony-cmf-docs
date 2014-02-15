@@ -242,5 +242,3 @@ SonataAdmin would look like this:
     ->with('form.group_seo')
         ->add('seoMetadata', 'seo_metadata', array('label'=>false))
     ->end()
-
-
