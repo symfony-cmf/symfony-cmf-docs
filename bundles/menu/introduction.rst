@@ -131,18 +131,10 @@ example is specified. This will render an unordered list as follows:
 
 .. tip::
 
-    You can reference menus in the`symfony-cmf/block-bundle`_ and render 
-    them in any places where you are using a Block:
-    
-    .. configuration-block::
+    When using the :doc:`BlockBundle <../block/introduction>`, you can also use the
+    ``MenuBlock``. Read more about that in the
+    :ref:`BlockBundle documentation <bundles-block-menu>`
 
-        .. code-block:: jinja
-        
-            {{ sonate_render_block('/cms/some/path/my-referencing-menu-block') }}
-
-        .. code-block:: php
-
-            echo $view['sonata_block']->render('/cms/some/path/my-referencing-menu-block');
 .. note::
 
      It is the ``PhpcrMenuProvider`` class which allows us to specify a
