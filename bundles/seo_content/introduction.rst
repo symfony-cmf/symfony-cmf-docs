@@ -49,14 +49,50 @@ The first part of configuration is the one for the
 sonata seo bundle. These settings are handled as
 default values
 
+.. configuration-block::
 
-    sonata_seo:
-      page:
-        title: Default title
-        metas:
-          names:
-              description: default description
-              keywords: default, key, other
+    .. code-block:: yaml
+
+        sonata_seo:
+            page:
+                title: Default title
+                metas:
+                    names:
+                        description: default description
+                        keywords: default, key, other
+
+    .. code-block:: php
+
+        $container->loadFromExtension('sonata_seo', array(
+            'page' => array(
+                'title' => 'Default title',
+                'metas' => array(
+                    'names' => array(
+                        'description' => 'default description',
+                        'keywords' => 'default, key, other',
+                    ),
+                ),
+            ),
+        ));
+    .. code-block:: xml
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/content">
+                <sonata_seo>
+                    <page>
+                        <title>Default title</title>
+                        <metas>
+                            <names
+                                description="default description"
+                                keywords="default, key, other"
+                             />
+                        </metas>
+                    </page>
+                </sonata_seo>
+            </config>
+
+        </container>
 
 Without any settings or work with the SeoBundle these settings
 are enough to let the sonatas ``PageService`` know about your
@@ -65,12 +101,44 @@ will get the values in your title or your meta tags.
 
 The SeoBundle adds some more options:
 
-Symfony CMF_seo:
-    title:
-        strategy: append
-        bond_by: ' | '
-    content:
-      strategy: canonical
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_seo:
+            title:
+                strategy: append
+                bond_by: ' | '
+            content:
+              strategy: canonical
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_seo', array(
+            'title' => array(
+                'strategy' => 'append',
+                'bond_by'  => ' | '
+                ),
+            'content' => array(
+                'stragegy' => 'canonical'
+                )
+        ));
+    .. code-block:: xml
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/content">
+                <cmf_seo>
+                    <title
+                        strategy="append"
+                        bond_by=" | "
+                    />
+                    <content
+                        strategy="canonical"
+                    />
+                </cmf_seo>
+            </config>
+        </container>
 
 Now you are able to decide if a title (set in a SeoAwareContent)
 is appending, prepending (default) the default title or replacing
