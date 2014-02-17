@@ -59,7 +59,6 @@ will typically want to keep this close at hand.
 
 .. toctree::
     :maxdepth: 1
-    :numbered:
 
     book/installation
     book/simplecms
