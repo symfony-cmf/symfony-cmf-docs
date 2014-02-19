@@ -102,8 +102,7 @@ When the Admin classes are activated, the admin can go to ``/admin`` (if you
 installed the SonataAdminBundle correctly) and find the well-known admin
 dashboard with all they need:
 
-.. todo:
-.. image:: todo
+.. image:: ../_images/quick_tour/3rd-party-bundles-sonata-admin.png
 
 As you can see on the left, the admin uses the
 :doc:`TreeBrowserBundle <../bundles/tree_browser/introduction>` to display a
