@@ -51,8 +51,9 @@ contains all items implementing the ``NodeInterface`` inside the
 
 .. note::
 
-    Apart from including a PHPCR menu provider, it also provides an admin
-    classes. See the section about `Sonata Admin`_ to learn more about this.
+    Apart from including a PHPCR menu provider, the CmfMenuBundle also
+    provides Admin classes. See the section about `Sonata Admin`_ to learn
+    more about this.
 
 The CreateBundle
 ----------------
@@ -69,8 +70,9 @@ Sonata Admin
 We have explained you that the CMF is based on a database, in order to make it
 editable by an admin without changing the code. But we haven't told you how
 that admin will be able to maintain the website. Now it's time to reveal how
-to do that: Using the SonataAdminBundle_. All the CMF bundles do is providing
-an Admin class for the documents it uses.
+to do that: Using the SonataAdminBundle_. All the CMF bundles that define
+editable elements also provide integration to make those elements editable in
+Sonata Admin.
 
 By default, all Admin classes in the CMF bundles will be activated when the
 :doc:`SonataDoctrinePhpcrAdminBundle <../bundles/doctrine_phpcr_admin>` is
@@ -97,7 +99,7 @@ You can also disable/enable all CMF Admin classes by configuring this on the
                 use_sonata_admin: false
 
 When the Admin classes are activated, the admin can go to ``/admin`` (if you
-installed the SonataAdminBundle correctly) and find the recognizing admin
+installed the SonataAdminBundle correctly) and find the well-known admin
 dashboard with all they need:
 
 .. todo:
@@ -111,19 +113,20 @@ move them.
 Final Thoughts
 --------------
 
-You made it! Let me summarize what you've learned to this point:
+You made it! Let's summarize what you've learned in the Quick Tour:
 
 * The Symfony CMF is build for highly customized Content Management Systems;
 * The Symfony CMF team creates bundles with a specific CMS feature, which can
   be used both together and standalone;
-* The Symfony CMF uses the database in order to make it customizable by an
-  admin;
-* The PHPCR system is a great database build for CMS systems, but you can use
-  any other storage system for the Symfony CMF too;
+* The Symfony CMF uses the database in order to make a lot of things editable
+  by an Admin, however the configuration is kept in the filesystem to keep
+  deployments simple and support version control;
+* The PHP Content Repository (PHPCR) is a great database build for CMS
+  systems, but you can use any other storage system for the Symfony CMF too;
 * Instead of binding controllers to routes, the routes are bound to content
   objects.
-* The Symfony CMF tried to not reinvent the wheel and with that, created a lot
-  of bundles which are build on top of common known Symfony2 bundles.
+* The Symfony CMF took care not to reinvent the wheel. That resulted in a lot
+  of bundles integrating commonly known Symfony2 bundles.
 
 I can't tell you more about the architecture and bundles of the Symfony CMF,
 but there is much much more to explore. Take a look at
