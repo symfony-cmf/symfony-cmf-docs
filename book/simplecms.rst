@@ -41,71 +41,92 @@ Creating a new Page
 ~~~~~~~~~~~~~~~~~~~
 
 To create a page, use the
-``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page`` object (which
-extends from ``Symfony\Cmf\Bundle\SimpleCmsBundle\Model\Page``)::
+``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page`` object::
+
+    // // src/Acme/MainBundle/DataFixtures/PHPCR/LoadSimpleCms.php
+    namespace Acme\DemoBundle\DataFixtures\PHPCR;
 
     use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
+    use Doctrine\ODM\PHPCR\DocumentManager;
 
-    $page = new Page();
-    $page->setTitle('About Symfony CMF');
-    $page->setLabel('About');
-    $page->setBody(...);
+    class LoadRoutingData implements FixtureInterface
+    {
+        /**
+         * @param DocumentManager $dm
+         */
+        public function load(ObjectManager $dm)
+        {
+            $parent = $dm->find(null, '/cms/simple');
+            $page = new Page();
+            $page->setTitle('About Symfony CMF');
+            $page->setLabel('About');
+            $page->setBody(...);
 
-You can also set other things (e.g. tags).
+            // the tree position defines the URL
+            $page->setPosition($parent, 'about');
+
+            $dm->persist($page);
+            $dm->flush();
+        }
+    }
+
+You can also set other options on the Page (e.g. tags).
 
 All pages are stored in a simple tree structure. To set the position, use
-``setPosition``. The first argument is the name for current page and the
-second argument is the parent node. The name of the first argument is used as
-the route. For instance, if you have this tree structure:
+``setPosition``. The first argument is the parent document, the second the
+name for this page. The names are used for the URL. For instance, you may
+have the following tree structure:
 
 .. code-block:: text
 
     /cmf/simple/
-        home/
         about/
         blog/
             symfony-cmf-is-great/
 
-In this case, you have 4 pages: ``home``, ``about``, ``blog`` and
-``symfony-cmf-is-great``. The page ``symfony-cmf-is-great`` is a child of
-``blog`` and thus has the url ``/blog/symfony-cmf-is-great``. To create such a
-structure, the code looks like this::
+In this case, you have 4 pages: the page at ``/cms/simple``, ``about``,
+``blog`` and ``symfony-cmf-is-great``. The page at the home has the path
+``/``. The page ``symfony-cmf-is-great`` is a child of ``blog`` and thus
+has the path ``/blog/symfony-cmf-is-great``. To create such a
+structure, you would do::
 
-    use PHPCR\Util\NodeHelper;
+
+    // // src/Acme/MainBundle/DataFixtures/PHPCR/LoadSimpleCms.php
+    namespace Acme\DemoBundle\DataFixtures\PHPCR;
+
     use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
+    use Doctrine\ODM\PHPCR\DocumentManager;
 
-    // the PHPCR-ODM manager, more on that later
-    $manager = ...;
+    class LoadRoutingData implements FixtureInterface
+    {
+        /**
+         * @param DocumentManager $dm
+         */
+        public function load(ObjectManager $dm)
+        {
+            $root = $dm->find(null, '/cms/simple');
 
-    $root = NodeHelper::createPath($manager->getPhpcrSession(), '/cmf/simple');
+            $about = new Page();
+            // ... set up about
+            $about->setPosition($root, 'about');
 
-    $home = new Page();
-    // ... set up home
-    $home->setPosition($root, 'home');
+            $dm->persist($about);
 
-    $manager->persist($home); // add home to the database
+            $blog = new Page();
+            // ... set up blog
+            $blog->setPosition($root, 'blog');
 
-    $about = new Page();
-    // ... set up about
-    $about->setPosition($root, 'about');
+            $dm->persist($blog);
 
-    $manager->persist($about); // add about to the database
+            $blogPost = new Page();
+            // ... set up blog post
+            $blogPost->setPosition($blog, 'symfony-cmf-is-great');
 
-    $blog = new Page();
-    // ... set up blog
-    $blog->setPosition($root, 'blog');
+            $dm->persist($blogPost);
 
-    $manager->persist($blog); // add blog to the database
-
-    $blogPost = new Page();
-    // ... set up blog post
-    $blogPost->setPosition($blog, 'symfony-cmf-is-great');
-
-    $manager->persist($blogPost); // add blog post to the database
-
-    // as with all doctrine variants, the changes are only saved when the
-    // flush method is called
-    $manager->flush();
+            $dm->flush();
+        }
+    }
 
 Every PHPCR-ODM document must have a parent document. Parents are never
 created automatically, so we use the PHPCR NodeHelper to ensure we have
@@ -113,7 +134,7 @@ the root element (``/cmf/simple`` in this case).
 
 .. note::
 
-    The ``/cmf/simple`` basepath is actually already created by an
+    The Page at ``/cmf/simple`` is created by an
     :ref:`initializer <phpcr-odm-repository-initializers>` of the
     SimpleCmsBundle.
 
