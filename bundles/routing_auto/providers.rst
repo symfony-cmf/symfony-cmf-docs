@@ -47,47 +47,6 @@ Options
     builder unit is the first content path chain it is understood that it is
     the base of an absolute path.
 
-content_object (base provider)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The content object provider will try and provide a path from an object
-implementing ``RouteReferrersInterface`` provided by a designated method on the
-content document. For example, if you have a ``Topic`` class, which has a
-``getCategory`` method, using this provider you can tell the ``Topic`` auto route
-to use the route of the category as a base.
-
-So basically, if your category document has a path of ``/this/is/my/category``,
-you can use this path as the base of your ``Category`` auto-route.
-
-Options
-.......
-
- - ``method``: **required** Method used to return the document whose route path you wish to use.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        provider: [content_object, { method: getCategory }]
-
-    .. code-block:: xml
-
-        <provider name="content_object">
-            <option name="method" value="getCategory" />
-        </provider>
-
-    .. code-block:: php
-
-        array(
-            // ...
-            'provider' => array('content_object', array('method' => 'getCategory')),
-        );
-
-.. note::
-
-    At the time of writing translated objects are not supported. But a patch
-    is already created for this feature.
-
 content_method
 ~~~~~~~~~~~~~~
 
