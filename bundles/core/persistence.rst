@@ -104,6 +104,60 @@ See the `PHPCR-ODM documentation`_ for more information.
 
 .. _bundle-core-translatable-admin-extension:
 
+Using child models : Child Sonata Admin Extension
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Several bundles use the child model classes that implement
+``ChildInterface``. This extension sets a default parent to every new object
+instance if a ``parent`` parameter is defined in the URL.
+
+To enable the extension in your admin classes, simply define the extension
+configuration in the ``sonata_admin`` section of your project configuration:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_admin:
+            # ...
+            extensions:
+                cmf_core.admin_extension.child:
+                    implements:
+                        - Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://sonata-project.org/schema/dic/admin">
+                <!-- ... -->
+                <extension id="cmf_core.admin_extension.child">
+                    <implement>
+                        Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface
+                    </implement>
+                </extension>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_admin', array(
+            // ...
+            'extensions' => array(
+                'cmf_core.admin_extension.child' => array(
+                    'implements' => array(
+                        'Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface',
+                    ),
+                ),
+            ),
+        ));
+
+See the `Sonata Admin extension documentation`_ for more information.
+
 Editing Locale Information: Translatable Sonata Admin Extension
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
