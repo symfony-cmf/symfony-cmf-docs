@@ -119,7 +119,7 @@ overwrite them) are:
         "extra": {
             "create-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/create",
             "create-repository": "https://github.com/bergie/create.git",
-            "create-commit": "271e0114a039ab256ffcceacdf7f361803995e05"
+            "create-commit": "a148ce9633535930d7b4b70cc1088102f5c5eb90"
 
             "ckeditor-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/ckeditor",
             "ckeditor-repository": "https://github.com/ckeditor/ckeditor-releases.git",
