@@ -76,8 +76,7 @@ Admin Support
 
 The last component needed to handle the included content types is an
 administration panel. Symfony CMF can optionally support
-`SonataDoctrinePHPCRAdminBundle`_, a back office generation tool. For more
-information about it, please refer to the bundle's `documentation section`_.
+SonataDoctrinePHPCRAdminBundle_, a back office generation tool.
 
 In ContentBundle, the required administration panels are already declared in
 the ``Admin`` folder and configured in ``Resources/config/admin.xml``, and
@@ -101,5 +100,4 @@ or use as inspiration to develop your own content types, Controllers and Admin
 panels.
 
 .. _`multilanguage support in PHPCR-ODM`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
-.. _`SonataDoctrinePHPCRAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle
-.. _`documentation section`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle/tree/master/Resources/doc
+.. _SonataDoctrinePHPCRAdminBundle: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle

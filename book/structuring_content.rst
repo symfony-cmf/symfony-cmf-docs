@@ -21,15 +21,15 @@ Symfony CMF Menu System
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Symfony CMF SE includes the MenuBundle, a tool that allow you to dynamically
-define your menus. It extends the `KnpMenuBundle`_, with a set of
+define your menus. It extends the KnpMenuBundle_, with a set of
 hierarchical, multi language menu elements, along with the tools to persist
 them in the chosen content store. It also includes the administration panel
 definitions and related services needed for integration with the
-`SonataDoctrinePhpcrAdminBundle`_.
+SonataDoctrinePHPCRAdminBundle_.
 
 .. note::
 
-    The MenuBundle extends and greatly relies on the `KnpMenuBundle`_, so you
+    The MenuBundle extends and greatly relies on the KnpMenuBundle_, so you
     should carefully read `KnpMenuBundle's documentation`_. For the rest of
     this page we assume you have done so and are familiar with concepts like
     Menu Providers and Menu Factories.
@@ -114,7 +114,7 @@ The included implementation focuses on generating ``MenuItem`` instances from
 ``NodeInterface`` instances, as this is usually the best approach to handle
 tree-like structures typically used by a CMS. Other approaches are implemented in
 the base classes, and their respective documentation pages can be found in
-`KnpMenuBundle`_'s page.
+KnpMenuBundle_'s page.
 
 ``ContentAwareFactory`` is responsible for loading the full menu hierarchy and
 transforming the ``MenuNode`` instances from the root node it receives from
@@ -179,12 +179,12 @@ Admin Support
 
 The MenuBundle also includes the administration panels and respective services
 needed for integration with the backend admin tool
-:doc:`SonataDoctrinePhpcrAdminBundle <../bundles/doctrine_phpcr_admin>`
+SonataDoctrinePHPCRAdminBundle_.
 
 The included administration panels are automatically available but need to
 be explicitly put on the dashboard if you want to use them. See
 :doc:`../cookbook/creating_cms_using_cmf_and_sonata` for instructions on how
-to install SonataDoctrinePhpcrAdminBundle.
+to install SonataDoctrinePHPCRAdminBundle.
 
 Configuration
 ~~~~~~~~~~~~~
@@ -193,10 +193,10 @@ This bundle is configurable using a set of parameters, but all of them are
 optional. You can go to the :doc:`../bundles/menu/index` reference page for the full
 configuration options list and additional information.
 
-.. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle
-.. _`SonataDoctrinePhpcrAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle
+.. _KnpMenuBundle: https://github.com/knplabs/KnpMenuBundle
 .. _`KnpMenuBundle's documentation`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md
 .. _`respective documentation page`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md#rendering-menus
 .. _`Doctrine PHPCR documentation page`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/association-mapping.html#references
 .. _`Multi language support in PHPCR-ODM`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
 .. _`KnpMenu`: https://github.com/knplabs/KnpMenu
+.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html

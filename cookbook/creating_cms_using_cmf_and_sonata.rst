@@ -7,8 +7,7 @@ Creating a CMS using CMF and Sonata
 .. include:: _outdate-caution.rst.inc
 
 The goal of this tutorial is to create a simple content management system
-using the CMF as well as `SonataAdminBundle`_ and
-:doc:`../bundles/doctrine_phpcr_admin`.
+using the CMF as well as SonataDoctrinePHPCRAdminBundle_.
 
 .. index:: Sonata, SonataAdminBundle, SonataDoctrinePHPCRAdminBundle, SonatajQueryBundle, FOSJsRoutingBundle, TreeBundle, TreeBrowserBundle
 
@@ -218,8 +217,8 @@ tree working.
 Further Reading
 ---------------
 
-* :doc:`../bundles/doctrine_phpcr_admin`
 * :doc:`handling_multilang_documents`
+* SonataDoctrinePHPCRAdminBundle_
 
-.. _`SonataAdminBundle`: https://github.com/sonata-project/SonataAdminBundle
+.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
 .. _`Symfony SecurityBundle`: http://symfony.com/doc/master/book/security.html

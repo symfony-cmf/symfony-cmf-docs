@@ -11,7 +11,7 @@ using the following bundles:
 * :doc:`../../bundles/routing_auto/index`;
 * :doc:`../../bundles/phpcr_odm`;
 * :doc:`../../bundles/menu/index`;
-* `SonataDoctrinePhpcrAdminBundle`_.
+* SonataDoctrinePHPCRAdminBundle_.
 
 It is assumed that you have:
 
@@ -39,4 +39,4 @@ as a menu item.
     and content into a single document, the routes will be managed
     automatically and the native CMF ``DynamicRouter`` will be used.
 
-.. _`SonataDoctrinePhpcrAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle
+.. _SonataDoctrinePHPCRAdminBundle: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle
