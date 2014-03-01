@@ -95,6 +95,6 @@ help with integrating PHPCR concepts into the Symfony Framework.
 
   * :doc:`phpcr_odm`
 
-* **SonataDoctrinePhpcrAdminBundle**
+* SonataDoctrinePHPCRAdminBundle_
 
-  * :doc:`doctrine_phpcr_admin`
+.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html

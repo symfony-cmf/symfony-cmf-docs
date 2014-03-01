@@ -29,8 +29,8 @@ Sonata Admin
 ~~~~~~~~~~~~
 
 All block types provided by the Symfony2 CMF BlockBundle come with a admin
-classes for :doc:`../doctrine_phpcr_admin`. To activate the admin services,
-it is enough to load the SonataDoctrinePhpcrAdminBundle in your application
+classes for SonataDoctrinePHPCRAdminBundle_. To activate the admin services,
+it is enough to load the SonataDoctrinePHPCRAdminBundle in your application
 kernel and configure the sonata dashboard as desired.
 
 .. _bundles-block-types-admin_extension:
@@ -410,3 +410,4 @@ for further information.
 .. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
 .. _`LiipImagineBundle documentation`: https://github.com/liip/LiipImagineBundle/tree/master/Resources/doc
 .. _`sub-request`: http://symfony.com/doc/current/book/internals.html#internal-requests
+.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html

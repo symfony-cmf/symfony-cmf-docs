@@ -4,14 +4,13 @@
 Menu Admin with Sonata PHPCR-ODM
 ================================
 
-If the :doc:`SonataDoctrinePhpcrAdminBundle <../doctrine_phpcr_admin>` is
-loaded in the application kernel, menu node and menu documents can be
-administrated in Sonata admin. For instructions on how to configure Sonata,
-see :doc:`../doctrine_phpcr_admin`.
+If the SonataDoctrinePHPCRAdminBundle_ is loaded in the application kernel,
+menu node and menu documents can be administrated in Sonata admin. For
+instructions on how to configure Sonata, see `configuring sonata admin`_.
 
 Loading of Sonata is controlled with the ``use_sonata_admin`` configuration
 setting. By default, this option is automatically set based on whether
-SonataDoctrinePhpcrAdminBundle is available, but you can explicitly
+SonataDoctrinePHPCRAdminBundle is available, but you can explicitly
 disable the flag to not provide the Sonata services even if Sonata would be
 available. You can also explicitly enable the flag to get an error if Sonata
 becomes unavailable.
@@ -128,3 +127,5 @@ configuration in the ``sonata_admin`` section of your project configuration:
 See the `Sonata Admin extension documentation`_ for more information.
 
 .. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
+.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
+.. _`configuring sonata admin`: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/reference/configuration.html

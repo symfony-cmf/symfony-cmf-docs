@@ -580,7 +580,7 @@ to a list of allowed managed documents. Please refer to the
 `Symfony documentation on the entity form type`_ for more details,
 including how you can configure a query.
 
-If you are using Sonata Admin, you might want to look into
+If you are using SonataDoctrinePHPCRAdminBundle_, you might want to look into
 ``sonata_type_collection``. This form type allows to edit related
 documents (references as well as children) inline and also to create
 and remove them on the fly.
@@ -618,10 +618,10 @@ The minimal code required to use this type looks as follows::
 
 .. tip::
 
-    When building an admin interface with
-    :doc:`Sonata Admin <doctrine_phpcr_admin>` there is also the
-    ``sonata_type_model`` that is more powerful, allowing to add to the
-    referenced documents on the fly. Unfortunately it is `currently broken`_.
+    When building an admin interface with the SonataDoctrinePHPCRAdminBundle_
+    there is also the ``sonata_type_model`` that is more powerful, allowing to
+    add to the referenced documents on the fly. Unfortunately it is
+    `currently broken`_.
 
 phpcr_reference
 ~~~~~~~~~~~~~~~
@@ -868,6 +868,7 @@ Dumping nodes under ``/cms/simple`` including their properties:
 .. _`Symfony event subscriber`: http://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers
 .. _`Symfony cookbook entry`: http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html
 .. _`Symfony documentation on the entity form type`: http://symfony.com/doc/current/reference/forms/types/entity.html
+.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
 .. _`currently broken`: https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145
 .. _`DoctrineMigrationsBundle`: http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
 .. _`DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html

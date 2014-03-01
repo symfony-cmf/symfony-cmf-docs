@@ -2,7 +2,7 @@ The Backend - Sonata Admin
 --------------------------
 
 In this chapter you will build an administration interface with the help
-of the `SonataAdminBundle`_.
+of the SonataDoctrinePHPCRAdminBundle_.
 
 Installation
 ~~~~~~~~~~~~
@@ -109,8 +109,8 @@ and it requires the following entries in your routing file:
             xsi:schemaLocation="http://symfony.com/schema/routing
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <import 
-                resource="@SonataAdminBundle/Resources/config/sonata_admin.xml" 
+            <import
+                resource="@SonataAdminBundle/Resources/config/sonata_admin.xml"
                 prefix="/admin"
             />
 
@@ -236,7 +236,7 @@ the RoutingBundle admin as follows:
             ),
         ));
 
-.. tip:: 
+.. tip::
 
     All Sonata Admin aware CMF bundles have such a configuration option and it
     prevents the admin class (or classes) from being registered.
@@ -324,7 +324,7 @@ Now you just need to register these classes in the dependency injection
 container configuration:
 
 .. configuration-block::
-    
+
     .. code-block:: yaml
 
             # src/Acme/BasicCmsBundle/Resources/config/config.yml
@@ -356,19 +356,19 @@ container configuration:
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services 
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
                 http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <!-- ... -->
             <services>
                 <!-- ... -->
-                <service id="acme.basic_cms.admin.page" 
+                <service id="acme.basic_cms.admin.page"
                     class="Acme\BasicCmsBundle\Admin\PageAdmin">
-        
+
                     <call method="setRouteBuilder">
                         <argument type="service" id="sonata.admin.route.path_info_slashes" />
                     </call>
-        
+
                     <tag
                         name="sonata.admin"
                         manager_type="doctrine_phpcr"
@@ -379,14 +379,14 @@ container configuration:
                     <argument>Acme\BasicCmsBundle\Document\Page</argument>
                     <argument>SonataAdminBundle:CRUD</argument>
                 </service>
-        
-                <service id="acme.basic_cms.admin.post" 
+
+                <service id="acme.basic_cms.admin.post"
                     class="Acme\BasicCmsBundle\Admin\PostAdmin">
-        
+
                     <call method="setRouteBuilder">
                         <argument type="service" id="sonata.admin.route.path_info_slashes" />
                     </call>
-        
+
                     <tag
                         name="sonata.admin"
                         manager_type="doctrine_phpcr"
@@ -405,14 +405,14 @@ container configuration:
             // src/Acme/BasicCmsBundle/Resources/config/config.php
             use Symfony\Component\DependencyInjection\Reference;
             // ...
-            
+
             $container->register('acme.basic_cms.admin.page', 'Acme\BasicCmsBundle\Admin\PageAdmin')
               ->addArgument('')
               ->addArgument('Acme\BasicCmsBundle\Document\Page')
               ->addArgument('SonataAdminBundle:CRUD')
               ->addTag('sonata.admin', array(
-                  'manager_type' => 'doctrine_phpcr', 
-                  'group' => 'Basic CMS', 
+                  'manager_type' => 'doctrine_phpcr',
+                  'group' => 'Basic CMS',
                   'label' => 'Page'
               )
               ->addMethodCall('setRouteBuilder', array(
@@ -424,8 +424,8 @@ container configuration:
               ->addArgument('Acme\BasicCmsBundle\Document\Post')
               ->addArgument('SonataAdminBundle:CRUD')
               ->addTag('sonata.admin', array(
-                   'manager_type' => 'doctrine_phpcr', 
-                   'group' => 'Basic CMS', 
+                   'manager_type' => 'doctrine_phpcr',
+                   'group' => 'Basic CMS',
                    'label' => 'Blog Posts'
               )
               ->addMethodCall('setRouteBuilder', array(
@@ -443,4 +443,4 @@ Check it out at http://localhost:8000/admin/dashboard
 
 .. image:: ../../_images/cookbook/basic-cms-sonata-admin.png
 
-.. _`SonataAdminBundle`: http://sonata-project.org/bundles/admin
+.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
