@@ -102,6 +102,67 @@ enforce a single translation strategy for all documents:
 
 See the `PHPCR-ODM documentation`_ for more information.
 
+.. _bundle-core-child-admin-extension:
+
+Using Child Models: The Child Sonata Admin Extension
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This extension sets a default parent to every new
+object instance if a ``parent`` parameter is present in the URL.
+The parent parameter is present for example when adding documents
+in an overlay with the ``doctrine_phpcr_odm_tree_manager``
+or when adding a document in the tree of the dashboard.
+
+.. note::
+
+    This extension is only available if ``cmf_core.persistence.phpcr`` is enabled
+    and SonataPHPCRAdminBundle is active.
+
+To enable the extension in your admin classes, simply define the extension
+configuration in the ``sonata_admin`` section of your project configuration:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_admin:
+            # ...
+            extensions:
+                cmf_core.admin_extension.child:
+                    implements:
+                        - Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://sonata-project.org/schema/dic/admin">
+                <!-- ... -->
+                <extension id="cmf_core.admin_extension.child">
+                    <implement>Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface</implement>
+                </extension>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_admin', array(
+            // ...
+            'extensions' => array(
+                'cmf_core.admin_extension.child' => array(
+                    'implements' => array(
+                        'Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface',
+                    ),
+                ),
+            ),
+        ));
+
+See the `Sonata Admin extension documentation`_ for more information.
+
 .. _bundle-core-translatable-admin-extension:
 
 Editing Locale Information: Translatable Sonata Admin Extension

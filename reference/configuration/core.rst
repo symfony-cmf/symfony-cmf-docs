@@ -261,6 +261,7 @@ This section configures the Sonata Admin Extensions, see:
 
 * :ref:`Publish Workflow Admin Extensions <bundle-core-workflow-admin-extensions>`;
 * :ref:`Translatable Admin Extension <bundle-core-translatable-admin-extension>`.
+* :ref:`Child Admin Extension <bundle-core-child-admin-extension>`.
 
 .. configuration-block::
 
