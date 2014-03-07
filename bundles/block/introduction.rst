@@ -161,6 +161,8 @@ your block in the repository. You can do so with the following code snippet::
     use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock;
 
     // ...
+    /** @var $dm \Doctrine\ODM\PHPCR\DocumentManager */
+    $parentDocument = $dm->find(null, '/cms/content/home');
 
     $myBlock = new SimpleBlock();
     $myBlock->setParentDocument($parentDocument);
