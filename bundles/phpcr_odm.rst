@@ -285,9 +285,27 @@ documentation on Multilanguage`_.
                     en: [de, fr]
                     de: [en, fr]
                     fr: [en, de]
+                locale_fallback: hardcoded
 
-This block defines the order of alternative locales to look up if a document
+The ``locales`` is a list of alternative locales to look up if a document
 is not translated to the requested locale.
+
+This bundle provides a request listener that gets activated when any locales
+are configured. This listener updates PHPCR-ODM to use the locale symfony
+determined for this request, if that locale is in the list of keys defined
+under ``locales``.
+
+If you set the ``locale_fallback`` option to ``merge`` or ``replace``, the
+locale fallback order for the request locale will additionally be updated from
+the accepted languages of the request (determined by Symfony from the
+``Accept-Language`` HTML header). The browser locales are filtered with the
+list of keys from ``locales`` to avoid injecting arbitrary locale values.
+
+The interest of ``merge`` is to reorder the locales to match the browser
+preferences. If there are locales in the fallback list of the primary language
+that do not occur in the request, they are appended. ``replace`` will only keep
+the locales the browser requested, ignoring the fallback configured for that
+locale.
 
 General Settings
 ~~~~~~~~~~~~~~~~
