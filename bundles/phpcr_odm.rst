@@ -588,12 +588,6 @@ and remove them on the fly.
 phpcr_odm_reference_collection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. caution::
-
-    This form type was deprecated in DoctrinePHPCRBundle 1.1 and will be
-    removed in DoctrinePHPCRBundle 1.2. You should use the `phpcr_document`_
-    type instead, which can do the same but better.
-
 This form type handles editing ``ReferenceMany`` collections on PHPCR-ODM
 documents.  It is a choice field with an added ``referenced_class`` required
 option that specifies the class of the referenced target document.
@@ -691,16 +685,7 @@ A service to use the generic initializer looks like this:
         $definition->addTag('doctrine_phpcr.initializer');
         $container->setDefinition('acme.phpcr.initializer', $definition);
 
-You can execute your initializers using the following command:
-
-.. code-block:: bash
-
-    $ php app/console doctrine:phpcr:repository:init
-
-.. versionadded:: 1.1
-
-    Since DoctrinePHPCRBundle 1.1 the load data fixtures command will automatically
-    execute the initializers after purging the database.
+The ``doctrine:phpcr:repository:init`` command runs all tagged initializers.
 
 Fixture Loading
 ---------------

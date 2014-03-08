@@ -246,11 +246,12 @@ example with ``{{ path(content) }}`` in Twig).
 Repository Initializer
 ~~~~~~~~~~~~~~~~~~~~~~
 
-:ref:`Repository initializers <phpcr-odm-repository-initializers>` enable you to establish and maintain PHPCR nodes
-required by your application, for example you will need the paths
-``/cms/pages``, ``/cms/posts`` and ``/cms/routes``. The ``GenericInitializer``
-class can be used easily initialize a list of paths. Add the following to your
-service container configuration:
+:ref:`Repository initializers <phpcr-odm-repository-initializers>` enable you
+to establish and maintain PHPCR nodes required by your application, for
+example you will need the paths ``/cms/pages``, ``/cms/posts`` and
+``/cms/routes``. The ``GenericInitializer`` class can be used easily
+initialize a list of paths. Add the following to your service container
+configuration:
 
 .. configuration-block::
 
@@ -366,6 +367,7 @@ Create a page for your CMS::
     {
         public function load(ObjectManager $dm)
         {
+            NodeHelper::createPath($dm->getPhpcrSession(), '/cms/pages');
             $parent = $dm->find(null, '/cms/pages');
 
             $page = new Page();
@@ -396,6 +398,7 @@ and add some posts::
         public function load(ObjectManager $dm)
         {
             $parent = $dm->find(null, '/cms/posts');
+            NodeHelper::createPath($dm->getPhpcrSession(), '/cms/posts');
 
             foreach (array('First', 'Second', 'Third', 'Forth') as $title) {
                 $post = new Post();
@@ -420,6 +423,15 @@ and load the fixtures:
     $ php app/console doctrine:phpcr:fixtures:load
 
 You should now have some data in your content repository.
+
+.. note::
+
+    The classes above use ``NodeHelper::createPath`` to create the paths
+    ``/cms/posts`` and ``/cms/pages`` - this is exactly what the
+    initializer did -- why do the classes do it again? This is a known issue - the
+    data fixtures loader will purge the workspace and it will **not** call the
+    initializer, so when using data fixtures it is currently necessary to manually
+    create the paths.
 
 .. _`routingautobundle documentation`: http://symfony.com/doc/current/cmf/bundles/routing_auto.html
 .. _`dynamicrouter to generate urls`: http://symfony.com/doc/current/cmf/bundles/routing/dynamic.html#url-generation-with-the-dynamicrouterA
