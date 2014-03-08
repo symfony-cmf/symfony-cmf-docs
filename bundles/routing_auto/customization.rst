@@ -16,12 +16,12 @@ the route stack. For example, the following provider will add the path
     // src/Acme/CmsBundle/RoutingAuto/PathProvider/FoobarProvider.php
     namespace Acme\CmsBundle\RoutingAuto\PathProvider;
 
-    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\PathProviderInterface;
+    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\PathProvider\AbstractPathProvider;
     use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\RouteStack;
 
-    class FoobarProvider implements PathProviderInterface
+    class FoobarProvider extends AbstractPathProvider
     {
-        public function providePath(RouteStack $routeStack)
+        public function providePath(RouteStack $routeStack, array $options)
         {
             $routeStack->addPathElements(array('foo', 'bar'));
         }
@@ -37,7 +37,6 @@ To use the path provider you must register it in the container and add the
         services:
             acme_cms.path_provider.foobar:
                 class: Acme\CmsBundle\RoutingAuto\PathProvider\FoobarProvider
-                scope: prototype
                 tags:
                     - { name: cmf_routing_auto.provider, alias: "foobar"}
 
@@ -48,7 +47,6 @@ To use the path provider you must register it in the container and add the
             <service
                 id="acme_cms.path_provider.foobar"
                 class="Acme\CmsBundle\RoutingAuto\PathProvider\FoobarProvider"
-                scope="prototype"
             >
                 <tag name="cmf_routing_auto.provider" alias="foobar"/>
             </service>
@@ -60,18 +58,11 @@ To use the path provider you must register it in the container and add the
 
         $definition = new Definition('Acme\CmsBundle\RoutingAuto\PathProvider\FoobarProvider');
         $definition->addTag('cmf_routing_auto.provider', array('alias' => 'foobar'));
-        $definition->setScope('prototype');
 
         $container->setDefinition('acme_cms.path_provider.foobar', $definition);
 
 The ``FoobarProvider`` is now available as **foobar** in the routing auto
 configuration.
-
-.. caution::
-
-    Both path providers and path actions need to be defined with a scope of
-    "prototype". This ensures that each time the auto routing system requests
-    the class a new one is given and you do not have any state problems.
 
 Adding Path Actions
 ~~~~~~~~~~~~~~~~~~~
@@ -87,17 +78,13 @@ exception when a path already exists::
 
     namespace Symfony\Cmf\Bundle\RoutingAutoBundle\RoutingAuto\PathNotExists;
 
-    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\PathActionInterface;
+    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\PathAction\AbstractPathAction;
     use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\Exception\CouldNotFindRouteException;
     use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\RouteStack;
 
-    class ThrowException implements PathActionInterface
+    class ThrowException extends AbstractPathAction
     {
-        public function init(array $options)
-        {
-        }
-
-        public function execute(RouteStack $routeStack)
+        public function execute(RouteStack $routeStack, array $options)
         {
             throw new CouldNotFindRouteException('/'.$routeStack->getFullPath());
         }
@@ -115,7 +102,6 @@ It is registered in the DI configuration as follows:
         services:
             cmf_routing_auto.not_exists_action.throw_exception:
                 class: Symfony\Cmf\Bundle\RoutingAutoBundle\RoutingAuto\PathNotExists\ThrowException
-                scope: prototype
                 tags:
                     - { name: cmf_routing_auto.not_exists_action, alias: "throw_exception"}
 
@@ -126,7 +112,6 @@ It is registered in the DI configuration as follows:
             <service
                 id="cmf_routing_auto.not_exists_action.throw_exception"
                 class="Symfony\Cmf\Bundle\RoutingAutoBundle\RoutingAuto\PathNotExists\ThrowException"
-                scope="prototype"
                 >
                 <tag name="cmf_routing_auto.not_exists_action" alias="throw_exception"/>
             </service>
@@ -138,13 +123,11 @@ It is registered in the DI configuration as follows:
 
         $definition = new Definition('Symfony\Cmf\Bundle\RoutingAutoBundle\RoutingAuto\PathNotExists\ThrowException');
         $definition->addTag('cmf_routing_auto.provider', array('alias' => 'throw_exception'));
-        $definition->setScope('prototype');
 
         $container->setDefinition('cmf_routing_auto.not_exists_action.throw_exception', $definition);
 
 Note the following:
 
-* **Scope**: Must *always* be set to *prototype*;
 * **Tag**: The tag registers the service with the auto routing system, it can
   be one of the following:
 
@@ -155,3 +138,38 @@ Note the following:
 
 * **Alias**: The alias of the tag is the name by which you will reference this
   action in the auto routing configuration.
+
+Adding Configuration to your Builder Services
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The builder services (path providers and actions) can also be configured. To
+do this, you need to override the ``configureOptions`` method and configure
+the ``OptionsResolver`` class::
+
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+    // ...
+
+    class FoobarProvider extends AbstractPathProvider
+    {
+        public function configureOptions(OptionsResolverInterface $resolver)
+        {
+            $resolver->setDefaults(array(
+                'capitialize' => false,
+            ));
+        }
+
+        public function providePath(RouteStack $routeStack, array $options)
+        {
+            $pathElements = array('foo', 'bar');
+
+            if ($options['captialize']) {
+                $pathElements = array_map('ucfirst', $pathElements);
+            }
+
+            $routeStack->addPathElements($pathElements);
+        }
+    }
+
+Read more about it in the documentation of the `OptionsResolver Component`_
+
+.. _`OptionsResolver Component`: http://symfony.com/doc/current/doc/components/options_resolver.rst
