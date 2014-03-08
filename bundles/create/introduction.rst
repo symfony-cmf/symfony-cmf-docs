@@ -119,7 +119,7 @@ overwrite them) are:
         "extra": {
             "create-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/create",
             "create-repository": "https://github.com/bergie/create.git",
-            "create-commit": "271e0114a039ab256ffcceacdf7f361803995e05"
+            "create-commit": "a148ce9633535930d7b4b70cc1088102f5c5eb90"
 
             "ckeditor-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/ckeditor",
             "ckeditor-repository": "https://github.com/ckeditor/ckeditor-releases.git",
@@ -281,30 +281,12 @@ Access Control
 
 In order to limit who can edit content, the provided controllers as well as the
 JavaScript loader check if the current user is granted the configured
-``cmf_create.security.role``. By default the role is ``ROLE_ADMIN``.
+``cmf_create.role``. By default the role is ``ROLE_ADMIN``.
 
 .. tip::
 
     In order to have security in place, you need to configure a
     "Symfony2 firewall". Read more in the `Symfony2 security chapter`_.
-    If you do not do that, create.js will not be loaded and editing
-    will be disabled.
-
-    If you do not want to edit on the production domain directly, e.g.
-    because of caching, you can provide a second domain where you have
-    security configured and do the editing there.
-
-You can completely disable security checks by setting the role parameter to
-boolean ``false``. Then you need to configure access permissions on the routes
-defined in ``Resources/routing/rest.xml`` and, if activated, in ``image.xml``.
-If you set the role to false but do not configure any security,
-**every visitor of your site will be able to edit the content**.
-You also will need custom logic to decide whether to include the create.js
-JavaScript files.
-
-You can also use a custom security check service by implementing
-``Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface``
-and setting this service in ``cmf_create.security.checker_service``.
 
 If you need more fine grained access control, look into the CreatePHP
 ``RdfMapperInterface`` ``isEditable`` method.  You can extend a mapper and
@@ -314,12 +296,9 @@ editable.
 Load create.js JavaScript and CSS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This bundle provides a template that loads the required CSS files, as well as
-a controller action that loads the necessary JavaScript *if* the current user
-is allowed to edit according to
-:ref:`the security configuration <bundle_create_introduction_access_control>`.
-The JavaScript loader also parametrizes the configuration for create.js and
-WYSIWYG editor.
+This bundle provides templates that load the required Javascript and CSS files
+based on Assetic. The Javascript loader also parametrizes the configuration
+for create.js and the chosen editor.
 
 Alternatively, you can of course use your own templates to include the assets
 needed by create.js.
@@ -377,12 +356,6 @@ For Symfony 2.1, the syntax is:
             '_locale' => $app->getRequest()->getLocale(),
         ) ?>
 
-.. tip::
-
-    You can include this call unconditionally. The controller checks if the
-    current user is allowed to edit and only in that case includes the
-    JavaScript.
-
 .. note::
 
     The provided JavaScript file configures create.js and the editor. If you
@@ -390,7 +363,6 @@ For Symfony 2.1, the syntax is:
     ``skos:related`` collections of attributes. For customization of the editor
     configuration further, you will need to use a
     :ref:`custom template to load the editor<bundle-create-custom>`.
-
 
 .. _bundle-create-usage-embed:
 

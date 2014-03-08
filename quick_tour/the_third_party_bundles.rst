@@ -75,9 +75,9 @@ editable elements also provide integration to make those elements editable in
 Sonata Admin.
 
 By default, all Admin classes in the CMF bundles will be activated when the
-:doc:`SonataDoctrinePhpcrAdminBundle <../bundles/doctrine_phpcr_admin>` is
-installed. You can switch off the Admin class in the configuration. For
-instance, to disable the MenuBundle Admin classes, you would do:
+SonataDoctrinePHPCRAdminBundle_ is installed. You can switch off the Admin
+class in the configuration. For instance, to disable the MenuBundle Admin
+classes, you would do:
 
 .. code-block:: yaml
 
@@ -138,3 +138,4 @@ the Symfony CMF!
 .. _`Create.js`: http://createjs.org/
 .. _FOSRestBundle: https://github.com/friendsofsymfony/FOSRestBundle
 .. _SonataAdminBundle: http://sonata-project.org/bundles/admin/master/doc/index.html
+.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html

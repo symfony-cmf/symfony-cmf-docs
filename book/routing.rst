@@ -248,7 +248,7 @@ order of precedence):
 
 * Explicit: The ``Route`` document itself can explicitly declare the target
   Controller if one is returned from ``getDefault('_controller')``.
-* By type The ``Route`` document returns a value from ``getDefault('type')``,
+* By alias: The ``Route`` document returns a value from ``getDefault('type')``,
   which is then matched against the provided configuration from config.yml
 * By class: Requires the ``Route`` document to implement ``RouteObjectInterface``
   and return an object for ``getContent()``. The returned class type is
@@ -302,7 +302,7 @@ Here's an example of how to configure the above mentioned options:
                         cmf_content.controller::indexAction
                     </controllers-by-class>
 
-                    <templates-by-class class"Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
+                    <templates-by-class alias="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
                     >
                         CmfContentBundle:StaticContent:index.html.twig
                     </templates-by-class>
@@ -440,25 +440,46 @@ As mentioned above, you can use any route provider. The example in this
 section applies if you use the default PHPCR-ODM route provider
 (``Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider``).
 
-All routes are located under a configured root path, for example
-``/cms/routes``. A new route can be created in PHP code as follows::
+All routes are located under the base path configured in the application
+configuration ``cmf_routing.persistence.phpcr.route_basepath``. By default
+this path is ``/cms/routes``. A new route can be created in PHP code as
+follows::
 
+    // src/Acme/MainBundle/DataFixtures/PHPCR/LoadRoutingData.php
+    namespace Acme\DemoBundle\DataFixtures\PHPCR;
+
+    use Doctrine\ODM\PHPCR\DocumentManager;
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
-    use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\Content;
+    use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
 
-    $route = new Route();
-    $route->setParent($dm->find(null, '/routes'));
-    $route->setName('projects');
+    class LoadRoutingData implements FixtureInterface
+    {
+        /**
+         * @param DocumentManager $dm
+         */
+        public function load(ObjectManager $dm)
+        {
+            $route = new Route();
+            $route->setParent($dm->find(null, '/cms/routes'));
+            $route->setName('projects');
 
-    // link a content to the route
-    $content = new Content('my content');
-    $route->setRouteContent($content);
+            // link a content to the route
+            $content = new StaticContent();
+            $content->setParent($dm->find(null, '/cms/content'));
+            $content->setName('my-content');
+            $dm->persist($content);
+            $route->setRouteContent($content);
 
-    // now define an id parameter; do not forget the leading slash if you
-    // want /projects/{id} and not /projects{id}
-    $route->setVariablePattern('/{id}');
-    $route->setRequirement('id', '\d+');
-    $route->setDefault('id', 1);
+            // now define an id parameter; do not forget the leading slash if you
+            // want /projects/{id} and not /projects{id}
+            $route->setVariablePattern('/{id}');
+            $route->setRequirement('id', '\d+');
+            $route->setDefault('id', 1);
+
+            $dm->persist($route),
+            $dm->flush();
+        }
+    }
 
 This will give you a document that matches the URL ``/projects/<number>`` but
 also ``/projects`` as there is a default for the id parameter.

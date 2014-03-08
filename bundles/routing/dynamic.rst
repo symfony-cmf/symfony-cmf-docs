@@ -276,13 +276,12 @@ need content, you can just not set it in the route document.
 Sonata Doctrine PHPCR-ODM Admin classes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If the :doc:`SonataDoctrinePhpcrAdminBundle <../doctrine_phpcr_admin>` is
-loaded in the application kernel, route and redirect route documents can be
-administrated in sonata admin. For instructions on how to configure Sonata,
-see :doc:`../doctrine_phpcr_admin`.
+If the SonataDoctrinePHPCRAdminBundle_ is loaded in the application kernel,
+route and redirect route documents can be administrated in sonata admin. For
+instructions on how to configure Sonata, see `configuring sonata admin`_.
 
 By default, ``use_sonata_admin`` is automatically set based on whether
-SonataDoctrinePhpcrAdminBundle is available, but you can explicitly
+SonataDoctrinePHPCRAdminBundle is available, but you can explicitly
 disable it to not have it even if sonata is enabled, or explicitly enable to
 get an error if Sonata becomes unavailable.
 
@@ -569,3 +568,5 @@ Read on in the chapter :doc:`customizing the dynamic router <dynamic_customize>`
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
 .. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _`URL generating capabilities of Symfony2`: http://symfony.com/doc/current/book/routing.html#generating-urls
+.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
+.. _`configuring sonata admin`: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/reference/configuration.html

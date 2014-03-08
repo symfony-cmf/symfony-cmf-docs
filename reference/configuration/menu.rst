@@ -27,7 +27,6 @@ persistence configuration has the following configuration:
                     enabled:              false
                     menu_basepath:        /cms/menu
                     content_basepath:     ~
-                    prefetch:             10
                     manager_name:         ~
                     menu_document_class:  Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu
                     node_document_class:  Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode
@@ -47,7 +46,6 @@ persistence configuration has the following configuration:
                         enabled="false"
                         menu-basepath="/cms/menu"
                         content-basepath="null"
-                        prefetch="10"
                         manager-name="null"
                         menu-document-class="null"
                         node-document-class="null"
@@ -68,7 +66,6 @@ persistence configuration has the following configuration:
                     'enabled' => false,
                     'menu_basepath' => '/cms/menu',
                     'content_basepath' => null,
-                    'prefetch' => 10,
                     'manager_name' => null,
                     'menu_document_class' => null,
                     'node_document_class' => null,
@@ -84,6 +81,11 @@ enabled
 """""""
 
 .. include:: partials/persistence_phpcr_enabled.rst.inc
+
+manager_name
+""""""""""""
+
+.. include:: partials/persistence_phpcr_manager_name.rst.inc
 
 menu_basepath
 """""""""""""
@@ -113,44 +115,19 @@ the content branch of the document hierarchy in forms.
 If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/content``
 
-.. versionadded:: 1.1
+menu_document
+"""""""""""""
 
-    The prefetch functionality was added in MenuBundle 1.1.
-
-prefetch
-""""""""
-
-**type**: ``integer`` **default**: ``10``
-
-When rendering a menu, the whole menu tree needs to be loaded. To reduce the
-number of database requests that PHPCR needs to make, this setting makes the
-tree loader prefetch all menu nodes in one call.
-
-``10`` should be enough for most cases, if you have deeper menu structures you
-might want to increase this.
-
-To disable menu prefetch completely, set this option to ``0``.
-
-manager_name
-""""""""""""
-
-.. include:: partials/persistence_phpcr_manager_name.rst.inc
-
-menu_document_class
-"""""""""""""""""""
-
-**type**: ``string`` **default**:
-``Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu``
+**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu``
 
 Specifies the document class which should represent an entire menu.
 
 This setting is used by the admin class.
 
-node_document_class
-"""""""""""""""""""
+node_document
+"""""""""""""
 
-**type**: ``string`` **default**:
-``Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode``
+**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode``
 
 Specifies the document class which should represent a single menu node.
 
@@ -164,16 +141,14 @@ use_sonata_admin
 menu_admin_class
 """"""""""""""""
 
-**type**: ``string`` **default**:
-``Symfony\Cmf\Bundle\MenuBundle\Admin\MenuAdmin``
+**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\MenuBundle\Admin\MenuAdmin``
 
 The Sonata admin class to use for the menu.
 
 node_admin_class
 """"""""""""""""
 
-**type**: ``string`` **default**:
-``Symfony\Cmf\Bundle\MenuBundle\Admin\MenuNodeAdmin``
+**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\MenuBundle\Admin\MenuNodeAdmin``
 
 The Sonata admin class to use for the menu node.
 

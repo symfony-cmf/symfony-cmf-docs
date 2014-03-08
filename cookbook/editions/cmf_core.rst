@@ -99,6 +99,7 @@ If you haven't done so already, make sure you have followed these steps from
 
 * Initialize ``DoctrinePHPCRBundle`` in ``app/AppKernel.php``
 * Ensure there is a ``doctrine_phpcr:`` section in ``app/config/config.yml``
+* Add the ``AnnotationRegistry::registerFile`` line to ``app/autoload.php``
 
 Configure the BlockBundle in your ``config.yml``:
 

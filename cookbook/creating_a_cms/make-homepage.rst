@@ -195,6 +195,11 @@ and verify that the ``cms`` node has been updated by using the
     disadvantage then is that there are two places where initialization
     choices take place - do whatever you prefer.
 
+As noted earlier, currently when data fixtures are loaded they will erase the
+workspace, including the paths created by the initializers. This means that
+each time you load your data fixtures you must also reinitialize the
+repository.
+
 Create the Make Homepage Button
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
