@@ -313,8 +313,9 @@ configuration:
     to understand these details right now. To learn more about PHPCR read
     :doc:`../database/choosing_storage_layer`.
 
-Execute the ``doctrine:phpcr:repository:init`` command to initialize (or
-reinitialize) the repository:
+The initalizers will be executed automatically when you load your data
+fixtures (as detailed in the next section) or alternatively you can execute
+them manually using the following command:
 
 .. code-block:: bash
 
@@ -361,13 +362,11 @@ Create a page for your CMS::
     use Acme\BasicCmsBundle\Document\Page;
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\Persistence\ObjectManager;
-    use PHPCR\Util\NodeHelper;
 
     class LoadPageData implements FixtureInterface
     {
         public function load(ObjectManager $dm)
         {
-            NodeHelper::createPath($dm->getPhpcrSession(), '/cms/pages');
             $parent = $dm->find(null, '/cms/pages');
 
             $page = new Page();
@@ -391,14 +390,12 @@ and add some posts::
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\Persistence\ObjectManager;
     use Acme\BasicCmsBundle\Document\Post;
-    use PHPCR\Util\NodeHelper;
 
     class LoadPostData implements FixtureInterface
     {
         public function load(ObjectManager $dm)
         {
             $parent = $dm->find(null, '/cms/posts');
-            NodeHelper::createPath($dm->getPhpcrSession(), '/cms/posts');
 
             foreach (array('First', 'Second', 'Third', 'Forth') as $title) {
                 $post = new Post();
@@ -423,15 +420,6 @@ and load the fixtures:
     $ php app/console doctrine:phpcr:fixtures:load
 
 You should now have some data in your content repository.
-
-.. note::
-
-    The classes above use ``NodeHelper::createPath`` to create the paths
-    ``/cms/posts`` and ``/cms/pages`` - this is exactly what the
-    initializer did -- why do the classes do it again? This is a known issue - the
-    data fixtures loader will purge the workspace and it will **not** call the
-    initializer, so when using data fixtures it is currently necessary to manually
-    create the paths.
 
 .. _`routingautobundle documentation`: http://symfony.com/doc/current/cmf/bundles/routing_auto.html
 .. _`dynamicrouter to generate urls`: http://symfony.com/doc/current/cmf/bundles/routing/dynamic.html#url-generation-with-the-dynamicrouterA

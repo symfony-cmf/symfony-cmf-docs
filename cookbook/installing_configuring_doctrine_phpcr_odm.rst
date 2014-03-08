@@ -132,19 +132,6 @@ To install the above dependencies, run:
 
     $ php composer.phar update
 
-Register Annotations
-~~~~~~~~~~~~~~~~~~~~
-
-PHPCR-ODM uses annotations and these need to be registered in your
-``app/autoload.php`` file. Add the following line, immediately after the last
-``AnnotationRegistry::registerFile`` line::
-
-    // app/autoload.php
-
-    // ...
-    AnnotationRegistry::registerFile(__DIR__.'/../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php');
-    // ...
-
 Initialize Bundles
 ~~~~~~~~~~~~~~~~~~
 

@@ -18,33 +18,49 @@ Configuration
 Security
 ~~~~~~~~
 
-The controller that receives save requests from create.js requires the user to
-have a specific role to control who is allowed to edit content. As it would
+The controller that receives save requests from create.js does a security check
+to determine whether the current user is allowed to edit content. As it would
 not be convenient to show the create.js editor to users not allowed to edit the
-site, the controller loading the create.js javascripts with the
-``includeJSFilesAction`` also checks this role. If the image controller is
-activated, it checks for this role as well.
+site, the controller loading the create.js JavaScript files with the
+``includeJSFilesAction`` also uses the same security check, as does the image
+upload controller if it is activated.
+
+The default security check checks if the user has a specified role. If nothing
+is configured, the default role is ``ROLE_ADMIN``. If you set the parameter to
+boolean ``false``, every user will be allowed to save changes through the REST
+controller.
+
+A last option is to configure your own ``checker_service`` to be used instead
+of the role based check.
+
+For more information, see the
+:ref:`security section in the bundle doc <bundle_create_introduction_access_control>`.
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         cmf_create:
-            role: ROLE_ADMIN
+            security:
+                role: ROLE_ADMIN
+                checker_service: ~
 
     .. code-block:: xml
 
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://cmf.symfony.com/schema/dic/create"
-                role="ROLE_ADMIN"
-            />
+            <config xmlns="http://cmf.symfony.com/schema/dic/create">
+                <security role="ROLE_ADMIN" checker-service="null" />
+            </config>
         </container>
 
     .. code-block:: php
 
         $container->loadFromExtension('cmf_create', array(
-            'role' => 'ROLE_ADMIN',
+            'security' => array(
+                'role' => 'ROLE_ADMIN',
+                'checker_service' => null,
+            ),
         ));
 
 .. _config-create-persistence:

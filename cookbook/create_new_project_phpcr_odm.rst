@@ -62,16 +62,7 @@ content repository.
         }
     }
 
-**Step 5**: (*optional*) Register the PHPCR-ODM annotations in ``app/autoload.php``::
-
-    // app/autoload.php
-
-    // ...
-    AnnotationRegistry::registerFile(
-        __DIR__.'/../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php'
-    );
-
-**Step 6**: Modify ``parameters.yml.dist``, adding the required PHPCR-ODM settings:
+**Step 5**: Modify ``parameters.yml.dist``, adding the required PHPCR-ODM settings:
 
 .. code-block:: yaml
 
@@ -142,7 +133,7 @@ content repository.
             ),
         ));
 
-**Step 8**: Run ``composer update``:
+**Step 7**: Run ``composer update``:
 
 .. code-block:: bash
 
