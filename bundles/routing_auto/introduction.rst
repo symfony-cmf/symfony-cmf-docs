@@ -112,7 +112,7 @@ The configuration for the example above could be as follows:
 
                         # corresponds second path unit in diagram: my-category
                         category_path:
-                            provider: [content_object, { method: getCategory }]
+                            provider: [content_method, { method: getCategoryName }]
                             exists_action: use
                             not_exists_action: throw_exception
 
@@ -142,8 +142,8 @@ The configuration for the example above could be as follows:
 
                         <!-- corresponds second path unit in diagram: my-category -->
                         <path-unit name="category_path">
-                            <provider name="content_object">
-                                <option name="method" value="getCategory" />
+                            <provider name="content_method">
+                                <option name="method" value="getCategoryName" />
                             </provider>
                             <exists-action strategy="use" />
                             <not-exists-action strategy="throw_exception" />
@@ -183,8 +183,8 @@ The configuration for the example above could be as follows:
 
                         // corresponds second path unit in diagram: my-category
                         'category_path' => array(
-                            'provider' => array('content_object', array(
-                                'method' => 'getCategory',
+                            'provider' => array('content_method', array(
+                                'method' => 'getCategoryName',
                             )),
                             'exists_action' => 'use',
                             'not_exists_action' => 'throw_exception',
@@ -216,9 +216,9 @@ follows::
         /**
          * Returns the category object associated with the topic.
          */
-        public function getCategory()
+        public function getCategoryName()
         {
-            return $this->category;
+            return $this->category->getName();
         }
 
         public function getPublishedDate()
