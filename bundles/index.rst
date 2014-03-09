@@ -17,5 +17,6 @@ Bundles
     search/index
     simple_cms/index
     tree_browser/index
+    seo_content/index
 
 .. include:: map.rst.inc
