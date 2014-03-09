@@ -37,7 +37,9 @@ all of the required packages now.
 
             "doctrine/phpcr-odm": "dev-master as 1.0.0",
             "phpcr/phpcr-utils": "dev-master as 1.0.0",
-            "doctrine/phpcr-bundle": "dev-master as 1.0.0"
+            "doctrine/phpcr-bundle": "dev-master as 1.0.0",
+            "symfony-cmf/routing-bundle": "dev-master as 1.1.0",
+            "symfony-cmf/routing": "dev-master as 1.2.0"
         },
         ...
     }
@@ -262,7 +264,7 @@ configuration:
             acme.basic_cms.phpcr.initializer:
                 class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
                 arguments: 
-                    - 'cms reserved routes'
+                    - My custom initializer
                     - ["/cms/pages", "/cms/posts", "/cms/routes"]
                 tags:
                     - { name: doctrine_phpcr.initializer }
@@ -284,6 +286,8 @@ configuration:
                 <service id="acme.basic_cms.phpcr.initializer"
                     class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
 
+                    <argument>My custom initializer</argument>
+
                     <argument type="collection">
                         <argument>/cms/pages</argument>
                         <argument>/cms/posts</argument>
@@ -303,6 +307,7 @@ configuration:
                 'acme.basic_cms.phpcr.initializer',
                 'Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer'
             )
+            ->addArgument('My custom initializer')
             ->addArgument(array('/cms/pages', '/cms/posts', '/cms/routes'))
             ->addTag('doctrine_phpcr.initializer')
         ;

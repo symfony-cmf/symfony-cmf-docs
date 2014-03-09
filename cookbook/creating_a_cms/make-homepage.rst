@@ -83,13 +83,20 @@ node::
     namespace Acme\BasicCmsBundle\Initializer;
 
     use Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface;
-    use PHPCR\SessionInterface;
     use PHPCR\Util\NodeHelper;
+    use Doctrine\Bundle\PHPCRBundle\ManagerRegistry;
 
     class SiteInitializer implements InitializerInterface
     {
-        public function init(SessionInterface $session)
+        public function getName()
         {
+            return 'My sites initializer';
+        }
+
+        public function init(ManagerRegistry $registry)
+        {
+            $session = $registry->getConnection();
+
             // create the 'cms', 'pages', and 'posts' nodes
             NodeHelper::createPath($session, '/cms/pages');
             NodeHelper::createPath($session, '/cms/posts');
