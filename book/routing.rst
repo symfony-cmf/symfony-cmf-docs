@@ -248,7 +248,7 @@ order of precedence):
 
 * Explicit: The ``Route`` document itself can explicitly declare the target
   Controller if one is returned from ``getDefault('_controller')``.
-* By alias: The ``Route`` document returns a value from ``getDefault('type')``,
+* By type: The ``Route`` document returns a value from ``getDefault('type')``,
   which is then matched against the provided configuration from config.yml
 * By class: Requires the ``Route`` document to implement ``RouteObjectInterface``
   and return an object for ``getContent()``. The returned class type is
@@ -302,7 +302,7 @@ Here's an example of how to configure the above mentioned options:
                         cmf_content.controller::indexAction
                     </controllers-by-class>
 
-                    <templates-by-class alias="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
+                    <templates-by-class class="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent"
                     >
                         CmfContentBundle:StaticContent:index.html.twig
                     </templates-by-class>
