@@ -6,14 +6,14 @@ SeoContentBundle
 ================
 
     This bundle provides a solution to make content bundles
-    aware for Seach Engine Optimisation (SEO).
+    aware for Search Engine Optimisation (SEO).
 
 Preface
 -------
 
 As the Symfony CMF allows you to show one content on
 multiple routes, it is a must have to avoid
-duplicate content. There are two solutions to rid of it:
+duplicate content. There are two solutions to get rid of it:
 
 Create a canonical link with the reference to THE
 original url:
@@ -25,14 +25,12 @@ or a redirect to the original url.
 Both take care on search engines, which does not like
 it to have same content under different routes.
 
-The SonataSeoBundle still does a good job on handling
-that stuff. But we need a thin wrapper around their
-service to get the Symfony CMF content documents be
-aware of those duplicate content problems. As sonatas
-SeoBundle provides solutions for setting values for
-meta tags and the page's title the SeoBundle will
-contain "out-of-the-box" solution for the Symfony CMF
-documents, too.
+The SonataSeoBundle does a good job on handling
+that stuff. You should have a look at the documentation
+at http://sonata-project.org/bundles/seo/master/doc/index.html
+All Solutions created by this bundle will set values to the
+sonatas ``PageService`` to get them displayed with the help
+of sonatas ``TwigHelper``.
 
 Installation
 ------------
@@ -74,7 +72,6 @@ default values
 
         sonata_seo:
             page:
-                title: Default title
                 metas:
                     names:
                         description: default description
@@ -84,7 +81,6 @@ default values
 
         $container->loadFromExtension('sonata_seo', array(
             'page' => array(
-                'title' => 'Default title',
                 'metas' => array(
                     'names' => array(
                         'description' => 'default description',
@@ -93,6 +89,8 @@ default values
                 ),
             ),
         ));
+
+
 
 Without any settings or work with the SeoBundle these settings
 are enough to let the sonatas ``PageService`` know about your
@@ -110,8 +108,6 @@ The SeoBundle adds some more options:
     .. code-block:: yaml
 
         cmf_seo:
-            phpcr:
-                use_sonata_admin: true
             title:
                 strategy: append
                 separator: ' | '
@@ -121,30 +117,24 @@ The SeoBundle adds some more options:
     .. code-block:: php
 
         $container->loadFromExtension('cmf_seo', array(
-            'phpcr'     => array(
-                'use_sonata_admin'  => 'true'
-            )
             'title' => array(
-                'strategy' => 'append',
-                'separator'  => ' | '
+                'default'   => 'default',
+                'strategy'  => 'append',
+                'separator' => ' | ',
                 ),
             'content' => array(
-                'stragegy' => 'canonical'
-                )
+                'strategy'  => 'canonical',
+                ),
         ));
     .. code-block:: xml
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-
-            <config xmlns="http://cmf.symfony.com/schema/dic/content">
-                <cmf_seo>
-                    <phpcr
-                        use_sonata_admin="true"
-                    />
+            <config xmlns="http://cmf.symfony.com/schema/dic/seo">
                     <title
+                        default="Default title"
                         strategy="append"
                         separator=" | "
-                    />
+                    >
                     <content
                         strategy="canonical"
                     />
@@ -160,23 +150,42 @@ will be appended to the sonatas default ones by a ". " or a ", ".
 The ``cmf_seo.title.separator`` will configures the string separator
 for appending or prepending the title.
 In case of duplicate content you will need the ``cmf_seo.content.strategy``
-The allowed values are ``canonical`` or ``redirect``. Firs will
+The allowed values are ``canonical`` or ``redirect``. First one will
 cause a canonical link, the last forces a redirect to the original
-url (set by the document's ``SeoMetadata``.
-As every Symfony CMF bundle the SeoBundle serves an option for disabling
-the the sonata admin support.
+url.
 
-Usage
------
+Base-Usage
+~~~~~~~~~~
 
-The SeoContent bundle provides a ``SeoAwareInterface`` for content
-documents, that needs to have some SEO properties. To persist
-them and not to pollute the list of document properties, the
-SeoContent bundle provides a ``SeoMetadate`` model. The
-``SeoAwareInterface`` forces the content document to provide a
-getter for that metadata. The bundle provides a
-``SeoAwareContent`` document as an example. You can add it like
-this:
+The work of the ``SeoBundle`` id done by several interfaces. As the
+``SeoAwareContent`` document implements the ``SeoAwareInterface`` to
+provide some ``SeoMetadata``. That ``SeoMetada`` is the container for
+the values in a seo context:
+
+     /**
+     * This string contains the information where we will find the original content.
+     * Depending on the setting for the cmf_seo.content.strategy, we will do an redirect to this url or
+     * create a canonical link with this value as the href attribute.
+     *
+     * @var string
+     */
+    private $originalUrl;
+
+    /**
+     * If this string is set, it will be inserted as a meta tag for the page description.
+     *
+     * @var  string
+     */
+    private $metaDescription;
+
+    /**
+     * This comma separated list will contain the Keywords for the page's meta information.
+     *
+     * @var string
+     */
+    private $metaKeywords;
+
+You can use that ``SeoMetadata`` by setting it to your content:
 
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
     use Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoAwareContent;
@@ -219,19 +228,55 @@ this:
     $manager->persist($seoDocument);
     $manager->flush();
 
-The code adds a ``/seo-content`` route and a seo-content-document
-``seo-content`` This means if you visit the route you will se the
+The code adds a route with the absolute path ``/seo-content``
+and a seo-content-document ``seo-content``.
+This means if you visit that url you will see the
 content of the document. When you have a look at the title or the
 meta tags, you will see something different. The title looks like
 ``Documents own tile | Default title`` and the meta tags contain the
 description and keywords added by some default values.
 (See in the Configuration).
 
+Strategy-Usage
+~~~~~~~~~~~~~~
+
+Instead of setting every value to the ``SeoMetadata`` manually
+a strategy solution to extract the values from your content document
+can be chosen. To do so you got the possibility to add strategies to
+your document for each value one by one. The ``SeoPresentation`` will
+loop through all available strategies, check if the document supports it
+and call the `updateMetadata()` on the strategy. Depending on the
+strategy a method on the document is called to extract the
+value or some other work is done. It is up to you how you wanna
+implement the strategy or implement the value getter on the
+document.
+
+Title-Extraction-Strategy
+-------------------------
+
+To extract your document's title to seo title the document needs to
+implement the `SeoTitleInterface`. That will force your document to
+implement the method `getSeoTitle()`, which will be called by the
+`SeoTitleStrategy`'s `updateMetadata()` method to set the title
+property on the current `SeoMetadata`.
+
+Description-Extraction-Strategy
+-------------------------------
+
+Same as for title.
+
+OriginalUrl-Extraction-Strategy
+-------------------------------
+
+Same as for title.
+
 From SeoMetadata to MetadataTag
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Every document that implements the ``SeoAwareInterface`` contain
-some ``SeoMetadata``. Sonatas ``PageService`` works like a container
+At the end of the day there will be a `SeoMetadata` container class.
+A document implementing `SeoAwareInterface` will provide the pure data
+as property. The strategies will ... todo go further ...
+Sonatas ``PageService`` works like a container
 and is able to store these values for us. When adding one of sonatas
 twig helpers
 
