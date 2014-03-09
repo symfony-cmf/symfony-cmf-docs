@@ -263,36 +263,36 @@ property on the current `SeoMetadata`.
 Description-Extraction-Strategy
 -------------------------------
 
-Same as for title.
+To extract some description for the page your document is shown,
+the document needs to implement the `SeoDescriptionInterface`. That
+will force your content document class to implment a method called
+`getSeoDescription`, which is called by the `SeoDescriptionStrategy`.
 
 OriginalUrl-Extraction-Strategy
 -------------------------------
 
-Same as for title.
+As seen for title and description there is a way for extract the original
+route from the document too. So your document just needs to implment
+the `SeoOriginalRouteInterface` which forces to implement the method
+`getSeoOriginalRoute`. That method should return a Cmf-Route or
+a simple symfony route key to generate a absolute url. That value
+will be set to a canonical Link or a redirect will be done. (depends
+on your content strategy)
 
 From SeoMetadata to MetadataTag
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 At the end of the day there will be a `SeoMetadata` container class.
 A document implementing `SeoAwareInterface` will provide the pure data
-as property. The strategies will ... todo go further ...
-Sonatas ``PageService`` works like a container
-and is able to store these values for us. When adding one of sonatas
-twig helpers
+as property. The strategies will fill the container in their own way.
+
+These values will be injected into sonatas ``PageService``, which provides
+some Twig-Helpers to render the data in a template:
 
     {{ sonata_seo_title() }}
     {{ sonata_seo_metadatas() }}
     {{ sonata_seo_link_canonical() }}
     {{ sonata_seo_lang_alternates() }}
-
-sonatas SeoBundle is able to create metatags from some values or setting
-the content to the title tag. Without adding any ``SeoMetadata`` to
-the document, sonatas SeoBundle would render the default values
-served in their own config block. Symfony CMF's SeoBundle has a
-Listener, which takes care on the documents. If there is a
-content of type ``SeoAwareInterface`` a ``SeoPresentation``-Model
-starts to work and fills sonatas PageService depending on the
-strategies set in the SeoBundle's configuration block.
 
 
 AdminExtension - FormType
@@ -309,6 +309,49 @@ to the ``sonata_admin.extension`` like this:
 This will enable the extension and you will get a new tab with
 a ``SeoMetadataType`` as a form type. This should help you on
 updating the documents ``SeoMetadata``.
+
+Multlang-Support
+~~~~~~~~~~~~~~~~
+
+To get a multilang support to your document you will have to
+implement the ``TranslatableInterface``. As the SeoMetadata lives
+in your document that property can be translatable too. You just need to set
+its mapping option to `translatable=true`.
+The configuration for the default title provides a solution for multilang
+support too. Instead of setting `default: Default Title`, you can set
+language depending titles:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_seo:
+            title:
+                default:
+                    de: Default Titel
+                    en: Default title
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_seo', array(
+            'title' => array(
+                'default'   => array(
+                    'de'    => 'Default Title',
+                    'en'    => 'Default title',
+                ),
+        ));
+    .. code-block:: xml
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/seo">
+                    <title>
+                        <default lang="de" value="Default Titel />
+                        <default lang="en" value="Default title />
+                    </title>
+                </cmf_seo>
+            </config>
+        </container>
+
 
 .. _`with composer`: http://getcomposer.org
 .. _`symfony-cmf/menu-bundle`: https://packagist.org/packages/symfony-cmf/menu-bundle
