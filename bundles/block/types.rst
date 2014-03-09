@@ -138,6 +138,9 @@ rendering the block.
 
 .. _bundles-block-menu:
 
+.. versionadded:: 1.1
+    The MenuBlock was introduced in CmfBlockBundle 1.1.
+
 MenuBlock
 ---------
 

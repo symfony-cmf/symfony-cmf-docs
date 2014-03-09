@@ -131,8 +131,8 @@ example is specified. This will render an unordered list as follows:
 
 .. tip::
 
-    When using the :doc:`BlockBundle <../block/introduction>`, you can also use the
-    ``MenuBlock``. Read more about that in the
+    When using the :doc:`BlockBundle <../block/introduction>`, you can also
+    use the ``MenuBlock``. Read more about that in the
     :ref:`BlockBundle documentation <bundles-block-menu>`
 
 .. note::
