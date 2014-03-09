@@ -1,4 +1,4 @@
-﻿.. index::
+.. index::
     single: Menu; Bundles
     single: MenuBundle
 
@@ -128,6 +128,12 @@ example is specified. This will render an unordered list as follows:
         .. code-block:: php
 
             echo $view['knp_menu']->render('/cms/some/path/my-menu');
+
+.. tip::
+
+    When using the :doc:`BlockBundle <../block/introduction>`, you can also use the
+    ``MenuBlock``. Read more about that in the
+    :ref:`BlockBundle documentation <bundles-block-menu>`
 
 .. note::
 
