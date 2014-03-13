@@ -63,10 +63,25 @@ in the ``PHPCR\SimpleCredentials``. They will usually be different from the
 username and password used by Midgard2 or Doctrine DBAL to connect to the
 underlying RDBMS where the data is actually stored.
 
-If you are using one of the Jackalope backends, you can also specify
-``options``.  They will be set on the Jackalope session. Currently this can be
-used to tune pre-fetching nodes by setting ``jackalope.fetch_depth`` to
-something bigger than 0.
+If you are using one of the Jackalope backends, you can set a couple of
+parameters:
+
+* ``jackalope.factory``: string or object: Use a custom factory class for
+  Jackalope objects;
+* ``jackalope.check_login_on_server``: If set to false, skip initial check
+  whether repository exists. Disabled by default, you will only notice
+  connectivity problems on the first attempt to use the repository;
+* ``jackalope.disable_stream_wrapper``: If set to false, streams are read
+  immediately instead of first access. If you run into problems with streams
+  this might be useful for debugging. Otherwise you probably don't want to
+  disable the wrappers, or all binaries will be loaded each time their
+  containing document is loaded;
+* ``jackalope.auto_lastmodified``: Whether to automatically update nodes
+  having mix:lastModified. Defaults to true;
+* See below for backend specific configuration options.
+
+With a Jackalope backend, you can also
+`activate profiling and tune many parameters <Profiling and Performance of Jackalope>`_.
 
 .. configuration-block::
 
@@ -76,14 +91,79 @@ something bigger than 0.
         doctrine_phpcr:
             session:
                 backend:
-                    # see below for how to configure the backend of your choice
+                    # to configure logging
+                    logging: true
+                    # to configure profiling for the debug toolbar.
+                    profiling: true
+                    # optional parameters for jackalope
+                    parameters:
+                        jackalope.factory: "Jackalope\Factory"
+                        jackalope.check_login_on_server: false
+                        jackalope.disable_stream_wrapper: false
+                        jackalope.auto_lastmodified: true
+                        # see below for how to configure the backend of your choice
                 workspace: default
                 username: admin
                 password: admin
-                ## tweak options for jackrabbit and doctrinedbal (all jackalope versions)
-                # options:
-                #    'jackalope.fetch_depth': 1
+                # tweak options for jackalope (all versions)
+                options:
+                    jackalope.fetch_depth: 1
 
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- app/config/config.xml -->
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session
+                    workspace="default"
+                    username="admin"
+                    password="admin"
+                >
+                    <backend
+                        logging="true"
+                        profiling="true"
+                    >
+                        <parameters
+                            jackalope.factory="Jackalope\Factory"
+                            jackalope.check_login_on_server="false"
+                            jackalope.disable_stream_wrapper="false"
+                            jackalope.auto_lastmodified="true"
+                        />
+                    </backend>
+                    <options
+                        jackalope.fetch_depth="1"
+                    />
+                </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'backend' => array(
+                    'logging' => true,
+                    'profiling' => true,
+                    'parameters' => array(
+                        'jackalope.factory' => 'Jackalope\Factory',
+                        'jackalope.check_login_on_server' => false,
+                        'jackalope.disable_stream_wrapper' => false,
+                        'jackalope.auto_lastmodified' => true,
+                    ),
+                ),
+                'workspace' => 'default',
+                'username' => 'admin',
+                'password' => 'admin',
+                'options' => array(
+                    'jackalope.fetch_depth' => 1,
+                ),
+            ),
+        ));
+
+If you want control over the last modified timestamp, disable
+``jackalope.auto_lastmodified`` and read the `last modified listener cookbook entry`_
+of the PHPCR-ODM documentation.
 
 PHPCR Session with Jackalope Jackrabbit
 """""""""""""""""""""""""""""""""""""""
@@ -92,9 +172,14 @@ The only setup required is to install Apache Jackrabbit (see
 :ref:`installing Jackrabbit <cookbook-installing-phpcr-jackrabbit>`).
 
 The configuration needs the ``url`` parameter to point to your jackrabbit.
-Additionally you can tune some other jackrabbit-specific options, for example
-to use it in a load-balanced setup or to fail early for the price of some
-round trips to the backend.
+You can tune the behaviour with the general jackalope parameters listed above,
+as well as some jackrabbit-specific options:
+
+* ``jackalope.default_header``: string: Set a default header to send on each
+  request to the backend (i.e. for load balancers to identify sessions);
+* ``jackalope.jackrabbit_expect``: boolean: Send the "Expect: 100-continue"
+  header on larger PUT and POST requests. Disabled by default to avoid issues
+  with proxies and load balancers.
 
 .. configuration-block::
 
@@ -106,16 +191,55 @@ round trips to the backend.
                 backend:
                     type: jackrabbit
                     url: http://localhost:8080/server/
-                    ## jackrabbit only, optional. see https://github.com/jackalope/jackalope/blob/master/src/Jackalope/RepositoryFactoryJackrabbit.php
-                    # default_header: ...
-                    # expect: 'Expect: 100-continue'
-                    # enable if you want to have an exception right away if PHPCR login fails
-                    # check_login_on_server: false
-                    # enable if you experience segmentation faults while working with binary data in documents
-                    # disable_stream_wrapper: true
-                    # enable if you do not want to use transactions and you neither want the odm to automatically use transactions
-                    # its highly recommended NOT to disable transactions
-                    # disable_transactions: true
+                    parameters:
+                        # general parameters and options
+                        # ...
+                        # optional parameters specific to jackalope-jackrabbit
+                        jackalope.default_header: 'X-ID: %serverid%'
+                        jackalope.jackrabbit_expect: true
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- app/config/config.xml -->
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session>
+                    <backend
+                        type="jackrabbit"
+                        url="http://localhost:8080/server/"
+                    >
+                        <parameters
+                            jackalope.default_header="X-ID: %serverid%"
+                            jackalope.jackrabbit_expect="true"
+                        />
+                    </backend>
+                </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'backend' => array(
+                    'type' => 'jackrabbit',
+                    'url' => 'http://localhost:8080/server/'
+                    'parameters' => array(
+                        'jackalope.default_header': 'X-ID: %serverid%',
+                        'jackalope.jackrabbit_expect': true,
+                    ),
+                ),
+            ),
+        ));
+
+.. versionadded:: 1.1
+
+    Since version 1.1, additional options are simply passed to jackalope and
+    no longer transformed by the bundle. For backwards compatibility reason,
+    ``check_login_on_server``, ``disable_stream_wrapper`` and
+    ``disable_transactions`` still work, but it is recommended to explicitly
+    place the ``jackalope.`` part in front of them.
 
 .. _bundle-phpcr-odm-doctrinedbal:
 
@@ -130,6 +254,14 @@ You can specify the connection name to use if you don't want to use the default
 connection. The name must be one of the names of the dbal section in your
 Doctrine configuration, see `Symfony2 Doctrine documentation`_.
 
+You can tune the behaviour with the general jackalope parameters listed above,
+as well as a jackrabbit-doctrine-dbal option (jackrabbit does not support
+transactions):
+
+* ``jackalope.disable_transactions``: boolean: Set to false to disabled
+  transactions. If transactions are enabled but not actively used, every save
+  operation is wrapped into a transaction.
+
 .. configuration-block::
 
     .. code-block:: yaml
@@ -139,14 +271,63 @@ Doctrine configuration, see `Symfony2 Doctrine documentation`_.
             session:
                 backend:
                     type: doctrinedbal
-                    # connection: dbal_connection_name
-                    # enable if you want to have an exception right away if PHPCR login fails
-                    # check_login_on_server: false
-                    # enable if you experience segmentation faults while working with binary data in documents
-                    # disable_stream_wrapper: true
-                    # enable if you do not want to use transactions and you neither want the odm to automatically use transactions
-                    # its highly recommended NOT to disable transactions
-                    # disable_transactions: true
+                    # if no explicit connection is specified, the default connection is used.
+                    connection: default
+                    # to configure caching
+                    caches:
+                        meta: liip_doctrine_cache.ns.meta
+                        nodes: liip_doctrine_cache.ns.nodes
+                    parameters:
+                        # general parameters and options
+                        # ...
+                        # optional parameters specific to jackalope doctrine dbal
+                        jackalope.disable_transactions: false
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- app/config/config.xml -->
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session>
+                    <backend type="doctrinedbal" connection="default">
+                        <caches
+                            meta="liip_doctrine_cache.ns.meta"
+                            nodes="liip_doctrine_cache.ns.nodes"
+                        />
+                        <parameters
+                            jackalope.disable_transactions="false"
+                        />
+                    </backend>
+                </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'backend' => array(
+                    'type' => 'doctrinedbal',
+                    'connection' => 'default',
+                    'caches' => array(
+                        'meta' => 'liip_doctrine_cache.ns.meta'
+                        'nodes' => 'liip_doctrine_cache.ns.nodes'
+                    ),
+                    'parameters' => array(
+                        'jackalope.disable_transactions'=false,
+                    ),
+                ),
+            ),
+        ));
+.. versionadded:: 1.1
+
+    Since version 1.1, additional options are simply passed to jackalope and
+    no longer transformed by the bundle. For backwards compatibility reason,
+    ``check_login_on_server``, ``disable_stream_wrapper`` and
+    ``disable_transactions`` still work, but it is recommended to move them
+    into the parameters section (and adding the ``jackalope.`` part to match
+    with the jackalope name).
 
 Once the connection is configured, make sure the database exists and initialize
 it. If you are using Doctrine ORM on the same connection, the schema is
@@ -178,6 +359,9 @@ command.
     name to the ``doctrine:database:create`` command with the ``--connection``
     option. For Doctrine PHPCR commands, this parameter is not needed as you
     configured the connection to use.
+
+To use the cache, install and configure the `LiipDoctrineCacheBundle`_. Then
+uncomment the cache meta and nodes settings.
 
 PHPCR Session with Midgard2
 """""""""""""""""""""""""""
@@ -211,6 +395,66 @@ The session backend configuration looks as follows:
                     blobdir: /tmp/cmf-blobs
 
 For more information, please refer to the `official Midgard PHPCR documentation`_.
+
+Profiling and Performance of Jackalope
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When using any of the jackalope PHPCR implementations, you can activate logging
+to log to the symfony log, or profiling to show information in the Symfony2
+debug toolbar:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        doctrine_phpcr:
+            session:
+                backend:
+                    # ...
+                    logging: true
+                    profiling: true
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- app/config/config.xml -->
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session>
+                    <backend
+                        logging="true"
+                        profiling="true"
+                    />
+                </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'backend' => array(
+                    'logging' => true,
+                    'profiling' => true,
+                ),
+            ),
+        ));
+
+Once you can see the effects in profiling, you can try if adjusting the global
+fetch depth reduces the number and duration for queries. Set the option
+``jackalope.fetch_depth`` to something bigger than 0 to have jackalope prefetch
+children or whole subtrees.
+
+When using jackalope doctrine dbal, it is highly recommended to activate the
+caching options. Set ``session.backend.caches`` as explained in
+`PHPCR Session with Jackalope Doctrine DBAL`_.
+
+Note that you can also set the fetchDepth on the session on the fly for
+specific calls, or use the fetchDepth option on children mappings of your
+documents.
+
+The parameter ``jackalope.check_login_on_server`` can be set to false to save
+an initial call to the database to check if the connection works.
 
 .. _bundle-phpcr-odm-configuration:
 
@@ -262,6 +506,71 @@ You can also enable `metadata caching`_.
                     class:                ~
                     id:                   ~
 
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <odm
+                    configuration-id="null"
+                    auto-mapping="true"
+                    auto-generate-proxy-classes="%kernel.debug%"
+                    proxy-dir="%kernel.cache_dir%/doctrine/PHPCRProxies"
+                    proxy_namespace="PHPCRProxies"
+                >
+                    <mappings>
+                        <"name"
+                            mapping="true
+                            type="null"
+                            dir="null"
+                            alias="null"
+                            prefix="null"
+                            is-bundle="null"
+                        />
+                    </mappings>
+                    <metadata-cache-driver
+                        type="array"
+                        host="null"
+                        port="null"
+                        instance-class="null"
+                        class="null"
+                        id="null"
+                    />
+                </odm>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'odm' => array(
+                'configuration_id' => null,
+                'auto_mapping' => true,
+                'auto_generate_proxy_classes' => '%kernel.debug%',
+                'proxy-dir' => '%kernel.cache_dir%/doctrine/PHPCRProxies',
+                'proxy_namespace' => 'PHPCRProxies',
+                'mappings' => array(
+                    '<name>' => array(
+                        'mapping' => true,
+                        'type' => null,
+                        'dir' => null,
+                        'alias' => null,
+                        'prefix' => null,
+                        'is-bundle' => null,
+                    ),
+                ),
+                'metadata_cache_driver' => array(
+                    'type' => 'array',
+                    'host' => null,
+                    'port' => null,
+                    'instance_class' => null,
+                    'class' => null,
+                    'id' => null,
+                ),
+            ),
+        ));
+
 .. index:: I18N, Multilanguage
 
 .. _bundle-phpcr-odm-multilang-config:
@@ -280,7 +589,7 @@ documentation on Multilanguage`_.
         # app/config/config.yml
         doctrine_phpcr:
             odm:
-                ...
+                # ...
                 locales:
                     en: [de, fr]
                     de: [en, fr]
@@ -491,6 +800,40 @@ listeners resp. event subscribers.
                     tags:
                         - { name: doctrine_phpcr.event_subscriber }
 
+    .. code-block:: xml
+
+        <!-- src/Acme/SearchBundle/Resources/config/services.xml -->
+        <services>
+            <service id="acme.phpcr.listener" class="Acme\SearchBundle\EventListener\SearchIndexer">
+                <tag name="doctrine_phpcr.event_listener" event="postPersist" />
+            </service>
+            <service id="acme.phpcr.subscriber" class="Acme\SearchBundle\EventSubscriber\MySubscriber">
+                <tag name="doctrine_phpcr.event_subscriber" />
+            </service>
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\Reference;
+
+        $container
+            ->addDefinition('my.listener', new Definition(
+                'Acme\SearchBundle\EventListener\SearchIndexer'
+            ))
+            ->addTag('doctrine_phpcr.event_listener', array(
+                'event' => 'postPersist',
+            ));
+        ;
+
+        $container
+            ->addDefinition('my.subscriber', new Definition(
+                'Acme\SearchBundle\EventSubscriber\MySubscriber'
+            ))
+            ->addTag('doctrine_phpcr.event_subscriber', array(
+                'event' => 'postPersist',
+            ));
+        ;
+
 .. tip::
 
     Doctrine event subscribers (both ORM and PHPCR-ODM) can not return a
@@ -519,21 +862,6 @@ correct.
             constraints:
                 - Doctrine\Bundle\PHPCRBundle\Validator\Constraints\ValidPhpcrOdm
 
-    .. code-block:: php
-
-        // src/Acme/BlogBundle/Entity/Author.php
-
-        // ...
-        use Doctrine\Bundle\PHPCRBundle\Validator\Constraints as OdmAssert;
-
-        /**
-         * @OdmAssert\ValidPhpcrOdm
-         */
-        class Author
-        {
-           ...
-        }
-
     .. code-block:: xml
 
         <!-- Resources/config/validation.xml -->
@@ -548,6 +876,21 @@ correct.
             </class>
 
         </constraint-mapping>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
+        use Doctrine\Bundle\PHPCRBundle\Validator\Constraints as OdmAssert;
+
+        /**
+         * @OdmAssert\ValidPhpcrOdm
+         */
+        class Author
+        {
+           // ...
+        }
 
 .. index::
     single: Form Types; DoctrinePHPCRBundle
@@ -893,3 +1236,5 @@ Dumping nodes under ``/cms/simple`` including their properties:
 .. _`Doctrine data-fixtures`: https://github.com/doctrine/data-fixtures
 .. _`documentation of the DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`SQL2 queries`: http://www.h2database.com/jcr/grammar.html
+.. _`LiipDoctrineCacheBundle`: https://github.com/liip/LiipDoctrineCacheBundle/
+.. _`last modified listener cookbook entry`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/cookbook/last-modified.html
