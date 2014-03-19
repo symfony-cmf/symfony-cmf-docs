@@ -111,8 +111,8 @@ With a Jackalope backend, you can also
 
     .. code-block:: xml
 
-        <?xml version="1.0" encoding="UTF-8" ?>
         <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
                 <session
@@ -140,6 +140,7 @@ With a Jackalope backend, you can also
 
     .. code-block:: php
 
+        // app/config/config.php
         $container->loadFromExtension('doctrine_phpcr', array(
             'session' => array(
                 'backend' => array(
@@ -200,8 +201,8 @@ as well as some jackrabbit-specific options:
 
     .. code-block:: xml
 
-        <?xml version="1.0" encoding="UTF-8" ?>
         <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
                 <session>
@@ -220,6 +221,7 @@ as well as some jackrabbit-specific options:
 
     .. code-block:: php
 
+        // app/config/config.php
         $container->loadFromExtension('doctrine_phpcr', array(
             'session' => array(
                 'backend' => array(
@@ -285,8 +287,8 @@ transactions):
 
     .. code-block:: xml
 
-        <?xml version="1.0" encoding="UTF-8" ?>
         <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
                 <session>
@@ -305,6 +307,7 @@ transactions):
 
     .. code-block:: php
 
+        // app/config/config.php
         $container->loadFromExtension('doctrine_phpcr', array(
             'session' => array(
                 'backend' => array(
@@ -320,6 +323,7 @@ transactions):
                 ),
             ),
         ));
+
 .. versionadded:: 1.1
 
     Since version 1.1, additional options are simply passed to jackalope and
@@ -393,6 +397,45 @@ The session backend configuration looks as follows:
                     db_password: ""
                     db_init: true
                     blobdir: /tmp/cmf-blobs
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session>
+                    <backend type="midgard2"
+                        db-type="MySQL"
+                        db-name="midgard2_test"
+                        db-host="0.0.0.0"
+                        db-port="3306"
+                        db-username=""
+                        db-password=""
+                        db-init="true"
+                        blobdir="/tmp/cmf-blobs"
+                    />
+                    </backend>
+                </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'backend' => array(
+                    'type' => 'midgard2',
+                    'db_name' => 'midgard2_test',
+                    'db_host' => '0.0.0.0',
+                    'db_port' => 3306,
+                    'db_username' => '',
+                    'db_password' => '',
+                    'db_init' => true,
+                    'blobdir' => '/tmp/cmf-blobs",
+                ),
+            ),
+        ));
 
 For more information, please refer to the `official Midgard PHPCR documentation`_.
 
@@ -407,6 +450,7 @@ debug toolbar:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         doctrine_phpcr:
             session:
                 backend:
@@ -416,8 +460,8 @@ debug toolbar:
 
     .. code-block:: xml
 
-        <?xml version="1.0" encoding="UTF-8" ?>
         <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
                 <session>
@@ -431,6 +475,7 @@ debug toolbar:
 
     .. code-block:: php
 
+        // app/config/config.yml
         $container->loadFromExtension('doctrine_phpcr', array(
             'session' => array(
                 'backend' => array(
@@ -509,6 +554,7 @@ You can also enable `metadata caching`_.
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
@@ -543,6 +589,7 @@ You can also enable `metadata caching`_.
 
     .. code-block:: php
 
+        // app/config/config.php
         $container->loadFromExtension('doctrine_phpcr', array(
             'odm' => array(
                 'configuration_id' => null,
@@ -596,6 +643,44 @@ documentation on Multilanguage`_.
                     fr: [en, de]
                 locale_fallback: hardcoded
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <odm locale-fallback="hardcoded">
+                    <!-- ... -->
+                    <locale name="en">
+                        <fallback>de</fallback>
+                        <fallback>fr</fallback>
+                    </locale>
+                    <locale name="de">
+                        <fallback>en</fallback>
+                        <fallback>fr</fallback>
+                    </locale>
+                    <locale name="fr">
+                        <fallback>en</fallback>
+                        <fallback>de</fallback>
+                    </locale>
+                </odm>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'odm' => array(
+                // ...
+                'locales' => array(
+                    'en' => array('de', 'fr'),
+                    'de' => array('en', 'fr'),
+                    'fr' => array('en', 'de'),
+                'locale_fallback' => 'hardcoded'
+            )
+        );
+
 The ``locales`` is a list of alternative locales to look up if a document
 is not translated to the requested locale.
 
@@ -634,6 +719,25 @@ You can tune the output of the ``doctrine:phpcr:dump`` command with
             jackrabbit_jar:       /path/to/jackrabbit.jar
             dump_max_line_length:  120
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr"
+                jackrabbit-jar="/path/to/jackrabbit.jar"
+                dump-max-line-length="120"
+            />
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'jackrabbit_jar' => '/path/to/jackrabbit.jar',
+            'dump_max_line_length' => 120,
+        ));
+
 .. _bundle-phpcr-odm-multiple-phpcr-sessions:
 
 Configuring Multiple Sessions
@@ -654,13 +758,57 @@ to use as ``default_session``.
                 default_session:      ~
                 sessions:
                     <name>:
-                        workspace:            ~ # Required
+                        workspace:            ... # Required
                         username:             ~
                         password:             ~
                         backend:
                             # as above
                         options:
                             # as above
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session default-session="null">
+                    <session name="<name>"
+                        workspace="..."
+                        username="null"
+                        password="null"
+                    >
+                        <backend>
+                            <!-- as above -->
+                        </backend>
+                        <option>
+                            <!-- as above -->
+                        </option>
+                    </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'default_session' => null,
+                'sessions' => array(
+                    '<name>' => array(
+                        'workspace' => '...', // Required
+                        'username' => null
+                        'password' => null,
+                        'backend' => array(
+                            // as above
+                        ),
+                        'options' => array(
+                            // as above
+                        ),
+                    ),
+                ),
+            ),
+        ));
 
 If you are using the ODM, you will also want to configure multiple document
 managers.
@@ -673,12 +821,45 @@ attribute.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         odm:
             default_document_manager:  ~
             document_managers:
                 <name>:
-                    # same keys as directly in odm, see above.
+                    # configuration as above
                     session: <sessionname>
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <odm default-document-manager="null">
+                    <document-manager
+                        name="<name>"
+                        session="<sessionname>"
+                    >
+                        <!-- configuration as above -->
+                    </document-manager>
+                </odm>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'odm' => array(
+                'default_document_manager' => null,
+                'document_managers' => array(
+                    '<name>' => array(
+                        'session' => '<sessionname>',
+                        // configuration as above
+                    ),
+                ),
+            ),
+        ));
 
 A full example looks as follows:
 
@@ -714,6 +895,7 @@ A full example looks as follows:
                         password: "%magnolia_pass%"
             # enable the ODM layer
             odm:
+                auto_generate_proxy_classes: "%kernel.debug%"
                 document_managers:
                     default:
                         session: default
@@ -735,7 +917,123 @@ A full example looks as follows:
                         mappings:
                             SandboxMagnoliaBundle: ~
 
-                auto_generate_proxy_classes: "%kernel.debug%"
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session>
+                    <session name="default"
+                        backend="%phpcr_backend%"
+                        workspace="%phpcr_workspace%"
+                        username="%phpcr_user%"
+                        password="%phpcr_pass%"
+                    />
+                    <session name="website"
+                        workspace="website"
+                        username="%magnolia_user%"
+                        password="%magnolia_pass%"
+                    >
+                        <backend type="jackrabbit" url="%magnolia_url%"/>
+                    </session>
+                    <session name="dms"
+                        workspace="dms"
+                        username="%magnolia_user%"
+                        password="%magnolia_pass%"
+                    >
+                        <backend type="jackrabbit" url="%magnolia_url%"/>
+                    </session>
+
+                <odm auto_generate_proxy_classes="%kernel.debug%">
+                    <document-manager
+                        name="default"
+                        session="default"
+                    >
+                        <mapping name="SandboxMainBundle" />
+                        <mapping name="CmfContentBundle" />
+                        <mapping name="CmfMenuBundle" />
+                        <mapping name="CmfRoutingBundle" />
+                    </document-manager>
+
+                    <document-manager
+                        name="website"
+                        session="website"
+                        configuration-id="sandbox_magnolia.odm_configuration"
+                    >
+                        <mapping name="SandboxMagnoliaBundle" />
+                    </document-manager>
+
+                    <document-manager
+                        name="dms"
+                        session="dms"
+                        configuration-id="sandbox_magnolia.odm_configuration"
+                    >
+                        <mapping name="SandboxMagnoliaBundle" />
+                    </document-manager>
+
+                </odm>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'sessions' => array(
+                    'default' => array(
+                        'backend' => '%phpcr_backend%',
+                        'workspace' => '%phpcr_workspace%',
+                        'username' => '%phpcr_user%',
+                        'password' => '%phpcr_pass%',
+                    ),
+                    'website' => array(
+                        'backend' => array(
+                            'type' => 'jackrabbit,
+                            'url' => '%magnolia_url%',
+                        ),
+                        'workspace' => 'website',
+                        'username' => '%magnolia_user%',
+                        'password' => '%magnolia_pass%',
+                    ),
+                    'dms' => array(
+                        'backend' => array(
+                            'type' => 'jackrabbit,
+                            'url' => '%magnolia_url%',
+                        ),
+                        'workspace' => 'dms',
+                        'username' => '%magnolia_user%',
+                        'password' => '%magnolia_pass%',
+                    ),
+
+            'odm' => array(
+                'auto_generate_proxy_classes' => '%kernel.debug%',
+                'document_managers' => array(
+                    'default' => array(
+                        'session' => 'default',
+                        'mappings' => array(
+                            'SandboxMainBundle' => null,
+                            'CmfContentBundle' => null,
+                            'CmfMenuBundle' => null,
+                            'CmfRoutingBundle' => null,
+                        ),
+                    ),
+                    'website' => array(
+                        'session' => 'website',
+                        'mappings' => array(
+                            'SandboxMagnoliaBundle' => null,
+                        ),
+                    ),
+                    'dms' => array(
+                        'session' => 'dms',
+                        'mappings' => array(
+                            'SandboxMagnoliaBundle' => null,
+                        ),
+                    ),
+                ),
+            ),
+        ));
 
 .. tip::
 
