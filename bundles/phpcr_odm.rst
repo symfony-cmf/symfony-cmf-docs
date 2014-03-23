@@ -662,9 +662,10 @@ is used to let bundles register PHPCR node types and to create required base
 paths in the repository. Initializers have to implement
 ``Doctrine\Bundle\PHPCRBundle\Initializer``. If you don't need any special
 logic, you can simply configure the ``GenericInitializer`` as service and don't
-need to write any code. The generic initializer expects an array of base paths
-it will create if they do not exist, and an optional string defining namespaces
-and primary / mixin node types in the CND language.
+need to write any code. The generic initializer expects a name to identify
+the initializer, an array of base paths it will create if they do not exist
+and an optional string defining namespaces and primary / mixin node types in
+the CND language.
 
 A service to use the generic initializer looks like this:
 
@@ -676,6 +677,7 @@ A service to use the generic initializer looks like this:
         acme.phpcr.initializer:
             class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
             arguments:
+                - AcmeContentBundle Basepaths
                 - { "%acme.content_basepath%", "%acme.menu_basepath%" }
                 - { "%acme.cnd%" }
             tags:
@@ -685,6 +687,7 @@ A service to use the generic initializer looks like this:
 
         <!-- src/Acme/ContentBundle/Resources/config/services.xml -->
         <service id="acme.phpcr.initializer" class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
+            <argument>AcmeContentBundle Basepaths</argument>
             <argument type="collection">
                 <argument>%acme.content_basepath%</argument>
                 <argument>%acme.menu_basepath%</argument>
@@ -702,8 +705,9 @@ A service to use the generic initializer looks like this:
         $definition = new Definition(
             'Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer',
             array(
+                'AcmeContentBundle Basepaths',
                 array('%acme.content_basepath%', '%acme.menu_basepath%'),
-                $cnd
+                '%acme.cnd%',
             )
         ));
         $definition->addTag('doctrine_phpcr.initializer');
