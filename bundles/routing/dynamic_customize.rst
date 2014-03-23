@@ -41,14 +41,12 @@ Creating the Route Provider
 
 The route provider must implement the ``RouteProviderInterface``. The
 following class provides a simple solution using an ODM Repository.
-As the RouteProvider is a symfony solution you should have a look at
-
 
 .. code-block:: php
 
     <?php
     // src/Acme/DemoBundle/Repository/RouteProvider.php
-    namespace Acme\Repository;
+    namespace Acme\DemoBundle\Repository;
 
     use Doctrine\Bundle\PHPCRBundle\ManagerRegistry;
     use Doctrine\ODM\PHPCR\DocumentManager;
@@ -67,17 +65,6 @@ As the RouteProvider is a symfony solution you should have a look at
         private $managerRegistry;
 
         /**
-         * Injecting the Registry creates a implementation independent way of
-         * way to get the managers.
-         *
-         * @param ManagerRegistry $managerRegistry
-         */
-        public function setManagerRegistry(ManagerRegistry $managerRegistry)
-        {
-            $this->managerRegistry = $managerRegistry;
-        }
-
-        /**
          * To get the Document Manager out of the registry.
          *
          * @return DocumentManager
@@ -87,9 +74,11 @@ As the RouteProvider is a symfony solution you should have a look at
             return $this->managerRegistry->getManager();
         }
 
-        /**
-         * {@inheritDoc}
-         */
+        public function __construct(ManagerRegistry $managerRegistry)
+        {
+            $this->managerRegistry = $managerRegistry;
+        }
+
         public function getRouteCollectionForRequest(Request $request)
         {
             $path = $request->getPathInfo();
@@ -131,9 +120,6 @@ As the RouteProvider is a symfony solution you should have a look at
             return $route;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         public function getRoutesByNames($names, $parameters = array())
         {
 
@@ -146,7 +132,7 @@ As the RouteProvider is a symfony solution you should have a look at
          */
         private function getCandidates($path)
         {
-            //add your different paths your routes have as base path
+            // add your route base paths
             $prefixes = array(
                 '/cms/routes',
             );
@@ -168,14 +154,14 @@ As the RouteProvider is a symfony solution you should have a look at
     return a single ``Route``? The Dynamic Router allows us to return many
     *candidate* routes, in other words, routes that *might* match the incoming
     URL. This is important to enable the possibility of matching *dynamic*
-    routes, ``/page/{page_id}/edit`` for example. In our example we match the
-    given URL exactly and only ever return a single ``Route``.
+    routes, ``/page/{page_id}/edit`` for example.
 
-    If you set some defaults for your route (template, controller,...), they will
-    be added as options to the symfony route. As you may have noticed we added the
-    mapped document with a specific key ``DynamicRouter::CONTENT_KEY`` to the
-    defaults array. By doing this you will find your current document in the
-    requests parameter bag in ``$parameterBag[...]['my_route_1'][DynamicRouter::CONTENT_KEY]``
+    If you set some defaults for your route (template, controller, etc.), they will
+    be added as options to the Symfony route. As you may have noticed the example
+    added the mapped document with a specific key ``DynamicRouter::CONTENT_KEY``
+    to the defaults array. By doing this you will find the current document in
+    the requests parameter bag in
+    ``$parameterBag[...]['my_route_1'][DynamicRouter::CONTENT_KEY]``
     to manipulate it in listeners for example. But most important part is:
     The document will be injected to your action by adding a parameter with
     that name.
@@ -190,7 +176,7 @@ configuration as follows:
 
    .. code-block:: yaml
 
-       # app/config/config.yml
+       // app/config/config.yml
        cmf_routing:
            dynamic:
                enabled: true
@@ -228,13 +214,16 @@ will look like this:
 
    .. code-block:: yaml
 
-       services:
-           service:
+        parameters:
+            acme_demo.provider.endpoint.class: Acme\DemoBundle\Repository\RouteProvider
 
+        services:
+            acme_demo.provider.endpoint:
+                class: "%acme_demo.provider.endpoint.class%"
+                arguments: ["@doctrine_phpcr"]
 
    .. code-block:: xml
 
-       //app/config/config.xml
        <?xml version="1.0" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -243,25 +232,33 @@ will look like this:
             <parameters>
                 <parameter key="acme_demo.provider.endpoint.class">Acme\Repository\RouteProvider</parameter>
             </parameters>
+
             <services>
                 <service id="acme_demo.provider.endpoint" class="%acme_demo.provider.endpoint.class%">
-                    <call method="setDocumentRegistry">
-                        <argument type="service" id="doctrine_phpcr"/>
-                    </call>
+                    <argument type="service" id="doctrine_phpcr"/>
                 </service>
             </services>
+
         </container>
 
 
    .. code-block:: php
 
-       // app/config/config.php
+        $container->setParameter(
+            'acme_demo.provider.endpoint.class',
+            'Acme\DemoBundle\Repository\RouteProvider'
+        );
 
-As you can see we decided to inject the ``DocumentRegistry`` of doctrines
-phpcr-odm. This will provides the document manger we will need to query
-the persistence implementation. As the RouteProvider is a symfony solution
-you can inject what you want - you should return somehow a ``Route`` or
+        $container
+            ->register('acme_demo.provider.endpoint', '%acme_demo.provider.endpoint.class%')
+            ->addArgument(new Reference('doctrine_phpcr'))
+        ;
+
+As you can see the ``DocumentRegistry`` of Doctrine PHPCR-ODM is injected.
+This will provide the document manger the provider needs to query
+the persistence implementation. As the RouteProvider is a Symfony solution
+you can inject what you want - you should somehow return a ``Route`` or
 ``RouteCollection`` in your providers methods - it is up to you.
+
 .. _`Creating and configuring services in the container`: http://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container/
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
-.. _`RouteProvider on Symfony`:
