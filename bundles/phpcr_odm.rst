@@ -226,10 +226,10 @@ as well as some jackrabbit-specific options:
             'session' => array(
                 'backend' => array(
                     'type' => 'jackrabbit',
-                    'url' => 'http://localhost:8080/server/'
+                    'url' => 'http://localhost:8080/server/',
                     'parameters' => array(
-                        'jackalope.default_header': 'X-ID: %serverid%',
-                        'jackalope.jackrabbit_expect': true,
+                        'jackalope.default_header' => 'X-ID: %serverid%',
+                        'jackalope.jackrabbit_expect' => true,
                     ),
                 ),
             ),
@@ -318,7 +318,7 @@ transactions):
                         'nodes' => 'liip_doctrine_cache.ns.nodes'
                     ),
                     'parameters' => array(
-                        'jackalope.disable_transactions'=false,
+                        'jackalope.disable_transactions' => false,
                     ),
                 ),
             ),
@@ -389,6 +389,7 @@ The session backend configuration looks as follows:
             session:
                 backend:
                     type: midgard2
+                    config: /path/to/midgard-config.ini
                     db_type: MySQL
                     db_name: midgard2_test
                     db_host: "0.0.0.0"
@@ -397,6 +398,7 @@ The session backend configuration looks as follows:
                     db_password: ""
                     db_init: true
                     blobdir: /tmp/cmf-blobs
+                    loglevel: debug
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
@@ -405,6 +407,7 @@ The session backend configuration looks as follows:
             <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
                 <session>
                     <backend type="midgard2"
+                        config="/path/to/midgard-config.ini"
                         db-type="MySQL"
                         db-name="midgard2_test"
                         db-host="0.0.0.0"
@@ -413,6 +416,7 @@ The session backend configuration looks as follows:
                         db-password=""
                         db-init="true"
                         blobdir="/tmp/cmf-blobs"
+                        loglevel="debug"
                     />
                     </backend>
                 </session>
@@ -426,6 +430,7 @@ The session backend configuration looks as follows:
             'session' => array(
                 'backend' => array(
                     'type' => 'midgard2',
+                    'config' => '/path/to/midgard-config.ini',
                     'db_name' => 'midgard2_test',
                     'db_host' => '0.0.0.0',
                     'db_port' => 3306,
@@ -433,6 +438,7 @@ The session backend configuration looks as follows:
                     'db_password' => '',
                     'db_init' => true,
                     'blobdir' => '/tmp/cmf-blobs",
+                    'loglevel' => 'debug',
                 ),
             ),
         ));
@@ -567,7 +573,7 @@ You can also enable `metadata caching`_.
                 >
                     <mappings>
                         <"name"
-                            mapping="true
+                            mapping="true"
                             type="null"
                             dir="null"
                             alias="null"
@@ -677,7 +683,8 @@ documentation on Multilanguage`_.
                     'en' => array('de', 'fr'),
                     'de' => array('en', 'fr'),
                     'fr' => array('en', 'de'),
-                'locale_fallback' => 'hardcoded'
+                ),
+                'locale_fallback' => 'hardcoded',
             )
         );
 
@@ -785,6 +792,7 @@ to use as ``default_session``.
                             <!-- as above -->
                         </option>
                     </session>
+                </session>
             </config>
         </container>
 
@@ -944,6 +952,7 @@ A full example looks as follows:
                     >
                         <backend type="jackrabbit" url="%magnolia_url%"/>
                     </session>
+                </session>
 
                 <odm auto_generate_proxy_classes="%kernel.debug%">
                     <document-manager
@@ -990,7 +999,7 @@ A full example looks as follows:
                     ),
                     'website' => array(
                         'backend' => array(
-                            'type' => 'jackrabbit,
+                            'type' => 'jackrabbit',
                             'url' => '%magnolia_url%',
                         ),
                         'workspace' => 'website',
@@ -999,14 +1008,15 @@ A full example looks as follows:
                     ),
                     'dms' => array(
                         'backend' => array(
-                            'type' => 'jackrabbit,
+                            'type' => 'jackrabbit',
                             'url' => '%magnolia_url%',
                         ),
                         'workspace' => 'dms',
                         'username' => '%magnolia_user%',
                         'password' => '%magnolia_pass%',
                     ),
-
+                ),
+            ),
             'odm' => array(
                 'auto_generate_proxy_classes' => '%kernel.debug%',
                 'document_managers' => array(
@@ -1021,12 +1031,14 @@ A full example looks as follows:
                     ),
                     'website' => array(
                         'session' => 'website',
+                        'configuration_id' => 'sandbox_magnolia.odm_configuration',
                         'mappings' => array(
                             'SandboxMagnoliaBundle' => null,
                         ),
                     ),
                     'dms' => array(
                         'session' => 'dms',
+                        'configuration_id' => 'sandbox_magnolia.odm_configuration',
                         'mappings' => array(
                             'SandboxMagnoliaBundle' => null,
                         ),
