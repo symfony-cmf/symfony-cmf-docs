@@ -14,7 +14,7 @@ of the CMF.
     is storage agnosticly created, meaning it is not tied to specific storage
     system.
 
-Getting Familair with PHPCR
+Getting Familiar with PHPCR
 ---------------------------
 
 PHPCR_ stores all data into one big tree structure. You can compare this to a
