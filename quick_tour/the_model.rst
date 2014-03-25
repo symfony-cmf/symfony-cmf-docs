@@ -92,9 +92,17 @@ by creating a new class in the AcmeMainBundle::
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-    class LoadPageData implements FixtureInterface
+    class LoadPageData implements FixtureInterface, OrderedFixtureInterface
     {
+        public function getOrder()
+        {
+            // refers to the order in which the class' load function is called 
+            // (lower return values are called first)
+            return 10;
+        }
+    
         public function load(ObjectManager $documentManager)
         {
         }
