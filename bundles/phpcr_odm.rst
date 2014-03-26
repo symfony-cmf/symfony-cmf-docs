@@ -13,7 +13,7 @@ manager in symfony.
 
 Out of the box, this bundle supports the following PHPCR implementations:
 
-* `Jackalope`_ (both jackrabbit and doctrine-dbal transports)
+* `Jackalope`_ (both Jackrabbit and Doctrine Dbal transports)
 * `Midgard2`_
 
 .. index:: DoctrinePHPCRBundle, PHPCR, ODM
@@ -63,10 +63,25 @@ in the ``PHPCR\SimpleCredentials``. They will usually be different from the
 username and password used by Midgard2 or Doctrine DBAL to connect to the
 underlying RDBMS where the data is actually stored.
 
-If you are using one of the Jackalope backends, you can also specify
-``options``.  They will be set on the Jackalope session. Currently this can be
-used to tune pre-fetching nodes by setting ``jackalope.fetch_depth`` to
-something bigger than 0.
+If you are using one of the Jackalope backends, you can set a couple of
+parameters:
+
+* ``jackalope.factory``: (string or object) Use a custom factory class for
+  Jackalope objects;
+* ``jackalope.check_login_on_server``: (boolean) If set to false, skip initial
+  check whether repository exists. Disabled by default, you will only notice
+  connectivity problems on the first attempt to use the repository;
+* ``jackalope.disable_stream_wrapper``: (boolean) If set to false, streams are
+  read immediately instead of first access. If you run into problems with
+  streams this might be useful for debugging. Otherwise you probably don't want
+  to disable the wrappers, or all binaries will be loaded each time their
+  containing document is loaded;
+* ``jackalope.auto_lastmodified``: (boolean) Whether to automatically update
+  nodes having mix:lastModified. Defaults to true;
+* See below for backend specific configuration options.
+
+With a Jackalope backend, you can also
+`activate profiling and tune many parameters <Profiling and Performance of Jackalope>`_.
 
 .. configuration-block::
 
@@ -76,14 +91,91 @@ something bigger than 0.
         doctrine_phpcr:
             session:
                 backend:
-                    # see below for how to configure the backend of your choice
+                    # to configure logging
+                    logging: true
+                    # to configure profiling for the debug toolbar.
+                    profiling: true
+                    # optional parameters for Jackalope
+                    parameters:
+                        jackalope.factory: "Jackalope\Factory"
+                        jackalope.check_login_on_server: false
+                        jackalope.disable_stream_wrapper: false
+                        jackalope.auto_lastmodified: true
+                        # see below for how to configure the backend of your choice
                 workspace: default
                 username: admin
                 password: admin
-                ## tweak options for jackrabbit and doctrinedbal (all jackalope versions)
-                # options:
-                #    'jackalope.fetch_depth': 1
+                # tweak options for Jackalope (all versions)
+                options:
+                    jackalope.fetch_depth: 1
 
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session
+                    workspace="default"
+                    username="admin"
+                    password="admin"
+                >
+                    <backend
+                        logging="true"
+                        profiling="true"
+                    >
+                        <parameter key="jackalope.factory">Jackalope\Factory</parameter>
+                        <parameter key="jackalope.check_login_on_server">false</parameter>
+                        <parameter key="jackalope.disable_stream_wrapper">false</parameter>
+                        <parameter key="jackalope.auto_lastmodified">true</parameter>
+                    </backend>
+                    <options
+                        jackalope.fetch_depth="1"
+                    />
+                </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'backend' => array(
+                    'logging' => true,
+                    'profiling' => true,
+                    'parameters' => array(
+                        'jackalope.factory' => 'Jackalope\Factory',
+                        'jackalope.check_login_on_server' => false,
+                        'jackalope.disable_stream_wrapper' => false,
+                        'jackalope.auto_lastmodified' => true,
+                    ),
+                ),
+                'workspace' => 'default',
+                'username' => 'admin',
+                'password' => 'admin',
+                'options' => array(
+                    'jackalope.fetch_depth' => 1,
+                ),
+            ),
+        ));
+
+If you want control over the last modified timestamp, disable
+``jackalope.auto_lastmodified`` and read the `last modified listener cookbook entry`_
+of the PHPCR-ODM documentation.
+
+.. versionadded:: 1.1
+
+    Since version 1.1, backend configuration flags are configured in the
+    ``parameters`` section. They are passed as-is to Jackalope. See the
+    ``RepositoryFactory`` for some more documentation on the meaning of
+    those parameters.
+
+    For backwards compatibility reason, the options on ``backend`` for
+    ``check_login_on_server``, ``disable_stream_wrapper`` and
+    ``disable_transactions`` still work, but it is recommended to move them
+    into the parameters section with the ``jackalope.`` part in front of them.
+    Note that only Jackalope Doctrine Dbal supports transactions.
 
 PHPCR Session with Jackalope Jackrabbit
 """""""""""""""""""""""""""""""""""""""
@@ -91,10 +183,15 @@ PHPCR Session with Jackalope Jackrabbit
 The only setup required is to install Apache Jackrabbit (see
 :ref:`installing Jackrabbit <cookbook-installing-phpcr-jackrabbit>`).
 
-The configuration needs the ``url`` parameter to point to your jackrabbit.
-Additionally you can tune some other jackrabbit-specific options, for example
-to use it in a load-balanced setup or to fail early for the price of some
-round trips to the backend.
+The configuration needs the ``url`` parameter to point to your Jackrabbit.
+You can tune the behaviour with the general Jackalope parameters listed above,
+as well as some Jackrabbit-specific options:
+
+* ``jackalope.default_header``: (string) Set a default header to send on each
+  request to the backend (i.e. for load balancers to identify sessions);
+* ``jackalope.jackrabbit_expect``: (boolean) Send the "Expect: 100-continue"
+  header on larger PUT and POST requests. Disabled by default to avoid issues
+  with proxies and load balancers.
 
 .. configuration-block::
 
@@ -106,16 +203,46 @@ round trips to the backend.
                 backend:
                     type: jackrabbit
                     url: http://localhost:8080/server/
-                    ## jackrabbit only, optional. see https://github.com/jackalope/jackalope/blob/master/src/Jackalope/RepositoryFactoryJackrabbit.php
-                    # default_header: ...
-                    # expect: 'Expect: 100-continue'
-                    # enable if you want to have an exception right away if PHPCR login fails
-                    # check_login_on_server: false
-                    # enable if you experience segmentation faults while working with binary data in documents
-                    # disable_stream_wrapper: true
-                    # enable if you do not want to use transactions and you neither want the odm to automatically use transactions
-                    # its highly recommended NOT to disable transactions
-                    # disable_transactions: true
+                    parameters:
+                        # general parameters and options
+                        # ...
+                        # optional parameters specific to Jackalope Jackrabbit
+                        jackalope.default_header: 'X-ID: %serverid%'
+                        jackalope.jackrabbit_expect: true
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session>
+                    <backend
+                        type="jackrabbit"
+                        url="http://localhost:8080/server/"
+                    >
+                        <parameter key="jackalope.default_header">X-ID: %serverid%</parameter>
+                        <parameter key="jackalope.jackrabbit_expect">true</parameter>
+                    </backend>
+                </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'backend' => array(
+                    'type' => 'jackrabbit',
+                    'url' => 'http://localhost:8080/server/',
+                    'parameters' => array(
+                        'jackalope.default_header' => 'X-ID: %serverid%',
+                        'jackalope.jackrabbit_expect' => true,
+                    ),
+                ),
+            ),
+        ));
 
 .. _bundle-phpcr-odm-doctrinedbal:
 
@@ -130,6 +257,13 @@ You can specify the connection name to use if you don't want to use the default
 connection. The name must be one of the names of the dbal section in your
 Doctrine configuration, see `Symfony2 Doctrine documentation`_.
 
+You can tune the behaviour with the general Jackalope parameters listed above,
+as well as enable transactions (Jackrabbit does not support transactions):
+
+* ``jackalope.disable_transactions``: boolean: Set to false to disabled
+  transactions. If transactions are enabled but not actively used, every save
+  operation is wrapped into a transaction.
+
 .. configuration-block::
 
     .. code-block:: yaml
@@ -139,14 +273,54 @@ Doctrine configuration, see `Symfony2 Doctrine documentation`_.
             session:
                 backend:
                     type: doctrinedbal
-                    # connection: dbal_connection_name
-                    # enable if you want to have an exception right away if PHPCR login fails
-                    # check_login_on_server: false
-                    # enable if you experience segmentation faults while working with binary data in documents
-                    # disable_stream_wrapper: true
-                    # enable if you do not want to use transactions and you neither want the odm to automatically use transactions
-                    # its highly recommended NOT to disable transactions
-                    # disable_transactions: true
+                    # if no explicit connection is specified, the default connection is used.
+                    connection: default
+                    # to configure caching
+                    caches:
+                        meta: doctrine_cache.providers.phpcr_meta
+                        nodes: doctrine_cache.providers.phpcr_nodes
+                    parameters:
+                        # general parameters and options
+                        # ...
+                        # optional parameters specific to Jackalope Doctrine Dbal
+                        jackalope.disable_transactions: false
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session>
+                    <backend type="doctrinedbal" connection="default">
+                        <caches
+                            meta="doctrine_cache.providers.phpcr_meta"
+                            nodes="doctrine_cache.providers.phpcr_nodes"
+                        />
+                        <parameter key="jackalope.disable_transactions">false</parameter>
+                    </backend>
+                </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'backend' => array(
+                    'type' => 'doctrinedbal',
+                    'connection' => 'default',
+                    'caches' => array(
+                        'meta' => 'doctrine_cache.providers.phpcr_meta'
+                        'nodes' => 'doctrine_cache.providers.phpcr_nodes'
+                    ),
+                    'parameters' => array(
+                        'jackalope.disable_transactions' => false,
+                    ),
+                ),
+            ),
+        ));
 
 Once the connection is configured, make sure the database exists and initialize
 it. If you are using Doctrine ORM on the same connection, the schema is
@@ -173,11 +347,14 @@ command.
     Of course, you can also use a different connection instead of the default.
     It is recommended to use a separate connection to a separate database if
     you also use Doctrine ORM or direct DBAL access to data, rather than
-    mixing this data with the tables generated by jackalope-doctrine-dbal.  If
+    mixing this data with the tables generated by Jackalope Doctrine Dbal.  If
     you have a separate connection, you need to pass the alternate connection
     name to the ``doctrine:database:create`` command with the ``--connection``
     option. For Doctrine PHPCR commands, this parameter is not needed as you
     configured the connection to use.
+
+To use the cache, install and configure the `DoctrineCacheBundle`_. Then
+uncomment the cache meta and nodes settings.
 
 PHPCR Session with Midgard2
 """""""""""""""""""""""""""
@@ -201,6 +378,7 @@ The session backend configuration looks as follows:
             session:
                 backend:
                     type: midgard2
+                    config: /path/to/midgard-config.ini
                     db_type: MySQL
                     db_name: midgard2_test
                     db_host: "0.0.0.0"
@@ -209,8 +387,115 @@ The session backend configuration looks as follows:
                     db_password: ""
                     db_init: true
                     blobdir: /tmp/cmf-blobs
+                    loglevel: debug
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session>
+                    <backend type="midgard2"
+                        config="/path/to/midgard-config.ini"
+                        db-type="MySQL"
+                        db-name="midgard2_test"
+                        db-host="0.0.0.0"
+                        db-port="3306"
+                        db-username=""
+                        db-password=""
+                        db-init="true"
+                        blobdir="/tmp/cmf-blobs"
+                        loglevel="debug"
+                    />
+                    </backend>
+                </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'backend' => array(
+                    'type' => 'midgard2',
+                    'config' => '/path/to/midgard-config.ini',
+                    'db_name' => 'midgard2_test',
+                    'db_host' => '0.0.0.0',
+                    'db_port' => 3306,
+                    'db_username' => '',
+                    'db_password' => '',
+                    'db_init' => true,
+                    'blobdir' => '/tmp/cmf-blobs",
+                    'loglevel' => 'debug',
+                ),
+            ),
+        ));
 
 For more information, please refer to the `official Midgard PHPCR documentation`_.
+
+Profiling and Performance of Jackalope
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When using any of the Jackalope PHPCR implementations, you can activate logging
+to log to the symfony log, or profiling to show information in the Symfony2
+debug toolbar:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        doctrine_phpcr:
+            session:
+                backend:
+                    # ...
+                    logging: true
+                    profiling: true
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session>
+                    <backend
+                        logging="true"
+                        profiling="true"
+                    />
+                </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.yml
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'backend' => array(
+                    'logging' => true,
+                    'profiling' => true,
+                ),
+            ),
+        ));
+
+Once you can see the effects in profiling, you can try if adjusting the global
+fetch depth reduces the number and duration for queries. Set the option
+``jackalope.fetch_depth`` to something bigger than 0 to have Jackalope prefetch
+children or whole subtrees.
+
+When using Jackalope Doctrine Dbal, it is highly recommended to activate the
+caching options. Set ``session.backend.caches`` as explained in
+`PHPCR Session with Jackalope Doctrine DBAL`_.
+
+Note that you can also set the fetchDepth on the session on the fly for
+specific calls, or use the fetchDepth option on children mappings of your
+documents.
+
+The parameter ``jackalope.check_login_on_server`` can be set to false to save
+an initial call to the database to check if the connection works.
 
 .. _bundle-phpcr-odm-configuration:
 
@@ -262,6 +547,73 @@ You can also enable `metadata caching`_.
                     class:                ~
                     id:                   ~
 
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <odm
+                    configuration-id="null"
+                    auto-mapping="true"
+                    auto-generate-proxy-classes="%kernel.debug%"
+                    proxy-dir="%kernel.cache_dir%/doctrine/PHPCRProxies"
+                    proxy_namespace="PHPCRProxies"
+                >
+                    <mappings>
+                        <"name"
+                            mapping="true"
+                            type="null"
+                            dir="null"
+                            alias="null"
+                            prefix="null"
+                            is-bundle="null"
+                        />
+                    </mappings>
+                    <metadata-cache-driver
+                        type="array"
+                        host="null"
+                        port="null"
+                        instance-class="null"
+                        class="null"
+                        id="null"
+                    />
+                </odm>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'odm' => array(
+                'configuration_id' => null,
+                'auto_mapping' => true,
+                'auto_generate_proxy_classes' => '%kernel.debug%',
+                'proxy-dir' => '%kernel.cache_dir%/doctrine/PHPCRProxies',
+                'proxy_namespace' => 'PHPCRProxies',
+                'mappings' => array(
+                    '<name>' => array(
+                        'mapping' => true,
+                        'type' => null,
+                        'dir' => null,
+                        'alias' => null,
+                        'prefix' => null,
+                        'is-bundle' => null,
+                    ),
+                ),
+                'metadata_cache_driver' => array(
+                    'type' => 'array',
+                    'host' => null,
+                    'port' => null,
+                    'instance_class' => null,
+                    'class' => null,
+                    'id' => null,
+                ),
+            ),
+        ));
+
 .. index:: I18N, Multilanguage
 
 .. _bundle-phpcr-odm-multilang-config:
@@ -270,8 +622,8 @@ Translation Configuration
 """""""""""""""""""""""""
 
 If you are using multilingual documents, you need to configure the available
-languages. For more information on multilingual documents, see the `PHPCR-ODM
-documentation on Multilanguage`_.
+languages. For more information on how to map multilingual documents, see the
+`PHPCR-ODM documentation on Multilanguage`_.
 
 .. configuration-block::
 
@@ -280,12 +632,51 @@ documentation on Multilanguage`_.
         # app/config/config.yml
         doctrine_phpcr:
             odm:
-                ...
+                # ...
                 locales:
                     en: [de, fr]
                     de: [en, fr]
                     fr: [en, de]
                 locale_fallback: hardcoded
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <odm locale-fallback="hardcoded">
+                    <!-- ... -->
+                    <locale name="en">
+                        <fallback>de</fallback>
+                        <fallback>fr</fallback>
+                    </locale>
+                    <locale name="de">
+                        <fallback>en</fallback>
+                        <fallback>fr</fallback>
+                    </locale>
+                    <locale name="fr">
+                        <fallback>en</fallback>
+                        <fallback>de</fallback>
+                    </locale>
+                </odm>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'odm' => array(
+                // ...
+                'locales' => array(
+                    'en' => array('de', 'fr'),
+                    'de' => array('en', 'fr'),
+                    'fr' => array('en', 'de'),
+                ),
+                'locale_fallback' => 'hardcoded',
+            )
+        );
 
 The ``locales`` is a list of alternative locales to look up if a document
 is not translated to the requested locale.
@@ -295,23 +686,25 @@ are configured. This listener updates PHPCR-ODM to use the locale symfony
 determined for this request, if that locale is in the list of keys defined
 under ``locales``.
 
-If you set the ``locale_fallback`` option to ``merge`` or ``replace``, the
-locale fallback order for the request locale will additionally be updated from
-the accepted languages of the request (determined by Symfony from the
-``Accept-Language`` HTML header). The browser locales are filtered with the
-list of keys from ``locales`` to avoid injecting arbitrary locale values.
+There are several strategies to adjust the fallback order for the selected
+locale based on the accepted languages of the request (determined by Symfony
+from the ``Accept-Language`` HTML header). All of them will never add any
+locales that where not configured in the ``locales`` to avoid a request
+injecting unexpected things into your repository:
 
-The interest of ``merge`` is to reorder the locales to match the browser
-preferences. If there are locales in the fallback list of the primary language
-that do not occur in the request, they are appended. ``replace`` will only keep
-the locales the browser requested, ignoring the fallback configured for that
-locale.
+* ``hardcoded``: The default strategy does not update the fallback order from
+  the request;
+* ``replace`` takes the accepted locales from the request and updates the
+  fallback order with them, removing any locales not found in the request.
+* ``merge`` does the same as ``replace`` but then adds locales not found in
+  the request but on the ``locales`` configuration back to the end of the
+  fallback list. This reorders the locales without losing any of them.
 
 General Settings
 ~~~~~~~~~~~~~~~~
 
 If the `jackrabbit_jar` path is set, you can use the
-``doctrine:phpcr:jackrabbit`` console command to start and stop jackrabbit.
+``doctrine:phpcr:jackrabbit`` console command to start and stop Jackrabbit.
 
 You can tune the output of the ``doctrine:phpcr:dump`` command with
 ``dump_max_line_length``.
@@ -324,6 +717,25 @@ You can tune the output of the ``doctrine:phpcr:dump`` command with
         doctrine_phpcr:
             jackrabbit_jar:       /path/to/jackrabbit.jar
             dump_max_line_length:  120
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr"
+                jackrabbit-jar="/path/to/jackrabbit.jar"
+                dump-max-line-length="120"
+            />
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'jackrabbit_jar' => '/path/to/jackrabbit.jar',
+            'dump_max_line_length' => 120,
+        ));
 
 .. _bundle-phpcr-odm-multiple-phpcr-sessions:
 
@@ -345,13 +757,58 @@ to use as ``default_session``.
                 default_session:      ~
                 sessions:
                     <name>:
-                        workspace:            ~ # Required
+                        workspace:            ... # Required
                         username:             ~
                         password:             ~
                         backend:
-                            # as above
+                            # ...
                         options:
-                            # as above
+                            # ...
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session default-session="null">
+                    <session name="<name>"
+                        workspace="..."
+                        username="null"
+                        password="null"
+                    >
+                        <backend>
+                            <!-- ... -->
+                        </backend>
+                        <option>
+                            <!-- ... -->
+                        </option>
+                    </session>
+                </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'default_session' => null,
+                'sessions' => array(
+                    '<name>' => array(
+                        'workspace' => '...', // Required
+                        'username' => null
+                        'password' => null,
+                        'backend' => array(
+                            // ...
+                        ),
+                        'options' => array(
+                            // ...
+                        ),
+                    ),
+                ),
+            ),
+        ));
 
 If you are using the ODM, you will also want to configure multiple document
 managers.
@@ -364,12 +821,45 @@ attribute.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         odm:
             default_document_manager:  ~
             document_managers:
                 <name>:
-                    # same keys as directly in odm, see above.
+                    # configuration as above
                     session: <sessionname>
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <odm default-document-manager="null">
+                    <document-manager
+                        name="<name>"
+                        session="<sessionname>"
+                    >
+                        <!-- configuration as above -->
+                    </document-manager>
+                </odm>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'odm' => array(
+                'default_document_manager' => null,
+                'document_managers' => array(
+                    '<name>' => array(
+                        'session' => '<sessionname>',
+                        // configuration as above
+                    ),
+                ),
+            ),
+        ));
 
 A full example looks as follows:
 
@@ -405,6 +895,7 @@ A full example looks as follows:
                         password: "%magnolia_pass%"
             # enable the ODM layer
             odm:
+                auto_generate_proxy_classes: "%kernel.debug%"
                 document_managers:
                     default:
                         session: default
@@ -426,7 +917,127 @@ A full example looks as follows:
                         mappings:
                             SandboxMagnoliaBundle: ~
 
-                auto_generate_proxy_classes: "%kernel.debug%"
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session>
+                    <session name="default"
+                        backend="%phpcr_backend%"
+                        workspace="%phpcr_workspace%"
+                        username="%phpcr_user%"
+                        password="%phpcr_pass%"
+                    />
+                    <session name="website"
+                        workspace="website"
+                        username="%magnolia_user%"
+                        password="%magnolia_pass%"
+                    >
+                        <backend type="jackrabbit" url="%magnolia_url%"/>
+                    </session>
+                    <session name="dms"
+                        workspace="dms"
+                        username="%magnolia_user%"
+                        password="%magnolia_pass%"
+                    >
+                        <backend type="jackrabbit" url="%magnolia_url%"/>
+                    </session>
+                </session>
+
+                <odm auto_generate_proxy_classes="%kernel.debug%">
+                    <document-manager
+                        name="default"
+                        session="default"
+                    >
+                        <mapping name="SandboxMainBundle" />
+                        <mapping name="CmfContentBundle" />
+                        <mapping name="CmfMenuBundle" />
+                        <mapping name="CmfRoutingBundle" />
+                    </document-manager>
+
+                    <document-manager
+                        name="website"
+                        session="website"
+                        configuration-id="sandbox_magnolia.odm_configuration"
+                    >
+                        <mapping name="SandboxMagnoliaBundle" />
+                    </document-manager>
+
+                    <document-manager
+                        name="dms"
+                        session="dms"
+                        configuration-id="sandbox_magnolia.odm_configuration"
+                    >
+                        <mapping name="SandboxMagnoliaBundle" />
+                    </document-manager>
+
+                </odm>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'sessions' => array(
+                    'default' => array(
+                        'backend' => '%phpcr_backend%',
+                        'workspace' => '%phpcr_workspace%',
+                        'username' => '%phpcr_user%',
+                        'password' => '%phpcr_pass%',
+                    ),
+                    'website' => array(
+                        'backend' => array(
+                            'type' => 'jackrabbit',
+                            'url' => '%magnolia_url%',
+                        ),
+                        'workspace' => 'website',
+                        'username' => '%magnolia_user%',
+                        'password' => '%magnolia_pass%',
+                    ),
+                    'dms' => array(
+                        'backend' => array(
+                            'type' => 'jackrabbit',
+                            'url' => '%magnolia_url%',
+                        ),
+                        'workspace' => 'dms',
+                        'username' => '%magnolia_user%',
+                        'password' => '%magnolia_pass%',
+                    ),
+                ),
+            ),
+            'odm' => array(
+                'auto_generate_proxy_classes' => '%kernel.debug%',
+                'document_managers' => array(
+                    'default' => array(
+                        'session' => 'default',
+                        'mappings' => array(
+                            'SandboxMainBundle' => null,
+                            'CmfContentBundle' => null,
+                            'CmfMenuBundle' => null,
+                            'CmfRoutingBundle' => null,
+                        ),
+                    ),
+                    'website' => array(
+                        'session' => 'website',
+                        'configuration_id' => 'sandbox_magnolia.odm_configuration',
+                        'mappings' => array(
+                            'SandboxMagnoliaBundle' => null,
+                        ),
+                    ),
+                    'dms' => array(
+                        'session' => 'dms',
+                        'configuration_id' => 'sandbox_magnolia.odm_configuration',
+                        'mappings' => array(
+                            'SandboxMagnoliaBundle' => null,
+                        ),
+                    ),
+                ),
+            ),
+        ));
 
 .. tip::
 
@@ -481,15 +1092,51 @@ listeners resp. event subscribers.
     .. code-block:: yaml
 
         services:
-            my.listener:
+            acme_search.listener.search:
                 class: Acme\SearchBundle\EventListener\SearchIndexer
                     tags:
                         - { name: doctrine_phpcr.event_listener, event: postPersist }
 
-            my.subscriber:
+            acme_search.subscriber.fancy:
                 class: Acme\SearchBundle\EventSubscriber\MySubscriber
                     tags:
                         - { name: doctrine_phpcr.event_subscriber }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/SearchBundle/Resources/config/services.xml -->
+        <services>
+            <service id="acme_search.listener.search" class="Acme\SearchBundle\EventListener\SearchIndexer">
+                <tag name="doctrine_phpcr.event_listener" event="postPersist" />
+            </service>
+            <service id="acme_search.subscriber.fancy" class="Acme\SearchBundle\EventSubscriber\MySubscriber">
+                <tag name="doctrine_phpcr.event_subscriber" />
+            </service>
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\Reference;
+
+        $container
+            ->register(
+                'acme_search.listener.search',
+                'Acme\SearchBundle\EventListener\SearchIndexer'
+            )
+            ->addTag('doctrine_phpcr.event_listener', array(
+                'event' => 'postPersist',
+            ))
+        ;
+
+        $container
+            ->register(
+                'acme_search.subscriber.fancy',
+                'Acme\SearchBundle\EventSubscriber\FancySubscriber'
+            )
+            ->addTag('doctrine_phpcr.event_subscriber', array(
+                'event' => 'postPersist',
+            ))
+        ;
 
 .. tip::
 
@@ -519,21 +1166,6 @@ correct.
             constraints:
                 - Doctrine\Bundle\PHPCRBundle\Validator\Constraints\ValidPhpcrOdm
 
-    .. code-block:: php
-
-        // src/Acme/BlogBundle/Entity/Author.php
-
-        // ...
-        use Doctrine\Bundle\PHPCRBundle\Validator\Constraints as OdmAssert;
-
-        /**
-         * @OdmAssert\ValidPhpcrOdm
-         */
-        class Author
-        {
-           ...
-        }
-
     .. code-block:: xml
 
         <!-- Resources/config/validation.xml -->
@@ -548,6 +1180,21 @@ correct.
             </class>
 
         </constraint-mapping>
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
+        use Doctrine\Bundle\PHPCRBundle\Validator\Constraints as OdmAssert;
+
+        /**
+         * @OdmAssert\ValidPhpcrOdm
+         */
+        class Author
+        {
+            // ...
+        }
 
 .. index::
     single: Form Types; DoctrinePHPCRBundle
@@ -897,3 +1544,5 @@ Dumping nodes under ``/cms/simple`` including their properties:
 .. _`Doctrine data-fixtures`: https://github.com/doctrine/data-fixtures
 .. _`documentation of the DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`SQL2 queries`: http://www.h2database.com/jcr/grammar.html
+.. _`DoctrineCacheBundle`: https://github.com/doctrine/DoctrineCacheBundle/
+.. _`last modified listener cookbook entry`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/cookbook/last-modified.html
