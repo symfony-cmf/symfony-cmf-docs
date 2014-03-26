@@ -159,6 +159,45 @@ used with the tree. All relevant routes have the ``expose`` option set. If you
 do custom routes that need to be used with the tree, you need to do that or
 configure the js routing bundle manually.
 
+Last but not least, create a security configuration file if you haven't done so:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+    
+        # app/config/security.yml
+        security:
+            firewalls:
+                secured_area:
+                    pattern:   ^/
+                    anonymous: ~
+                    http_basic:
+                        realm: "Secured Demo Area"
+        
+            access_control:
+                - { path: ^/admin/, roles: ROLE_ADMIN }
+        
+            providers:
+                in_memory:
+                    memory:
+                        users:
+                            ryan:  { password: ryanpass, roles: 'ROLE_USER' }
+                            admin: { password: kitten, roles: 'ROLE_ADMIN' }
+        
+            encoders:
+                Symfony\Component\Security\Core\User\User: plaintext
+            
+Don't forget to include the ``security.yml`` file in your ``config.yml``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+    
+        # app/config/config.yml
+        imports:
+            ...
+            - { resource: security.yml }
+
 Sonata Assets
 -------------
 
