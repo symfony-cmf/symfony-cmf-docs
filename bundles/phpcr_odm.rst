@@ -179,6 +179,9 @@ command.
     option. For Doctrine PHPCR commands, this parameter is not needed as you
     configured the connection to use.
 
+To use the cache, install and configure the `DoctrineCacheBundle`_. Then
+uncomment the cache meta and nodes settings.
+
 PHPCR Session with Midgard2
 """""""""""""""""""""""""""
 
@@ -897,3 +900,4 @@ Dumping nodes under ``/cms/simple`` including their properties:
 .. _`Doctrine data-fixtures`: https://github.com/doctrine/data-fixtures
 .. _`documentation of the DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`SQL2 queries`: http://www.h2database.com/jcr/grammar.html
+.. _`DoctrineCacheBundle`: https://github.com/doctrine/DoctrineCacheBundle/
