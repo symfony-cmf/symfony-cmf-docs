@@ -213,12 +213,12 @@ After this, your should follow the steps in `Preparing the PHPCR repository`_.
 Doctrine caching
 ................
 
-Optionally, to improve performance and enable the meta data, you can install
-LiipDoctrineCacheBundle by typing the following command:
+Optionally, to improve performance, you can install
+DoctrineCacheBundle by typing the following command:
 
 .. code-block:: bash
 
-    $ php composer.phar require liip/doctrine-cache-bundle:dev-master
+    $ php composer.phar require "doctrine/cache-bundle:1.0.*"
 
 And adding the following entry to your ``app/AppKernel.php``::
 
@@ -229,20 +229,20 @@ And adding the following entry to your ``app/AppKernel.php``::
     {
       $bundles = array(
           // ...
-          new Liip\DoctrineCacheBundle\LiipDoctrineCacheBundle(),
+          new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
           // ...
       );
     }
 
 Finally, uncomment the caches settings in the ``phpcr.yml`` as well as the
-``liip_doctrine_cache`` settings in ``config.yml``.
+``doctrine_cache`` settings in ``config.yml``.
 
 .. code-block:: yaml
 
     # app/config/phpcr.yml
     caches:
-        meta: liip_doctrine_cache.ns.meta
-        nodes: liip_doctrine_cache.ns.nodes
+        meta: doctrine_cache.providers.phpcr_meta
+        nodes: doctrine_cache.providers.phpcr_nodes
 
 .. code-block:: yaml
 
@@ -250,12 +250,11 @@ Finally, uncomment the caches settings in the ``phpcr.yml`` as well as the
 
     # ...
 
-    # jackalope doctrine caching
-    liip_doctrine_cache:
-        namespaces:
-            meta:
+    doctrine_cache:
+        providers:
+            phpcr_meta:
                 type: file_system
-            nodes:
+            phpcr_nodes:
                 type: file_system
 
 Midgard2 PHPCR Provider
