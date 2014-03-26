@@ -305,8 +305,11 @@ phpcr
                     phpcr:
                         enabled: false
                         manager_name: ~
-                        route_basepath: /cms/routes
+                        route_basepaths:
+                            - /cms/routes
+                            - /cms/simple
                         content_basepath: /cms/content
+                        admin_basepath: /cms/routes
                         use_sonata_admin: auto
 
     .. code-block:: xml
@@ -320,10 +323,13 @@ phpcr
                         <phpcr
                             enabled="false"
                             manager-name="null"
-                            route-basepath="/cms/routes"
                             content-basepath="/cms/content"
+                            admin-basepath="/cms/routes"
                             use-sonata-admin="auto"
-                        />
+                        >
+                            <route-basepath>/cms/routes</route-basepath>
+                            <route-basepath>/cms/simple</route-basepath>
+                        </phpcr>
                     </persistence>
                 </dynamic>
             </config>
@@ -337,8 +343,12 @@ phpcr
                     'phpcr' => array(
                         'enabled' => false,
                         'manager_name' => null,
-                        'route_basepath' => '/cms/routes',
+                        'route_basepaths' => array(
+                            '/cms/routes',
+                            '/cms/simple',
+                        )
                         'content_basepath' => '/cms/content',
+                        'admin_basepath' => '/cms/routes',
                         'use_sonata_admin' => 'auto',
                     ),
                 ),
@@ -356,26 +366,36 @@ manager_name
 
 .. include:: partials/persistence_phpcr_manager_name.rst.inc
 
-route_basepath
+route_basepaths
 **************
 
-**type**: ``string`` **default**: ``/cms/routes``
+**type**: ``array`` **default**: ``array('/cms/routes')``
 
-The basepath for routes in the PHPCR tree.
+The basepaths where to look for routes in the PHPCR tree.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
-``%cmf_core.persistence.phpcr.basepath%/routes``.
+If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will
+default to ``%cmf_core.persistence.phpcr.basepath%/routes``. If the
+:doc:`SimpleCmsBundle <../../bundles/simplecms/index>` is registered as well,
+this will additionally default to ``%cmf_core.persistence.phpcr.basepath%/simple``.
 
 content_basepath
 ****************
 
-**type**: ``content_basepath`` **default**: ``/cms/content``
+**type**: ``string`` **default**: ``/cms/content``
 
 The basepath for content objects in the PHPCR tree. This information is used
 with the sonata admin to offer the correct subtree to select content documents.
 
 If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
 ``%cmf_core.persistence.phpcr.basepath%/content``.
+
+admin_basepath
+**************
+
+**type**: ``string`` **default**: first value of route_basepaths
+
+The path at which to create routes with Sonata admin. There can be additional
+route basepaths, but you will need your own tools to edit those.
 
 use_sonata_admin
 ****************
@@ -487,12 +507,45 @@ content repository service.
     This can be overriden by this option. ORM doesn't have a content
     repository at the moment.
 
+.. _reference-config-routing-locales:
+
 locales
 ~~~~~~~
 
-**type**: ``array`` **default**:
+**type**: ``array`` **default**: ``array()``
 
 To enable multilanguage, set the valid locales in this option.
 
 If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to the value
 of ``cmf_core.locales``.
+
+match_implicit_locale
+~~~~~~~~~~~~~~~~~~~~~
+
+**type**: ``boolean`` **default**: ``true``
+
+Whether the route provider should look for routes without the locale.
+
+For example, when the ``locales`` are ``de`` and ``en`` and the request has the
+url ``de/my/path``, the route provider will not only look for ``de/my/path``,
+``de/my`` and ``de`` but also for ``my/path`` and ``my``. This allows to use a
+single route for multiple languages. This is used for example by the
+:doc:`SimpleCms <../../bundles/simple_cms/index>`.
+
+If you do not need this, disabling the option will gain some performance.
+
+auto_locale_pattern
+~~~~~~~~~~~~~~~~~~~
+
+**type**: ``boolean`` **default**: ``false``
+
+If you enable this option, the LocaleListener will ensure that routes that have
+no locale in their static pattern get the ``auto_locale_pattern`` option set.
+
+.. note::
+
+    Enabling this option will prevent you from having any CMF Routes that match
+    URL without a locale in it.
+
+This is ignored if there are no ``locales`` configured. It makes no sense to
+enable this option when ``match_implicit_locale`` is disabled.

@@ -263,15 +263,20 @@ need content, you can just not set it in the route document.
     from content instances. When resolving the route, the ``_locale`` gets
     into the request and is picked up by the Symfony2 locale system.
 
+    Make sure you configure the valid locales in the configuration so that the
+    bundle can optimally handle locales. The
+    :ref:`configuration reference <reference-config-routing-locales>` lists
+    some options to tweak behaviour and performance.
+
 .. note::
 
-    Under PHPCR-ODM, Routes should never be translatable documents, as one
+    Under PHPCR-ODM, Routes should not be translatable documents, as one
     Route document represents one single url, and serving several translations
     under the same url is not recommended.
 
-    If you need translated URLs, make the locale part of the route name and use
-    several routes for the same content. The route generator will pick the
-    correct route if available.
+    If you need translated URLs, make the ``locale`` part of the route name and
+    create one route per language for the same content. The route generator will
+    pick the correct route if available.
 
 Sonata Doctrine PHPCR-ODM Admin classes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -287,6 +292,10 @@ get an error if Sonata becomes unavailable.
 
 Sonata admin is using the ``content_basepath`` to show the tree of content to
 select the route target.
+
+The root path to add Routes defaults to the first entry in ``route_basepaths``
+but you can overwrite this with the ``admin_basepath`` if you need a different
+base path.
 
 .. configuration-block::
 
