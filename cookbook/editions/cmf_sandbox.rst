@@ -213,12 +213,12 @@ After this, your should follow the steps in `Preparing the PHPCR repository`_.
 Doctrine caching
 ................
 
-Optionally, to improve performance, you can install
-DoctrineCacheBundle by typing the following command:
+Optionally, to improve performance, you can install DoctrineCacheBundle by
+typing the following command:
 
 .. code-block:: bash
 
-    $ php composer.phar require "doctrine/cache-bundle:1.0.*"
+    $ php composer.phar require doctrine/cache-bundle:1.0.*
 
 And adding the following entry to your ``app/AppKernel.php``::
 

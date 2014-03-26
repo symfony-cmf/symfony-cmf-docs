@@ -14,7 +14,7 @@ of the CMF.
     is storage agnosticly created, meaning it is not tied to specific storage
     system.
 
-Getting Familair with PHPCR
+Getting Familiar with PHPCR
 ---------------------------
 
 PHPCR_ stores all data into one big tree structure. You can compare this to a
@@ -92,9 +92,17 @@ by creating a new class in the AcmeMainBundle::
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-    class LoadPageData implements FixtureInterface
+    class LoadPageData implements FixtureInterface, OrderedFixtureInterface
     {
+        public function getOrder()
+        {
+            // refers to the order in which the class' load function is called 
+            // (lower return values are called first)
+            return 10;
+        }
+    
         public function load(ObjectManager $documentManager)
         {
         }
