@@ -205,7 +205,7 @@ Now you can change the content of our new page using Create.js:
 After clicking "save", the changes are saved using the CreateBundle and the
 content is updated.
 
-Final Thougths
+Final Thoughts
 --------------
 
 Congratulations! You've come to the end of your first introduction into the
