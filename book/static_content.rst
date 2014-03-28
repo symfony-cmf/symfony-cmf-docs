@@ -50,7 +50,7 @@ It also specifies the translation strategy:
         use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
         /**
-         * @PHPCRODM\Document(translator="child", referenceable=true)
+         * @PHPCR\Document(translator="child", referenceable=true)
          */
 
 For information on the available translation strategies, refer to the Doctrine
