@@ -262,6 +262,7 @@ configuration:
             acme.basic_cms.phpcr.initializer:
                 class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
                 arguments: 
+                    - 'cms reserved routes'
                     - ["/cms/pages", "/cms/posts", "/cms/routes"]
                 tags:
                     - { name: doctrine_phpcr.initializer }
