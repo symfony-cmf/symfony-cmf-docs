@@ -61,7 +61,7 @@ Chaining multiple Routers
 
 You may need to have several prefixes or several routes. For instance, you may
 want to use both the ``DynamicRouter`` for the page routes, but also the
-static routing files from Symfony for you custom logic. To be able to do that,
+static routing files from Symfony for your custom logic. To be able to do that,
 the CMF provides a ``ChainRouter``. This router chains over multiple router
 and stops whenever a router matches.
 
