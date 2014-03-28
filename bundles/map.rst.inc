@@ -56,7 +56,7 @@ library or they introduce a complete new concept.
 
 * :doc:`search/index`
 
-* :doc:`search/introduction`
+  * :doc:`search/introduction`
 
 * :doc:`tree_browser/index`
 
