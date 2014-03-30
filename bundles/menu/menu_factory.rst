@@ -65,3 +65,16 @@ visible by use of the :doc:`publish workflow checker
     
 The ``MenuContentVoter`` decides that a menu node is not published if the
 content it is pointing to is not published.
+
+Customizing Menus using Events
+------------------------------
+
+The CMF menu factory dispatches a ``cmf_menu.create_menu_item_from_node`` event 
+during the process of creating a ``MenuItem`` from a class implementing 
+``NodeInterface``. You can use this event to control the ``MenuItem`` that is 
+created. The ``CreateMenuItemFromNodeEvent`` provides access to the 
+``NodeInterface`` and ``ContentAwareFactory``, which can be used to create a
+custom ``MenuItem``, or to tell the factory to ignore the current node or its 
+children. For example, this event is used by the 
+:doc:`publish workflow checker <../core/publish_workflow>` to skip 
+``MenuItem`` generation for unpublished nodes.
