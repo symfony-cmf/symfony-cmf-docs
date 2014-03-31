@@ -37,6 +37,12 @@ do any elaborate matching operations yet - this will be done in the later steps.
     implementations for everything needed to get this component running with
     Doctrine PHPCR-ODM as well as with the Doctrine ORM.
 
+.. tip::
+
+    This component provides the ``Candidates`` implementation for the very
+    first step of splitting the URL on the ``/`` to allow matching with
+    variable patterns.
+
 To create and register your own Route Provider, create a class implementing
 ``Symfony\Cmf\Component\Routing\RouteProviderInterface`` which will have the
 following methods::

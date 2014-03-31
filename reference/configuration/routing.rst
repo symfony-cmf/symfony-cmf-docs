@@ -367,7 +367,7 @@ manager_name
 .. include:: partials/persistence_phpcr_manager_name.rst.inc
 
 route_basepaths
-**************
+***************
 
 **type**: ``array`` **default**: ``array('/cms/routes')``
 
@@ -375,7 +375,7 @@ The basepaths where to look for routes in the PHPCR tree.
 
 If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will
 default to ``%cmf_core.persistence.phpcr.basepath%/routes``. If the
-:doc:`SimpleCmsBundle <../../bundles/simplecms/index>` is registered as well,
+:doc:`SimpleCmsBundle <../../bundles/simple_cms/index>` is registered as well,
 this will additionally default to ``%cmf_core.persistence.phpcr.basepath%/simple``.
 
 content_basepath
@@ -516,8 +516,22 @@ locales
 
 To enable multilanguage, set the valid locales in this option.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to the value
-of ``cmf_core.locales``.
+If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will
+default to the value of ``cmf_core.locales``.
+
+limit_candidates
+~~~~~~~~~~~~~~~~
+
+**type**: ``integer`` **default**: ``20``
+
+With this flag you can tune the routing behaviour when using the dynamic
+pattern part of routes stored in the database. If you do never use the variable
+pattern field of the Route model, you can set this to 1 as a small performance
+optimization.
+
+If you have very complex URLs with patterns, you might need to increase the
+limit, but this will expose your site to load attacks with URLs with lots of
+slashes in them.
 
 match_implicit_locale
 ~~~~~~~~~~~~~~~~~~~~~

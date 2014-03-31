@@ -4,7 +4,7 @@
 Multi-Language Support
 ----------------------
 
-Setting ``addLocalePattern`` to ``true`` in a
+Setting the option ``add_locale_pattern`` to ``true`` in a
 ``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page`` document will
 result in prefixing the associated route with ``/{_locale}``. Using the native
 translation capabilities of PHPCR ODM it is now possible to create different
@@ -42,7 +42,7 @@ For example::
     will have the same node name for all languages. So a url
     ``http://foo.com/en/hello-world`` for english content will look like
     ``http://foo.com/de/hello-world`` for german content.
-    
+
     At times it might be most feasible to use integers as the node names and
     simple append the title of the node in the given locale as an anchor. So
     for example ``http://foo.com/de/1#my title`` and
