@@ -16,7 +16,8 @@ for the same content if you need that.
 There are two solutions to avoid penalties
 with search engines:
 
-- Create a canonical link that identifies the original URL: ``<link rel="canonical" href="/route/org/content">``
+- Create a canonical link that identifies the
+  original URL: ``<link rel="canonical" href="/route/org/content">``
 
 - Redirect to THE original url.
 
@@ -123,8 +124,9 @@ called `SeoMetada`:
 .. code-block:: php
 
      /**
-     * This string contains the information where we will find the original content.
-     * Depending on the setting for the cmf_seo.content.pattern, we will do an redirect to this url or
+     * This string contains the information where we will find the
+     * original content. Depending on the setting for the
+     * cmf_seo.content.pattern, we will do an redirect to this url or
      * create a canonical link with this value as the href attribute.
      *
      * @var string
@@ -132,22 +134,24 @@ called `SeoMetada`:
     private $originalUrl;
 
     /**
-     * If this string is set, it will be inserted as a meta tag for the page description.
+     * If this string is set, it will be inserted as a meta
+     * tag for the page description.
      *
      * @var  string
      */
     private $metaDescription;
 
     /**
-     * This comma separated list will contain the Keywords for the page's meta information.
+     * This comma separated list will contain the Keywords for
+     * the page's meta information.
      *
      * @var string
      */
     private $metaKeywords;
 
 A object should implement
-the `SeoAwareInterface`, which simply forced to implement setter/getter for the
-seo metadata. A simple example would be:
+the `SeoAwareInterface`, which simply forced to implement
+setter/getter for the seo metadata. A simple example would be:
 
 .. code-block:: php
 
@@ -189,11 +193,13 @@ seo metadata. A simple example would be:
     $manager->persist($route);
     $manager->flush();
 
-Visiting the site with the url ``/seo-content`` (same template shown above) will
-show a Page with "Documents own tile" as title, "This ist the text for the description
-meta tag" in the description, "Seo, Content" in the keywords and a canonical link with
-``href="/original/url/of/content"``. But what about some default string to just concatenate
-defaults and documents own values? Just add some more configs to the cmf_seo configuration
+Visiting the site with the url ``/seo-content`` (same template
+shown above) will show a Page with "Documents own tile" as
+title, "This ist the text for the description meta tag" in
+the description, "Seo, Content" in the keywords and a canonical
+link with ``href="/original/url/of/content"``. But what about
+some default string to just concatenate defaults and documents
+own values? Just add some more configs to the cmf_seo configuration
 section.
 
 .. configuration-block::
@@ -240,9 +246,11 @@ section.
             ),
         );
 
-As you will notice, you got the opportunity to set Symfony translation key for your
-default values for title and description. So you will got Multi-Language-Support
-out of the box. Just define your values for default title/description as translations:
+As you will notice, you got the opportunity to set Symfony
+translation key for your default values for title and
+description. So you will got Multi-Language-Support
+out of the box. Just define your values for default
+title/description as translations:
 
 .. code-block:: xml
 
@@ -263,16 +271,18 @@ out of the box. Just define your values for default title/description as transla
         </file>
     </xliff>
 
-If you want to concatenate your documents values with the default ones you need them as
-parameters in you translation target.
+If you want to concatenate your documents values with the
+default ones you need them as parameters in you translation
+target.
 
 .. tip::
 
-    If you does not what to open a translation file for two entry, just set
-    ``Default title | %%content_title%%``or ``Default description. %%content_description%%``.
+    If you does not what to open a translation file for two entry,
+    just set ``Default title | %%content_title%%``or ``Default
+    description. %%content_description%%``.
 
-For changing the default translation domain (messages), the SeoBundle provides a configuration
-value:
+For changing the default translation domain (messages), the SeoBundle
+provides a configuration value:
 
 .. configuration-block::
 
@@ -301,7 +311,8 @@ value:
             ),
         );
 
-For redirects instead of canonical links (default) set the following option:
+For redirects instead of canonical links (default) set the following
+option:
 
 .. configuration-block::
 
@@ -330,10 +341,11 @@ For redirects instead of canonical links (default) set the following option:
             ),
         );
 
-This value will cause a redirect to the url persisted in the ``originalUrl`` property of the
-``SeoMetadata``.
+This value will cause a redirect to the url persisted in the
+``originalUrl`` property of the ``SeoMetadata``.
 
-The SeoMetadata contains a form type for your Symfony Form. Just create you form with the following key:
+The SeoMetadata contains a form type for your Symfony Form.
+Just create you form with the following key:
 
 .. code-block:: php
 
@@ -343,8 +355,8 @@ The SeoMetadata contains a form type for your Symfony Form. Just create you form
         ...
         ;
 
-For SonataAdminBundle user the SeoBundle provides an admin extension to add that form to your
-form configuration.
+For SonataAdminBundle user the SeoBundle provides an admin extension
+to add that form to your form configuration.
 
 Using extractors for getting your documents seo metadata
 --------------------------------------------------------
@@ -373,8 +385,10 @@ value. It is up to the developer how to implement that extraction methods.
 |                          |                        |extractor will use this                        |
 +--------------------------+------------------------+-----------------------------------------------+
 
-For customizing the extraction process you have got the opportunity to create your own extractor.
-Just by implementing the ``SeoExtractorInterface`` and tagging the service as ``cmf_seo.extractor``
+For customizing the extraction process you have got the opportunity
+to create your own extractor. Just by implementing the
+``SeoExtractorInterface`` and tagging the service as
+``cmf_seo.extractor``
 
 .. code-block:: xml
 
@@ -398,5 +412,5 @@ Just by implementing the ``SeoExtractorInterface`` and tagging the service as ``
 
 .. _`with composer`: http://getcomposer.org
 .. _`packagist`: https://packagist.org/packages/symfony-cmf/menu-bundle
-.. _`with github`: git clone https://github.com/symfony-cmf/SeoContentBundle version path/to/
+.. _`with github`: git clone https://github.com/symfony-cmf/SeoContentBundle
 .. _`sonata seo documentation`: http://sonata-project.org/bundles/seo/master/doc/index.html
