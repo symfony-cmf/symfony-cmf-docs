@@ -1589,3 +1589,4 @@ Dumping nodes under ``/cms/simple`` including their properties:
 .. _`DoctrineCacheBundle`: https://github.com/doctrine/DoctrineCacheBundle/
 .. _`last modified listener cookbook entry`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/cookbook/last-modified.html
 .. _`the Symfony2 Doctrine documentation` : https://doctrine-orm.readthedocs.org/en/latest/index.html
+.. _`the official midgard phpcr documentation` : http://midgard-project.org/phpcr/#getting_started
