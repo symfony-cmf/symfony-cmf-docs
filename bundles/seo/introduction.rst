@@ -268,8 +268,9 @@ parameters in you translation target.
 
 .. tip::
 
-    If you does not what to open a translation file for two entry, just set
-    ``Default title | %%content_title%%`` or ``Default description. %%content_description%%"
+    If you does not what to open a translation file for two entry,
+    just set ``Default title | %%content_title%%``
+    or ``Default description. %%content_description%%"
 
 For changing the default translation domain (messages), the SeoBundle provides a configuration
 value:
