@@ -16,8 +16,8 @@ for the same content if you need that.
 There are two solutions to avoid penalties
 with search engines:
 
-- Create a canonical link that identifies the original URL:
- ``<link rel="canonical" href="/route/org/content">``
+- Create a canonical link that identifies the original URL: ``<link rel="canonical" href="/route/org/content">``
+
 - Redirect to THE original url.
 
 Both take care on search engines, which does not like
@@ -38,6 +38,7 @@ You can install the bundle in 2 different ways:
 
 Both bundles need to be registered in the ``appKernel``
 
+.. code-block:: php
     public function registerBundles()
     {
         $bundles = array(
@@ -59,18 +60,22 @@ into your template.
 .. configuration-block::
 
     .. code-block:: yaml
-            sonata_seo:
-                page:
-                    title: Page's default title
-                    metas:
-                        names:
-                            description: The default description of the page
-                            keywords: default, sonata, seo
+
+        # app/config/config.yml
+        sonata_seo:
+            page:
+                title: Page's default title
+                metas:
+                    names:
+                        description: The default description of the page
+                        keywords: default, sonata, seo
 
     .. code-block:: php
 
+        // app/config/config.php
         $container->loadFromExtension('sonata_seo', array(
             'page' => array(
+                'title' => 'Page's default title',
                 'metas' => array(
                     'names' => array(
                         'description' => 'default description',
@@ -85,10 +90,13 @@ should visit its documentation at `sonata seo documentation_`
 The only thing to do now is to insert the TwigHelper into your
 template:
 
+.. code-block:: html
+    <!-- app/Resources/views/base.html.twig -->
     <html>
         <head>
             {{ sonata_seo_title() }}
             {{ sonata_seo_metadatas() }}
+            {{ sonata_seo_link_canonical() }} // needed later
         </head>
         <body>
             <p>Some page body.</p>
@@ -109,7 +117,8 @@ the original url for a canonical link or a redirect.
 To persist that data the Bundle serves a value object
 called `SeoMetada`:
 
-::
+.. code-block:: php
+
      /**
      * This string contains the information where we will find the original content.
      * Depending on the setting for the cmf_seo.content.pattern, we will do an redirect to this url or
@@ -134,37 +143,14 @@ called `SeoMetada`:
     private $metaKeywords;
 
 A object should implement
-the `SeoAwareInterface` to let the bundle know, that there
-some information to persist and to display on a page:
+the `SeoAwareInterface`, which simply forced to implement setter/getter for the
+seo metadata. A simple example would be:
 
-//todo work on here
-
-
-Base-Usage
-~~~~~~~~~~
-
-The work of the ``SeoBundle`` id done by several interfaces. As the
-``SeoAwareContent`` document implements the ``SeoAwareInterface`` to
-provide some ``SeoMetadata``. That ``SeoMetada`` is the container for
-the values in a seo context:
-
-You can use that ``SeoMetadata`` by setting it to your content:
+.. code-block:: php
 
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
     use Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoAwareContent;
     use Symfony\Cmf\Bundle\SeoBundle\Model\SeoMetadata;
-
-    // retrieve the route root node
-    $routeRoot = $documentManager->find(null, '/cms/routes');
-
-    //create the route for the document
-    $route = new Route();
-    $route->setPosition($routeRoot, 'seo-content');
-    $route->setDefaults(
-                array(
-                    '_template' => 'Acme:Seo:index.html.twig'
-                )
-            );
 
     //retrieve the root document
     $rootDocument = $documentManager->find(null, '/cms/content');
@@ -175,146 +161,234 @@ You can use that ``SeoMetadata`` by setting it to your content:
     $seoDocument->setTitle('Same title as in original');
     $seoDocument->setName('seo-content');
     $seoDocument->setBody('Same Content as in Original');
-    $seoDocument->addRoute($route);
 
     //set the seo metadata
     $seoMetadata = new SeoMetadata();
-    //additional page title
     $seoMetadata->setTitle("Documents own tile");
     $seoMetadata->setMetaKeywords('Seo, Content');
     $seoMetadata->setMetaDescription(
         'This ist the text for the description meta tag'
     );
-    $seoMetadata->setOriginalUrl("/original-url");
+    $seoMetadata->setOriginalUrl("/original/url/of/content");
     $seoDocument->setSeoMetadata($seoMetadata);
 
+    // retrieve the route root node
+    $routeRoot = $documentManager->find(null, '/cms/routes');
+
+    //create the route for the document
+    $route = new Route();
+    $route->setParentDocument($routeRoot);
+    $route->setName('seo-content');
+    $route->setContent($soDocument);
+    $route->setDefault('_template', '::base.html.twig');
+
     $manager->persist($seoDocument);
+    $manager->persist($route);
     $manager->flush();
 
-The code adds a route with the absolute path ``/seo-content``
-and a seo-content-document ``seo-content``.
-This means if you visit that url you will see the
-content of the document. When you have a look at the title or the
-meta tags, you will see something different. The title looks like
-``Documents own tile | Default title`` and the meta tags contain the
-description and keywords added by some default values.
-(See in the Configuration).
-
-Strategy-Usage
-~~~~~~~~~~~~~~
-
-Instead of setting every value to the ``SeoMetadata`` manually
-a strategy solution to extract the values from your content document
-can be chosen. To do so you got the possibility to add strategies to
-your document for each value one by one. The ``SeoPresentation`` will
-loop through all available strategies, check if the document supports it
-and call the `updateMetadata()` on the strategy. Depending on the
-strategy a method on the document is called to extract the
-value or some other work is done. It is up to you how you wanna
-implement the strategy or implement the value getter on the
-document.
-
-Title-Extraction-Strategy
--------------------------
-
-To extract your document's title to seo title the document needs to
-implement the `SeoTitleInterface`. That will force your document to
-implement the method `getSeoTitle()`, which will be called by the
-`SeoTitleStrategy`'s `updateMetadata()` method to set the title
-property on the current `SeoMetadata`.
-
-Description-Extraction-Strategy
--------------------------------
-
-To extract some description for the page your document is shown,
-the document needs to implement the `SeoDescriptionInterface`. That
-will force your content document class to implment a method called
-`getSeoDescription`, which is called by the `SeoDescriptionStrategy`.
-
-OriginalUrl-Extraction-Strategy
--------------------------------
-
-As seen for title and description there is a way for extract the original
-route from the document too. So your document just needs to implment
-the `SeoOriginalRouteInterface` which forces to implement the method
-`getSeoOriginalRoute`. That method should return a Cmf-Route or
-a simple symfony route key to generate a absolute url. That value
-will be set to a canonical Link or a redirect will be done. (depends
-on your content strategy)
-
-From SeoMetadata to MetadataTag
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-At the end of the day there will be a `SeoMetadata` container class.
-A document implementing `SeoAwareInterface` will provide the pure data
-as property. The strategies will fill the container in their own way.
-
-These values will be injected into sonatas ``PageService``, which provides
-some Twig-Helpers to render the data in a template:
-
-    {{ sonata_seo_title() }}
-    {{ sonata_seo_metadatas() }}
-    {{ sonata_seo_link_canonical() }}
-    {{ sonata_seo_lang_alternates() }}
-
-
-AdminExtension - FormType
-~~~~~~~~~~~~
-
-The ``SeoBundle`` provides an admin extension and a special form
-type. If you are using SonataAdmin, you should add the extension
-to the ``sonata_admin.extension`` like this:
-
-    cmf_seo.content.admin_extension:
-        implements:
-          - Symfony\Cmf\Bundle\SeoBundle\Model\SeoAwareInterface
-
-This will enable the extension and you will get a new tab with
-a ``SeoMetadataType`` as a form type. This should help you on
-updating the documents ``SeoMetadata``.
-
-Multlang-Support
-~~~~~~~~~~~~~~~~
-
-To get a multilang support to your document you will have to
-implement the ``TranslatableInterface``. As the SeoMetadata lives
-in your document that property can be translatable too. You just need to set
-its mapping option to `translatable=true`.
-The configuration for the default title provides a solution for multilang
-support too. Instead of setting `default: Default Title`, you can set
-language depending titles:
+Visiting the site with the url ``/seo-content`` (same template shown above) will
+show a Page with "Documents own tile" as title, "This ist the text for the description
+meta tag" in the description, "Seo, Content" in the keywords and a canonical link with
+``href="/original/url/of/content"``. But what about some default string to just concatenate
+defaults and documents own values? Just add some more configs to the cmf_seo configuration
+section.
 
 .. configuration-block::
 
     .. code-block:: yaml
 
+        # app/config/config.yml
+        sonata_seo:
+            page:
+                metas:
+                    names:
+                        keywords: default, sonata, seo
         cmf_seo:
-            title:
-                default:
-                    de: Default Titel
-                    en: Default title
+            title: default_title_key
+            description: default_title_key
 
-    .. code-block:: php
-
-        $container->loadFromExtension('cmf_seo', array(
-            'title' => array(
-                'default'   => array(
-                    'de'    => 'Default Title',
-                    'en'    => 'Default title',
-                ),
-        ));
     .. code-block:: xml
-        <?xml version="1.0" charset="UTF-8" ?>
+
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://cmf.symfony.com/schema/dic/seo">
-                    <title>
-                        <default lang="de" value="Default Titel />
-                        <default lang="en" value="Default title />
-                    </title>
-                </cmf_seo>
+            <config
+                    xmlns="http://cmf.symfony.com/schema/dic/seo"
+                    title="default_title_key"
+                    description="default_title_key">
             </config>
         </container>
 
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension(
+            'sonata_seo', array(
+                'page' => array(
+                    'metas' => array(
+                        'names' => array(
+                            'keywords' => 'default, key, other',
+                        ),
+                    ),
+                ),
+            ),
+            'cmf_seo' => array(
+                'title'         => 'default_title_key',
+                'description'   => 'default_description_key',
+            ),
+        );
+
+As you will notice, you got the opportunity to set Symfony translation key for your
+default values for title and description. So you will got Multi-Language-Support
+out of the box. Just define your values for default title/description as translations:
+
+.. code-block:: xml
+
+    <!-- app/Resources/translations/messages.en.xliff -->
+    <?xml version="1.0" encoding="utf-8"?>
+    <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="messages.en.xliff">
+        <body>
+            <trans-unit id="default_title_key">
+                <source>default_title_key</source>
+                <target>%content_title% | Default title</target>
+            </trans-unit>
+            <trans-unit id="default_description_key">
+                <source>default_description_key</source>
+                <target>Default description. %content_description%</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
+
+If you want to concatenate your documents values with the default ones you need them as
+parameters in you translation target.
+
+.. tip::
+    If you does not what to open a translation file for two entry, just set
+    ``Default title | %%content_title%%`` or ``Default description. %%content_description%%"
+
+For changing the default translation domain (messages), the SeoBundle provides a configuration
+value:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_seo:
+            translation_domain: AcmeDemoBundle
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config
+                    xmlns="http://cmf.symfony.com/schema/dic/seo"
+                    translation-domain="AcmeDemoBundle">
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension(
+            'cmf_seo' => array(
+                'translation_domain'         => 'AcmeDemoBundle',
+            ),
+        );
+
+For redirects instead of canonical links (default) set the following option:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_seo:
+            original_route_pattern: redirect
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config
+                    xmlns="http://cmf.symfony.com/schema/dic/seo"
+                    original-route-pattern="redirect">
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension(
+            'cmf_seo' => array(
+                'original_route_pattern'    => 'redirect',
+            ),
+        );
+
+This value will cause a redirect to the url persisted in the ``originalUrl`` property of the
+``SeoMetadata``.
+
+The SeoMetadata contains a form type for your Symfony Form. Just create you form with the following key:
+
+.. code-block:: php
+    $formBuilder
+        ...
+        ->add('seoMetadata', 'seo_metadata', array('label' => false));
+        ...
+        ;
+
+For SonataAdminBundle user the SeoBundle provides an admin extension to add that form to your
+form configuration.
+
+Using extractors for getting your documents seo metadata
+--------------------------------------------------------
+
+Instead of setting every value to the ``SeoMetadata`` manually
+a strategy solution to extract the values from your content document
+can be chosen. To do so you got the possibility to add strategies to
+your document for each value one by one. Depending on the
+strategy a method on the document is called to extract the
+value. It is up to the developer how to implement that extraction methods.
+
++--------------------------+------------------------+-----------------------------------------------+
+|StrategyInterface         |  method call           | Description                                   |
++==========================+========================+===============================================+
+|SeoDescriptionExtractor   |  getSeoDescription()   | the documents part for the page description   |
++--------------------------+------------------------+-----------------------------------------------+
+|SeoOriginalRouteExtractor | getSeoOriginalRoute()  |return a ``Route`` object to redirect to       |
+|                          |                        |or create a canonical link from                |
++--------------------------+------------------------+-----------------------------------------------+
+|SeoOriginalUrlExtractor   | getSeoOriginalUrl()    |return a absolute url object to redirect to    |
+|                          |                        |or create a canonical link from                |
++--------------------------+------------------------+-----------------------------------------------+
+|SeoTitleExtractor         | getSeoTitle()          |return a string for setting the page title     |
++--------------------------+------------------------+-----------------------------------------------+
+|TitleReadExtractor        | -                      |if implemented the ``getTitle()`` the          |
+|                          |                        |extractor will use this                        |
++--------------------------+------------------------+-----------------------------------------------+
+
+For customizing the extraction process you have got the opportunity to create your own extractor.
+Just by implementing the ``SeoExtractorInterface`` and tagging the service as ``cmf_seo.extractor``
+
+.. code-block:: xml
+    <?xml version="1.0" ?>
+
+    <container xmlns="http://symfony.com/schema/dic/services"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+        <parameters>
+            <parameter key="acme_demo.extractor_strategy.title.class">Acme\DemoBundle\Extractor\MyTitleExtractor</parameter>
+        </parameters>
+
+        <services>
+            <service id="acme_demo.extractor_strategy.title" class="%acme_demo.extractor_strategy.title.class%">
+                <tag name="cmf_seo.extractor"/>
+            </service>
+        </services>
+
+    </container>
 
 .. _`with composer`: http://getcomposer.org
 .. _`symfony-cmf/menu-bundle`: https://packagist.org/packages/symfony-cmf/menu-bundle
