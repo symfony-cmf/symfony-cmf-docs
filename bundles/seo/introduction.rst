@@ -1,36 +1,32 @@
-.. index::
-    single: SeoContent; Bundles
-    single: SeoContentBundle
-
 SeoContentBundle
 ================
 
-    This bundle provides a solution to make content bundles
-    aware for Search Engine Optimisation (SEO).
+    This bundle helps you optimize your websites
+    for search engines by collecting SEO data in
+    a central location and making it available in
+    twig. It is built on top of the SonataSeoBundle.
 
 Preface
 -------
 
-As the Symfony CMF allows you to show one content on
-multiple routes, it is a must have to avoid
-duplicate content. There are two solutions to get rid of it:
+Search engines punish you when you provide
+the same content under several URLs.
+The CMF allows you to have several URLs
+for the same content if you need that.
+There are two solutions to avoid penalties
+with search engines:
 
-Create a canonical link with the reference to THE
-original url:
-
-    <link rel="canonical" href="/route/org/content">
-
-or a redirect to the original url.
+- Create a canonical link that identifies the original URL:
+ ``<link rel="canonical" href="/route/org/content">``
+- Redirect to THE original url.
 
 Both take care on search engines, which does not like
 it to have same content under different routes.
 
-The SonataSeoBundle does a good job on handling
-that stuff. You should have a look at the documentation
-at http://sonata-project.org/bundles/seo/master/doc/index.html
-All Solutions created by this bundle will set values to the
-sonatas ``PageService`` to get them displayed with the help
-of sonatas ``TwigHelper``.
+The SeoBundle uses sonatas SeoBundle and its TwigHelper
+to render the the `SeoMetadata` into your Pag. So you
+should have a look at the documentation
+at `sonata seo documentation_`
 
 Installation
 ------------
@@ -40,42 +36,36 @@ You can install the bundle in 2 different ways:
 * Use the official Git repository `with github`_
 * Install it `with composer`_ (``symfony-Symfony CMF/seo-content-bundle`` on `Packagist`_).
 
-As this bundle uses the SonataSeoBundle you should have a look of its `sonata seo documentation`_
-
 Both bundles need to be registered in the ``appKernel``
 
     public function registerBundles()
     {
         $bundles = array(
-
-            ...
-
-            new \Sonata\SeoBundle\SonataSeoBundle(),
-            new \Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle(),
+            //register both SeoBundles
+            new Sonata\SeoBundle\SonataSeoBundle(),
+            new Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle(),
         );
-
-        ...
 
         return $bundles;
     }
 
-Configuration
--------------
+A very basic use case
+_____________________
 
-The first part of configuration is the one for the
-sonata seo bundle. These settings are handled as
-default values
+The simplest use case would be to just set some configuration
+to the sonata_seo configuration section and set the TwigHelper
+into your template.
 
 .. configuration-block::
 
     .. code-block:: yaml
-
-        sonata_seo:
-            page:
-                metas:
-                    names:
-                        description: default description
-                        keywords: default, key, other
+            sonata_seo:
+                page:
+                    title: Page's default title
+                    metas:
+                        names:
+                            description: The default description of the page
+                            keywords: default, sonata, seo
 
     .. code-block:: php
 
@@ -90,78 +80,36 @@ default values
             ),
         ));
 
+To get a deeper look into the sonata seo-bundle configuration you
+should visit its documentation at `sonata seo documentation_`
+The only thing to do now is to insert the TwigHelper into your
+template:
 
+    <html>
+        <head>
+            {{ sonata_seo_title() }}
+            {{ sonata_seo_metadatas() }}
+        </head>
+        <body>
+            <p>Some page body.</p>
+        </body>
+    </html>
 
-Without any settings or work with the SeoBundle these settings
-are enough to let the sonatas ``PageService`` know about your
-defaults. These configs would cause a page title, a metatag for
-description and one for the keywords, if you add the following
-helpers to your html-head in your template:
+This will render a Page with the tilte defined above. The
+information definded for description and keywords will go
+into the meta tags.
 
-    {{ sonata_seo_title() }}
-    {{ sonata_seo_metadatas() }}
+Using SeoMetadata - Admin extension and a form type
+---------------------------------------------------
 
-The SeoBundle adds some more options:
+The basic example would work perfect without the Symfony CMF
+SeoBundle. But the SeoBundle creates more possibilities to
+create the pages's title, description, keywords and even
+the original url for a canonical link or a redirect.
+To persist that data the Bundle serves a value object
+called `SeoMetada`:
 
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        cmf_seo:
-            title:
-                default: Default title
-                pattern: append
-                separator: ' | '
-            content:
-              pattern: canonical
-
-    .. code-block:: php
-
-        $container->loadFromExtension('cmf_seo', array(
-            'title' => array(
-                'default'   => 'Default title',
-                'pattern'  => 'append',
-                'separator' => ' | ',
-                ),
-            'content' => array(
-                'pattern'  => 'canonical',
-                ),
-        ));
-    .. code-block:: xml
-        <?xml version="1.0" charset="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://cmf.symfony.com/schema/dic/seo">
-               <cmf_seo>
-                    <title
-                        default="Default title"
-                        pattern="append"
-                        separator=" | "
-                        />
-                    <content pattern="canonical" />
-               </cmf_seo>
-            </config>
-        </container>
-
-Now you are able to append or prepend a title to the default value.
-Even replacing it by your title is possible. That means you should
-set the ``cmf_seo.title.pattern`` either to `prepend` (default),
-``append`` or ``replace``. Your values for description and keywords
-will be appended to the sonatas default ones by a ". " or a ", ".
-The ``cmf_seo.title.separator`` will configures the string separator
-for appending or prepending the title.
-In case of duplicate content you will need the ``cmf_seo.content.pattern``
-The allowed values are ``canonical`` or ``redirect``. First one will
-cause a canonical link, the last forces a redirect to the original
-url.
-
-Base-Usage
-~~~~~~~~~~
-
-The work of the ``SeoBundle`` id done by several interfaces. As the
-``SeoAwareContent`` document implements the ``SeoAwareInterface`` to
-provide some ``SeoMetadata``. That ``SeoMetada`` is the container for
-the values in a seo context:
-
+::
      /**
      * This string contains the information where we will find the original content.
      * Depending on the setting for the cmf_seo.content.pattern, we will do an redirect to this url or
@@ -184,6 +132,21 @@ the values in a seo context:
      * @var string
      */
     private $metaKeywords;
+
+A object should implement
+the `SeoAwareInterface` to let the bundle know, that there
+some information to persist and to display on a page:
+
+//todo work on here
+
+
+Base-Usage
+~~~~~~~~~~
+
+The work of the ``SeoBundle`` id done by several interfaces. As the
+``SeoAwareContent`` document implements the ``SeoAwareInterface`` to
+provide some ``SeoMetadata``. That ``SeoMetada`` is the container for
+the values in a seo context:
 
 You can use that ``SeoMetadata`` by setting it to your content:
 
