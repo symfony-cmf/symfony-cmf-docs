@@ -246,19 +246,19 @@ out of the box. Just define your values for default title/description as transla
     <!-- app/Resources/translations/messages.en.xliff -->
     <?xml version="1.0" encoding="utf-8"?>
     <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-    <file source-language="en" target-language="en" datatype="plaintext" original="messages.en.xliff">
-        <body>
-            <trans-unit id="default_title_key">
-                <source>default_title_key</source>
-                <target>%content_title% | Default title</target>
-            </trans-unit>
-            <trans-unit id="default_description_key">
-                <source>default_description_key</source>
-                <target>Default description. %content_description%</target>
-            </trans-unit>
-        </body>
-    </file>
-</xliff>
+        <file source-language="en" target-language="en" datatype="plaintext" original="messages.en.xliff">
+            <body>
+                <trans-unit id="default_title_key">
+                    <source>default_title_key</source>
+                    <target>%content_title% | Default title</target>
+                </trans-unit>
+                <trans-unit id="default_description_key">
+                    <source>default_description_key</source>
+                    <target>Default description. %content_description%</target>
+                </trans-unit>
+            </body>
+        </file>
+    </xliff>
 
 If you want to concatenate your documents values with the default ones you need them as
 parameters in you translation target.
