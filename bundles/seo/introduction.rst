@@ -39,6 +39,8 @@ You can install the bundle in 2 different ways:
 Both bundles need to be registered in the ``appKernel``
 
 .. code-block:: php
+
+    // app/appKernel.php
     public function registerBundles()
     {
         $bundles = array(
