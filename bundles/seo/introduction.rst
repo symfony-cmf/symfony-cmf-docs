@@ -397,6 +397,6 @@ Just by implementing the ``SeoExtractorInterface`` and tagging the service as ``
     </container>
 
 .. _`with composer`: http://getcomposer.org
-.. _`symfony-cmf/menu-bundle`: https://packagist.org/packages/symfony-cmf/menu-bundle
+.. _`packagist`: https://packagist.org/packages/symfony-cmf/menu-bundle
 .. _`with github`: git clone https://github.com/symfony-cmf/SeoContentBundle version path/to/
 .. _`sonata seo documentation`: http://sonata-project.org/bundles/seo/master/doc/index.html
