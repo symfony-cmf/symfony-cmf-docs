@@ -93,6 +93,7 @@ The only thing to do now is to insert the TwigHelper into your
 template:
 
 .. code-block:: html
+
     <!-- app/Resources/views/base.html.twig -->
     <html>
         <head>
@@ -266,6 +267,7 @@ If you want to concatenate your documents values with the default ones you need 
 parameters in you translation target.
 
 .. tip::
+
     If you does not what to open a translation file for two entry, just set
     ``Default title | %%content_title%%`` or ``Default description. %%content_description%%"
 
@@ -334,6 +336,7 @@ This value will cause a redirect to the url persisted in the ``originalUrl`` pro
 The SeoMetadata contains a form type for your Symfony Form. Just create you form with the following key:
 
 .. code-block:: php
+
     $formBuilder
         ...
         ->add('seoMetadata', 'seo_metadata', array('label' => false));
@@ -374,6 +377,7 @@ For customizing the extraction process you have got the opportunity to create yo
 Just by implementing the ``SeoExtractorInterface`` and tagging the service as ``cmf_seo.extractor``
 
 .. code-block:: xml
+
     <?xml version="1.0" ?>
 
     <container xmlns="http://symfony.com/schema/dic/services"
