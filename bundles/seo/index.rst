@@ -1,5 +1,5 @@
 SeoBundle
-=============
+=========
 
 .. toctree::
     :maxdepth: 2
