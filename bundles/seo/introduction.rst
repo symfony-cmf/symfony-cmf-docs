@@ -266,9 +266,10 @@ out of the box. Just define your values for default title/description as transla
 If you want to concatenate your documents values with the default ones you need them as
 parameters in you translation target.
 
-If you does not what to open a translation file for two entry,
-just set ``Default title | %%content_title%%``
-or ``Default description. %%content_description%%"
+.. tip::
+
+    If you does not what to open a translation file for two entry, just set
+    ``Default title | %%content_title%%``or ``Default description. %%content_description%%``.
 
 For changing the default translation domain (messages), the SeoBundle provides a configuration
 value:
