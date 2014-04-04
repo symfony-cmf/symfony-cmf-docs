@@ -293,7 +293,7 @@ get an error if Sonata becomes unavailable.
 Sonata admin is using the ``content_basepath`` to show the tree of content to
 select the route target.
 
-The root path to add Routes defaults to the first entry in ``route_basepaths``
+The root path to add Routes defaults to the first entry in ``route_basepaths``,
 but you can overwrite this with the ``admin_basepath`` if you need a different
 base path.
 

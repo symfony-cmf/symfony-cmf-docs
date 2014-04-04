@@ -527,11 +527,14 @@ limit_candidates
 With this flag you can tune the routing behaviour when using the dynamic
 pattern part of routes stored in the database. If you do never use the variable
 pattern field of the Route model, you can set this to 1 as a small performance
-optimization.
+optimization. If you have very complex URLs with patterns, you might need to
+increase the limit.
 
-If you have very complex URLs with patterns, you might need to increase the
-limit, but this will expose your site to load attacks with URLs with lots of
-slashes in them.
+.. caution::
+
+    Setting this to a higher makes your site more vulnerable to load attacks
+    when someone visits your site with URLs with lots of slashes in them, since
+    every slash will lead to a document being tried to be loaded.
 
 match_implicit_locale
 ~~~~~~~~~~~~~~~~~~~~~

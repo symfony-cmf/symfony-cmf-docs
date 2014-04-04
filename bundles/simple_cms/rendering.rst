@@ -10,10 +10,6 @@ When you need specific settings for a single page, you can call
 ``setDefault()`` for the key ``_template`` or ``_controller`` default in the
 page instance.
 
- Alternatively one can
-configure the template and controller also via the SimpleCmsBundle
-:ref:`routing configuration <config-simple-cms-routing>`.
-
 A simple example for such a template could look like this:
 
 .. configuration-block::
