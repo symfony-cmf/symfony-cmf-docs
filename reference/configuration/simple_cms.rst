@@ -179,112 +179,18 @@ Configure integration with CmfMenuBundle.
             'use_menu' => 'auto',
         ));
 
-.. _config-simple-cms-routing:
-
 routing
 ~~~~~~~
 
-This configures how pages should be rendered. The simple cms uses its own
-instance of the ``DynamicRouter``. The options here are the same as described
-in :ref:`routing configuration <reference-config-routing-dynamic>`.
+.. versionadded:: 1.1
 
-Pages that are loaded from the ``cmf_simple_cms.persistence.phpcr.basepath``
-need to be configured here. Pages loaded from the
-``cmf_routing.persistence.phpcr.basepath`` must be configured in the
-CmfRoutingBundle configuration.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        cmf_simple_cms:
-            routing:
-                controller_by_alias: []
-                controller_by_class: []
-                templates_by_class:
-                  Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page: CmfSimpleCmsBundle:Page:index.html.twig
-                generic_controller: cmf_content.controller:indexAction
-                content_repository_id: cmf_routing.content_repository
-                uri_filter_regexp: ~
-
-    .. code-block:: xml
-
-        <?xml version="1.0" charset="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-
-            <config xmlns="http://cmf.symfony.com/schema/dic/simplecms">
-                <routing xmlns="http://cmf.symfony.com/schema/dic/simplecms">
-                    <controller-by-alias></controller-by-alias>
-                    <controller-by-class></controller-by-class>
-                    <template-by-class alias="Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page">CmfSimpleCmsBundle:Page:index.html.twig</template-by-class>
-                    <generic-controller>cmf_content.controller:indexAction</generic-controller>
-                    <content-repository-id>cmf_routing.content_repository</content-repository-id>
-                    <uri-filter-regexp>null</uri-filter-regexp>
-                </routing>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        $container->loadFromExtension('cmf_simple_cms', array(
-            'routing' => array(
-                'controller_by_alias' => array(),
-                'controller_by_class' => array(),
-                'templates_by_class' => array(
-                    'Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page' => 'CmfSimpleCmsBundle:Page:index.html.twig',
-                ),
-                'generic_controller' => 'cmf_content.controller:indexAction',
-                'content_repository_id' => 'cmf_routing.content_repository',
-                'uri_filter_regexp' => null,
-            ),
-        ));
-
-.. _config-simple_cms-multilang:
+    Since SimpleCmsBundle 1.1, this configuration is done directly on the
+    :ref:`RoutingBundle <reference-config-routing-dynamic>`.
 
 multilang
 ~~~~~~~~~
 
-Multilanguage is activated if the ``locales`` option is configured (either in
-SimpleCmsBundle or in CoreBundle).
+.. versionadded:: 1.1
 
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        cmf_simple_cms:
-            multilang:
-                locales: [en, fr]
-
-    .. code-block:: xml
-
-        <?xml version="1.0" charset="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-
-            <config xmlns="http://cmf.symfony.com/schema/dic/simplecms">
-                <multilang>
-                    <locales>en</locales>
-                    <locales>fr</locales>
-                </multilang>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        $container->loadFromExtension('cmf_simple_cms', array(
-            'multilang' => array(
-                'locales' => array(
-                    'en',
-                    'fr',
-                ),
-            ),
-        ));
-
-locales
-.......
-
-**type**: ``array`` **default**: ``null``
-
-This define languages that can be used.
-
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
-the value of ``cmf_core.multilang.locales``.
+    Since SimpleCmsBundle 1.1, this configuration is done directly on the
+    :ref:`RoutingBundle <reference-config-routing-locales>`.

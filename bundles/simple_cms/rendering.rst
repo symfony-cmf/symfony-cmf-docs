@@ -4,9 +4,13 @@
 Rendering
 ---------
 
-You can specify the template to render a page by setting the
-``_template`` default or by specifying the controller by setting the
-``_controller`` default in the page instance. Alternatively one can
+You can configure a mapping of document class to template and/or controller
+by configuring the :ref:`RoutingBundle <reference-config-routing-dynamic>`.
+When you need specific settings for a single page, you can call
+``setDefault()`` for the key ``_template`` or ``_controller`` default in the
+page instance.
+
+ Alternatively one can
 configure the template and controller also via the SimpleCmsBundle
 :ref:`routing configuration <config-simple-cms-routing>`.
 

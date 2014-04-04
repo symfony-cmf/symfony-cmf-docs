@@ -43,9 +43,7 @@ For example::
     ``http://foo.com/en/hello-world`` for english content will look like
     ``http://foo.com/de/hello-world`` for german content.
 
-    At times it might be most feasible to use integers as the node names and
-    simple append the title of the node in the given locale as an anchor. So
-    for example ``http://foo.com/de/1#my title`` and
-    ``http://foo.com/de/1#mein title``. If you need language specific URLs,
-    you want to use the CMF RoutingBundle and ContentBundle directly to have
-    a separate route document per language.
+    If you need language specific URLs, you can either add Route documents for
+    the other locales and configure the dynamic router to look for routes under
+    both prefixes. You can also completely separate routing and content by using
+    the separate documents from the RoutingBundle and ContentBundle.
