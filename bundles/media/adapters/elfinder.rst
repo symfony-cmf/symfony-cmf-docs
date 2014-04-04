@@ -13,9 +13,8 @@ implementing the MediaBundle interfaces.
 Installation
 ~~~~~~~~~~~~
 
-1. *FMElfinderBundle* - Follow the installation instructions from the
-   `FMElfinderBundle documentation`_.
-2. *FMElfinderBundle* - Use the MediaBundle adapter:
+1. Install the FMElfinderBundle according to the `FMElfinderBundle documentation`_.
+2. Configure the FMElfinderBundle to use the MediaBundle adapter:
 
    .. configuration-block::
 
@@ -74,8 +73,15 @@ Installation
                ),
            ));
 
-3. *LiipImagineBundle* - When using LiipImagineBundle, add an imagine filter
-   for the thumbnails:
+.. note::
+
+    The driver service depends on your storage layer. For now, the MediaBundle
+    only provides a PHPCR driver. To make the above configuration work, you
+    need to enable PHPCR either globally on ``cmf_core.persistence:phpcr`` or,
+    if you only use the MediaBundle, directly on the bundle at
+    ``cmf_media.persistence.phpcr``.
+
+3. When using the LiipImagineBundle, add an imagine filter for the thumbnails:
 
    .. configuration-block::
 
@@ -131,7 +137,7 @@ Installation
                ),
            ));
 
-4. Test the elFinder browser by navigating to: http://localhost:8000/app_dev.php/elfinder
+4. Test the elFinder browser by navigating to: http://<yoursite>/app_dev.php/elfinder
 
 .. _`elFinder`: http://elfinder.org
 .. _`FMElfinderBundle`: https://github.com/helios-ag/FMElfinderBundle
