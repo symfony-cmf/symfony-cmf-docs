@@ -37,6 +37,9 @@ The SimpleCmsBundle provides a class called ``Page`` which extends from the core
 ``NodeInterface``, so you can use inside the menu. This three-in-one approach is
 the key concept behind the bundle.
 
+The mapping of the ``Page`` to a template and controller works as explained in
+the :doc:`previous chapter <routing>`.
+
 Creating a new Page
 ~~~~~~~~~~~~~~~~~~~
 
@@ -49,7 +52,7 @@ To create a page, use the
     use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
     use Doctrine\ODM\PHPCR\DocumentManager;
 
-    class LoadRoutingData implements FixtureInterface
+    class LoadSimpleCms implements FixtureInterface
     {
         /**
          * @param DocumentManager $dm
@@ -79,7 +82,7 @@ have the following tree structure:
 
 .. code-block:: text
 
-    /cmf/simple/
+    /cms/simple/
         about/
         blog/
             symfony-cmf-is-great/
@@ -97,7 +100,7 @@ structure, you would do::
     use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
     use Doctrine\ODM\PHPCR\DocumentManager;
 
-    class LoadRoutingData implements FixtureInterface
+    class LoadSimpleCms implements FixtureInterface
     {
         /**
          * @param DocumentManager $dm
@@ -130,11 +133,11 @@ structure, you would do::
 
 Every PHPCR-ODM document must have a parent document. Parents are never
 created automatically, so we use the PHPCR NodeHelper to ensure we have
-the root element (``/cmf/simple`` in this case).
+the root element (``/cms/simple`` in this case).
 
 .. note::
 
-    The Page at ``/cmf/simple`` is created by an
+    The Page at ``/cms/simple`` is created by an
     :ref:`initializer <phpcr-odm-repository-initializers>` of the
     SimpleCmsBundle.
 

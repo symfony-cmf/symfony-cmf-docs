@@ -24,7 +24,9 @@ You can add your own :ref:`RouteEnhancerInterface <bundles-routing-dynamic_route
 implementations if you have a case not handled by the
 :ref:`provided enhancers <component-routing-enhancers>`. Simply define services
 for your enhancers and tag them with ``dynamic_router_route_enhancer`` to have
-them added to the routing.
+them added to the routing. You can specify an optional ``priority`` parameter
+on the tag to control the order in which enhancers are executed. The higher the
+priority, the earlier the enhancer is executed.
 
 .. index:: Route Provider
 .. _bundle-routing-custom_provider:

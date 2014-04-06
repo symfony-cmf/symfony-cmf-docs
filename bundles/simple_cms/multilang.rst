@@ -4,7 +4,7 @@
 Multi-Language Support
 ----------------------
 
-Setting ``addLocalePattern`` to ``true`` in a
+Setting the option ``add_locale_pattern`` to ``true`` in a
 ``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page`` document will
 result in prefixing the associated route with ``/{_locale}``. Using the native
 translation capabilities of PHPCR ODM it is now possible to create different
@@ -42,10 +42,8 @@ For example::
     will have the same node name for all languages. So a url
     ``http://foo.com/en/hello-world`` for english content will look like
     ``http://foo.com/de/hello-world`` for german content.
-    
-    At times it might be most feasible to use integers as the node names and
-    simple append the title of the node in the given locale as an anchor. So
-    for example ``http://foo.com/de/1#my title`` and
-    ``http://foo.com/de/1#mein title``. If you need language specific URLs,
-    you want to use the CMF RoutingBundle and ContentBundle directly to have
-    a separate route document per language.
+
+    If you need language specific URLs, you can either add Route documents for
+    the other locales and configure the dynamic router to look for routes under
+    both prefixes. You can also completely separate routing and content by using
+    the separate documents from the RoutingBundle and ContentBundle.
