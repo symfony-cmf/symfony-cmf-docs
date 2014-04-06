@@ -1,64 +1,59 @@
 SeoContentBundle
 ================
 
-    This bundle helps you optimize your websites
-    for search engines by collecting SEO data in
-    a central location and making it available in
-    twig. It is built on top of the SonataSeoBundle.
+    This bundle helps you optimize your websites for search engines by
+    collecting SEO data in a central location and making it available in twig.
+    It is built on top of the SonataSeoBundle.
 
 Preface
 -------
 
-Search engines punish you when you provide
-the same content under several URLs.
-The CMF allows you to have several URLs
-for the same content if you need that.
-There are two solutions to avoid penalties
-with search engines:
+Search engines punish you when you provide the same content under several
+URLs.  The CMF allows you to have several URLs for the same content if you
+need that.  There are two solutions to avoid penalties with search engines:
 
-- Create a canonical link that identifies the
-  original URL: ``<link rel="canonical" href="/route/org/content">``
+* Create a canonical link that identifies the original URL:
+  ``<link rel="canonical" href="/route/org/content">``;
+* Redirect to THE original url.
 
-- Redirect to THE original url.
+Both take care on search engines, which does not like it to have same content
+under different routes.
 
-Both take care on search engines, which does not like
-it to have same content under different routes.
-
-The SeoBundle uses sonatas SeoBundle and its TwigHelper
-to render the the `SeoMetadata` into your Pag. So you
-should have a look at the documentation
-at `sonata seo documentation_`
+The SeoBundle uses sonatas SeoBundle and its TwigHelper to render the the
+`SeoMetadata` into your Pag. So you should have a look at the documentation at
+`sonata seo documentation_`
 
 Installation
 ------------
 
-You can install the bundle in 2 different ways:
+You can install this bundle `with composer`_ using the ``symfony-Symfony
+CMF/seo-content-bundle`` package on `Packagist`_.
 
-* Use the official Git repository `with github`_
-* Install it `with composer`_ (``symfony-Symfony CMF/seo-content-bundle`` on `Packagist`_).
-
-Both bundles need to be registered in the ``appKernel``
-
-.. code-block:: php
+Both the CmfSeoBundle and SonataSeoBundle need to be registered in the
+``AppKernel``::
 
     // app/appKernel.php
+
+    // ...
     public function registerBundles()
     {
         $bundles = array(
-            //register both SeoBundles
+            // ...
             new Sonata\SeoBundle\SonataSeoBundle(),
             new Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle(),
         );
 
+        // ...
+
         return $bundles;
     }
 
-A very basic use case
-_____________________
+A Very Basic Use Case
+~~~~~~~~~~~~~~~~~~~~~
 
-The simplest use case would be to just set some configuration
-to the sonata_seo configuration section and set the TwigHelper
-into your template.
+The simplest use case would be to just set some configuration to the
+``sonata_seo`` configuration section and use the twig helper in your
+templates.
 
 .. configuration-block::
 
@@ -88,14 +83,17 @@ into your template.
             ),
         ));
 
-To get a deeper look into the sonata seo-bundle configuration you
-should visit its documentation at `sonata seo documentation_`
-The only thing to do now is to insert the TwigHelper into your
-template:
+.. seealso::
 
-.. code-block:: html
+    To get a deeper look into the SonataSeoBundle configuration, you should visit
+    the `Sonata documentation`_.
+    
+The only thing to do now is to use the twig helper in your templates:
+
+.. code-block:: html+jinja
 
     <!-- app/Resources/views/base.html.twig -->
+    <!DOCTYPE html>
     <html>
         <head>
             {{ sonata_seo_title() }}
@@ -107,11 +105,11 @@ template:
         </body>
     </html>
 
-This will render a Page with the tilte defined above. The
-information definded for description and keywords will go
-into the meta tags.
+This will render a page with the default title ("Page's default title") as
+title element. The information definded for description and keywords will go
+into the correct metatags.
 
-Using SeoMetadata - Admin extension and a form type
+Using SeoMetadata - Admin Extension and a form type
 ---------------------------------------------------
 
 The basic example would work perfect without the Symfony CMF
@@ -123,14 +121,14 @@ called `SeoMetada`:
 
 .. code-block:: php
 
-     /**
+    /**
      * This string contains the information where we will find the
      * original content. Depending on the setting for the
      * cmf_seo.content.pattern, we will do an redirect to this url or
      * create a canonical link with this value as the href attribute.
      *
      * @var string
-     */
+     *
     private $originalUrl;
 
     /**
@@ -138,7 +136,7 @@ called `SeoMetada`:
      * tag for the page description.
      *
      * @var  string
-     */
+     *
     private $metaDescription;
 
     /**
@@ -146,12 +144,12 @@ called `SeoMetada`:
      * the page's meta information.
      *
      * @var string
-     */
+     *
     private $metaKeywords;
 
-A object should implement
-the `SeoAwareInterface`, which simply forced to implement
-setter/getter for the seo metadata. A simple example would be:
+A object should implement the ``SeoAwareInterface``, which simply forces to
+implement the setter and getter for the seo metadata. A simple example would
+be:
 
 .. code-block:: php
 
@@ -193,14 +191,12 @@ setter/getter for the seo metadata. A simple example would be:
     $manager->persist($route);
     $manager->flush();
 
-Visiting the site with the url ``/seo-content`` (same template
-shown above) will show a Page with "Documents own tile" as
-title, "This ist the text for the description meta tag" in
-the description, "Seo, Content" in the keywords and a canonical
-link with ``href="/original/url/of/content"``. But what about
-some default string to just concatenate defaults and documents
-own values? Just add some more configs to the cmf_seo configuration
-section.
+Visiting the site with the url ``/seo-content`` (same template shown above)
+will show a Page with "Documents own tile" as title, "This ist the text for
+the description meta tag" in the description, "Seo, Content" in the keywords
+and a canonical link with ``href="/original/url/of/content"``. But what about
+some default string to just concatenate defaults and documents own values?
+Just add some more configs to the cmf_seo configuration section.
 
 .. configuration-block::
 
@@ -246,10 +242,9 @@ section.
             ),
         );
 
-As you will notice, you got the opportunity to set Symfony
-translation key for your default values for title and
-description. So you will got Multi-Language-Support
-out of the box. Just define your values for default
+As you will notice, you got the opportunity to set Symfony translation key for
+your default values for title and description. So you will got
+Multi-Language-Support out of the box. Just define your values for default
 title/description as translations:
 
 .. code-block:: xml
@@ -271,18 +266,17 @@ title/description as translations:
         </file>
     </xliff>
 
-If you want to concatenate your documents values with the
-default ones you need them as parameters in you translation
-target.
+If you want to concatenate your documents values with the default ones you
+need them as parameters in you translation target.
 
 .. tip::
 
-    If you does not what to open a translation file for two entry,
-    just set ``Default title | %%content_title%%``or ``Default
-    description. %%content_description%%``.
+    If you does not what to open a translation file for two entry, just set
+    ``Default title | %%content_title%%``or ``Default description.
+    %%content_description%%``.
 
-For changing the default translation domain (messages), the SeoBundle
-provides a configuration value:
+For changing the default translation domain (messages), the SeoBundle provides
+a configuration value:
 
 .. configuration-block::
 
@@ -311,8 +305,7 @@ provides a configuration value:
             ),
         );
 
-For redirects instead of canonical links (default) set the following
-option:
+For redirects instead of canonical links (default) set the following option:
 
 .. configuration-block::
 
@@ -341,11 +334,11 @@ option:
             ),
         );
 
-This value will cause a redirect to the url persisted in the
-``originalUrl`` property of the ``SeoMetadata``.
+This value will cause a redirect to the url persisted in the ``originalUrl``
+property of the ``SeoMetadata``.
 
-The SeoMetadata contains a form type for your Symfony Form.
-Just create you form with the following key:
+The SeoMetadata contains a form type for your Symfony Form. Just create you
+form with the following key:
 
 .. code-block:: php
 
@@ -355,40 +348,39 @@ Just create you form with the following key:
         ...
         ;
 
-For SonataAdminBundle user the SeoBundle provides an admin extension
-to add that form to your form configuration.
+For SonataAdminBundle user the SeoBundle provides an admin extension to add
+that form to your form configuration.
 
-Using extractors for getting your documents seo metadata
+Using Extractors for Getting Your Documents Seo Metadata
 --------------------------------------------------------
 
-Instead of setting every value to the ``SeoMetadata`` manually
-a strategy solution to extract the values from your content document
-can be chosen. To do so you got the possibility to add strategies to
-your document for each value one by one. Depending on the
-strategy a method on the document is called to extract the
-value. It is up to the developer how to implement that extraction methods.
+Instead of setting every value to the ``SeoMetadata`` manually a strategy
+solution to extract the values from your content document can be chosen. To do
+so you got the possibility to add strategies to your document for each value
+one by one. Depending on the strategy a method on the document is called to
+extract the value. It is up to the developer how to implement that extraction
+methods.
 
-+--------------------------+------------------------+-----------------------------------------------+
-|StrategyInterface         |  method call           | Description                                   |
-+==========================+========================+===============================================+
-|SeoDescriptionExtractor   |  getSeoDescription()   | the documents part for the page description   |
-+--------------------------+------------------------+-----------------------------------------------+
-|SeoOriginalRouteExtractor | getSeoOriginalRoute()  |return a ``Route`` object to redirect to       |
-|                          |                        |or create a canonical link from                |
-+--------------------------+------------------------+-----------------------------------------------+
-|SeoOriginalUrlExtractor   | getSeoOriginalUrl()    |return a absolute url object to redirect to    |
-|                          |                        |or create a canonical link from                |
-+--------------------------+------------------------+-----------------------------------------------+
-|SeoTitleExtractor         | getSeoTitle()          |return a string for setting the page title     |
-+--------------------------+------------------------+-----------------------------------------------+
-|TitleReadExtractor        | -                      |if implemented the ``getTitle()`` the          |
-|                          |                        |extractor will use this                        |
-+--------------------------+------------------------+-----------------------------------------------+
++-----------------------------------+---------------------------+---------------------------------------------+
+| StrategyInterface                 | method call               | Description                                 |
++===================================+===========================+=============================================+
+| ``SeoDescriptionReadInterface``   | ``getSeoDescription()``   | the documents part for the page description |
++-----------------------------------+---------------------------+---------------------------------------------+
+| ``SeoOriginalRouteReadInterface`` | ``getSeoOriginalRoute()`` | return a ``Route`` object to redirect to    |
+|                                   |                           | or create a canonical link from             |
++-----------------------------------+---------------------------+---------------------------------------------+
+| ``SeoOriginalUrlReadInterface``   | ``getSeoOriginalUrl()``   | return a absolute url object to redirect to |
+|                                   |                           | or create a canonical link from             |
++-----------------------------------+---------------------------+---------------------------------------------+
+| ``SeoTitleReadInterface``         | ``getSeoTitle()``         | return a string for setting the page title  |
++-----------------------------------+---------------------------+---------------------------------------------+
+| -                                 | ``getTitle()``            | if implemented the ``getTitle()`` the       |
+|                                   |                           | extractor will use this                     |
++-----------------------------------+---------------------------+---------------------------------------------+
 
-For customizing the extraction process you have got the opportunity
-to create your own extractor. Just by implementing the
-``SeoExtractorInterface`` and tagging the service as
-``cmf_seo.extractor``
+For customizing the extraction process, you have got the opportunity to create
+your own extractor. Just by implementing the ``SeoExtractorInterface`` and
+tagging the service as ``cmf_seo.extractor``
 
 .. code-block:: xml
 
@@ -412,5 +404,4 @@ to create your own extractor. Just by implementing the
 
 .. _`with composer`: http://getcomposer.org
 .. _`packagist`: https://packagist.org/packages/symfony-cmf/menu-bundle
-.. _`with github`: git clone https://github.com/symfony-cmf/SeoContentBundle
-.. _`sonata seo documentation`: http://sonata-project.org/bundles/seo/master/doc/index.html
+.. _`Sonata documentation`: http://sonata-project.org/bundles/seo/master/doc/index.html
