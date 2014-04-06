@@ -1,5 +1,5 @@
 * :doc:`code`
-* :doc:`pr_style_and_commits`
+* :doc:`commits`
 * :doc:`bundles`
 * :doc:`releases`
 * :doc:`license`

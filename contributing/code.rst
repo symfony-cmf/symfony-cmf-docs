@@ -4,12 +4,13 @@ Contributing
 The Symfony2 CMF team follows all the rules and guidelines of the core
 Symfony2 `development process`_.
 
-When creating Pull Requests, please follow the Symfony `Submitting a Patch`_ guidlines.
+When creating Pull Requests, please follow the Symfony `Submitting a Patch`_
+guidlines.
 
 .. tip::
 
-    See :doc:`pr_style_and_commits` for the commit conventions used by the
-    Symfony CMF team.
+    See :doc:`commits` for the commit conventions used by the Symfony CMF
+    team.
 
 Resources / Links
 -----------------
