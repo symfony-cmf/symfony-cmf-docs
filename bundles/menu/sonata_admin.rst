@@ -41,17 +41,15 @@ select the menu node target.
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config xmlns="http://cmf.symfony.com/schema/dic/menu">
-                <dynamic>
-                    <persistence>
-                        <!-- use-sonata-admin: use true/false to force using / not using sonata admin -->
-                        <!-- content-basepath: used with Sonata Admin to manage content;
-                                               defaults to %cmf_core.basepath%/content -->
-                        <phpcr
-                            use-sonata-admin="auto"
-                            content-basepath="null"
-                        />
-                    </persistence>
-                </dynamic>
+                <persistence>
+                    <!-- use-sonata-admin: use true/false to force using / not using sonata admin -->
+                    <!-- content-basepath: used with Sonata Admin to manage content;
+                                           defaults to %cmf_core.basepath%/content -->
+                    <phpcr
+                        use-sonata-admin="auto"
+                        content-basepath="null"
+                    />
+                </persistence>
             </config>
         </container>
 
@@ -59,15 +57,13 @@ select the menu node target.
 
         // app/config/config.php
         $container->loadFromExtension('cmf_menu', array(
-            'dynamic' => array(
-                'persistence' => array(
-                    'phpcr' => array(
-                        // use true/false to force using / not using sonata admin
-                        'use_sonata_admin' => 'auto',
+            'persistence' => array(
+                'phpcr' => array(
+                    // use true/false to force using / not using sonata admin
+                    'use_sonata_admin' => 'auto',
 
-                        // used with Sonata Admin to manage content; defaults to %cmf_core.basepath%/content
-                        'content_basepath' => null,
-                    ),
+                    // used with Sonata Admin to manage content; defaults to %cmf_core.basepath%/content
+                    'content_basepath' => null,
                 ),
             ),
         ));
