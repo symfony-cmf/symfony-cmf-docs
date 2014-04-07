@@ -78,3 +78,23 @@ custom ``MenuItem``, or to tell the factory to ignore the current node or its
 children. For example, this event is used by the 
 :doc:`publish workflow checker <../core/publish_workflow>` to skip 
 ``MenuItem`` generation for unpublished nodes.
+
+The ``CreateMenuItemFromNodeEvent`` which is dispatched includes the following
+methods which can be used to customize the creation of the ``MenuItem`` for a 
+``NodeInterface``.
+
+* ``CreateMenuItemFromNodeEvent::setSkipNode(true|false)``: Setting skipNode to 
+  true will prevent creation of item form the node and skip any child nodes.
+  **Note:** If setSkipNode(true) is called for ``Menu`` the ``ContentAwareFactory``
+  will still create an empty item for the menu. This is to prevent the KnpMenuBundle
+  code from throwing an Exception due to null being passed to a function to render a
+  menu.
+* ``CreateMenuItemFromNodeEvent::setItem(ItemInterface $item|null)``: A listener
+  can call setItem to provide a custom item to use for the given node. If an
+  item is set, the ``ContentAwareFactory`` will use it instead of creating one for 
+  the node.  The children of the node will still be processed by the 
+  ``ContentAwareFactory`` and listeners will have an opportunity then to override 
+  their items using this method.
+* ``CreateMenuItemFromNodeEvent::setSkipChildren(true|false)``: Listeners can
+  set this to true and the ``ContentAwareFactory`` will skip processing of the
+  children of the current node.
