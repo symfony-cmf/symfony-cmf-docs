@@ -24,14 +24,13 @@ select the menu node target.
 
         # app/config/config.yml
         cmf_menu:
-            dynamic:
-                persistence:
-                    phpcr:
-                        # use true/false to force using / not using sonata admin
-                        use_sonata_admin: auto
+            persistence:
+                phpcr:
+                    # use true/false to force using / not using sonata admin
+                    use_sonata_admin: auto
 
-                        # used with Sonata Admin to manage content; defaults to %cmf_core.basepath%/content
-                        content_basepath: ~
+                    # used with Sonata Admin to manage content; defaults to %cmf_core.basepath%/content
+                    content_basepath: ~
 
     .. code-block:: xml
 
