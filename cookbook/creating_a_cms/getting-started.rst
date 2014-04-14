@@ -64,7 +64,7 @@ database:
 
     $ php app/console doctrine:database:create
 
-This will create a new database according to the configuration file 
+This will create a new database according to the configuration file
 ``parameters.yml``.
 
 The Doctrine DBAL backend needs to be initialized, the following command
@@ -135,31 +135,31 @@ to reduce code duplication::
             return $this->id;
         }
 
-        public function getParent() 
+        public function getParent()
         {
             return $this->parent;
         }
-        
+
         public function setParent($parent)
         {
             $this->parent = $parent;
         }
-        
-        public function getTitle() 
+
+        public function getTitle()
         {
             return $this->title;
         }
-        
+
         public function setTitle($title)
         {
             $this->title = $title;
         }
 
-        public function getContent() 
+        public function getContent()
         {
             return $this->content;
         }
-        
+
         public function setContent($content)
         {
             $this->content = $content;
@@ -239,7 +239,7 @@ be referenceable and in addition will automatically set the date using the
     }
 
 Both the ``Post`` and ``Page`` classes implement the
-``RouteReferrersReadInterface``. This interface enables the 
+``RouteReferrersReadInterface``. This interface enables the
 `DynamicRouter to generate URLs`_ from instances of these classes. (for
 example with ``{{ path(content) }}`` in Twig).
 
@@ -259,9 +259,9 @@ configuration:
 
         # src/Acme/BasicCmsBundle/Resources/config/services.yml
         services:
-            acme.basic_cms.phpcr.initializer:
+            acme_basiccms.basic_cms.phpcr.initializer:
                 class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
-                arguments: 
+                arguments:
                     - ["/cms/pages", "/cms/posts", "/cms/routes"]
                 tags:
                     - { name: doctrine_phpcr.initializer }
@@ -273,14 +273,14 @@ configuration:
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:acme_demo="http://www.example.com/symfony/schema/"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services 
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
                 http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <!-- ... -->
             <services>
                 <!-- ... -->
 
-                <service id="acme.basic_cms.phpcr.initializer"
+                <service id="acme_basiccms.basic_cms.phpcr.initializer"
                     class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
 
                     <argument type="collection">
@@ -299,7 +299,7 @@ configuration:
         // src/Acme/BasicCmsBundle/Resources/config/services.php
         $container
             ->register(
-                'acme.basic_cms.phpcr.initializer',
+                'acme_basiccms.basic_cms.phpcr.initializer',
                 'Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer'
             )
             ->addArgument(array('/cms/pages', '/cms/posts', '/cms/routes'))
@@ -339,7 +339,7 @@ Create Data Fixtures
 ~~~~~~~~~~~~~~~~~~~~
 
 You can use the doctrine data fixtures library to define some initial data for
-your CMS. 
+your CMS.
 
 Ensure that you have the following package installed:
 

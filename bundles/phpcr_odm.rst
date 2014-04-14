@@ -164,7 +164,6 @@ If you want control over the last modified timestamp, disable
 of the PHPCR-ODM documentation.
 
 .. versionadded:: 1.1
-
     Since DoctrinePhpcrBundle 1.1, backend configuration flags are configured
     in the ``parameters`` section. They are passed as-is to Jackalope. See the
     ``RepositoryFactory`` for some more documentation on the meaning of those
@@ -257,7 +256,7 @@ supported by Doctrine.
 
 You can specify the connection name to use if you don't want to use the default
 connection. The name must be one of the names of the dbal section in your
-Doctrine configuration, see `the Symfony2 Doctrine documentation`_.
+Doctrine configuration, see the `Symfony2 Doctrine documentation`_.
 
 You can tune the behaviour with the general Jackalope parameters listed above,
 as well as enable transactions (Jackrabbit does not support transactions):
@@ -446,7 +445,7 @@ The session backend configuration looks as follows:
             ),
         ));
 
-For more information, please refer to `the official Midgard PHPCR documentation`_.
+For more information, please refer to the `official Midgard PHPCR documentation`_.
 
 Profiling and Performance of Jackalope
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1346,13 +1345,18 @@ Repository Initializers
 
 The Initializer is the PHPCR equivalent of the ORM schema tools. It
 is used to let bundles register PHPCR node types and to create required base
-paths in the repository. Initializers have to implement
-``Doctrine\Bundle\PHPCRBundle\Initializer``. If you don't need any special
-logic, you can simply configure the ``GenericInitializer`` as service and don't
-need to write any code. The generic initializer expects a name to identify
-the initializer, an array of base paths it will create if they do not exist
-and an optional string defining namespaces and primary / mixin node types in
-the CND language.
+paths in the repository. Initializers have to implement the
+``Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface``. If you don't
+need any special logic and want to create plain PHPCR nodes and not documents,
+you can simply define services with ``GenericInitializer``. The generic
+initializer expects a name to identify the initializer, an array of repository
+paths it will create if they do not exist and an optional string defining
+namespaces and primary / mixin node types in the CND language.
+
+.. versionadded:: 1.1
+    Since version 1.1, the ``GenericInitializer`` expects a name parameter
+    as first argument. With 1.0 there is no way to specify a custom name
+    for the generic initializer.
 
 A service to use the generic initializer looks like this:
 
@@ -1361,7 +1365,7 @@ A service to use the generic initializer looks like this:
     .. code-block:: yaml
 
         # src/Acme/ContentBundle/Resources/config/services.yml
-        acme.phpcr.initializer:
+        acme_content.phpcr.initializer:
             class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
             arguments:
                 - AcmeContentBundle Basepaths
@@ -1373,7 +1377,7 @@ A service to use the generic initializer looks like this:
     .. code-block:: xml
 
         <!-- src/Acme/ContentBundle/Resources/config/services.xml -->
-        <service id="acme.phpcr.initializer" class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
+        <service id="acme_content.phpcr.initializer" class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
             <argument>AcmeContentBundle Basepaths</argument>
             <argument type="collection">
                 <argument>%acme.content_basepath%</argument>
@@ -1398,7 +1402,7 @@ A service to use the generic initializer looks like this:
             )
         ));
         $definition->addTag('doctrine_phpcr.initializer');
-        $container->setDefinition('acme.phpcr.initializer', $definition);
+        $container->setDefinition('acme_content.phpcr.initializer', $definition);
 
 You can execute your initializers using the following command:
 
@@ -1407,9 +1411,110 @@ You can execute your initializers using the following command:
     $ php app/console doctrine:phpcr:repository:init
 
 .. versionadded:: 1.1
+    Since DoctrinePHPCRBundle 1.1 the load data fixtures command will
+    automatically execute the initializers after purging the database.
 
-    Since DoctrinePHPCRBundle 1.1 the load data fixtures command will automatically
-    execute the initializers after purging the database.
+The generic initializer only creates PHPCR nodes. If you want to create
+specific documents, you need your own initializer. The interesting method
+to overwrite is the ``init`` method. It is passed the ``ManagerRegistry``,
+from which you can retrieve the PHPCR session but also the document manager::
+
+    // src/Acme/BasicCmsBundle/Initializer/SiteInitializer.php
+    namespace Acme\ContentBundle\Initializer;
+
+    use Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface;
+    use PHPCR\SessionInterface;
+    use PHPCR\Util\NodeHelper;
+
+    class SiteInitializer implements InitializerInterface
+    {
+        private $basePath;
+
+        public function __construct($basePath = '/cms')
+        {
+            $this->basePath = $basePath;
+        }
+
+        public function init(ManagerRegistry $registry)
+        {
+            $dm = $registry->getManagerForClass('Acme\BasicCmsBundle\Document\Site');
+            if ($dm->find(null, $this->basePath)) {
+                return;
+            }
+
+            $site = new Acme\BasicCmsBundle\Document\Site();
+            $site->setId($this->basePath);
+            $dm->persist($site);
+            $dm->flush();
+
+            $session = $registry->getConnection();
+            // create the 'cms', 'pages', and 'posts' nodes
+            NodeHelper::createPath($session, '/cms/pages');
+            NodeHelper::createPath($session, '/cms/posts');
+            NodeHelper::createPath($session, '/cms/routes');
+
+            $session->save();
+        }
+
+        public function getName()
+        {
+            return 'Site Initializer';
+        }
+    }
+
+.. versionadded:: 1.1
+    Since version 1.1, the init method is passed the ``ManagerRegistry`` rather
+    than the PHPCR ``SessionInterface`` to allow the creation of documents in
+    initializers. With 1.0, you would need to manually set the ``phpcr:class``
+    property to the right value.
+
+Define a service for your initializer as follows:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/BasicCmsBundle/Resources/config/config.yml
+        services:
+            # ...
+            acme_content.phpcr.initializer.site:
+                class: Acme\BasicCmsBundle\Initializer\SiteInitializer
+                tags:
+                    - { name: doctrine_phpcr.initializer }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/BasicCmsBUndle/Resources/config/config.php
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:acme_demo="http://www.example.com/symfony/schema/"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                 http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <!-- ... -->
+            <services>
+                <!-- ... -->
+                <service id="acme_content.phpcr.initializer.site"
+                    class="Acme\BasicCmsBundle\Initializer\SiteInitializer">
+                    <tag name="doctrine_phpcr.initializer"/>
+                </service>
+            </services>
+
+        </container>
+
+    .. code-block:: php
+
+        // src/Acme/BasicCmsBundle/Resources/config/config.php
+
+        //  ...
+        $container
+            ->register(
+                'acme_content.phpcr.initializer.site',
+                'Acme\BasicCmsBundle\Initializer\SiteInitializer'
+            )
+            ->addTag('doctrine_phpcr.initializer', array('name' => 'doctrine_phpcr.initializer')
+        ;
 
 Fixture Loading
 ---------------
