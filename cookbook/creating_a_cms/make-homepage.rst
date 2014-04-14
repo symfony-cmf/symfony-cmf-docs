@@ -42,11 +42,11 @@ Create the site document::
          */
         protected $homepage;
 
-        public function getHomepage() 
+        public function getHomepage()
         {
             return $this->homepage;
         }
-        
+
         public function setHomepage($homepage)
         {
             $this->homepage = $homepage;
@@ -56,7 +56,7 @@ Create the site document::
 Initializing the Site Document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Where should this site doument belong? Our document hierarchy currently looks
+Where should this site document belong? Our document hierarchy currently looks
 like this:
 
 .. code-block:: text
@@ -79,7 +79,7 @@ You can *replace* the ``GenericInitializer`` with a custom initializer which
 will create the necessary paths **and** assign a document class to the ``cms``
 node::
 
-    // src/Acme/BasicCmsBundle/Intializer/SiteIntializer.php
+    // src/Acme/BasicCmsBundle/Initializer/SiteInitializer.php
     namespace Acme\BasicCmsBundle\Initializer;
 
     use Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface;
@@ -88,41 +88,58 @@ node::
 
     class SiteInitializer implements InitializerInterface
     {
-        public function init(SessionInterface $session)
+        private $basePath;
+
+        public function __construct($basePath = '/cms')
         {
+            $this->basePath = $basePath;
+        }
+
+        public function init(ManagerRegistry $registry)
+        {
+            $dm = $registry->getManagerForClass('Acme\BasicCmsBundle\Document\Site');
+            if ($dm->find(null, $this->basePath)) {
+                return;
+            }
+
+            $site = new Acme\BasicCmsBundle\Document\Site();
+            $site->setId($this->basePath);
+            $dm->persist($site);
+            $dm->flush();
+
+            $session = $registry->getConnection();
             // create the 'cms', 'pages', and 'posts' nodes
             NodeHelper::createPath($session, '/cms/pages');
             NodeHelper::createPath($session, '/cms/posts');
             NodeHelper::createPath($session, '/cms/routes');
-            $session->save();
-
-            // map a document to the 'cms' node
-            $cms = $session->getNode('/cms');
-            $cms->setProperty(
-                'phpcr:class',  'Acme\BasicCmsBundle\Document\Site'
-            );
 
             $session->save();
         }
+
+        public function getName()
+        {
+            return 'Site Initializer';
+        }
     }
 
-.. note::
+.. versionadded:: 1.1
 
-    It should be noted that modifying the ``phpcr:class`` property (which is
-    private to PHPCR-ODM) is not recommended - in the future there will be a
-    special way to intialize documents instead of PHPCR nodes.
+    Since version 1.1, the init method is passed the ``ManagerRegistry`` rather
+    than the PHPCR ``SessionInterface`` to allow the creation of documents in
+    initializers. With 1.0, you would need to manually set the ``phpcr:class``
+    property to the right value.
 
 Now modify the existing service configuration for ``GenericInitializer`` as
 follows:
 
 .. configuration-block::
-    
+
     .. code-block:: yaml
 
         # src/Acme/BasicCmsBundle/Resources/config/config.yml
         services:
             # ...
-            acme.phpcr.initializer.site:
+            acme_basiccms.phpcr.initializer.site:
                 class: Acme\BasicCmsBundle\Initializer\SiteInitializer
                 tags:
                     - { name: doctrine_phpcr.initializer }
@@ -134,13 +151,13 @@ follows:
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:acme_demo="http://www.example.com/symfony/schema/"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services 
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
                  http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <!-- ... -->
             <services>
                 <!-- ... -->
-                <service id="acme.phpcr.initializer.site"
+                <service id="acme_basiccms.phpcr.initializer.site"
                     class="Acme\BasicCmsBundle\Initializer\SiteInitializer">
                     <tag name="doctrine_phpcr.initializer"/>
                 </service>
@@ -152,10 +169,10 @@ follows:
 
         // src/Acme/BasicCmsBundle/Resources/config/config.php
 
-        //  ... 
+        //  ...
         $container
             ->register(
-                'acme.phpcr.initializer.site',
+                'acme_basiccms.phpcr.initializer.site',
                 'Acme\BasicCmsBundle\Initializer\SiteInitializer'
             )
             ->addTag('doctrine_phpcr.initializer', array('name' => 'doctrine_phpcr.initializer')
@@ -189,11 +206,10 @@ and verify that the ``cms`` node has been updated by using the
 
 .. note::
 
-    Instead of *replacing* the ``GenericIntializer`` you could simply add
-    another initializer which takes the ``cms`` node created in the
-    ``GenericInitializer`` and maps the document class to it. The minor
-    disadvantage then is that there are two places where initialization
-    choices take place - do whatever you prefer.
+    Instead of *replacing* the ``GenericInitializer`` you could simply add
+    another initializer which is run first and create the ``/cms`` document
+    with the right class. The drawback then is that there are two places where
+    initialization choices take place - do whatever you prefer.
 
 Create the Make Homepage Button
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -216,8 +232,8 @@ making a given page the homepage. Add the following to the existing
 
         /**
          * @Route(
-         *   name="make_homepage", 
-         *   pattern="/_cms/make_homepage/{id}", 
+         *   name="make_homepage",
+         *   pattern="/_cms/make_homepage/{id}",
          *   requirements={"id": ".+"}
          * )
          */
@@ -236,7 +252,7 @@ making a given page the homepage. Add the following to the existing
             $dm->persist($page);
             $dm->flush();
 
-            return $this->redirect($this->generateUrl('admin_acme_basiccms_page_edit', array( 
+            return $this->redirect($this->generateUrl('admin_acme_basiccms_page_edit', array(
                 'id' => $page->getId()
             )));
         }
@@ -258,7 +274,7 @@ Now modify the ``PageAdmin`` class to add the button in a side-menu::
 
     class PageAdmin extends Admin
     {
-        // ... 
+        // ...
         protected function configureSideMenu(ItemInterface $menu, $action, AdminInterface $childAdmin = null)
         {
             if ('edit' !== $action) {
