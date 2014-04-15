@@ -1245,6 +1245,11 @@ Form Types
 The bundle provides a couple of handy form types for PHPCR and PHPCR-ODM
 specific cases, along with form type guessers.
 
+.. note::
+
+    When editing associative multivalue fields, have a look at the
+    `BurgovKeyValueFormBundle`_.
+
 phpcr_document
 ~~~~~~~~~~~~~~
 
@@ -1588,3 +1593,4 @@ Dumping nodes under ``/cms/simple`` including their properties:
 .. _`SQL2 queries`: http://www.h2database.com/jcr/grammar.html
 .. _`DoctrineCacheBundle`: https://github.com/doctrine/DoctrineCacheBundle/
 .. _`last modified listener cookbook entry`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/cookbook/last-modified.html
+.. _`BurgovKeyValueFormBundle`: https://github.com/Burgov/KeyValueFormBundle
