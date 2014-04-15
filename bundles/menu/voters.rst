@@ -19,7 +19,7 @@ unique page and it is perhaps preferable instead to indicate which menu item mos
 
 For example, you are developing a homepage application which features a blog.
 The blog index page has a menu item but there are no menu items for the posts
-associated with the blog and so none of the menu items will be highlighted. 
+associated with the blog and so none of the menu items will be highlighted.
 
 When the user is viewing a blog post you want the menu item for the blog to be
 highlighted. The CMF facilitates this with current item *voter* classes.
@@ -47,7 +47,7 @@ RequestContentIdentityVoter
 This voter looks at the ``content`` field of the menu item extras and compares
 it with the main content attribute of the request. The name for the main
 content attribute in the request is configurable with the ``content_key``
-option - if not set it defaults to the constant 
+option - if not set it defaults to the constant
 ``Symfony\Cmf\Bundle\RoutingBundle\Routing\DynamicRouter::CONTENT_KEY`` (which resolves to ``contentDocument``).
 
 You can enable this voter by adding the ``cmf_menu.voters.content_identity``
@@ -197,9 +197,8 @@ menu item.
 
 To use this voter you need to configure a custom service with the name of the
 content in the request and your model class to avoid calling getParent on
-objects that do not have that method.  You need to tag the service as
-``cmf_menu.voter`` and also as ``cmf_request_aware`` because it
-depends on the request. The service looks the same as for complete custom
+objects that do not have that method. You need to tag the service as
+``cmf_menu.voter``. The service looks the same as for complete custom
 voters (see below), except you do not need to write your own PHP code:
 
 .. configuration-block::
@@ -212,9 +211,10 @@ voters (see below), except you do not need to write your own PHP code:
                 arguments:
                     - contentDocument
                     - "%my_bundle.my_model_class%"
+                calls:
+                    - [setRequest, ["@?request="]]
                 tags:
                     - { name: "cmf_menu.voter" }
-                    - { name: "cmf_request_aware" }
 
     .. code-block:: xml
 
@@ -227,8 +227,15 @@ voters (see below), except you do not need to write your own PHP code:
                          class="Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter">
                     <argument>contentDocument</argument>
                     <argument>%my_bundle.my_model_class%</argument>
+                    <call method="setRequest">
+                        <argument
+                            type="service"
+                            id="request"
+                            on-invalid="null"
+                            strict="false"
+                        />
+                    </call>
                     <tag name="cmf_menu.voter"/>
-                    <tag name="cmf_request_aware"/>
                 </service>
             </services>
 
@@ -240,8 +247,14 @@ voters (see below), except you do not need to write your own PHP code:
             'Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter',
             array('contentDocument', '%my_bundle.my_model_class%')
         ));
+        $definition->addMethodCall('setRequest', array(
+            new Reference(
+                'request',
+                ContainerInterface::NULL_ON_INVALID_REFERENCE,
+                false
+            )
+        ));
         $definition->addTag('cmf_menu.voter');
-        $definition->addTag('cmf_request_aware');
 
         $container->setDefinition('my_bundle.menu_voter.parent', $definition);
 
@@ -252,15 +265,6 @@ Custom Voter
 
 Voters must implement the ``Symfony\Cmf\MenuBundle\Voter\VoterInterface``. To
 make the menu bundle notice the voter, tag it with ``cmf_menu.voter``.
-
-If your voter requires the current ``Request`` object in its decision making
-process you can add the :ref:`synchronized <bundle-core-tags-request-aware>`
-tag to your service container definition. 
-
-.. note::
-
-    This tag is not required for versions of Symfony >= 2.3, see the
-    :ref:`documentation <bundle-core-tags-request-aware>` for more information.
 
 If you need to know the content the menu item points to, look in the
 ``content`` field of the menu item extras: ``$item->getExtra('content');``.
@@ -306,4 +310,3 @@ A voter will look something like this::
             return null;
         }
     }
-
