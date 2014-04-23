@@ -286,6 +286,16 @@ setting is set as controller.
             ),
         ));
 
+route_collection_limit
+......................
+
+**type**: ``scalar``, **default**: ``0``
+
+If this value is set to a number bigger than 0, the routes from the database
+are returned in the getRouteCollection. The limit serves to prevent huge route
+lists if you have a large database. Setting the limit to ``null`` disables the
+limit entirely.
+
 persistence
 ...........
 
@@ -369,7 +379,7 @@ If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will def
 content_basepath
 ****************
 
-**type**: ``content_basepath`` **default**: ``/cms/content``
+**type**: ``string`` **default**: ``/cms/content``
 
 The basepath for content objects in the PHPCR tree. This information is used
 with the sonata admin to offer the correct subtree to select content documents.
