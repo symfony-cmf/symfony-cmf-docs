@@ -480,6 +480,17 @@ For the implementation details, please refer to the
 :ref:`component-routing-generator` section in the the cmf routing component
 documentation.
 
+.. sidebar:: Dumping Routes
+
+    The ``RouterInterface`` defines the method ``getRouteCollection`` to get
+    all routes available in a router. The ``DynamicRouter`` is able to provide
+    such a collection, however this feature is disabled by default to avoid
+    dumping large numbers of routes. You can set
+    ``cmf_routing.dynamic.route_collection_limit`` to a value bigger than 0
+    to have the router return routes up to the limit, or ``null`` to disable
+    limits and return all routes. Then you can for example see the dynamic
+    routes in the ``router:debug`` command.
+
 Handling RedirectRoutes
 -----------------------
 

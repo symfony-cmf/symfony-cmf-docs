@@ -286,6 +286,16 @@ setting is set as controller.
             ),
         ));
 
+route_collection_limit
+......................
+
+**type**: ``scalar``, **default**: ``0``
+
+If this value is set to a number bigger than 0, the routes from the database
+are returned in the getRouteCollection. The limit serves to prevent huge route
+lists if you have a large database. Setting the limit to ``null`` disables the
+limit entirely.
+
 persistence
 ...........
 
