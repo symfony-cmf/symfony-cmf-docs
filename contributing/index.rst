@@ -5,6 +5,7 @@ Contributing
     :hidden:
 
     code
+    commits
     bundles
     releases
     license

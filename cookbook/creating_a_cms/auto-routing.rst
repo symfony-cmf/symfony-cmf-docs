@@ -17,7 +17,7 @@ new route will be linked back to the target content:
 
 The paths above represent the path in the PHPCR-ODM document tree. In the next
 section you will define ``/cms/routes`` as the base path for routes, and subsequently
-the contents will be avilable at the following URLs:
+the contents will be available at the following URLs:
 
 * **Home**: ``http://localhost:8000/page/home``
 * **About**: ``http://localhost:8000/page/about``

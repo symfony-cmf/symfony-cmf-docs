@@ -87,9 +87,14 @@ Installation
 
            return $collection;
 
-3. Run the ``doctrine:phpcr:repository:init`` command, it runs all tagged
-   :ref:`phpcr-odm-repository-initializers` including the MediaBundle
-   initializer.
+3. For now, the only supported persistence layer is PHPCR. If you enabled PHPCR
+   on the CoreBundle, you need to do nothing here. If you do not have the
+   CMF CoreBundle in your project, you need to configure
+   ``cmf_media.persistence.phpcr.enabled: true``.
+
+4. For PHPCR, run the ``doctrine:phpcr:repository:init`` command, to have the
+   base paths initialized, using the
+   :ref:`repository initializers <phpcr-odm-repository-initializers>`.
 
 Interfaces
 ----------

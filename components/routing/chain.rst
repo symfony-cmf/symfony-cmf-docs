@@ -40,7 +40,7 @@ add the default Symfony2 router::
     $chainRouter->match('/foo/bar');
 
 Now, when the ``ChainRouter`` matches a request, it will ask the Symfony2
-``Router`` to match see if it matches. If there is no match, it will throw a
+``Router`` to see if the request matches. If there is no match, it will throw a
 :class:`Symfony\\Component\\Routing\\Exception\\ResourceNotFoundException`.
 
 If you add a new router, for instance the ``DynamicRouter``, it will be

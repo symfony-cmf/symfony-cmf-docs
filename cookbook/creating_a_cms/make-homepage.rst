@@ -83,8 +83,8 @@ node::
     namespace Acme\BasicCmsBundle\Initializer;
 
     use Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface;
-    use PHPCR\SessionInterface;
     use PHPCR\Util\NodeHelper;
+    use Doctrine\Bundle\PHPCRBundle\ManagerRegistry;
 
     class SiteInitializer implements InitializerInterface
     {
@@ -108,6 +108,7 @@ node::
             $dm->flush();
 
             $session = $registry->getConnection();
+
             // create the 'cms', 'pages', and 'posts' nodes
             NodeHelper::createPath($session, '/cms/pages');
             NodeHelper::createPath($session, '/cms/posts');
@@ -118,7 +119,7 @@ node::
 
         public function getName()
         {
-            return 'Site Initializer';
+            return 'My sites initializer';
         }
     }
 
