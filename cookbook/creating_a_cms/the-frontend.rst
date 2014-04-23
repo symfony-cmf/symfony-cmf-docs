@@ -89,7 +89,7 @@ KnpMenuBundle::
     Don't forget to add the ``Knp\Menu\NodeInterface`` use statement!
 
 Menus are hierarchical, PHPCR-ODM is also hierarchical and so lends itself
-well to this use case. 
+well to this use case.
 
 Here you add an additional mapping, ``@Children``, which will cause PHPCR-ODM
 to populate the annotated property instance ``$children`` with the child
@@ -97,7 +97,7 @@ documents of this document.
 
 The options are the options used by KnpMenu system when rendering the menu.
 The menu URL is inferred from the ``content`` option (note that you added the
-``RouteReferrersReadInterface`` to ``Page`` earlier). 
+``RouteReferrersReadInterface`` to ``Page`` earlier).
 
 The attributes apply to the HTML elements. See the `KnpMenu`_ documentation
 for more information.
@@ -157,20 +157,21 @@ Now you can register the ``PhpcrMenuProvider`` from the menu bundle in the servi
 configuration:
 
 .. configuration-block::
-    
+
     .. code-block:: yaml
 
-         # src/Acme/BasicCmsBundle/Resources/config/config.yml
-         services:
-             acme.basic_cms.menu_provider:
-                 class: Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider
-                 arguments:
-                     - '@cmf_menu.factory'
-                     - '@doctrine_phpcr'
-                     - /cms/pages
-                 tags:
-                     - { name: knp_menu.provider }
-                     - { name: cmf_request_aware }
+        # src/Acme/BasicCmsBundle/Resources/config/config.yml
+        services:
+            acme.basic_cms.menu_provider:
+                class: Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider
+                arguments:
+                    - '@cmf_menu.factory'
+                    - '@doctrine_phpcr'
+                    - /cms/pages
+                calls:
+                    - [setRequest, ["@?request="]]
+                tags:
+                    - { name: knp_menu.provider }
 
     .. code-block:: xml
 
@@ -178,7 +179,7 @@ configuration:
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:acme_demo="http://www.example.com/symfony/schema/"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services 
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
                 http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <!-- ... -->
@@ -190,18 +191,25 @@ configuration:
                     <argument type="service" id="cmf_menu.factory"/>
                     <argument type="service" id="doctrine_phpcr"/>
                     <argument>/cms/pages</argument>
+                    <call method="setRequest">
+                        <argument
+                            type="service"
+                            id="request"
+                            on-invalid="null"
+                            strict="false"
+                        />
+                    </call>
                     <tag name="knp_menu.provider" />
-                    <tag name="cmf_request_aware"/>
                 </service>
             </services>
         </container>
-        
+
     .. code-block:: php
 
         // src/Acme/BasicCmsBundle/Resources/config/config.php
         use Symfony\Component\DependencyInjection\Reference;
         // ...
-        
+
         $container
             ->register(
                 'acme.basic_cms.menu_provider',
@@ -210,8 +218,14 @@ configuration:
             ->addArgument(new Reference('cmf_menu.factory'))
             ->addArgument(new Reference('doctrine_phpcr'))
             ->addArgument('/cms/pages')
+            ->addMethodCall('setRequest', array(
+                new Reference(
+                    'request',
+                    ContainerInterface::NULL_ON_INVALID_REFERENCE,
+                    false
+                )
+            ))
             ->addTag('knp_menu.provider')
-            ->addTag('cmf_request_aware')
         ;
 
 and enable the twig rendering functionality of the KnpMenu bundle:
@@ -246,7 +260,7 @@ and finally you can render the menu!
 .. configuration-block::
 
     .. code-block:: jinja
-        
+
         {# src/Acme/BasicCmsBundle/Resources/views/Default/page.html.twig #}
 
         {# ... #}
@@ -255,7 +269,7 @@ and finally you can render the menu!
     .. code-block:: html+php
 
         <!-- src/Acme/BasicCmsBundle/Resources/views/Default/page.html.php -->
-        
+
         <!-- ... -->
         <?php echo $view['knp_menu']->render('main') ?>
 
