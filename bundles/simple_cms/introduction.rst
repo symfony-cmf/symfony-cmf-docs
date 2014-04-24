@@ -40,5 +40,5 @@ Sections
 * :doc:`extending_page_class`
 
 .. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/symfony-cmf-standard
-.. _`CMF website`: https://github.com/symfony-cmf/cmf-website/
+.. _`CMF website`: https://github.com/symfony-cmf/symfony-cmf-website/
 .. _`Packagist`: https://packagist.org/packages/symfony-cmf/simple-cms-bundle
