@@ -86,7 +86,7 @@ from github:
 
 .. code-block:: bash
 
-    $ git clone git://github.com/symfony-cmf/symfony-cmf-standard.git <path-to-install>
+    $ git clone git://github.com/symfony-cmf/standard-edition.git <path-to-install>
     $ cd <path-to-install>
 
 You still need Composer to get the dependencies. To install or update the
