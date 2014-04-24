@@ -487,9 +487,11 @@ documentation.
     such a collection, however this feature is disabled by default to avoid
     dumping large numbers of routes. You can set
     ``cmf_routing.dynamic.route_collection_limit`` to a value bigger than 0
-    to have the router return routes up to the limit, or ``null`` to disable
-    limits and return all routes. Then you can for example see the dynamic
-    routes in the ``router:debug`` command.
+    to have the router return routes up to the limit or ``false`` to disable
+    limits and return all routes.
+
+    With this option activated, tools like the ``router:debug`` command or the
+    `FOSJsRoutingBundle`_ will also show the routes coming from the database.
 
 Handling RedirectRoutes
 -----------------------
@@ -590,3 +592,4 @@ Read on in the chapter :doc:`customizing the dynamic router <dynamic_customize>`
 .. _`URL generating capabilities of Symfony2`: http://symfony.com/doc/current/book/routing.html#generating-urls
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
 .. _`configuring sonata admin`: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/reference/configuration.html
+.. _`FOSJsRoutingBundle`: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle
