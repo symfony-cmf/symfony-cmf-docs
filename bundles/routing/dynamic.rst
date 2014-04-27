@@ -493,6 +493,10 @@ documentation.
     With this option activated, tools like the ``router:debug`` command or the
     `FOSJsRoutingBundle`_ will also show the routes coming from the database.
 
+    For the case of `FOSJsRoutingBundle`_, if you use the upcoming version 2 of
+    the bundle, you can configure ``fos_js_routing.router`` to
+    ``router.default`` to avoid the dynamic routes being included.
+
 Handling RedirectRoutes
 -----------------------
 
