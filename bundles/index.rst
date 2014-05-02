@@ -9,7 +9,7 @@ Bundles
     content/index
     core/index
     create/index
-    phpcr_odm
+    phpcr_odm/index
     media/index
     menu/index
     routing_auto/index

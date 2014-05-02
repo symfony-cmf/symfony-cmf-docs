@@ -13,6 +13,7 @@ Reference
     configuration/routing.rst
     configuration/search.rst
     configuration/simple_cms.rst
-    configuration/tree_browser
+    configuration/tree_browser.rst
+    configuration/phpcr_odm.rst
 
 .. include:: map.rst.inc

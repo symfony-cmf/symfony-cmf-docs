@@ -145,36 +145,6 @@ default parameters defined in ``parameters.yml.dist`` and then generate the
 
 Your should now be all set to start using PHPCR-ODM in your project!
 
-Alternative Backend: Apache Jackrabbit
---------------------------------------
-
-`Apache Jackrabbit`_ is a mature Java based content repository which can be used
-as an alternative to the Jackalope Doctrine DBAL backend.
-
-The instructions are the same as for Doctrine DBAL with the following
-differences:
-
-**Step 2**: Include ``jackalope/jackalope-jackrabbit`` instead of
-  ``jackalope/jackalope-doctrine-dbal``.
-
-Install and Run the Jackrabbit Server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Download Jackrabbit in whatever way you prefer (for example using ``wget``):
-
-.. code-block:: bash
-
-    $ wget http://www.apache.org/dyn/closer.cgi/jackrabbit/2.4.5/jackrabbit-standalone-2.4.5.jar
-
-Start the Jackrabbit server:
-
-.. code-block:: bash
-
-    $ java -jar jackrabbit
-
-This will create a directory called ``jackrabbit`` in the current working
-directory which will contain the data of the content repository.
-
 .. _`Symfony Standard Edition`: https://github.com/symfony/symfony-standard
 .. _`Doctrine ORM`: https://github.com/doctrine/doctrine2
 .. _`Apache Jackrabbit`: https://jackrabbit.apache.org

@@ -39,7 +39,7 @@ storage medium.
     can use one of several available data storage mechanisms without having to
     rewrite your code. For more information on the different available
     mechanisms and how to install and configure them, refer to
-    :doc:`../cookbook/installing_configuring_doctrine_phpcr_odm`
+    :doc:`../bundles/phpcr_odm/introduction`.
 
 Installation
 ------------
@@ -221,7 +221,7 @@ into the PHPCR database by calling:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:migrator page --identifier=/cms/simple/test
+    $ php app/console doctrine:phpcr:migrator:migrate page --identifier=/cms/simple/test
 
 Note that the above identifier is mapped to
 ``app/Resources/data/pages/test.yml`` by stripping off the ``basepath``
@@ -233,7 +233,7 @@ and then run the following command:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:migrator page --identifier=/cms/simple/test/foo
+    $ php app/console doctrine:phpcr:migrator:migrate page --identifier=/cms/simple/test/foo
 
 .. _`cmf.liip.ch`: http://cmf.liip.ch
 .. _`Requirements for running Symfony2`: http://symfony.com/doc/current/reference/requirements.html

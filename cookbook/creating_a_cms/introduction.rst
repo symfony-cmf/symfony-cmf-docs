@@ -9,7 +9,7 @@ This series of articles will show you how to create a basic CMS from scratch
 using the following bundles:
 
 * :doc:`../../bundles/routing_auto/index`;
-* :doc:`../../bundles/phpcr_odm`;
+* :doc:`../../bundles/phpcr_odm/index`;
 * :doc:`../../bundles/menu/index`;
 * SonataDoctrinePHPCRAdminBundle_.
 

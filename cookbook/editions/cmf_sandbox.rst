@@ -1,10 +1,8 @@
 .. index::
-    single: Sandbox Installation
+    single: CMF Sandbox Installation
 
 Installing the CMF sandbox
 ==========================
-
-.. include:: ../_outdate-caution.rst.inc
 
 .. tip::
 
@@ -31,38 +29,11 @@ Requirements
 ------------
 
 As Symfony CMF Sandbox is based on Symfony2, you should make sure you meet the
-`Requirements for running Symfony2`_. `Git 1.6+`_, `Curl`_ and PHP Intl are
+`Requirements for running Symfony2`_. `Git 1.6+`_, and the PHP Intl extension are
 also needed to follow the installation steps listed below.
-
-For the PHPCR repository requirements, see
-:ref:`PHPCR-ODM requirements <cookbook-phpcr-odm-requirements>`
 
 Installation
 ------------
-
-Apache Jackrabbit
-~~~~~~~~~~~~~~~~~
-
-The Symfony CMF Sandbox uses Jackalope with Apache JackRabbit by default.
-If you do not have Java available, you can choose alternative storage
-methods (see below).
-
-You can get the latest Apache Jackrabbit version from the project's
-`official download page`_. To start it, use the following command
-
-.. code-block:: bash
-
-    $ java -jar jackrabbit-standalone-*.jar
-
-By default the server is listening on the 8080 port, you can change this
-by specifying the port on the command line.
-
-.. code-block:: bash
-
-    $ java -jar jackrabbit-standalone-*.jar --port 8888
-
-For unix systems, you can get the start-stop script for ``/etc/init.d``
-`here`_.
 
 Getting the Sandbox Code: Composer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -102,15 +73,16 @@ files:
 .. code-block:: bash
 
     $ cp app/config/parameters.yml.dist app/config/parameters.yml
-    $ cp app/config/phpcr_jackrabbit.yml.dist app/config/phpcr.yml
+    $ cp app/config/phpcr_doctrine_dbal.yml.dist app/config/phpcr.yml
 
 These two files include the default configuration parameters for the sandbox
 storage mechanism. You can modify them to better fit your needs
 
 .. note::
 
-    The second configuration file refers to specific jackalope + jackrabbit
-    configuration. There are other files available for different stack setups.
+    The second configuration file refers to specific jackalope + doctrine dbal
+    configuration. There are other files available for
+    :doc:`different PHPCR implementations <../database/choosing_phpcr_implementation>`.
 
 Next, use composer to install the necessary bundles (this may take a while):
 
@@ -136,17 +108,20 @@ Preparing the PHPCR Repository
 
 Now that you have all the code, you need to setup your PHPCR repository.
 PHPCR organizes data in workspaces and sandbox uses the "default" workspace,
-which is exists by default in Jackrabbit. If you use other applications that
-require Jackrabbit or if you just wish to change the workspace name, you
-can do so in ``app/config/phpcr.yml``. The following command will create
-a new workspace named "sandbox" in Jackrabbit. If you decide to use the
-"default" workspace, you can skip it.
+which is exists automatically on a new repository.
+
+Now you need to create the database. The default database specified in
+parameters.yml is sqlite. If you have the sqlite PHP extension, simply
+run:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:workspace:create sandbox
+    $ php app/console doctrine:database:create
 
-Once your workspace is set up, you need to `register the node types`_ for
+If you don't have sqlite, you can specify ``pdo_mysql`` or ``pdo_pgsql`` and
+provide the database name and login credentials to use.
+
+Once your database is set up, you need to `register the node types`_ for
 phpcr-odm:
 
 .. code-block:: bash
@@ -185,105 +160,8 @@ doctrine proxies and dump the assetic assets:
     $ php app/console cache:clear --env=prod --no-debug
     $ php app/console assetic:dump --env=prod --no-debug
 
-Alternative Storage Mechanisms
-------------------------------
-
-Symfony CMF and the sandbox are storage agnostic, which means you can change
-the storage mechanism without having to change your code. The default storage
-mechanism for the sandbox is Jackalope + Apache Jackrabbit, as it's the most
-tested and stable setup. However, other alternatives are available.
-
-Jackalope + Doctrine DBAL
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. note::
-
-    By default, when using Doctrine DBAL, data is stored using a `Sqlite`_
-    database.  Refer to the project's page for installation instructions.  If
-    you wish to use other database systems, change the configuration
-    parameters in ``app/config/parameters.yml``. Refer to
-    `Symfony's page on Doctrine DBAL configuration`_ or
-    `Doctrine's documentation`_ for more information.
-
-Move into the sandbox folder and copy the default configuration file for
-Doctrine DBAL setup:
-
-.. code-block:: bash
-
-    $ cd cmf-sandbox
-    $ cp app/config/phpcr_doctrine_dbal.yml.dist app/config/phpcr.yml
-
-And create and init your database:
-
-.. code-block:: bash
-
-    $ php app/console doctrine:database:create
-    $ php app/console doctrine:phpcr:init:dbal
-
-After this, follow the steps in `Preparing the PHPCR repository`_.
-
-Midgard2 PHPCR Provider
-~~~~~~~~~~~~~~~~~~~~~~~
-
-If you want to run the CMF sandbox with the `Midgard2 PHPCR`_ provider instead
-of Jackrabbit, you need to install the midgard2 PHP extension. On current
-Debian/Ubuntu systems, this is simply done with:
-
-.. code-block:: bash
-
-    $ sudo apt-get install php5-midgard2
-
-On OS X you can install it using either `Homebrew`_ with:
-
-.. code-block:: bash
-
-    $ brew install midgard2-php
-
-or `MacPorts`_ with:
-
-.. code-block:: bash
-
-    $ sudo port install php5-midgard2
-
-You also need to download the `midgard_tree_node.xml`_ and
-`midgard_namespace_registery.xml`_ schema files and place them into
-``<your-midgard2-folder>/schema`` (defaults to
-``"/usr/share/midgard2/schema"``)
-
-To have the Midgard2 PHPCR implementation installed run the following additional command:
-
-.. code-block:: bash
-
-    $ php composer.phar require midgard/phpcr:dev-master
-
-Finally, switch to one of the Midgard2 configuration file:
-
-.. code-block:: bash
-
-    $ cp app/config/phpcr_midgard_mysql.yml.dist app/config/phpcr.yml
-
-or:
-
-.. code-block:: bash
-
-    $ cp app/config/phpcr_midgard_sqlite.yml.dist app/config/phpcr.yml
-
-After this, your should follow the steps in `Preparing the PHPCR repository`_
-to continue the installation process.
-
 .. _`Composer`: http://getcomposer.org
 .. _`CMF sandbox github repository`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`Requirements for running Symfony2`: http://symfony.com/doc/current/reference/requirements.html
 .. _`Git 1.6+`: http://git-scm.com/
-.. _`Curl`: http://curl.haxx.se/
-.. _`official download page`: http://jackrabbit.apache.org/downloads.html
-.. _`here`: https://github.com/sixty-nine/Jackrabbit-startup-script
 .. _`register the node types`: https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged
-.. _`Sqlite`: http://www.sqlite.org/
-.. _`Symfony's page on Doctrine DBAL configuration`: http://symfony.com/doc/current/reference/configuration/doctrine.html#doctrine-dbal-configuration
-.. _`Doctrine's documentation`: http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html
-.. _`Midgard2 PHPCR`: http://midgard-project.org/phpcr/
-.. _`Homebrew`: http://mxcl.github.com/homebrew/
-.. _`MacPorts`: http://www.macports.org/
-.. _`midgard_tree_node.xml`: https://raw.github.com/midgardproject/phpcr-midgard2/master/data/share/schema/midgard_tree_node.xml
-.. _`midgard_namespace_registery.xml`: https://github.com/midgardproject/phpcr-midgard2/raw/master/data/share/schema/midgard_namespace_registry.xml
