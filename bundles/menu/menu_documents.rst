@@ -4,7 +4,7 @@
 Menu Documents
 ==============
 
-In accordance with the 
+In accordance with the
 :ref:`CMF bundle standards <contrib_bundles_baseandstandardimplementations>`
 you are provided with two menu node implementations, a base document and a
 standard document.
@@ -24,7 +24,7 @@ the KnpMenu component documentation for more information.
 
     // ODM specific
     $node = new MenuNodeBase();
-    $node->setParent($parent);
+    $node->setParentDocument($parent);
     $node->setName('home');
 
     // Attributes are the HTML attributes of the DOM element representing the
@@ -49,7 +49,7 @@ the KnpMenu component documentation for more information.
 
     // Specify a route name to use and the parameters to use with it
     $node->setRoute('my_hard_coded_route_name');
-    $node->setRouteParameters(array());    
+    $node->setRouteParameters(array());
 
     // Specify if the route should be rendered absolute (otherwise relative)
     $node->setRouteAbsolute(true);
@@ -111,12 +111,12 @@ Publish Workflow
 ~~~~~~~~~~~~~~~~
 
 The standard menu node implements ``PublishTimePeriodInterface`` and
-``PublishableInterface``. Please refer to the 
+``PublishableInterface``. Please refer to the
 :doc:`publish workflow documentation <../core/publish_workflow>`.
 
 .. versionadded:: 1.1
     The ``MenuContentVoter`` was added in CmfMenuBundle 1.1.
-    
+
 The ``MenuContentVoter`` decides that a menu node is not published if the
 content it is pointing to is not published.
 

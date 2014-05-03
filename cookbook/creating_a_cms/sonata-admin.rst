@@ -29,12 +29,12 @@ Enable the Sonata related bundles to your kernel::
         {
             $bundles = array(
                 // ...
-                new Sonata\BlockBundle\SonataBlockBundle(),
-                new Sonata\jQueryBundle\SonatajQueryBundle(),
                 new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+                new Sonata\CoreBundle\SonataCoreBundle(),
+                new Sonata\jQueryBundle\SonatajQueryBundle(),
+                new Sonata\BlockBundle\SonataBlockBundle(),
                 new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
                 new Sonata\AdminBundle\SonataAdminBundle(),
-                new Sonata\CoreBundle\SonataCoreBundle(),
             );
 
             // ...
@@ -275,7 +275,7 @@ Create the following admin classes, first for the ``Page`` document::
         public function prePersist($document)
         {
             $parent = $this->getModelManager()->find(null, '/cms/pages');
-            $document->setParent($parent);
+            $document->setParentDocument($parent);
         }
 
         protected function configureDatagridFilters(DatagridMapper $datagridMapper)

@@ -44,7 +44,7 @@ to multiple routes and menu items. A simple page can be created like this::
     $content->setTitle('Hello World');
     $content->setBody(...);
     $content->addRoute($route);
-    $content->setParent($contentRoot);
+    $content->setParentDocument($contentRoot);
     $content->setName('hello-world');
 
     $documentManager->persist($content); // add the content

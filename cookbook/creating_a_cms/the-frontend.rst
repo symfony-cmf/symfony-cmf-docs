@@ -119,12 +119,12 @@ to which you will add the existing ``Home`` page and an additional ``About`` pag
             // ...
             $rootPage = new Page();
             $rootPage->setTitle('main');
-            $rootPage->setParent($parent);
+            $rootPage->setParentDocument($parent);
             $dm->persist($rootPage);
 
             $page = new Page();
             $page->setTitle('Home');
-            $page->setParent($rootPage);
+            $page->setParentDocument($rootPage);
             $page->setContent(<<<HERE
     Welcome to the homepage of this really basic CMS.
     HERE
@@ -133,7 +133,7 @@ to which you will add the existing ``Home`` page and an additional ``About`` pag
 
             $page = new Page();
             $page->setTitle('About');
-            $page->setParent($rootPage);
+            $page->setParentDocument($rootPage);
             $page->setContent(<<<HERE
     This page explains what its all about.
     HERE

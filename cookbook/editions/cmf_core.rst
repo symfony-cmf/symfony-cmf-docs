@@ -73,6 +73,7 @@ Next, initialize the bundles in ``AppKernel.php`` by adding them to the
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
             // Dependencies of the CmfBlockBundle
+            new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
         );
 

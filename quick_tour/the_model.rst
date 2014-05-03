@@ -98,11 +98,11 @@ by creating a new class in the AcmeMainBundle::
     {
         public function getOrder()
         {
-            // refers to the order in which the class' load function is called 
+            // refers to the order in which the class' load function is called
             // (lower return values are called first)
             return 10;
         }
-    
+
         public function load(ObjectManager $documentManager)
         {
         }
@@ -135,7 +135,7 @@ it as its parent::
         // get root document (/cms/simple)
         $simpleCmsRoot = $documentManager->find(null, '/cms/simple');
 
-        $page->setParent($simpleCmsRoot); // set the parent to the root
+        $page->setParentDocument($simpleCmsRoot); // set the parent to the root
     }
 
 And at last, we have to tell the Document Manager to persist our Page

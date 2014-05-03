@@ -460,12 +460,12 @@ follows::
         public function load(ObjectManager $dm)
         {
             $route = new Route();
-            $route->setParent($dm->find(null, '/cms/routes'));
+            $route->setParentDocument($dm->find(null, '/cms/routes'));
             $route->setName('projects');
 
             // link a content to the route
             $content = new StaticContent();
-            $content->setParent($dm->find(null, '/cms/content'));
+            $content->setParentDocument($dm->find(null, '/cms/content'));
             $content->setName('my-content');
             $dm->persist($content);
             $route->setRouteContent($content);

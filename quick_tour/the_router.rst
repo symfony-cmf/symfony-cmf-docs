@@ -164,7 +164,7 @@ Now you can add a new ``Route`` to the tree using Doctrine::
             // set $routesBase as the parent and 'new-route' as the node name,
             // this is equal to:
             // $route->setName('new-route');
-            // $route->setParent($routesRoot);
+            // $route->setParentDocument($routesRoot);
             $route->setPosition($routesRoot, 'new-route');
 
             $page = $documentManager->find(null, '/cms/routes/quick_tour');

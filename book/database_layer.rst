@@ -119,7 +119,7 @@ class via annotations:
             /**
              * @PHPCR\ParentDocument()
              */
-            protected $parent;
+            protected $parentDocument;
         }
 
     .. code-block:: yaml
@@ -132,7 +132,7 @@ class via annotations:
                 description: string
                 done: boolean
 
-            parent_document: parent
+            parent_document: parentDocument
 
     .. code-block:: xml
 
@@ -152,7 +152,7 @@ class via annotations:
                 <field name="description" type="string" />
                 <field name="done" type="boolean" />
 
-                <parent-document name="parent" />
+                <parent-document name="parentDocument" />
             </document>
 
         </doctrine-mapping>
@@ -207,7 +207,7 @@ AcmeTaskBundle::
 
         $task = new Task();
         $task->setDescription('Finish CMF project');
-        $task->setParent($rootTask);
+        $task->setParentDocument($rootTask);
 
         $documentManager->persist($task);
 

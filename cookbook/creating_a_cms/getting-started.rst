@@ -137,12 +137,12 @@ to reduce code duplication::
             return $this->id;
         }
 
-        public function getParent()
+        public function getParentDocument()
         {
             return $this->parent;
         }
 
-        public function setParent($parent)
+        public function setParentDocument($parent)
         {
             $this->parent = $parent;
         }
@@ -377,7 +377,7 @@ Create a page for your CMS::
 
             $page = new Page();
             $page->setTitle('Home');
-            $page->setParent($parent);
+            $page->setParentDocument($parent);
             $page->setContent(<<<HERE
     Welcome to the homepage of this really basic CMS.
     HERE
@@ -406,7 +406,7 @@ and add some posts::
             foreach (array('First', 'Second', 'Third', 'Forth') as $title) {
                 $post = new Post();
                 $post->setTitle(sprintf('My %s Post', $title));
-                $post->setParent($parent);
+                $post->setParentDocument($parent);
                 $post->setContent(<<<HERE
     This is the content of my post.
     HERE
