@@ -19,6 +19,7 @@ library or they introduce a complete new concept.
   * :doc:`core/dependency_injection_tags`
   * :doc:`core/templating`
   * :doc:`core/persistence`
+  * :doc:`core/forms`
 
 * :doc:`create/index`
 

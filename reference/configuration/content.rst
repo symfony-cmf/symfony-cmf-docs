@@ -81,7 +81,7 @@ admin_class
 
 **type**: ``string`` **default**: ``Symfony\Cmf\Bundle\ContentBundle\Admin\StaticContentAdmin``
 
-The admin class to use when `sonata admin is activated <use_sonata_admin>`_.
+The admin class to use when :ref:`Sonata Admin is activated <quick-tour-third-party-sonata>`.
 
 document_class
 **************

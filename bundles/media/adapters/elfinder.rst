@@ -137,7 +137,7 @@ Installation
                ),
            ));
 
-4. Test the elFinder browser by navigating to: http://<yoursite>/app_dev.php/elfinder
+4. Test the elFinder browser by navigating to: ``http://<yoursite>/app_dev.php/elfinder``
 
 .. _`elFinder`: http://elfinder.org
 .. _`FMElfinderBundle`: https://github.com/helios-ag/FMElfinderBundle

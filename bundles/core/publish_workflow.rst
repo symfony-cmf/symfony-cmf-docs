@@ -431,8 +431,8 @@ configuration in the ``sonata_admin`` section of your project configuration:
 
 See the `Sonata Admin extension documentation`_ for more information.
 
-.. _`Symfony2 security component`: http://www.symfony.com/doc/current/components/security/index.html
-.. _`Symfony2 Authorization`: http://www.symfony.com/doc/current/components/security/authorization.html
-.. _`Security Chapter`: http://www.symfony.com/doc/current/book/security.html
-.. _`ACL checks`: http://www.symfony.com/doc/current/cookbook/security/acl.html
+.. _`Symfony2 security component`: http://symfony.com/doc/current/components/security/index.html
+.. _`Symfony2 Authorization`: http://symfony.com/doc/current/components/security/authorization.html
+.. _`Security Chapter`: http://symfony.com/doc/current/book/security.html
+.. _`ACL checks`: http://symfony.com/doc/current/cookbook/security/acl.html
 .. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
