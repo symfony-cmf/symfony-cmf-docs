@@ -16,13 +16,17 @@ You can configure the route enhancers that decide what controller is used to
 handle the request, to avoid hard coding controller names into your route
 documents.
 
-The minimum configuration required to load the dynamic router as service
-``cmf_routing.dynamic_router`` is to have ``enabled: true`` in your
-application configuration, and to specify what route provider to use.
-The dynamic router is automatically enabled as soon as you add any other
-configuration to the ``dynamic`` entry. When not enabled, the dynamic router
-services will not be loaded at all, allowing you to use the ``ChainRouter``
-with your own routers.
+Configuration
+-------------
+
+The minimum configuration required to load the dynamic router is
+to specify a route provider backend.
+
+.. note::
+
+    When your project is also using the :doc:`CoreBundle <../core/introduction>`,
+    it is enough to configure persistence on ``cmf_core`` and you do not need to
+    repeat the configuration for the dynamic router.
 
 .. configuration-block::
 
@@ -31,8 +35,9 @@ with your own routers.
         # app/config/config.yml
         cmf_routing:
             dynamic:
-                enabled: true
-                # route provider configuration...
+                persistence:
+                    phpcr:
+                        enabled: true
 
     .. code-block:: xml
 
@@ -40,8 +45,11 @@ with your own routers.
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-                <dynamic enabled="true" />
-                <!-- route provider configuration... -->
+                <dynamic>
+                    <persistence>
+                        <phpcr enabled="true" />
+                    </persistence>
+                </dynamic>
             </config>
         </container>
 
@@ -50,15 +58,22 @@ with your own routers.
         // app/config/config.php
         $container->loadFromExtension('cmf_routing', array(
             'dynamic' => array(
-                'enabled' => true,
-                // route provider configuration...
+                'persistence' => array(
+                    'phpcr' => array(
+                        'enabled' => true,
+                    ),
+                ),
             ),
         ));
+
+When there is no configuration or ``cmf_routing.dynamic.enabled`` is set to
+``false``, the dynamic router services will not be loaded at all, allowing
+you to use the ``ChainRouter`` with your own routers.
 
 .. _bundle-routing-dynamic-match:
 
 Match Process
-~~~~~~~~~~~~~
+-------------
 
 Most of the match process is described in the documentation of the
 `CMF Routing component`_. The only difference is that this bundle will place
@@ -110,7 +125,7 @@ A custom controller action can look like this::
 .. _bundles-routing-dynamic_router-enhancer:
 
 Configuring the Controller for a Route
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------
 
 To configure what controller is used for which route, you can configure the
 *route enhancers*. Many of them operate on routes implementing
@@ -124,15 +139,15 @@ precedence):
 #. (Explicit controller): If there is a ``_controller`` set in
    ``getRouteDefaults()``, no enhancer will overwrite the controller.
    ``_template`` will still be inserted if its not already set;
-#. Controller by type: requires the route document to return a 'type' value in
+#. ``controllers_by_type``: requires the route document to return a 'type' value in
    ``getRouteDefaults()``. **priority: 60**;
-#. Controller by class: requires the route document to be an instance of
+#. ``controllers_by_class``: requires the route document to be an instance of
    ``RouteObjectInterface`` and to return an object for ``getRouteContent()``.
    The content document is checked for being ``instanceof`` the class names in
    the map and if matched that controller is used. Instanceof is used instead of
    direct comparison to work with proxy classes and other extending classes.
    **priority: 50**;
-#. Template by class: requires the route document to be an instance of
+#. ``templates_by_class``: requires the route document to be an instance of
    ``RouteObjectInterface`` and to return an object for ``getRouteContent()``.
    The content document is checked for being ``instanceof`` the class names in
    the map and if matched that template will be set as ``'_template'``.
@@ -203,7 +218,7 @@ All routes are located under a configured root path, for example
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
     $route = new Route();
-    $route->setParent($dm->find(null, '/cms/routes'));
+    $route->setParentDocument($dm->find(null, '/cms/routes'));
     $route->setName('projects');
 
     // set explicit controller (both service and Bundle:Name:action syntax work)
@@ -362,8 +377,8 @@ the name indicates, loads ``Route`` entities from an ORM database.
 
 .. caution::
 
-    You must install the CoreBundle to utilize this feature if your app
-    does not have at least DoctrineBundle 1.3 installed.
+    You must install the CoreBundle to use this feature if your application
+    does not have at least DoctrineBundle 1.3.0.
 
 .. _bundles-routing-dynamic-generator:
 
@@ -421,8 +436,9 @@ to generate a route:
 
 .. caution::
 
-    It is dangerous to hardcode paths in your templates if the user has a way
-    to edit and delete them. If the route must exist for sure, it probably
+    It is dangerous to hardcode paths to PHPCR-ODM documents into your
+    templates. An admin user could edit or delete them in a way that your
+    application breaks. If the route must exist for sure, it probably
     should be a statically configured route. But route names could come from
     code for example.
 
@@ -451,7 +467,7 @@ object that implements this interface and provides a route for it:
 
 Additionally, the generator also understands the ``content_id`` parameter with
 an empty route name and tries to find a content implementing the
-``RouteReferrersInterface`` from the configured content repository.
+``RouteReferrersInterface`` from the configured content repository:
 
 .. configuration-block::
 
