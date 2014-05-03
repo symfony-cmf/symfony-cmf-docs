@@ -67,11 +67,11 @@ For unix systems, you can get the start-stop script for ``/etc/init.d``
 Getting the Sandbox Code
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Symfony CMF Sandbox source code is available on github. To get it use:
+The Symfony CMF Sandbox source code is available on github. To install it, do:
 
 .. code-block:: bash
 
-    $ git clone git://github.com/symfony-cmf/cmf-sandbox.git
+    $ php composer.phar create-project symfony-cmf/sandbox cmf-sandbox ~1.1
 
 Move into the folder and copy the default configuration files:
 
