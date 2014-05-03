@@ -64,6 +64,8 @@ using the FOSRestBundle_.
 
 .. todo put an example in the SE?
 
+.. _quick-tour-third-party-sonata:
+
 Sonata Admin
 ------------
 

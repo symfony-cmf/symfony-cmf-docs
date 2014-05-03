@@ -263,7 +263,7 @@ configuration:
         services:
             acme_basiccms.basic_cms.phpcr.initializer:
                 class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
-                arguments: 
+                arguments:
                     - My custom initializer
                     - ["/cms/pages", "/cms/posts", "/cms/routes"]
                 tags:
@@ -435,5 +435,5 @@ You should now have some data in your content repository.
 .. _`sonata-project/doctrine-phpcr-admin-bundle`: https://packagist.org/packages/sonata-project/doctrine-phpcr-admin-bundle
 .. _`doctrine/data-fixtures`: https://packagist.org/packages/doctrine/data-fixtures
 .. _`doctrine dbal jackalope`: https://github.com/jackalope/jackalope-doctrine-dbal
-.. _`Apache Jackrabbit`: `https://jackrabbit.apache.org`
+.. _`Apache Jackrabbit`: https://jackrabbit.apache.org
 .. _`pre persist lifecycle event`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html#lifecycle-callbacks

@@ -218,6 +218,8 @@ The controller used to fetch the feed items can also be changed:
 
         The `Symfony CMF Sandbox`_ contains an example of the ``RssBlock``.
 
+.. _bundles-block-types-imagine:
+
 ImagineBlock
 ------------
 
@@ -309,7 +311,7 @@ Create your first Slideshow
 Building a slideshow consists of creating the container ``SlideshowBlock`` and
 adding blocks to it. Those blocks can be any kind of blocks, but the
 ``ImagineBlock`` makes a lot of sense. Make sure to have configured the imagine
-filter as explained `above <ImagineBlock>`_::
+filter as explained :ref:`above <bundles-block-types-imagine>`::
 
     use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock;
     use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock;

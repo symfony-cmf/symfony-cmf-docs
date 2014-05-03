@@ -316,7 +316,7 @@ block to be finished rendering or retrieving data. The block is then
 asynchronously or synchronously loaded and added to the page.
 
 .. _`SonataCacheBundle`: https://github.com/sonata-project/SonataCacheBundle
-.. _`ESI`: http://wikipedia.org/wiki/Edge_Side_Includes
-.. _`SSI`: http://wikipedia.org/wiki/Server_Side_Includes
+.. _`ESI`: http://en.wikipedia.org/wiki/Edge_Side_Includes
+.. _`SSI`: http://en.wikipedia.org/wiki/Server_Side_Includes
 .. _`SonataCacheBundle documentation`: http://sonata-project.org/bundles/cache/master/doc/index.html
 .. _`SonataBlockBundle Advanced usage`: http://sonata-project.org/bundles/block/master/doc/reference/advanced_usage.html#block-context-manager-context-cache
