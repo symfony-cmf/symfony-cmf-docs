@@ -192,7 +192,7 @@ Furthermore, it also provides native support for translations, covering the
 only omission of PHPCR for the above mentioned requirements list of a CMS
 storage solution.
 
-.. _`PHPCR`: http://phpcr.github.com
+.. _`PHPCR`: http://phpcr.github.io
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
 .. _`Jackalope`: https://github.com/jackalope/jackalope
 .. _`Jackrabbit`: http://jackrabbit.apache.org

@@ -146,7 +146,7 @@ backend parameters
 If you are using one of the Jackalope backends, you can set a couple of
 parameters. This section explains the general parameters that are
 available with all Jackalope backends. You can also
-`activate logging and profiling <Logging and Profiling>`_.
+:ref:`activate logging and profiling <reference-configuration-phpcr-odm-logging>`.
 
 .. versionadded:: 1.1
     Since DoctrinePhpcrBundle 1.1, backend configuration flags are configured
@@ -275,8 +275,6 @@ jackalope.jackrabbit_expect
 
 Send the ``Expect: 100-continue`` header on larger PUT and POST requests.
 Disabled by default to avoid issues with proxies and load balancers.
-
-.. _bundle-phpcr-odm-doctrinedbal:
 
 PHPCR Session with Jackalope Doctrine DBAL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -453,6 +451,8 @@ The session backend configuration looks as follows:
         ));
 
 For more information, please refer to the `official Midgard PHPCR documentation`_.
+
+.. _reference-configuration-phpcr-odm-logging:
 
 Logging and Profiling
 ~~~~~~~~~~~~~~~~~~~~~

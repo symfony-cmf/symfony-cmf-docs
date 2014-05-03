@@ -493,9 +493,9 @@ Read On
 
 .. _`DoctrinePHPCRBundle`: https://github.com/doctrine/DoctrinePHPCRBundle
 .. _`Symfony2 Doctrine documentation`: http://symfony.com/doc/current/book/doctrine.html
-.. _`Jackalope`: http://jackalope.github.com/
+.. _`Jackalope`: http://jackalope.github.io/
 .. _`Midgard2`: http://midgard-project.org/phpcr/
-.. _`the PHPCR website`: http://phpcr.github.com/
+.. _`the PHPCR website`: http://phpcr.github.io/
 .. _`PHPCR-ODM documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/
 .. _`bug in libxml`: http://bugs.php.net/bug.php?id=36501)
 .. _`with composer`: http://getcomposer.org

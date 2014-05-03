@@ -276,7 +276,7 @@ Fixture Loading
 ---------------
 
 To use the ``doctrine:phpcr:fixtures:load`` command, you additionally need to
-install the DoctrineFixturesBundle_ which brings the
+install the `DoctrineFixturesBundle`_ which brings the
 `Doctrine data-fixtures`_ into Symfony2.
 
 Fixtures work the same way they work for Doctrine ORM. You write fixture
@@ -302,5 +302,5 @@ A simple example fixture class looks like this::
 
 For more on fixtures, see the `documentation of the DoctrineFixturesBundle <DoctrineFixturesBundle>`_.
 
-.. _DoctrineFixturesBundle: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
+.. _`DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`Doctrine data-fixtures`: https://github.com/doctrine/data-fixtures
