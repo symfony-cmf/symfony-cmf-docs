@@ -617,7 +617,9 @@ not configure anything here, the ODM services will not be loaded.
 configuration_id
 """"""""""""""""
 
-@lsmith77 ?
+**type**: ``string``, **default**: ``doctrine_phpcr.odm.configuration``
+
+The service to use as base for building the PHPCR-ODM configuration.
 
 auto_mapping
 """"""""""""
@@ -661,7 +663,7 @@ names without any actual configuration.
 metadata_cache_driver
 """""""""""""""""""""
 
-@lsmith77 ?
+Configure a cache driver for the Doctrine metadata. This is the same as for `Doctrine ORM`_.
 
 General Settings
 ~~~~~~~~~~~~~~~~
@@ -716,3 +718,4 @@ For tuning the output of the ``doctrine:phpcr:dump`` command.
 .. _`the midgard/phpcr package`: http://packagist.org/packages/midgard/phpcr
 .. _`the getting started document`: http://midgard-project.org/phpcr/#getting_started
 .. _`official Midgard PHPCR documentation`: http://midgard-project.org/phpcr/
+.. _`Doctrine ORM`: http://symfony.com/doc/current/reference/configuration/doctrine.html#caching-drivers
