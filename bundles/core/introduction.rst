@@ -20,10 +20,8 @@ defaults for most of the other CMF Bundles.
 Installation
 ------------
 
-You can install the bundle in 2 different ways:
-
-* Use the official Git repository (https://github.com/symfony-cmf/CoreBundle);
-* Install it via Composer (``symfony-cmf/core-bundle`` on `Packagist`_).
+You can install this bundle `with composer`_ using the
+`symfony-cmf/core-bundle`_ package.
 
 Sections
 --------
@@ -33,4 +31,5 @@ Sections
 * :doc:`templating`
 * :doc:`persistence`
 
-.. _`Packagist`: https://packagist.org/packages/symfony-cmf/core-bundle
+.. _`symfony-cmf/core-bundle`: https://packagist.org/packages/symfony-cmf/core-bundle
+.. _`with composer`: http://getcomposer.org

@@ -17,10 +17,8 @@ This bundle consists of two parts:
 Installation
 ------------
 
-You can install the bundle in 2 different ways:
-
-* Use the official Git repository (https://github.com/symfony-cmf/TreeBrowserBundle);
-* Install it via Composer (``symfony-cmf/tree-browser-bundle`` on `Packagist`_).
+You can install this bundle `with composer`_ using the
+`symfony-cmf/tree-browser-bundle`_ package.
 
 Routing
 -------
@@ -252,7 +250,8 @@ For example, if your want to open a custom action:
                 ),
             ));
 
-.. _`Packagist`: https://packagist.org/packages/symfony-cmf/tree-browser-bundle
+.. _`symfony-cmf/tree-browser-bundle`: https://packagist.org/packages/symfony-cmf/tree-browser-bundle
+.. _`with composer`: http://getcomposer.org
 .. _`FOSJsRoutingBundle`: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle
 .. _`admin_tree.js`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle/blob/master/Resources/views/Tree/tree.html.twig
 .. _`select_tree.js`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle/blob/master/Resources/views/Form/form_admin_fields.html.twig

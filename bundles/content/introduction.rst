@@ -14,10 +14,8 @@ For an introduction see the ":doc:`../../book/static_content`" article of the
 Installation
 ------------
 
-You can install the bundle in 2 different ways:
-
-* Use the official Git repository (https://github.com/symfony-cmf/ContentBundle);
-* Install it via Composer (``symfony-cmf/content-bundle`` on `Packagist`_).
+You can install this bundle `with composer`_ using the
+`symfony-cmf/content-bundle`_ package.
 
 Usage
 -----
@@ -226,4 +224,5 @@ The ContentBundle also provides an Admin class to enable creating, editing and
 removing static content from the admin panel. To enable the admin, use the
 ``cmf_content.persistence.phpcr.use_sonata_admin`` setting.
 
-.. _`Packagist`: https://packagist.org/packages/symfony-cmf/content-bundle
+.. _`with composer`: http://getcomposer.org
+.. _`symfony-cmf/content-bundle`: https://packagist.org/packages/symfony-cmf/content-bundle

@@ -60,13 +60,13 @@ and then get the Symfony CMF code with it (this may take a while):
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony-cmf/standard-edition cmf ~1.1
-    $ cd cmf
+    $ php composer.phar create-project symfony-cmf/standard-edition <path-to-install> ~1.1
+    $ cd <path-to-install>
 
 .. note::
 
-    The path ``<path-to-install>`` should either inside your web server doc
-    root or configure a virtual host for ``<path-to-install>``.
+    The path ``<path-to-install>`` should either be inside your web server doc
+    root or you need to configure a virtual host for ``<path-to-install>``.
 
 This will clone the Standard Edition and install all the dependencies and run
 some initial commands. These commands require write permissions to the
@@ -89,7 +89,7 @@ from github:
     $ git clone git://github.com/symfony-cmf/symfony-cmf-standard.git <path-to-install>
     $ cd <path-to-install>
 
-You still need Composer to get the dependencies. To install or update the
+You still need Composer to get the dependencies. To get the correct
 dependencies, use the ``install`` command:
 
 .. code-block:: bash

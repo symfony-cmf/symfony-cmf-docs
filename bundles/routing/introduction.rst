@@ -28,6 +28,12 @@ the application configuration.
 Finally this bundles provides route documents for Doctrine PHPCR-ODM and
 ORM, as well as a controller for redirection routes.
 
+Installation
+------------
+
+You can install this bundle `with composer`_ using the
+`symfony-cmf/routing-bundle`_ package.
+
 .. index:: RoutingBundle
 .. index:: Routing
 
@@ -97,6 +103,8 @@ For more information on Routing in the Symfony CMF, please refer to:
   for implementation details of the routers.
 * Symfony2's `Routing`_ component documentation.
 
+.. _`with composer`: http://getcomposer.org
+.. _`symfony-cmf/routing-bundle`: https://packagist.org/packages/symfony-cmf/routing-bundle
 .. _`RoutingBundle`: https://github.com/symfony-cmf/RoutingBundle#readme
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
 .. _`documentation for DependencyInjection tags`: http://symfony.com/doc/2.1/reference/dic_tags.html
