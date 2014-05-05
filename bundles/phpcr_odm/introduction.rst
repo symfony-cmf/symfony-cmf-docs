@@ -164,7 +164,7 @@ Once you set up Doctrine DBAL, you can configure Jackalope:
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
 
                 <session
                     workspace="default"
@@ -266,7 +266,7 @@ here, the ODM services will not be loaded.
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
 
                 <odm
                     auto-mapping="true"
@@ -335,7 +335,7 @@ debug toolbar:
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
 
                 <session>
 

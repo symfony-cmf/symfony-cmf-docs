@@ -55,7 +55,7 @@ session
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
 
                 <session
                     workspace="default"
@@ -220,7 +220,7 @@ PHPCR Session with Jackalope Jackrabbit
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
 
                 <session>
 
@@ -310,7 +310,7 @@ supported by Doctrine.
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
 
                 <session>
 
@@ -410,7 +410,7 @@ The session backend configuration looks as follows:
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
 
                 <session>
 
@@ -479,7 +479,7 @@ debug toolbar:
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
 
                 <session>
 
@@ -551,7 +551,7 @@ not configure anything here, the ODM services will not be loaded.
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
 
                 <odm
                     configuration-id="null"
@@ -683,7 +683,7 @@ General Settings
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr"
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr"
                 jackrabbit-jar="/path/to/jackrabbit.jar"
                 dump-max-line-length="120"
             />

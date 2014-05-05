@@ -37,7 +37,7 @@ Multiple PHPCR Sessions
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
                 <session default-session="null">
                     <!-- workspace: Required -->
                     <session name="<name>"
@@ -105,7 +105,7 @@ attribute.
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
                 <odm default-document-manager="null">
                     <document-manager
                         name="<name>"
@@ -196,7 +196,7 @@ A full example looks as follows:
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
                 <session>
                     <session name="default"
                         backend="%phpcr_backend%"
