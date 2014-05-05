@@ -10,10 +10,8 @@ SearchBundle
 Installation
 ------------
 
-You can install the bundle in 2 different ways:
-
-* Use the official Git repository (https://github.com/symfony-cmf/SearchBundle);
-* Install it via Composer (``symfony-cmf/search-bundle`` on `Packagist`_).
+You can install this bundle `with composer`_ using the
+`symfony-cmf/search-bundle`_ package.
 
 Routing
 ~~~~~~~
@@ -49,4 +47,6 @@ Finally, add the relevant routing to your configuration
         return $collection;
 
 .. _`LiipSearchBundle`: https://github.com/liip/LiipSearchBundle
-.. _`Packagist`: https://packagist.org/packages/symfony-cmf/search-bundle
+.. _`symfony-cmf/search-bundle`: https://packagist.org/packages/symfony-cmf/search-bundle
+.. _`with composer`: http://getcomposer.org
+

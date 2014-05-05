@@ -90,9 +90,9 @@ content repository.
     "minimum-stability": "dev",
     "require": {
         ...
-        "jackalope/jackalope-jackrabbit": "1.0.*",
-        "doctrine/phpcr-bundle": "1.0.*",
-        "doctrine/phpcr-odm": "1.0.*"
+        "jackalope/jackalope-jackrabbit": "1.1.*",
+        "doctrine/phpcr-bundle": "1.1.*",
+        "doctrine/phpcr-odm": "1.1.*"
     }
 
 **Jackalope with Doctrine DBAL**
@@ -102,9 +102,9 @@ content repository.
     "minimum-stability": "dev",
     "require": {
         ...
-        "jackalope/jackalope-doctrine-dbal": "dev-master",
-        "doctrine/phpcr-bundle": "1.0.*",
-        "doctrine/phpcr-odm": "1.0.*"
+        "jackalope/jackalope-doctrine-dbal": "1.1.*",
+        "doctrine/phpcr-bundle": "1.1.*",
+        "doctrine/phpcr-odm": "1.1.*"
     }
 
 **Midgard**
@@ -115,8 +115,8 @@ content repository.
     "require": {
         ...
         "midgard/phpcr": "dev-master",
-        "doctrine/phpcr-bundle": "1.0.*",
-        "doctrine/phpcr-odm": "1.0.*"
+        "doctrine/phpcr-bundle": "1.1.*",
+        "doctrine/phpcr-odm": "1.1.*"
     }
 
 .. note::
@@ -124,7 +124,7 @@ content repository.
     For all of the above, if you are also using Doctrine ORM, make sure to use
     ``"doctrine/orm": "2.3.*"``, otherwise composer can't resolve the
     dependencies as Doctrine PHPCR-ODM depends on the newer 2.3 Doctrine
-    Commons. (Symfony2.1 standard edition uses ``2.2.*``.)
+    Commons.
 
 To install the above dependencies, run:
 
@@ -145,10 +145,7 @@ Next, initialize the bundles in ``app/AppKernel.php`` by adding them to the
     {
         $bundles = array(
             // ...
-
-            // Doctrine PHPCR
             new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
-
         );
 
         // ...
@@ -328,6 +325,102 @@ For more information on how to configure Doctrine DBAL with Symfony2, see the
 Midgard is a C extension that implements the PHPCR API on top of a standard RDBMS.
 
 See the `official Midgard PHPCR documentation`_.
+
+Doctrine Caching for Jackalope Doctrine DBAL
+--------------------------------------------
+
+Optionally, to improve performance, you can install DoctrineCacheBundle by
+typing the following command:
+
+.. code-block:: bash
+
+    $ php composer.phar require doctrine/cache-bundle:1.0.*
+
+And adding the following entry to your ``app/AppKernel.php``::
+
+    // app/AppKernel.php
+
+    // ...
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...
+            new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
+        );
+
+        // ...
+    }
+
+Configure a ``doctrine_cache`` section in your main configuration file and add
+a caches section to ``doctrine_phpcr.session.backend``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        doctrine_cache:
+            providers:
+                phpcr_meta:
+                    type: file_system
+                phpcr_nodes:
+                    type: file_system
+
+        doctrine_phpcr:
+            session:
+                backend:
+                    # ...
+                    caches:
+                        meta: doctrine_cache.providers.phpcr_meta
+                        nodes: doctrine_cache.providers.phpcr_nodes
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://doctrine-project.org/schema">
+                <provider name="phpcr_meta" type="file_system"/>
+                <provider name="phpcr_nodes" type="file_system"/>
+            </config>
+            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+                <session>
+                    <backend>
+                        <!-- ... -->
+                        <caches
+                            meta="doctrine_cache.providers.phpcr_meta"
+                            nodes="doctrine_cache.providers.phpcr_nodes"
+                        >
+                    </backend>
+                </session>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine_cache', array(
+            'providers' => array(
+                'phpcr_meta' => array(
+                    'type' => 'file_system',
+                ),
+                'phpcr_nodes' => array(
+                    'type' => 'file_system',
+                ),
+            ),
+        );
+
+        $container->loadFromExtension('doctrine_phpcr', array(
+            'session' => array(
+                'backend' => array(
+                    // ...
+                    'caches' => array(
+                        'meta' => 'doctrine_cache.providers.phpcr_meta',
+                        'nodes' => 'doctrine_cache.providers.phpcr_nodes',
+                    ),
+                ),
+            ),
+        );
 
 Registering System Node Types
 -----------------------------

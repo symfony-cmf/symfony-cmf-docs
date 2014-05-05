@@ -59,10 +59,10 @@ array or in the ``Request`` object attributes field.
 Installation
 ------------
 
-You can install the component in 2 different ways:
-
-* Use the official Git repository (https://github.com/symfony-cmf/Routing);
-* `Install it via Composer`_ (``symfony-cmf/routing`` on `Packagist`_).
+You can install this component `with composer`_ using the
+`symfony-cmf/routing`_ package. If you are using the
+``symfony-cmf/routing-bundle`` you do not need to specify the component
+separately, it is required automatically.
 
 Symfony2 integration
 --------------------
@@ -80,7 +80,7 @@ Sections
 * :doc:`dynamic`
 * :doc:`nested_matcher`
 
-.. _`Install it via Composer`: http://symfony.com/doc/current/components/using_components.html
-.. _`Packagist`: https://packagist.org/packages/symfony-cmf/routing
+.. _`with composer`: http://getcomposer.org
+.. _`symfony-cmf/routing`: https://packagist.org/packages/symfony-cmf/routing
 .. _`Routing chapter of the Symfony2 book`: http://symfony.com/doc/current/book/routing.html
 .. _`Routing Component`: http://symfony.com/doc/current/components/routing/introduction.html

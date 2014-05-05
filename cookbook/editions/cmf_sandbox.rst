@@ -44,8 +44,8 @@ Apache Jackrabbit
 ~~~~~~~~~~~~~~~~~
 
 The Symfony CMF Sandbox uses Jackalope with Apache JackRabbit by default.
-Alternative storage methods can be configured, but this is the most tested,
-and should be the easiest to setup.
+If you do not have Java available, you can choose alternative storage
+methods (see below).
 
 You can get the latest Apache Jackrabbit version from the project's
 `official download page`_. To start it, use the following command
@@ -64,20 +64,43 @@ by specifying the port on the command line.
 For unix systems, you can get the start-stop script for ``/etc/init.d``
 `here`_.
 
-Getting the Sandbox Code
-~~~~~~~~~~~~~~~~~~~~~~~~
+Getting the Sandbox Code: Composer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Symfony CMF Sandbox source code is available on github. To install it, do:
-
-.. code-block:: bash
-
-    $ php composer.phar create-project symfony-cmf/sandbox cmf-sandbox ~1.1
-
-Move into the folder and copy the default configuration files:
+The easiest way to install the CMF sandbox is is using `Composer`_. Get it using
 
 .. code-block:: bash
 
-    $ cd cmf-sandbox
+    $ curl -sS https://getcomposer.org/installer | php
+
+and then get the Symfony CMF code with it (this may take a while):
+
+.. code-block:: bash
+
+    $ php composer.phar create-project --no-install symfony-cmf/sandbox <path-to-install> ~1.1
+    $ cd <path-to-install>
+    $ mv ../composer.phar .
+
+Getting the Sandbox Code: GIT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Alternatively you can get the sandbox from GIT. If you want to contribute to
+the sandbox, you need the GIT information. Just clone the repository from
+github:
+
+.. code-block:: bash
+
+    $ git clone git://github.com/symfony-cmf/cmf-sandbox.git <path-to-install>
+    $ cd <path-to-install>
+
+Configuration
+~~~~~~~~~~~~~
+
+Change into the root folder of the sandbox and copy the default configuration
+files:
+
+.. code-block:: bash
+
     $ cp app/config/parameters.yml.dist app/config/parameters.yml
     $ cp app/config/phpcr_jackrabbit.yml.dist app/config/phpcr.yml
 
@@ -89,15 +112,10 @@ storage mechanism. You can modify them to better fit your needs
     The second configuration file refers to specific jackalope + jackrabbit
     configuration. There are other files available for different stack setups.
 
-Next, get composer and install and the necessary bundles (this may take a
-while):
+Next, use composer to install the necessary bundles (this may take a while):
 
 .. code-block:: bash
 
-    # get composer
-    $ curl -s http://getcomposer.org/installer | php --
-
-    # install bundles
     $ php composer.phar install
 
 .. note::
@@ -195,12 +213,6 @@ Doctrine DBAL setup:
     $ cd cmf-sandbox
     $ cp app/config/phpcr_doctrine_dbal.yml.dist app/config/phpcr.yml
 
-Next, you need to install the actual Doctrine DBAL bundle required by jackalope:
-
-.. code-block:: bash
-
-    $ php composer.phar require jackalope/jackalope-doctrine-dbal:dev-master
-
 And create and init your database:
 
 .. code-block:: bash
@@ -208,54 +220,7 @@ And create and init your database:
     $ php app/console doctrine:database:create
     $ php app/console doctrine:phpcr:init:dbal
 
-After this, your should follow the steps in `Preparing the PHPCR repository`_.
-
-Doctrine caching
-................
-
-Optionally, to improve performance, you can install DoctrineCacheBundle by
-typing the following command:
-
-.. code-block:: bash
-
-    $ php composer.phar require doctrine/cache-bundle:1.0.*
-
-And adding the following entry to your ``app/AppKernel.php``::
-
-    // app/AppKernel.php
-
-    // ...
-    public function registerBundles()
-    {
-      $bundles = array(
-          // ...
-          new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
-          // ...
-      );
-    }
-
-Finally, uncomment the caches settings in the ``phpcr.yml`` as well as the
-``doctrine_cache`` settings in ``config.yml``.
-
-.. code-block:: yaml
-
-    # app/config/phpcr.yml
-    caches:
-        meta: doctrine_cache.providers.phpcr_meta
-        nodes: doctrine_cache.providers.phpcr_nodes
-
-.. code-block:: yaml
-
-    # app/config/config.yml
-
-    # ...
-
-    doctrine_cache:
-        providers:
-            phpcr_meta:
-                type: file_system
-            phpcr_nodes:
-                type: file_system
+After this, follow the steps in `Preparing the PHPCR repository`_.
 
 Midgard2 PHPCR Provider
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -306,6 +271,7 @@ or:
 After this, your should follow the steps in `Preparing the PHPCR repository`_
 to continue the installation process.
 
+.. _`Composer`: http://getcomposer.org
 .. _`CMF sandbox github repository`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`Requirements for running Symfony2`: http://symfony.com/doc/current/reference/requirements.html
 .. _`Git 1.6+`: http://git-scm.com/

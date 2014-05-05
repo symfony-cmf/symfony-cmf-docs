@@ -40,10 +40,8 @@ persisted using Doctrine PHPCR-ODM, Doctrine ORM or something else.
 Installation
 ------------
 
-1. You can install the bundle in 2 different ways:
-
-  * Use the official Git repository (https://github.com/symfony-cmf/MediaBundle);
-  * Install it via Composer (``symfony-cmf/media-bundle`` on `Packagist`_).
+1. You can install the bundle via Composer (``symfony-cmf/media-bundle`` on
+   `Packagist`_).
 
 2. When using the file and image controller for downloading, uploading and
    displaying, add the following lines to the end of your routing file:

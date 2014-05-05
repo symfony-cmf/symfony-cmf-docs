@@ -15,10 +15,8 @@ including the ability to edit them. See :doc:`types`.
 Installation
 ------------
 
-You can install the bundle in 2 different ways:
-
-* Use the official Git repository (https://github.com/symfony-cmf/BlockBundle);
-* Install it via Composer (``symfony-cmf/block-bundle`` on `Packagist`_).
+You can install this bundle `with composer`_ using the
+`symfony-cmf/block-bundle`_ package.
 
 .. _bundle-block-configuration:
 
@@ -383,7 +381,8 @@ Read on
 * :doc:`cache`
 * :doc:`relation_to_sonata_block_bundle`
 
-.. _`Packagist`: https://packagist.org/packages/symfony-cmf/block-bundle
+.. _`symfony-cmf/block-bundle`: https://packagist.org/packages/symfony-cmf/block-bundle
+.. _`with composer`: http://getcomposer.org
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`prepended configuration`: http://symfony.com/doc/current/components/dependency_injection/compilation.html#prepending-configuration-passed-to-the-extension
 .. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle
