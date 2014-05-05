@@ -8,36 +8,27 @@ You're still here? You already learned the basics of the Symfony CMF and you
 just wanted to learn more and more? Then you can read this chapter! This
 chapter will walk you quickly through some other CMF bundles. Most of the
 other bundles are based on the shoulders of some giants, like the KnpMenuBundle_
-or SonataBlockBundle_.
+or SonataAdminBundle_.
 
 The MenuBundle
 --------------
 
 Let's start with the MenuBundle. If you visit the page, you can see a nice
-menu in the sidebar. You can find the layout view in the AcmeMainBundle.
-Somewhere in the middle of the document, you find this code:
+menu. You can find the rendering of this menu in the layout view in the
+AcmeDemoBundle:
 
 .. code-block:: html+jinja
 
-    <!-- src/Acme/MainBundle/Resources/views/layout.html.twig -->
+    <!-- src/Acme/DemoBundle/Resources/views/layout.html.twig -->
 
     <!-- ... -->
-    <div class="row">
-        <div id="content-container" class="span12 boxed">
-            <div class="row">
-                <div id="navigation" class="span3">
-                    <div class="well">
-                        {% block navigation %}
-                            <h2>Navigation</h2>
-                            {{ knp_menu_render('simple') }}
-                        {% endblock %}
-                    </div>
-                </div>
+    <nav class="navbar  navbar-inverse  page__nav" role="navigation">
+        <div class="container-fluid">
+            {{ knp_menu_render('simple', {'template': 'AcmeDemoBundle:Menu:bootstrap.html.twig', 'currentClass': 'active'}) }}
 
-                <!-- ... -->
-            </div>
+            <!-- ... -->
         </div>
-    </div>
+    </nav>
 
 As you can see, the menu is rendered by the ``knp_menu_render`` tag. This
 seems a bit a strange, we are talking about the CmfMenuBundle and not the
@@ -62,7 +53,100 @@ You've already seen this bundle in the first chapter. This bundle integrates
 the CreatePHP_ library (which uses the `Create.js`_ library) into Symfony2
 using the FOSRestBundle_.
 
-.. todo put an example in the SE?
+The Create.js library works using a REST layer. All elements on a page get
+`RDFa Mappings`_, which tells Create.js how to map the element to the document.
+When you save the page, the new content is passed to the REST api and saved in
+the database.
+
+Rendering content with RDFa mappings can be very easy, as you can see in the
+Standard Edition:
+
+.. code-block:: html+jinja
+
+    {% block main %}
+    {% createphp cmfMainContent as="rdf" %}
+    {{ rdf|raw }}
+    {% endcreatephp %}
+    {% endblock %}
+
+This will output the content object using `<div>` elements. You can also
+customize this completely by using the ``createphp_*`` functions.
+
+The BlockBundle
+---------------
+
+If you visit the homepage of the Standard Edition, you'll see three blocks:
+
+.. image:: ../_images/quick_tour/3rd-party-bundles-homepage.png
+
+These blocks can be edited and used on their own. These blocks are provided by
+the BlockBundle, which is a tiny layer on top of the SonataBlockBundle_. It
+provides the ability to store the blocks using PHPCR and it adds some commonly
+used blocks.
+
+The three blocks in the Standard Edition are custom blocks. A block is handled
+by a block service. You can find this service in the
+``Acme\DemoBundle\Block\UnitBlockService`` class. Since the blocks are
+persisted using PHPCR, it also needs a block document, which is located in
+``Acme\DemoBundle\Document\UnitBlock``.
+
+The SeoBundle
+-------------
+
+There is also a SeoBundle. This bundle is build on top of the
+SonataSeoBundle_. It provides a way to extract SEO information from a document
+and to make SEO information editable using an admin.
+
+To integrate the SeoBundle into the Standard Edition, you must register both
+bundles in the ``AppKernel``::
+
+    // app/AppKernel.php
+
+    // ...
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...
+            new Sonata\SeoBundle\SonataSeoBundle(),
+            new Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle(),
+        );
+        // ...
+    }
+
+Now, you can configure a standard title. This is the title that is used when
+the CmfSeoBundle can extract the title from a content object:
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+    cmf_seo:
+        title: "%%content_title%% | Standard Edition"
+
+The ``%%content_title%%`` will be replaced by the title extracted from the
+content object. The last thing you need to do is using this title as the title
+element. To do this, replace the ``<title>`` tag line in the
+``src/Acme/DemoBundle/Resources/views/layout.html.twig`` template with this:
+
+.. code-block:: html+jinja
+
+    {% block title %}{% sonata_seo_title() %}{% endblock %}
+
+Now, you can see nice titles when visiting the website.
+
+Some pages, like the login page, don't use content objects. In these cases,
+you can configure a default title:
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+    sonata_seo:
+        page:
+            title: Standard Edition
+
+.. caution::
+
+    The *default title* is configured under the ``sonata_seo`` extension, while
+    the *standard title* is configured under the ``cmf_seo`` extension.
 
 Sonata Admin
 ------------
@@ -134,8 +218,10 @@ the Symfony CMF!
 
 .. _KnpMenuBundle: https://github.com/KnpLabs/KnpMenuBundle
 .. _SonataBlockBundle: http://sonata-project.org/bundles/block/master/doc/index.html
+.. _SonataSeoBundle: http://sonata-project.org/bundles/seo/master/doc/index.html
 .. _CreatePHP: http://demo.createphp.org/
 .. _`Create.js`: http://createjs.org/
 .. _FOSRestBundle: https://github.com/friendsofsymfony/FOSRestBundle
 .. _SonataAdminBundle: http://sonata-project.org/bundles/admin/master/doc/index.html
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
+.. _`RDFa Mappings`: http://en.wikipedia.org/wiki/RDFa

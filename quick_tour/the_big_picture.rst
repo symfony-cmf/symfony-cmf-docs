@@ -51,10 +51,11 @@ Setting up the Database
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Now, the only thing left to do is setting up the database. This is not
-something you are used to doing when creating Symfony applications, but to make a
-lot of things configurable using an admin, the Symfony CMF needs a database.
+something you are used to doing when creating Symfony applications, but the
+Symfony CMF needs a database in order to make a lot of things configurable
+using an admin interface.
 
-To get quickly started, it is expected that you have enabled the sqlite
+To quickly get started, it is expected that you have enabled the sqlite
 extension. After that, run these commands:
 
 .. code-block:: bash
@@ -67,7 +68,7 @@ extension. After that, run these commands:
 .. tip::
 
     You are going to learn more about the Database layer of the Symfony CMF
-    later in the Quick Tour.
+    :doc:`in the next chapter of the Quick Tour <the_model>`.
 
 .. seealso::
 
@@ -81,9 +82,9 @@ The Request Flow
 
     When you have at least PHP 5.4, use the ``server:run`` command to run a
     local server for the demo. Otherwise, use a localhost and prefix the URLs
-    with ``/path-to-project/web/app_dev.php/``.
+    in this document with ``/path-to-project/web/app_dev.php/``.
 
-Now the standard edition is ready to use, navigate to the homepage
+Now, the Standard Edition is ready to use. Navigate to the homepage
 (``http://localhost:8000/``) to see the demo:
 
 .. image:: ../_images/quick_tour/big-picture-home.png
@@ -93,7 +94,7 @@ closer look at the request flow for a Symfony CMF application:
 
 .. image:: ../_images/quick_tour/request_flow.png
 
-First of all, you see a typical symfony request flow following the white
+First of all, you see a typical Symfony request flow following the white
 blocks. It creates a ``Request`` object which will be passed to a router,
 which executes the controller and that controller uses models to generate a
 view to put in the response.
@@ -140,7 +141,7 @@ object.
 
 .. note::
 
-    You'll learn more about the router in the next chapter of the Quick Tour.
+    You'll learn more about the router :doc:`further in the Quick Tour <the_router>`.
 
 The Controller
 ~~~~~~~~~~~~~~
@@ -167,17 +168,17 @@ Adding a New Page
 Now you know the request flow, you can start adding a new page. In the Symfony
 CMF Standard Edition, the data is stored in data files, which are loaded when
 executing the ``doctrine:phpcr:fixtures:load`` command. To add a new page, you
-just need to edit such a data file, which is located in the ``Resources/data``
-directory:
+just need to edit such a data file, which is located in the
+``src/Acme/DemoBundle/Resources/data`` directory:
 
 .. code-block:: yaml
 
-    # src/Acme/MainBundle/Resources/data/page.yml
-    static:
+    # src/Acme/MainBundle/Resources/data/pages.yml
+    Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page:
         # ...
 
         quick_tour:
-            name: "quick_tour"
+            id: /cms/simple/quick_tour
             label: "Quick Tour"
             title: "Reading the Quick Tour"
             body: "I've added this page while reading the quick tour"
@@ -190,7 +191,11 @@ the changes on the database and after refreshing, you can see your new page!
 Live Editing
 ------------
 
-You may already noticed the big black bar at the top of the site:
+Now is the time you become an admin of this site and editing the content using
+the Web Interface. To do this click on "Admin Login" and use the provided
+credentials.
+
+You'll see that you have a new bar at the top of the page:
 
 .. image:: ../_images/quick_tour/big-picture-createjs-bar.png
 
