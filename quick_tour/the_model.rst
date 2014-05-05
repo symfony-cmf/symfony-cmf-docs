@@ -36,7 +36,7 @@ The result will be the PHPCR tree:
 .. code-block:: text
 
     ROOT:
-    cms:
+      cms:
         content:
         blocks:
             hero_unit:
