@@ -55,7 +55,7 @@ a caches section to ``doctrine_phpcr.session.backend``:
                 <provider name="phpcr_meta" type="file_system"/>
                 <provider name="phpcr_nodes" type="file_system"/>
             </config>
-            <config xmlns="http://example.org/schema/dic/doctrine_phpcr">
+            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
                 <session>
                     <backend>
                         <!-- ... -->
@@ -94,3 +94,4 @@ a caches section to ``doctrine_phpcr.session.backend``:
             ),
         );
 
+.. _`DoctrineCacheBundle`: https://github.com/doctrine/DoctrineCacheBundle/

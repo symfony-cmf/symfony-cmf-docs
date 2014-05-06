@@ -240,7 +240,7 @@ so that you can create migrations.
 .. note::
 
     To use the cache, install and configure the
-    :doc:`DoctrineCacheBundle <../../cookbook/database/doctrine_cache>``_.
+    :doc:`DoctrineCacheBundle <../../cookbook/database/doctrine_cache>`.
     Then uncomment the cache meta and nodes settings.
 
 Doctrine PHPCR-ODM Configuration
@@ -366,9 +366,8 @@ fetch depth reduces the number and duration for queries. Set the option
 children or whole subtrees. This can reduce the number of queries needed, but
 watch out for longer queries because more data is fetched.
 
-When using Jackalope Doctrine DBAL, it is highly recommended to activate the
-caching options. Uncomment the ``session.backend.caches`` as explained in
-`PHPCR Session Configuration`_ and activate the DoctrineCacheBundle_.
+When using Jackalope Doctrine DBAL, it is highly recommended to
+:doc:`activate the caching options <../../cookbook/database/doctrine_cache>`.
 
 Note that you can also set the fetchDepth on the session on the fly for
 specific calls, or use the fetchDepth option on children mappings of your
@@ -514,5 +513,4 @@ Read On
 .. _`Doctrine data-fixtures`: https://github.com/doctrine/data-fixtures
 .. _`documentation of the DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`SQL2 queries`: http://www.h2database.com/jcr/grammar.html
-.. _`DoctrineCacheBundle`: https://github.com/doctrine/DoctrineCacheBundle/
 .. _`BurgovKeyValueFormBundle`: https://github.com/Burgov/KeyValueFormBundle

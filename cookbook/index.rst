@@ -9,6 +9,7 @@ The Cookbook
     database/choosing_storage_layer
     database/choosing_phpcr_implementation
     database/running_jackrabbit
+    database/doctrine_cache
     editions/cmf_sandbox
     editions/cmf_core
     creating_cms_using_cmf_and_sonata
