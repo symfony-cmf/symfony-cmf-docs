@@ -72,8 +72,8 @@ The only thing to do now is to use the twig helper in your templates:
     <html>
         <head>
             {{ sonata_seo_title() }}
+
             {{ sonata_seo_metadatas() }}
-            {{ sonata_seo_link_canonical() }} // needed later
         </head>
         <body>
             <p>Some page body.</p>
@@ -125,9 +125,9 @@ Both ways are documented in detail in seperate sections:
 Choosing the Original Route Pattern
 -----------------------------------
 
-Search engines punish you, when you provide the same content under several
-URLs. The CMF allows you to have several URLs for the same content if you
-need that. There are two solutions to avoid penalties with search engines:
+Search engines don't like it when you provide the same content under several
+URLs. The CMF allows you to have several URLs for the same content if you need
+that. There are two solutions to avoid penalties with search engines:
 
 * Create a canonical link that identifies the original URL:
   ``<link rel="canonical" href="/route/org/content">``;
@@ -162,23 +162,13 @@ you want to change that to redirect instead, you can set the
             ),
         );
 
-.. todo
+Defining a Default
+------------------
 
-Configuring the Default Values
-------------------------------
-
-You know now how to work with objects configuring SEO data. However, in some
-cases the object doesn't provide any information. Then you have to configure a
-default. You can configure the defaults for the SonataSeoBundle, these
-defaults will be overriden by the metadata from the CmfSeoBundle. However, you
-might want to combine.
-
-Visiting the site with the url ``/seo-content`` (same template shown above)
-will show a Page with "Documents own tile" as title, "This ist the text for
-the description meta tag" in the description, "Seo, Content" in the keywords
-and a canonical link with ``href="/original/url/of/content"``. But what about
-some default string to just concatenate defaults and documents own values?
-Just add some more configs to the cmf_seo configuration section.
+You've learned everything about extracting SEO information from objects.
+However, in some cases the object doesn't provide any information or there is
+no object (e.g. on a login page). For these cases, you have to configure a
+default value. These default values can be configured for the SonataSeoBundle:
 
 .. configuration-block::
 
@@ -187,23 +177,11 @@ Just add some more configs to the cmf_seo configuration section.
         # app/config/config.yml
         sonata_seo:
             page:
+                title: A Default Title
                 metas:
                     names:
                         keywords: default, sonata, seo
-        cmf_seo:
-            title: default_title_key
-            description: default_title_key
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <container xmlns="http://symfony.com/schema/dic/services">
-            <config
-                    xmlns="http://cmf.symfony.com/schema/dic/seo"
-                    title="default_title_key"
-                    description="default_title_key">
-            </config>
-        </container>
+                        description: A default description
 
     .. code-block:: php
 
@@ -211,54 +189,134 @@ Just add some more configs to the cmf_seo configuration section.
         $container->loadFromExtension(
             'sonata_seo', array(
                 'page' => array(
+                    'title' => 'A Default Title',
                     'metas' => array(
                         'names' => array(
-                            'keywords' => 'default, key, other',
+                            'keywords'    => 'default, key, other',
+                            'description' => 'A default description',
                         ),
                     ),
                 ),
             ),
-            'cmf_seo' => array(
-                'title'         => 'default_title_key',
-                'description'   => 'default_description_key',
+        );
+
+The Standard Title and Description
+----------------------------------
+
+Most of the times, the title of a site has a static and a dynamic part. For
+instance, "The title of the Page - Symfony". Here "- Symfony" is static and
+"The title of the Page" will be replaced by the current title. It is of course
+not nice if you need to add this static part to all your titles in documents.
+
+That's why the CmfSeoBundle provides standard titles and descriptions. When
+using these settings, there are 2 placeholders available: ``%content_title%``
+and ``%content_description%``. This will be replaced with the title extracted
+from the content object and the description extracted from the content object.
+
+For instance, to configure the titles of the symfony.com pages, you would do:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_seo:
+            title: "%%content_title%% - Symfony"
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <config xmlns="http://cmf.symfony.com/schema/dic/seo"
+            title="%%content_title%% - Symfony"
+        />
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_seo', array(
+            'title' => '%%content_title%% - Symfony',
+        ));
+
+.. caution::
+
+    Be sure to escape the percentage characters by using a double percentage
+    character, otherwise the container will try to replace it with the value
+    of a container parameter.
+
+This syntax might look familiair if you have used with the Translation
+component before. And that's correct, under the hood the Translation component
+is used to replace the placeholders with the correct values. This also means
+you get Multi Language Support for free!
+
+For instance, you can do:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_seo:
+            title: seo.title
+            description: seo.description
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <config xmlns="http://cmf.symfony.com/schema/dic/seo"
+            title="seo.title"
+            description="seo.description"
+        />
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_seo', array(
+            'title' => 'seo.title',
+            'description' => 'seo.description',
+        ));
+
+And then configure the translation messages:
+
+.. configuration-block::
+
+    .. code-block:: xml
+
+        <!-- app/Resources/translations/messages.en.xliff -->
+        <?xml version="1.0" encoding="utf-8"?>
+        <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+            <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+                <body>
+                    <trans-unit id="seo.title">
+                        <source>seo.title</source>
+                        <target>%content_title% | Default title</target>
+                    </trans-unit>
+                    <trans-unit id="seo.description">
+                        <source>seo.description</source>
+                        <target>Default description. %content_description%</target>
+                    </trans-unit>
+                </body>
+            </file>
+        </xliff>
+
+    .. code-block:: php
+
+        // app/Resources/translations/messages.en.php
+        return array(
+            'seo' => array(
+                'title'       => '%content_title% | Default title',
+                'description' => 'Default description. %content_description',
             ),
         );
 
-As you will notice, you got the opportunity to set Symfony translation key for
-your default values for title and description. So you will got
-Multi-Language-Support out of the box. Just define your values for default
-title/description as translations:
+    .. code-block:: yaml
 
-.. code-block:: xml
+        # app/Resources/translations/messages.en.yml
+        seo:
+            title:       "%content_title% | Default title"
+            description: "Default description. %content_description%"
 
-    <!-- app/Resources/translations/messages.en.xliff -->
-    <?xml version="1.0" encoding="utf-8"?>
-    <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-        <file source-language="en" target-language="en" datatype="plaintext" original="messages.en.xliff">
-            <body>
-                <trans-unit id="default_title_key">
-                    <source>default_title_key</source>
-                    <target>%content_title% | Default title</target>
-                </trans-unit>
-                <trans-unit id="default_description_key">
-                    <source>default_description_key</source>
-                    <target>Default description. %content_description%</target>
-                </trans-unit>
-            </body>
-        </file>
-    </xliff>
-
-If you want to concatenate your documents values with the default ones you
-need them as parameters in you translation target.
-
-.. tip::
-
-    If you does not what to open a translation file for two entry, just set
-    ``Default title | %%content_title%%``or ``Default description.
-    %%content_description%%``.
-
-For changing the default translation domain (messages), the SeoBundle provides
-a configuration value:
+For changing the default translation domain (messages), you should use the
+``cmf_seo.translation_domain`` setting:
 
 .. configuration-block::
 
@@ -272,10 +330,9 @@ a configuration value:
 
         <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services">
-            <config
-                    xmlns="http://cmf.symfony.com/schema/dic/seo"
-                    translation-domain="AcmeDemoBundle">
-            </config>
+            <config xmlns="http://cmf.symfony.com/schema/dic/seo"
+                translation-domain="AcmeDemoBundle"
+            />
         </container>
 
     .. code-block:: php
@@ -283,74 +340,15 @@ a configuration value:
         // app/config/config.php
         $container->loadFromExtension(
             'cmf_seo' => array(
-                'translation_domain'         => 'AcmeDemoBundle',
+                'translation_domain' => 'AcmeDemoBundle',
             ),
         );
 
-Preface
--------
+Conclusion
+----------
 
-Search engines punish you when you provide the same content under several
-URLs. The CMF allows you to have several URLs for the same content if you
-need that. There are two solutions to avoid penalties with search engines:
-
-* Create a canonical link that identifies the original URL:
-  ``<link rel="canonical" href="/route/org/content">``;
-* Redirect to THE original url.
-
-Both take care on search engines, which does not like it to have same content
-under different routes.
-
-The SeoBundle uses sonatas SeoBundle and its TwigHelper to render the the
-`SeoMetadata` into your Pag. So you should have a look at the documentation at
-`sonata seo documentation_`
-
-For redirects instead of canonical links (default) set the following option:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_seo:
-            original_route_pattern: redirect
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <container xmlns="http://symfony.com/schema/dic/services">
-            <config
-                    xmlns="http://cmf.symfony.com/schema/dic/seo"
-                    original-route-pattern="redirect">
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension(
-            'cmf_seo' => array(
-                'original_route_pattern'    => 'redirect',
-            ),
-        );
-
-This value will cause a redirect to the url persisted in the ``originalUrl``
-property of the ``SeoMetadata``.
-
-The SeoMetadata contains a form type for your Symfony Form. Just create you
-form with the following key:
-
-.. code-block:: php
-
-    $formBuilder
-        ...
-        ->add('seoMetadata', 'seo_metadata', array('label' => false));
-        ...
-        ;
-
-For SonataAdminBundle user the SeoBundle provides an admin extension to add
-that form to your form configuration.
-
+That's it! You have now created a SEO optimized website using nothing more
+than a couple of simple settings.
 
 .. _`SonataSeoBundle`: https://github.com/sonata-project/SonataSeoBundle
 .. _`with composer`: http://getcomposer.org
