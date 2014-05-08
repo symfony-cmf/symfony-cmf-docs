@@ -17,10 +17,25 @@ This bundle consists of two parts:
 Installation
 ------------
 
-You can install the bundle in 2 different ways:
+You can install this bundle `with composer`_ using the
+``symfony-cmf/seo-content-bundle`` package on `Packagist`_.
 
-* Use the official Git repository (https://github.com/symfony-cmf/TreeBrowserBundle);
-* Install it via Composer (``symfony-cmf/tree-browser-bundle`` on `Packagist`_).
+Both the CmfTreeBrowserBundle and FOSJsRoutingBundle_ must be registered in the
+``AppKernel``::
+
+    // app/appKernel.php
+    // ...
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Symfony\Cmf\Bundle\TreeBrowserBundle\CmfTreeBrowserBundle(),
+        );
+        // ...
+
+        return $bundles;
+    }
 
 Routing
 -------
@@ -215,44 +230,11 @@ For example, if your want to open a custom action:
 
 .. note::
 
-    Don't forget to add your custom route to the
-    ``fos_js_routing.routes_to_expose`` configuration:
-
-    .. configuration-block::
-
-        .. code-block:: yaml
-
-            fos_js_routing:
-                routes_to_expose:
-                    - cmf_tree_browser.phpcr_children
-                    - cmf_tree_browser.phpcr_move
-                    - sonata.admin.doctrine_phpcr.phpcrodm_children
-                    - sonata.admin.doctrine_phpcr.phpcrodm_move
-                    - presta_cms_page_edit
-
-        .. code-block:: xml
-
-            <config xmlns="http://example.org/schema/dic/fos_js_routing">
-                <routes-to-expose>cmf_tree_browser.phpcr_children</routes-to-expose>
-                <routes-to-expose>cmf_tree_browser.phpcr_move</routes-to-expose>
-                <routes-to-expose>sonata.admin.doctrine_phpcr.phpcrodm_children</routes-to-expose>
-                <routes-to-expose>sonata.admin.doctrine_phpcr.phpcrodm_move</routes-to-expose>
-                <routes-to-expose>presta_cms_page_edit</routes-to-expose>
-            </config>
-
-        .. code-block:: php
-
-            $container->loadFromExtension('fos_js_routing', array(
-                'routes_to_expose' => array(
-                    'cmf_tree_browser.phpcr_children',
-                    'cmf_tree_browser.phpcr_move',
-                    'sonata.admin.doctrine_phpcr.phpcrodm_children',
-                    'sonata.admin.doctrine_phpcr.phpcrodm_move',
-                    'presta_cms_page_edit',
-                ),
-            ));
+    This bundle automatically exposes routes with the FOSJsRoutingBundle_
+    to allow the tree to work.
 
 .. _`Packagist`: https://packagist.org/packages/symfony-cmf/tree-browser-bundle
+.. _`with composer`: http://getcomposer.org
 .. _`FOSJsRoutingBundle`: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle
 .. _`admin_tree.js`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle/blob/master/Resources/views/Tree/tree.html.twig
 .. _`select_tree.js`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle/blob/master/Resources/views/Form/form_admin_fields.html.twig
