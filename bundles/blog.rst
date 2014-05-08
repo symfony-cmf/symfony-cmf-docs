@@ -37,7 +37,7 @@ Dependencies
 
 * :doc:`CmfRoutingBundle <routing/introduction>` is used to manage the routing;
 * :doc:`CmfRoutingAutoBundle <routing_auto/introduction>` is used to manage automatically generate routes;
-* :doc:`PHPCR-ODM <phpcr_odm>` is used to persist the bundles documents.
+* :doc:`PHPCR-ODM <phpcr_odm/introduction>` is used to persist the bundles documents.
 
 Configuration
 -------------

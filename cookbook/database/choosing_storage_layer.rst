@@ -4,8 +4,6 @@
 Choosing a Storage Layer
 ========================
 
-.. include:: ../_outdate-caution.rst.inc
-
 When building a CMS, the choice of storage layer is one of the key decisions
 to take. Many factors must be considered, the good news is that with all the
 components and Bundles in the CMF, it takes extra care to provide the
@@ -176,9 +174,10 @@ solutions like CouchDB or Cassandra is entirely possible. Again, switching the
 persistence solution would require no code changes as the business logic is
 only bound to the PHPCR interfaces.
 
-Please see :doc:`../installing_configuring_doctrine_phpcr_odm` for more details
-on the available PHPCR implementations and their requirements and how to setup
-Symfony2 with one of them.
+Please see :doc:`choosing_phpcr_implementation` for more details
+on the available PHPCR implementations and their requirements and
+:doc:`../../bundles/phpcr_odm/introduction` for how to configure a repository
+in Symfony2.
 
 PHPCR ODM
 ---------
@@ -193,7 +192,7 @@ Furthermore, it also provides native support for translations, covering the
 only omission of PHPCR for the above mentioned requirements list of a CMS
 storage solution.
 
-.. _`PHPCR`: http://phpcr.github.com
+.. _`PHPCR`: http://phpcr.github.io
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
 .. _`Jackalope`: https://github.com/jackalope/jackalope
 .. _`Jackrabbit`: http://jackrabbit.apache.org

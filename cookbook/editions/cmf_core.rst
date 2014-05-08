@@ -1,8 +1,8 @@
 .. index::
     single: Installing CMF Core
 
-Installing and Configuring the CMF Core
-=======================================
+Installing and Configuring the CMF Core Bundles
+===============================================
 
 .. include:: ../_outdate-caution.rst.inc
 
@@ -25,7 +25,7 @@ Preconditions
 -------------
 
 * `Installation of Symfony2`_ (2.1.x)
-* :doc:`../installing_configuring_doctrine_phpcr_odm`
+* :doc:`../../bundles/phpcr_odm/introduction`
 
 Installation
 ------------
@@ -96,7 +96,7 @@ Minimum Configuration
 These steps are needed to ensure your ``AppKernel`` still runs.
 
 If you haven't done so already, make sure you have followed these steps from
-:doc:`../installing_configuring_doctrine_phpcr_odm`:
+:doc:`../../bundles/phpcr_odm/introduction`:
 
 * Initialize ``DoctrinePHPCRBundle`` in ``app/AppKernel.php``
 * Ensure there is a ``doctrine_phpcr:`` section in ``app/config/config.yml``

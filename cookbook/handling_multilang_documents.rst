@@ -12,8 +12,8 @@ taken to use multi-language documents as clearly as possible.
 Please read this first
 ----------------------
 
-You need to understand how to use PHPCR-ODM. You find an introduction in
-:doc:`Documentation on the PHPCR-ODM Doctrine bundle <../bundles/phpcr_odm>`
+You need to understand how to use PHPCR-ODM. You find an introduction in the
+:doc:`documentation on the PHPCR-ODM Doctrine bundle <../bundles/phpcr_odm/introduction>`
 
 Lunetics LocaleBundle
 ---------------------
@@ -75,7 +75,8 @@ always happens on a document level, not on the individual translatable fields.
 
 Read more about multi-language documents in the
 `PHPCR-ODM documentation on multi-language`_ and see
-:ref:`bundle-phpcr-odm-multilang-config` to configure PHPCR-ODM correctly.
+:doc:`../bundles/phpcr_odm/multilang` for information how to configure
+PHPCR-ODM correctly.
 
 Most of the CMF bundles provide multi-language documents, for example
 ``MultilangStaticContent``, ``MultilangMenuNode`` or ``MultilangSimpleBlock``.

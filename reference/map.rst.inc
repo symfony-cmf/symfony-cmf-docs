@@ -10,3 +10,4 @@
   * :doc:`configuration/search`
   * :doc:`configuration/simple_cms`
   * :doc:`configuration/tree_browser`
+  * :doc:`configuration/phpcr_odm`
