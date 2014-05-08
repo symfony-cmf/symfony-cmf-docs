@@ -23,8 +23,8 @@ repository.
 
     The concept of base paths is needed because there are no separate "tables"
     as in a relational database, but one tree containing all data. To be able
-    to add a document, you need to ensure the parent path where you want to
-    add it is already present in the repository.
+    to add a document, you need to ensure the parent path is already present
+    in the repository.
 
 Initializers have to implement the
 ``Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface``. If you don't
@@ -59,7 +59,8 @@ A service to use the generic initializer looks like this:
     .. code-block:: xml
 
         <!-- src/Acme/ContentBundle/Resources/config/services.xml -->
-        <service id="acme_content.phpcr.initializer" class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
+        <service id="acme_content.phpcr.initializer"
+                 class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
             <argument>AcmeContentBundle Basepaths</argument>
             <argument type="collection">
                 <argument>/my/content</argument>
@@ -208,7 +209,7 @@ scripts. Migrations should implement the
 service with a ``doctrine_phpcr.migrator`` tag contains an ``alias`` attribute
 uniquely identifying the migrator. There is an optional
 ``Doctrine\Bundle\PHPCRBundle\Migrator\AbstractMigrator`` class to use as a
-basis:
+basis.
 
 .. configuration-block::
 
@@ -227,7 +228,8 @@ basis:
         <!-- src/Acme/ContentBundle/Resources/config/services.xml -->
         <?xml version="1.0" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            <service id="acme.demo.migration.foo" class="Acme\DemoBundle\Migration\Foo">
+            <service id="acme.demo.migration.foo"
+                     class="Acme\DemoBundle\Migration\Foo">
                 <argument type="collection">
                     <argument>%acme.content_basepath%</argument>
                     <argument>%acme.menu_basepath%</argument>
@@ -282,7 +284,7 @@ install the `DoctrineFixturesBundle`_ which brings the
 Fixtures work the same way they work for Doctrine ORM. You write fixture
 classes implementing ``Doctrine\Common\DataFixtures\FixtureInterface``. If you
 place them in ``<Bundle>\DataFixtures\PHPCR``, they will be auto detected if you
-specify no path to the fixture loading command.
+don't specify a path in the command.
 
 A simple example fixture class looks like this::
 

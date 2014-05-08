@@ -19,7 +19,7 @@ You can tag services to listen to Doctrine PHPCR-ODM events. It works the same
 way as for `Doctrine ORM events`_. The only differences are:
 
 * use the tag name ``doctrine_phpcr.event_listener`` resp.
-  ``doctrine_phpcr.event_subscriber`` instead of ``doctrine.event_listener``.
+  ``doctrine_phpcr.event_subscriber`` instead of ``doctrine.event_listener``;
 * expect the argument to be of class
   ``Doctrine\Common\Persistence\Event\LifecycleEventArgs``.
 
@@ -47,10 +47,12 @@ use this configuration:
         <?xml version="1.0" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <services>
-                <service id="acme_search.listener.search" class="Acme\SearchBundle\EventListener\SearchIndexer">
+                <service id="acme_search.listener.search"
+                         class="Acme\SearchBundle\EventListener\SearchIndexer">
                     <tag name="doctrine_phpcr.event_listener" event="postPersist" />
                 </service>
-                <service id="acme_search.subscriber.fancy" class="Acme\SearchBundle\EventSubscriber\MySubscriber">
+                <service id="acme_search.subscriber.fancy"
+                         class="Acme\SearchBundle\EventSubscriber\MySubscriber">
                     <tag name="doctrine_phpcr.event_subscriber" />
                 </service>
             </services>

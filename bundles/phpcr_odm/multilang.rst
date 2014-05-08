@@ -143,7 +143,8 @@ depending on the locale.
     .. code-block:: xml
 
         <doctrine-mapping>
-            <document class="MyPersistentClass" translator="attribute">
+            <document class="MyPersistentClass"
+                      translator="attribute">
                 <locale fieldName="locale" />
                 <field fieldName="publishDate" type="date" />
                 <field fieldName="topic" type="string" translated="true" />
