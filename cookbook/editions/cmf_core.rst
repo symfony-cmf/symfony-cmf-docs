@@ -4,8 +4,6 @@
 Installing and Configuring the CMF Core Bundles
 ===============================================
 
-.. include:: ../_outdate-caution.rst.inc
-
 The goal of this tutorial is to install the minimal CMF components ("core")
 with the minimum necessary configuration. From there, you can begin
 incorporating CMF functionality into your application as needed.
@@ -24,7 +22,7 @@ the Symfony CMF it would be a good idea to start with:
 Preconditions
 -------------
 
-* `Installation of Symfony2`_ (2.1.x)
+* `Installation of Symfony2`_
 * :doc:`../../bundles/phpcr_odm/introduction`
 
 Installation
@@ -37,10 +35,9 @@ Add the following to your ``composer.json`` file:
 
 .. code-block:: javascript
 
-    "minimum-stability": "dev",
     "require": {
         ...
-        "symfony-cmf/symfony-cmf": "1.0.*"
+        "symfony-cmf/symfony-cmf": "1.1.*"
     }
 
 And then run:
@@ -80,63 +77,86 @@ Next, initialize the bundles in ``AppKernel.php`` by adding them to the
         // ...
     }
 
-.. note::
-
-    This also enables the PHPCR-ODM and related dependencies; setup
-    instructions can be found in the dedicated documentation.
-
 Configuration
 -------------
 
-To get your application running, very little configuration is needed.
-
-Minimum Configuration
-~~~~~~~~~~~~~~~~~~~~~
-
-These steps are needed to ensure your ``AppKernel`` still runs.
-
-If you haven't done so already, make sure you have followed these steps from
-:doc:`../../bundles/phpcr_odm/introduction`:
-
-* Initialize ``DoctrinePHPCRBundle`` in ``app/AppKernel.php``
-* Ensure there is a ``doctrine_phpcr:`` section in ``app/config/config.yml``
-
-Configure the BlockBundle in your ``config.yml``:
+To get your application running, very little configuration is needed. If
+you want to render menus from Twig, you need to enable this feature in the
+KnpMenuBundle:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         # app/config/config.yml
-        sonata_block:
-            default_contexts: [cms]
+        knp_menu:
+            twig: true
 
-Additional Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~
+    .. code-block:: xml
 
-Because most CMF components use the DynamicRouter from the RoutingBundle,
-which by default is not loaded, you will need to enable it as follows:
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://knplabs.com/schema/dic/menu" twig="true"/>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('knp_menu', array(
+            'twig' => true,
+        ));
+
+.. caution::
+
+    While the CMF bundles work out of the box without configuration, you
+    will need to configure a storage layer. To use the default provided
+    model classes, you need PHPCR-ODM as well. Setup instructions are in
+    :doc:`../../bundles/phpcr_odm/introduction`.
+
+When using PHPCR-ODM, enable support globally for all CMF bundles with:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         # app/config/config.yml
-        cmf_routing:
-            chain:
-                routers_by_id:
-                    cmf_routing.dynamic_router: 200
-                    router.default: 100
-            dynamic:
-                enabled: true
+        cmf_core:
+            persistence:
+                phpcr:
+                    enabled: true
 
-You might want to configure more on the dynamic router, i.e. to automatically
-choose controllers based on content.  See
-:doc:`../../bundles/routing/introduction` for details.
+    .. code-block:: xml
 
-For now this is the only configuration we need. Mastering the configuration of
-the different bundles will be handled in further articles. If you're looking
-for the configuration of a specific bundle take a look at the corresponding
-:doc:`bundles reference <../../reference/index>`.
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/core">
+                <persistence>
+                    <phpcr enabled="true"/>
+                </persistence>
+            </config>
+        </container>
 
-.. _`Installation of Symfony2`: http://symfony.com/doc/2.1/book/installation.html
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', array(
+            'persistence' => array(
+                'phpcr' => array(
+                    'enabled' => true,
+                ),
+            ),
+        ));
+
+Next Steps
+----------
+
+If you want to support multiple languages, have a look at
+:doc:`../../book/handling_multilang`.
+
+Then have a look at the individual :doc:`bundles <../../bundles/index>` you are
+interested in, and find the details on the configuration in the
+:doc:`bundles configuration reference <../../reference/index>`.
+
+.. _`Installation of Symfony2`: http://symfony.com/doc/current/book/installation.html

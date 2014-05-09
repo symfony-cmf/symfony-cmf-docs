@@ -164,7 +164,7 @@ SonataDoctrinePHPCRAdminBundle_.
 
 The included administration panels are automatically available but need to
 be explicitly put on the dashboard if you want to use them. See
-:doc:`../cookbook/creating_cms_using_cmf_and_sonata` for instructions on how
+:doc:`../cookbook/creating_a_cms/sonata-admin` for instructions on how
 to install SonataDoctrinePHPCRAdminBundle.
 
 Configuration
