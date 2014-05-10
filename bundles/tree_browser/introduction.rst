@@ -36,7 +36,6 @@ Both the CmfTreeBrowserBundle and FOSJsRoutingBundle_ must be registered in the
 
         return $bundles;
     }
->>>>>>> master
 
 Routing
 -------
