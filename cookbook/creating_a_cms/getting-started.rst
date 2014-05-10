@@ -102,6 +102,8 @@ to reduce code duplication::
     // src/Acme/BasicCmsBundle/Document/ContentTrait.php
     namespace Acme\BasicCmsBundle\Document;
 
+    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+
     trait ContentTrait
     {
         /**
@@ -185,8 +187,9 @@ The ``Page`` class is therefore nice and simple::
     // src/Acme/BasicCmsBundle/Document/Page.php
     namespace Acme\BasicCmsBundle\Document;
 
-    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
     use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
+
+    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
     /**
      * @PHPCR\Document(referenceable=true)

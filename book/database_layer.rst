@@ -101,30 +101,30 @@ class via annotations:
         // src/Acme/TaskBundle/Document/Task.php
         namespace Acme\TaskBundle\Document;
 
-        use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;
+        use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
         /**
-         * @PHPCRODM\Document()
+         * @PHPCR\Document()
          */
         class Task
         {
             /**
-             * @PHPCRODM\Id()
+             * @PHPCR\Id()
              */
             protected $id;
 
             /**
-             * @PHPCRODM\String()
+             * @PHPCR\String()
              */
             protected $description;
 
             /**
-             * @PHPCRODM\Boolean()
+             * @PHPCR\Boolean()
              */
             protected $done = false;
 
             /**
-             * @PHPCRODM\ParentDocument()
+             * @PHPCR\ParentDocument()
              */
             protected $parentDocument;
         }
@@ -185,10 +185,10 @@ After this, you have to create getters and setters for the properties.
 
     You can also check out Doctrine's `Basic Mapping Documentation`_ for all
     details about mapping information. If you use annotations, you'll need to
-    prepend all annotations with ``@PHPCRODM\``, which is the name of the imported
-    namespace (e.g. ``@PHPCRODM\Document(..)``), this is not shown in Doctrine's
+    prepend all annotations with ``@PHPCR\``, which is the name of the imported
+    namespace (e.g. ``@PHPCR\Document(..)``), this is not shown in Doctrine's
     documentation. You'll also need to include the
-    ``use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCRODM;`` statement to
+    ``use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;`` statement to
     import the PHPCR annotations prefix.
 
 Persisting Documents to PHPCR

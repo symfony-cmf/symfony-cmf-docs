@@ -117,25 +117,25 @@ depending on the locale.
         {
             /**
              * The language this document currently is in
-             * @Locale
+             * @PHPCR\Locale
              */
             private $locale;
 
             /**
              * Untranslated property
-             * @Date
+             * @PHPCR\Date
              */
             private $publishDate;
 
             /**
              * Translated property
-             * @String(translated=true)
+             * @PHPCR\String(translated=true)
              */
             private $topic;
 
             /**
              * Language specific image
-             * @Binary(translated=true)
+             * @PHPCR\Binary(translated=true)
              */
             private $image;
         }

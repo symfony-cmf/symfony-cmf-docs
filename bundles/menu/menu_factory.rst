@@ -160,7 +160,7 @@ The service needs to be tagged as event listener:
             acme_demo.listener.menu_referrer_listener:
                 class: Acme\DemoBundle\EventListener\CreateMenuItemFromNodeListener
                 arguments:
-                    - @knp_menu.menu_provider
+                    - "@knp_menu.menu_provider"
                 tags:
                     -
                         name: kernel.event_listener
