@@ -23,7 +23,7 @@ To use this template, specify ``hallo-coffee`` as editor in the
 
         {% render(controller(
             "cmf_create.jsloader.controller:includeJSFilesAction",
-            {'editor': 'hallo-coffee', '_locale': app.request.locale }
+            {'editor': 'hallo-coffee' }
         )) %}
 
     .. code-block:: php
@@ -31,7 +31,6 @@ To use this template, specify ``hallo-coffee`` as editor in the
         <?php $view['actions']->render(
             new ControllerReference('cmf_create.jsloader.controller:includeJSFilesAction", array(
                 'editor'  => 'hallo-coffee',
-                '_locale' => $app->getRequest()->getLocale(),
             ))
         ) ?>
 

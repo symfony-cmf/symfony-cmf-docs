@@ -148,8 +148,7 @@ from the admin tree:
 
         {% render 'sonata.admin.doctrine_phpcr.tree_controller:treeAction' with {
             'root':     sitePath ~ "/menu",
-            'selected': menuNodeId,
-            '_locale':  app.request.locale
+            'selected': menuNodeId
         } %}
         <script type="text/javascript">
             $(document).ready(function() {
@@ -169,7 +168,6 @@ from the admin tree:
         $view['actions']->render('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array(
             'root'     => $sitePath . '/menu',
             'selected' => $menuNodeId,
-            '_locale'  => $app->getRequest()->getLocale()
         ))?>
         <script type="text/javascript">
             $(document).ready(function() {

@@ -349,32 +349,12 @@ higher, the method reads:
 
     .. code-block:: jinja
 
-        {% render(controller(
-            "cmf_create.jsloader.controller:includeJSFilesAction",
-            {'_locale': app.request.locale}
-        )) %}
+        {% render(controller("cmf_create.jsloader.controller:includeJSFilesAction")) %}
 
     .. code-block:: php
 
         <?php $view['actions']->render(
-            new ControllerReference('cmf_create.jsloader.controller:includeJSFilesAction', array(
-                '_locale' => $app->getRequest()->getLocale(),
-            ))
-        ) ?>
-
-For Symfony 2.1, the syntax is:
-
-.. configuration-block::
-
-    .. code-block:: jinja
-
-        {% render "cmf_create.jsloader.controller:includeJSFilesAction" with {'_locale': app.request.locale} %}
-
-    .. code-block:: php
-
-        <?php
-        $view['actions']->render('cmf_create.jsloader.controller:includeJSFilesAction', array(
-            '_locale' => $app->getRequest()->getLocale(),
+            new ControllerReference('cmf_create.jsloader.controller:includeJSFilesAction')
         ) ?>
 
 .. tip::
@@ -382,7 +362,7 @@ For Symfony 2.1, the syntax is:
     You can include this call unconditionally. The controller checks if the
     current user is allowed to edit and only in that case includes the
     JavaScript.
-        
+
 .. note::
 
     The provided JavaScript file configures create.js and the editor. If you
