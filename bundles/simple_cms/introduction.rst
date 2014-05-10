@@ -28,7 +28,7 @@ Installation
 ------------
 
 You can install this bundle `with composer`_ using the
-`symfony-cmf/simple-cms-bundle`_ package.
+``symfony-cmf/simple-cms-bundle`` package on `Packagist`_.
 
 Sections
 --------
@@ -39,6 +39,5 @@ Sections
 
 .. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/symfony-cmf-standard
 .. _`CMF website`: https://github.com/symfony-cmf/cmf-website/
-.. _`symfony-cmf/simple-cms-bundle`: https://packagist.org/packages/symfony-cmf/simple-cms-bundle
 .. _`with composer`: http://getcomposer.org
-
+.. _`Packagist`: https://packagist.org/packages/symfony-cmf/simple-cms-bundle
