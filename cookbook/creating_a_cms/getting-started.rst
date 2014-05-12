@@ -31,25 +31,18 @@ all of the required packages now.
             ...
             "symfony-cmf/routing-auto-bundle": "1.0.*@alpha",
             "symfony-cmf/menu-bundle": "1.0",
-            "sonata-project/doctrine-phpcr-admin-bundle": "dev-master",
-            "symfony-cmf/tree-browser-bundle": "@dev",
+            "sonata-project/doctrine-phpcr-admin-bundle": "1.0.*",
+            "symfony-cmf/tree-browser-bundle": "1.0.*",
             "doctrine/data-fixtures": "1.0.0",
 
-            "doctrine/phpcr-odm": "dev-master as 1.0.0",
-            "phpcr/phpcr-utils": "dev-master as 1.0.0",
-            "doctrine/phpcr-bundle": "dev-master as 1.0.0",
-            "symfony-cmf/routing-bundle": "dev-master as 1.1.0",
-            "symfony-cmf/routing": "dev-master as 1.2.0"
+            "doctrine/phpcr-odm": "1.0.*",
+            "phpcr/phpcr-utils": "1.0.*",
+            "doctrine/phpcr-bundle": "1.0.*"
+            "symfony-cmf/routing-bundle": "1.1.*",
+            "symfony-cmf/routing": "1.1.*"
         },
         ...
     }
-
-.. note::
-
-    This tutorial currently requires code only available in the lastest
-    unstable version of PHPCR-ODM, this is why you require the "dev-master as
-    1.0.0" constraints. When PHPCR-ODM 1.1 is released this will no longer be
-    necessary.
 
 Note that each time you modify your ``composer.json`` file you are required to
 run ``composer update``.

@@ -102,7 +102,7 @@ content repository.
     "minimum-stability": "dev",
     "require": {
         ...
-        "jackalope/jackalope-doctrine-dbal": "dev-master",
+        "jackalope/jackalope-doctrine-dbal": "1.0.*",
         "doctrine/phpcr-bundle": "1.0.*",
         "doctrine/phpcr-odm": "1.0.*"
     }
