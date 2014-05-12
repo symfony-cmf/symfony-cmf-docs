@@ -131,7 +131,7 @@ element. To do this, replace the ``<title>`` tag line in the
 
     {% block title %}{% sonata_seo_title() %}{% endblock %}
 
-Now, you can see nice titles when visiting the website.
+When you visit the new website, you can see nice titles for each page!
 
 Some pages, like the login page, don't use content objects. In these cases,
 you can configure a default title:
@@ -147,6 +147,9 @@ you can configure a default title:
 
     The *default title* is configured under the ``sonata_seo`` extension, while
     the *standard title* is configured under the ``cmf_seo`` extension.
+    
+The title is just one feature of the SeoBundle, it can extract and process a lot
+more SEO information.
 
 Sonata Admin
 ------------
