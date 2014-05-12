@@ -125,7 +125,7 @@ These credentials are used on the PHPCR layer for the
 ``PHPCR\SimpleCredentials``. They are optional for jackalope doctrine-dbal.
 
 Do not confuse these credentials with the username and password used by
-Midgard2 or Doctrine DBAL to connect to the underlying RDBMS where the data
+Doctrine DBAL to connect to the underlying RDBMS where the data
 is actually stored.
 
 backend type
@@ -137,8 +137,7 @@ This designates the PHPCR implementation. Valid options are
 
 * ``jackrabbit``;
 * ``doctrinedbal``;
-* ``prismic``;
-* ``midgard2``.
+* ``prismic``.
 
 backend parameters
 """"""""""""""""""
@@ -370,87 +369,6 @@ actively used, every save operation is wrapped into a transaction.
 
 Only allowed for doctrine-dbal because jackrabbit does not support
 transactions.
-
-PHPCR Session with Midgard2
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Midgard2 is an application that provides a compiled PHP extension. It
-implements the PHPCR API on top of a standard RDBMS.
-
-To use the Midgard2 PHPCR provider, you must have both the
-`midgard2 PHP extension`_ and `the midgard/phpcr package`_ installed. The
-settings here correspond to Midgard2 repository parameters as explained in
-`the getting started document`_.
-
-The session backend configuration looks as follows:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        doctrine_phpcr:
-            session:
-                backend:
-                    type: midgard2
-                    config: /path/to/midgard-config.ini
-                    db_type: MySQL
-                    db_name: midgard2_test
-                    db_host: "0.0.0.0"
-                    db_port: 3306
-                    db_username: ""
-                    db_password: ""
-                    db_init: true
-                    blobdir: /tmp/cmf-blobs
-                    loglevel: debug
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-
-            <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
-
-                <session>
-
-                    <backend type="midgard2"
-                        config="/path/to/midgard-config.ini"
-                        db-type="MySQL"
-                        db-name="midgard2_test"
-                        db-host="0.0.0.0"
-                        db-port="3306"
-                        db-username=""
-                        db-password=""
-                        db-init="true"
-                        blobdir="/tmp/cmf-blobs"
-                        loglevel="debug"
-                    />
-                </session>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
-                    'type'        => 'midgard2',
-                    'config'      => '/path/to/midgard-config.ini',
-                    'db_name'     => 'midgard2_test',
-                    'db_host'     => '0.0.0.0',
-                    'db_port'     => 3306,
-                    'db_username' => '',
-                    'db_password' => '',
-                    'db_init'     => true,
-                    'blobdir'     => '/tmp/cmf-blobs",
-                    'loglevel'    => 'debug',
-                ),
-            ),
-        ));
-
-For more information, please refer to the `official Midgard PHPCR documentation`_.
 
 .. _reference-configuration-phpcr-odm-logging:
 
@@ -714,8 +632,4 @@ For tuning the output of the ``doctrine:phpcr:dump`` command.
 
 .. _`Symfony2 Doctrine documentation`: http://symfony.com/doc/current/book/doctrine.html
 .. _`last modified listener cookbook entry`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/cookbook/last-modified.html
-.. _`midgard2 PHP extension`: http://midgard-project.org/midgard2/#download
-.. _`the midgard/phpcr package`: http://packagist.org/packages/midgard/phpcr
-.. _`the getting started document`: http://midgard-project.org/phpcr/#getting_started
-.. _`official Midgard PHPCR documentation`: http://midgard-project.org/phpcr/
 .. _`Doctrine ORM`: http://symfony.com/doc/current/reference/configuration/doctrine.html#caching-drivers
