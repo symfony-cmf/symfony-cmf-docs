@@ -106,7 +106,7 @@ SimpleBlock
 -----------
 
 Just a text block with a ``title`` and a ``body``. The default template
-renders both title and body with the twig ``raw`` filter, meaning HTML is
+renders both title and body with the Twig ``raw`` filter, meaning HTML is
 allowed in those fields.
 
 This block is useful to edit static text fragments and for example display
@@ -356,11 +356,11 @@ a ``SlideshowBlock`` object, you can render it with:
             'name' => 'slideshow',
         )) ?>
 
-Make the slideshow work in the frontend
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Make the Slideshow Work in the Front-End
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Since the BlockBundle doesn't contain anything to make the slideshow work
-in the frontend, you need to do this yourself. Use your favourite JavaScript
+in the front-end, you need to do this yourself. Use your favourite JavaScript
 library to make the slideshow interactive. If special markup is needed for
 your slideshow code to work, you can override
 ``BlockBundle:Block:block_slideshow.html.twig`` and/or the templates of the

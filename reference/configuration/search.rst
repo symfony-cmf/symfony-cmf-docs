@@ -25,7 +25,7 @@ is the following configuration:
     .. code-block:: yaml
 
         cmf_search:
-            show_paging:          false
+            show_paging: false
             persistence:
                 phpcr:
                     enabled:              false
@@ -62,12 +62,12 @@ is the following configuration:
     .. code-block:: php
 
         $container->loadFromExtension('cmf_search', array(
-            'enabled' => false,
-            'search_basepath'           => '/cms/content',
-            'manager_registry' => 'doctrine_phpcr',
-            'manager_name' => null,
-            'translation_strategy'  => null
-            'search_fields'         => array(
+            'enabled'              => false,
+            'search_basepath'      => '/cms/content',
+            'manager_registry'     => 'doctrine_phpcr',
+            'manager_name'         => null,
+            'translation_strategy' => null
+            'search_fields' => array(
                 'title'   => 'title',
                 'summary' => 'body',
             ),
@@ -123,7 +123,7 @@ template.
     .. code-block:: yaml
 
         search_fields:
-            title: title
+            title:   title
             summary: body
 
     .. code-block:: xml

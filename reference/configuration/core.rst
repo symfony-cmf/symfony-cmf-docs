@@ -31,7 +31,7 @@ is the following configuration:
                     manager_registry:     doctrine_phpcr
                     manager_name:         ~
                     use_sonata_admin:     auto
-                    translation_strategy:  ~
+                    translation_strategy: ~
 
     .. code-block:: xml
 
@@ -58,11 +58,11 @@ is the following configuration:
         $container->loadFromExtension('cmf_core', array(
             'persistence' => array(
                 'phpcr' => array(
-                    'enabled' => false,
-                    'basepath' => '/cms/simple',
-                    'manager_registry' => 'doctrine_phpcr',
-                    'manager_name' => null,
-                    'use_sonata_admin' => 'auto',
+                    'enabled'              => false,
+                    'basepath'             => '/cms/simple',
+                    'manager_registry'     => 'doctrine_phpcr',
+                    'manager_name'         => null,
+                    'use_sonata_admin'     => 'auto',
                     'translation_strategy' => null,
                 ),
             ),
@@ -223,10 +223,10 @@ only published routes and content can be accessed.
 
         cmf_core:
             publish_workflow:
-                enabled:              true
-                checker_service:      cmf_core.publish_workflow.checker.default
-                view_non_published_role:  ROLE_CAN_VIEW_NON_PUBLISHED
-                request_listener:     true
+                enabled:                 true
+                checker_service:         cmf_core.publish_workflow.checker.default
+                view_non_published_role: ROLE_CAN_VIEW_NON_PUBLISHED
+                request_listener:        true
 
     .. code-block:: xml
 
@@ -247,10 +247,10 @@ only published routes and content can be accessed.
 
         $container->loadFromExtension('cmf_core', array(
             'publish_workflow' => array(
-                'enabled' => true,
-                'checker_service' => 'cmf_core.publish_workflow.checker.default',
+                'enabled'                 => true,
+                'checker_service'         => 'cmf_core.publish_workflow.checker.default',
                 'view_non_published_role' => 'ROLE_CAN_VIEW_NON_PUBLISHED',
-                'request_listener' => true,
+                'request_listener'        => true,
             ),
         ));
 

@@ -12,7 +12,7 @@ place and the security context thus has no token (see `Symfony2 Authorization`_)
 The publish workflow is also tied into the security workflow: The CoreBundle
 registers a security voter that forwards security checks to the publish
 workflow. This means that if you always have a firewall, you can just use
-the normal security context and the twig function ``is_granted`` to check for
+the normal security context and the Twig function ``is_granted`` to check for
 publication.
 
 .. tip::
@@ -60,7 +60,7 @@ given to editors. The default name of the role is ``ROLE_CAN_VIEW_NON_PUBLISHED`
         # app/config/security.yml
         security:
             role_hierarchy:
-                ROLE_EDITOR:       ROLE_CAN_VIEW_NON_PUBLISHED
+                ROLE_EDITOR: ROLE_CAN_VIEW_NON_PUBLISHED
 
     .. code-block:: xml
 
@@ -112,7 +112,7 @@ the path in question - they will have the permission to view unpublished content
 
 .. _bundle-core-publish-workflow-twig_function:
 
-To check publication in a template, use the twig function ``cmf_is_published``
+To check publication in a template, use the Twig function ``cmf_is_published``
 or the ``$view['cmf']->isPublished`` method:
 
 .. configuration-block::

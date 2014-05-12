@@ -50,8 +50,8 @@ Example:
 
         # app/config.yml
         cmf_blog:
-            use_sonata_admin:     auto
-            blog_basepath:        /cms/blog
+            use_sonata_admin: auto
+            blog_basepath: /cms/blog
             class:
                 blog_admin: Symfony\Cmf\Bundle\BlogBundle\Admin\BlogAdmin # Optional
                 post_admin: Symfony\Cmf\Bundle\BlogBundle\Admin\PostAdmin # Optional

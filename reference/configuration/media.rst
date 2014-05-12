@@ -28,17 +28,17 @@ is the following configuration:
         cmf_media:
             persistence:
                 phpcr:
-                    enabled: false
-                    manager_name: ~
-                    media_basepath: /cms/media
-                    media_class: Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Media
-                    file_class: Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File
+                    enabled:         false
+                    manager_name:    ~
+                    media_basepath:  /cms/media
+                    media_class:     Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Media
+                    file_class:      Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File
                     directory_class: Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Directory
-                    image_class: Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image
+                    image_class:     Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image
                     event_listeners:
-                        stream_rewind: true
+                        stream_rewind:    true
                         image_dimensions: true
-                        imagine_cache: auto
+                        imagine_cache:    auto
 
     .. code-block:: xml
 
@@ -72,17 +72,17 @@ is the following configuration:
         $container->loadFromExtension('cmf_media', array(
             'persistence' => array(
                 'phpcr' => array(
-                    'enabled' => false,
-                    'manager_name' => null,
-                    'media_basepath' => '/cms/media',
-                    'media_class' => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Media',
-                    'file_class' => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File',
+                    'enabled'         => false,
+                    'manager_name'    => null,
+                    'media_basepath'  => '/cms/media',
+                    'media_class'     => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Media',
+                    'file_class'      => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File',
                     'directory_class' => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Directory',
-                    'image_class' => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image',
+                    'image_class'     => 'Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image',
                     'event_listeners' => array(
-                        'stream_rewind' => true,
+                        'stream_rewind'    => true,
                         'image_dimensions' => true,
-                        'imagine_cache' => 'auto',
+                        'imagine_cache'    => 'auto',
                     ),
                 ),
             ),

@@ -94,7 +94,7 @@ attribute.
 
         # app/config/config.yml
         odm:
-            default_document_manager:  ~
+            default_document_manager: ~
             document_managers:
                 <name>:
                     session: <sessionname>

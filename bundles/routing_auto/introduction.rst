@@ -97,7 +97,7 @@ The configuration for the example above could be as follows:
 .. configuration-block::
 
     .. code-block:: yaml
-    
+
         # app/config/config.yml
         cmf_routing_auto:
             mappings:
@@ -133,7 +133,7 @@ The configuration for the example above could be as follows:
                 <mapping class="Acme\ForumBundle\Document\Topic">
 
                     <content-path>
-                        <!-- corresponds first path unit in diagram:  my-forum -->
+                        <!-- corresponds first path unit in diagram: my-forum -->
                         <path-unit name="forum_path">
                             <provider name="specified">
                                 <option name="path" value="my-forum" />

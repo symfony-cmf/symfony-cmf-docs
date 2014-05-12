@@ -23,4 +23,4 @@ additionally specify ``content_ids``, which are understood by the
     ));
 
 The form type automatically generates the routes for the specified content and
-passes the routes to the ``trans`` twig helper for replacement in the label.
+passes the routes to the ``trans`` Twig helper for replacement in the label.

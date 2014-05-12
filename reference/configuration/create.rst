@@ -1,7 +1,7 @@
 CreateBundle configuration
 ==========================
 
-The CreateBundle provides frontend editing based on create.js and CreatePHP.
+The CreateBundle provides front-end editing based on create.js and CreatePHP.
 It can be configured under the ``cmf_create`` key in your application
 configuration. When using XML you should use the
 ``http://cmf.symfony.com/schema/dic/create`` namespace.
@@ -42,7 +42,7 @@ For more information, see the
 
         cmf_create:
             security:
-                role: ROLE_ADMIN
+                role:            ROLE_ADMIN
                 checker_service: ~
 
     .. code-block:: xml
@@ -58,7 +58,7 @@ For more information, see the
 
         $container->loadFromExtension('cmf_create', array(
             'security' => array(
-                'role' => 'ROLE_ADMIN',
+                'role'            => 'ROLE_ADMIN',
                 'checker_service' => null,
             ),
         ));
@@ -79,8 +79,8 @@ persistence configuration has the following configuration:
             object_mapper_service_id: ~
             persistence:
                 phpcr:
-                    enabled:              false
-                    manager_name:         ~
+                    enabled:      false
+                    manager_name: ~
                     image:
                         enabled:          false
                         model_class:      ~
@@ -113,13 +113,13 @@ persistence configuration has the following configuration:
         $container->loadFromExtension('cmf_create', array(
             'persistence' => array(
                 'phpcr' => array(
-                    'enabled' => false,
+                    'enabled'      => false,
                     'manager_name' => null,
                     'image' => array(
-                        'enabled' => false,
-                        'model_class' => null,
+                        'enabled'          => false,
+                        'model_class'      => null,
                         'controller_class' => 'Symfony\Cmf\Bundle\CreateBundle\Controller\ImageController',
-                        'basepath' => '/cms/media',
+                        'basepath'         => '/cms/media',
                     ),
                 ),
             ),
@@ -165,7 +165,7 @@ Metadata Handling
             rdf_config_dirs:
                 - "%kernel.root_dir%/Resources/rdf-mappings"
             map:
-                '<http://rdfs.org/sioc/ns#Post>': 'Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent'
+                "<http://rdfs.org/sioc/ns#Post>": "Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent"
 
     .. code-block:: xml
 
@@ -181,9 +181,9 @@ Metadata Handling
     .. code-block:: php
 
         $container->loadFromExtension('cmf_create', array(
-            'auto_mapping' => true,
+            'auto_mapping'    => true,
             'rdf_config_dirs' => array('%kernel.root_dir%/Resources/rdf-mappings'),
-            'map' => array('<http://rdfs.org/sioc/ns#Post>' => 'Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent'),
+            'map'             => array('<http://rdfs.org/sioc/ns#Post>' => 'Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent'),
         ));
 
 auto_mapping
@@ -222,10 +222,10 @@ setting is the ``plain_text_types``.
     .. code-block:: yaml
 
         cmf_create:
-            plain_text_types: ['dcterms:title']
+            plain_text_types: ["dcterms:title"]
             editor_base_path: /bundles/cmfcreate/vendor/ckeditor/
-            fixed_toolbar: true
-            stanbol_url: http://dev.iks-project.eu:8081
+            fixed_toolbar:    true
+            stanbol_url:      http://dev.iks-project.eu:8081
 
     .. code-block:: xml
 
@@ -244,8 +244,8 @@ setting is the ``plain_text_types``.
         $container->loadFromExtension('cmf_create', array(
             'plain_text_types' => array('dcterms:title'),
             'editor_base_path' => '/bundles/cmfcreate/vendor/ckeditor/',
-            'fixed_toolbar' => true,
-            'stanbol_url' => 'http://dev.iks-project.eu:8081',
+            'fixed_toolbar'    => true,
+            'stanbol_url'      => 'http://dev.iks-project.eu:8081',
         ));
 
 plain_text_types
