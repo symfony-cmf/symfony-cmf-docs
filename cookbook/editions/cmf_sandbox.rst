@@ -199,7 +199,7 @@ Next, you need to install the actual Doctrine DBAL bundle required by jackalope:
 
 .. code-block:: bash
 
-    $ php composer.phar require jackalope/jackalope-doctrine-dbal:dev-master
+    $ php composer.phar require jackalope/jackalope-doctrine-dbal:1.0.*
 
 And create and init your database:
 

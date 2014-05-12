@@ -38,7 +38,7 @@ Add the following to your ``composer.json`` file:
     "require": {
         ...
         "sonata-project/doctrine-phpcr-admin-bundle": "1.0.*",
-        "sonata-project/core-bundle": "~2.2@dev"
+        "sonata-project/core-bundle": "~2.2"
     }
 
 And then run:
