@@ -37,7 +37,7 @@ Sections
 * :doc:`rendering`
 * :doc:`extending_page_class`
 
-.. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/symfony-cmf-standard
+.. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/standard-edition
 .. _`CMF website`: https://github.com/symfony-cmf/cmf-website/
 .. _`with composer`: http://getcomposer.org
 .. _`Packagist`: https://packagist.org/packages/symfony-cmf/simple-cms-bundle
