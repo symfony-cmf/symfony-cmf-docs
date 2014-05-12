@@ -51,14 +51,18 @@ always happens on a document level, not on the individual translatable fields.
 
     <?php
 
+    // src/Acme/DemoBundle/Document/MyPersistentClass.php
+
+    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+
     /**
-     * @PHPCRODM\Document(translator="attribute")
+     * @PHPCR\Document(translator="attribute")
      */
     class MyPersistentClass
     {
         /**
          * Translated property
-         * @String(translated=true)
+         * @PHPCR\String(translated=true)
          */
         private $topic;
 

@@ -36,6 +36,7 @@ for instance ``acme_main.block.rss``::
     namespace Acme\MainBundle\Document;
 
     use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+
     use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock;
 
     /**

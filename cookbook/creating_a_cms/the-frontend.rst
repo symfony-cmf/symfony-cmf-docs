@@ -50,6 +50,8 @@ KnpMenuBundle::
     // ...
     use Knp\Menu\NodeInterface;
 
+    use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+
     class Page implements RouteReferrersReadInterface, NodeInterface
     {
         // ...

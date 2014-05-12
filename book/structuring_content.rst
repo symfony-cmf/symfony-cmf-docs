@@ -168,7 +168,7 @@ translations:
     .. code-block:: php-annotations
 
         /**
-         * @PHPCRODM\Document(translator="attribute")
+         * @PHPCR\Document(translator="attribute")
          */
 
 For information on the available translation strategies, refer to the Doctrine
