@@ -26,11 +26,11 @@ is the following configuration:
         cmf_simple_cms:
             persistence:
                 phpcr:
-                    enabled: false
-                    basepath: /cms/simple
+                    enabled:          false
+                    basepath:         /cms/simple
                     manager_registry: doctrine_phpcr
-                    manager: ~
-                    document_class: Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page
+                    manager:          ~
+                    document_class:   Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page
                     use_sonata_admin: auto
                     sonata_admin:
                         sort: false
@@ -62,11 +62,11 @@ is the following configuration:
         $container->loadFromExtension('cmf_simple_cms', array(
             'persistence' => array(
                 'phpcr' => array(
-                    'enabled' => false,
-                    'basepath' => '/cms/simple',
+                    'enabled'          => false,
+                    'basepath'         => '/cms/simple',
                     'manager_registry' => 'doctrine_phpcr',
-                    'manager_name' => null,
-                    'document_class' => 'Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page',
+                    'manager_name'     => null,
+                    'document_class'   => 'Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page',
                     'use_sonata_admin' => 'auto',
                     'sonata_admin' => array(
                         'sort' => false,

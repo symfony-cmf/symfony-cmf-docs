@@ -254,7 +254,7 @@ Form Configuration
 ~~~~~~~~~~~~~~~~~~
 
 The methods ``buildEditForm`` and ``buildCreateForm`` specify how to build the
-the forms for editing using a frontend or backend UI. The method
+the forms for editing using a front-end or backend UI. The method
 ``validateBlock`` contains the validation configuration. This is not used in
 the CMF and it is recommended to instead build forms or Sonata admin classes
 that can handle the block documents.
@@ -270,7 +270,7 @@ JavaScripts and Stylesheets
 
 The methods ``getJavaScripts`` and ``getStylesheets`` of the service class
 define the JavaScript and Stylesheet files needed by a block. There is a
-twig function and a templating helper to render all links for all blocks used
+Twig function and a templating helper to render all links for all blocks used
 on the current page:
 
 .. configuration-block::

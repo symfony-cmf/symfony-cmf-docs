@@ -44,7 +44,7 @@ A simple example for such a template could look like this:
 
 If you have the CreateBundle enabled, you can also output the document with
 RDFa annotations, allowing you to edit the content as well as the tags in the
-frontend. The most simple form is the following twig block:
+front-end. The most simple form is the following Twig block:
 
 .. code-block:: jinja
 

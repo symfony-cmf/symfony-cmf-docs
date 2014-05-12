@@ -189,7 +189,7 @@ Block Context
 
 The BlockContext contains all information and the block document needed to
 render the block. It aggregates and merges all settings from configuration,
-the block service, the block document and settings passed to the twig template
+the block service, the block document and settings passed to the Twig template
 helper. Therefore, use the BlockContext to get or alter a setting if needed.
 
 .. _bundle-block-service:
@@ -210,7 +210,7 @@ service. It is only relevant when
 Block rendering
 ---------------
 
-Rendering is handled by the SonataBlockBundle ``sonata_block_render`` twig
+Rendering is handled by the SonataBlockBundle ``sonata_block_render`` Twig
 function. The block name is either an absolute PHPCR path or the name of the
 block relative to the ``cmfMainContent`` document.
 
@@ -269,7 +269,7 @@ response object - typically by rendering a Twig template.
 Embedding Blocks in WYSIWYG Content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The CmfBlockBundle provides a twig filter ``cmf_embed_blocks`` that
+The CmfBlockBundle provides a Twig filter ``cmf_embed_blocks`` that
 looks through the content and looks for special tags to render blocks. To use
 the tag, you need to apply the ``cmf_embed_blocks`` filter to your output. If
 you can, render your blocks directly in the template. This feature is only a
@@ -294,7 +294,7 @@ might be a CMF bundle at some point for this).
     Make sure to only place this filter where you display the content and not
     where editing it, as otherwise your users would start to edit the rendered
     output of their blocks.
-    This feature conflicts with the frontend editing provided by CreateBundle,
+    This feature conflicts with the front-end editing provided by CreateBundle,
     as create.js operates on the rendered content as displayed to the user.
     There is an ongoing `discussion how to fix this`_.
 

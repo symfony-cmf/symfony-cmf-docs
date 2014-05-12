@@ -24,17 +24,17 @@ persistence configuration has the following configuration:
         cmf_menu:
             persistence:
                 phpcr:
-                    enabled:              false
-                    menu_basepath:        /cms/menu
-                    content_basepath:     ~
-                    prefetch:             10
-                    manager_name:         ~
-                    menu_document_class:  Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu
-                    node_document_class:  Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode
-                    use_sonata_admin:     ~ # One of true; false; "auto"
-                    menu_admin_class:     Symfony\Cmf\Bundle\MenuBundle\Admin\MenuAdmin
-                    node_admin_class:     Symfony\Cmf\Bundle\MenuBundle\Admin\MenuNodeAdmin
-                    admin_recursive_breadcrumbs:  true
+                    enabled:                     false
+                    menu_basepath:               /cms/menu
+                    content_basepath:            ~
+                    prefetch:                    10
+                    manager_name:                ~
+                    menu_document_class:         Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu
+                    node_document_class:         Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode
+                    use_sonata_admin:            ~
+                    menu_admin_class:            Symfony\Cmf\Bundle\MenuBundle\Admin\MenuAdmin
+                    node_admin_class:            Symfony\Cmf\Bundle\MenuBundle\Admin\MenuNodeAdmin
+                    admin_recursive_breadcrumbs: true
 
 
     .. code-block:: xml
@@ -65,16 +65,16 @@ persistence configuration has the following configuration:
         $container->loadFromExtension('cmf_menu', array(
             'persistence' => array(
                 'phpcr' => array(
-                    'enabled' => false,
-                    'menu_basepath' => '/cms/menu',
-                    'content_basepath' => null,
-                    'prefetch' => 10,
-                    'manager_name' => null,
-                    'menu_document_class' => null,
-                    'node_document_class' => null,
-                    'use_sonata_admin' => 'auto',
-                    'menu_admin_class' => null,
-                    'node_admin_class' => null,
+                    'enabled'                     => false,
+                    'menu_basepath'               => '/cms/menu',
+                    'content_basepath'            => null,
+                    'prefetch'                    => 10,
+                    'manager_name'                => null,
+                    'menu_document_class'         => null,
+                    'node_document_class'         => null,
+                    'use_sonata_admin'            => 'auto',
+                    'menu_admin_class'            => null,
+                    'node_admin_class'            => null,
                     'admin_recursive_breadcrumbs' => true,
                 ),
             ),
@@ -195,8 +195,8 @@ The ``voters`` section enables you to enable and configure *pre-defined* :doc:`v
             # ...
             voters:
                 content_identity:
-                    content_key:          ~
-                uri_prefix:           false
+                    content_key: ~
+                uri_prefix: false
 
     .. code-block:: xml
 

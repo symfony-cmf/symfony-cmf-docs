@@ -6,7 +6,7 @@ TreeBrowserBundle
 =================
 
     The TreeBrowserBundle provides a tree navigation on top of a PHPCR
-    repository. The frontend implementation is based on the jQuery plugin
+    repository. The front-end implementation is based on the jQuery plugin
     `jsTree`_.
 
 This bundle consists of two parts:

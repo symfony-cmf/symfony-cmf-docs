@@ -37,14 +37,14 @@ session
                     type: X
                     # optional parameters for Jackalope
                     parameters:
-                        jackalope.factory: "Jackalope\Factory"
-                        jackalope.check_login_on_server: false
+                        jackalope.factory:                Jackalope\Factory
+                        jackalope.check_login_on_server:  false
                         jackalope.disable_stream_wrapper: false
-                        jackalope.auto_lastmodified: true
+                        jackalope.auto_lastmodified:      true
                         # see below for how to configure the backend of your choice
                 workspace: default
-                username: admin
-                password: admin
+                username:  admin
+                password:  admin
                 # tweak options for Jackalope (all versions)
                 options:
                     jackalope.fetch_depth: 1
@@ -205,12 +205,12 @@ PHPCR Session with Jackalope Jackrabbit
             session:
                 backend:
                     type: jackrabbit
-                    url: http://localhost:8080/server/
+                    url:  http://localhost:8080/server/
                     parameters:
                         # general parameters and options
                         # ...
                         # optional parameters specific to Jackalope Jackrabbit
-                        jackalope.default_header: 'X-ID: %serverid%'
+                        jackalope.default_header:    "X-ID: %serverid%"
                         jackalope.jackrabbit_expect: true
 
     .. code-block:: xml
@@ -240,8 +240,8 @@ PHPCR Session with Jackalope Jackrabbit
         $container->loadFromExtension('doctrine_phpcr', array(
             'session' => array(
                 'backend' => array(
-                    'type'       => 'jackrabbit',
-                    'url'        => 'http://localhost:8080/server/',
+                    'type' => 'jackrabbit',
+                    'url'  => 'http://localhost:8080/server/',
                     'parameters' => array(
                         'jackalope.default_header'    => 'X-ID: %serverid%',
                         'jackalope.jackrabbit_expect' => true,
@@ -290,12 +290,12 @@ supported by Doctrine.
         doctrine_phpcr:
             session:
                 backend:
-                    type: doctrinedbal
+                    type:       doctrinedbal
                     # if no explicit connection is specified, the default connection is used.
                     connection: default
                     # to configure caching
                     caches:
-                        meta: doctrine_cache.providers.phpcr_meta
+                        meta:  doctrine_cache.providers.phpcr_meta
                         nodes: doctrine_cache.providers.phpcr_nodes
                     parameters:
                         # ... general parameters and options
@@ -334,10 +334,10 @@ supported by Doctrine.
         $container->loadFromExtension('doctrine_phpcr', array(
             'session' => array(
                 'backend' => array(
-                    'type' => 'doctrinedbal',
+                    'type'       => 'doctrinedbal',
                     'connection' => 'default',
                     'caches' => array(
-                        'meta' => 'doctrine_cache.providers.phpcr_meta'
+                        'meta'  => 'doctrine_cache.providers.phpcr_meta'
                         'nodes' => 'doctrine_cache.providers.phpcr_nodes'
                     ),
                     'parameters' => array(
@@ -388,7 +388,7 @@ debug toolbar:
             session:
                 backend:
                     # ...
-                    logging: true
+                    logging:   true
                     profiling: true
 
     .. code-block:: xml
@@ -451,7 +451,7 @@ not configure anything here, the ODM services will not be loaded.
                         prefix:    ~
                         is_bundle: ~
                 auto_generate_proxy_classes: "%kernel.debug%"
-                proxy_dir:       "%kernel.cache_dir%/doctrine/PHPCRProxies"
+                proxy_dir: "%kernel.cache_dir%/doctrine/PHPCRProxies"
                 proxy_namespace: PHPCRProxies
 
                 metadata_cache_driver:
@@ -506,11 +506,11 @@ not configure anything here, the ODM services will not be loaded.
         // app/config/config.php
         $container->loadFromExtension('doctrine_phpcr', array(
             'odm' => array(
-                'configuration_id' => null,
-                'auto_mapping' => true,
+                'configuration_id'            => null,
+                'auto_mapping'                => true,
                 'auto_generate_proxy_classes' => '%kernel.debug%',
-                'proxy-dir' => '%kernel.cache_dir%/doctrine/PHPCRProxies',
-                'proxy_namespace' => 'PHPCRProxies',
+                'proxy-dir'                   => '%kernel.cache_dir%/doctrine/PHPCRProxies',
+                'proxy_namespace'             => 'PHPCRProxies',
                 'mappings' => array(
                     '<name>' => array(
                         'mapping'   => true,

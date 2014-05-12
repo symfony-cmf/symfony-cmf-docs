@@ -32,7 +32,7 @@ To add the ``DynamicRouter``, use the following configuration:
             chain:
                 routers_by_id:
                     cmf_routing.dynamic_router: 200
-                    router.default: 100
+                    router.default:             100
 
     .. code-block:: xml
 
@@ -54,7 +54,7 @@ To add the ``DynamicRouter``, use the following configuration:
             'chain' => array(
                 'routers_by_id' => array(
                     'cmf_routing.dynamic_router' => 200,
-                    'router.default' => 100,
+                    'router.default'             => 100,
                 ),
             ),
         ));
@@ -313,13 +313,13 @@ phpcr
             dynamic:
                 persistence:
                     phpcr:
-                        enabled: false
+                        enabled:      false
                         manager_name: ~
                         route_basepaths:
                             - /cms/routes
                             - /cms/simple
                         content_basepath: /cms/content
-                        admin_basepath: /cms/routes
+                        admin_basepath:   /cms/routes
                         use_sonata_admin: auto
 
     .. code-block:: xml
@@ -351,14 +351,14 @@ phpcr
             'dynamic' => array(
                 'persistence' => array(
                     'phpcr' => array(
-                        'enabled' => false,
+                        'enabled'      => false,
                         'manager_name' => null,
                         'route_basepaths' => array(
                             '/cms/routes',
                             '/cms/simple',
                         )
                         'content_basepath' => '/cms/content',
-                        'admin_basepath' => '/cms/routes',
+                        'admin_basepath'   => '/cms/routes',
                         'use_sonata_admin' => 'auto',
                     ),
                 ),

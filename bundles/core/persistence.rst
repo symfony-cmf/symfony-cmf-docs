@@ -67,7 +67,7 @@ enforce a single translation strategy for all documents:
         cmf_core:
             persistence:
                 phpcr:
-                    translation_strategy:  attribute
+                    translation_strategy: attribute
 
     .. code-block:: xml
 

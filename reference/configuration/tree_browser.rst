@@ -32,7 +32,7 @@ is the following configuration:
         cmf_tree_browser:
             persistence:
                 phpcr:
-                    enabled: false
+                    enabled:      false
                     session_name: default
 
     .. code-block:: xml
@@ -56,7 +56,7 @@ is the following configuration:
         $container->loadFromExtension('cmf_tree_browser', array(
             'persistence' => array(
                 'phpcr' => array(
-                    'enabled' => false,
+                    'enabled'      => false,
                     'session_name' => 'default',
                 ),
             ),

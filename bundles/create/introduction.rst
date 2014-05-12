@@ -53,14 +53,14 @@ creating `RDFa`_ attributes on your data in the templates. It also maps
 the JSON-LD sent by backbone.js back to your domain objects.
 
 The `CreatePHP`_ library contains a metadata tool to define the mapping between
-your domain objects and the RDF information. It provides a twig extension to
+your domain objects and the RDF information. It provides a Twig extension to
 enrich your HTML pages with the RDFa attributes, similar to how you output forms.
 CreatePHP also provides the means to store the JSON-LD data sent by backbone.js
 back into your domain objects and save them. If you know Doctrine, this is a
 similar job to how Doctrine reads data from database columns and loads them
 into your domain objects.
 
-The CreateBundle finally registers the twig extension in Symfony and provides
+The CreateBundle finally registers the Twig extension in Symfony and provides
 a REST controller for the backbone.js ajax calls. It also provides helpers to
 bootstrap create.js in your templates.
 
@@ -386,7 +386,7 @@ you need to adjust your templates to output that information.
     the remainder of this page to learn how to define the mappings.
 
 To render your data named ``cmfMainContent`` with a handle you call ``rdf``, use the
-``createphp`` twig tag as follows:
+``createphp`` Twig tag as follows:
 
 .. code-block:: html+jinja
 
