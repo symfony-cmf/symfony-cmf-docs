@@ -18,9 +18,8 @@ switch to a different content repository implementation later on.
     If you are just getting started with the CMF, it is best to choose a
     content repository based on a storage engine that you are already familiar
     with. For example, **Jackalope with Doctrine DBAL** will work with your
-    existing RDBMS and does not require you to install Java or the midgard2
-    PHP extension. Once you have a working application it should be easy to
-    switch to another option.
+    existing RDBMS and does not require you to install Java Once you have a
+    working application it should be easy to switch to another option.
 
 Jackalope with Jackrabbit
 -------------------------
@@ -45,10 +44,5 @@ Jackalope with prismic.io
 
 Reads data from the `prismic.io`_ service. At the moment this implementation
 is experimental.
-
-Midgard
--------
-
-Requires the midgard2 PHP extension and an RDBMS like MySQL, PostgreSQL or SQLite.
 
 .. _`prismic.io`: https://prismic.io/
