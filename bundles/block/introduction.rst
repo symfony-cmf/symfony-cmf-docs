@@ -366,6 +366,16 @@ See also the :ref:`the configuration reference <reference-config-block-twig-cmf-
     block and returns an empty string for each failed block instead. The errors
     are logged at level WARNING.
 
+SonataAdminBundle Integration
+-----------------------------
+
+The BlockBundle also provides Admin classes to enable creating, editing and
+removing blocks from the admin panel. To enable the admin, use the
+``cmf_block.persistence.phpcr.use_sonata_admin`` setting. Both the
+:ref:`BlockBundle <bundles-block-types-admin_extension>` and
+:ref:`CoreBundle <bundles-core-persistence>` provide several extensions for
+SonataAdminBundle.
+
 Examples
 --------
 
