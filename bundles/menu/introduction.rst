@@ -54,14 +54,14 @@ each of which specifies a URI::
     $menu = new Menu();
     $menu->setName('main-menu');
     $menu->setLabel('Main Menu');
-    $menu->setParent($menuParent);
+    $menu->setParentDocument($menuParent);
 
     $manager->persist($menu);
 
     $home = new MenuNode();
     $home->setName('home');
     $home->setLabel('Home');
-    $home->setParent($menu);
+    $home->setParentDocument($menu);
     $home->setUri('http://www.example.com/home');
 
     $manager->persist($home);
@@ -69,7 +69,7 @@ each of which specifies a URI::
     $contact = new MenuNode();
     $contact->setName('contact');
     $contact->setLabel('Contact');
-    $contact->setParent($menu);
+    $contact->setParentDocument($menu);
     $contact->setUri('http://www.example.com/contact');
 
     $manager->persist($contact);
