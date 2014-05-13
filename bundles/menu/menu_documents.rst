@@ -18,13 +18,13 @@ the KnpMenu component documentation for more information.
 
 .. code-block:: php
 
-    use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNodeBase;
+    use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
 
     $parent = ...;
 
     // ODM specific
-    $node = new MenuNodeBase();
-    $node->setParent($parent);
+    $node = new MenuNode();
+    $node->setParentDocument($parent);
     $node->setName('home');
 
     // Attributes are the HTML attributes of the DOM element representing the
