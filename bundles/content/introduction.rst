@@ -222,7 +222,9 @@ SonataAdminBundle Integration
 
 The ContentBundle also provides an Admin class to enable creating, editing and
 removing static content from the admin panel. To enable the admin, use the
-``cmf_content.persistence.phpcr.use_sonata_admin`` setting.
+``cmf_content.persistence.phpcr.use_sonata_admin`` setting. The CMF CoreBundle
+also provides an :ref:`extension <bundle-core-child-admin-extension>`
+to make it easier to link to parent documents.
 
 .. _`with composer`: http://getcomposer.org
 .. _`symfony-cmf/content-bundle`: https://packagist.org/packages/symfony-cmf/content-bundle
