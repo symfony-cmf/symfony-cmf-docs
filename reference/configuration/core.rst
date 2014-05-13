@@ -68,6 +68,52 @@ is the following configuration:
             ),
         ));
 
+orm
+...
+
+This defines the persistence driver. The default configuration of persistence
+is the following configuration:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_core:
+            persistence:
+                orm:
+                    enabled:          false
+                    manager_name:     ~
+                    use_sonata_admin: auto
+
+    .. code-block:: xml
+
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/core">
+                <persistence>
+                    <phpcr
+                        enabled="false"
+                        manager-name="null"
+                        use-sonata-admin="auto"
+                    />
+                </persistence>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_core', array(
+            'persistence' => array(
+                'phpcr' => array(
+                    'enabled'          => false,
+                    'manager_name'     => null,
+                    'use_sonata_admin' => 'auto',
+                ),
+            ),
+        ));
+
 enabled
 """""""
 

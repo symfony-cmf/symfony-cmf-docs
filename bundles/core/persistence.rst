@@ -132,6 +132,7 @@ configuration in the ``sonata_admin`` section of your project configuration:
                 cmf_core.admin_extension.child:
                     implements:
                         - Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface
+                        - Doctrine\ODM\PHPCR\HierarchyInterface
 
     .. code-block:: xml
 
@@ -142,6 +143,7 @@ configuration in the ``sonata_admin`` section of your project configuration:
                 <!-- ... -->
                 <extension id="cmf_core.admin_extension.child">
                     <implement>Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface</implement>
+                    <implement>Doctrine\ODM\PHPCR\HierarchyInterface</implement>
                 </extension>
             </config>
 
@@ -156,6 +158,7 @@ configuration in the ``sonata_admin`` section of your project configuration:
                 'cmf_core.admin_extension.child' => array(
                     'implements' => array(
                         'Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface',
+                        'Doctrine\ODM\PHPCR\HierarchyInterface',
                     ),
                 ),
             ),
