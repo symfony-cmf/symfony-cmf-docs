@@ -17,8 +17,8 @@ For example::
 
     // ...
 
-    // pass true as the 3rd parameter to prefix the route pattern with /{_locale}
-    $page = new Page(false, false, true);
+    // pass add_locale_pattern as true to prefix the route pattern with /{_locale}
+    $page = new Page(array(add_locale_pattern => true));
 
     $page->setPosition($parent, 'hello-world');
     $page->setTitle('Hello World!');

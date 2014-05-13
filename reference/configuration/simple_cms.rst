@@ -29,7 +29,7 @@ is the following configuration:
                     enabled:          false
                     basepath:         /cms/simple
                     manager_registry: doctrine_phpcr
-                    manager:          ~
+                    manager_name:     ~
                     document_class:   Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page
                     use_sonata_admin: auto
                     sonata_admin:
