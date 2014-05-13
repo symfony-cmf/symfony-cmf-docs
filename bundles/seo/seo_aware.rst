@@ -30,8 +30,16 @@ the ``SeoMetadata``::
         }
     }
 
-Now you can set some SEO data for this ``Page`` using the metadata. For
-instance inside a data fixture::
+Now you can set some SEO data for this ``Page`` using the metadata::
+
+    $page = new Page();
+    // ... set some page properties
+
+    $pageMetadata = new SeoMetadata();
+    $pageMetadata->setDescription('A special SEO description.');
+    $pageMetadata->setTags('seo, cmf, symfony');
+
+    $page->setSeoMetadata($pageMetadata);
 
     // src/Acme/SiteBundle/DataFixture/PHPCR/LoadPageData.php
     namespace Acme\SiteBundle\DataFixtures\PHPCR;
@@ -59,23 +67,14 @@ instance inside a data fixture::
         }
     }
 
-.. tip::
+Doctrine PHPCR-ODM Integration
+------------------------------
 
-    While this examples shows a Doctrine PHPCR ODM data fixture, the bundle
-    works fully storage agnostic. You can use it with every storage system you
-    like.
+In order to easily persist the SeoMetadata when using Doctrine PHPCR-ODM, the
+SeoBundle provides a special ``SeoMetadata`` document with the correct
+mappings. This document should be mapped as a child of the content document.
 
-Persisting the SeoMetadata with Doctrine
-----------------------------------------
-
-Since Doctrine doesn't allow you to persist an object as a database field,
-there is a problem. The bundle provides a solution to solve this by providing
-a Doctrine Listener. This listener will serialize the metadata object when
-persisting it and it'll unserialize the metadata when the object is fetched
-from the database.
-
-In order to use this listener, you should activate either ``orm`` or ``phpcr``
-as persisting layer for the SeoBundle:
+To be able to use this document, you have to enable the PHPCR persistence:
 
 .. configuration-block::
 
@@ -85,8 +84,6 @@ as persisting layer for the SeoBundle:
         cmf_seo:
             persistence:
                 phpcr: true
-                # when using the ORM:
-                # orm: true
 
     .. code-block:: xml
 
@@ -94,9 +91,6 @@ as persisting layer for the SeoBundle:
         <config xmlns="http://cmf.symfony.com/schema/dic/seo">
             <persistence>
                 <phpcr />
-                <!-- when using the ORM:
-                <orm />
-                -->
             </persistence>
         </config>
 
@@ -106,45 +100,105 @@ as persisting layer for the SeoBundle:
         $container->loadFromExtension('cmf_seo', array(
             'persistence' => array(
                 'phpcr' => true,
-                // when using the ORM:
-                // 'orm' => true,
             ),
         ));
 
-This will automatically enable the listener. If you don't want to enable the
-listener, but you want to enable a persistence layer, you can set the
-``metadata_listener`` option to ``false``:
+.. tip::
+
+    This is not needed if you already enabled PHPCR on the ``cmf_core``
+    bundle. See :doc:`the CoreBundle docs <../core/persistence>` for more
+    information.
+
+After you've enabled PHPCR, map your seoMetadata as a child:
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        // src/Acme/SiteBundle/Document/Page.php
+        namespace Acme\SiteBundle\Document;
+
+        use Symfony\Cmf\Bundle\SeoBundle\Model\SeoAwareInterface;
+        use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+
+        /**
+         * @PHPCR\Document()
+         */
+        class Page implements SeoAwareInterface
+        {
+            /**
+             * @PHPCR\Child
+             */
+            protected $seoMetadata;
+
+            // ...
+        }
+
     .. code-block:: yaml
 
-        # app/config/config.yml
-        cmf_seo:
-            persistence:
+        # src/Acme/SiteBundle/Resources/config/doctrine/Page.odm.yml
+        Acme\SiteBundle\Document\Page:
+            # ...
+            child:
                 # ...
-            metadata_listener: false
+                seoMetadata: ~
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
-        <config xmlns="http://cmf.symfony.com/schema/dic/seo"
-            metadata-listener="false"
+        <!-- src/Acme/SiteBundle/Resources/config/doctrine/Page.odm.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <doctrine-mapping
+            xmlns="http://doctrine-project.org/schemas/phpcr-odm/phpcr-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://doctrine-project.org/schemas/phpcr-odm/phpcr-mapping
+            https://github.com/doctrine/phpcr-odm/raw/master/doctrine-phpcr-odm-mapping.xsd"
         >
-            <persistence>
+            <document name="Acme\SiteBundle\Document\Page">
                 <!-- ... -->
-            </persistence>
-        </config>
+                <child fieldName="seoMetadata" />
+            </document>
+        </doctrine-mapping>
 
-    .. code-block:: php
+And after that, you can use the
+``Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoMetadata`` document::
 
-        // app/config/config.php
-        $container->loadFromExtension('cmf_seo', array(
-            'persistence' => array(
-                // ...
-            ),
-            'metadata_listener' => false,
-        ));
+    // src/Acme/SiteBundle/DataFixture/PHPCR/LoadPageData.php
+    namespace Acme\SiteBundle\DataFixtures\PHPCR;
+
+    use Acme\SiteBundle\Document\Page;
+    use Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoMetadata;
+    use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+
+    class LoadPageData implements FixtureInterface
+    {
+        public function load(ObjectManager $manager)
+        {
+            $page = new Page();
+            // ... set some page properties
+
+            $pageMetadata = new SeoMetadata();
+            $pageMetadata->setDescription('A special SEO description.');
+            $pageMetadata->setTags('seo, cmf, symfony');
+
+            $page->setSeoMetadata($pageMetadata);
+
+            $manager->persist($page);
+            $manager->flush();
+        }
+    }
+
+Doctrine ORM
+------------
+
+You can also use the Doctrine ORM with the CmfSeoBundle. You can just use the
+``Symfony\Cmf\Bundle\SeoBundle\Model\SeoMetadata`` class and map it as an
+object.
+
+You can also choose put the ``SeoMetadata`` class into a seperate table and
+adding a relation between the ``SeoMetadata`` class and the content entity. To
+do this, you have to enable ORM support just like you enabled PHPCR enabled
+above.
 
 Form Type
 ---------
@@ -159,3 +213,10 @@ Besides providing a form type, the bundle also provides a Sonata Admin
 Extension. This extension adds a field for the ``SeoMetadata`` when an admin
 edits an objec that implements the ``SeoAwareInterface`` in the Sonata Admin
 panel.
+
+.. note::
+
+    The bundles requires the `BurgovKeyValueFormBundle`_ when using the sonata
+    admin. Make sure you install and enable it.
+
+.. _`BurgovKeyValueFormBundle`: https://github.com/Burgov/KeyValueFormBundle

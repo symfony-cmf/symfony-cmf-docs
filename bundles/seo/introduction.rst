@@ -44,7 +44,7 @@ The simplest use of this bundle would be to just set some configuration to the
             page:
                 title: Page's default title
                 metas:
-                    names:
+                    name:
                         description: The default description of the page
                         keywords: default, sonata, seo
 
@@ -55,7 +55,7 @@ The simplest use of this bundle would be to just set some configuration to the
             'page' => array(
                 'title' => 'Page's default title',
                 'metas' => array(
-                    'names' => array(
+                    'name' => array(
                         'description' => 'default description',
                         'keywords' => 'default, key, other',
                     ),
@@ -110,12 +110,15 @@ This bundle provides two ways of using this metadata:
 #. Using the extractors, to extract the ``SeoMetadata`` from already existing
    values (e.g. the title of the page).
 
-You can also use both ways at the same time for the document. In that case,
-the persisted ``SeoMetadata`` can be changed by the extractors.
+You can also combine both ways, even on the same document. In that case, the
+persisted ``SeoMetadata`` can be changed by the extractors, to add or tweak
+the current available SEO information. For instance, if you are writing a
+``BlogPost`` class, you want the SEO keywords to be set to the tags/category
+of the post and any additional tags set by the admin.
 
 Persisting the ``SeoMetadata`` with the document makes it easy to edit for the
-admin, while using the extractors makes it perfect to use without doing
-anything.
+admin, while using the extractors are perfect to easily use values from the
+displayed content.
 
 Both ways are documented in detail in seperate sections:
 
@@ -130,8 +133,8 @@ URLs. The CMF allows you to have several URLs for the same content if you need
 that. There are two solutions to avoid penalties with search engines:
 
 * Create a canonical link that identifies the original URL:
-  ``<link rel="canonical" href="/route/org/content">``;
-* Define an "original url" and redirect the other to that one.
+  ``<link rel="canonical" href="/route/org/content">``
+* Define an "original url" and redirect all duplicate URLs to it.
 
 The ``SeoMetadata`` can be configured with the original URL for the current
 page. By default, this bundle will create a canonical link for the page. If
@@ -162,56 +165,25 @@ you want to change that to redirect instead, you can set the
             ),
         );
 
-Defining a Default
-------------------
-
-You've learned everything about extracting SEO information from objects.
-However, in some cases the object doesn't provide any information or there is
-no object (e.g. on a login page). For these cases, you have to configure a
-default value. These default values can be configured for the SonataSeoBundle:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        sonata_seo:
-            page:
-                title: A Default Title
-                metas:
-                    names:
-                        keywords: default, sonata, seo
-                        description: A default description
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension(
-            'sonata_seo', array(
-                'page' => array(
-                    'title' => 'A Default Title',
-                    'metas' => array(
-                        'names' => array(
-                            'keywords'    => 'default, key, other',
-                            'description' => 'A default description',
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-The Standard Title and Description
-----------------------------------
+Defining a Title and Description Template
+-----------------------------------------
 
 Most of the times, the title of a site has a static and a dynamic part. For
-instance, "The title of the Page - Symfony". Here "- Symfony" is static and
+instance, "The title of the Page - Symfony". Here, "- Symfony" is static and
 "The title of the Page" will be replaced by the current title. It is of course
-not nice if you need to add this static part to all your titles in documents.
+not nice if you had to add this static part to all your titles in documents.
 
-That's why the CmfSeoBundle provides standard titles and descriptions. When
-using these settings, there are 2 placeholders available: ``%content_title%``
-and ``%content_description%``. This will be replaced with the title extracted
-from the content object and the description extracted from the content object.
+That's why the CmfSeoBundle provides defining a title and description
+template. When using these settings, there are 2 placeholders available:
+``%content_title%`` and ``%content_description%``. These will be replaced with
+the title extracted from the content object and the description extracted from
+the content object.
+
+.. caution::
+
+    The default title and description set by the SonataSeoBundle do override
+    this template. You should make sure that the defaults also follow the
+    template.
 
 For instance, to configure the titles of the symfony.com pages, you would do:
 
@@ -243,10 +215,10 @@ For instance, to configure the titles of the symfony.com pages, you would do:
     character, otherwise the container will try to replace it with the value
     of a container parameter.
 
-This syntax might look familiair if you have used with the Translation
-component before. And that's correct, under the hood the Translation component
-is used to replace the placeholders with the correct values. This also means
-you get Multi Language Support for free!
+This syntax might look familiar if you have used the Translation component
+before. And that's correct, under the hood the Translation component is used
+to replace the placeholders with the correct values. This also means you get
+Multi Language Support for free!
 
 For instance, you can do:
 
@@ -314,6 +286,11 @@ And then configure the translation messages:
         seo:
             title:       "%content_title% | Default title"
             description: "Default description. %content_description%"
+
+.. tip::
+
+    You don't have to escape the percent characters here, since the
+    Translation loaders know how to deal with them.
 
 For changing the default translation domain (messages), you should use the
 ``cmf_seo.translation_domain`` setting:
