@@ -6,13 +6,13 @@ First look at the internals
 
 In most CMS use cases the most basic need is to associate content with a URL.
 In the Symfony CMF, this is done by using a powerful routing system, provided
-by the RoutingBundle, and a ContentBundle. The RoutingBundle provides a
+by the RoutingBundle, and the ContentBundle. The RoutingBundle provides a
 ``Route`` object which can be associated with the ``Content`` object of the
 ContentBundle.
 
 Having two objects is the most flexible solution. You can have different
 routes (e.g. per language) for the same content. Or you can organize your
-content in a different logic than your URL tree. But in many situations,
+content in a differently than your URL tree. But in many situations,
 having the route and the content be one and the same simplifies things. That
 is exactly what the SimpleCmsBundle is doing, which is used by the Symfony
 CMF Standard Edition by default for routing, content and menus.
