@@ -19,7 +19,7 @@ Add the following dependency to the ``require-dev`` section of ``composer.json``
 .. code-block:: javascript
 
     "require-dev": {
-        "symfony-cmf/testing": "1.0.*"
+        "symfony-cmf/testing": "1.1.*"
     },
 
 .. note::
