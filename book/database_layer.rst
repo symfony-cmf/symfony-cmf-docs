@@ -181,6 +181,12 @@ After this, you have to create getters and setters for the properties.
     For more information about identifier generation strategies, refer to the
     `doctrine documentation`_
 
+.. tip::
+
+    You may want to implement ``Doctrine\ODM\PHPCR\HierarchyInterface``
+    which makes it for example possible to leverage the
+    :ref:`Sonata Admin Child Extension <bundle-core-child-admin-extension>`.
+
 .. seealso::
 
     You can also check out Doctrine's `Basic Mapping Documentation`_ for all
@@ -288,8 +294,8 @@ The repository contains all sorts of helpful methods::
 .. tip::
 
     If you use the repository class, you can also create a custom repository
-    for a specific document. This helps Seperation of Concern when using more
-    complex queries. This is similair to how it's done in Doctrine ORM, for
+    for a specific document. This helps with "Seperation of Concern" when using more
+    complex queries. This is similar to how it's done in Doctrine ORM, for
     more information read "`Custom Repository Classes`_" in the core
     documentation.
 

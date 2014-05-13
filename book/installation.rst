@@ -159,15 +159,17 @@ It assumes you have already installed Symfony CMF SE and have carefully read
 AcmeMainBundle and SimpleCmsBundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Symfony CMF SE comes with a default AcmeMainBundle to help you get started,
-similar to the AcmeDemoBundle provided by Symfony2. This gives you some demo
+Symfony CMF SE comes with a default AcmeDemoBundle to help you get started,
+similar to the AcmeDemoBundle provided by Symfony2 SE. This gives you some demo
 pages viewable in your browser.
 
 .. sidebar:: Where are the Controllers?
 
-    AcmeMainBundle doesn't include controllers or configuration files as you
+    AcmeDemoBundle doesn't include controllers or configuration files as you
     might expect. It contains little more than a Twig file and `Fixtures`_
-    data that was loaded into your database during installation.
+    data that was loaded into your database during installation. The biggest
+    chunk of code is the ``UnitBlock`` that provides a document for an example
+    block.
 
     The controller logic is actually provided by the relevant CMF bundles,
     as described below.
@@ -211,7 +213,7 @@ Adding new pages
 ~~~~~~~~~~~~~~~~
 
 Symfony CMF SE does not provide any admin tools to create new pages. If you
-are interested in adding an admin UI have a look at
+are interested in adding an admin UI one solution can be found in
 :doc:`../cookbook/creating_cms_using_cmf_and_sonata`. However if all you want
 is a simple way to add new pages that you can then edit via the inline
 editing, then you can use the SimpleCmsBundle ``page`` migrator. The Symfony

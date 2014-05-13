@@ -139,9 +139,9 @@ implement ``NodeInterface`` in order to be included in the generated menu.
 The Menu Nodes
 ..............
 
-Also included in the MenuBundle are two menu node content types: ``MenuNode``
-and ``MultilangMenuNode``. If you have read the documentation page regarding
-:doc:`static_content`, you'll find this implementation somewhat familiar.
+Also included in the MenuBundle is the ``MenuNode`` document. If you have
+read the documentation page regarding :doc:`static_content`, you'll find
+this implementation somewhat familiar.
 
 ``MenuNode`` implements the above mentioned ``NodeInterface``, and holds the
 information regarding a single menu entry: a ``label`` and a ``uri``, a
@@ -154,25 +154,6 @@ Contents. These are used to store an associated ``Route`` object, plus one
 ensured) reference to the actual Content element it points to; it's up to you
 to choose which best fits your scenario. You can find more information on
 references on the `Doctrine PHPCR documentation page`_.
-
-``MultilangMenuNode`` extends ``MenuNode`` with multilanguage support. It adds
-a ``locale`` field to identify which translation set it belongs to, plus
-``label`` and ``uri`` fields marked as ``translated=true``. This means they
-will differ between translations, unlike the other fields.
-
-``MultilangMenuNode`` also specifies the strategy used to persist multiple
-translations:
-
-.. configuration-block::
-
-    .. code-block:: php-annotations
-
-        /**
-         * @PHPCR\Document(translator="attribute")
-         */
-
-For information on the available translation strategies, refer to the Doctrine
-page regarding `Multi language support in PHPCR-ODM`_
 
 Admin Support
 ~~~~~~~~~~~~~
@@ -197,6 +178,5 @@ configuration options list and additional information.
 .. _`KnpMenuBundle's documentation`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md
 .. _`respective documentation page`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md#rendering-menus
 .. _`Doctrine PHPCR documentation page`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/association-mapping.html#references
-.. _`Multi language support in PHPCR-ODM`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
 .. _`KnpMenu`: https://github.com/knplabs/KnpMenu
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
