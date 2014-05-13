@@ -4,8 +4,8 @@ Getting Started
 Initializing the Project
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-First, follow the generic steps in :doc:`../create_new_project_phpcr_odm` to
-create a new project using the PHPCR-ODM.
+First, follow the generic steps in :doc:`../../bundles/phpcr_odm/introduction`
+to create a new project using the PHPCR-ODM.
 
 Install Additional Bundles
 ..........................
@@ -30,26 +30,19 @@ all of the required packages now.
         require: {
             ...
             "symfony-cmf/routing-auto-bundle": "1.0.*@alpha",
-            "symfony-cmf/menu-bundle": "1.0",
-            "sonata-project/doctrine-phpcr-admin-bundle": "dev-master",
-            "symfony-cmf/tree-browser-bundle": "@dev",
-            "doctrine/data-fixtures": "1.0.0",
+            "symfony-cmf/menu-bundle": "1.1.*",
+            "sonata-project/doctrine-phpcr-admin-bundle": "1.1.*",
+            "symfony-cmf/tree-browser-bundle": "1.1.*",
+            "doctrine/data-fixtures": "1.0.*",
 
-            "doctrine/phpcr-odm": "dev-master as 1.0.0",
-            "phpcr/phpcr-utils": "dev-master as 1.0.0",
-            "doctrine/phpcr-bundle": "dev-master as 1.0.0",
-            "symfony-cmf/routing-bundle": "dev-master as 1.1.0",
-            "symfony-cmf/routing": "dev-master as 1.2.0"
+            "doctrine/phpcr-odm": "1.1.*",
+            "phpcr/phpcr-utils": "1.1.*",
+            "doctrine/phpcr-bundle": "1.1.*",
+            "symfony-cmf/routing-bundle": "1.2.*",
+            "symfony-cmf/routing": "1.2.*"
         },
         ...
     }
-
-.. note::
-
-    This tutorial currently requires code only available in the lastest
-    unstable version of PHPCR-ODM, this is why you require the "dev-master as
-    1.0.0" constraints. When PHPCR-ODM 1.1 is released this will no longer be
-    necessary.
 
 Note that each time you modify your ``composer.json`` file you are required to
 run ``composer update``.
@@ -58,9 +51,9 @@ Initialize the Database
 .......................
 
 If you have followed the main instructions in
-:doc:`../create_new_project_phpcr_odm` then you are using the `Doctrine DBAL
-Jackalope`_ PHPCR backend with MySQL and you will need to create the MySQL
-database:
+:doc:`../../bundles/phpcr_odm/introduction` then you are using the
+`Doctrine DBAL Jackalope`_ PHPCR backend with MySQL and you will need to
+create the database:
 
 .. code-block:: bash
 
@@ -358,7 +351,7 @@ Ensure that you have the following package installed:
         ...
         require: {
             ...
-            "doctrine/data-fixtures": "1.0.0"
+            "doctrine/data-fixtures": "1.0.*"
         },
         ...
     }

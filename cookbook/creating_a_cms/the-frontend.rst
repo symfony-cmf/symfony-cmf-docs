@@ -3,7 +3,7 @@ Creating a Menu
 
 In this section you will modify your application so that ``Page``
 documents act as menu nodes. The root page document can then be rendered
-using the twig helper of the `KnpMenuBundle`_.
+using the Twig helper of the `KnpMenuBundle`_.
 
 Installation
 ............
@@ -16,7 +16,7 @@ Ensure that the following package is installed:
         ...
         require: {
             ...
-            "symfony-cmf/menu-bundle": "1.0"
+            "symfony-cmf/menu-bundle": "1.1.*"
         },
         ...
     }
@@ -30,6 +30,7 @@ Add the CMF `MenuBundle`_ and its dependency, `CoreBundle`_, to your kernel::
         {
             $bundles = array(
                 // ...
+                new Knp\Bundle\MenuBundle\KnpMenuBundle(),
                 new Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
                 new Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
             );
@@ -41,8 +42,8 @@ Add the CMF `MenuBundle`_ and its dependency, `CoreBundle`_, to your kernel::
 Modify the Page Document
 ........................
 
-The menu document has to implement the ``NodeInterface`` provided by the
-KnpMenuBundle::
+The menu document has to implement the ``Knp\Menu\NodeInterface``
+provided by the KnpMenuBundle::
 
     // src/Acme/BasicCmsBundle/Document/Page.php
     namespace Acme\BasicCmsBundle\Document;
@@ -88,7 +89,11 @@ KnpMenuBundle::
 
 .. caution::
 
-    Don't forget to add the ``Knp\Menu\NodeInterface`` use statement!
+    In a typical CMF application, there are two ``NodeInterface`` which
+    have nothing to do with each other. The interface we use here is from
+    KnpMenuBundle and describes menu tree nodes. The other interface is
+    from the PHP content repository and describes content repository
+    tree nodes.
 
 Menus are hierarchical, PHPCR-ODM is also hierarchical and so lends itself
 well to this use case.
@@ -230,7 +235,7 @@ configuration:
             ->addTag('knp_menu.provider')
         ;
 
-and enable the twig rendering functionality of the KnpMenu bundle:
+and enable the Twig rendering functionality of the KnpMenu bundle:
 
 .. configuration-block::
 

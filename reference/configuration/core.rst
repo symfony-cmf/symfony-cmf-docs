@@ -232,8 +232,8 @@ bundles that use this configuration:
 
             <config xmlns="http://cmf.symfony.com/schema/dic/core">
                 <multilang>
-                    <locales>en</locales>
-                    <locales>fr</locales>
+                    <locale>en</locale>
+                    <locale>fr</locale>
                 </multilang>
             </config>
         </container>

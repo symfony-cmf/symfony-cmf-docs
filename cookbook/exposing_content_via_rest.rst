@@ -34,7 +34,7 @@ to generate the REST output. The best choice is the JMSSerializerBundle:
         ..
         "require": {
             ..
-            "friendsofsymfony/rest-bundle": "1.0.*",
+            "friendsofsymfony/rest-bundle": "1.*",
             "jms/serializer-bundle": "0.13.*",
         }
     }
@@ -153,8 +153,7 @@ However it might be necessary to add additional mapping to more tightly
 control what gets exposed. See the `documentation of the JMS serializer`_
 for details.
 
-.. note::
-
+.. versionadded:: 1.1
     The `default response format changed between 1.0 and 1.1 of the ContentBundle`_.
     In 1.0 the response is wrapped inside an array/tag. This is no longer the
     case in 1.1

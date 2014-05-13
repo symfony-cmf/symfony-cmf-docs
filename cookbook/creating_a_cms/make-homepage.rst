@@ -5,8 +5,8 @@ All of your content should now be available at various URLs but your homepage
 (http://localhost:8000) still shows the default Symfony Standard Edition
 index page.
 
-In this section you will add a side menu to Sonata Admin which will make
-enable the user to make a specified page act as the homepage of your CMS.
+In this section you will add a side menu to Sonata Admin which
+allows the user to mark a ``Page`` to act as the homepage of your CMS.
 
 .. note::
 
@@ -56,8 +56,8 @@ Create the site document::
 Initializing the Site Document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Where should this site document belong? Our document hierarchy currently looks
-like this:
+Where does the ``Site`` document belong? The document hierarchy currently
+looks like this:
 
 .. code-block:: text
 
@@ -68,10 +68,10 @@ like this:
            posts/
 
 There is one ``cms`` node, and this node contains all the children nodes of
-our site. This node is therefore the logical position of our ``Site``
+our site. This node is therefore the logical position of your ``Site``
 document.
 
-Earlier you used the ``GenericInitializer`` to initialize the base paths of
+Earlier, you used the ``GenericInitializer`` to initialize the base paths of
 our project, including the ``cms`` node. The nodes created by the
 ``GenericInitializer`` have no PHPCR-ODM mapping however.
 
@@ -110,24 +110,24 @@ node::
             $session = $registry->getConnection();
 
             // create the 'cms', 'pages', and 'posts' nodes
-            NodeHelper::createPath($session, '/cms/pages');
-            NodeHelper::createPath($session, '/cms/posts');
-            NodeHelper::createPath($session, '/cms/routes');
+            NodeHelper::createPath($session, $this->basePath . '/pages');
+            NodeHelper::createPath($session, $this->basePath . '/posts');
+            NodeHelper::createPath($session, $this->basePath . '/routes');
 
             $session->save();
         }
 
         public function getName()
         {
-            return 'My sites initializer';
+            return 'My site initializer';
         }
     }
 
 .. versionadded:: 1.1
-    Since version 1.1, the init method is passed the ``ManagerRegistry`` rather
-    than the PHPCR ``SessionInterface`` to allow the creation of documents in
-    initializers. With 1.0, you would need to manually set the ``phpcr:class``
-    property to the right value.
+    Since version 1.1, the ``init`` method receives the ``ManagerRegistry``
+    rather than the PHPCR ``SessionInterface``. This allows the creation of
+    documents in initializers. With 1.0, you would need to manually set the
+    ``phpcr:class`` property to the right value.
 
 Now modify the existing service configuration for ``GenericInitializer`` as
 follows:
@@ -178,13 +178,14 @@ follows:
             ->addTag('doctrine_phpcr.initializer', array('name' => 'doctrine_phpcr.initializer')
         ;
 
-Now reinitialize your repository:
+Now empty your repository and then reinitialize it:
 
 .. code-block:: bash
 
+    $ php app/console doctrine:phpcr:node:remove /cms
     $ php app/console doctrine:phpcr:repository:init
 
-and verify that the ``cms`` node has been updated by using the
+and verify that the ``cms`` node has been created correctly, using the
 ``doctrine:phpcr:node:dump`` command with the ``props`` flag:
 
 .. code-block:: bash
@@ -198,7 +199,7 @@ and verify that the ``cms`` node has been updated by using the
 
 .. note::
 
-    Why use an initializer instead of a data fixture? In this instance the
+    Why use an initializer instead of a data fixture? In this instance, the
     site object is a constant for your application. There is only one site
     object, new sites will not be created and the existing site document will
     not be removed. DataFixtures are intended to provide sample data, not

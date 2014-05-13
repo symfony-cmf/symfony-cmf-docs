@@ -19,8 +19,9 @@ documents.
 Configuration
 -------------
 
-The minimum configuration required to load the dynamic router is
-to specify a route provider backend.
+The minimum configuration required to load the dynamic router is to specify a
+route provider backend and to register the dynamic router in the chain of
+routers.
 
 .. note::
 
@@ -34,6 +35,10 @@ to specify a route provider backend.
 
         # app/config/config.yml
         cmf_routing:
+            chain:
+                routers_by_id:
+                    router.default: 200
+                    cmf_routing.dynamic_router: 100
             dynamic:
                 persistence:
                     phpcr:
@@ -45,6 +50,10 @@ to specify a route provider backend.
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+                <chain>
+                    <router-by-id id="router.default">200</router-by-id>
+                    <router-by-id id="cmf_routing.dynamic_router">100</router-by-id>
+                </chain>
                 <dynamic>
                     <persistence>
                         <phpcr enabled="true" />
@@ -57,6 +66,12 @@ to specify a route provider backend.
 
         // app/config/config.php
         $container->loadFromExtension('cmf_routing', array(
+            'chain' => array(
+                'routers_by_id' => array(
+                    'router.default' => 200,
+                    'cmf_routing.dynamic_router' => 100,
+                ),
+            ),
             'dynamic' => array(
                 'persistence' => array(
                     'phpcr' => array(
