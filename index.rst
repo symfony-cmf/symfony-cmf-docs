@@ -8,7 +8,7 @@ implementing the philosophy of the `decoupled CMS`_.
 .. caution::
 
     This documentation is still in development. The bundles and reference sections
-    are updated for the 1.0 release, but the book is still a bit sparse. Want to
+    are updated for the 1.1 release, but the book is still a bit sparse. Want to
     help? Thank you, all help greatly appreciated! The source of the
     `documentation is hosted on github`_.
 
