@@ -4,16 +4,17 @@ Reference
 .. toctree::
     :hidden:
 
-    configuration/block.rst
-    configuration/content.rst
-    configuration/core.rst
-    configuration/create.rst
-    configuration/media.rst
-    configuration/menu.rst
-    configuration/routing.rst
-    configuration/search.rst
-    configuration/simple_cms.rst
-    configuration/tree_browser.rst
-    configuration/phpcr_odm.rst
+    configuration/block
+    configuration/content
+    configuration/core
+    configuration/create
+    configuration/media
+    configuration/menu
+    configuration/routing
+    configuration/search
+    configuration/seo
+    configuration/simple_cms
+    configuration/tree_browser
+    configuration/phpcr_odm
 
 .. include:: map.rst.inc

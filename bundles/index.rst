@@ -15,6 +15,7 @@ Bundles
     routing_auto/index
     routing/index
     search/index
+    seo/index
     simple_cms/index
     tree_browser/index
 
