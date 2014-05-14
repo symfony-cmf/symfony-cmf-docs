@@ -2,34 +2,38 @@ Using Extractors to Retrieve the Seo Metadata
 =============================================
 
 Instead of setting every value to the ``SeoMetadata`` manually, an extractor
-can do the work for you. Extractors are executed when an object implements a
-specific interface. The method required by that interface will return the
-value for the specific SEO data. The extractor will then update the
+can do the work for you. Extractors are executed when the content object
+implements a specific interface. The method required by that interface will
+return the value for the specific SEO data. The extractor will then update the
 ``SeoMetadata`` object for the current object with the returned value.
 
 Available Extractors
 --------------------
 
-+-----------------------------------+---------------------------+----------------------------------------------+
-| ExtractorInterface                | Method                    | Type                                         |
-+===================================+===========================+==============================================+
-| ``SeoDescriptionReadInterface``   | ``getSeoDescription()``   | Returns the meta description                 |
-+-----------------------------------+---------------------------+----------------------------------------------+
-| ``SeoTitleReadInterface``         | ``getSeoTitle()``         | Returns the page title                       |
-+-----------------------------------+---------------------------+----------------------------------------------+
-| -                                 | ``getTitle()``            | If the document has a ``getTitle()`` method, |
-|                                   |                           | it'll be used as the page title              |
-+-----------------------------------+---------------------------+----------------------------------------------+
-| ``SeoOriginalUrlReadInterface``   | ``getSeoOriginalUrl()``   | Returns a absolute url object to redirect to |
-|                                   |                           | or create a canonical link from              |
-+-----------------------------------+---------------------------+----------------------------------------------+
-| ``SeoOriginalRouteReadInterface`` | ``getSeoOriginalRoute()`` | Return a ``Route`` object to redirect to     |
-|                                   |                           | or create a canonical link from              |
-+-----------------------------------+---------------------------+----------------------------------------------+
++--------------------------------+---------------------------+----------------------------------------------+
+| ExtractorInterface             | Method                    | Type                                         |
++================================+===========================+==============================================+
+| ``DescriptionReadInterface``   | ``getSeoDescription()``   | Returns the meta description                 |
++--------------------------------+---------------------------+----------------------------------------------+
+| ``TitleReadInterface``         | ``getSeoTitle()``         | Returns the page title                       |
++--------------------------------+---------------------------+----------------------------------------------+
+| -                              | ``getTitle()``            | If the document has a ``getTitle()`` method, |
+|                                |                           | it'll be used as the page title              |
++--------------------------------+---------------------------+----------------------------------------------+
+| ``OriginalUrlReadInterface``   | ``getSeoOriginalUrl()``   | Returns a absolute url object to redirect to |
+|                                |                           | or create a canonical link from              |
++--------------------------------+---------------------------+----------------------------------------------+
+| ``OriginalRouteReadInterface`` | ``getSeoOriginalRoute()`` | Return a ``Route`` object to redirect to     |
+|                                |                           | or create a canonical link from              |
++--------------------------------+---------------------------+----------------------------------------------+
+| ``ExtrasReadInterface``        | ``getSeoExtras()``        | Returns an associative array using           |
+|                                |                           | ``property``, ``http-equiv`` and ``name``    |
+|                                |                           | as keys (see below from an example).         |
++--------------------------------+---------------------------+----------------------------------------------+
 
 .. note::
 
-    The interfaces live in the ``Symfony\Cmf\Bundle\SeoBundle\Extractor``
+    The interfaces life in the ``Symfony\Cmf\Bundle\SeoBundle\Extractor``
     namespace.
 
 An Example
@@ -42,10 +46,11 @@ description, you can implement both interfaces and your result will be::
     // src/Acme/BlogBundle/Document/Article.php
     namespace Acme\BlogBundle\Document;
 
-    use Symfony\Cmf\Bundle\SeoBundle\Extractor\SeoTitleReadInterface;
-    use Symfony\Cmf\Bundle\SeoBundle\Extractor\SeoDescriptionReadInterface;
+    use Symfony\Cmf\Bundle\SeoBundle\Extractor\TitleReadInterface;
+    use Symfony\Cmf\Bundle\SeoBundle\Extractor\DescriptionReadInterface;
+    use Symfony\Cmf\Bundle\SeoBundle\Extractor\ExtrasReadInterface;
 
-    class Article implements SeoTitleReadInterface, SeoDescriptionReadInterface
+    class Article implements TitleReadInterface, DescriptionReadInterface, ExtraReadInterface
     {
         protected $title;
         protected $publishDate;
@@ -59,7 +64,17 @@ description, you can implement both interfaces and your result will be::
 
         public function getSeoDescription()
         {
-            return $this->title;
+            return $this->intro;
+        }
+
+        public function getSeoExtras()
+        {
+            return array(
+                'property' => array(
+                    'og:title'       => $this->title,
+                    'og:description' => $this->description,
+                ),
+            );
         }
     }
 

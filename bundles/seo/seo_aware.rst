@@ -12,7 +12,7 @@ the ``SeoMetadata``::
     // src/Acme/SiteBundle/Document/Page.php
     namespace Acme\SiteBundle\Document;
 
-    use Symfony\Cmf\Bundle\SeoBundle\Model\SeoAwareInterface;
+    use Symfony\Cmf\Bundle\SeoBundle\SeoAwareInterface;
 
     class Page implements SeoAwareInterface
     {
@@ -32,6 +32,9 @@ the ``SeoMetadata``::
 
 Now you can set some SEO data for this ``Page`` using the metadata::
 
+    use Acme\SiteBundle\Document\Page;
+    use Symfony\Cmf\Bundle\SeoBundle\SeoMetadata;
+
     $page = new Page();
     // ... set some page properties
 
@@ -40,32 +43,6 @@ Now you can set some SEO data for this ``Page`` using the metadata::
     $pageMetadata->setTags('seo, cmf, symfony');
 
     $page->setSeoMetadata($pageMetadata);
-
-    // src/Acme/SiteBundle/DataFixture/PHPCR/LoadPageData.php
-    namespace Acme\SiteBundle\DataFixtures\PHPCR;
-
-    use Acme\SiteBundle\Document\Page;
-    use Symfony\Cmf\Bundle\SeoBundle\Model\SeoMetadata;
-    use Doctrine\Common\Persistence\ObjectManager;
-    use Doctrine\Common\DataFixtures\FixtureInterface;
-
-    class LoadPageData implements FixtureInterface
-    {
-        public function load(ObjectManager $manager)
-        {
-            $page = new Page();
-            // ... set some page properties
-
-            $pageMetadata = new SeoMetadata();
-            $pageMetadata->setDescription('A special SEO description.');
-            $pageMetadata->setTags('seo, cmf, symfony');
-
-            $page->setSeoMetadata($pageMetadata);
-
-            $manager->persist($page);
-            $manager->flush();
-        }
-    }
 
 Doctrine PHPCR-ODM Integration
 ------------------------------
@@ -118,7 +95,7 @@ After you've enabled PHPCR, map your seoMetadata as a child:
         // src/Acme/SiteBundle/Document/Page.php
         namespace Acme\SiteBundle\Document;
 
-        use Symfony\Cmf\Bundle\SeoBundle\Model\SeoAwareInterface;
+        use Symfony\Cmf\Bundle\SeoBundle\SeoAwareInterface;
         use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
         /**
@@ -192,19 +169,72 @@ Doctrine ORM
 ------------
 
 You can also use the Doctrine ORM with the CmfSeoBundle. You can just use the
-``Symfony\Cmf\Bundle\SeoBundle\Model\SeoMetadata`` class and map it as an
-object.
+``Symfony\Cmf\Bundle\SeoBundle\SeoMetadata`` class and map it as an
+object:
 
-You can also choose put the ``SeoMetadata`` class into a seperate table and
-adding a relation between the ``SeoMetadata`` class and the content entity. To
+.. configuration-block::
+
+    .. code-block:: php-annotations
+
+        // src/Acme/SiteBundle/Entity/Page.php
+        namespace Acme\SiteBundle\Entity;
+
+        use Symfony\Cmf\Bundle\SeoBundle\SeoAwareInterface;
+        use Doctrine\ORM\Mapping as ORM;
+
+        /**
+         * @ORM\Entity()
+         */
+        class Page implements SeoAwareInterface
+        {
+            /**
+             * @ORM\Column(type="object")
+             */
+            protected $seoMetadata;
+
+            // ...
+        }
+
+    .. code-block:: yaml
+
+        # src/Acme/SiteBundle/Resources/config/doctrine/Page.orm.yml
+        Acme\SiteBundle\Entity\Page:
+            # ...
+            fields:
+                # ...
+                seoMetadata:
+                    type: object
+
+    .. code-block:: xml
+
+        <!-- src/Acme/SiteBundle/Resources/config/doctrine/Page.orm.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+            http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+            <entity name="Acme\SiteBundle\Entity\Page">
+                <!-- ... -->
+                <field name="seoMetadata" type="object" />
+            </entity>
+        </doctrine-mapping>
+
+You can also choose to put the ``SeoMetadata`` class into a seperate table. To
 do this, you have to enable ORM support just like you enabled PHPCR enabled
-above.
+above and add a OneToOne or ManyToOne relation between the content entity and
+the ``SeoMetadata`` entity.
 
 Form Type
 ---------
 
 The bundle also provides a special form type called ``seo_metadata``. This
 form type can be used in forms to edit the ``SeoMetadata`` object.
+
+.. caution::
+
+    The bundles requires the `BurgovKeyValueFormBundle`_ when using the form
+    type. Make sure you install and enable it.
 
 Sonata Admin Integration
 ------------------------
@@ -214,9 +244,9 @@ Extension. This extension adds a field for the ``SeoMetadata`` when an admin
 edits an objec that implements the ``SeoAwareInterface`` in the Sonata Admin
 panel.
 
-.. note::
+.. caution::
 
-    The bundles requires the `BurgovKeyValueFormBundle`_ when using the sonata
-    admin. Make sure you install and enable it.
+    The Sonata Admin uses the Form Type provided by the CmfSeoBundle, make
+    sure you have the `BurgovKeyValueFormBundle`_ installed.
 
 .. _`BurgovKeyValueFormBundle`: https://github.com/Burgov/KeyValueFormBundle

@@ -102,7 +102,14 @@ document. This metadata can hold:
 * The meta keywords;
 * The meta description;
 * The original URL (when more than one URL contains the same content).
+* Anything else that uses the ``<meta>`` tag with the ``property``, ``name``
+  or ``http-equiv`` type (e.g. Open Graph data).
 
+The content object is retrieved from the request attributes. By default, it
+uses the ``DynamicRouter::CONTENT_KEY`` constant when the
+:doc:`RoutingBundle <../routing/introduction>` is installed. To change this,
+or if you don't use the RoutingBundle, you can configure it with
+``cmf_seo.content_key``.
 This bundle provides two ways of using this metadata:
 
 #. Implementing the ``SeoAwareInterface`` and persisting the ``SeoMetadata``
@@ -165,25 +172,28 @@ you want to change that to redirect instead, you can set the
             ),
         );
 
+.. _bundles-seo-title-description-emplate:
+
 Defining a Title and Description Template
 -----------------------------------------
 
 Most of the times, the title of a site has a static and a dynamic part. For
 instance, "The title of the Page - Symfony". Here, "- Symfony" is static and
-"The title of the Page" will be replaced by the current title. It is of course
-not nice if you had to add this static part to all your titles in documents.
+"The title of the Page" will be replaced by the current title. It would not be
+nice if you had to add this static part to all your titles in documents.
 
-That's why the CmfSeoBundle provides defining a title and description
-template. When using these settings, there are 2 placeholders available:
+The CmfSeoBundle allows you to define a title and description template for
+this reason. When using these settings, there are 2 placeholders available:
 ``%content_title%`` and ``%content_description%``. These will be replaced with
 the title extracted from the content object and the description extracted from
 the content object.
 
 .. caution::
 
-    The default title and description set by the SonataSeoBundle do override
-    this template. You should make sure that the defaults also follow the
-    template.
+    The title and description template is only used when the title is not set
+    on the content object or when the content object is not available,
+    otherwise it'll use the default set by the SonataSeoBundle. You should
+    make sure that the defaults also follow the template.
 
 For instance, to configure the titles of the symfony.com pages, you would do:
 

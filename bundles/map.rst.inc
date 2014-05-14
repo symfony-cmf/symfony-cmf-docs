@@ -59,6 +59,12 @@ library or they introduce a complete new concept.
 
   * :doc:`search/introduction`
 
+* :doc:`seo/index`
+
+  * :doc:`seo/introduction`
+  * :doc:`seo/seo_aware`
+  * :doc:`seo/extractors`
+
 * :doc:`tree_browser/index`
 
   * :doc:`tree_browser/introduction`
