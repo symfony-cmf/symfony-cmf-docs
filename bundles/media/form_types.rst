@@ -4,7 +4,7 @@
 Form Types
 ----------
 
-The MediaBundle provides a couple of usefull form types along with form data
+The MediaBundle provides a couple of useful form types along with form data
 transformers.
 
 cmf_media_image

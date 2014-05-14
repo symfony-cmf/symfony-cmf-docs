@@ -173,7 +173,7 @@ using this **path**:
 Form Types
 ----------
 
-The MediaBundle provides some usefull form types, read more about the types in
+The MediaBundle provides some useful form types, read more about the types in
 :doc:`form_types`.
 
 Templating
