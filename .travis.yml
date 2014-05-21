@@ -6,7 +6,7 @@ python:
 install: "pip install -q -r requirements.txt --use-mirrors"
 script: "sphinx-build -nW -b html -d _build/doctrees . _build/html"
 
-after_success: build_demo.sh
+after_success: bash build_demo.sh
 
 env:
   global:
