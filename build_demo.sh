@@ -3,7 +3,7 @@ git config --global user.email "sf-travis-bot@travis-ci.org"
 
 git clone https://${GH_TOKEN}@github.com/WouterJ/symfony-cmf-docs-demo
 
-if [[ ${TRAVIS_PULL_REQUEST} ]]
+if [[ ${TRAVIS_PULL_REQUEST} ]]; then
     DEMO_DIR_NAME=symfony-cmf-docs-demo/${TRAVIS_PULL_REQUEST}-${TRAVIS_BUILD_NUMBER}
 else
     DEMO_DIR_NAME=symfony-cmf-docs-demo/${TRAVIS_REPO_SLUG//\//-}-${TRAVIS_BRANCH}-${TRAVIS_BUILD_NUMBER}
