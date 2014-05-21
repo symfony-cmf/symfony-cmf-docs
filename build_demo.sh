@@ -19,6 +19,8 @@ cp -rf _build/html/* $DEMO_DIR_NAME
 
 cd symfony-cmf-docs-demo
 
+touch .nojekyll
+
 git add -A
 
 git commit -m "Travis build ${TRAVIS_BUILD_NUMBER}"
