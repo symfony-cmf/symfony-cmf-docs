@@ -1,5 +1,4 @@
-git config user.name "Sf Travis Bot"
-git config user.email "waldio.webdesign@gmail.com"
+git config --global user.name "Sf Travis Bot"
 
 git clone https://${GH_TOKEN}@github.com/WouterJ/symfony-cmf-docs-demo
 
