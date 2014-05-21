@@ -4,12 +4,14 @@ git config --global user.email "sf-travis-bot@travis-ci.org"
 git clone https://${GH_TOKEN}@github.com/WouterJ/symfony-cmf-docs-demo
 
 if [[ ${TRAVIS_PULL_REQUEST} ]]; then
-    DEMO_DIR_NAME=symfony-cmf-docs-demo/${TRAVIS_PULL_REQUEST}-${TRAVIS_BUILD_NUMBER}
+    DEMO_PREFIX=${TRAVIS_PULL_REQUEST}
 else
-    DEMO_DIR_NAME=symfony-cmf-docs-demo/${TRAVIS_REPO_SLUG//\//-}-${TRAVIS_BRANCH}-${TRAVIS_BUILD_NUMBER}
+    DEMO_PREFIX=${TRAVIS_BRANCH}
 fi
 
-DEMO_DIR_NAME=symfony-cmf-docs-demo/${TRAVIS_PULL_REQUEST}-${TRAVIS_BUILD_NUMBER}
+DEMO_DIR_NAME=symfony-cmf-docs-demo/${DEMO_PREFIX}-${TRAVIS_BUILD_NUMBER}
+
+rm -rf symfony-cmf-docs-demo/${DEMO_PREFIX}-*
 
 mkdir $DEMO_DIR_NAME
 
@@ -17,7 +19,7 @@ cp -rf _build/html/* $DEMO_DIR_NAME
 
 cd symfony-cmf-docs-demo
 
-git add .
+git add -A
 
 git commit -m "Travis build ${TRAVIS_BUILD_NUMBER}"
 git push origin
