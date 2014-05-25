@@ -51,7 +51,7 @@ A service to use the generic initializer looks like this:
             class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
             arguments:
                 - AcmeContentBundle Basepaths
-                - { "/my/content", "/my/menu" }
+                - [ "/my/content", "/my/menu" ]
                 - "%acme.cnd%"
             tags:
                 - { name: "doctrine_phpcr.initializer" }
