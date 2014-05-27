@@ -190,7 +190,7 @@ auto_mapping
 """"""""""""
 
 If not set to false, the CreateBundle will look for mapping files in every
-bundle in the directory ``Resource/rdf-mappings``.
+bundle in the directory ``Resources/rdf-mappings``.
 
 rdf_config_dirs
 """""""""""""""
