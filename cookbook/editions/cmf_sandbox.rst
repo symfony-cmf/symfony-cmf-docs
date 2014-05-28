@@ -121,6 +121,12 @@ run:
 If you don't have sqlite, you can specify ``pdo_mysql`` or ``pdo_pgsql`` and
 provide the database name and login credentials to use.
 
+Then you have to set up your database with:
+
+.. code-block:: bash
+
+    $ php app/console doctrine:phpcr:init:dbal
+
 Once your database is set up, you need to `register the node types`_ for
 phpcr-odm:
 
