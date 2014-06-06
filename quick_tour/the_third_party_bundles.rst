@@ -129,7 +129,7 @@ element. To do this, replace the ``<title>`` tag line in the
 
 .. code-block:: html+jinja
 
-    {% block title %}{% sonata_seo_title() %}{% endblock %}
+    {% block title %}{{ sonata_seo_title() }}{% endblock %}
 
 When you visit the new website, you can see nice titles for each page!
 
