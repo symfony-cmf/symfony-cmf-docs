@@ -117,15 +117,21 @@ overwrite them) are:
 
     {
         "extra": {
-            "create-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/create",
+            "create-directory": "vendor/symfony-cmf/create-bundle/Resources/public/vendor/create",
             "create-repository": "https://github.com/bergie/create.git",
             "create-commit": "a148ce9633535930d7b4b70cc1088102f5c5eb90"
 
-            "ckeditor-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/ckeditor",
+            "ckeditor-directory": "vendor/symfony-cmf/create-bundle/Resources/public/vendor/ckeditor",
             "ckeditor-repository": "https://github.com/ckeditor/ckeditor-releases.git",
             "ckeditor-commit": "bba29309f93a1ace1e2e3a3bd086025975abbad0"
         }
     }
+
+.. versionadded:: 1.2
+    The Symfony CMF bundles updated to PSR-4 autoloading with Symfony CMF
+    1.2. Before, the target directories were located in the
+    ``vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor``
+    directory.
 
 Add this bundle (and its dependencies, if they are not already added) to your
 application's kernel::
