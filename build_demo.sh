@@ -2,7 +2,7 @@
 git config --global user.name "Sf Travis Bot"
 git config --global user.email "sf-travis-bot@travis-ci.org"
 
-COMMIT=`git rev-parse HEAD`
+COMMIT=`git rev-parse HEAD^`
 
 # clone the demo repository
 git clone https://${GH_TOKEN}@github.com/WouterJ/symfony-cmf-docs-demo
