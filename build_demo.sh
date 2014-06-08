@@ -2,6 +2,8 @@
 git config --global user.name "Sf Travis Bot"
 git config --global user.email "sf-travis-bot@travis-ci.org"
 
+COMMIT=`git rev-parse HEAD`
+
 # clone the demo repository
 git clone https://${GH_TOKEN}@github.com/WouterJ/symfony-cmf-docs-demo
 
@@ -30,8 +32,6 @@ git commit -m "Travis build ${TRAVIS_BUILD_NUMBER}"
 
 # push to origin
 git push origin
-
-COMMIT=`git rev-parse HEAD`
 
 # update status of PR
 curl "https://api.github.com/repos/WouterJ/symfony-cmf-docs/statuses/${COMMIT}?access_token=${GH_TOKEN}" \
