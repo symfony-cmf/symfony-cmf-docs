@@ -31,8 +31,8 @@ git commit -m "Travis build ${TRAVIS_BUILD_NUMBER}"
 # push to origin
 git push origin
 
-if [ $? != 0 ]; then
-    echo "Error while pushing demo to GitHub"
-else
-    echo "Pushed demo to github, visit your demo at http://wouterj.github.com/symfony-cmf-docs-demo/${DEMO_DIR_NAME}"
-fi
+# update status of PR
+curl "https://api.github.com/repos/justincampbell/my_repo/statuses/$GIT_COMMIT?access_token=abc123" \
+    -H "Content-Type: application/json" \
+    -X POST \
+    -d "{\"state\": \"success\", \"description\": \"Build succeeded!\", \"target_url\": \"http://wouterj.github.com/${DEMO_DIR_NAME}\"}"
