@@ -32,7 +32,7 @@ git commit -m "Travis build ${TRAVIS_BUILD_NUMBER}"
 git push origin
 
 # update status of PR
-curl "https://api.github.com/repos/justincampbell/my_repo/statuses/${TRAVIS_COMMIT}?access_token=${GH_TOKEN}" \
+curl "https://api.github.com/repos/WouterJ/symfony-cmf-docs/statuses/${TRAVIS_COMMIT}?access_token=${GH_TOKEN}" \
     -H "Content-Type: application/json" \
     -X POST \
     -d "{\"state\": \"success\", \"description\": \"Build succeeded!\", \"target_url\": \"http://wouterj.github.com/${DEMO_DIR_NAME}\"}"
