@@ -31,7 +31,7 @@ git commit -m "Travis build ${TRAVIS_BUILD_NUMBER}"
 # push to origin
 git push origin
 
-COMMIT=${git rev-parse HEAD}
+COMMIT=`git rev-parse HEAD`
 
 # update status of PR
 curl "https://api.github.com/repos/WouterJ/symfony-cmf-docs/statuses/${COMMIT}?access_token=${GH_TOKEN}" \
