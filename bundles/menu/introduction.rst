@@ -49,7 +49,7 @@ each of which specifies a URI::
     use PHPCR\Util\NodeHelper;
 
     // this node should be created automatically, see note below this example
-    $menuParent = $dm->find(null, '/cms/menu');
+    $menuParent = $manager->find(null, '/cms/menu');
 
     $menu = new Menu();
     $menu->setName('main-menu');
