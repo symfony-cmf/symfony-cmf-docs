@@ -7,7 +7,7 @@ Dynamic Router
 The Symfony2 default Router was developed to handle static Route definitions,
 as they are usually declared in configuration files, prior to execution.
 The complete routing configuration is injected in the constructor. It then
-creates a :class:`Symfony\Component\Routing\Matcher\UrlMatcher` with this
+creates a :class:`Symfony\\Component\\Routing\\Matcher\\UrlMatcher` with this
 configuration, rather than having the matcher injected as a service. This makes
 the default router a poor choice to handle dynamically defined routes. To
 handle large numbers of user created routes, this component contains the
