@@ -12,7 +12,7 @@ ContentBundle.
 
 Having two objects is the most flexible solution. You can have different
 routes (e.g. per language) for the same content. Or you can organize your
-content in a differently than your URL tree. But in many situations,
+content differently than your URL tree. But in many situations,
 having the route and the content be one and the same simplifies things. That
 is exactly what the SimpleCmsBundle is doing, which is used by the Symfony
 CMF Standard Edition by default for routing, content and menus.
