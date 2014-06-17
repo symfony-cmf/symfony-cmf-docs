@@ -57,7 +57,7 @@ To create a page, use the
         /**
          * @param DocumentManager $dm
          */
-        public function load(ObjectManager $dm)
+        public function load(DocumentManager $dm)
         {
             $parent = $dm->find(null, '/cms/simple');
             $page = new Page();
@@ -105,7 +105,7 @@ structure, you would do::
         /**
          * @param DocumentManager $dm
          */
-        public function load(ObjectManager $dm)
+        public function load(DocumentManager $dm)
         {
             $root = $dm->find(null, '/cms/simple');
 

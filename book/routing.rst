@@ -457,7 +457,7 @@ follows::
         /**
          * @param DocumentManager $dm
          */
-        public function load(ObjectManager $dm)
+        public function load(DocumentManager $dm)
         {
             $route = new Route();
             $route->setParentDocument($dm->find(null, '/cms/routes'));
