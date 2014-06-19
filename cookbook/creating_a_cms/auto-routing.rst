@@ -140,83 +140,31 @@ Create the following file in your applications configuration directory:
 .. code-block:: yaml
 
     # app/config/routing_auto.yml
-    cmf_routing_auto:
-        mappings:
-            Acme\BasicCmsBundle\Document\Page:
-                content_path:
-                    pages:
-                        provider: [specified, { path: /cms/routes/page }]
-                        exists_action: use
-                        not_exists_action: create
-                content_name:
-                    provider: [content_method, { method: getTitle }]
-                    exists_action: auto_increment
-                    not_exists_action: create
+    Acme\BasicCmsBundle\Document\Page:
+        url_schema: /page/{title}
+        token_providers:
+            title: [content_method, { method: getTitle } ]
 
-            Acme\BasicCmsBundle\Document\Post:
-                content_path:
-                    blog_path:
-                        provider: [specified, { path: /cms/routes/post }]
-                        exists_action: use
-                        not_exists_action: create
-                    date:
-                        provider: [content_datetime, { method: getDate}]
-                        exists_action: use
-                        not_exists_action: create
-                content_name:
-                    provider: [content_method, { method: getTitle }]
-                    exists_action: auto_increment
-                    not_exists_action: create
+    Acme\BasicCmsBundle\Document\Post:
+        url_schema: /post/{date}/{title}
+        token_providers:
+            date: [content_date, { method: getDate }
+            title: [content_method, { method: getTitle }]
 
 This will configure the routing auto system to automatically create and update
 route documents for both the ``Page`` and ``Post`` documents. 
 
-In summary:
+In summary, for each class:
 
-* The ``content_path`` key represents the parent path of the content, e.g.
-  ``/if/this/is/a/path`` then the ``content_path``
-  represents ``/if/this/is/a``;
-* Each element under ``content_path`` represents a section of the URL;
-* The first element ``blog_path`` uses a *provider* which *specifies* a
-  path. If that path exists then it will do nothing;
-* The second element uses the ``content_datetime`` provider, which will
-  use a ``DateTime`` object returned from the specified method on the
-  content object (the ``Post``) and create a path from it, e.g.
-  ``2013/10/13``;
-* The ``content_name`` key represents the last part of the path, e.g. ``path``
-  from ``/if/this/is/a/path``.
+* We defined a ``url_schema`` which defines the form of the URL which will be
+  generated.
+  * Within the schema we place ``{tokens}`` - placeholders for values provided
+    by...
+* Token providers provide values which will be substituted into the URL. Here
+  we use two different providers - ``content_date`` and ``content_method``.
+  Both will return dynamic values from the subject object itself.
 
-Now you will need to include this configuration:
-
-.. configuration-block::
-    
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        imports:
-            - { resource: routing_auto.yml }
-
-    .. code-block:: xml
-
-        <!-- src/Acme/BasicCmsBUndle/Resources/config/config.yml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container 
-            xmlns="http://symfony.com/schema/dic/services" 
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-            xsi:schemaLocation="http://symfony.com/schema/dic/services 
-                http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <import resource="routing_auto.yml"/>
-        </container>
-    
-    .. code-block:: php
-
-        // src/Acme/BasicCmsBundle/Resources/config/config.php
-
-        // ...
-        $this->import('routing_auto.yml');
-
-and reload the fixtures:
+Now reload the fixtures:
 
 .. code-block:: bash
 
