@@ -135,6 +135,8 @@ that knows how to fetch the feed data of an ``RssBlock``::
          */
         public function execute(BlockContextInterface $blockContext, Response $response = null)
         {
+            $block = $blockContext->getBlock();
+            
             if (!$block->getEnabled()) {
                 return new Response();
             }
