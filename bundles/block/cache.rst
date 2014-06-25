@@ -7,11 +7,10 @@ provide several caching solutions. Have a look at the available adapters in the
 
 The Symfony2 CMF BlockBundle additionally provides its own adapters for:
 
-* `ESI`_
-* `SSI`_
-* Asynchronous JavaScript
-* Synchronous JavaScript
-
+* `ESI`_: cmf.block.cache.varnish
+* `SSI`_: cmf.block.cache.ssi
+* Asynchronous JavaScript: cmf.block.cache.js_async
+* Synchronous JavaScript: cmf.block.cache.js_sync
 .. note::
 
   It is advised to store all settings in the block document when using cache.
