@@ -135,8 +135,8 @@ And then access the CMF via:
     or set your database connection parameters in ``app/config/parameters.yml``.
     Make sure you leave the ``database_path`` property at ``null`` in order to
     use another driver than SQLite. Leaving the field blank in the
-    web-configurator will set it to ``null``. 
-    You also need to uncomment lines in ``app/config/config.yml`` in section ``doctrine_dbal``.
+    web-configurator will set it to ``null``. You also need to uncomment lines
+    in ``app/config/config.yml`` in section ``doctrine.dbal``.
 
 .. note::
 
