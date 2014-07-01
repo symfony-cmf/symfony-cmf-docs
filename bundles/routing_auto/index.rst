@@ -5,7 +5,8 @@ RoutingAutoBundle
     :maxdepth: 2
 
     introduction
-    providers
-    exists_actions
-    not_exists_actions
+    token_providers
+    conflict_resolvers
+    defunct_route_handlers
     customization
+

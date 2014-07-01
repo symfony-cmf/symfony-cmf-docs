@@ -4,7 +4,7 @@
 Customization
 -------------
 
-.. _routingauto_customization_pathproviders:
+.. _routingauto_customization_tokenproviders:
 
 Token Providers
 ~~~~~~~~~~~~~~~

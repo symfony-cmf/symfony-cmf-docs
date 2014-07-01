@@ -2,16 +2,18 @@
     single: Conflict Resolvers; RoutingAutoBundle
 
 Conflict Resolvers
--------------------
+------------------
 
-These are the conflict resolvers which are provided by default by the
-RoutingAutoBundle.
+Conflict resolvers are invoked when the system detects that a newly generated
+route would conflict with an route already existing in the route repository.
+
+This section details the conflict resolvers which are provided by default.
 
 auto_increment
 ~~~~~~~~~~~~~~
 
 The ``auto_increment`` conflict resolver will add a numerical suffix to the path, for
-example ``my/path`` would first become ``my/path-1`` and if that path *also*
+example if ``my/path`` already exists, it would first become ``my/path-1`` and if that path *also*
 exists it will try ``my/path-2``, ``my/path-3`` and so on into infinity until
 it finds a path which *doesn't* exist.
 
@@ -34,7 +36,7 @@ it finds a path which *doesn't* exist.
 throw_exception
 ~~~~~~~~~~~~~~~
 
-The ``throw_exception`` efficiently resolves conflicts by throwing exceptions.
+The ``throw_exception`` efficiently "resolves" conflicts by throwing exceptions.
 This is the default action.
 
 .. configuration-block::

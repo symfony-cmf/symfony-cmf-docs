@@ -69,17 +69,13 @@ Usage
 Imagine you have a fictional forum application and that you want to access the
 forum topic with the following fictional URL:
 
-.. code-block::
-
-    https://mywebsite.com/my-forum/drinks/coffee
+- ``https://mywebsite.com/my-forum/drinks/coffee``
 
 The RoutingAutoBundle uses a URL schema to define how routes are generated. A
 schema for the above URL would look like this (the bundle does not care about
 the host or protocol):
 
-.. code-block::
-
-    /my-forum/{category}/{title}
+- ``/my-forum/{category}/{title}``
 
 You can see that ``my-forum`` is static (it will not change) but that
 ``drinks`` has been replaced with ``{category}`` and ``coffee`` with
@@ -161,12 +157,14 @@ This is just a basic example. You can also configure what should happen when
 a route already exists (confict resolution) and what to do with old routes
 when the generated URL is changed (defunct route handling).
 
-Token Providers, Conflict Resolvers and Defunct Routes
-------------------------------------------------------
+Read more
+---------
 
-* :doc:`providers`
-* :doc:`exists_actions`
-* :doc:`not_exists_actions`
+* :doc:`token_providers`
+* :doc:`conflict_resolvers`
+* :doc:`defunct_route_handlers`
+* :doc:`customization`
+
 
 Customization
 -------------
