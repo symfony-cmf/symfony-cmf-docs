@@ -53,9 +53,9 @@ configuration.
         # app/config/config.yml
         sonata_admin:
             extensions:
-                cmf.block.admin.base.extension:
+                cmf_block.admin_extension.cache:
                     extends:
-                        - Symfony\Cmf\Bundle\BlockBundle\Model\BaseBlock
+                        - Symfony\Cmf\Bundle\BlockBundle\Model\AbstractBlock
 
     .. code-block:: xml
 
@@ -65,8 +65,8 @@ configuration.
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
             <config xmlns="http://sonata-project.org/schema/dic/admin">
-                <extension id="cmf.block.admin.base.extension">
-                    <extend>Symfony\Cmf\Bundle\BlockBundle\Model\BaseBlock</extend>
+                <extension id="cmf_block.admin_extension.cache">
+                    <extend>Symfony\Cmf\Bundle\BlockBundle\Model\AbstractBlock</extend>
                 </extension>
             </config>
         </container>
@@ -76,9 +76,9 @@ configuration.
         // app/config/config.php
         $container->loadFromExtension('sonata_admin', array(
             'extensions' => array(
-                'cmf.block.admin.base.extension' => array(
+                'cmf.block.admin_extension.cache' => array(
                     'extends' => array(
-                        'Symfony\Cmf\Bundle\BlockBundle\Model\BaseBlock',
+                        'Symfony\Cmf\Bundle\BlockBundle\Model\AbstractBlock',
                     ),
                 ),
             ),
