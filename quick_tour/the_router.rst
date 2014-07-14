@@ -167,7 +167,7 @@ Now you can add a new ``Route`` to the tree using Doctrine::
             // $route->setParentDocument($routesRoot);
             $route->setPosition($routesRoot, 'new-route');
 
-            $page = $documentManager->find(null, '/cms/routes/quick_tour');
+            $page = $documentManager->find(null, '/cms/simple/quick_tour');
             $route->setContent($page);
 
             $documentManager->persist($route); // put $route in the queue
