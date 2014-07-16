@@ -8,7 +8,7 @@ You can use `Knp Menu Bundle`_ to render a menu of your SimpleCms pages. The def
 (``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page``) implements the ``Knp\Menu\NodeInterface``
 which allows for rendering them as a menu.
 
-.. code-block:: twig
+.. code-block:: jinja
 
     {{ knp_menu_render('/cms/simple/mypage') }}
 
