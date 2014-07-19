@@ -26,22 +26,8 @@ the contents will be available at the following URLs:
 Installation
 ~~~~~~~~~~~~
 
-Ensure that you have the following package installed:
-
-.. code-block:: javascript
-
-    {
-        ...
-        require: {
-            ...
-            "symfony-cmf/routing-auto-bundle": "1.0.*@alpha"
-        },
-        ...
-    }
-
-.. note::
-
-    You are installing the bleeding edge version of the routing-auto bundle.
+Ensure that you installed the RoutingAutoBundle package as detailed in the :ref:`gettingstarted_installadditionbundles`
+section.
 
 Enable the routing bundles to your kernel::
 
@@ -135,11 +121,23 @@ This will:
 Auto Routing Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Create the following file in your applications configuration directory:
+First we need to configure the auto routing bundle:
 
 .. code-block:: yaml
 
-    # app/config/routing_auto.yml
+    cmf_routing_auto:
+        persistence:
+            phpcr:
+                enabled: true
+
+The above configures the RoutingAutoBundle to work with PHPCR-ODM.
+
+You can now proceed to mapping your documents, create the following in your
+*bundles* configuration directory:
+
+.. code-block:: yaml
+
+    # src/Acme/BasicCmsBundle/Resources/config/cmf_routing_auto.yml
     Acme\BasicCmsBundle\Document\Page:
         url_schema: /page/{title}
         token_providers:
@@ -148,8 +146,14 @@ Create the following file in your applications configuration directory:
     Acme\BasicCmsBundle\Document\Post:
         url_schema: /post/{date}/{title}
         token_providers:
-            date: [content_date, { method: getDate }
+            date: [content_datetime, { method: getDate }
             title: [content_method, { method: getTitle }]
+
+.. note::
+
+    RoutingAutoBundle mapping bundles are registered automatically when they are named
+    as above, you may alternatively explicitly declare from where the mappings should be loaded,
+    see the :doc:`../../bundles/routing_auto/index` documentation for more information.
 
 This will configure the routing auto system to automatically create and update
 route documents for both the ``Page`` and ``Post`` documents. 

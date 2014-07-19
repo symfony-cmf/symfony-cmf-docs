@@ -1,7 +1,45 @@
 Controllers and Templates
 -------------------------
 
-Go to the URL http://localhost:8000/page/home in your browser - this should be
+Make your content route aware
+.............................
+
+In the :doc:`getting-started` section you defined your `Post` and `Page` documents as
+implementing the `RoutesReferrersReadInterface`. This interface enables the routing system
+to retrieve routes which refer to the object implementing this interface, and this enables
+the system to generate a URL (for example when you use ``{{ path(mydocument) }}`` in Twig).
+
+Earlier we did not have the RoutingBundle installed, so we could not add the mapping. 
+
+Map the ``$routes`` property to contain a collection of all the routes which refer to this
+document::
+
+    // src/AcmeBundle/BasicCmsBundle/Document/ContentTrait.php
+    
+    // ...
+
+    trait ContentTrait
+    {
+        // ...
+
+        /**
+         * @PHPCR\Referrers(
+         *     referringDocument="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route",
+         *     referencedBy="content"
+         * )
+         */
+        protected $routes;
+
+        // ...
+    } 
+
+Now you can call the method ``getRoutes`` on either ``Page`` or ``Post`` and retrieve all the
+routes which refer to that document ... pretty cool!
+
+Route requests to a controller
+..............................
+
+Go to the URL http://127.0.0.1:8000/page/home in your browser - this should be
 your page, but it says that it cannot find a controller. In other words it has
 found the *route referencing the page* for your page but Symfony does not know what
 to do with it.

@@ -10,8 +10,11 @@ This article will show you how to create a new Symfony project from the
 
 It is assumed that you have `installed composer`_.
 
-For more information on the PHPCR-ODM see the
-:doc:`../book/database_layer` article.
+.. note::
+
+    This walkthrough is intended to get you off the ground quickly, for more
+    detailed documentation on integrating the PHPCR-ODM bundle see 
+    the documentation for the :doc:`../bundles/phpcr_odm/index`.
 
 General Instructions using Jackalope Doctrine DBAL
 --------------------------------------------------
@@ -23,7 +26,7 @@ content repository.
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony/framework-standard-edition path/
+    $ php composer.phar create-project symfony/framework-standard-edition <your project name>/ --no-install
 
 **Step 2**: Add the required packages to ``composer.json``:
 
@@ -38,6 +41,8 @@ content repository.
             "jackalope/jackalope-doctrine-dbal": "1.0.0"
         }
     }
+
+
 
 **Step 3**: (*optional*) Remove the Doctrine ORM:
 
@@ -133,11 +138,11 @@ content repository.
             ),
         ));
 
-**Step 7**: Run ``composer update``:
+**Step 7**: Run ``composer install``:
 
 .. code-block:: bash
 
-    $ composer update
+    $ composer install
 
 After installing the packages composer will ask you to confirm or modify the
 default parameters defined in ``parameters.yml.dist`` and then generate the
