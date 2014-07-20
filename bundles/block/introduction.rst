@@ -168,7 +168,7 @@ your block in the repository. You can do so with the following code snippet::
     $myBlock->setTitle('My first block');
     $myBlock->setBody('Hello block world!');
 
-    $documentManager->persist($myBlock);
+    $dm->persist($myBlock);
 
 Note the ``sidebarBlock`` is the identifier we chose for the block. Together
 with the parent document of the block, this defines the unique identifier of
