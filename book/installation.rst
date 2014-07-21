@@ -128,6 +128,14 @@ And then access the CMF via:
 
     http://localhost:8000
 
+Or if you run a default apache installation:
+
+.. code-block:: text
+
+    http://localhost/app_dev.php
+    
+Notice that the AcmeDemoBundle is only accessible in the dev environment.
+
 .. sidebar:: Using Other Database Backends
 
     If you prefer to use another database backend, for example MySQL, run the
