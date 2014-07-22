@@ -4,5 +4,10 @@ python:
     - "2.7"
 
 install: "pip install -q -r requirements.txt --use-mirrors"
+script: "sphinx-build -nW -b html -d _build/doctrees . _build/html"
 
-script: sphinx-build -nW -b html -d _build/doctrees . _build/html
+after_success: bash build_demo.sh
+
+env:
+  global:
+    secure: 43/CuWTnJDkriGqu34xFZuJatP2iPNGftRsKMGUTYKCEiwxF0exy4LCZ+/EzEpiD5EJyB4bB1r2fKwlItBz4V2IjUgy6M7xp5g0mDAr4yQhq5Z234aZgbQJgnnECTwnzsHxnYDyjHs9Oy2orpknak5f9eo92a/H4ZkPLOM8un9U=
