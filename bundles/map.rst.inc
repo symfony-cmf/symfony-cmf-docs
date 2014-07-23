@@ -90,6 +90,7 @@ bundle based on the key bundles.
   * :doc:`simple_cms/introduction`
   * :doc:`simple_cms/multilang`
   * :doc:`simple_cms/rendering`
+  * :doc:`simple_cms/menus`
   * :doc:`simple_cms/extending_page_class`
 
 Contributed Bundles
