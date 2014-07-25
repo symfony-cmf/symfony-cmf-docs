@@ -476,7 +476,7 @@ follows::
             $route->setRequirement('id', '\d+');
             $route->setDefault('id', 1);
 
-            $dm->persist($route),
+            $dm->persist($route);
             $dm->flush();
         }
     }
