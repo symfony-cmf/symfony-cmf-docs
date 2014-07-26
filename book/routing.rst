@@ -449,6 +449,8 @@ follows::
     namespace Acme\DemoBundle\DataFixtures\PHPCR;
 
     use Doctrine\ODM\PHPCR\DocumentManager;
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\Persistence\ObjectManager;
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
     use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
 
