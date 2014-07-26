@@ -230,6 +230,9 @@ Note that the above identifier is mapped to
 ``app/Resources/data/pages/test.yml`` by stripping off the ``basepath``
 configuration of the SimpleCmsBundle (which defaults to ``/cms/simple``).
 
+NOTICE: (not to be merged)
+the test.yml was deleted after the 1.0.1 tag.. dunno why or in which commit
+
 Therefore if you want to define a child page ``foo`` for ``/cms/simple/test``
 you would need to create a file ``app/Resources/data/pages/test/foo.yml``
 and then run the following command:
