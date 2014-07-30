@@ -59,6 +59,9 @@ Installation
            cmf_media_image:
                resource: "@CmfMediaBundle/Resources/config/routing/image.xml"
 
+           _liip_imagine:
+               resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
        .. code-block:: xml
 
            <!-- app/config/routing.xml -->
