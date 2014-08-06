@@ -272,8 +272,8 @@ configuration:
 
     .. code-block:: xml
 
-        <!-- src/Acme\BasicCmsBundle\Resources\services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- src/Acme\BasicCmsBundle\Resources\services.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:acme_demo="http://www.example.com/symfony/schema/"
