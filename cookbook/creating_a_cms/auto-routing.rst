@@ -121,7 +121,7 @@ This will:
 Auto Routing Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-First we need to configure the auto routing bundle:
+First you need to configure the auto routing bundle:
 
 .. code-block:: yaml
 
@@ -162,9 +162,9 @@ In summary, for each class:
 
 * We defined a ``uri_schema`` which defines the form of the URI which will be
   generated.
-  * Within the schema we place ``{tokens}`` - placeholders for values provided by...
+  * Within the schema you place ``{tokens}`` - placeholders for values provided by...
 * Token providers provide values which will be substituted into the URI. Here
-  we use two different providers - ``content_date`` and ``content_method``.
+  you use two different providers - ``content_date`` and ``content_method``.
   Both will return dynamic values from the subject object itself.
 
 Now reload the fixtures:
