@@ -1,7 +1,7 @@
 Routing and Automatic Routing
 -----------------------------
 
-The routes (URLs) to your content will be automatically created and updated
+The routes (URIs) to your content will be automatically created and updated
 using the RoutingAutoBundle. This bundle uses a configuration language to
 specify automatic creation of routes, which can be a bit hard to grasp the
 first time you see it.
@@ -17,7 +17,7 @@ new route will be linked back to the target content:
 
 The paths above represent the path in the PHPCR-ODM document tree. In the next
 section you will define ``/cms/routes`` as the base path for routes, and subsequently
-the contents will be available at the following URLs:
+the contents will be available at the following URIs:
 
 * **Home**: ``http://localhost:8000/page/home``
 * **About**: ``http://localhost:8000/page/about``
@@ -139,12 +139,12 @@ You can now proceed to mapping your documents, create the following in your
 
     # src/Acme/BasicCmsBundle/Resources/config/cmf_routing_auto.yml
     Acme\BasicCmsBundle\Document\Page:
-        url_schema: /page/{title}
+        uri_schema: /page/{title}
         token_providers:
             title: [content_method, { method: getTitle } ]
 
     Acme\BasicCmsBundle\Document\Post:
-        url_schema: /post/{date}/{title}
+        uri_schema: /post/{date}/{title}
         token_providers:
             date: [content_datetime, { method: getDate }
             title: [content_method, { method: getTitle }]
@@ -160,11 +160,10 @@ route documents for both the ``Page`` and ``Post`` documents.
 
 In summary, for each class:
 
-* We defined a ``url_schema`` which defines the form of the URL which will be
+* We defined a ``uri_schema`` which defines the form of the URI which will be
   generated.
-  * Within the schema we place ``{tokens}`` - placeholders for values provided
-    by...
-* Token providers provide values which will be substituted into the URL. Here
+  * Within the schema we place ``{tokens}`` - placeholders for values provided by...
+* Token providers provide values which will be substituted into the URI. Here
   we use two different providers - ``content_date`` and ``content_method``.
   Both will return dynamic values from the subject object itself.
 
