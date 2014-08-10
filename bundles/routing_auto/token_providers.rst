@@ -4,7 +4,7 @@
 Token Providers
 ---------------
 
-Token providers provide values for the tokens specified in the URL schemas.
+Token providers provide values for the tokens specified in the URI schemas.
 
 content_method
 ~~~~~~~~~~~~~~
@@ -26,7 +26,7 @@ Options
 
         # src/Acme/ForumBundle/Resources/config/routing_auto.yml
         Acme\ForumBundle\Document\Topic:
-            url_schema: /my-forum/{title}
+            uri_schema: /my-forum/{title}
             token_providers:
                 title: [content_method, {method: getTitle} ]
 
@@ -35,7 +35,7 @@ Options
         <?xml version="1.0" ?>
         <!-- src/Acme/ForumBundle/Resources/config/routing_auto.xml -->
         <auto-mapping xmlns="http://cmf.symfony.com/schema/routing_auto">
-            <mapping class="Acme\ForumBundle\Document\Topic" url-schema="/my-forum/{title}">
+            <mapping class="Acme\ForumBundle\Document\Topic" uri-schema="/my-forum/{title}">
                 <token-provider token="category" name="content_method">
                     <option name="method">getCategoryName</option>
                 </token-provider>
@@ -64,7 +64,7 @@ object provided by a designated method on the content document.
 
         # src/Acme/ForumBundle/Resources/config/routing_auto.yml
         Acme\ForumBundle\Document\Topic:
-            url_schema: /blog/{date}/my-post
+            uri_schema: /blog/{date}/my-post
             token_providers:
                 date: [content_datetime, {method: getDate} ]
 
@@ -73,7 +73,7 @@ object provided by a designated method on the content document.
         <?xml version="1.0" ?>
         <!-- src/Acme/ForumBundle/Resources/config/routing_auto.xml -->
         <auto-mapping xmlns="http://cmf.symfony.com/schema/routing_auto">
-            <mapping class="Acme\ForumBundle\Document\Topic" url-schema="/blog/{date}/my-post">
+            <mapping class="Acme\ForumBundle\Document\Topic" uri-schema="/blog/{date}/my-post">
                 <token-provider token="date" name="content_datetime">
                     <option name="method">getDate</option>
                 </token-provider>
@@ -103,7 +103,7 @@ feature.
 
         # src/Acme/ForumBundle/Resources/config/routing_auto.yml
         Acme\ForumBundle\Document\Topic:
-            url_schema: /blog/{locale}/my-post
+            uri_schema: /blog/{locale}/my-post
             token_providers:
                 locale: [content_locale ]
 
@@ -112,7 +112,7 @@ feature.
         <?xml version="1.0" ?>
         <!-- src/Acme/ForumBundle/Resources/config/routing_auto.xml -->
         <auto-mapping xmlns="http://cmf.symfony.com/schema/routing_auto">
-            <mapping class="Acme\ForumBundle\Document\Topic" url-schema="/blog/{locale}/my-post">
+            <mapping class="Acme\ForumBundle\Document\Topic" uri-schema="/blog/{locale}/my-post">
                 <token-provider token="locale" name="content_locale" />
             </mapping>
         </auto-mapping>

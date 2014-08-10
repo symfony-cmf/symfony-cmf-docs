@@ -22,13 +22,13 @@ it finds a path which *doesn't* exist.
     .. code-block:: yaml
 
         stdClass:
-            url_schema: /cmf/blog
+            uri_schema: /cmf/blog
             conflict_resolver: auto_increment
 
     .. code-block:: xml
 
         <auto-mapping xmlns="http://cmf.symfony.com/schema/routing_auto">
-            <mapping class="stdClass" url-schema="/cmf/blog">
+            <mapping class="stdClass" uri-schema="/cmf/blog">
                 <conflict-resolver name="auto_increment" />
             </mapping>
         </auto-mapping>
@@ -44,13 +44,13 @@ This is the default action.
     .. code-block:: yaml
 
         stdClass:
-            url_schema: /cmf/blog
+            uri_schema: /cmf/blog
             conflict_resolver: throw_exception
 
     .. code-block:: xml
 
         <auto-mapping xmlns="http://cmf.symfony.com/schema/routing_auto">
-            <mapping class="stdClass" url-schema="/cmf/blog">
+            <mapping class="stdClass" uri-schema="/cmf/blog">
                 <conflict-resolver name="throw_exception" />
             </mapping>
         </auto-mapping>

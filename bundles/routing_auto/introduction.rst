@@ -6,7 +6,7 @@ RoutingAutoBundle
 =================
 
 The RoutingAutoBundle allows you to automatically persist routes when
-documents are persisted based on URL schemas and contextual information.
+documents are persisted based on URI schemas and contextual information.
 
 This implies a separation of the ``Route`` and ``Content`` documents. If your
 needs are simple this bundle may not be for you and you should have a look at
@@ -28,7 +28,7 @@ content documents - a category and the topics. These documents are called
 If you create a new category with the title "My New Category", the
 RoutingAutoBundle will automatically create the route
 ``/forum/my-new-cateogry``. For each new ``Topic`` it could create a route
-like ``/forum/my-new-category/my-new-topic``. This URL resolves to a special
+like ``/forum/my-new-category/my-new-topic``. This URI resolves to a special
 type of route that is called an *auto route*.
 
 By default, when you update a content document that has an auto route, the
@@ -49,13 +49,13 @@ pattern ``/forum/my-new-forum/{topic}``, which could be handled by a controller.
 Why not just do that?
 
 #. By having a route for each page in the system, the application has a
-   knowledge of which URLs are accessible. This can be very useful, for
+   knowledge of which URIs are accessible. This can be very useful, for
    example, when specifying endpoints for menu items that are used when generating
    a site map;
 #. By separating the route from the content you allow the route to be
    customized independently of the content, for example, a topic may have
-   the same title as another topic but might need a different URL;
-#. Separate route documents are translateable - this means you can have a URL
+   the same title as another topic but might need a different URI;
+#. Separate route documents are translateable - this means you can have a URI
    for *each language*, "/welcome" and "/bienvenue" would each reference the
    same document in English and French respectively. This would be difficult
    if the slug was embedded in the content document;
@@ -67,12 +67,12 @@ Usage
 -----
 
 Imagine you have a fictional forum application and that you want to access the
-forum topic with the following fictional URL:
+forum topic with the following fictional URI:
 
 - ``https://mywebsite.com/my-forum/drinks/coffee``
 
-The RoutingAutoBundle uses a URL schema to define how routes are generated. A
-schema for the above URL would look like this (the bundle does not care about
+The RoutingAutoBundle uses a URI schema to define how routes are generated. A
+schema for the above URI would look like this (the bundle does not care about
 the host or protocol):
 
 - ``/my-forum/{category}/{title}``
@@ -98,7 +98,7 @@ document could be defined as follows:
 
         # src/Acme/ForumBundle/Resources/config/routing_auto.yml
         Acme\ForumBundle\Document\Topic:
-            url_schema: /my-forum/{category}/{title}
+            uri_schema: /my-forum/{category}/{title}
             token_providers:
                 category: [content_method, {method: getCategoryTitle, slugify: true} ]
                 title: [content_method, {method: getTitle} ] # slugify is true by default
@@ -108,7 +108,7 @@ document could be defined as follows:
         <?xml version="1.0" ?>
         <!-- src/Acme/ForumBundle/Resources/config/routing_auto.xml -->
         <auto-mapping xmlns="http://cmf.symfony.com/schema/routing_auto">
-            <mapping class="Acme\ForumBundle\Document\Topic" url-schema="/my-forum/{category}/{title}">
+            <mapping class="Acme\ForumBundle\Document\Topic" uri-schema="/my-forum/{category}/{title}">
                 <token-provider token="category" name="content_method">
                     <option name="method">getCategoryName</option>
                     <option name="slugify">true</option>
@@ -155,7 +155,7 @@ idea.
 
 This is just a basic example. You can also configure what should happen when
 a route already exists (confict resolution) and what to do with old routes
-when the generated URL is changed (defunct route handling).
+when the generated URI is changed (defunct route handling).
 
 Read more
 ---------

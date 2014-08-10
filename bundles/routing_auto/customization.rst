@@ -10,7 +10,7 @@ Token Providers
 ~~~~~~~~~~~~~~~
 
 The goal of a ``TokenProvider`` class is to provide values for tokens in the
-URL schema. Such values can be derived form the object for which the route
+URI schema. Such values can be derived form the object for which the route
 is being generated, or from the environment (e.g. the you could use the
 current locale in the route).
 
@@ -21,14 +21,14 @@ The following token provider will simply provide the value "foobar"::
 
     use Symfony\Cmf\Component\RoutingAuto\TokenProviderInterface;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-    use Symfony\Cmf\Component\RoutingAuto\UrlContext;
+    use Symfony\Cmf\Component\RoutingAuto\UriContext;
 
     class FoobarTokenProvider implements TokenProviderInterface
     {
         /**
          * {@inheritDoc}
          */
-        public function provideValue(UrlContext $urlContext, $options)
+        public function provideValue(UriContext $uriContext, $options)
         {
             return 'foobar';
         }
@@ -52,7 +52,7 @@ To use the path provider you must register it in the container and add the
             acme_cms.token_provider.foobar:
                 class: Acme\CmsBundle\RoutingAuto\PathProvider\FoobarTokenProvider
                 tags:
-                    - { name: cmf_routing_auto.token_provider, alias: "foobar"}
+                    - { name: cmf_routing_auto.token_provider, alias: "foobar" }
 
     .. code-block:: xml
 
@@ -84,20 +84,20 @@ Conflict Resolvers
 Conflict resolvers decide what happens if a generated route already exists in
 the route repository and is not related to the context object.
 
-The following example will append an unique string to the URL to resolve a
+The following example will append an unique string to the URI to resolve a
 conflict::
 
     namespace Symfony\Cmf\Component\RoutingAuto\ConflictResolver;
 
     use Symfony\Cmf\Component\RoutingAuto\ConflictResolverInterface;
-    use Symfony\Cmf\Component\RoutingAuto\UrlContext;
+    use Symfony\Cmf\Component\RoutingAuto\UriContext;
     use Symfony\Cmf\Component\RoutingAuto\Adapter\AdapterInterface;
 
     class UniqidConflictResolver implements ConflictResolverInterface
     {
-        public function resolveConflict(UrlContext $urlContext)
+        public function resolveConflict(UriContext $uriContext)
         {
-            $url = $urlContext->getUrl();
+            $uri = $uriContext->getUri();
             return sprintf('%s-%s', uniqid());
         }
     }
@@ -139,7 +139,7 @@ Defunct Route Handlers
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Defunct Route Handlers decide what happens to old routes when an object is
-updated and its generated URL changes.
+updated and its generated URI changes.
 
 They are not all-together trivial - the following handler removes old routes and is
 the default handler::
@@ -147,7 +147,7 @@ the default handler::
     namespace Symfony\Cmf\Component\RoutingAuto\DefunctRouteHandler;
 
     use Symfony\Cmf\Component\RoutingAuto\DefunctRouteHandlerInterface;
-    use Symfony\Cmf\Component\RoutingAuto\UrlContextCollection;
+    use Symfony\Cmf\Component\RoutingAuto\UriContextCollection;
     use Symfony\Cmf\Component\RoutingAuto\Adapter\AdapterInterface;
 
     class RemoveDefunctRouteHandler implements DefunctRouteHandlerInterface
@@ -159,13 +159,13 @@ the default handler::
             $this->adapter = $adapter;
         }
 
-        public function handleDefunctRoutes(UrlContextCollection $urlContextCollection)
+        public function handleDefunctRoutes(UriContextCollection $uriContextCollection)
         {
-            $referringAutoRouteCollection = $this->adapter->getReferringAutoRoutes($urlContextCollection->getSubjectObject());
+            $referringAutoRouteCollection = $this->adapter->getReferringAutoRoutes($uriContextCollection->getSubjectObject());
 
             foreach ($referringAutoRouteCollection as $referringAutoRoute) {
-                if (false === $urlContextCollection->containsAutoRoute($referringAutoRoute)) {
-                    $newRoute = $urlContextCollection->getAutoRouteByTag($referringAutoRoute->getAutoRouteTag());
+                if (false === $uriContextCollection->containsAutoRoute($referringAutoRoute)) {
+                    $newRoute = $uriContextCollection->getAutoRouteByTag($referringAutoRoute->getAutoRouteTag());
 
                     $this->adapter->migrateAutoRouteChildren($referringAutoRoute, $newRoute);
                     $this->adapter->removeAutoRoute($referringAutoRoute);
