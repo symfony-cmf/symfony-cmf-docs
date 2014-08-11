@@ -181,13 +181,15 @@ These are the list of available options:
 - Children attributes (advanced)
 - Link attributes (advanced)
 
-See the `KnpMenuBundle Documentations` for more information about these attributes.
-By default the only available options are Display and Display Children. To enable the advaned options you need to add "burgov/key-value-form-bundle" requirement in your composer and enable the advanced options in your config file:
+See the `KnpMenuBundle documentation`_ for more information about these attributes.
+
+By default the only available options are **Display** and **Display Children**. To enable the advaned options you need to add "burgov/key-value-form-bundle" requirement in your composer.json and enable the advanced options in your config file:
 
 .. configuration-block::
 
     .. code-block:: yaml
-
+        
+        # app/config/config.yml
         cmf_menu:
             admin_extensions:
                 menu_options:
@@ -196,4 +198,4 @@ By default the only available options are Display and Display Children. To enabl
 .. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
 .. _`configuring sonata admin`: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/reference/configuration.html
-.. _`KnpMenuBundle Documentations`: http://github.com/KnpLabs/KnpMenu/blob/master/doc/01-Basic-Menus.markdown#menu-attributes
+.. _`KnpMenuBundle documentation`: http://github.com/KnpLabs/KnpMenu/blob/master/doc/01-Basic-Menus.markdown#menu-attributes
