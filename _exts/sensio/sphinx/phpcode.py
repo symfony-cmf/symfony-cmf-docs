@@ -7,7 +7,7 @@
 from docutils import nodes, utils
 
 from sphinx.util.nodes import split_explicit_title
-from string import lower
+import sys
 
 def php_namespace_role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
     text = utils.unescape(text)
@@ -82,7 +82,7 @@ def php_phpclass_role(typ, rawtext, text, lineno, inliner, options={}, content=[
     text = utils.unescape(text)
     has_explicit_title, title, full_class = split_explicit_title(text)
 
-    full_url = 'http://php.net/manual/en/class.%s.php' % lower(full_class)
+    full_url = 'http://php.net/manual/en/class.%s.php' % full_class.lower()
 
     if not has_explicit_title:
         title = full_class
@@ -94,7 +94,7 @@ def php_phpfunction_role(typ, rawtext, text, lineno, inliner, options={}, conten
     text = utils.unescape(text)
     has_explicit_title, title, full_function = split_explicit_title(text)
 
-    full_url = 'http://php.net/manual/en/function.%s.php' % lower(full_function.replace('_', '-'))
+    full_url = 'http://php.net/manual/en/function.%s.php' % full_function.replace('_', '-').lower()
 
     if not has_explicit_title:
         title = full_function

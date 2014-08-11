@@ -4,53 +4,65 @@
 Customization
 -------------
 
-.. _routingauto_customization_pathproviders:
+.. _routingauto_customization_tokenproviders:
 
-Adding Path Providers
-~~~~~~~~~~~~~~~~~~~~~
+Token Providers
+~~~~~~~~~~~~~~~
 
-The goal of a ``PathProvider`` class is to add one or several path elements to
-the route stack. For example, the following provider will add the path
-``foo/bar`` to the route stack::
+The goal of a ``TokenProvider`` class is to provide values for tokens in the
+URI schema. Such values can be derived form the object for which the route
+is being generated, or from the environment (e.g. the you could use the
+current locale in the route).
 
-    // src/Acme/CmsBundle/RoutingAuto/PathProvider/FoobarProvider.php
-    namespace Acme\CmsBundle\RoutingAuto\PathProvider;
+The following token provider will simply provide the value "foobar"::
 
-    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\PathProviderInterface;
-    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\RouteStack;
+    // src/Acme/CmsBundle/RoutingAuto/PathProvider/FoobarTokenProvider.php
+    namespace Symfony\Cmf\Component\RoutingAuto\TokenProvider;
 
-    class FoobarProvider implements PathProviderInterface
+    use Symfony\Cmf\Component\RoutingAuto\TokenProviderInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+    use Symfony\Cmf\Component\RoutingAuto\UriContext;
+
+    class FoobarTokenProvider implements TokenProviderInterface
     {
-        public function providePath(RouteStack $routeStack)
+        /**
+         * {@inheritDoc}
+         */
+        public function provideValue(UriContext $uriContext, $options)
         {
-            $routeStack->addPathElements(array('foo', 'bar'));
+            return 'foobar';
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public function configureOptions(OptionsResolverInterface $optionsResolver)
+        {
         }
     }
 
 To use the path provider you must register it in the container and add the
-``cmf_routing_auto.provider`` tag and set the **alias** accordingly:
+``cmf_routing_auto.token_provider`` tag and set the **alias** accordingly:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         services:
-            acme_cms.path_provider.foobar:
-                class: Acme\CmsBundle\RoutingAuto\PathProvider\FoobarProvider
-                scope: prototype
+            acme_cms.token_provider.foobar:
+                class: Acme\CmsBundle\RoutingAuto\PathProvider\FoobarTokenProvider
                 tags:
-                    - { name: cmf_routing_auto.provider, alias: "foobar"}
+                    - { name: cmf_routing_auto.token_provider, alias: "foobar" }
 
     .. code-block:: xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <service
-                id="acme_cms.path_provider.foobar"
-                class="Acme\CmsBundle\RoutingAuto\PathProvider\FoobarProvider"
-                scope="prototype"
+                id="acme_cms.token_provider.foobar"
+                class="Acme\CmsBundle\RoutingAuto\PathProvider\FoobarTokenProvider"
             >
-                <tag name="cmf_routing_auto.provider" alias="foobar"/>
+                <tag name="cmf_routing_auto.token_provider" alias="foobar"/>
             </service>
         </container>
 
@@ -58,53 +70,37 @@ To use the path provider you must register it in the container and add the
 
         use Symfony\Component\DependencyInjection\Definition;
 
-        $definition = new Definition('Acme\CmsBundle\RoutingAuto\PathProvider\FoobarProvider');
-        $definition->addTag('cmf_routing_auto.provider', array('alias' => 'foobar'));
-        $definition->setScope('prototype');
+        $definition = new Definition('Acme\CmsBundle\RoutingAuto\PathProvider\FoobarTokenProvider');
+        $definition->addTag('cmf_routing_auto.token_provider', array('alias' => 'foobar'));
 
-        $container->setDefinition('acme_cms.path_provider.foobar', $definition);
+        $container->setDefinition('acme_cms.token_provider.foobar', $definition);
 
-The ``FoobarProvider`` is now available as **foobar** in the routing auto
+The ``FoobarTokenProvider`` is now available as **foobar** in the routing auto
 configuration.
 
-.. caution::
+Conflict Resolvers
+~~~~~~~~~~~~~~~~~~
 
-    Both path providers and path actions need to be defined with a scope of
-    "prototype". This ensures that each time the auto routing system requests
-    the class a new one is given and you do not have any state problems.
+Conflict resolvers decide what happens if a generated route already exists in
+the route repository and is not related to the context object.
 
-Adding Path Actions
-~~~~~~~~~~~~~~~~~~~
+The following example will append an unique string to the URI to resolve a
+conflict::
 
-In the auto routing system, a "path action" is an action to take if the path
-provided by the "path provider" exists or not.
+    namespace Symfony\Cmf\Component\RoutingAuto\ConflictResolver;
 
-You can add a path action by extending the ``PathActionInterface`` and
-registering your new class correctly in the DI configuration.
+    use Symfony\Cmf\Component\RoutingAuto\ConflictResolverInterface;
+    use Symfony\Cmf\Component\RoutingAuto\UriContext;
+    use Symfony\Cmf\Component\RoutingAuto\Adapter\AdapterInterface;
 
-This is a very simple implementation from the bundle - it is used to throw an
-exception when a path already exists::
-
-    namespace Symfony\Cmf\Bundle\RoutingAutoBundle\RoutingAuto\PathNotExists;
-
-    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\PathActionInterface;
-    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\Exception\CouldNotFindRouteException;
-    use Symfony\Cmf\Bundle\RoutingAutoBundle\AutoRoute\RouteStack;
-
-    class ThrowException implements PathActionInterface
+    class UniqidConflictResolver implements ConflictResolverInterface
     {
-        public function init(array $options)
+        public function resolveConflict(UriContext $uriContext)
         {
-        }
-
-        public function execute(RouteStack $routeStack)
-        {
-            throw new CouldNotFindRouteException('/'.$routeStack->getFullPath());
+            $uri = $uriContext->getUri();
+            return sprintf('%s-%s', uniqid());
         }
     }
-
-The ``init()`` method configures the provider (throwing errors when required
-options do not exists) and the ``execute()`` method executes the action.
 
 It is registered in the DI configuration as follows:
 
@@ -113,22 +109,20 @@ It is registered in the DI configuration as follows:
     .. code-block:: yaml
 
         services:
-            cmf_routing_auto.not_exists_action.throw_exception:
-                class: Symfony\Cmf\Bundle\RoutingAutoBundle\RoutingAuto\PathNotExists\ThrowException
-                scope: prototype
+            acme_cms.conflict_resolver.foobar:
+                class: Acme\CmsBundle\RoutingAuto\ConflictResolver\UniqidConflictResolver
                 tags:
-                    - { name: cmf_routing_auto.not_exists_action, alias: "throw_exception"}
+                    - { name: cmf_routing_auto.conflict_resolver, alias: "uniqid"}
 
     .. code-block:: xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <service
-                id="cmf_routing_auto.not_exists_action.throw_exception"
-                class="Symfony\Cmf\Bundle\RoutingAutoBundle\RoutingAuto\PathNotExists\ThrowException"
-                scope="prototype"
-                >
-                <tag name="cmf_routing_auto.not_exists_action" alias="throw_exception"/>
+                id="acme_cms.conflict_resolver.foobar"
+                class="Acme\CmsBundle\RoutingAuto\ConflictResolver\UniqidConflictResolver"
+            >
+                <tag name="cmf_routing_auto.conflict_resolver" alias="uniqid"/>
             </service>
         </container>
 
@@ -136,22 +130,79 @@ It is registered in the DI configuration as follows:
 
         use Symfony\Component\DependencyInjection\Definition;
 
-        $definition = new Definition('Symfony\Cmf\Bundle\RoutingAutoBundle\RoutingAuto\PathNotExists\ThrowException');
-        $definition->addTag('cmf_routing_auto.provider', array('alias' => 'throw_exception'));
-        $definition->setScope('prototype');
+        $definition = new Definition('Acme\CmsBundle\RoutingAuto\ConflictResolver\UniqidConflictResolver');
+        $definition->addTag('cmf_routing_auto.conflict_resolver', array('alias' => 'foobar'));
 
-        $container->setDefinition('cmf_routing_auto.not_exists_action.throw_exception', $definition);
+        $container->setDefinition('acme_cms.conflict_resolver.uniqid', $definition);
 
-Note the following:
+Defunct Route Handlers
+~~~~~~~~~~~~~~~~~~~~~~
 
-* **Scope**: Must *always* be set to *prototype*;
-* **Tag**: The tag registers the service with the auto routing system, it can
-  be one of the following:
+Defunct Route Handlers decide what happens to old routes when an object is
+updated and its generated URI changes.
 
-    * ``cmf_routing_auto.exists.action`` - if the action is to be used when a
-      path exists;
-    * ``cmf_routing_auto.not_exists.action`` - if the action is to be used when
-      a path does not exist;
+They are not all-together trivial - the following handler removes old routes and is
+the default handler::
 
-* **Alias**: The alias of the tag is the name by which you will reference this
-  action in the auto routing configuration.
+    namespace Symfony\Cmf\Component\RoutingAuto\DefunctRouteHandler;
+
+    use Symfony\Cmf\Component\RoutingAuto\DefunctRouteHandlerInterface;
+    use Symfony\Cmf\Component\RoutingAuto\UriContextCollection;
+    use Symfony\Cmf\Component\RoutingAuto\Adapter\AdapterInterface;
+
+    class RemoveDefunctRouteHandler implements DefunctRouteHandlerInterface
+    {
+        protected $adapter;
+
+        public function __construct(AdapterInterface $adapter)
+        {
+            $this->adapter = $adapter;
+        }
+
+        public function handleDefunctRoutes(UriContextCollection $uriContextCollection)
+        {
+            $referringAutoRouteCollection = $this->adapter->getReferringAutoRoutes($uriContextCollection->getSubjectObject());
+
+            foreach ($referringAutoRouteCollection as $referringAutoRoute) {
+                if (false === $uriContextCollection->containsAutoRoute($referringAutoRoute)) {
+                    $newRoute = $uriContextCollection->getAutoRouteByTag($referringAutoRoute->getAutoRouteTag());
+
+                    $this->adapter->migrateAutoRouteChildren($referringAutoRoute, $newRoute);
+                    $this->adapter->removeAutoRoute($referringAutoRoute);
+                }
+            }
+        }
+    }
+
+It is registered in the DI configuration as follows:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            acme_cms.defunct_route_handler.foobar:
+                class: Acme\CmsBundle\RoutingAuto\DefunctRouteHandler\RemoveConflictResolver
+                tags:
+                    - { name: cmf_routing_auto.defunct_route_handler, alias: "remove"}
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <service
+                id="acme_cms.defunct_route_handler.foobar"
+                class="Acme\CmsBundle\RoutingAuto\DefunctRouteHandler\RemoveConflictResolver"
+            >
+                <tag name="cmf_routing_auto.defunct_route_handler" alias="remove"/>
+            </service>
+        </container>
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $definition = new Definition('Acme\CmsBundle\RoutingAuto\DefunctRouteHandler\RemoveConflictResolver');
+        $definition->addTag('cmf_routing_auto.defunct_route_handler', array('alias' => 'foobar'));
+
+        $container->setDefinition('acme_cms.defunct_route_handler.remove', $definition);
