@@ -121,6 +121,79 @@ configuration in the ``sonata_admin`` section of your project configuration:
 
 See the `Sonata Admin extension documentation`_ for more information.
 
+MenuOptionInterface Sonata Admin Extension
+-------------------------------------------------
+
+This bundle provides an extension that allows user to edit different menu options using the Sonata admin interface.
+
+To enable the extensions in your admin classes, simply define the extension
+configuration in the ``sonata_admin`` section of your project configuration:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_admin:
+            # ...
+            extensions:
+                cmf_menu.admin_extension.menu_options:
+                    implements:
+                        - Symfony\Cmf\Bundle\MenuBundle\Model\MenuOptionsInterface
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://cmf.symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <config xmlns="http://sonata-project.org/schema/dic/admin">
+                <!-- ... -->
+                <extension id="cmf_menu.admin_extension.menu_options">
+                    <implement>Symfony\Cmf\Bundle\MenuBundle\Model\MenuOptionsInterface</implement>
+                </extension>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_admin', array(
+            'extensions' => array(
+                'cmf_menu.admin_extension.menu_options' => array(
+                    'implements' => array(
+                        'Symfony\Cmf\Bundle\MenuBundle\Model\MenuOptionsInterface',
+                    ),
+                ),
+            ),
+        ));
+        
+See the `Sonata Admin extension documentation`_ for more information.
+
+These are the list of available options:
+
+- Display
+- Display children
+- Menu attributes (advanced)
+- Label attributes (advanced)
+- Children attributes (advanced)
+- Link attributes (advanced)
+
+See the `KnpMenuBundle Documentations` for more information about these attributes.
+By default the only available options are Display and Display Children. To enable the advaned options you need to add "burgov/key-value-form-bundle" requirement in your composer and enable the advanced options in your config file:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_menu:
+            admin_extensions:
+                menu_options:
+                    advanced: true
+
 .. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
 .. _`configuring sonata admin`: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/reference/configuration.html
+.. _`KnpMenuBundle Documentations`: https://github.com/KnpLabs/KnpMenu/blob/master/doc/01-Basic-Menus.markdown#menu-attributes
