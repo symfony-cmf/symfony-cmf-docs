@@ -126,8 +126,7 @@ MenuOptionInterface Sonata Admin Extension
 
 This bundle provides an extension that allows user to edit different menu options using the Sonata admin interface.
 
-To enable the extensions in your admin classes, simply define the extension
-configuration in the ``sonata_admin`` section of your project configuration:
+To enable the extensions in your admin classes, simply define the extension configuration in the ``sonata_admin`` section of your project configuration:
 
 .. configuration-block::
 
@@ -174,16 +173,16 @@ See the `Sonata Admin extension documentation`_ for more information.
 
 These are the list of available options:
 
-- Display
-- Display children
-- Menu attributes (advanced)
-- Label attributes (advanced)
-- Children attributes (advanced)
-- Link attributes (advanced)
+ Display
+ Display children
+ Menu attributes (advanced)
+ Label attributes (advanced)
+ Children attributes (advanced)
+ Link attributes (advanced)
 
 See the `KnpMenuBundle documentation`_ for more information about these attributes.
 
-By default the only available options are **Display** and **Display Children**. To enable the advaned options you need to add "burgov/key-value-form-bundle" requirement in your composer.json and enable the advanced options in your config file:
+By default the only available options are **Display** and **Display Children**. To enable the advaned options you need to add ``burgov/key-value-form-bundle`` requirement in your ``composer.json`` and enable the advanced options in your config file:
 
 .. configuration-block::
 
@@ -194,6 +193,34 @@ By default the only available options are **Display** and **Display Children**. 
             admin_extensions:
                 menu_options:
                     advanced: true
+                    
+                    
+    .. code-block:: xml
+    
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://cmf.symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+        
+            <config xmlns="http://cmf.symfony.com/schema/dic/menu">
+                <admin-extensions>
+                    <menu-options advanced="true">
+                </admin-extensions>
+            </config>
+        
+        </container>
+        
+    .. code-block:: php
+    
+        // app/config/config.php
+        $container->loadFromExtension('cmf_menu', array(
+            'admin_extensions' => array(
+                'menu_options' => array(
+                    'advanced' => true,
+                ),
+            ),
+        ));
 
 .. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
