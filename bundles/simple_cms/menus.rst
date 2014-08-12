@@ -4,7 +4,7 @@
 Menus
 -----
 
-You can use `Knp Menu Bundle`_ to render a menu of your SimpleCms pages. The default Page document 
+You can use `Knp Menu Bundle`_ to render a menu of your SimpleCms pages. The default Page document
 (``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page``) implements the ``Knp\Menu\NodeInterface``
 which allows for rendering them as a menu.
 
@@ -40,5 +40,11 @@ setDisplay($display)
 
 setDisplayChildren($displayChildren)
     Boolean which determines whether children should be added to the menu
+
+.. tip::
+
+    If you use Sonata Admin in your project you can edit the menu options
+    using the MenuOptionsExtension that comes with the menu bundle. For more
+    information on how to use it take a look at the :doc:`menu bundle documentation <../menu/sonata_admin>`
 
 .. _`Knp Menu Bundle`: https://github.com/KnpLabs/KnpMenuBundle
