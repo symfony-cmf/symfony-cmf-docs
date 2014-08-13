@@ -519,6 +519,28 @@ configure the ``cmf_create.object_mapper_service_id``.
 CreatePHP would support specific mappers per RDFa type. If you need that, dig
 into the CreatePHP and CreateBundle and do a pull request to enable this feature.
 
+Workflows
+---------
+
+create.js uses a REST api for creating, loading and changing content. To delete content
+the HTTP method DELETE is used. Since deleting might be a more complex operation 
+than just removing the content form the storage (e.g. getting approval by another 
+editor) there is no simple delete button in the user frontend. Instead create.js and 
+CreatePHP use "workflows" to implement that. This bundle comes with a simple implementation
+of a workflow to delete content. To enable the workflow set the config option 'delete' to true.
+This results in the delete workflow being registered with CreatePHP and create.js so that
+you can now delete content from the frontend.
+
+.. note::
+
+    The provided workflow supports PHPCR persistence only. It deletes the currently selected
+    content once you confirmed deletion in the frontend. If the currently selected property is
+    a property of the page the whole page is deleted.
+
+In a more complex setup you need to create your own workflow instance, register it with CreatePHP 
+and implement your logic in the workflows run method.
+
+Currently the bundle only supports delete workflows but that will change in the future.
 
 .. _`create.js`: http://createjs.org
 .. _`hallo.js`: http://hallojs.org

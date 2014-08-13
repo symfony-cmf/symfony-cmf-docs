@@ -86,6 +86,7 @@ persistence configuration has the following configuration:
                         model_class:      ~
                         controller_class: Symfony\Cmf\Bundle\CreateBundle\Controller\ImageController
                         basepath:         /cms/media
+                    delete:               false
 
     .. code-block:: xml
 
@@ -96,6 +97,7 @@ persistence configuration has the following configuration:
                     <phpcr
                         enabled="false"
                         manager-name="null"
+                        delete="false"
                     >
                         <image
                             enabled="false"
@@ -121,6 +123,7 @@ persistence configuration has the following configuration:
                         'controller_class' => 'Symfony\Cmf\Bundle\CreateBundle\Controller\ImageController',
                         'basepath'         => '/cms/media',
                     ),
+                    'delete' => false,
                 ),
             ),
         ));
@@ -152,6 +155,13 @@ provided by the MediaBundle.
 
 If you need different image handling, you can either overwrite
 ``model_class`` and/or the ``controller_class``.
+
+delete
+""""""
+
+Set delete to true to enable the simple delete workflow. This allows to directly
+delete content from the frontend. Be careful, there are no special checks once you confirm deletion
+your content is gone.
 
 Metadata Handling
 ~~~~~~~~~~~~~~~~~
