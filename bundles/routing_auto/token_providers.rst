@@ -14,12 +14,6 @@ The ``content_method`` provider allows the content object (e.g. a forum
 method as it allows the content document to do whatever it can to produce the
 route.
 
-Options
-.......
-
-* ``method``: **required** Method used to return the route name/path/path elements.
-* ``slugify``: If the return value should be slugified, default is ``true``.
-
 .. configuration-block::
 
     .. code-block:: yaml
