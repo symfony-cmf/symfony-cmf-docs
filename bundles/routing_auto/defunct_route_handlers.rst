@@ -42,7 +42,7 @@ leave_redirect
 
 The ``LeaveRedirectDefunctRouteHandler`` will automatically update old routes
 to redirect the browser to the route which has replaced it. This effectively
-means you can rename your objects without worrying about users recieving HTTP
+means you can rename your objects without worrying about users receiving HTTP
 404 responses.
 
 The handler will replace the old route with a ``RedirectRoute`` at the same

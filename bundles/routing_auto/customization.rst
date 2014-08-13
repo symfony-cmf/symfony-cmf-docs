@@ -141,7 +141,7 @@ Defunct Route Handlers
 Defunct Route Handlers decide what happens to old routes when an object is
 updated and its generated URI changes.
 
-They are not all-together trivial - the following handler removes old routes and is
+They are not altogether trivial - the following handler removes old routes and is
 the default handler::
 
     namespace Symfony\Cmf\Component\RoutingAuto\DefunctRouteHandler;
