@@ -6,7 +6,7 @@ Token Providers
 
 Token providers provide values for the tokens specified in the URI schemas.
 Such values can be derived form the object for which the route is being
-generated or from the environment (e.g. the you could use the current locale in
+generated or from the environment (e.g. you could use the current locale in
 the route).
 
 
@@ -17,14 +17,6 @@ The ``content_method`` provider allows the content object (e.g. a forum
 ``Topic``) to specify a path using one of its methods. This is quite a powerful
 method as it allows the content document to do whatever it can to produce the
 route.
-
-Options
-~~~~~~~
-
-``method``
-    **required** Method used to return the route name/path/path elements.
-``slugify``
-    If the return value should be slugified, default is ``true``.
 
 .. configuration-block::
 
@@ -101,7 +93,7 @@ content_locale
 --------------
 
 The ``content_locale`` provider will provide the locale (e.g. ``fr``, ``de``,
-etc) from the subject object. It ultimately it determines the locale from the 
+etc) from the subject object. It ultimately determines the locale from the
 storage specific adapter - so it is dependent upon the adapter supporting this
 feature.
 
