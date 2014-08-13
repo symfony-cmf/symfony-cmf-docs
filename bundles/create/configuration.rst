@@ -157,6 +157,7 @@ If you need different image handling, you can either overwrite
 
 delete
 """"""
+**type**: ``boolean`` **default**: ``false``
 
 Set delete to true to enable the simple delete workflow. This allows to directly
 delete content from the frontend. Be careful, there are no special checks once you confirm deletion
