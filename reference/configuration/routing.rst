@@ -432,11 +432,11 @@ enable_initializer
 
 **type**: ``boolean`` **default**: ``true``
 
-The bundle comes with an initializer that creates the nodes for the admin_basepath
+The bundle comes with an initializer that creates the nodes for the ``admin_basepath``
 automatically when initializing the repository or loading fixtures. Sometimes this
 is not what you want, as the created node is of type 'Generic' and sometimes this
 already needs to be a route (for the homepage). Set this to false to disable the
-initializer when you create your nodes your self (e.g. using Alice https://github.com/nelmio/alice).
+initializer when you create your nodes your self (e.g. using Alice_).
 
 orm
 """
@@ -589,3 +589,5 @@ no locale in their static pattern get the ``auto_locale_pattern`` option set.
 
 This is ignored if there are no ``locales`` configured. It makes no sense to
 enable this option when ``match_implicit_locale`` is disabled.
+
+.. _Alice: https://github.com/nelmio/alice
