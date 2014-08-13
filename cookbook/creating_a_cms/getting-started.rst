@@ -4,7 +4,7 @@ Getting Started
 Initializing the Project
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-First, follow the generic steps in :doc:`../create_new_project_phpcr_odm`
+First, follow the generic steps in :doc:`../database/create_new_project_phpcr_odm`
 to create a new project using the PHPCR-ODM.
 
 .. _gettingstarted_installadditionbundles:
