@@ -522,6 +522,9 @@ into the CreatePHP and CreateBundle and do a pull request to enable this feature
 Workflows
 ---------
 
+.. versionadded:: 1.1
+    Support for workflows was introduced in CreateBundle 1.1.
+
 CreateJS uses a REST api for creating, loading and changing content. To delete content
 the HTTP method DELETE is used. Since deleting might be a more complex operation
 than just removing the content form the storage (e.g. getting approval by another
