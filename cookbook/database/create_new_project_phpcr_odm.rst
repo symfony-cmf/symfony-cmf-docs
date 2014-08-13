@@ -14,7 +14,7 @@ It is assumed that you have `installed composer`_.
 
     This walkthrough is intended to get you off the ground quickly, for more
     detailed documentation on integrating the PHPCR-ODM bundle see 
-    the documentation for the :doc:`../bundles/phpcr_odm/index`.
+    the documentation for the :doc:`../../bundles/phpcr_odm/index`.
 
 General Instructions using Jackalope Doctrine DBAL
 --------------------------------------------------
@@ -46,8 +46,8 @@ content repository.
 
 **Step 3**: (*optional*) Remove the Doctrine ORM:
 
- * Remove the ``doctrine\orm`` package from ``composer.json``;
- * Remove the ``orm`` section from ``app/config/config.yml``.
+* Remove the ``doctrine\orm`` package from ``composer.json``;
+* Remove the ``orm`` section from ``app/config/config.yml``.
 
 **Step 4**: Add the DoctrinePHPCRBundle to the ``AppKernel``::
 
