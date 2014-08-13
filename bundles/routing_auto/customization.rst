@@ -84,7 +84,7 @@ Conflict Resolvers
 Conflict resolvers decide what happens if a generated route already exists in
 the route repository and is not related to the context object.
 
-The following example will append an unique string to the URI to resolve a
+The following example will append a unique string to the URI to resolve a
 conflict::
 
     namespace Symfony\Cmf\Component\RoutingAuto\ConflictResolver;

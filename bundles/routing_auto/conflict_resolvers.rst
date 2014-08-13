@@ -5,7 +5,7 @@ Conflict Resolvers
 ------------------
 
 Conflict resolvers are invoked when the system detects that a newly generated
-route would conflict with an route already existing in the route repository.
+route would conflict with a route already existing in the route repository.
 
 This section details the conflict resolvers which are provided by default.
 
