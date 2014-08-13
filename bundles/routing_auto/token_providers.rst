@@ -93,7 +93,7 @@ content_locale
 ~~~~~~~~~~~~~~
 
 The ``content_locale`` provider will provide the locale (e.g. ``fr``, ``de``,
-etc) from the subject object. It ultimately it determines the locale from the 
+etc) from the subject object. It ultimately determines the locale from the 
 storage specific adapter - so it is dependent upon the adapter supporting this
 feature.
 
