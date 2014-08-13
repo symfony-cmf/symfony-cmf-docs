@@ -4,6 +4,7 @@
   * :doc:`database/choosing_phpcr_implementation`
   * :doc:`database/running_jackrabbit`
   * :doc:`database/doctrine_cache`
+  * :doc:`database/create_new_project_phpcr_odm`
 
 * **Editions**
 

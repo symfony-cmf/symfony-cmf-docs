@@ -51,6 +51,11 @@ Create the site document::
         {
             $this->homepage = $homepage;
         }
+
+        public function setId($id)
+        {
+            $this->id = $id;
+        }
     }
 
 Initializing the Site Document
@@ -85,6 +90,7 @@ node::
     use Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface;
     use PHPCR\Util\NodeHelper;
     use Doctrine\Bundle\PHPCRBundle\ManagerRegistry;
+    use Acme\BasicCmsBundle\Document\Site;
 
     class SiteInitializer implements InitializerInterface
     {
@@ -102,7 +108,7 @@ node::
                 return;
             }
 
-            $site = new Acme\BasicCmsBundle\Document\Site();
+            $site = new Site();
             $site->setId($this->basePath);
             $dm->persist($site);
             $dm->flush();
@@ -178,12 +184,13 @@ follows:
             ->addTag('doctrine_phpcr.initializer', array('name' => 'doctrine_phpcr.initializer')
         ;
 
-Now empty your repository and then reinitialize it:
+Now empty your repository, reinitialize it and reload your fixtures:
 
 .. code-block:: bash
 
     $ php app/console doctrine:phpcr:node:remove /cms
     $ php app/console doctrine:phpcr:repository:init
+    $ php app/console doctrine:phpcr:fixtures:load
 
 and verify that the ``cms`` node has been created correctly, using the
 ``doctrine:phpcr:node:dump`` command with the ``props`` flag:

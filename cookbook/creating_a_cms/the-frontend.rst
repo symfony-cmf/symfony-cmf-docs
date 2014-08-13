@@ -8,18 +8,8 @@ using the Twig helper of the `KnpMenuBundle`_.
 Installation
 ............
 
-Ensure that the following package is installed:
-
-.. code-block:: javascript
-
-    {
-        ...
-        require: {
-            ...
-            "symfony-cmf/menu-bundle": "1.1.*"
-        },
-        ...
-    }
+Ensure that you installed the ``symfony-cmf/menu-bundle`` package as detailed in the :ref:`gettingstarted_installadditionbundles`
+section.
 
 Add the CMF `MenuBundle`_ and its dependency, `CoreBundle`_, to your kernel::
 

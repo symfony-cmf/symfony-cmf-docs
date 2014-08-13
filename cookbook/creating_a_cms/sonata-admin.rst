@@ -7,18 +7,9 @@ of the SonataDoctrinePHPCRAdminBundle_.
 Installation
 ~~~~~~~~~~~~
 
-Ensure that you have the following package installed:
-
-.. code-block:: javascript
-
-    {
-        ...
-        require: {
-            ...
-            "sonata-project/doctrine-phpcr-admin-bundle": "1.1.*",
-        },
-        ...
-    }
+Ensure that you installed the ``sonata-project/doctrine-phpcr-admin-bundle``
+package as detailed in the :ref:`gettingstarted_installadditionbundles`
+section.
 
 Enable the Sonata related bundles to your kernel::
 
@@ -146,7 +137,14 @@ and publish your assets (remove ``--symlink`` if you use Windows!):
 
     $ php app/console assets:install --symlink web/
 
-Great, now have a look at http://localhost:8000/admin/dashboard
+Now start a local webserver:
+
+.. code-block:: bash
+
+    $ php app/console server:run
+
+
+That works? Great, now have a look at http://127.0.0.1:8000/admin/dashboard
 
 No translations? Uncomment the translator in the configuration file:
 
@@ -475,6 +473,12 @@ Enable the CmfTreeBundle and the FOSJsRoutingBundle in your kernel::
         }
     }
 
+Now publish your assets again:
+
+.. code-block:: bash
+
+    $ php app/console assets:install --symlink web/
+
 Routes used by the tree in the frontend are handled by the FOSJsRoutingBundle.
 The relevant routes are tagged with the ``expose`` flag, they are available
 automatically. However, you need to load the routes of the TreeBundle
@@ -523,7 +527,8 @@ and the FOSJsRoutingBundle:
         return $collection;
 
 Add the tree block to the ``sonata_block`` configuration and tell sonata
-admin to display the block:
+admin to display the block (be careful to *add* to the existing configuration and
+not to create another section!):
 
 .. configuration-block::
 
