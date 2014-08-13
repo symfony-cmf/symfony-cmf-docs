@@ -26,6 +26,7 @@ library or they introduce a complete new concept.
 * :doc:`create/index`
 
   * :doc:`create/introduction`
+  * :doc:`create/workflows`
   * :doc:`create/other-editors`
   * :doc:`create/developing-hallo`
   * :doc:`create/configuration`
