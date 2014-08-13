@@ -6,7 +6,7 @@ the HTTP method DELETE is used. Since deleting might be a more complex operation
 than just removing the content form the storage (e.g. getting approval by another
 editor) there is no simple delete button in the user frontend. Instead create.js and
 CreatePHP use ``workflows`` to implement that. This bundle comes with a simple implementation
-of a workflow to delete content. To enable the workflow set the config option 'delete' to true.
+of a workflow to delete content. To enable the workflow set the config option ``delete`` to true.
 This results in the delete workflow being registered with CreatePHP and create.js so that
 you can now delete content from the frontend.
 
