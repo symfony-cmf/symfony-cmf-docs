@@ -432,6 +432,9 @@ enable_initializer
 
 **type**: ``boolean`` **default**: ``true``
 
+.. versionadded:: 1.3
+    This configuration option was introduced in RoutingBundle 1.3.
+
 The bundle comes with an initializer that creates the nodes for the ``admin_basepath``
 automatically when initializing the repository or loading fixtures. Sometimes this
 is not what you want, as the created node is of type 'Generic' and sometimes this
