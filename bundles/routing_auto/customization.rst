@@ -11,7 +11,7 @@ Token Providers
 
 The goal of a ``TokenProvider`` class is to provide values for tokens in the
 URI schema. Such values can be derived from the object for which the route
-is being generated, or from the environment (e.g. the you could use the
+is being generated, or from the environment (e.g. you could use the
 current locale in the route).
 
 The following token provider will simply provide the value "foobar"::
