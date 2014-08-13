@@ -10,8 +10,8 @@ Token Providers
 ~~~~~~~~~~~~~~~
 
 The goal of a ``TokenProvider`` class is to provide values for tokens in the
-URI schema. Such values can be derived form the object for which the route
-is being generated, or from the environment (e.g. the you could use the
+URI schema. Such values can be derived from the object for which the route
+is being generated, or from the environment (e.g. you could use the
 current locale in the route).
 
 The following token provider will simply provide the value "foobar"::
@@ -84,7 +84,7 @@ Conflict Resolvers
 Conflict resolvers decide what happens if a generated route already exists in
 the route repository and is not related to the context object.
 
-The following example will append an unique string to the URI to resolve a
+The following example will append a unique string to the URI to resolve a
 conflict::
 
     namespace Symfony\Cmf\Component\RoutingAuto\ConflictResolver;
@@ -141,7 +141,7 @@ Defunct Route Handlers
 Defunct Route Handlers decide what happens to old routes when an object is
 updated and its generated URI changes.
 
-They are not all-together trivial - the following handler removes old routes and is
+They are not altogether trivial - the following handler removes old routes and is
 the default handler::
 
     namespace Symfony\Cmf\Component\RoutingAuto\DefunctRouteHandler;

@@ -14,12 +14,6 @@ The ``content_method`` provider allows the content object (e.g. a forum
 method as it allows the content document to do whatever it can to produce the
 route.
 
-Options
-.......
-
-* ``method``: **required** Method used to return the route name/path/path elements.
-* ``slugify``: If the return value should be slugified, default is ``true``.
-
 .. configuration-block::
 
     .. code-block:: yaml
@@ -93,7 +87,7 @@ content_locale
 ~~~~~~~~~~~~~~
 
 The ``content_locale`` provider will provide the locale (e.g. ``fr``, ``de``,
-etc) from the subject object. It ultimately it determines the locale from the 
+etc) from the subject object. It ultimately determines the locale from the
 storage specific adapter - so it is dependent upon the adapter supporting this
 feature.
 
