@@ -175,12 +175,12 @@ See the `Sonata Admin extension documentation`_ for more information.
 
 These are the list of available options:
 
- * Display
- * Display children
- * Menu attributes (advanced)
- * Label attributes (advanced)
- * Children attributes (advanced)
- * Link attributes (advanced)
+ * Display;
+ * Display children;
+ * Menu attributes (advanced);
+ * Label attributes (advanced);
+ * Children attributes (advanced);
+ * Link attributes (advanced).
 
 See the `KnpMenuBundle documentation`_ for more information about these
 attributes.
