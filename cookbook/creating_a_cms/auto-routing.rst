@@ -1,7 +1,7 @@
 Routing and Automatic Routing
 -----------------------------
 
-The routes (URLs) to your content will be automatically created and updated
+The routes (URIs) to your content will be automatically created and updated
 using the RoutingAutoBundle. This bundle uses a configuration language to
 specify automatic creation of routes, which can be a bit hard to grasp the
 first time you see it.
@@ -17,7 +17,7 @@ new route will be linked back to the target content:
 
 The paths above represent the path in the PHPCR-ODM document tree. In the next
 section you will define ``/cms/routes`` as the base path for routes, and subsequently
-the contents will be available at the following URLs:
+the contents will be available at the following URIs:
 
 * **Home**: ``http://localhost:8000/page/home``
 * **About**: ``http://localhost:8000/page/about``
@@ -26,22 +26,8 @@ the contents will be available at the following URLs:
 Installation
 ~~~~~~~~~~~~
 
-Ensure that you have the following package installed:
-
-.. code-block:: javascript
-
-    {
-        ...
-        require: {
-            ...
-            "symfony-cmf/routing-auto-bundle": "1.0.*@alpha"
-        },
-        ...
-    }
-
-.. note::
-
-    You are installing the bleeding edge version of the routing-auto bundle.
+Ensure that you installed the RoutingAutoBundle package as detailed in the :ref:`gettingstarted_installadditionbundles`
+section.
 
 Enable the routing bundles to your kernel::
 
@@ -135,88 +121,53 @@ This will:
 Auto Routing Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Create the following file in your applications configuration directory:
+First you need to configure the auto routing bundle:
 
 .. code-block:: yaml
 
-    # app/config/routing_auto.yml
     cmf_routing_auto:
-        mappings:
-            Acme\BasicCmsBundle\Document\Page:
-                content_path:
-                    pages:
-                        provider: [specified, { path: /cms/routes/page }]
-                        exists_action: use
-                        not_exists_action: create
-                content_name:
-                    provider: [content_method, { method: getTitle }]
-                    exists_action: auto_increment
-                    not_exists_action: create
+        persistence:
+            phpcr:
+                enabled: true
 
-            Acme\BasicCmsBundle\Document\Post:
-                content_path:
-                    blog_path:
-                        provider: [specified, { path: /cms/routes/post }]
-                        exists_action: use
-                        not_exists_action: create
-                    date:
-                        provider: [content_datetime, { method: getDate}]
-                        exists_action: use
-                        not_exists_action: create
-                content_name:
-                    provider: [content_method, { method: getTitle }]
-                    exists_action: auto_increment
-                    not_exists_action: create
+The above configures the RoutingAutoBundle to work with PHPCR-ODM.
+
+You can now proceed to mapping your documents, create the following in your
+*bundles* configuration directory:
+
+.. code-block:: yaml
+
+    # src/Acme/BasicCmsBundle/Resources/config/cmf_routing_auto.yml
+    Acme\BasicCmsBundle\Document\Page:
+        uri_schema: /page/{title}
+        token_providers:
+            title: [content_method, { method: getTitle } ]
+
+    Acme\BasicCmsBundle\Document\Post:
+        uri_schema: /post/{date}/{title}
+        token_providers:
+            date: [content_datetime, { method: getDate }
+            title: [content_method, { method: getTitle }]
+
+.. note::
+
+    RoutingAutoBundle mapping bundles are registered automatically when they are named
+    as above, you may alternatively explicitly declare from where the mappings should be loaded,
+    see the :doc:`../../bundles/routing_auto/index` documentation for more information.
 
 This will configure the routing auto system to automatically create and update
 route documents for both the ``Page`` and ``Post`` documents. 
 
-In summary:
+In summary, for each class:
 
-* The ``content_path`` key represents the parent path of the content, e.g.
-  ``/if/this/is/a/path`` then the ``content_path``
-  represents ``/if/this/is/a``;
-* Each element under ``content_path`` represents a section of the URL;
-* The first element ``blog_path`` uses a *provider* which *specifies* a
-  path. If that path exists then it will do nothing;
-* The second element uses the ``content_datetime`` provider, which will
-  use a ``DateTime`` object returned from the specified method on the
-  content object (the ``Post``) and create a path from it, e.g.
-  ``2013/10/13``;
-* The ``content_name`` key represents the last part of the path, e.g. ``path``
-  from ``/if/this/is/a/path``.
+* We defined a ``uri_schema`` which defines the form of the URI which will be
+  generated.
+  * Within the schema you place ``{tokens}`` - placeholders for values provided by...
+* Token providers provide values which will be substituted into the URI. Here
+  you use two different providers - ``content_date`` and ``content_method``.
+  Both will return dynamic values from the subject object itself.
 
-Now you will need to include this configuration:
-
-.. configuration-block::
-    
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        imports:
-            - { resource: routing_auto.yml }
-
-    .. code-block:: xml
-
-        <!-- src/Acme/BasicCmsBUndle/Resources/config/config.yml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container 
-            xmlns="http://symfony.com/schema/dic/services" 
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-            xsi:schemaLocation="http://symfony.com/schema/dic/services 
-                http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <import resource="routing_auto.yml"/>
-        </container>
-    
-    .. code-block:: php
-
-        // src/Acme/BasicCmsBundle/Resources/config/config.php
-
-        // ...
-        $this->import('routing_auto.yml');
-
-and reload the fixtures:
+Now reload the fixtures:
 
 .. code-block:: bash
 
