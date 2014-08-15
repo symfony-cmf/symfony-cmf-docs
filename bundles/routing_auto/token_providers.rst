@@ -95,7 +95,7 @@ content_locale
 The ``content_locale`` provider will provide the locale (e.g. ``fr``, ``de``,
 etc) from the subject object. It ultimately determines the locale from the
 storage specific adapter - so it is dependent upon the adapter supporting this
-feature. It has no option.
+feature.
 
 .. configuration-block::
 
@@ -116,6 +116,11 @@ feature. It has no option.
                 <token-provider token="locale" name="content_locale" />
             </mapping>
         </auto-mapping>
+
+Options
+~~~~~~~
+
+This token provider has no options.
 
 
 Creating a Custom Token Provider
