@@ -95,7 +95,7 @@ content_locale
 The ``content_locale`` provider will provide the locale (e.g. ``fr``, ``de``,
 etc) from the subject object. It ultimately determines the locale from the
 storage specific adapter - so it is dependent upon the adapter supporting this
-feature.
+feature. It has no option.
 
 .. configuration-block::
 
@@ -117,15 +117,6 @@ feature.
             </mapping>
         </auto-mapping>
 
-Options
-~~~~~~~
-
-``method``
-    **required** Method used to return the route name/path/path elements.
-``slugify``
-    If the return value should be slugified, default is ``true``.
-``locale_format``
-    Any locale format accepted by the `DateTime` class, default ``Y-m-d``.
 
 Creating a Custom Token Provider
 --------------------------------
