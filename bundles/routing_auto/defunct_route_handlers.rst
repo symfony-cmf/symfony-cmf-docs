@@ -38,9 +38,10 @@ action.
 leave_redirect
 --------------
 
-The leave redirect will automatically update old routes to redirect the browser
-to the route which has replaced it. This effectively means you can rename your
-objects without worrying about users recieving HTTP 404 responses.
+The ``LeaveRedirectDefunctRouteHandler`` will automatically update old routes
+to redirect the browser to the route which has replaced it. This effectively
+means you can rename your objects without worrying about users receiving HTTP
+404 responses.
 
 The handler will replace the old route with a ``RedirectRoute`` at the same
 path.
@@ -108,7 +109,7 @@ Creating a Custom Defunct Route Handler
 To create a custom default route handler, you have to implement
 ``DefunctRouteHandlerInterface``. This requires a method ``handleDefunctRoutes()``.
 
-They are not all-together trivial - the following handler removes old routes and is
+They are not alltogether trivial - the following handler removes old routes and is
 the default handler::
 
     namespace Symfony\Cmf\Component\RoutingAuto\DefunctRouteHandler;

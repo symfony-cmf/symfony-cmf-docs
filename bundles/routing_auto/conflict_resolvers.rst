@@ -5,8 +5,7 @@ Conflict Resolvers
 ==================
 
 Conflict resolvers are invoked when the system detects that a newly generated
-route would conflict with an route already existing in the route repository.
-The task of a conflict resolver is to decide what happends in such cases.
+route would conflict with a route already existing in the route repository.
 
 This section details the conflict resolvers which are provided by default.
 
@@ -65,7 +64,7 @@ To create a custom conflict resolver, you have to implement
 ``resolveConflict`` which has access to the ``UriContext``. It returns the new
 route.
 
-The following example will append an unique string to the URI to resolve a
+The following example will append a unique string to the URI to resolve a
 conflict::
 
     namespace Symfony\Cmf\Component\RoutingAuto\ConflictResolver;
