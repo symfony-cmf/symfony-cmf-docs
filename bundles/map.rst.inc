@@ -53,7 +53,6 @@ library or they introduce a complete new concept.
   * :doc:`routing_auto/token_providers`
   * :doc:`routing_auto/conflict_resolvers`
   * :doc:`routing_auto/defunct_route_handlers`
-  * :doc:`routing_auto/customization`
 
 * :doc:`search/index`
 

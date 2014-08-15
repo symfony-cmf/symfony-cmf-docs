@@ -96,23 +96,24 @@ document could be defined as follows:
 
     .. code-block:: yaml
 
-        # src/Acme/ForumBundle/Resources/config/routing_auto.yml
+        # src/Acme/ForumBundle/Resources/config/cmf_routing_auto.yml
         Acme\ForumBundle\Document\Topic:
             uri_schema: /my-forum/{category}/{title}
             token_providers:
-                category: [content_method, {method: getCategoryTitle, slugify: true} ]
-                title: [content_method, {method: getTitle} ] # slugify is true by default
+            category: [content_method, { method: getCategoryTitle, slugify: true }]
+            title: [content_method, { method: getTitle }] # slugify is true by default
 
-    .. code-block: xml
+    .. code-block:: xml
 
+        <!-- src/Acme/ForumBundle/Resources/config/cmf_routing_auto.xml -->
         <?xml version="1.0" ?>
-        <!-- src/Acme/ForumBundle/Resources/config/routing_auto.xml -->
         <auto-mapping xmlns="http://cmf.symfony.com/schema/routing_auto">
             <mapping class="Acme\ForumBundle\Document\Topic" uri-schema="/my-forum/{category}/{title}">
                 <token-provider token="category" name="content_method">
                     <option name="method">getCategoryName</option>
                     <option name="slugify">true</option>
                 </token-provider>
+
                 <token-provider token="title" name="content_method">
                     <option name="method">getTitle</option>
                 </token-provider>
@@ -163,14 +164,6 @@ Read more
 * :doc:`token_providers`
 * :doc:`conflict_resolvers`
 * :doc:`defunct_route_handlers`
-* :doc:`customization`
-
-
-Customization
--------------
-
-Besides the default providers and actions, you can also create your own. Read more about
-that in :doc:`customization`.
 
 .. _`with composer`: http://getcomposer.org/
 .. _`symfony-cmf/routing-auto-bundle`: https:/packagist.org/packages/symfony-cmf/routing-auto-bundle
