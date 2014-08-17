@@ -111,7 +111,7 @@ to which you will add the existing ``Home`` page and an additional ``About`` pag
     // ...
     class LoadPageData implements FixtureInterface
     {
-        public function load(ObjectManager $dm)
+        public function load(DocumentManager $dm)
         {
             // ...
             $rootPage = new Page();
