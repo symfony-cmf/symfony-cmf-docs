@@ -217,10 +217,19 @@ Symfony CMF SE does not provide any admin tools to create new pages. If you
 are interested in adding an admin UI one solution can be found in
 :doc:`../cookbook/creating_a_cms/sonata-admin`. However, if all you want
 is a simple way to add new pages that you can then edit via the inline
-editing, then you can use the SimpleCmsBundle ``page`` migrator. The Symfony
-CMF SE ships with an example YAML file stored in
-``app/Resources/data/pages/test.yml``. The contents of this file can be loaded
-into the PHPCR database by calling:
+editing, then you can use the SimpleCmsBundle ``page`` migrator. For example,
+to add a page called "Testing", creating a file called
+``app/Resources/data/pages/test.yml`` with the following contents:
+
+.. code-block:: yaml
+
+    label: "Testing"
+    title: "Testing"
+    body: |
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Morbi eleifend, ipsum eget facilisis lacinia, lorem dui venenatis quam, at vulputate purus erat sit amet elit.</p>
+
+The contents of this file can be loaded into the PHPCR database by calling:
 
 .. code-block:: bash
 

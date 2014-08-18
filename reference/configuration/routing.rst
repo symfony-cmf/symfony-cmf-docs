@@ -321,6 +321,7 @@ phpcr
                         content_basepath: /cms/content
                         admin_basepath:   /cms/routes
                         use_sonata_admin: auto
+                        enable_initializer: true
 
     .. code-block:: xml
 
@@ -336,6 +337,7 @@ phpcr
                             content-basepath="/cms/content"
                             admin-basepath="/cms/routes"
                             use-sonata-admin="auto"
+                            enable_initializer="true"
                         >
                             <route-basepath>/cms/routes</route-basepath>
                             <route-basepath>/cms/simple</route-basepath>
@@ -351,15 +353,16 @@ phpcr
             'dynamic' => array(
                 'persistence' => array(
                     'phpcr' => array(
-                        'enabled'      => false,
-                        'manager_name' => null,
-                        'route_basepaths' => array(
+                        'enabled'            => false,
+                        'manager_name'       => null,
+                        'route_basepaths'    => array(
                             '/cms/routes',
                             '/cms/simple',
                         )
-                        'content_basepath' => '/cms/content',
-                        'admin_basepath'   => '/cms/routes',
-                        'use_sonata_admin' => 'auto',
+                        'content_basepath'   => '/cms/content',
+                        'admin_basepath'     => '/cms/routes',
+                        'use_sonata_admin'   => 'auto',
+                        'enable_initializer' => true,
                     ),
                 ),
             ),
@@ -423,6 +426,20 @@ SonataPhpcrAdminBundle is present.
 
 If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will
 default to the value of ``cmf_core.persistence.phpcr.use_sonata_admin``.
+
+enable_initializer
+******************
+
+**type**: ``boolean`` **default**: ``true``
+
+.. versionadded:: 1.3
+    This configuration option was introduced in RoutingBundle 1.3.
+
+The bundle comes with an initializer that creates the nodes for the ``admin_basepath``
+automatically when initializing the repository or loading fixtures. Sometimes this
+is not what you want, as the created node is of type 'Generic' and sometimes this
+already needs to be a route (for the homepage). Set this to false to disable the
+initializer when you create your nodes your self (e.g. using Alice_).
 
 orm
 """
@@ -575,3 +592,5 @@ no locale in their static pattern get the ``auto_locale_pattern`` option set.
 
 This is ignored if there are no ``locales`` configured. It makes no sense to
 enable this option when ``match_implicit_locale`` is disabled.
+
+.. _Alice: https://github.com/nelmio/alice

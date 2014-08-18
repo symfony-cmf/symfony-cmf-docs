@@ -4,8 +4,10 @@ Getting Started
 Initializing the Project
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-First, follow the generic steps in :doc:`../../bundles/phpcr_odm/introduction`
+First, follow the generic steps in :doc:`../database/create_new_project_phpcr_odm`
 to create a new project using the PHPCR-ODM.
+
+.. _gettingstarted_installadditionbundles:
 
 Install Additional Bundles
 ..........................
@@ -23,19 +25,28 @@ section titled "installation".
 If you intend to complete the entire tutorial you can save some time by adding
 all of the required packages now.
 
+.. note::
+
+    The routing-auto bundle is currently unstable, the package versions listed below are required
+    but are not **stable**. This means that this is a somewhat volatile combination and you should
+    think twice before deploying to production -- there will be a stable release soon.
+
+Please ensure that the packages below replace any packages already defined in your ``composer.json``
+file in the previous step.
+
 .. code-block:: javascript
 
     {
         ...
         require: {
             ...
-            "symfony-cmf/routing-auto-bundle": "1.0.*@alpha",
-            "symfony-cmf/menu-bundle": "1.1.*",
+            "doctrine/phpcr-bundle": "1.0.0",
+            "jackalope/jackalope-doctrine-dbal": "1.1.0",
+            "symfony-cmf/routing-auto-bundle": "dev-master",
+            "symfony-cmf/menu-bundle": "1.2.*",
             "sonata-project/doctrine-phpcr-admin-bundle": "1.1.*",
-            "symfony-cmf/tree-browser-bundle": "1.1.*",
+            "symfony-cmf/tree-browser-bundle": "1.1.x-dev as 1.0",
             "doctrine/data-fixtures": "1.0.*",
-
-            "doctrine/phpcr-odm": "1.1.*",
             "phpcr/phpcr-utils": "1.1.*",
             "doctrine/phpcr-bundle": "1.1.*",
             "symfony-cmf/routing-bundle": "1.2.*",
@@ -110,7 +121,7 @@ to reduce code duplication::
         protected $parent;
 
         /**
-         * @PHPCR\NodeName()
+         * @PHPCR\Nodename()
          */
         protected $title;
 
@@ -119,12 +130,6 @@ to reduce code duplication::
          */
         protected $content;
 
-        /**
-         * @PHPCR\Referrers(
-         *     referringDocument="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route",
-         *     referencedBy="content"
-         * )
-         */
         protected $routes;
 
         public function getId()
@@ -267,8 +272,8 @@ configuration:
 
     .. code-block:: xml
 
-        <!-- src/Acme\BasicCmsBundle\Resources\services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- src/Acme\BasicCmsBundle\Resources\services.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:acme_demo="http://www.example.com/symfony/schema/"
@@ -414,6 +419,8 @@ and add some posts::
             $dm->flush();
         }
     }
+
+The 
 
 and load the fixtures:
 
