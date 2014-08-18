@@ -24,7 +24,7 @@ a template. So instead you decide to create your own block, the ``RssBlock``.
 Create a block document
 -----------------------
 
-The first thing you need is an document that contains the options and indicates
+The first thing you need is a document that contains the options and indicates
 the location where the RSS feed should be shown. The easiest way is to extend
 ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock``, but you are
 free to do create your own document. At least, you have to implement
