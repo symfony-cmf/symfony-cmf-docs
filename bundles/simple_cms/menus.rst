@@ -45,7 +45,6 @@ setDisplayChildren($displayChildren)
 
     If you use Sonata Admin in your project you can edit the menu options
     using the MenuOptionsExtension that comes with the menu bundle. For more
-    information on how to use it take a look at the `menu bundle documentation`_.
+    information on how to use it take a look at the :doc:`menu bundle documentation <../menu/sonata_admin>`
 
 .. _`Knp Menu Bundle`: https://github.com/KnpLabs/KnpMenuBundle
-.. _`menu bundle documentation`: http://symfony.com/doc/current/cmf/bundles/menu/sonata_admin.html
