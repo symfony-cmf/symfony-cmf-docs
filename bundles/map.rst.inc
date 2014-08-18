@@ -50,10 +50,9 @@ library or they introduce a complete new concept.
 * :doc:`routing_auto/index` (in development)
 
   * :doc:`routing_auto/introduction`
-  * :doc:`routing_auto/providers`
-  * :doc:`routing_auto/exists_actions`
-  * :doc:`routing_auto/not_exists_actions`
-  * :doc:`routing_auto/customization`
+  * :doc:`routing_auto/token_providers`
+  * :doc:`routing_auto/conflict_resolvers`
+  * :doc:`routing_auto/defunct_route_handlers`
 
 * :doc:`search/index`
 
@@ -90,6 +89,7 @@ bundle based on the key bundles.
   * :doc:`simple_cms/introduction`
   * :doc:`simple_cms/multilang`
   * :doc:`simple_cms/rendering`
+  * :doc:`simple_cms/menus`
   * :doc:`simple_cms/extending_page_class`
 
 Contributed Bundles
