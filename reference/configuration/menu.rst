@@ -235,13 +235,12 @@ enabled
 If ``true``, the admin extension is activated. If set to ``auto``, it will be
 activated only if the SonataAdminBundle is present.
 
-
 advanced
 """"""""
-**type**: ``boolean``
+**type**: ``boolean`` **default**: ``false``
 
 if set to ``true`` it will expose the advanced options in the admin.
-
+To enable this options you need ``BurgovKeyValueFormBundle``
 
 Voter
 -----
