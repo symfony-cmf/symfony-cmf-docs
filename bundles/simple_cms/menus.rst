@@ -40,5 +40,11 @@ setDisplay($display)
 
 setDisplayChildren($displayChildren)
     Boolean which determines whether children should be added to the menu
+    
+.. tip::
+
+    If you use Sonata Admin in your project you can edit the menu options
+    using the MenuOptionsExtension that comes with the menu bundle. For more
+    information on how to use it take a look at the :doc:`menu bundle documentation <../menu/sonata_admin>`
 
 .. _`Knp Menu Bundle`: https://github.com/KnpLabs/KnpMenuBundle

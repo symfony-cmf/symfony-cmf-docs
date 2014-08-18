@@ -180,6 +180,68 @@ admin_recursive_breadcrumbs
 
 When editing a node, this setting will cause the Sonata admin breadcrumb to include ancestors of the node being edited.
 
+Admin Extensions
+----------------
+
+The ``admin_extensions`` section contains the configurations of the admin extensions that comes with the menu bundle.
+
+menu_options
+~~~~~~~~~~~~
+
+You can configure the menu options extension in this sections.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_menu:
+            # ...
+            cmf_menu:
+                admin_extensions:
+                    menu_options:
+                        enabled:              auto
+                        advanced:             false
+                        
+    .. code-block:: xml
+    
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/menu">
+                <admin_extensions>
+                    <menu_options 
+                        enabled="auto" 
+                        advanced="false"
+                    />
+                </admin_extensions>
+            </config>
+        </container>
+        
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_menu', array(
+            'admin_extensions' => array(
+                'menu_options' => array(
+                        'enabled'  => 'auto',
+                        'advanced' =>  false,
+                    ),
+                ),
+            ),
+        ));
+
+enabled
+"""""""
+**type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
+
+If ``true``, the admin extension is activated. If set to ``auto``, it will be
+activated only if the SonataAdminBundle is present.
+
+advanced
+""""""""
+**type**: ``boolean`` **default**: ``false``
+
+if set to ``true`` it will expose the advanced options in the admin.
+To enable this options you need ``BurgovKeyValueFormBundle``
+
 Voter
 -----
 
