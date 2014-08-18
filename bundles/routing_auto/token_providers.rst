@@ -120,12 +120,8 @@ feature.
 Options
 ~~~~~~~
 
-``method``
-    **required** Method used to return the route name/path/path elements.
-``slugify``
-    If the return value should be slugified, default is ``true``.
-``locale_format``
-    Any locale format accepted by the `DateTime` class, default ``Y-m-d``.
+This token provider has no options.
+
 
 Creating a Custom Token Provider
 --------------------------------
