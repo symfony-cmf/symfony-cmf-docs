@@ -18,7 +18,7 @@ Installation
 ------------
 
 You can install this bundle `with composer`_ using the
-``symfony-cmf/seo-content-bundle`` package on `Packagist`_.
+``symfony-cmf/tree-browser-bundle`` package on `Packagist`_.
 
 Both the CmfTreeBrowserBundle and FOSJsRoutingBundle_ must be registered in the
 ``AppKernel``::
