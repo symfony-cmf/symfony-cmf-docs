@@ -148,6 +148,16 @@ example is specified. This will render an unordered list as follows:
 
 For more information see the `rendering menus`_ section of the KnpMenuBundle documentation.
 
+Read On
+-------
+
+* :doc:`menu_documents`
+* :doc:`menu_factory`
+* :doc:`menu_provider`
+* :doc:`voters`
+* :doc:`sonata_admin`
+* :doc:`configuration`
+
 .. _`KnpMenu`: https://github.com/knplabs/KnpMenu
 .. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle
 .. _`with composer`: http://getcomposer.org

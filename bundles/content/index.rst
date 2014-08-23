@@ -5,3 +5,4 @@ ContentBundle
     :maxdepth: 2
 
     introduction
+    configuration

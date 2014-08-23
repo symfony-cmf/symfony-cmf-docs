@@ -9,3 +9,4 @@ SimpleCmsBundle
     rendering
     menus
     extending_page_class
+    configuration

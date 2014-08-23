@@ -1,9 +1,8 @@
-CreateBundle configuration
-==========================
+Configuration Reference
+=======================
 
-The CreateBundle provides front-end editing based on create.js and CreatePHP.
-It can be configured under the ``cmf_create`` key in your application
-configuration. When using XML you should use the
+The CreateBundle can be configured under the ``cmf_create`` key in your
+application configuration. When using XML you should use the
 ``http://cmf.symfony.com/schema/dic/create`` namespace.
 
 .. note::
@@ -136,18 +135,18 @@ persistence for this bundle to work.
 enabled
 """""""
 
-.. include:: partials/persistence_phpcr_enabled.rst.inc
+.. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
 manager_name
 """"""""""""
 
-.. include:: partials/persistence_phpcr_manager_name.rst.inc
+.. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
 image
 """""
 
 These settings are only used with the optional hallo editor. The default
-CKEditor uses the :doc:`ELfinder plugin <../../bundles/media/adapters/elfinder>`
+CKEditor uses the :doc:`ELfinder plugin <../media/adapters/elfinder>`
 provided by the MediaBundle.
 
 If you need different image handling, you can either overwrite

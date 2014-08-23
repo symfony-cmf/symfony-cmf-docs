@@ -97,10 +97,11 @@ Further reading
 
 For more information on Routing in the Symfony CMF, please refer to:
 
-* The documentation of the :doc:`dynamic`.
-* The :doc:`routing introduction chapter <../../book/routing>` of the book.
+* The documentation of the :doc:`dynamic`;
+* The :doc:`configuration reference <configuration>`;
+* The :doc:`routing introduction chapter <../../book/routing>` of the book;
 * The :doc:`routing component documentation <../../components/routing/introduction>`
-  for implementation details of the routers.
+  for implementation details of the routers;
 * Symfony2's `Routing`_ component documentation.
 
 .. _`with composer`: http://getcomposer.org

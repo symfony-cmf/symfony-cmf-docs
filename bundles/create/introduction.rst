@@ -513,6 +513,13 @@ configure the ``cmf_create.object_mapper_service_id``.
 CreatePHP would support specific mappers per RDFa type. If you need that, dig
 into the CreatePHP and CreateBundle and do a pull request to enable this feature.
 
+Read On
+-------
+
+* :doc:`developing-hallo`
+* :doc:`other-editors`
+* :doc:`configuration`
+
 
 .. _`create.js`: http://createjs.org
 .. _`hallo.js`: http://hallojs.org

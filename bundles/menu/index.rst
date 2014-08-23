@@ -10,3 +10,4 @@ MenuBundle
     menu_provider
     voters
     sonata_admin
+    configuration

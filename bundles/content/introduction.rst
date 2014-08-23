@@ -226,5 +226,10 @@ removing static content from the admin panel. To enable the admin, use the
 also provides :ref:`several useful extensions <bundles-core-persistence>` for
 SonataAdminBundle.
 
+Read On
+-------
+
+* :doc:`configuration`
+
 .. _`with composer`: http://getcomposer.org
 .. _`symfony-cmf/content-bundle`: https://packagist.org/packages/symfony-cmf/content-bundle

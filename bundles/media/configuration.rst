@@ -1,10 +1,8 @@
-MediaBundle Configuration
-=========================
+Configuration Reference
+=======================
 
-The MediaBundle provides a way to store and edit any media and provides a
-generic base of common interfaces and models that allow the user to build media
-management solutions for a CMS. It can be configured under the ``cmf_media``
-key in your application configuration. When using XML, you can use the
+The MediaBundle can be configured under the ``cmf_media`` key in your
+application configuration. When using XML, you can use the
 ``http://cmf.symfony.com/schema/dic/media`` namespace.
 
 Configuration
@@ -92,7 +90,7 @@ is the following configuration:
 enabled
 """""""
 
-.. include:: partials/persistence_phpcr_enabled.rst.inc
+.. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
 media_basepath
 """"""""""""""
@@ -101,13 +99,13 @@ media_basepath
 
 The basepath for CMS media documents in the PHPCR tree.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
-the value of ``%cmf_core.persistence.phpcr.basepath%/media``.
+If the :doc:`CoreBundle <../core/introduction` is registered, this will default
+to the value of ``%cmf_core.persistence.phpcr.basepath%/media``.
 
 manager_name
 """"""""""""
 
-.. include:: partials/persistence_phpcr_manager_name.rst.inc
+.. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
 media_class
 """""""""""
