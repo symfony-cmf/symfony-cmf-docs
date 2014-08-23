@@ -1,17 +1,18 @@
 Creating a Menu
----------------
+===============
 
 In this section you will modify your application so that ``Page``
 documents act as menu nodes. The root page document can then be rendered
 using the Twig helper of the `KnpMenuBundle`_.
 
 Installation
-............
+------------
 
-Ensure that you installed the ``symfony-cmf/menu-bundle`` package as detailed in the :ref:`gettingstarted_installadditionbundles`
-section.
+Ensure that you installed the ``symfony-cmf/menu-bundle`` package as detailed
+in the :ref:`gettingstarted_installadditionbundles` section.
 
-Add the CMF `MenuBundle`_ and its dependency, `CoreBundle`_, to your kernel::
+Add the CMF :doc:`MenuBundle <../bundles/menu/introduction>` and its
+dependency, :doc:`CoreBundle <../bundles/core/introduction`_, to your kernel::
 
     // app/AppKernel.php
     class AppKernel extends Kernel
@@ -30,7 +31,7 @@ Add the CMF `MenuBundle`_ and its dependency, `CoreBundle`_, to your kernel::
     }
 
 Modify the Page Document
-........................
+------------------------
 
 The menu document has to implement the ``Knp\Menu\NodeInterface``
 provided by the KnpMenuBundle::
@@ -100,7 +101,7 @@ The attributes apply to the HTML elements. See the `KnpMenu`_ documentation
 for more information.
 
 Modify the Data Fixtures
-........................
+------------------------
 
 The menu system expects to be able to find a root item which contains the
 first level of child items. Modify your fixtures to declare a root element
@@ -148,7 +149,7 @@ Load the fixtures again:
     $ php app/console doctrine:phpcr:fixtures:load
 
 Register the Menu Provider
-..........................
+--------------------------
 
 Now you can register the ``PhpcrMenuProvider`` from the menu bundle in the service container
 configuration:

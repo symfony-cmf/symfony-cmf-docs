@@ -1,16 +1,16 @@
 Getting Started
----------------
+===============
 
 Initializing the Project
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 
-First, follow the generic steps in :doc:`../database/create_new_project_phpcr_odm`
+First, follow the generic steps in :doc:`../cookbook/database/create_new_project_phpcr_odm`
 to create a new project using the PHPCR-ODM.
 
 .. _gettingstarted_installadditionbundles:
 
 Install Additional Bundles
-..........................
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The complete tutorial requires the following packages:
 
@@ -59,12 +59,11 @@ Note that each time you modify your ``composer.json`` file you are required to
 run ``composer update``.
 
 Initialize the Database
-.......................
+~~~~~~~~~~~~~~~~~~~~~~~
 
-If you have followed the main instructions in
-:doc:`../../bundles/phpcr_odm/introduction` then you are using the
-`Doctrine DBAL Jackalope`_ PHPCR backend with MySQL and you will need to
-create the database:
+If you have followed the main instructions in :doc:`../bundles/phpcr_odm/introduction`
+then you are using the `Doctrine DBAL Jackalope`_ PHPCR backend with MySQL and
+you will need to create the database:
 
 .. code-block:: bash
 
@@ -318,7 +317,7 @@ configuration:
     The initializers operate at the PHPCR level, not the PHPCR-ODM level - this
     means that you are dealing with nodes and not documents. You do not have
     to understand these details right now. To learn more about PHPCR read
-    :doc:`../database/choosing_storage_layer`.
+    :doc:`../cookbook/database/choosing_storage_layer`.
 
 The initalizers will be executed automatically when you load your data
 fixtures (as detailed in the next section) or alternatively you can execute

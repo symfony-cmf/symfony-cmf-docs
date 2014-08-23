@@ -1,5 +1,5 @@
 The Site Document and the Homepage
-----------------------------------
+==================================
 
 All of your content should now be available at various URLs but your homepage
 (http://localhost:8000) still shows the default Symfony Standard Edition
@@ -11,10 +11,10 @@ allows the user to mark a ``Page`` to act as the homepage of your CMS.
 .. note::
 
     This is just one of many strategies for routing the homepage. For example,
-    another option would be put a `RedirectRoute` document at `/cms/routes`.
+    another option would be put a ``RedirectRoute`` document at ``/cms/routes``.
 
 Storing the Data
-~~~~~~~~~~~~~~~~
+----------------
 
 You need a document which can store data about your CMS - this will be known
 as the site document and it will contain a reference to the ``Page`` document
@@ -59,7 +59,7 @@ Create the site document::
     }
 
 Initializing the Site Document
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------
 
 Where does the ``Site`` document belong? The document hierarchy currently
 looks like this:
@@ -220,7 +220,7 @@ and verify that the ``cms`` node has been created correctly, using the
     initialization choices take place - do whatever you prefer.
 
 Create the Make Homepage Button
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------
 
 You will need a way to allow the administrator of your site to select which
 page should act as the homepage. You will modify the ``PageAdmin`` class so
@@ -313,10 +313,10 @@ that it knows the edit page is requested, it retrieves the *subject* from the ad
 class which is the ``Page`` currently being edited, it then adds a menu item to
 the menu.
 
-.. image:: ../../_images/cookbook/basic-cms-sonata-admin-make-homepage.png
+.. image:: ../_images/cookbook/basic-cms-sonata-admin-make-homepage.png
 
 Routing the Homepage
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Now that you have enabled the administrator to designate a page to be used as
 a homepage you need to actually make the CMS use this information to render

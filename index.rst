@@ -22,6 +22,7 @@ implementing the philosophy of the `decoupled CMS`_.
     contributing/index
     reference/index
     cookbook/index
+    tutorial/index
 
 Quick Tour
 ----------
@@ -53,6 +54,24 @@ will typically want to keep this close at hand.
     book/database_layer
     book/static_content
     book/structuring_content
+
+Tutorial
+--------
+
+The tutorial guides you through all features of the CMF. It uses a step-by-step
+way to create a complete website build from the ground up with the CMF.
+
+.. toctree::
+    :maxdepth: 1
+
+    tutorial/introduction
+    tutorial/getting-started
+    tutorial/auto-routing
+    tutorial/sonata-admin
+    tutorial/content-to-controllers
+    tutorial/the-frontend
+    tutorial/make-homepage
+    tutorial/conclusion
 
 Bundles
 -------

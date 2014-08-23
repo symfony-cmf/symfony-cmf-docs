@@ -4,7 +4,6 @@ The Cookbook
 .. toctree::
     :hidden:
 
-    creating_a_cms/index
     database/choosing_storage_layer
     database/choosing_phpcr_implementation
     database/running_jackrabbit
