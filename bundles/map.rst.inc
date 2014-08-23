@@ -93,6 +93,7 @@ bundle based on the key bundles.
 
   * :doc:`content/introduction`
   * :doc:`content/configuration`
+  * :doc:`content/exposing_content_via_rest`
 
 * :doc:`simple_cms/index`
 

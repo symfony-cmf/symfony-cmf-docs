@@ -6,3 +6,4 @@ ContentBundle
 
     introduction
     configuration
+    exposing_content_via_rest

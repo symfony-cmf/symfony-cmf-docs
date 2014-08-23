@@ -13,4 +13,3 @@
   * :doc:`editions/cmf_core`
 
 * :doc:`creating_a_cms/index`
-* :doc:`exposing_content_via_rest`

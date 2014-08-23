@@ -230,6 +230,7 @@ Read On
 -------
 
 * :doc:`configuration`
+* :doc:`exposing_content_via_rest`
 
 .. _`with composer`: http://getcomposer.org
 .. _`symfony-cmf/content-bundle`: https://packagist.org/packages/symfony-cmf/content-bundle
