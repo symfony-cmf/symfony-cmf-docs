@@ -99,7 +99,7 @@ media_basepath
 
 The basepath for CMS media documents in the PHPCR tree.
 
-If the :doc:`CoreBundle <../core/introduction` is registered, this will default
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will default
 to the value of ``%cmf_core.persistence.phpcr.basepath%/media``.
 
 manager_name

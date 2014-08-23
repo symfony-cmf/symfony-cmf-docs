@@ -122,7 +122,7 @@ block_basepath
 
 The basepath for blocks in the PHPCR tree.
 
-If the :doc:`CoreBundle <../core/introduction` is registered, this will default to
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/content``.
 
 manager_name
@@ -191,7 +191,7 @@ use_sonata_admin
 If ``true``, the admin classes are activated. If set to ``auto``, they are
 activated only if the SonataPhpcrAdminBundle is present.
 
-If the :doc:`CoreBundle <../core/introduction` is registered, this will default to the value
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to the value
 of ``cmf_core.persistence.phpcr.use_sonata_admin``.
 
 string_admin_class

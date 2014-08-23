@@ -125,7 +125,7 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`ContentBundle <../content/introduction>`
 * :doc:`CreateBundle <../create/introduction>`
 * :doc:`MediaBundle <../media/introduction>`
-* :doc:`MenuBundle <../menu/introduction`
+* :doc:`MenuBundle <../menu/introduction>`
 * :doc:`RoutingBundle <../routing/introduction>`
 * :doc:`SearchBundle <../search/introduction>`
 * :doc:`SimpleCmsBundle <../simple_cms/introduction>`
@@ -188,7 +188,7 @@ Enabling this setting will also automatically enable the equivalent setting in t
 
 * :doc:`BlockBundle <../block/introduction>`
 * :doc:`ContentBundle <../content/introduction>`
-* :doc:`MenuBundle <../menu/introduction`
+* :doc:`MenuBundle <../menu/introduction>`
 * :doc:`RoutingBundle <../routing/introduction>`
 * :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 

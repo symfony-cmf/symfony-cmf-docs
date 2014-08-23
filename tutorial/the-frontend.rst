@@ -12,7 +12,7 @@ Ensure that you installed the ``symfony-cmf/menu-bundle`` package as detailed
 in the :ref:`gettingstarted_installadditionbundles` section.
 
 Add the CMF :doc:`MenuBundle <../bundles/menu/introduction>` and its
-dependency, :doc:`CoreBundle <../bundles/core/introduction`_, to your kernel::
+dependency, :doc:`CoreBundle <../bundles/core/introduction>`, to your kernel::
 
     // app/AppKernel.php
     class AppKernel extends Kernel
