@@ -593,7 +593,7 @@ directories. By default, Symfony will try to generate a unique namespace
 value for each application but if code is very similar between two
 applications, it is very easy to have two applications share the same
 namespace. This option also prevents Symfony from needing to re-build
-applicationcache on each Composer update on a newly generated namespace.
+application cache on each Composer update on a newly generated namespace.
 
 General Settings
 ~~~~~~~~~~~~~~~~
