@@ -459,6 +459,7 @@ not configure anything here, the ODM services will not be loaded.
                     instance_class: ~
                     class:          ~
                     id:             ~
+                    namespace:      ~
 
 
     .. code-block:: xml
@@ -494,6 +495,7 @@ not configure anything here, the ODM services will not be loaded.
                         instance-class="null"
                         class="null"
                         id="null"
+                        namespace="null"
                     />
                 </odm>
             </config>
@@ -526,6 +528,7 @@ not configure anything here, the ODM services will not be loaded.
                     'instance_class' => null,
                     'class'          => null,
                     'id'             => null,
+                    'namespace'      => null,
                 ),
             ),
         ));
@@ -581,6 +584,14 @@ metadata_cache_driver
 
 Configure a cache driver for the Doctrine metadata. This is the same as for
 `Doctrine ORM`_.
+
+The ``namespace`` value is useful if you are using one primary caching server
+for multiple sites that have similar code in their respective ``vendor/``
+directories. By default, Symfony will try to generate a unique namespace
+value for each application but if code is very similar between two
+applications, it is very easy to have two applications share the same
+namespace. This option also prevents Symfony from needing to re-build
+applicationcache on each Composer update on a newly generated namespace.
 
 General Settings
 ~~~~~~~~~~~~~~~~
