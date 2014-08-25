@@ -342,5 +342,5 @@ Now you can start reading the full :doc:`configuration reference
 
 .. _`SonataSeoBundle`: https://github.com/sonata-project/SonataSeoBundle
 .. _`with composer`: http://getcomposer.org
-.. _`packagist`: https://packagist.org/packages/symfony-cmf/menu-bundle
+.. _`packagist`: https://packagist.org/packages/symfony-cmf/seo-bundle
 .. _`Sonata documentation`: http://sonata-project.org/bundles/seo/master/doc/index.html
