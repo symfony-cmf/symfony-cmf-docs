@@ -581,7 +581,8 @@ names without any actual configuration.
 metadata_cache_driver
 """""""""""""""""""""
 
-Configure a cache driver for the Doctrine metadata. This is the same as for `Doctrine ORM`_.
+Configure a cache driver for the Doctrine metadata. This is the same as for
+`Doctrine ORM`_.
 
 General Settings
 ~~~~~~~~~~~~~~~~
