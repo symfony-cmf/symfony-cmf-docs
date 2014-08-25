@@ -46,6 +46,11 @@ Finally, add the relevant routing to your configuration
 
         return $collection;
 
+Read On
+-------
+
+* :doc:`configuration`
+
 .. _`LiipSearchBundle`: https://github.com/liip/LiipSearchBundle
 .. _`symfony-cmf/search-bundle`: https://packagist.org/packages/symfony-cmf/search-bundle
 .. _`with composer`: http://getcomposer.org

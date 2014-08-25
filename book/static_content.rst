@@ -60,7 +60,7 @@ SonataDoctrinePHPCRAdminBundle_, a back office generation tool.
 In ContentBundle, the required administration panels are already declared in
 the ``Admin`` folder and configured in ``Resources/config/admin.xml``, and
 will automatically be loaded if you install the SonataDoctrinePHPCRAdminBundle
-(refer to :doc:`../cookbook/creating_a_cms/sonata-admin` for
+(refer to :doc:`../tutorial/sonata-admin` for
 instructions on that).
 
 Configuration

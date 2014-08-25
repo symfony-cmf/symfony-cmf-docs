@@ -1,6 +1,5 @@
 .. index::
-    single: Tutorial, REST
-    single: ContentBundle
+    single: ContentBundle; Rest
 
 Exposing Content via REST
 =========================
@@ -8,17 +7,9 @@ Exposing Content via REST
 Many applications need to expose content via REST APIs to partners or to
 enable integration into other applications. As the CMF is build on top
 of Symfony2, it's possible to leverage many of the available bundles to
-provide a REST API for content stored in the CMF. This cookbook will
-detail how to provide a read API using the following bundles:
-
-* :doc:`Cmf ContentBundle <../bundles/content/index>`;
-* `FOSRestBundle`_;
-* `JMSSerializerBundle`_.
-
-It is assumed that you have:
-
-* A working knowledge of the Symfony2 CMF framework;
-* An application with the ContentBundle setup.
+provide a REST API for content stored in the CMF. This guide will
+detail how to provide a read API for your content using the following bundles
+`FOSRestBundle`_ and `JMSSerializerBundle`_.
 
 Installation
 ------------
@@ -31,9 +22,9 @@ to generate the REST output. The best choice is the JMSSerializerBundle:
 .. code-block:: javascript
 
     {
-        ..
+        ...
         "require": {
-            ..
+            ...
             "friendsofsymfony/rest-bundle": "1.*",
             "jms/serializer-bundle": "0.13.*",
         }

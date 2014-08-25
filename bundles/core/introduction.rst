@@ -30,6 +30,7 @@ Sections
 * :doc:`dependency_injection_tags`
 * :doc:`templating`
 * :doc:`persistence`
+* :doc:`configuration`
 
 .. _`symfony-cmf/core-bundle`: https://packagist.org/packages/symfony-cmf/core-bundle
 .. _`with composer`: http://getcomposer.org

@@ -1,11 +1,11 @@
 The Backend - Sonata Admin
---------------------------
+==========================
 
 In this chapter you will build an administration interface with the help
 of the SonataDoctrinePHPCRAdminBundle_.
 
 Installation
-~~~~~~~~~~~~
+------------
 
 Ensure that you installed the ``sonata-project/doctrine-phpcr-admin-bundle``
 package as detailed in the :ref:`gettingstarted_installadditionbundles`
@@ -32,7 +32,8 @@ Enable the Sonata related bundles to your kernel::
         }
     }
 
-Sonata requires the ``sonata_block`` bundle to be configured in your main configuration:
+Sonata requires the ``sonata_block`` bundle to be configured in your main
+configuration:
 
 .. configuration-block::
 
@@ -246,7 +247,7 @@ administrator. You can disable the RoutingBundle admin:
     prevents the admin class (or classes) from being registered.
 
 Creating the Admin Classes
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------
 
 Create the following admin classes, first for the ``Page`` document::
 
@@ -445,10 +446,10 @@ container configuration:
 
 Check it out at http://localhost:8000/admin/dashboard
 
-.. image:: ../../_images/cookbook/basic-cms-sonata-admin.png
+.. image:: ../_images/cookbook/basic-cms-sonata-admin.png
 
 Configure the Admin Tree on the Dashboard
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------------
 
 Sonata admin provides a useful tree view of your whole content. You can
 click items on the tree to edit them, right-click to delete them or add

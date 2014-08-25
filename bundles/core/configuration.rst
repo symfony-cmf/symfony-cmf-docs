@@ -1,9 +1,9 @@
-CoreBundle Configuration
-========================
+Configuration Reference
+=======================
 
-The CoreBundle provides infrastructure for other CMF bundles and can be configured
-under the ``cmf_core`` key in your application configuration. When using
-XML, you can use the ``http://cmf.symfony.com/schema/dic/core`` namespace.
+The CoreBundle can be configured under the ``cmf_core`` key in your application
+configuration. When using XML, you can use the
+``http://cmf.symfony.com/schema/dic/core`` namespace.
 
 Configuration
 -------------
@@ -117,19 +117,19 @@ is the following configuration:
 enabled
 """""""
 
-.. include:: partials/persistence_phpcr_enabled.rst.inc
+.. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
 
-* :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`ContentBundle <../../bundles/content/introduction>`
-* :doc:`CreateBundle <../../bundles/create/introduction>`
-* :doc:`MediaBundle <../../bundles/media/introduction>`
-* :doc:`MenuBundle <../..//bundles/menu/index>`
-* :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SearchBundle <../../bundles/search/introduction>`
-* :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
-* :doc:`TreeBrowserCmsBundle <../../bundles/tree_browser/introduction>`
+* :doc:`BlockBundle <../block/introduction>`
+* :doc:`ContentBundle <../content/introduction>`
+* :doc:`CreateBundle <../create/introduction>`
+* :doc:`MediaBundle <../media/introduction>`
+* :doc:`MenuBundle <../menu/introduction>`
+* :doc:`RoutingBundle <../routing/introduction>`
+* :doc:`SearchBundle <../search/introduction>`
+* :doc:`SimpleCmsBundle <../simple_cms/introduction>`
+* :doc:`TreeBrowserCmsBundle <../tree_browser/introduction>`
 
 basepath
 """"""""
@@ -140,13 +140,13 @@ The basepath for CMS documents in the PHPCR tree.
 
 Enabling this setting will also automatically enable the equivalent settings in the following Bundles:
 
-* :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`ContentBundle <../../bundles/content/introduction>`
-* :doc:`MediaBundle <../../bundles/media/introduction>`
-* :doc:`MenuBundle <../..//bundles/menu/index>`
-* :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SearchBundle <../../bundles/search/introduction>`
-* :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
+* :doc:`BlockBundle <../block/introduction>`
+* :doc:`ContentBundle <../content/introduction>`
+* :doc:`MediaBundle <../media/introduction>`
+* :doc:`MenuBundle <../menu/introduction>`
+* :doc:`RoutingBundle <../routing/introduction>`
+* :doc:`SearchBundle <../search/introduction>`
+* :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 
 manager_registry
 """"""""""""""""
@@ -155,8 +155,8 @@ manager_registry
 
 Enabling this setting will also automatically enable the equivalent settings in the following Bundles:
 
-* :doc:`SearchBundle <../../bundles/search/introduction>`
-* :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
+* :doc:`SearchBundle <../search/introduction>`
+* :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 
 manager_name
 """"""""""""
@@ -168,12 +168,12 @@ retrieve the default manager.<persistence>
 
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
 
-* :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`MediaBundle <../../bundles/media/introduction>`
-* :doc:`MenuBundle <../..//bundles/menu/index>`
-* :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SearchBundle <../../bundles/search/introduction>`
-* :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
+* :doc:`BlockBundle <../block/introduction>`
+* :doc:`MediaBundle <../media/introduction>`
+* :doc:`MenuBundle <../menu/introduction>`
+* :doc:`RoutingBundle <../routing/introduction>`
+* :doc:`SearchBundle <../search/introduction>`
+* :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 
 use_sonata_admin
 """"""""""""""""
@@ -186,11 +186,11 @@ SonataPhpcrAdminBundle is present.
 
 Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
 
-* :doc:`BlockBundle <../../bundles/block/introduction>`
-* :doc:`ContentBundle <../../bundles/content/introduction>`
-* :doc:`MenuBundle <../..//bundles/menu/index>`
-* :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
+* :doc:`BlockBundle <../block/introduction>`
+* :doc:`ContentBundle <../content/introduction>`
+* :doc:`MenuBundle <../menu/introduction>`
+* :doc:`RoutingBundle <../routing/introduction>`
+* :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 
 translation_strategy
 """"""""""""""""""""
@@ -214,8 +214,8 @@ If multilang is enabled, the ``TranslatableExtension`` for
 ``SonataAdminBundle`` is enabled and the locales will be configured on all CMF
 bundles that use this configuration:
 
-* :doc:`RoutingBundle <../../bundles/routing/introduction>`
-* :doc:`SimpleCmsBundle <../../bundles/simple_cms/introduction>`
+* :doc:`RoutingBundle <../routing/introduction>`
+* :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 
 .. configuration-block::
 

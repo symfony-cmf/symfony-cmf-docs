@@ -1,8 +1,7 @@
-MenuBundle configuration
-========================
+Configuration Reference
+=======================
 
-The MenuBundle provides a persistent menu system based on the KnpMenuBundle.
-It can be configured under the ``cmf_menu`` key in your application
+The MenuBundle can be configured under the ``cmf_menu`` key in your application
 configuration. When using XML you should use the
 ``http://cmf.symfony.com/schema/dic/menu`` namespace.
 
@@ -83,7 +82,7 @@ persistence configuration has the following configuration:
 enabled
 """""""
 
-.. include:: partials/persistence_phpcr_enabled.rst.inc
+.. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
 menu_basepath
 """""""""""""
@@ -94,11 +93,11 @@ Specifies the path in the PHPCR-ODM document hierarchy under which the menu
 documents can be found.
 
 * This is the default location used by the
-  :doc:`MenuProvider <../../bundles/menu/menu_factory>` to locate menus.
+  :doc:`MenuProvider <../menu/menu_factory>` to locate menus.
 * This is the default location for newly created menus in the Sonata admin
   class.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/menu``
 
 content_basepath
@@ -110,7 +109,7 @@ Specifies the path in the PHPCR-ODM document hierarchy under which the
 content documents can be found. This is used by the admin class to pre-select
 the content branch of the document hierarchy in forms.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/content``
 
 .. versionadded:: 1.1
@@ -134,7 +133,7 @@ To disable menu prefetch completely, set this option to ``0``.
 manager_name
 """"""""""""
 
-.. include:: partials/persistence_phpcr_manager_name.rst.inc
+.. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
 menu_document_class
 """""""""""""""""""
@@ -157,7 +156,7 @@ This setting is used by the admin class.
 use_sonata_admin
 """"""""""""""""
 
-.. include:: partials/persistence_phpcr_sonata_admin_enabled.rst.inc
+.. include:: ../_partials/persistence_phpcr_sonata_admin_enabled.rst.inc
 
 menu_admin_class
 """"""""""""""""
@@ -178,14 +177,16 @@ admin_recursive_breadcrumbs
 
 **type**: ``boolean`` **default**: ``true``
 
-When editing a node, this setting will cause the Sonata admin breadcrumb to include ancestors of the node being edited.
+When editing a node, this setting will cause the Sonata admin breadcrumb to
+include ancestors of the node being edited.
 
 Voter
 -----
 
 **type**: ``array``
 
-The ``voters`` section enables you to enable and configure *pre-defined* :doc:`voters <../../bundles/menu/voters>`.
+The ``voters`` section enables you to enable and configure *pre-defined*
+:doc:`voters <../menu/voters>`.
 
 .. configuration-block::
 
@@ -257,11 +258,11 @@ publish_workflow
     The ``publish_workflow`` option was introduced in CmfMenuBundle 1.1.
 
 This configures if the menu content voter for the publish workflow should be
-disabled, by default it is enabled if the :doc:`CoreBundle <../../bundles/core/index>`
+disabled, by default it is enabled if the :doc:`CoreBundle <../core/introduction>`
 is registered, and the ``cmf_core.publish_workflow`` is enabled.
 
 For more information refer to the
-:doc:`publish workflow documentation <../../bundles/core/publish_workflow>`.
+:doc:`publish workflow documentation <../core/publish_workflow>`.
 
 To disable the menu content voter, use:
 

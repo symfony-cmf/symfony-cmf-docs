@@ -1,9 +1,8 @@
-TreeBrowserBundle Configuration
-===============================
+Configuration Reference
+=======================
 
-The TreeBrowserBundle provides a tree navigation on top of a PHPCR
-repository and can be configured under the ``cmf_tree_browser`` key in your
-application configuration. When using XML, you can use the
+The TreeBrowserBundle can be configured under the ``cmf_tree_browser`` key in
+your application configuration. When using XML, you can use the
 ``http://cmf.symfony.com/schema/dic/treebrowser`` namespace.
 
 .. note::
@@ -66,7 +65,7 @@ is the following configuration:
 enabled
 """""""
 
-.. include:: partials/persistence_phpcr_enabled.rst.inc
+.. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
 session_name
 """"""""""""
