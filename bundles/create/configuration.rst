@@ -219,7 +219,17 @@ REST handler
 ~~~~~~~~~~~~
 
 You can configure the REST handler class with the ``rest_controller_class``
-option.
+option. Furthermore it is possible to enable ``rest_force_request_locale``.
+When this option is enabled, the current request locale is set on the model
+instance. This is useful in order to automatically translate a model to
+the request locale when using inline editing, instead of editing the model
+in the locale in which it is currently stored, which might be different
+than the request locale due to language fallback.
+
+.. note::
+
+    The ``rest_force_request_locale`` option requires that the
+    :doc:`CoreBundle <../core/introduction>` is enabled.
 
 Editor configuration
 ~~~~~~~~~~~~~~~~~~~~
