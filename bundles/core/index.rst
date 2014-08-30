@@ -10,3 +10,4 @@ CoreBundle
     templating
     persistence
     forms
+    configuration

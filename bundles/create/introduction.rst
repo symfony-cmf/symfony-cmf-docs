@@ -579,6 +579,13 @@ and implement your logic in the workflows run method.
 
 Currently the bundle only supports delete workflows but that will change in the future.
 
+Read On
+-------
+
+* :doc:`developing-hallo`
+* :doc:`other-editors`
+* :doc:`configuration`
+
 .. _`create.js`: http://createjs.org
 .. _`hallo.js`: http://hallojs.org
 .. _`CKEditor`: http://ckeditor.com/

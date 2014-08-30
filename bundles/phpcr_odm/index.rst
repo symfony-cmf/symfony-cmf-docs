@@ -10,3 +10,4 @@ DoctrinePHPCRBundle
     fixtures_initializers
     multilang
     multiple_sessions
+    configuration

@@ -152,8 +152,8 @@ Sonata PHPCR-ODM Admin
 
     Using sonata admin is one way to make your content editable. A book
     chapter on sonata admin is planned. Meanwhile, read
-    :doc:`Sonata Admin <../cookbook/creating_a_cms/sonata-admin>` in the
-    "Creating a CMS" tutorial.
+    :doc:`Sonata Admin <../tutorial/sonata-admin>` in the "Creating a CMS"
+    tutorial.
 
 The first step is to configure sonata admin. You should place the
 LuneticsLocaleBundle language switcher in the ``topnav`` bar.  To do this,

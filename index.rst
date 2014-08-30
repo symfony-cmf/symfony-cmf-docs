@@ -5,13 +5,6 @@ The Symfony2 Content Management Framework (CMF) project is organized by the Symf
 community and has several sponsoring companies and prominent open source leaders
 implementing the philosophy of the `decoupled CMS`_.
 
-.. caution::
-
-    This documentation is still in development. The bundles and reference sections
-    are updated for the 1.1 release, but the book is still a bit sparse. Want to
-    help? Thank you, all help greatly appreciated! The source of the
-    `documentation is hosted on github`_.
-
 .. toctree::
     :hidden:
 
@@ -20,8 +13,8 @@ implementing the philosophy of the `decoupled CMS`_.
     bundles/index
     components/index
     contributing/index
-    reference/index
     cookbook/index
+    tutorial/index
 
 Quick Tour
 ----------
@@ -54,6 +47,24 @@ will typically want to keep this close at hand.
     book/static_content
     book/structuring_content
 
+Tutorial
+--------
+
+The tutorial guides you through all features of the CMF. It uses a step-by-step
+way to create a complete website build from the ground up with the CMF.
+
+.. toctree::
+    :maxdepth: 1
+
+    tutorial/introduction
+    tutorial/getting-started
+    tutorial/auto-routing
+    tutorial/sonata-admin
+    tutorial/content-to-controllers
+    tutorial/the-frontend
+    tutorial/make-homepage
+    tutorial/conclusion
+
 Bundles
 -------
 
@@ -71,15 +82,6 @@ The Symfony CMF believes in a concept where bundles integrate library
 project, even when they are not using Symfony.
 
 :doc:`Browse the components <components/index>`
-
-Reference
----------
-
-Ever wondered what configuration options you have available to you in files
-such as ``app/config/config.yml``? In this section, all available
-configuration is broken down per bundle.
-
-:doc:`Browse the reference <reference/index>`
 
 Cookbook
 --------

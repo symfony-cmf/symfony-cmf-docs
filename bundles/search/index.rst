@@ -5,3 +5,4 @@ SearchBundle
     :maxdepth: 2
 
     introduction
+    configuration

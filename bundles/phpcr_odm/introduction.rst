@@ -65,8 +65,7 @@ PHPCR Session Configuration
 The session needs a PHPCR implementation specified in the ``backend`` section
 by the ``type`` field, along with configuration options to bootstrap the
 implementation. The examples here assume that you are using Jackalope Doctrine
-DBAL. The full documentation is in the
-:doc:`reference section <../../reference/configuration/phpcr_odm>`.
+DBAL. The full documentation is in the :doc:`configuration reference <configuration>`.
 
 To use Jackalope Doctrine DBAL, you need to configure a database connection
 with the DoctrineBundle. For detailed information, see the
@@ -488,6 +487,7 @@ Read On
 * :doc:`fixtures_initializers`
 * :doc:`multilang`
 * :doc:`multiple_sessions`
+* :doc:`configuration`
 
 .. _`DoctrinePHPCRBundle`: https://github.com/doctrine/DoctrinePHPCRBundle
 .. _`Symfony2 Doctrine documentation`: http://symfony.com/doc/current/book/doctrine.html

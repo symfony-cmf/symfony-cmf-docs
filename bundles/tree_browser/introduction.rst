@@ -231,6 +231,11 @@ For example, if your want to open a custom action:
     This bundle automatically exposes routes with the FOSJsRoutingBundle_
     to allow the tree to work.
 
+Read On
+-------
+
+* :doc:`configuration`
+
 .. _`Packagist`: https://packagist.org/packages/symfony-cmf/tree-browser-bundle
 .. _`with composer`: http://getcomposer.org
 .. _`FOSJsRoutingBundle`: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle

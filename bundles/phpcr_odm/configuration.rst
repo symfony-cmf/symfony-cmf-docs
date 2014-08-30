@@ -1,22 +1,13 @@
-DoctrinePHPCRBundle Configuration
-=================================
+Configuration Reference
+=======================
 
-The DoctrinePHPCRBundle provides integration with the PHP content
-repository and optionally with Doctrine PHPCR-ODM to provide the ODM document
-manager in Symfony.
+The DoctrinePHPCRBundle can be configured under the ``doctrine_phpcr`` key in
+your application configuration. When using XML, you can use the
+``http://doctrine-project.org/schema/symfony-dic/odm/phpcr`` namespace.
 
-It can be configured under the ``doctrine_phpcr`` key in your application
-configuration.
 
 Configuration
 -------------
-
-.. tip::
-
-    If you want to only use plain PHPCR without the PHPCR-ODM, you can simply
-    not configure the ``odm`` section to avoid loading the services at all.
-    Note that most CMF bundles by default use PHPCR-ODM documents and thus
-    need ODM enabled.
 
 session
 ~~~~~~~
@@ -24,7 +15,7 @@ session
 .. tip::
 
     You can also configure multiple session. See
-    :doc:`../../bundles/phpcr_odm/multiple_sessions` for details.
+    :doc:`../phpcr_odm/multiple_sessions` for details.
 
 .. configuration-block::
 
@@ -430,8 +421,15 @@ not configure anything here, the ODM services will not be loaded.
 
 .. tip::
 
+    If you want to only use plain PHPCR without the PHPCR-ODM, you can simply
+    not configure the ``odm`` section to avoid loading the services at all.
+    Note that most CMF bundles by default use PHPCR-ODM documents and thus
+    need ODM enabled.
+
+.. tip::
+
     You can also configure multiple document managers. See
-    :doc:`../../bundles/phpcr_odm/multiple_sessions` for details.
+    :doc:`../phpcr_odm/multiple_sessions` for details.
 
 .. configuration-block::
 

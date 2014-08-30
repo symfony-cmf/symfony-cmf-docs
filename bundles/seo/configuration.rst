@@ -1,10 +1,9 @@
-SeoBundle Configuration
+Configuration Reference
 =======================
 
-The SeoBundle takes care of the SEO information of a page and can be
-configured under the ``cmf_seo`` key in your application configuration. When
-using XML, you can use the ``http://cmf.symfony.com/schema/dic/seo``
-namespace.
+The SeoBundle can be configured under the ``cmf_seo`` key in your application
+configuration. When using XML, you can use the
+``http://cmf.symfony.com/schema/dic/seo`` namespace.
 
 Configuration
 -------------
@@ -60,12 +59,12 @@ phpcr
 enabled
 *******
 
-.. include:: partials/persistence_phpcr_enabled.rst.inc
+.. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
 manager_name
 ************
 
-.. include:: partials/persistence_phpcr_manager_name.rst.inc
+.. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
 translation_domain
 ~~~~~~~~~~~~~~~~~~
@@ -124,7 +123,7 @@ enabled
 If ``true``, the Sonata Admin Extension will be activated. If set to ``auto``,
 it is activated only if the SonataPhpcrAdminBundle is present.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to the value
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to the value
 of ``cmf_core.persistence.phpcr.use_sonata_admin``.
 
 form_group

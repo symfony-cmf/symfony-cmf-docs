@@ -1,9 +1,9 @@
-SimpleCmsBundle Configuration
-=============================
+Configuration Reference
+=======================
 
-The SimpleCmsBundle provide a simple CMS solution and can be configured under
-the ``cmf_simple_cms`` key in your application configuration. When using
-XML, you can use the ``http://cmf.symfony.com/schema/dic/simplecms`` namespace.
+The SimpleCmsBundle can be configured under the ``cmf_simple_cms`` key in your
+application configuration. When using XML, you can use the
+``http://cmf.symfony.com/schema/dic/simplecms`` namespace.
 
 Configuration
 -------------
@@ -79,7 +79,7 @@ is the following configuration:
 enabled
 """""""
 
-.. include:: partials/persistence_phpcr_enabled.rst.inc
+.. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
 basepath
 """"""""
@@ -88,7 +88,7 @@ basepath
 
 The basepath for CMS documents in the PHPCR tree.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/simple``.
 
 manager_registry
@@ -96,13 +96,13 @@ manager_registry
 
 **type**: ``string`` **default**: ``doctrine_phpcr``
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 the value of ``cmf_core.persistence.phpcr.manager_registry``.
 
 manager_name
 """"""""""""
 
-.. include:: partials/persistence_phpcr_manager_name.rst.inc
+.. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
 document_class
 """"""""""""""
@@ -120,7 +120,7 @@ If ``true``, the admin classes for SimpleCmsBundle pages are activated. If set
 to ``auto``, the admin services are activated only if the
 SonataPhpcrAdminBundle is present.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to the value
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to the value
 of ``cmf_core.persistence.phpcr.use_sonata_admin``.
 
 sonata_admin.sort

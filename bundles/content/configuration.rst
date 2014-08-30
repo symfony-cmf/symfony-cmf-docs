@@ -1,9 +1,8 @@
-ContentBundle configuration
-===========================
+Configuration Reference
+=======================
 
-The ContentBundle provides a document and controller for static content and
-can be configured under the ``cmf_content`` key in your application
-configuration. When using XML, you can use the
+The ContentBundle can be configured under the ``cmf_content`` key in your
+application configuration. When using XML, you can use the
 ``http://cmf.symfony.com/schema/dic/content`` namespace.
 
 Configuration
@@ -74,7 +73,7 @@ is the following configuration:
 enabled
 *******
 
-.. include:: partials/persistence_phpcr_enabled.rst.inc
+.. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
 admin_class
 ***********
@@ -106,5 +105,5 @@ If ``true``, the admin classes for SimpleCmsBundle pages are activated. If set
 to ``auto``, the admin services are activated only if the
 SonataPhpcrAdminBundle is present.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will
 default to the value of ``cmf_core.persistence.phpcr.use_sonata_admin``.

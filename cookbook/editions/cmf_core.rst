@@ -156,7 +156,6 @@ If you want to support multiple languages, have a look at
 :doc:`../../book/handling_multilang`.
 
 Then have a look at the individual :doc:`bundles <../../bundles/index>` you are
-interested in, and find the details on the configuration in the
-:doc:`bundles configuration reference <../../reference/index>`.
+interested in.
 
 .. _`Installation of Symfony2`: http://symfony.com/doc/current/book/installation.html

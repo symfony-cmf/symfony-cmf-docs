@@ -7,3 +7,4 @@ MediaBundle
     introduction
     form_types
     adapters/index
+    configuration

@@ -390,6 +390,7 @@ Read on
 * :doc:`create_your_own_blocks`
 * :doc:`cache`
 * :doc:`relation_to_sonata_block_bundle`
+* :doc:`configuration`
 
 .. _`symfony-cmf/block-bundle`: https://packagist.org/packages/symfony-cmf/block-bundle
 .. _`with composer`: http://getcomposer.org

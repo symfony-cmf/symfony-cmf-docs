@@ -1,9 +1,9 @@
-RoutingBundle Configuration
-===========================
+Configuration Reference
+=======================
 
-The RoutingBundle contains the Routing logic of the CMF and can be configured
-under the ``cmf_routing`` key in your application configuration. When using
-XML, you can use the ``http://cmf.symfony.com/schema/dic/routing`` namespace.
+The RoutingBundle can be configured under the ``cmf_routing`` key in your
+application configuration. When using XML, you can use the
+``http://cmf.symfony.com/schema/dic/routing`` namespace.
 
 Configuration
 -------------
@@ -128,8 +128,8 @@ no explicit controller. The value is the name of a controller using either the
 ``AcmeDemoBundle::Page::index`` or ``acme_demo.controller.page:indexAction``
 notation.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` and
-:doc:`ContentBundle <../../bundles/content/index>` are registered, this
+If the :doc:`CoreBundle <../core/introduction>` and
+:doc:`ContentBundle <../content/introduction>` are registered, this
 defaults to ``cmf_content.controller:indexAction``.
 
 default_controller
@@ -371,12 +371,12 @@ phpcr
 enabled
 *******
 
-.. include:: partials/persistence_phpcr_enabled.rst.inc
+.. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
 manager_name
 ************
 
-.. include:: partials/persistence_phpcr_manager_name.rst.inc
+.. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
 route_basepaths
 ***************
@@ -385,9 +385,9 @@ route_basepaths
 
 The basepaths where to look for routes in the PHPCR tree.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will
 default to ``%cmf_core.persistence.phpcr.basepath%/routes``. If the
-:doc:`SimpleCmsBundle <../../bundles/simple_cms/index>` is registered as well,
+:doc:`SimpleCmsBundle <../simple_cms/introduction>` is registered as well,
 this will additionally default to ``%cmf_core.persistence.phpcr.basepath%/simple``.
 
 content_basepath
@@ -398,7 +398,7 @@ content_basepath
 The basepath for content objects in the PHPCR tree. This information is used
 with the sonata admin to offer the correct subtree to select content documents.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will default to
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 ``%cmf_core.persistence.phpcr.basepath%/content``.
 
 admin_basepath
@@ -424,7 +424,7 @@ SonataPhpcrAdminBundle is present.
     configure it to show the items ``cmf_routing.route_admin`` and
     ``cmf_routing.redirect_route_admin``.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will
 default to the value of ``cmf_core.persistence.phpcr.use_sonata_admin``.
 
 enable_initializer
@@ -542,7 +542,7 @@ locales
 
 To enable multilanguage, set the valid locales in this option.
 
-If the :doc:`CoreBundle <../../bundles/core/index>` is registered, this will
+If the :doc:`CoreBundle <../core/introduction>` is registered, this will
 default to the value of ``cmf_core.locales``.
 
 limit_candidates
@@ -573,7 +573,7 @@ For example, when the ``locales`` are ``de`` and ``en`` and the request has the
 url ``de/my/path``, the route provider will not only look for ``de/my/path``,
 ``de/my`` and ``de`` but also for ``my/path`` and ``my``. This allows to use a
 single route for multiple languages. This is used for example by the
-:doc:`SimpleCms <../../bundles/simple_cms/index>`.
+:doc:`SimpleCms <../simple_cms/introduction>`.
 
 If you do not need this, disabling the option will gain some performance.
 
