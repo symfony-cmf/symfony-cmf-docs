@@ -114,7 +114,8 @@ to which you will add the existing ``Home`` page and an additional ``About`` pag
     {
         public function load(ObjectManager $dm)
         {
-            // ...
+            $parent = $dm->find(null, '/cms/pages');
+
             $rootPage = new Page();
             $rootPage->setTitle('main');
             $rootPage->setParentDocument($parent);
