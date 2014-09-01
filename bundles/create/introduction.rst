@@ -584,6 +584,7 @@ Read On
 
 * :doc:`developing-hallo`
 * :doc:`other-editors`
+* :doc:`workflows`
 * :doc:`configuration`
 
 .. _`create.js`: http://createjs.org
