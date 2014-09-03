@@ -332,7 +332,7 @@ container configuration:
 
     .. code-block:: yaml
 
-            # src/Acme/BasicCmsBundle/Resources/config/config.yml
+            # src/Acme/BasicCmsBundle/Resources/config/services.yml
             services:
                 acme.basic_cms.admin.page:
                     class: Acme\BasicCmsBundle\Admin\PageAdmin
@@ -357,7 +357,7 @@ container configuration:
 
     .. code-block:: xml
 
-        <!-- src/Acme/BasicCmsBundle/Resources/config/config.yml -->
+        <!-- src/Acme/BasicCmsBundle/Resources/config/services.yml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -407,7 +407,7 @@ container configuration:
 
     .. code-block:: php
 
-            // src/Acme/BasicCmsBundle/Resources/config/config.php
+            // src/Acme/BasicCmsBundle/Resources/config/services.php
             use Symfony\Component\DependencyInjection\Reference;
             // ...
 
