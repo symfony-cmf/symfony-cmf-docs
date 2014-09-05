@@ -103,7 +103,7 @@ node::
 
         public function init(ManagerRegistry $registry)
         {
-            $dm = $registry->getManagerForClass('Acme\BasicCmsBundle\Document\Site');
+            $dm = $registry->getManager();
             if ($dm->find(null, $this->basePath)) {
                 return;
             }
@@ -135,8 +135,8 @@ node::
     documents in initializers. With 1.0, you would need to manually set the
     ``phpcr:class`` property to the right value.
 
-Now modify the existing service configuration for ``GenericInitializer`` as
-follows:
+Now *remove* the old initializer service (``acme_basiccms.basic_cms.phpcr.initializer``) and
+register your new site initializer:
 
 .. configuration-block::
 
@@ -188,8 +188,6 @@ Now empty your repository, reinitialize it and reload your fixtures:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:remove /cms
-    $ php app/console doctrine:phpcr:repository:init
     $ php app/console doctrine:phpcr:fixtures:load
 
 and verify that the ``cms`` node has been created correctly, using the
@@ -218,6 +216,55 @@ and verify that the ``cms`` node has been created correctly, using the
     another initializer which is run first and create the ``/cms`` document
     with the right class. The drawback then is that there are two places where
     initialization choices take place - do whatever you prefer.
+
+Reconfigure the Admin Tree
+--------------------------
+
+If you look at your admin interface now, you will notice that the tree has
+gone!
+
+You need to tell the admin tree about the new ``Site`` document which is now
+the root of your websites content tree:
+
+.. code-block:: yaml
+
+        Acme\BasicCmsBundle\Document\Site:
+            valid_children:
+                - all
+
+If you check your admin interface you will see that the ``Site`` document is
+showing, however it has no children. You need to map the children on the
+``Site`` document, modify it as follows:
+
+.. code-block:: php
+
+    <?php
+
+    // src/Acme/BasicCmsBundle/Document/Site.php
+
+    // ... 
+
+    /**
+     * @PHPCR\Document()
+     */
+    class Site
+    {
+        // ...
+
+        /**
+         * @PHPCR\Children()
+         */
+        protected $children;
+
+        public function getChildren()
+        {
+            return $this->children;
+        }
+
+        // ...
+    }
+
+The tree should now again show your website structure.
 
 Create the Make Homepage Button
 -------------------------------
