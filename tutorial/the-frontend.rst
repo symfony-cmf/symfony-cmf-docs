@@ -158,7 +158,7 @@ configuration:
 
     .. code-block:: yaml
 
-        # src/Acme/BasicCmsBundle/Resources/config/config.yml
+        # src/Acme/BasicCmsBundle/Resources/config/services.yml
         services:
             acme.basic_cms.menu_provider:
                 class: Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider
@@ -204,7 +204,7 @@ configuration:
 
     .. code-block:: php
 
-        // src/Acme/BasicCmsBundle/Resources/config/config.php
+        // src/Acme/BasicCmsBundle/Resources/config/services.php
         use Symfony\Component\DependencyInjection\Reference;
         // ...
 
