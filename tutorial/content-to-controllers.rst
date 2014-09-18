@@ -97,8 +97,9 @@ Now create the action in the default controller - you can pass the ``Page``
 object and all the ``Posts`` to the view::
 
     // src/Acme/BasicCmsBundle/Controller/DefaultController.php
-
+        
     // ...
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
     class DefaultController extends Controller
     {
         // ...
