@@ -332,7 +332,7 @@ container configuration:
 
     .. code-block:: yaml
 
-            # src/Acme/BasicCmsBundle/Resources/config/config.yml
+            # src/Acme/BasicCmsBundle/Resources/config/services.yml
             services:
                 acme.basic_cms.admin.page:
                     class: Acme\BasicCmsBundle\Admin\PageAdmin
