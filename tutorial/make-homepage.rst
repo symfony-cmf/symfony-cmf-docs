@@ -142,7 +142,7 @@ follows:
 
     .. code-block:: yaml
 
-        # src/Acme/BasicCmsBundle/Resources/config/config.yml
+        # src/Acme/BasicCmsBundle/Resources/config/services.yml
         services:
             # ...
             acme_basiccms.phpcr.initializer.site:
@@ -152,7 +152,7 @@ follows:
 
     .. code-block:: xml
 
-        <!-- src/Acme/BasicCmsBUndle/Resources/config/config.php
+        <!-- src/Acme/BasicCmsBUndle/Resources/config/services.xml
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -173,7 +173,7 @@ follows:
 
     .. code-block:: php
 
-        // src/Acme/BasicCmsBundle/Resources/config/config.php
+        // src/Acme/BasicCmsBundle/Resources/config/services.php
 
         //  ...
         $container
