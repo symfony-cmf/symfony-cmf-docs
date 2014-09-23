@@ -100,8 +100,8 @@ document could be defined as follows:
         Acme\ForumBundle\Document\Topic:
             uri_schema: /my-forum/{category}/{title}
             token_providers:
-            category: [content_method, { method: getCategoryTitle, slugify: true }]
-            title: [content_method, { method: getTitle }] # slugify is true by default
+                category: [content_method, { method: getCategoryTitle, slugify: true }]
+                title: [content_method, { method: getTitle }] # slugify is true by default
 
     .. code-block:: xml
 
