@@ -81,7 +81,7 @@ The only thing to do now is to use the twig helper in your templates:
     </html>
 
 This will render a page with the default title ("Page's default title") as
-title element. The information defined for description and keywords will go
+title element. The information definded for description and keywords will go
 into the correct metatags.
 
 .. seealso::
@@ -127,7 +127,7 @@ Persisting the ``SeoMetadata`` with the document makes it easy to edit for the
 admin, while using the extractors are perfect to easily use values from the
 displayed content.
 
-Both ways are documented in detail in separate sections:
+Both ways are documented in detail in seperate sections:
 
 * :doc:`seo_aware`
 * :doc:`extractors`
@@ -172,7 +172,7 @@ you want to change that to redirect instead, you can set the
             ),
         );
 
-.. _bundles-seo-title-description-template:
+.. _bundles-seo-title-description-emplate:
 
 Defining a Title and Description Template
 -----------------------------------------

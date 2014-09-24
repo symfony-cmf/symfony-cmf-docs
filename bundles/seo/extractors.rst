@@ -33,7 +33,7 @@ Available Extractors
 
 .. note::
 
-    The interfaces live in the ``Symfony\Cmf\Bundle\SeoBundle\Extractor``
+    The interfaces life in the ``Symfony\Cmf\Bundle\SeoBundle\Extractor``
     namespace.
 
 An Example
