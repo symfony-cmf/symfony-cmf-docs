@@ -20,11 +20,10 @@ phpcr
 
         # app/config/config.yml
         cmf_seo:
-            dynamic:
-                persistence:
-                    phpcr:
-                        enabled: false
-                        manager_name: ~
+            persistence:
+                phpcr:
+                    enabled: false
+                    manager_name: ~
 
     .. code-block:: xml
 
@@ -32,26 +31,22 @@ phpcr
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/seo">
-                <dynamic>
-                    <persistence>
-                        <phpcr
-                            enabled="false"
-                            manager-name="null"
-                        />
-                    </persistence>
-                </dynamic>
+                <persistence>
+                    <phpcr
+                        enabled="false"
+                        manager-name="null"
+                    />
+                </persistence>
             </config>
         </container>
 
     .. code-block:: php
 
         $container->loadFromExtension('cmf_seo', array(
-            'dynamic' => array(
-                'persistence' => array(
-                    'phpcr' => array(
-                        'enabled' => false,
-                        'manager_name' => null,
-                    ),
+            'persistence' => array(
+                'phpcr' => array(
+                    'enabled' => false,
+                    'manager_name' => null,
                 ),
             ),
         ));
@@ -72,7 +67,7 @@ translation_domain
 **type**: ``string`` **default**: ``messages``
 
 The translation domain to use when translating the title and description
-template. See :ref:`bundles-seo-title-description-emplate` for more
+template. See :ref:`bundles-seo-title-description-template` for more
 information.
 
 
@@ -81,7 +76,7 @@ title
 
 **type**: ``string`` **default**: ``null``
 
-The title template, read :ref:`here <bundles-seo-title-description-emplate>`
+The title template, read :ref:`here <bundles-seo-title-description-template>`
 about the usage.
 
 description
@@ -89,7 +84,7 @@ description
 
 **type**: ``string`` **default**: ``null``
 
-The description template, read :ref:`here <bundles-seo-title-description-emplate>`
+The description template, read :ref:`here <bundles-seo-title-description-template>`
 about the usage.
 
 original_route_pattern

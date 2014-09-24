@@ -2,7 +2,7 @@ Saving the SeoMetadata in the Object
 ====================================
 
 The ``SeoMetadata`` can be saved in the object, so you can persist it into the
-database. This option gives admins the possiblity of changing the SEO data for
+database. This option gives admins the possibility of changing the SEO data for
 the document.
 
 In order to save the ``SeoMetadata`` in the object, the object should
