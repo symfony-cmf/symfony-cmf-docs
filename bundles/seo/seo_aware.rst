@@ -2,7 +2,7 @@ Saving the SeoMetadata in the Object
 ====================================
 
 The ``SeoMetadata`` can be saved in the object, so you can persist it into the
-database. This option gives admins the possiblity of changing the SEO data for
+database. This option gives admins the possibility of changing the SEO data for
 the document.
 
 In order to save the ``SeoMetadata`` in the object, the object should
@@ -29,6 +29,11 @@ the ``SeoMetadata``::
             $this->seoMetadata = $metadata;
         }
     }
+
+.. tip::
+
+    If you are using PHP5.4+ you may also benefit from using the trait ``SeoAwareTrait``
+    to plug these behavior into your model.
 
 Now you can set some SEO data for this ``Page`` using the metadata::
 
@@ -220,7 +225,7 @@ object:
             </entity>
         </doctrine-mapping>
 
-You can also choose to put the ``SeoMetadata`` class into a seperate table. To
+You can also choose to put the ``SeoMetadata`` class into a separate table. To
 do this, you have to enable ORM support just like you enabled PHPCR enabled
 above and add a OneToOne or ManyToOne relation between the content entity and
 the ``SeoMetadata`` entity.
@@ -233,7 +238,7 @@ form type can be used in forms to edit the ``SeoMetadata`` object.
 
 .. caution::
 
-    The bundles requires the `BurgovKeyValueFormBundle`_ when using the form
+    The bundle requires the `BurgovKeyValueFormBundle`_ when using the form
     type. Make sure you install and enable it.
 
 Sonata Admin Integration
@@ -241,7 +246,7 @@ Sonata Admin Integration
 
 Besides providing a form type, the bundle also provides a Sonata Admin
 Extension. This extension adds a field for the ``SeoMetadata`` when an admin
-edits an objec that implements the ``SeoAwareInterface`` in the Sonata Admin
+edits an object that implements the ``SeoAwareInterface`` in the Sonata Admin
 panel.
 
 .. caution::
