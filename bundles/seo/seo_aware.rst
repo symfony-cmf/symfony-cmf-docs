@@ -30,8 +30,10 @@ the ``SeoMetadata``::
         }
     }
 
-If you are using PHP5.4+ you may also benefit from using the trait ``SeoAwareTrait``
-to plug these behavior into your model.
+.. tip::
+
+    If you are using PHP5.4+ you may also benefit from using the trait ``SeoAwareTrait``
+    to plug these behavior into your model.
 
 Now you can set some SEO data for this ``Page`` using the metadata::
 
