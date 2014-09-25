@@ -100,6 +100,7 @@ object and all the ``Posts`` to the view::
         
     // ...
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+    
     class DefaultController extends Controller
     {
         // ...
