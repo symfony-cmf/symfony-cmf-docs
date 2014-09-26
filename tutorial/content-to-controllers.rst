@@ -15,7 +15,7 @@ Map the ``$routes`` property to contain a collection of all the routes which ref
 document::
 
     // src/AcmeBundle/BasicCmsBundle/Document/ContentTrait.php
-    
+
     // ...
     trait ContentTrait
     {
