@@ -40,17 +40,20 @@ file in the previous step.
         ...
         require: {
             ...
-            "doctrine/phpcr-bundle": "1.0.0",
+            "doctrine/phpcr-odm": "1.1.*",
             "jackalope/jackalope-doctrine-dbal": "1.1.0",
-            "symfony-cmf/routing-auto-bundle": "dev-master",
-            "symfony-cmf/menu-bundle": "1.2.*",
+    
             "sonata-project/doctrine-phpcr-admin-bundle": "1.1.*",
             "symfony-cmf/tree-browser-bundle": "1.1.x-dev as 1.0",
             "doctrine/data-fixtures": "1.0.*",
             "phpcr/phpcr-utils": "1.1.*",
             "doctrine/phpcr-bundle": "1.1.*",
+            "symfony-cmf/core-bundle": "1.2.*@dev",
             "symfony-cmf/routing-bundle": "1.2.*",
-            "symfony-cmf/routing": "1.2.*"
+            "symfony-cmf/routing": "1.2.*",
+            "symfony-cmf/menu-bundle": "1.2.*@dev",
+            "symfony-cmf/routing-auto": "1.0.*dev",
+            "symfony-cmf/routing-auto-bundle": "dev-master"
         },
         ...
     }
