@@ -15,7 +15,7 @@ Map the ``$routes`` property to contain a collection of all the routes which ref
 document::
 
     // src/AcmeBundle/BasicCmsBundle/Document/ContentTrait.php
-    
+
     // ...
     trait ContentTrait
     {
@@ -97,8 +97,10 @@ Now create the action in the default controller - you can pass the ``Page``
 object and all the ``Posts`` to the view::
 
     // src/Acme/BasicCmsBundle/Controller/DefaultController.php
-
+        
     // ...
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+    
     class DefaultController extends Controller
     {
         // ...
