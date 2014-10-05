@@ -37,23 +37,24 @@ The result will be the PHPCR tree:
 
     ROOT:
       cms:
-        content:
-        blocks:
-            hero_unit:
-            quick_tour:
-            configure:
-            demo:
         simple:
-        home:
-        demo:
-        quick_tour:
-        login:
-        menu:
+          about:
+          contact:
+            map:
+            team:
+          quick_tour:
+          dynamic:
+          docs:
+          demo:
+          demo_redirect:
+          hardcoded_dynamic:
+          hardcoded_static:
 
 Each data is called a *node* in PHPCR. In this tree, there are 13 nodes and
 one ROOT node (created by PHPCR). You may have already seen the document you
 created in the previous section, it's called ``quick_tour`` (and it's path is
-``/cms/simple/quick_tour``).
+``/cms/simple/quick_tour``). When using the SimpleCmsBundle, all nodes are
+stored in the ``/cms/simple`` path.
 
 Each node has properties, which contain the data. The content, title and label
 you set for your page are saved in such properties for the ``quick_tour``
@@ -62,8 +63,8 @@ dump command.
 
 .. note::
 
-    Previously, the PHPCR tree was compared with a Filesystem. While this
-    gives you a good imagine of what happends, it's not the truth. You can
+    Previously, the PHPCR tree was compared with a FileSystem. While this
+    gives you a good image of what happens, it's not the truth. You can
     better compare it to an XML file, where each node is an element and its
     properties are attributes.
 
@@ -84,10 +85,10 @@ a page by using a yaml file which was parsed by the SimpleCmsBundle. This
 time, you'll create a page by doing it yourself.
 
 First, you have to create a new DataFixture to add your new page. You do this
-by creating a new class in the AcmeDemoBundle::
+by creating a new class in the AcmeMainBundle::
 
-    // src/Acme/DemoBundle/DataFixtures/PHPCR/LoadPageData.php
-    namespace Acme\DemoBundle\DataFixtures\PHPCR;
+    // src/Acme/MainBundle/DataFixtures/PHPCR/LoadPageData.php
+    namespace Acme\MainBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -97,11 +98,11 @@ by creating a new class in the AcmeDemoBundle::
     {
         public function getOrder()
         {
-            // refers to the order in which the class' load function is called
+            // refers to the order in which the class' load function is called 
             // (lower return values are called first)
             return 10;
         }
-
+    
         public function load(ObjectManager $documentManager)
         {
         }
@@ -134,7 +135,7 @@ it as its parent::
         // get root document (/cms/simple)
         $simpleCmsRoot = $documentManager->find(null, '/cms/simple');
 
-        $page->setParentDocument($simpleCmsRoot); // set the parent to the root
+        $page->setParent($simpleCmsRoot); // set the parent to the root
     }
 
 And at last, we have to tell the Document Manager to persist our Page
