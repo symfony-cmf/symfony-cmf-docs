@@ -26,7 +26,7 @@ to generate the REST output. The best choice is the JMSSerializerBundle:
         "require": {
             ...
             "friendsofsymfony/rest-bundle": "1.*",
-            "jms/serializer-bundle": "0.13.*",
+            "jms/serializer-bundle": "0.13.*"
         }
     }
 
