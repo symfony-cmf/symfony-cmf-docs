@@ -190,7 +190,7 @@ You can now proceed to mapping your documents, create the following in your
             </mapping>
 
             <mapping class="Acme\BasicCmsBundle\Document\Post"
-                extends="Acme\BasicCmsBundle\Document\Page"
+                extend="Acme\BasicCmsBundle\Document\Page"
                 uri-schema="/post/{date}/{title}">
 
                 <token-provider token="date" name="content_datetime">
