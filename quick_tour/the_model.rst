@@ -135,7 +135,7 @@ it as its parent::
         // get root document (/cms/simple)
         $simpleCmsRoot = $documentManager->find(null, '/cms/simple');
 
-        $page->setParent($simpleCmsRoot); // set the parent to the root
+        $page->setParentDocument($simpleCmsRoot); // set the parent to the root
     }
 
 And at last, we have to tell the Document Manager to persist our Page
