@@ -332,7 +332,7 @@ To disable the menu content voter, use:
 
     .. code-block:: yaml
 
-        cmf_menu:
+        cmf_core:
             publish_workflow:
                 enabled: false
 
@@ -341,7 +341,7 @@ To disable the menu content voter, use:
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
-            <config xmlns="http://cmf.symfony.com/schema/dic/menu">
+            <config xmlns="http://cmf.symfony.com/schema/dic/core">
                 <publish-workflow
                     enabled="false"
                 />
@@ -350,7 +350,7 @@ To disable the menu content voter, use:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_menu', array(
+        $container->loadFromExtension('cmf_core', array(
             'publish_workflow' => array(
                 'enabled' => false,
             ),

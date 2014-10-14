@@ -110,7 +110,7 @@ object and all the ``Posts`` to the view::
          */
         public function pageAction($contentDocument)
         {
-            $dm = $this->get('doctrine_phpcr')->getManagerForClass('AcmeBasicCmsBundle:Post');
+            $dm = $this->get('doctrine_phpcr')->getManager();
             $posts = $dm->getRepository('AcmeBasicCmsBundle:Post')->findAll();
 
             return array(
@@ -156,6 +156,10 @@ Add a corresponding Twig template (note that this works because you use the
         </ul>
 
 Now have another look at: http://localhost:8000/page/home
+
+.. note::
+
+    If you get an error, try clearing the cache.
 
 Notice what is happening with the post object and the ``path`` function  - you
 pass the ``Post`` object and the ``path`` function will pass the object to the
