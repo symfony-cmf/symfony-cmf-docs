@@ -81,7 +81,7 @@ Then you can add images to document forms as follows::
          ;
     }
 
-.. tip::
+**Tip**:
 
    If you set required to ``true`` for the image, the user must re-upload a
    new image each time they edit the form. If the document must have an image,
@@ -134,7 +134,7 @@ To delete an image, you need to delete the document containing the image.
 (There is a proposal to improve the user experience for that in a
 `MediaBundle issue`_.)
 
-.. note::
+**Note**:
 
     There is a Doctrine listener to invalidate the imagine cache for the
     filters you specified. This listener will only operate when an Image is
