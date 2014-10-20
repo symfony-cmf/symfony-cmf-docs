@@ -108,8 +108,13 @@ first level of child items. Modify your fixtures to declare a root element
 to which you will add the existing ``Home`` page and an additional ``About`` page::
 
     // src/Acme/BasicCmsBundle/DataFixtures/Phpcr/LoadPageData.php
+    namespace Acme\DemoBundle\DataFixtures\PHPCR;
 
-    // ...
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\ODM\PHPCR\DocumentManager;
+    use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
+
     class LoadPageData implements FixtureInterface
     {
         public function load(ObjectManager $dm)
