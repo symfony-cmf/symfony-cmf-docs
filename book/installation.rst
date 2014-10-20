@@ -128,13 +128,19 @@ And then access the CMF via:
 
     http://localhost:8000
 
-Or if you run a default apache installation:
+
+Or if you run a default apache installation like described in the cookbook of symfony (http://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html):
 
 .. code-block:: text
 
     http://localhost/app_dev.php
     
-Notice that the AcmeDemoBundle is only accessible in the dev environment.
+.. note::
+
+    Adding the ``app_dev.php`` to the url in your browser is important to actually 
+    see the test page. Because the AcmeDemoBundle is only configured to work with the 
+    Development Environment. (If you have a look at ``AppKernel.php`` you can easily
+    spot why)
 
 .. sidebar:: Using Other Database Backends
 
