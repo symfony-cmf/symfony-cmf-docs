@@ -49,8 +49,10 @@ To create a page, use the
     // // src/Acme/MainBundle/DataFixtures/PHPCR/LoadSimpleCms.php
     namespace Acme\DemoBundle\DataFixtures\PHPCR;
 
-    use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\ODM\PHPCR\DocumentManager;
+    use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
 
     class LoadSimpleCms implements FixtureInterface
     {
@@ -97,8 +99,10 @@ structure, you would do::
     // // src/Acme/MainBundle/DataFixtures/PHPCR/LoadSimpleCms.php
     namespace Acme\DemoBundle\DataFixtures\PHPCR;
 
-    use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\ODM\PHPCR\DocumentManager;
+    use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
 
     class LoadSimpleCms implements FixtureInterface
     {
