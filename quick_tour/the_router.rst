@@ -47,7 +47,7 @@ other examples:
             /about       # /about Route
             /contact     # /contact Route
                 /team    # /contact/team Route
-                /docs    # /docs Route
+                /docs    # /contact/docs Route
 
 OK, you got it? The only thing the Router has to do is prefix the route with a
 specific path prefix and load that document. In the case of the SimpleCmsBundle,

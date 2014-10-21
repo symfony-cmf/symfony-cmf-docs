@@ -404,6 +404,8 @@ the page action::
     // src/Acme/BasicCmsBundle/Controller/DefaultController.php
 
     // ...
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
     class DefaultController extends Controller
     {
         // ...
