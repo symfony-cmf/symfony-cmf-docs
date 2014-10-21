@@ -1,0 +1,23 @@
+---------------------------------------------------------------------------
+
+by dbu at 2014-07-30T15:35:51Z
+
+this affects the next upcoming version, not the current one. if i am not mistaken, the PR needs to go against the dev branch.
+
+---------------------------------------------------------------------------
+
+by WouterJ at 2014-07-30T15:41:24Z
+
+indeed, @dbu is correct. But I can cherry pick it easily in that branch, there is no need to create a new PR.
+
+---------------------------------------------------------------------------
+
+by JJK801 at 2014-07-30T15:59:17Z
+
+@dbu @WouterJ aw, sorry :/
+
+---------------------------------------------------------------------------
+
+by dbu at 2014-10-20T21:02:19Z
+
+@WouterJ did you ever cherry-pick this? once its moved to dev we can close this. afaik its needed for the MediaBundle 1.2 as we bumped the LiipImagineBundle
