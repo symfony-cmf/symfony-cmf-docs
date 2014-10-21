@@ -128,6 +128,21 @@ And then access the CMF via:
 
     http://localhost:8000
 
+
+If you run an Apache installation as described in the `Symfony cookbook article on setup`_,
+your URL will look like this:
+
+.. code-block:: text
+
+    http://localhost/app_dev.php
+
+.. note::
+
+    Adding the ``app_dev.php`` to the url in your browser is important to actually
+    see the test page. Because the AcmeDemoBundle is only configured to work with the
+    Development Environment. (If you have a look at ``AppKernel.php`` you can easily
+    spot why)
+
 .. sidebar:: Using Other Database Backends
 
     If you prefer to use another database backend, for example MySQL, run the
@@ -254,3 +269,4 @@ and then run the following command:
 .. _`guidelines in the symfony book`: http://symfony.com/doc/master/book/installation.html#configuration-and-setup
 .. _`the Symfony2 book`: http://symfony.com/doc/current/book/
 .. _`Fixtures`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
+.. _`Symfony cookbook article on setup`: http://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html
