@@ -60,7 +60,7 @@ and then get the Symfony CMF code with it (this may take a while):
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony-cmf/standard-edition <path-to-install> ~1.1
+    $ composer create-project symfony-cmf/standard-edition <path-to-install> ~1.1
     $ cd <path-to-install>
 
 .. note::
