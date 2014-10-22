@@ -44,7 +44,7 @@ And then run:
 
 .. code-block:: bash
 
-    $ php composer.phar update
+    $ php composer update
 
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~
