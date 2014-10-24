@@ -256,6 +256,11 @@ routing configuration to enable the REST end point for saving content:
         $collection->addCollection($loader->import("@CmfCreateBundle/Resources/config/routing/rest.xml"));
 
         return $collection;
+        
+.. tip::
+
+    If you don't want these routes to be prefixed by the current locale, you can
+    use the ``@CmfCreateBundle/Resources/config/routing/rest_no_locale.xml`` file instead.
 
 If you have the :doc:`MediaBundle <../media/index>` present in your project as well, you
 additionally need to register the route for the image upload handler:
