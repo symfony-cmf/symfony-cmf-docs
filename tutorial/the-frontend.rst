@@ -21,7 +21,6 @@ dependency, :doc:`CoreBundle <../bundles/core/introduction>`, to your kernel::
         {
             $bundles = array(
                 // ...
-                new Knp\Bundle\MenuBundle\KnpMenuBundle(),
                 new Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
                 new Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
             );
@@ -30,11 +29,18 @@ dependency, :doc:`CoreBundle <../bundles/core/introduction>`, to your kernel::
         }
     }
 
+.. note::
+
+    The KnpMenuBundle is also required but was already included in the
+    :doc:`sonata-admin` chapter. If you skipped that chapter be sure to add
+    this bundle now.
+
 Modify the Page Document
 ------------------------
 
 The menu document has to implement the ``Knp\Menu\NodeInterface``
-provided by the KnpMenuBundle::
+provided by the KnpMenuBundle. Modify the Page document so that it
+implements the this interface::
 
     // src/Acme/BasicCmsBundle/Document/Page.php
     namespace Acme\BasicCmsBundle\Document;
@@ -43,6 +49,14 @@ provided by the KnpMenuBundle::
     use Knp\Menu\NodeInterface;
 
     use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+
+    class Page implements RouteReferrersReadInterface, NodeInterface
+
+Now add the following to the document to fulfil the contract::
+
+    // src/Acme/BasicCmsBundle/Document/Page.php
+
+    // ...
 
     class Page implements RouteReferrersReadInterface, NodeInterface
     {
