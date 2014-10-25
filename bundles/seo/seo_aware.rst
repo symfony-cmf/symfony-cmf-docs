@@ -156,6 +156,11 @@ And after that, you can use the
     {
         public function load(ObjectManager $manager)
         {
+            if (!$dm instanceof DocumentManager) {
+                $class = get_class($dm);
+                throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+            }
+
             $page = new Page();
             // ... set some page properties
 

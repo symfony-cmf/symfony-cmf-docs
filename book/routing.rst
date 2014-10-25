@@ -461,6 +461,11 @@ follows::
          */
         public function load(ObjectManager $dm)
         {
+            if (!$dm instanceof DocumentManager) {
+                $class = get_class($dm);
+                throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+            }
+
             $route = new Route();
             $route->setParentDocument($dm->find(null, '/cms/routes'));
             $route->setName('projects');

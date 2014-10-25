@@ -116,6 +116,11 @@ PHPCR. But first, you have to create a new Page document::
     // ...
     public function load(ObjectManager $documentManager)
     {
+        if (!$documentManager instanceof DocumentManager) {
+            $class = get_class($documentManager);
+            throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+        }
+
         $page = new Page(); // create a new Page object (document)
         $page->setName('new_page'); // the name of the node
         $page->setLabel('Another new Page');
@@ -130,6 +135,11 @@ it as its parent::
     // ...
     public function load(ObjectManager $documentManager)
     {
+        if (!$documentManager instanceof DocumentManager) {
+            $class = get_class($documentManager);
+            throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+        }
+
         // ...
 
         // get root document (/cms/simple)
@@ -144,6 +154,11 @@ document using the Doctrine API::
     // ...
     public function load(ObjectManager $documentManager)
     {
+        if (!$documentManager instanceof DocumentManager) {
+            $class = get_class($documentManager);
+            throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+        }
+
         // ...
         $documentManager->persist($page); // add the Page in the queue
         $documentManager->flush(); // add the Page to PHPCR
