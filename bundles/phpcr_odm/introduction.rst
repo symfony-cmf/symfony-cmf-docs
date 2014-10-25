@@ -46,9 +46,9 @@ If you want to use PHPCR-ODM, you additionally need to require
 
     require: {
         ...
-        "jackalope/jackalope-doctrine-dbal": "1.1.*",
-        "doctrine/phpcr-odm": "1.1.*",
-        "doctrine/phpcr-bundle": "1.1.*",
+        "jackalope/jackalope-doctrine-dbal": "1.2.*",
+        "doctrine/phpcr-odm": "1.2.*",
+        "doctrine/phpcr-bundle": "1.2.*",
         ...
     }
 
