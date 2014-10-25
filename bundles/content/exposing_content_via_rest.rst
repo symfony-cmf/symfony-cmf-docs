@@ -43,7 +43,7 @@ Then use Composer_ to update your projects vendors:
 
 .. code-block:: bash
 
-    $ php composer update
+    $ composer update
 
 Configuring FOSRestBundle
 -------------------------

@@ -48,9 +48,8 @@ and then get the Symfony CMF code with it (this may take a while):
 
 .. code-block:: bash
 
-    $ php composer create-project --no-install symfony-cmf/sandbox <path-to-install> ~1.1
+    $ composer create-project --no-install symfony-cmf/sandbox <path-to-install> ~1.1
     $ cd <path-to-install>
-    $ mv ../composer.phar .
 
 Getting the Sandbox Code: GIT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -88,7 +87,7 @@ Next, use composer to install the necessary bundles (this may take a while):
 
 .. code-block:: bash
 
-    $ php composer install
+    $ composer install
 
 .. note::
 

@@ -6,7 +6,7 @@ Jackalope Doctrine DBAL gets better performance when running it with the
 
 .. code-block:: bash
 
-    $ php composer require doctrine/doctrine-cache-bundle:1.0.*
+    $ composer require doctrine/doctrine-cache-bundle:1.0.*
 
 And adding the following entry to your ``app/AppKernel.php``::
 
