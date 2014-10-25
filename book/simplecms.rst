@@ -61,6 +61,11 @@ To create a page, use the
          */
         public function load(ObjectManager $dm)
         {
+            if (!$dm instanceof DocumentManager) {
+                $class = get_class($dm);
+                throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+            }
+
             $parent = $dm->find(null, '/cms/simple');
             $page = new Page();
             $page->setTitle('About Symfony CMF');
@@ -111,6 +116,11 @@ structure, you would do::
          */
         public function load(ObjectManager $dm)
         {
+            if (!$dm instanceof DocumentManager) {
+                $class = get_class($dm);
+                throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+            }
+
             $root = $dm->find(null, '/cms/simple');
 
             $about = new Page();

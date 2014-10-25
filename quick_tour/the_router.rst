@@ -158,6 +158,11 @@ Now you can add a new ``Route`` to the tree using Doctrine::
     {
         public function load(ObjectManager $documentManager)
         {
+            if (!$documentManager instanceof DocumentManager) {
+                $class = get_class($documentManager);
+                throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+            }
+
             $routesRoot = $documentManager->find(null, '/cms/routes');
 
             $route = new Route();

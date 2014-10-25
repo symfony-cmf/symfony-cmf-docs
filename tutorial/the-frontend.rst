@@ -119,6 +119,11 @@ to which you will add the existing ``Home`` page and an additional ``About`` pag
     {
         public function load(ObjectManager $dm)
         {
+            if (!$dm instanceof DocumentManager) {
+                $class = get_class($dm);
+                throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+            }
+
             $parent = $dm->find(null, '/cms/pages');
 
             $rootPage = new Page();
