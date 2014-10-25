@@ -511,7 +511,7 @@ Mapping Requests to Domain Objects
 One last piece is the mapping between CreatePHP data and the application
 domain objects. Data needs to be stored back into the database.
 
-In version 1.0, the CreateBundle only provides a service to map to Doctrine
+Currently, the CreateBundle only provides a service to map to Doctrine
 PHPCR-ODM. If you do not enable the phpcr persistence layer, you need to
 configure the ``cmf_create.object_mapper_service_id``.
 

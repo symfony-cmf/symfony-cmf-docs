@@ -11,8 +11,7 @@ features:
 * Render menus stored in the persistence layer;
 * Generate menu node URLs from linked Content or Route.
 
-Note that only the Doctrine PHPCR-ODM persistence layer is supported in the
-1.0 release.
+Note that only the Doctrine PHPCR-ODM persistence layer is currently supported.
 
 .. caution::
 

@@ -48,7 +48,7 @@ and then get the Symfony CMF code with it (this may take a while):
 
 .. code-block:: bash
 
-    $ composer create-project --no-install symfony-cmf/sandbox <path-to-install> ~1.1
+    $ composer create-project --no-install symfony-cmf/sandbox <path-to-install> ~1.2
     $ cd <path-to-install>
 
 Getting the Sandbox Code: GIT
