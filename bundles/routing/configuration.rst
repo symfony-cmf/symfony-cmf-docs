@@ -441,6 +441,12 @@ is not what you want, as the created node is of type 'Generic' and sometimes thi
 already needs to be a route (for the homepage). Set this to false to disable the
 initializer when you create your nodes your self (e.g. using Alice_).
 
+.. caution::
+
+    The initializer is only run when the sonata admin is enabled. When you
+    don't enable the sonata admin, it is assumed that you created an initializer
+    yourself.
+
 orm
 """
 

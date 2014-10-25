@@ -494,6 +494,14 @@ follows::
 This will give you a document that matches the URL ``/projects/<number>`` but
 also ``/projects`` as there is a default for the id parameter.
 
+.. caution::
+
+    As you can see, the code explicitely creates the ``/cms/routes`` path.
+    The RoutingBundle only creates this path automatically if the Sonata Admin
+    was enabled in the routign configuration. Otherwise, it'll assume you
+    do something yourself to create the path (by configuring an initializer
+    or doing it in a fixture like this).
+
 Because you defined the ``{id}`` route parameter, your controller can expect an
 ``$id`` parameter. Additionally, because you called setRouteContent on the
 route, your controller can expect the ``$contentDocument`` parameter.
