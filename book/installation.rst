@@ -60,7 +60,7 @@ and then get the Symfony CMF code with it (this may take a while):
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony-cmf/standard-edition <path-to-install> ~1.1
+    $ composer create-project symfony-cmf/standard-edition <path-to-install> ~1.2
     $ cd <path-to-install>
 
 .. note::
@@ -76,7 +76,7 @@ to configure the permissions and then run the ``install`` command:
 
 .. code-block:: bash
 
-    $ php composer.phar install
+    $ composer install
 
 2) GIT
 ~~~~~~
@@ -94,7 +94,7 @@ dependencies, use the ``install`` command:
 
 .. code-block:: bash
 
-    $ php composer.phar install
+    $ composer install
 
 
 Set up the Database

@@ -37,14 +37,14 @@ Add the following to your ``composer.json`` file:
 
     "require": {
         ...
-        "symfony-cmf/symfony-cmf": "1.1.*"
+        "symfony-cmf/symfony-cmf": "1.2.*"
     }
 
 And then run:
 
 .. code-block:: bash
 
-    $ php composer.phar update
+    $ composer update
 
 Initialize bundles
 ~~~~~~~~~~~~~~~~~~

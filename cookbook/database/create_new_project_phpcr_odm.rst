@@ -26,7 +26,7 @@ content repository.
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony/framework-standard-edition <your project name>/ --no-install
+    $ composer create-project symfony/framework-standard-edition <your project name>/ --no-install
 
 **Step 2**: Add the required packages to ``composer.json``:
 
@@ -36,9 +36,9 @@ content repository.
         ...
         "require": {
             ...
-            "doctrine/phpcr-bundle": "1.1.*",
-            "doctrine/phpcr-odm": "1.0.*",
-            "jackalope/jackalope-doctrine-dbal": "1.0.0"
+            "doctrine/phpcr-bundle": "1.2.*",
+            "doctrine/phpcr-odm": "1.2.*",
+            "jackalope/jackalope-doctrine-dbal": "1.2.*"
         }
     }
 

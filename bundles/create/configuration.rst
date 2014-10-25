@@ -85,6 +85,7 @@ persistence configuration has the following configuration:
                         model_class:      ~
                         controller_class: Symfony\Cmf\Bundle\CreateBundle\Controller\ImageController
                         basepath:         /cms/media
+                    delete:               false
 
     .. code-block:: xml
 
@@ -95,6 +96,7 @@ persistence configuration has the following configuration:
                     <phpcr
                         enabled="false"
                         manager-name="null"
+                        delete="false"
                     >
                         <image
                             enabled="false"
@@ -120,6 +122,7 @@ persistence configuration has the following configuration:
                         'controller_class' => 'Symfony\Cmf\Bundle\CreateBundle\Controller\ImageController',
                         'basepath'         => '/cms/media',
                     ),
+                    'delete' => false,
                 ),
             ),
         ));
@@ -151,6 +154,14 @@ provided by the MediaBundle.
 
 If you need different image handling, you can either overwrite
 ``model_class`` and/or the ``controller_class``.
+
+delete
+""""""
+**type**: ``boolean`` **default**: ``false``
+
+Set delete to true to enable the simple delete workflow. This allows to directly
+delete content from the frontend. Be careful, there are no special checks once you confirm deletion
+your content is gone.
 
 Metadata Handling
 ~~~~~~~~~~~~~~~~~
@@ -208,7 +219,17 @@ REST handler
 ~~~~~~~~~~~~
 
 You can configure the REST handler class with the ``rest_controller_class``
-option.
+option. Furthermore it is possible to enable ``rest_force_request_locale``.
+When this option is enabled, the current request locale is set on the model
+instance. This is useful in order to automatically translate a model to
+the request locale when using inline editing, instead of editing the model
+in the locale in which it is currently stored, which might be different
+than the request locale due to language fallback.
+
+.. note::
+
+    The ``rest_force_request_locale`` option requires that the
+    :doc:`CoreBundle <../core/introduction>` is enabled.
 
 Editor configuration
 ~~~~~~~~~~~~~~~~~~~~

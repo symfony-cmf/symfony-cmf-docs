@@ -117,15 +117,21 @@ overwrite them) are:
 
     {
         "extra": {
-            "create-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/create",
+            "create-directory": "vendor/symfony-cmf/create-bundle/Resources/public/vendor/create",
             "create-repository": "https://github.com/bergie/create.git",
             "create-commit": "a148ce9633535930d7b4b70cc1088102f5c5eb90"
 
-            "ckeditor-directory": "vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor/ckeditor",
+            "ckeditor-directory": "vendor/symfony-cmf/create-bundle/Resources/public/vendor/ckeditor",
             "ckeditor-repository": "https://github.com/ckeditor/ckeditor-releases.git",
             "ckeditor-commit": "bba29309f93a1ace1e2e3a3bd086025975abbad0"
         }
     }
+
+.. versionadded:: 1.2
+    The Symfony CMF bundles updated to PSR-4 autoloading with Symfony CMF
+    1.2. Before, the target directories were located in the
+    ``vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor``
+    directory.
 
 Add this bundle (and its dependencies, if they are not already added) to your
 application's kernel::
@@ -250,6 +256,11 @@ routing configuration to enable the REST end point for saving content:
         $collection->addCollection($loader->import("@CmfCreateBundle/Resources/config/routing/rest.xml"));
 
         return $collection;
+        
+.. tip::
+
+    If you don't want these routes to be prefixed by the current locale, you can
+    use the ``@CmfCreateBundle/Resources/config/routing/rest_no_locale.xml`` file instead.
 
 If you have the :doc:`MediaBundle <../media/index>` present in your project as well, you
 additionally need to register the route for the image upload handler:
@@ -500,7 +511,7 @@ Mapping Requests to Domain Objects
 One last piece is the mapping between CreatePHP data and the application
 domain objects. Data needs to be stored back into the database.
 
-In version 1.0, the CreateBundle only provides a service to map to Doctrine
+Currently, the CreateBundle only provides a service to map to Doctrine
 PHPCR-ODM. If you do not enable the phpcr persistence layer, you need to
 configure the ``cmf_create.object_mapper_service_id``.
 
@@ -513,13 +524,72 @@ configure the ``cmf_create.object_mapper_service_id``.
 CreatePHP would support specific mappers per RDFa type. If you need that, dig
 into the CreatePHP and CreateBundle and do a pull request to enable this feature.
 
+Workflows
+---------
+
+.. versionadded:: 1.1
+    Support for workflows was introduced in CreateBundle 1.1.
+
+CreateJS uses a REST api for creating, loading and changing content. To delete content
+the HTTP method DELETE is used. Since deleting might be a more complex operation
+than just removing the content form the storage (e.g. getting approval by another
+editor) there is no simple delete button in the user frontend. Instead, CreateJS and
+CreatePHP use "workflows" to implement that. This bundle comes with a simple implementation
+of a workflow to delete content. To enable the workflow set the config option 'delete' to true.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_create:
+            persistence:
+                phpcr:
+                    delete: true
+
+    .. code-block:: xml
+
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/create">
+                <persistence>
+                    <phpcr
+                        delete="true"
+                    >
+                    </phpcr>
+                </persistence>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_create', array(
+            'persistence' => array(
+                'phpcr' => array(
+                    'delete' => true,
+                ),
+            ),
+        ));
+
+This results in the delete workflow being registered with CreatePHP and CreateJS so that
+you can now delete content from the frontend.
+
+.. note::
+
+    The provided workflow supports PHPCR persistence only. It deletes the currently selected
+    content once you confirmed deletion in the frontend. If the currently selected property is
+    a property of the page the whole page is deleted.
+
+In a more complex setup you need to create your own workflow instance, register it with CreatePHP
+and implement your logic in the workflows run method.
+
+Currently the bundle only supports delete workflows but that will change in the future.
+
 Read On
 -------
 
 * :doc:`developing-hallo`
 * :doc:`other-editors`
 * :doc:`configuration`
-
 
 .. _`create.js`: http://createjs.org
 .. _`hallo.js`: http://hallojs.org

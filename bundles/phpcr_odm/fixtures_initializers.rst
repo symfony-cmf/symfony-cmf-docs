@@ -298,6 +298,11 @@ A simple example fixture class looks like this::
     {
         public function load(ObjectManager $manager)
         {
+            if (!$manager instanceof DocumentManager) {
+                $class = get_class($manager);
+                throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+            }
+
             // ... create and persist your data here
         }
     }
