@@ -34,7 +34,7 @@ Then re-run composer:
 
 .. code-block:: bash
 
-    $ php composer.phar run-scripts
+    $ composer run-scripts
 
 In your template, load the JavaScript files using:
 

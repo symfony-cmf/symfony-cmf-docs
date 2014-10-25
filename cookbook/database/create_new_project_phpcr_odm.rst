@@ -26,7 +26,7 @@ content repository.
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony/framework-standard-edition <your project name>/ --no-install
+    $ composer create-project symfony/framework-standard-edition <your project name>/ --no-install
 
 **Step 2**: Add the required packages to ``composer.json``:
 

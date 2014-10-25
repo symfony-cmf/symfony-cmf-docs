@@ -45,7 +45,7 @@ The best way to download the Symfony CMF Standard Edition is using Composer_:
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony-cmf/standard-edition cmf ~1.1
+    $ php composer create-project symfony-cmf/standard-edition cmf ~1.1
 
 Setting up the Database
 ~~~~~~~~~~~~~~~~~~~~~~~
