@@ -2,8 +2,8 @@
     single: Block; Bundles
     single: BlockBundle
 
-The BlockBundle
-===============
+BlockBundle
+===========
 
     This bundle provides integration with `SonataBlockBundle`_. It is used to
     manage fragments of content, so-called blocks, that are persisted in a

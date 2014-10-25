@@ -1,8 +1,8 @@
 .. index::
     single: Core; Bundles; Form Types
 
-Form Types provided by the CoreBundle
-=====================================
+Form Types
+==========
 
 Checkbox URL Label
 ------------------
