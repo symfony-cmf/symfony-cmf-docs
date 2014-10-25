@@ -53,7 +53,7 @@ library or they introduce a complete new concept.
   * :doc:`routing/dynamic_customize`
   * :doc:`routing/configuration`
 
-* :doc:`routing_auto/index` (in development)
+* :doc:`routing_auto/index`
 
   * :doc:`routing_auto/introduction`
   * :doc:`routing_auto/token_providers`
@@ -85,7 +85,7 @@ show a different way of implementing a concept. You can use these bundles in
 your project, but you can also get ideas from these bundles to create your own
 bundle based on the key bundles.
 
-* **BlogBundle** (in development)
+* **BlogBundle** (work in progress)
 
   * :doc:`blog`
 
