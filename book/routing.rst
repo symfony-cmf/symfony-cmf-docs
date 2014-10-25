@@ -453,6 +453,7 @@ follows::
     use Doctrine\Common\Persistence\ObjectManager;
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
     use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
+    use PHPCR\Util\NodeHelper;
 
     class LoadRoutingData implements FixtureInterface
     {
@@ -465,6 +466,8 @@ follows::
                 $class = get_class($dm);
                 throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
             }
+
+            NodeHelper::createPath($session, '/cms/routes');
 
             $route = new Route();
             $route->setParentDocument($dm->find(null, '/cms/routes'));
