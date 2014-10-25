@@ -453,6 +453,7 @@ follows::
     use Doctrine\Common\Persistence\ObjectManager;
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
     use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
+    use PHPCR\Util\NodeHelper;
 
     class LoadRoutingData implements FixtureInterface
     {
@@ -465,6 +466,8 @@ follows::
                 $class = get_class($dm);
                 throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
             }
+
+            NodeHelper::createPath($session, '/cms/routes');
 
             $route = new Route();
             $route->setParentDocument($dm->find(null, '/cms/routes'));
@@ -490,6 +493,15 @@ follows::
 
 This will give you a document that matches the URL ``/projects/<number>`` but
 also ``/projects`` as there is a default for the id parameter.
+
+.. caution::
+
+    As you can see, the code explicitely creates the ``/cms/routes`` path.
+    The RoutingBundle only creates this path automatically if the Sonata Admin
+    was enabled in the routing configuration using an :ref:`initializer
+    <phpcr-odm-repository-initializers>`. Otherwise, it'll assume you do
+    something yourself to create the path (by configuring an initializer or
+    doing it in a fixture like this).
 
 Because you defined the ``{id}`` route parameter, your controller can expect an
 ``$id`` parameter. Additionally, because you called setRouteContent on the

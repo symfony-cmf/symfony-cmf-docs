@@ -441,6 +441,13 @@ is not what you want, as the created node is of type 'Generic' and sometimes thi
 already needs to be a route (for the homepage). Set this to false to disable the
 initializer when you create your nodes your self (e.g. using Alice_).
 
+.. caution::
+
+    Initializers are forced to be disabled when Sonata Admin is not enabled.
+    In such cases, you might have multiple route basepaths which are created
+    by other sources. If the route basepath isn't created by another source,
+    you have to configure an :ref:`initializer <phpcr-odm-repository-initializers>`.
+
 orm
 """
 
