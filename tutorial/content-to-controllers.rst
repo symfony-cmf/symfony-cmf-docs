@@ -32,6 +32,12 @@ document::
         // ...
     } 
 
+And clear your cache:
+
+.. code-block:: bash
+
+    $ php app/console cache:clear
+
 Now you can call the method ``getRoutes`` on either ``Page`` or ``Post`` and retrieve all the
 routes which refer to that document ... pretty cool!
 
@@ -122,7 +128,7 @@ object and all the ``Posts`` to the view::
 
 The ``Page`` object is passed automatically as ``$contentDocument``.
 
-Add a corresponding Twig template (note that this works because you use the
+Add a corresponding template (note that this works because you use the
 ``@Template`` annotation):
 
 .. configuration-block::
@@ -156,10 +162,6 @@ Add a corresponding Twig template (note that this works because you use the
         </ul>
 
 Now have another look at: http://localhost:8000/page/home
-
-.. note::
-
-    If you get an error, try clearing the cache.
 
 Notice what is happening with the post object and the ``path`` function  - you
 pass the ``Post`` object and the ``path`` function will pass the object to the

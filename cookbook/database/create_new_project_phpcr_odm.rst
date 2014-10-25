@@ -36,9 +36,9 @@ content repository.
         ...
         "require": {
             ...
-            "doctrine/phpcr-bundle": "1.2.*",
-            "doctrine/phpcr-odm": "1.2.*",
-            "jackalope/jackalope-doctrine-dbal": "1.2.*"
+            "doctrine/phpcr-bundle": "~1.2.0",
+            "doctrine/phpcr-odm": "~1.2.0",
+            "jackalope/jackalope-doctrine-dbal": "~1.1.2"
         }
     }
 
