@@ -40,13 +40,13 @@ file in the previous step.
         ...
         require: {
             ...
-            "symfony-cmf/routing-auto-bundle": "~1.0.0",
-            "symfony-cmf/menu-bundle": "~1.2.0",
-            "sonata-project/doctrine-phpcr-admin-bundle": "~1.2.0",
-            "symfony-cmf/tree-browser-bundle": "~1.1.0",
-            "doctrine/data-fixtures": "~1.0.0",
-            "symfony-cmf/routing-bundle": "~1.3.0",
-            "symfony-cmf/routing": "~1.3.0"
+            "symfony-cmf/routing-auto-bundle": "~1.0",
+            "symfony-cmf/menu-bundle": "~1.2",
+            "sonata-project/doctrine-phpcr-admin-bundle": "~1.2",
+            "symfony-cmf/tree-browser-bundle": "~1.1",
+            "doctrine/data-fixtures": "~1.0",
+            "symfony-cmf/routing-bundle": "~1.3",
+            "symfony-cmf/routing": "~1.3"
         },
         ...
     }
