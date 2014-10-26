@@ -135,8 +135,11 @@ node::
     documents in initializers. With 1.0, you would need to manually set the
     ``phpcr:class`` property to the right value.
 
-Now *remove* the old initializer service (``acme_basiccms.basic_cms.phpcr.initializer``) and
-register your new site initializer:
+Now:
+
+1. *Remove* the initializer service that you created in the
+   :doc:`getting-started` chapter (``acme_basiccms.basic_cms.phpcr.initializer``).
+2. Register your new site initializer:
 
 .. configuration-block::
 
@@ -148,7 +151,7 @@ register your new site initializer:
             acme_basiccms.phpcr.initializer.site:
                 class: Acme\BasicCmsBundle\Initializer\SiteInitializer
                 tags:
-                    - { name: doctrine_phpcr.initializer }
+                    - { name: doctrine_phpcr.initializer, priority: 50 }
 
     .. code-block:: xml
 
@@ -165,7 +168,7 @@ register your new site initializer:
                 <!-- ... -->
                 <service id="acme_basiccms.phpcr.initializer.site"
                     class="Acme\BasicCmsBundle\Initializer\SiteInitializer">
-                    <tag name="doctrine_phpcr.initializer"/>
+                    <tag name="doctrine_phpcr.initializer" priority="50"/>
                 </service>
             </services>
 
@@ -181,8 +184,15 @@ register your new site initializer:
                 'acme_basiccms.phpcr.initializer.site',
                 'Acme\BasicCmsBundle\Initializer\SiteInitializer'
             )
-            ->addTag('doctrine_phpcr.initializer', array('name' => 'doctrine_phpcr.initializer')
+            ->addTag('doctrine_phpcr.initializer', array('name' => 'doctrine_phpcr.initializer', 'priority' => 50)
         ;
+
+.. note::
+
+    You may have noticed that you have set the priority of the initializer.
+    Initializers with high priorities will be called before initializers with
+    lower priorities. Here it is necessary to increase the priority of your
+    listener to prevent other initializers creating the `cms` node first.
 
 Now empty your repository, reinitialize it and reload your fixtures:
 
