@@ -1,0 +1,29 @@
+---------------------------------------------------------------------------
+
+by dbu at 2014-10-25T12:52:34Z
+
+looks good
+
+---------------------------------------------------------------------------
+
+by dantleech at 2014-10-25T14:13:22Z
+
+Updated. Added the `priority` tags attributes from https://github.com/doctrine/DoctrinePHPCRBundle/pull/173
+
+---------------------------------------------------------------------------
+
+by WouterJ at 2014-10-25T15:39:29Z
+
+Apart from widing the versions, is everything correct here? (btw, this should be rebased on dev)
+
+---------------------------------------------------------------------------
+
+by dantleech at 2014-10-26T10:23:20Z
+
+Updated
+
+---------------------------------------------------------------------------
+
+by dantleech at 2014-10-26T10:55:01Z
+
+@WouterJ good to merge as far as I'm concerned
