@@ -393,7 +393,7 @@ Create a page for your CMS::
 and add some posts::
 
     // src/Acme/BasicCmsBundle/DataFixtures/PHPCR/LoadPostData.php
-    namespace Acme\BasicCmsBundle\DataFixtures\Phpcr;
+    namespace Acme\BasicCmsBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\Persistence\ObjectManager;
