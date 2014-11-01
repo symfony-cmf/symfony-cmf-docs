@@ -364,6 +364,7 @@ Create a page for your CMS::
     use Acme\BasicCmsBundle\Document\Page;
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\ODM\PHPCR\DocumentManager;
 
     class LoadPageData implements FixtureInterface
     {
@@ -396,12 +397,18 @@ and add some posts::
 
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\ODM\PHPCR\DocumentManager;
     use Acme\BasicCmsBundle\Document\Post;
 
     class LoadPostData implements FixtureInterface
     {
         public function load(ObjectManager $dm)
         {
+            if (!$dm instanceof DocumentManager) {
+                $class = get_class($dm);
+                throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+            }
+
             $parent = $dm->find(null, '/cms/posts');
 
             foreach (array('First', 'Second', 'Third', 'Forth') as $title) {
