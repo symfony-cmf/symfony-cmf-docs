@@ -318,6 +318,8 @@ making a given page the homepage. Add the following to the existing
 
     // src/Acme/BasicCmsBundle/Controller/DefaultController.php
 
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
     // ...
     class DefaultController extends Controller
     {

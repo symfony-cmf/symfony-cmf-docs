@@ -89,7 +89,7 @@ Now you can generate the bundle in which you will write most of your code:
 
 .. code-block:: bash
 
-    $ php app/console generate:bundle --namespace=Acme/BasicCmsBundle --dir=src --no-interaction
+    $ php app/console generate:bundle --namespace=Acme/BasicCmsBundle --dir=src --format=yml --no-interaction
 
 The Documents
 .............
@@ -364,6 +364,7 @@ Create a page for your CMS::
     use Acme\BasicCmsBundle\Document\Page;
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\ODM\PHPCR\DocumentManager;
 
     class LoadPageData implements FixtureInterface
     {
@@ -392,16 +393,22 @@ Create a page for your CMS::
 and add some posts::
 
     // src/Acme/BasicCmsBundle/DataFixtures/PHPCR/LoadPostData.php
-    namespace Acme\BasicCmsBundle\DataFixtures\Phpcr;
+    namespace Acme\BasicCmsBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\ODM\PHPCR\DocumentManager;
     use Acme\BasicCmsBundle\Document\Post;
 
     class LoadPostData implements FixtureInterface
     {
         public function load(ObjectManager $dm)
         {
+            if (!$dm instanceof DocumentManager) {
+                $class = get_class($dm);
+                throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+            }
+
             $parent = $dm->find(null, '/cms/posts');
 
             foreach (array('First', 'Second', 'Third', 'Forth') as $title) {
@@ -420,7 +427,7 @@ and add some posts::
         }
     }
 
-The 
+The
 
 and load the fixtures:
 
