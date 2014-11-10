@@ -33,6 +33,7 @@ is the following configuration:
                     manager_name:         ~
                     translation_strategy: ~
                     search_fields:        []
+                    max_results:          null 
 
     .. code-block:: xml
 
@@ -52,6 +53,7 @@ is the following configuration:
                             <title>title</title>
                             <summary>body</summary>
                         </search-field>
+                        max-results="null"
                     </phpcr>
                 </persistence>
             </config>
@@ -70,6 +72,7 @@ is the following configuration:
                 'title'   => 'title',
                 'summary' => 'body',
             ),
+            'max_results' => null
         ));
 
 enabled
@@ -142,3 +145,10 @@ template.
         ));
 
 .. _`LiipSearchBundle`: https://github.com/liip/LiipSearchBundle
+
+max_results
+""""""""""""""""
+
+**type**: ``integer`` **default**: ``null``
+
+Defines a limit for number of results returned.
