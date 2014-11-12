@@ -33,7 +33,7 @@ is the following configuration:
                     manager_name:         ~
                     translation_strategy: ~
                     search_fields:        []
-                    max_results:          null 
+                    max_results:          ~
 
     .. code-block:: xml
 
