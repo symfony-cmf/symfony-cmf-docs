@@ -614,6 +614,53 @@ configuration in the ``sonata_admin`` section of your project configuration:
 
 See the `Sonata Admin extension documentation`_ for more information.
 
+FrontendLink Sonata Admin Extension
+----------------------------------------------
+
+This bundle provides an extension to show a button in Sonata Admin, which links on the actual 
+frontend representation of a document. Documents which implement the ``RouteReferrersReadInterface`` 
+and Routes itself (``Symfony\Component\Routing\Route``) are supported.
+
+To enable the extension in your admin classes, simply define the extension
+configuration in the ``sonata_admin`` section of your project configuration:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_admin:
+            # ...
+            extensions:
+                cmf_routing.admin_extension.frontend_link:
+                    implements:
+                        - Symfony\Cmf\Component\Routing\RouteReferrersReadInterface
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <config xmlns="http://sonata-project.org/schema/dic/admin">
+            <!-- ... -->
+            <extension id="cmf_routing.admin_extension.frontend_link">
+                <implement>Symfony\Cmf\Component\Routing\RouteReferrersReadInterface</implement>
+            </extension>
+        </config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_admin', array(
+            'extensions' => array(
+                'cmf_routing.admin_extension.frontend_link' => array(
+                    'implements' => array(
+                        'Symfony\Cmf\Component\Routing\RouteReferrersReadInterface',
+                    ),
+                ),
+            ),
+        ));
+
+See the `Sonata Admin extension documentation`_ for more information.
+
 Customize the DynamicRouter
 ---------------------------
 
