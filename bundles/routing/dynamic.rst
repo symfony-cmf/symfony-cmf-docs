@@ -614,6 +614,76 @@ configuration in the ``sonata_admin`` section of your project configuration:
 
 See the `Sonata Admin extension documentation`_ for more information.
 
+FrontendLink Sonata Admin Extension
+-----------------------------------
+
+This bundle provides an extension to show a button in Sonata Admin, which links on the actual 
+frontend representation of a document. Documents which implement the ``RouteReferrersReadInterface`` 
+and Routes itself (``Symfony\Component\Routing\Route``) are supported.
+
+To enable the extension in your admin classes, simply define the extension
+configuration in the ``sonata_admin`` section of your project configuration:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_admin:
+            # ...
+            extensions:
+                cmf_routing.admin_extension.frontend_link:
+                    implements:
+                        - Symfony\Cmf\Component\Routing\RouteReferrersReadInterface
+                    extends:
+                        - Symfony\Component\Routing\Route 
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <config xmlns="http://sonata-project.org/schema/dic/admin">
+            <!-- ... -->
+            <extension id="cmf_routing.admin_extension.frontend_link">
+                <implement>Symfony\Cmf\Component\Routing\RouteReferrersReadInterface</implement>
+                <extend>Symfony\Component\Routing\Route</extend>
+            </extension>
+        </config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_admin', array(
+            'extensions' => array(
+                'cmf_routing.admin_extension.frontend_link' => array(
+                    'implements' => array(
+                        'Symfony\Cmf\Component\Routing\RouteReferrersReadInterface',
+                    ),
+                    'extends' => array(
+                        'Symfony\Component\Routing\Route',
+                    ),
+                ),
+            ),
+        ));
+
+See the `Sonata Admin extension documentation`_ for more information.
+
+Styling
+~~~~~~~
+
+Feel free to use your own styles. The frontend link button can be customized 
+using the following example CSS rules:
+
+.. code-block:: css
+
+    .sonata-admin-menu-item a.sonata-admin-frontend-link {
+        font-weight: bold;
+    }
+    
+    .sonata-admin-menu-item a.sonata-admin-frontend-link:before {
+        font-family: FontAwesome;
+        content: "\f08e";
+    } 
+
 Customize the DynamicRouter
 ---------------------------
 
