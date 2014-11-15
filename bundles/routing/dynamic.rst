@@ -667,6 +667,23 @@ configuration in the ``sonata_admin`` section of your project configuration:
 
 See the `Sonata Admin extension documentation`_ for more information.
 
+Styling
+~~~~~~~
+
+Feel free to use your own styles. The frontend link button can be customized 
+using the following example CSS rules:
+
+.. code-block:: css
+
+    .sonata-admin-menu-item a.sonata-admin-frontend-link {
+        font-weight: bold;
+    }
+    
+    .sonata-admin-menu-item a.sonata-admin-frontend-link:before {
+        font-family: FontAwesome;
+        content: "\f08e";
+    } 
+
 Customize the DynamicRouter
 ---------------------------
 
