@@ -20,6 +20,7 @@ persistence configuration has the following configuration:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_menu:
             persistence:
                 phpcr:
@@ -38,6 +39,7 @@ persistence configuration has the following configuration:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/menu">
@@ -61,6 +63,7 @@ persistence configuration has the following configuration:
 
     .. code-block:: php
 
+        //  app/config/config.php
         $container->loadFromExtension('cmf_menu', array(
             'persistence' => array(
                 'phpcr' => array(
@@ -194,6 +197,7 @@ You can configure the menu options extension in this sections.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_menu:
             # ...
             cmf_menu:
@@ -204,6 +208,7 @@ You can configure the menu options extension in this sections.
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/menu">
@@ -218,6 +223,7 @@ You can configure the menu options extension in this sections.
 
     .. code-block:: php
 
+        // app/config/config.php
         $container->loadFromExtension('cmf_menu', array(
             'admin_extensions' => array(
                 'menu_options' => array(
@@ -254,6 +260,7 @@ The ``voters`` section enables you to enable and configure *pre-defined*
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_menu:
             # ...
             voters:
@@ -263,6 +270,7 @@ The ``voters`` section enables you to enable and configure *pre-defined*
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/menu">
@@ -274,6 +282,7 @@ The ``voters`` section enables you to enable and configure *pre-defined*
 
     .. code-block:: php
 
+        // app/config/config.php
         $container->loadFromExtension('cmf_menu', array(
             'persistence' => array(
                 'voters' => array(
@@ -332,12 +341,14 @@ To disable the menu content voter, use:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_core:
             publish_workflow:
                 enabled: false
 
     .. code-block:: xml
 
+        <!-- app/config/config.yml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -350,6 +361,7 @@ To disable the menu content voter, use:
 
     .. code-block:: php
 
+        // app/config/config.yml
         $container->loadFromExtension('cmf_core', array(
             'publish_workflow' => array(
                 'enabled' => false,

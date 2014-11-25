@@ -146,12 +146,14 @@ configuration.
 
     .. code-block:: yaml
 
+        # TODO
         cmf_menu:
             voters:
                 uri-prefix: ~
 
     .. code-block:: xml
 
+        # TODO
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/menu">
@@ -163,6 +165,7 @@ configuration.
 
     .. code-block:: php
 
+        # TODO
         $container->loadFromExtension('cmf_menu', array(
             'voters' => array(
                 'uri_prefix' => null
@@ -205,6 +208,7 @@ voters (see below), except you do not need to write your own PHP code:
 
     .. code-block:: yaml
 
+        # src/COMPANY/BUNDLE/Resources/config/services.yml
         services:
             my_bundle.menu_voter.parent:
                 class: Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter
@@ -218,6 +222,7 @@ voters (see below), except you do not need to write your own PHP code:
 
     .. code-block:: xml
 
+        <!-- src/COMPANY/BUNDLE/Resources/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -241,6 +246,7 @@ voters (see below), except you do not need to write your own PHP code:
 
     .. code-block:: php
 
+        // src/COMPANY/BUNDLE/Resources/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition(
