@@ -22,15 +22,18 @@ Installation
 
            # app/config/config.yml
            fm_elfinder:
-               locale: "%locale%"
-               editor: ckeditor
-               connector:
-                   roots:
-                       media:
-                           driver: cmf_media.adapter.elfinder.phpcr_driver
-                           path: "%cmf_media.persistence.phpcr.media_basepath%"
-                           upload_allow: ['all']
-                           upload_max_size: 2M
+               instances:
+                   default:
+                       # ...
+                       locale: "%locale%"
+                       editor: ckeditor
+                       connector:
+                           roots:
+                               media:
+                                   driver: cmf_media.adapter.elfinder.phpcr_driver
+                                   path: "%cmf_media.persistence.phpcr.media_basepath%"
+                                   upload_allow: ['all']
+                                   upload_max_size: 2M
 
        .. code-block:: xml
 
