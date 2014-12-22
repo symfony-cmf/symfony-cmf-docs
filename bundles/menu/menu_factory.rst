@@ -105,7 +105,7 @@ Example Menu Listener
 This listener handles menu nodes that point to a different menu by implementing
 the ``MenuReferrerInterface``::
 
-    // TODO
+    // src/Acme/DemoBundle/MenuReferrerInterface.php
     namespace Acme\DemoBundle;
 
     interface MenuReferrerInterface
@@ -157,7 +157,7 @@ The service needs to be tagged as event listener:
 
     .. code-block:: yaml
 
-        # src/COMPANY/BUNDLE/Resources/config/services.yml
+        # src/Acme/DemoBundle/Resources/config/services.yml
         services:
             acme_demo.listener.menu_referrer_listener:
                 class: Acme\DemoBundle\EventListener\CreateMenuItemFromNodeListener
@@ -171,7 +171,7 @@ The service needs to be tagged as event listener:
 
     .. code-block:: xml
 
-        <!-- src/COMPANY/BUNDLE/Resources/config/services.xml -->
+        <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <service id="acme_demo.listener.menu_referrer_listener" class="Acme\DemoBundle\EventListener\CreateMenuItemFromNodeListener">
@@ -185,7 +185,7 @@ The service needs to be tagged as event listener:
 
     .. code-block:: php
 
-        // src/COMPANY/BUNDLE/Resources/config/services.php
+        // src/Acme/DemoBundle/Resources/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 

@@ -146,14 +146,14 @@ configuration.
 
     .. code-block:: yaml
 
-        # TODO
+        # app/config/config.yml
         cmf_menu:
             voters:
                 uri-prefix: ~
 
     .. code-block:: xml
 
-        # TODO
+        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/menu">
@@ -165,7 +165,7 @@ configuration.
 
     .. code-block:: php
 
-        # TODO
+        // app/config/config.php
         $container->loadFromExtension('cmf_menu', array(
             'voters' => array(
                 'uri_prefix' => null
