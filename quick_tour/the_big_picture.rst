@@ -36,7 +36,7 @@ Downloading the Symfony CMF Standard Edition
 --------------------------------------------
 
 When you want to start using the CMF for a new project, you can download the
-Symfony CMF Standard Edition. The Symfony CMF Standard Edition is similair to
+Symfony CMF Standard Edition. The Symfony CMF Standard Edition is similar to
 the `Symfony Standard Edition`_, but contains and configures essential Symfony
 CMF bundles. It also adds a very simple bundle to show some of the basic
 Symfony CMF features.
