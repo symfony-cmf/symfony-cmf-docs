@@ -73,7 +73,7 @@ Doctrine PHPCR-ODM
 
 The Symfony CMF uses the `Doctrine PHPCR-ODM`_ to interact with PHPCR.
 Doctrine allows a user to create objects (called *documents*) which are
-directly persisted into and retrieved from the PHPCR tree. This is similair to
+directly persisted into and retrieved from the PHPCR tree. This is similar to
 the Doctrine ORM used by the Symfony2 Framework, but then for PHPCR.
 
 Creating a Page with code
