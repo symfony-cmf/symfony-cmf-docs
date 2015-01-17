@@ -100,7 +100,7 @@ which executes the controller and that controller uses models to generate a
 view to put in the response.
 
 On top of this, the CMF adds the green blocks. In the coming sections, you'll
-learn more about these seperately.
+learn more about these separately.
 
 The Model
 ~~~~~~~~~
