@@ -1,0 +1,57 @@
+---------------------------------------------------------------------------
+
+by dantleech at 2014-11-03T07:53:53Z
+
+I would prefer it to be `xml` to be honest, as that is the first example we show when showing examples in all formats.
+
+---------------------------------------------------------------------------
+
+by dbu at 2014-11-03T07:59:23Z
+
+the first `.. configuration-block::` i see starts with yml first, so that is what is shown. but i have no strong opinion here, we can go with explicit xml format too. (this will make it visible to the users how they could achieve yml if they prefer that)
+
+---------------------------------------------------------------------------
+
+by dantleech at 2014-11-03T08:02:28Z
+
+Oh yeah. You are right, guess I must be subconsciously clicking XML without noticing :P in that case `yml` is fine as a default for me.
+
+---------------------------------------------------------------------------
+
+by WouterJ at 2014-11-03T09:03:45Z
+
+Annotations would use `@Template`, `@Route` and services in XML.
+
+As the best practice is using that, I'm leaning a bit towards using it aswell. On the other hand, I'll do a walkthrough to be consistent with the best practices after Sf2.6 is released.
+
+---------------------------------------------------------------------------
+
+by dbu at 2015-01-18T10:44:50Z
+
+okay, updated
+
+---------------------------------------------------------------------------
+
+by dbu at 2015-01-21T17:02:41Z
+
+ping @WouterJ
+
+---------------------------------------------------------------------------
+
+by WouterJ at 2015-01-21T17:09:45Z
+
+This should be merged into 1.1, I believe?
+
+(we should create a plan about when to deprecate versions)
+
+---------------------------------------------------------------------------
+
+by dbu at 2015-01-21T17:13:06Z
+
+agreed. i can merge on cli if you want
+
+---------------------------------------------------------------------------
+
+by dbu at 2015-01-21T17:13:13Z
+
+if its all good, that is
