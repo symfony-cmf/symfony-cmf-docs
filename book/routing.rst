@@ -467,6 +467,7 @@ follows::
                 throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
             }
 
+            $session = $dm->getPhpcrSession();
             NodeHelper::createPath($session, '/cms/routes');
 
             $route = new Route();
