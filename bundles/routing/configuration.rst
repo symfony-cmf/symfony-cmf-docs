@@ -70,7 +70,7 @@ replace_symfony_router
 **type**: ``Boolean`` **default**: ``true``
 
 If this option is set to ``false``, the default Symfony2 router will *not* be
-overriden by the ``ChainRouter``. By default, the ``ChainRouter`` will
+overridden by the ``ChainRouter``. By default, the ``ChainRouter`` will
 override the default Symfony2 router, but it will pass all requests to the
 default router, because :ref:`no other routers were set <reference-config-routing-chain_routers>`.
 
@@ -192,7 +192,7 @@ controllers_by_class
 The controller to use when the matching route implements
 ``RouteObjectInterface`` and returns an object for ``getRouteContent()``.
 This object is checked for being ``instanceof`` the class names in this map.
-Instanceof is used instead of direct comparison to work with proxy classes and
+``instanceof`` is used instead of direct comparison to work with proxy classes and
 other extending classes. The order in which the classes are specified, matters.
 The first match is taken.
 
@@ -243,7 +243,7 @@ template_by_class
 
 The template to use when the route implements ``RouteObjectInterface`` and
 returns an object for ``getRouteContent()``. This object is checked for being
-``instanceof`` the class names in this map. Instanceof is used instead of
+``instanceof`` the class names in this map. ``instanceof`` is used instead of
 direct comparison to work with proxy classes and other extending classes. The
 order in which the classes are specified, matters. The first match is taken.
 
@@ -537,7 +537,7 @@ content repository service.
 .. note::
 
     If PHPCR is enabled, it'll automatically use the phpcr content repository.
-    This can be overriden by this option. ORM doesn't have a content
+    This can be overridden by this option. ORM doesn't have a content
     repository at the moment.
 
 .. _reference-config-routing-locales:
@@ -557,7 +557,7 @@ limit_candidates
 
 **type**: ``integer`` **default**: ``20``
 
-With this flag you can tune the routing behaviour when using the dynamic
+With this flag you can tune the routing behavior when using the dynamic
 pattern part of routes stored in the database. If you do never use the variable
 pattern field of the Route model, you can set this to 1 as a small performance
 optimization. If you have very complex URLs with patterns, you might need to

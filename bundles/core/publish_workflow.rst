@@ -265,7 +265,7 @@ is met, but if a single voter returns ``ACCESS_DENIED``, the content is
 considered not published.
 
 You can also implement your :ref:`own voters <bundle-core-workflow-custom-voters>`
-for additional publication behaviour.
+for additional publication behavior.
 
 PublishableVoter
 ................

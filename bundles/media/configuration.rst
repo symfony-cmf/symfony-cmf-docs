@@ -135,7 +135,7 @@ image_class
 
 The class for image objects. This just adds methods to get the native image
 dimensions, but implicitly also tells applications that this object is suitable
-to view with an <img> HTML tag.
+to view with an ``<img>`` HTML tag.
 
 event_listeners.stream_rewind
 """""""""""""""""""""""""""""
@@ -207,7 +207,7 @@ use_elfinder
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 
-If ``true``, the elfinder adaper is activated and ``cmf_media.default_browser``
+If ``true``, the elfinder adapter is activated and ``cmf_media.default_browser``
 is set. If set to ``auto``, this is activated only if the FMElfinderBundle is
 present.
 
@@ -224,7 +224,7 @@ invalidation listener are activated.
 
 The LiipImagineBundle is able to provide scaled images. Otherwise images are
 always provided in the original resolution (and scaling might happen in the
-browser through the img width and height attributes).
+browser through the ``img`` width and height attributes).
 
 imagine_filters
 ~~~~~~~~~~~~~~~

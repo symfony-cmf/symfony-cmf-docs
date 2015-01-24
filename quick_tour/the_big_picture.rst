@@ -36,7 +36,7 @@ Downloading the Symfony CMF Standard Edition
 --------------------------------------------
 
 When you want to start using the CMF for a new project, you can download the
-Symfony CMF Standard Edition. The Symfony CMF Standard Edition is similair to
+Symfony CMF Standard Edition. The Symfony CMF Standard Edition is similar to
 the `Symfony Standard Edition`_, but contains and configures essential Symfony
 CMF bundles. It also adds a very simple bundle to show some of the basic
 Symfony CMF features.
@@ -81,7 +81,7 @@ The Request Flow
 .. tip::
 
     When you have at least PHP 5.4, use the ``server:run`` command to run a
-    local server for the demo. Otherwise, use a localhost and prefix the URLs
+    local server for the demo. Otherwise, use a ``localhost`` and prefix the URLs
     in this document with ``/path-to-project/web/app_dev.php/``.
 
 Now, the Standard Edition is ready to use. Navigate to the homepage
@@ -100,7 +100,7 @@ which executes the controller and that controller uses models to generate a
 view to put in the response.
 
 On top of this, the CMF adds the green blocks. In the coming sections, you'll
-learn more about these seperately.
+learn more about these separately.
 
 The Model
 ~~~~~~~~~
@@ -149,7 +149,7 @@ The Controller
 When a Route matches, a Controller is executed. This Controller normally just
 gets the Content object from the Route and renders it. Because it is almost
 always the same, the CMF uses a generic Controller which it will execute. This
-can be overriden by setting a specific controller for a Route or Content
+can be overridden by setting a specific controller for a Route or Content
 object.
 
 The View

@@ -40,7 +40,7 @@ route.
             </mapping>
         </auto-mapping>
 
-This example will use the existing method "getTitle" of the ``Topic`` document
+This example will use the existing method ``getTitle`` of the ``Topic`` document
 to retrieve the title. By default all strings are *slugified*.
 
 Options

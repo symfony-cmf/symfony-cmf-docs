@@ -321,7 +321,7 @@ to avoid code duplication::
 
 .. note::
 
-    In the ``prePersist`` method of the ``PageAdmin`` you hardcode the
+    In the ``prePersist`` method of the ``PageAdmin`` you hard-code the
     parent path. You may want to modify this behavior to enable pages
     to be structured (for example to have nested menus).
 

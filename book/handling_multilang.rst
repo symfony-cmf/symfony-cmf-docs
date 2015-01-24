@@ -56,7 +56,7 @@ Configuring Available Locales
 -----------------------------
 
 The CoreBundle needs to be configure with the available locales. If it is
-not configured with locales, it registeres a listener that removes all
+not configured with locales, it registries a listener that removes all
 translation mapping from PHPCR-ODM documents.
 
 .. configuration-block::

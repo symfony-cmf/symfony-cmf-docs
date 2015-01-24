@@ -83,14 +83,15 @@ The ``CreateMenuItemFromNodeEvent`` which is dispatched includes the following
 methods which can be used to customize the creation of the ``MenuItem`` for a
 ``NodeInterface``.
 
-* ``CreateMenuItemFromNodeEvent::setSkipNode(true|false)``: Setting skipNode
-  to true will prevent creation of item from the node and skip any child nodes.
-  **Note:** If setSkipNode(true) is called for ``Menu`` the
+* ``CreateMenuItemFromNodeEvent::setSkipNode(true|false)``: Setting
+  ``skipNode`` to true will prevent creation of item from the node and skip
+  any child nodes.
+  **Note:** If ``setSkipNode(true)`` is called for ``Menu`` the
   ``ContentAwareFactory`` will still create an empty item for the menu. This is
   to prevent the KnpMenuBundle code from throwing an exception due to ``null``
   being passed to a function to render a menu;
 * ``CreateMenuItemFromNodeEvent::setItem(ItemInterface $item|null)``: A
-  listener can call setItem to provide a custom item to use for the given node.
+  listener can call ``setItem`` to provide a custom item to use for the given node.
   If an item is set, the ``ContentAwareFactory`` will use it instead of
   creating one for the node. The children of the node will still be processed
   by the ``ContentAwareFactory`` and listeners will have an opportunity then to

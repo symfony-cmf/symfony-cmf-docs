@@ -109,7 +109,7 @@ Creating a Custom Defunct Route Handler
 To create a custom default route handler, you have to implement
 ``DefunctRouteHandlerInterface``. This requires a method ``handleDefunctRoutes()``.
 
-They are not alltogether trivial - the following handler removes old routes and is
+They are not all-together trivial - the following handler removes old routes and is
 the default handler::
 
     namespace Symfony\Cmf\Component\RoutingAuto\DefunctRouteHandler;

@@ -186,7 +186,7 @@ See the `KnpMenuBundle documentation`_ for more information about these
 attributes.
 
 By default the only available options are **Display** and **Display Children**.
-To enable the advaned options you need to add ``burgov/key-value-form-bundle``
+To enable the advanced options you need to add ``burgov/key-value-form-bundle``
 requirement in your ``composer.json`` and enable the advanced options in
 your config file:
 

@@ -74,7 +74,7 @@ The component already provides some general purpose enhancers. They all follow
 the principle to never change an existing field but only add fields if they
 do not exist yet:
 
-* ``RouteContentEnhancer``: If the route is instanceof ``RouteObjectInterface``,
+* ``RouteContentEnhancer``: If the route is an instance of ``RouteObjectInterface``,
   this enhancer sets the target field to the return value of ``getContent()``.
 * ``FieldMapEnhancer``: Configured with a key-value map. If a specified field of
   the match contains a key, the target field is set to the value.

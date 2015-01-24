@@ -171,7 +171,7 @@ After this, you have to create getters and setters for the properties.
     This Document uses the parent document and a node name to determine its
     position in the tree. Because there isn't any name set, it is generated
     automatically. If you want to use a specific node name, such as a
-    sluggified version of the title, you need to add a property mapped as
+    slugified version of the title, you need to add a property mapped as
     ``Nodename``.
 
     A Document must have an id property. This represents the full path (parent
@@ -272,7 +272,7 @@ you've configured a route to display a specific task by name::
 
 To retrieve objects from the document repository using both the ``find`` and
 ``findMany`` methods and all helper methods of a class-specific repository. In
-PHPCR, it's often unkown for developers which node has the data for a specific
+PHPCR, it's often unknown for developers which node has the data for a specific
 document, in that case you should use the document manager to find the nodes
 (for instance, when you want to get the root document). In example above, we
 know they are ``Task`` documents and so we can use the repository.
@@ -294,7 +294,7 @@ The repository contains all sorts of helpful methods::
 .. tip::
 
     If you use the repository class, you can also create a custom repository
-    for a specific document. This helps with "Seperation of Concern" when using more
+    for a specific document. This helps with "Separation of Concern" when using more
     complex queries. This is similar to how it's done in Doctrine ORM, for
     more information read "`Custom Repository Classes`_" in the core
     documentation.

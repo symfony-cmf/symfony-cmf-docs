@@ -2,7 +2,7 @@ Commit Conventions
 ==================
 
 The Symfony CMF uses a convention for the commits. This isn't a requirement
-when contributing to the CMF, but it is created to have meaningfull commits
+when contributing to the CMF, but it is created to have meaningful commits
 for big new features.
 
 Squashing

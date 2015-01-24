@@ -315,7 +315,7 @@ configuration:
     to understand these details right now. To learn more about PHPCR read
     :doc:`../cookbook/database/choosing_storage_layer`.
 
-The initalizers will be executed automatically when you load your data
+The initializers will be executed automatically when you load your data
 fixtures (as detailed in the next section) or alternatively you can execute
 them manually using the following command:
 

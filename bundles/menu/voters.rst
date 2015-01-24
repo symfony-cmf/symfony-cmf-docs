@@ -196,7 +196,7 @@ parent of ``my-first-post`` is the blog document associated with the "Blog"
 menu item.
 
 To use this voter you need to configure a custom service with the name of the
-content in the request and your model class to avoid calling getParent on
+content in the request and your model class to avoid calling ``getParent`` on
 objects that do not have that method. You need to tag the service as
 ``cmf_menu.voter``. The service looks the same as for complete custom
 voters (see below), except you do not need to write your own PHP code:

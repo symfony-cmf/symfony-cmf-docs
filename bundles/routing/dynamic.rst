@@ -159,7 +159,7 @@ precedence):
 #. ``controllers_by_class``: requires the route document to be an instance of
    ``RouteObjectInterface`` and to return an object for ``getRouteContent()``.
    The content document is checked for being ``instanceof`` the class names in
-   the map and if matched that controller is used. Instanceof is used instead of
+   the map and if matched that controller is used. ``Instanceof`` is used instead of
    direct comparison to work with proxy classes and other extending classes.
    **priority: 50**;
 #. ``templates_by_class``: requires the route document to be an instance of
@@ -296,7 +296,7 @@ need content, you can just not set it in the route document.
     Make sure you configure the valid locales in the configuration so that the
     bundle can optimally handle locales. The
     :ref:`configuration reference <reference-config-routing-locales>` lists
-    some options to tweak behaviour and performance.
+    some options to tweak behavior and performance.
 
 .. note::
 
@@ -451,7 +451,7 @@ to generate a route:
 
 .. caution::
 
-    It is dangerous to hardcode paths to PHPCR-ODM documents into your
+    It is dangerous to hard-code paths to PHPCR-ODM documents into your
     templates. An admin user could edit or delete them in a way that your
     application breaks. If the route must exist for sure, it probably
     should be a statically configured route. But route names could come from

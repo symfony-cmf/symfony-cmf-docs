@@ -129,11 +129,11 @@ you could build a tree:
 In the same bundle, the `PhpcrOdmTree`_ implements the tree interface and
 provides an example how to implement the methods.
 
-Customizing the Tree Behaviour
-------------------------------
+Customizing the Tree Behavior
+-----------------------------
 
 The TreeBrowserBundle is based on `jsTree`_. jsTree works with events,
-dispatched everytime the user does an action. A simple way to customize the
+dispatched every time the user does an action. A simple way to customize the
 tree behavior is to bind your actions to those events.
 
 If you have a look at ``admin_tree.js`` and ``select_tree.js``, you will
