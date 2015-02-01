@@ -8,8 +8,8 @@ application configuration. When using XML, you can use the
 Configuration
 -------------
 
-default_template
-~~~~~~~~~~~~~~~~
+``default_template``
+~~~~~~~~~~~~~~~~~~~~
 
 **type**: ``string`` **default**: ``null``
 
@@ -19,8 +19,8 @@ request format and the current locale.
 
 .. _config-content-persistence:
 
-persistence
-~~~~~~~~~~~
+``persistence``
+~~~~~~~~~~~~~~~
 
 This defines the persistence driver. The default configuration of persistence
 is the following configuration:
@@ -70,34 +70,34 @@ is the following configuration:
                     'use_sonata_admin' => 'auto',
         ));
 
-enabled
-*******
+``enabled``
+***********
 
 .. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
-admin_class
-***********
+``admin_class``
+***************
 
 **type**: ``string`` **default**: ``Symfony\Cmf\Bundle\ContentBundle\Admin\StaticContentAdmin``
 
 The admin class to use when :ref:`Sonata Admin is activated <quick-tour-third-party-sonata>`.
 
-document_class
-**************
+``document_class``
+******************
 
 **type**: ``string`` **default**: ``Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent``
 
 The Content class to use.
 
-content_basepath
-****************
+``content_basepath``
+********************
 
 **type**: ``string`` **default**: ``/cms/content``
 
 The basepath for Content documents in the PHPCR tree.
 
-use_sonata_admin
-****************
+``use_sonata_admin``
+********************
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 

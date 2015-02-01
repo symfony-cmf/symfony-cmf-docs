@@ -64,8 +64,8 @@ For more information, see the
 
 .. _config-create-persistence:
 
-persistence
-~~~~~~~~~~~
+``persistence``
+~~~~~~~~~~~~~~~
 
 This defines the persistence driver and associated classes. The default
 persistence configuration has the following configuration:
@@ -127,26 +127,26 @@ persistence configuration has the following configuration:
             ),
         ));
 
-object_mapper_service_id
-""""""""""""""""""""""""
+``object_mapper_service_id``
+""""""""""""""""""""""""""""
 
 You can specify a service implementing ``Midgard\CreatePHP\RdfMapperInterface``
 that will handle objects that need to be stored by the REST handler of
 CreatePHP. You need to either specify this service or enable the phpcr
 persistence for this bundle to work.
 
-enabled
-"""""""
+``enabled``
+"""""""""""
 
 .. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
-manager_name
-""""""""""""
+``manager_name``
+""""""""""""""""
 
 .. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
-image
-"""""
+``image``
+"""""""""
 
 These settings are only used with the optional hallo editor. The default
 CKEditor uses the :doc:`ELfinder plugin <../media/adapters/elfinder>`
@@ -155,8 +155,9 @@ provided by the MediaBundle.
 If you need different image handling, you can either overwrite
 ``model_class`` and/or the ``controller_class``.
 
-delete
-""""""
+``delete``
+""""""""""
+
 **type**: ``boolean`` **default**: ``false``
 
 Set delete to true to enable the simple delete workflow. This allows to directly
@@ -196,20 +197,20 @@ Metadata Handling
             'map'             => array('<http://rdfs.org/sioc/ns#Post>' => 'Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent'),
         ));
 
-auto_mapping
-""""""""""""
+``auto_mapping``
+""""""""""""""""
 
 If not set to false, the CreateBundle will look for mapping files in every
 bundle in the directory ``Resources/rdf-mappings``.
 
-rdf_config_dirs
-"""""""""""""""
+``rdf_config_dirs``
+"""""""""""""""""""
 
 Additional directories to look for mapping files besides the auto mapped
 directory.
 
-map
-"""
+``map``
+"""""""
 
 Mapping from RDF type name to class. This configuration is used when adding
 items to collections. *Note that collection support is currently incomplete
@@ -268,27 +269,27 @@ setting is the ``plain_text_types``.
             'stanbol_url'      => 'http://dev.iks-project.eu:8081',
         ));
 
-plain_text_types
-""""""""""""""""
+``plain_text_types``
+""""""""""""""""""""
 
 A list of RDFa field types that will be edited with a plain text editor without
 any formatting options. All other fields are edited with the WYSIWYG options
 activated.
 
-editor_base_path
-""""""""""""""""
+``editor_base_path``
+""""""""""""""""""""
 
 If you use a non-standard setup, you can adjust the editor base path
 configuration. This is only relevant for CKEditor.
 
-fixed_toolbar
-"""""""""""""
+``fixed_toolbar``
+"""""""""""""""""
 
 Fix the editor toolbar on top of the page. Currently only supported by the
 hallo.js editor.
 
-stanbol_url
-"""""""""""
+``stanbol_url``
+"""""""""""""""
 
 Apache stanbol can be used for semantic enhancement of content. This feature
 can optionally be used with the hallo.js editor.

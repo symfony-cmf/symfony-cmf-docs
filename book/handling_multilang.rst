@@ -15,7 +15,7 @@ transparently.
 .. caution::
 
     You also need the ``intl`` php extension installed and enabled (otherwise
-    composer will tell you it can't find ext-intl). If you get issues that some
+    composer will tell you it can't find ``ext-intl``). If you get issues that some
     locales can not be loaded, have a look at `this discussion about ICU`_.
 
 Initial Language Choice: Lunetics LocaleBundle

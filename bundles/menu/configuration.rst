@@ -10,8 +10,8 @@ Configuration
 
 .. _config-menu-persistence:
 
-persistence
-~~~~~~~~~~~
+``persistence``
+~~~~~~~~~~~~~~~
 
 This defines the persistence driver and associated classes. The default
 persistence configuration has the following configuration:
@@ -79,13 +79,13 @@ persistence configuration has the following configuration:
             ),
         ));
 
-enabled
-"""""""
+``enabled``
+"""""""""""
 
 .. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
-menu_basepath
-"""""""""""""
+``menu_basepath``
+"""""""""""""""""
 
 **type**: ``string`` **default**: ``/cms/menu``
 
@@ -100,8 +100,8 @@ documents can be found.
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/menu``
 
-content_basepath
-""""""""""""""""
+``content_basepath``
+""""""""""""""""""""
 
 **type**: ``string`` **default**: ``/cms/content``
 
@@ -114,29 +114,29 @@ the value of ``%cmf_core.persistence.phpcr.basepath%/content``
 
 .. versionadded:: 1.1
 
-    The prefetch functionality was added in MenuBundle 1.1.
+    The pre-fetch functionality was added in MenuBundle 1.1.
 
-prefetch
-""""""""
+``prefetch``
+""""""""""""
 
 **type**: ``integer`` **default**: ``10``
 
 When rendering a menu, the whole menu tree needs to be loaded. To reduce the
 number of database requests that PHPCR needs to make, this setting makes the
-tree loader prefetch all menu nodes in one call.
+tree loader pre-fetch all menu nodes in one call.
 
 ``10`` should be enough for most cases, if you have deeper menu structures you
 might want to increase this.
 
-To disable menu prefetch completely, set this option to ``0``.
+To disable menu pre-fetch completely, set this option to ``0``.
 
-manager_name
-""""""""""""
+``manager_name``
+""""""""""""""""
 
 .. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
-menu_document_class
-"""""""""""""""""""
+``menu_document_class``
+"""""""""""""""""""""""
 
 **type**: ``string`` **default**: ``Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu``
 
@@ -144,8 +144,8 @@ Specifies the document class which should represent an entire menu.
 
 This setting is used by the admin class.
 
-node_document_class
-"""""""""""""""""""
+``node_document_class``
+"""""""""""""""""""""""
 
 **type**: ``string`` **default**: ``Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode``
 
@@ -153,27 +153,27 @@ Specifies the document class which should represent a single menu node.
 
 This setting is used by the admin class.
 
-use_sonata_admin
-""""""""""""""""
+``use_sonata_admin``
+""""""""""""""""""""
 
 .. include:: ../_partials/persistence_phpcr_sonata_admin_enabled.rst.inc
 
-menu_admin_class
-""""""""""""""""
+``menu_admin_class``
+""""""""""""""""""""
 
 **type**: ``string`` **default**: ``Symfony\Cmf\Bundle\MenuBundle\Admin\MenuAdmin``
 
 The Sonata admin class to use for the menu.
 
-node_admin_class
-""""""""""""""""
+``node_admin_class``
+""""""""""""""""""""
 
 **type**: ``string`` **default**: ``Symfony\Cmf\Bundle\MenuBundle\Admin\MenuNodeAdmin``
 
 The Sonata admin class to use for the menu node.
 
-admin_recursive_breadcrumbs
-"""""""""""""""""""""""""""
+``admin_recursive_breadcrumbs``
+"""""""""""""""""""""""""""""""
 
 **type**: ``boolean`` **default**: ``true``
 
@@ -185,8 +185,8 @@ Admin Extensions
 
 The ``admin_extensions`` section contains the configurations of the admin extensions that comes with the menu bundle.
 
-menu_options
-~~~~~~~~~~~~
+``menu_options``
+~~~~~~~~~~~~~~~~
 
 You can configure the menu options extension in this sections.
 
@@ -228,15 +228,15 @@ You can configure the menu options extension in this sections.
             ),
         ));
 
-enabled
-"""""""
+``enabled``
+"""""""""""
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 
 If ``true``, the admin extension is activated. If set to ``auto``, it will be
 activated only if the SonataAdminBundle is present.
 
-advanced
-""""""""
+``advanced``
+""""""""""""
 **type**: ``boolean`` **default**: ``false``
 
 if set to ``true`` it will expose the advanced options in the admin.
@@ -285,8 +285,8 @@ The ``voters`` section enables you to enable and configure *pre-defined*
             ),
         ));
 
-content_identity
-~~~~~~~~~~~~~~~~
+``content_identity``
+~~~~~~~~~~~~~~~~~~~~
 
 **type**: ``array|boolean``
 
@@ -294,8 +294,8 @@ Enable the :ref:`bundles_menu_voters_request_identity_voter`.
 
 Configuring this key is enough to enable it.
 
-content_key
-"""""""""""
+``content_key``
+"""""""""""""""
 
 **type**: ``string`` **default**: ``contentDocument``
 
@@ -306,15 +306,15 @@ The name of the parameter containing the content in the request.
     If you are using the RoutingBundle, you do not need to set this as it will default to
     ``DynamicRouter::CONTENT_KEY``. If however you do not use the RoutingBundle, you will have to specify a key.
 
-uri_prefix
-~~~~~~~~~~
+``uri_prefix``
+~~~~~~~~~~~~~~
 
 **type**: ``boolean``
 
 Enable the :ref:`bundles_menu_voters_uri_prefix_voter`.
 
-publish_workflow
-~~~~~~~~~~~~~~~~
+``publish_workflow``
+~~~~~~~~~~~~~~~~~~~~
 
 .. versionadded:: 1.1
     The ``publish_workflow`` option was introduced in CmfMenuBundle 1.1.

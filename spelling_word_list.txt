@@ -122,11 +122,3 @@ elFinder
 filesystem
 ckFinder
 yaml
-
-dirs
-prefetch
-lastmodified
-init
-datetime
-intl
-dir

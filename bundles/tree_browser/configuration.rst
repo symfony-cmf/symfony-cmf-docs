@@ -15,11 +15,11 @@ Configuration
 
 .. _config-tree_browser-persistence:
 
-persistence
-~~~~~~~~~~~
+``persistence``
+~~~~~~~~~~~~~~~
 
-phpcr
-.....
+``phpcr``
+.........
 
 This defines the persistence driver. The default configuration of persistence
 is the following configuration:
@@ -62,13 +62,13 @@ is the following configuration:
         ));
 
 
-enabled
-"""""""
+``enabled``
+"""""""""""
 
 .. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
-session_name
-""""""""""""
+``session_name``
+""""""""""""""""
 
 **type**: ``string`` **default**: ``default``
 

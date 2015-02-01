@@ -51,8 +51,8 @@ Options
 ``slugify``
     If the return value should be slugified, default is ``true``.
 
-content_datetime
-----------------
+``content_datetime``
+--------------------
 
 The ``content_datetime`` provider will provide a path from a ``DateTime``
 object provided by a designated method on the content document.
@@ -89,8 +89,8 @@ Options
 ``date_format``
     Any date format accepted by the `DateTime` class, default ``Y-m-d``.
 
-content_locale
---------------
+``content_locale``
+------------------
 
 The ``content_locale`` provider will provide the locale (e.g. ``fr``, ``de``,
 etc) from the subject object. It ultimately determines the locale from the
