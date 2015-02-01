@@ -29,7 +29,7 @@ Requirements
 ------------
 
 As Symfony CMF Sandbox is based on Symfony2, you should make sure you meet the
-`Requirements for running Symfony2`_. `Git 1.6+`_, and the PHP Intl extension are
+`Requirements for running Symfony2`_. `Git 1.6+`_. The ``php-intl`` extension is
 also needed to follow the installation steps listed below.
 
 Installation

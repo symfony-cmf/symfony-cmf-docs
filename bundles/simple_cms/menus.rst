@@ -20,25 +20,25 @@ which allows for rendering them as a menu.
 
 Menu options can be customized for each `Page` using the following public methods of the `Page`.
 
-setAttributes(array $attributes), setAttribute($name, $value)
-    Set one or more html attributes to be used when rendering the item (generally the <li> tag)
+``setAttributes(array $attributes)``, ``setAttribute($name, $value)``
+    Set one or more html attributes to be used when rendering the item (generally the ``<li>`` tag)
 
-setLabel($label)
+``setLabel($label)``
     Set the label text to be used
 
-setLabelAttributes($labelAttributes)
+``setLabelAttributes($labelAttributes)``
     Set html attributes to be used when rendering the label
 
-setChildrenAttributes(array $attributes)
-    Set one or more html attributes to be used on the element containing the children (generally the <ul> tag)
+``setChildrenAttributes(array $attributes)``
+    Set one or more html attributes to be used on the element containing the children (generally the ``<ul>`` tag)
 
-setLinkAttributes($linkAttributes)
+``setLinkAttributes($linkAttributes)``
     Set html attributes to be used when rendering the link tag
 
-setDisplay($display)
-    Boolean which determins if the page should be included in menus
+``setDisplay($display)``
+    Boolean which determine if the page should be included in menus
 
-setDisplayChildren($displayChildren)
+``setDisplayChildren($displayChildren)``
     Boolean which determines whether children should be added to the menu
 
 .. tip::

@@ -25,7 +25,7 @@ Setup
 Requirements
 ~~~~~~~~~~~~
 
-* When using **jackalope-jackrabbit**: Java, Apache Jackalope and libxml
+* When using **jackalope-jackrabbit**: Java, Apache Jackalope and ``libxml``
   version >= 2.7.0 (due to a `bug in libxml`_)
 * When using **jackalope-doctrine-dbal with MySQL**: MySQL >= 5.1.5
   (as you need the xml function ``ExtractValue``)
@@ -360,15 +360,15 @@ debug toolbar:
 
 Now that you can see the effects of changes, you can try if adjusting the global
 fetch depth reduces the number and duration for queries. Set the option
-``jackalope.fetch_depth`` to something bigger than 0 to have Jackalope prefetch
+``jackalope.fetch_depth`` to something bigger than 0 to have Jackalope pre-fetch
 children or whole subtrees. This can reduce the number of queries needed, but
 watch out for longer queries because more data is fetched.
 
 When using Jackalope Doctrine DBAL, it is highly recommended to
 :doc:`activate the caching options <../../cookbook/database/doctrine_cache>`.
 
-Note that you can also set the fetchDepth on the session on the fly for
-specific calls, or use the fetchDepth option on children mappings of your
+Note that you can also set the fetch-depth on the session on the fly for
+specific calls, or use the fetch-depth option on children mappings of your
 documents.
 
 The parameter ``jackalope.check_login_on_server`` can be set to false to save

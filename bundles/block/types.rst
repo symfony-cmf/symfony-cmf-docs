@@ -9,10 +9,10 @@ examples to build your own blocks.
 You can also :doc:`create your own blocks <create_your_own_blocks>`, but
 the provided block types should cover many standard cases.
 
-Common Behaviour
-----------------
+Common Behavior
+---------------
 
-There is an ``AbstractBlock`` base class that defines common behaviour for all
+There is an ``AbstractBlock`` base class that defines common behavior for all
 blocks provided by this bundle. It also implements handling for locales, even
 though only those block that actually contain string content implement the
 ``TranslatableInterface``.
@@ -212,7 +212,7 @@ The controller used to fetch the feed items can also be changed:
 
 * Define a different class for the controller service in your configuration
   using the DI service parameter ``cmf_block.rss_controller_class``
-* or set the actionName of your RssBlock document
+* or set the ``actionName`` of your ``RssBlock`` document
 
 .. note::
 
@@ -360,7 +360,7 @@ Make the Slideshow Work in the Front-End
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Since the BlockBundle doesn't contain anything to make the slideshow work
-in the front-end, you need to do this yourself. Use your favourite JavaScript
+in the front-end, you need to do this yourself. Use your favorite JavaScript
 library to make the slideshow interactive. If special markup is needed for
 your slideshow code to work, you can override
 ``BlockBundle:Block:block_slideshow.html.twig`` and/or the templates of the

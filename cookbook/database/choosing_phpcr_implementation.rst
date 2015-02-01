@@ -39,10 +39,10 @@ A solid and tested implementation that is fine for small to medium sized
 projects. It can run on just a relational database (currently tested with
 MySQL, PostgreSQL and SQLite).
 
-Jackalope with prismic.io
--------------------------
+Jackalope with prismic
+----------------------
 
-Reads data from the `prismic.io`_ service. At the moment this implementation
+Reads data from the `prismic`_ service. At the moment this implementation
 is experimental.
 
-.. _`prismic.io`: https://prismic.io/
+.. _`prismic`: https://prismic.io/

@@ -81,7 +81,7 @@ The Request Flow
 .. tip::
 
     When you have at least PHP 5.4, use the ``server:run`` command to run a
-    local server for the demo. Otherwise, use a localhost and prefix the URLs
+    local server for the demo. Otherwise, use a ``localhost`` and prefix the URLs
     in this document with ``/path-to-project/web/app_dev.php/``.
 
 Now, the Standard Edition is ready to use. Navigate to the homepage
@@ -149,7 +149,7 @@ The Controller
 When a Route matches, a Controller is executed. This Controller normally just
 gets the Content object from the Route and renders it. Because it is almost
 always the same, the CMF uses a generic Controller which it will execute. This
-can be overriden by setting a specific controller for a Route or Content
+can be overridden by setting a specific controller for a Route or Content
 object.
 
 The View

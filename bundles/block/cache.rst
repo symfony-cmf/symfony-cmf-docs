@@ -139,7 +139,7 @@ is triggered:
   * Cache keys are computed using:
 
     * The cache keys of the block service;
-    * The extraCacheKeys passed from the template.
+    * The ``extraCacheKeys`` passed from the template.
 
   * The cache adapter is asked for a cache element:
 

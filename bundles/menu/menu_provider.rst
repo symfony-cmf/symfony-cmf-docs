@@ -10,7 +10,7 @@ supports having several providers. The MenuBundle provides the
 
 Every menu is identified by the name of its root node under the path given by
 the configuration key ``persistence.phpcr.menu_basepath``. The default path is
-``/cms/menu``, so in the following docuemnt structure example ``main-menu`` and
+``/cms/menu``, so in the following document structure example ``main-menu`` and
 ``side-menu`` are both valid menu names:
 
 .. code-block:: text

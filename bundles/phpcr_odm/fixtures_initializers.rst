@@ -147,7 +147,7 @@ from which you can retrieve the PHPCR session but also the document manager::
     }
 
 .. versionadded:: 1.1
-    Since version 1.1, the init method is passed the ``ManagerRegistry`` rather
+    Since version 1.1, the ``init`` method is passed the ``ManagerRegistry`` rather
     than the PHPCR ``SessionInterface`` to allow the creation of documents in
     initializers. With 1.0, you would need to manually set the ``phpcr:class``
     property to the right value.

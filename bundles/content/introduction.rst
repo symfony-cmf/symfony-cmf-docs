@@ -50,7 +50,7 @@ to multiple routes and menu items. A simple page can be created like this::
     $documentManager->flush(); // save changes
 
 This code adds a ``/hello`` route and a ``hello-world`` content document, both
-connected to eachother. This means visiting ``/hello`` should give you the
+connected to each other. This means visiting ``/hello`` should give you the
 content of ``hello-world``. But before that, the correct controller needs to
 be configured.
 

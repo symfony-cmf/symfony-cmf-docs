@@ -231,7 +231,7 @@ Adding new pages
 Symfony CMF SE does not provide any admin tools to create new pages. If you
 are interested in adding an admin UI one solution can be found in
 :doc:`../tutorial/sonata-admin`. However, if all you want
-is a simple way to add new pages that you can then edit via the inline
+is a simple way to add new pages that you can then edit via the in-line
 editing, then you can use the SimpleCmsBundle ``page`` migrator. For example,
 to add a page called "Testing", creating a file called
 ``app/Resources/data/pages/test.yml`` with the following contents:

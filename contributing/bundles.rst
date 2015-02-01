@@ -72,7 +72,7 @@ have an additional suffix and MUST extend the "Read" and "Write" interfaces IF
 either exists.
 
 If either or both "Read" and "Write" interfaces do not exist, then the
-"Read/Write" interface MUST incorporate the methods required to fulfil the
+"Read/Write" interface MUST incorporate the methods required to fulfill the
 "Read/Write" contract::
 
     <?php
@@ -105,7 +105,7 @@ Refer to the `service naming conventions`_ in the Symfony documentation.
 Meta: README, CHANGELOG, etc
 ----------------------------
 
-Bundles MUST have the following metafiles:
+Bundles MUST have the following meta files:
 
 .. code-block:: text
 

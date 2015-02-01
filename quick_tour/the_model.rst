@@ -11,7 +11,7 @@ of the CMF.
 .. note::
 
     Again, this chapter is talking about the PHPCR storage layer. But the CMF
-    is storage agnosticly created, meaning it is not tied to specific storage
+    is storage agnostically created, meaning it is not tied to specific storage
     system.
 
 Getting Familiar with PHPCR
@@ -177,7 +177,7 @@ then you can visit your website again. You'll see your new page you added!
 Final Thoughts
 --------------
 
-PHPCR is a powerfull way to store your pages in a CMS. But, if you're not
+PHPCR is a powerful way to store your pages in a CMS. But, if you're not
 comfortable with it, you can always
 :doc:`switch to another storage layer <../cookbook/database/choosing_storage_layer>`.
 

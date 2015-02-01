@@ -40,8 +40,8 @@ For example::
 
     Since SimpleCmsBundle only provides a single tree structure, all nodes
     will have the same node name for all languages. So a url
-    ``http://foo.com/en/hello-world`` for english content will look like
-    ``http://foo.com/de/hello-world`` for german content.
+    ``http://foo.com/en/hello-world`` for English content will look like
+    ``http://foo.com/de/hello-world`` for German content.
 
     If you need language specific URLs, you can either add Route documents for
     the other locales and configure the dynamic router to look for routes under

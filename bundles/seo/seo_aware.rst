@@ -91,7 +91,7 @@ To be able to use this document, you have to enable the PHPCR persistence:
     bundle. See :doc:`the CoreBundle docs <../core/persistence>` for more
     information.
 
-After you've enabled PHPCR, map your seoMetadata as a child:
+After you've enabled PHPCR, map ``$seoMetadata`` as a child:
 
 .. configuration-block::
 
