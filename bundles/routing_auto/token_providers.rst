@@ -10,8 +10,8 @@ generated or from the environment (e.g. you could use the current locale in
 the route).
 
 
-content_method
---------------
+``content_method``
+------------------
 
 The ``content_method`` provider allows the content object (e.g. a forum
 ``Topic``) to specify a path using one of its methods. This is quite a powerful
@@ -116,6 +116,42 @@ feature.
                 <token-provider token="locale" name="content_locale" />
             </mapping>
         </auto-mapping>
+
+``container``
+-------------
+
+.. versionadded:: 1.1
+    The container provider was introduced in RoutingAutoBundle 1.1
+
+The ``container`` provider allows you to use parameters which have
+been defined in the Symfony DI container.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/ForumBundle/Resources/config/cmf_routing_auto.yml
+        Acme\ForumBundle\Document\Article:
+            uri_schema: {base_url}/good-day
+            token_providers:
+                base_url: [container, { parameter: my_parameter.base_path }
+
+    .. code-block: xml
+
+        <!-- src/Acme/ForumBundle/Resources/config/cmf_routing_auto.xml -->
+        <?xml version="1.0" ?>
+        <auto-mapping xmlns="http://cmf.symfony.com/schema/routing_auto">
+            <mapping class="Acme\ForumBundle\Document\Article" uri-schema="/{base_url}/good-day">
+                <token-provider token="base_url" name="container" >
+                    <option name="parameter">my_parameter.base_path</option>
+                </token>
+            </mapping>
+        </auto-mapping>
+
+.. note::
+
+    Parameters from the container will not be slugified. It is your
+    responsibility to ensure that they contain safe characters.
 
 Options
 ~~~~~~~
