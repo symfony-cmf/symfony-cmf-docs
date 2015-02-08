@@ -34,10 +34,10 @@ To use this template, specify ``hallo-coffee`` as editor in the
             ))
         ) ?>
 
-The hallo-coffee template uses assetic to load the coffee script files from
+The hallo-coffee template uses Assetic to load the coffee script files from
 ``Resources/public/vendor/hallo/src``, rather than the precompiled JavaScript
 from ``Resources/public/vendor/create/deps/hallo-min.js``. This also means
-that you need to add a mapping for coffeescript in your assetic configuration
+that you need to add a mapping for coffeescript in your Assetic configuration
 and you need the `coffee compiler set up correctly`_.
 
 .. configuration-block::

@@ -194,8 +194,8 @@ You also need to configure the FOSRestBundle to handle json:
         ));
 
 If you want to use Assetic to combine the CSS and JavaScript used for
-create.js, you need to enable the CreateBundle in the assetic configuration.
-Find the configuration for ``assetic.bundles``. If it is not present, assetic
+create.js, you need to enable the CreateBundle in the Assetic configuration.
+Find the configuration for ``assetic.bundles``. If it is not present, Assetic
 automatically scans all bundles for assets and you don't need to do anything.
 If you limit the bundles, you need to add ``CmfCreateBundle`` to the list of
 bundles.
@@ -227,6 +227,14 @@ bundles.
             ),
         ));
 
+If you were not using Assetic previously, you need to call the ``assetic:dump``
+command in your deployment process, or the Javascript and CSS files will not be
+found:
+
+.. code-block:: bash
+
+    $ php app/console --env=prod assetic:dump
+
 Routing
 ~~~~~~~
 
@@ -256,7 +264,7 @@ routing configuration to enable the REST end point for saving content:
         $collection->addCollection($loader->import("@CmfCreateBundle/Resources/config/routing/rest.xml"));
 
         return $collection;
-        
+
 .. tip::
 
     If you don't want these routes to be prefixed by the current locale, you can
@@ -350,7 +358,7 @@ after those to be able to customize as needed) with:
 
 .. caution::
 
-    Make sure assetic is rewriting the paths in your CSS files properly or you
+    Make sure Assetic is rewriting the paths in your CSS files properly or you
     might not see icon images.
 
 In your page bottom area, load the JavaScript files. If you are using Symfony 2.2 or
