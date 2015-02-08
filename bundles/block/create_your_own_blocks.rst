@@ -136,7 +136,7 @@ that knows how to fetch the feed data of an ``RssBlock``::
         public function execute(BlockContextInterface $blockContext, Response $response = null)
         {
             $block = $blockContext->getBlock();
-            
+
             if (!$block->getEnabled()) {
                 return new Response();
             }
@@ -291,7 +291,7 @@ on the current page:
 
     This mechanism is not recommended. For optimal load times, it is better
     to have a central assets definition for your project and aggregate them
-    into a single Stylesheet and a single JavaScript file, e.g. with assetic_,
+    into a single Stylesheet and a single JavaScript file, e.g. with Assetic_,
     rather than having individual ``<link>`` and ``<script>`` tags for each
     single file.
 
@@ -341,4 +341,4 @@ handles, as per the ``getType`` method of the block. The second argument is the
             ->addTag('sonata.block')
         ;
 
-.. _assetic: http://symfony.com/doc/current/cookbook/assetic/asset_management.html
+.. _Assetic: http://symfony.com/doc/current/cookbook/assetic/asset_management.html
