@@ -7,7 +7,8 @@ python:
 
 addons:
     apt_packages:
-    - enchant
+        - enchant
+        - foobar
 
 install: "pip install -q -r requirements.txt --use-mirrors"
 
