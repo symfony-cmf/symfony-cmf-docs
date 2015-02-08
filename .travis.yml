@@ -1,10 +1,14 @@
 language: python
 
+sudo: false
+
 python:
     - "2.7"
 
-before_script:
-    - sudo apt-get install enchant
+addons:
+    apt_packages:
+        - enchant
+        - foobar
 
 install: "pip install -q -r requirements.txt --use-mirrors"
 
