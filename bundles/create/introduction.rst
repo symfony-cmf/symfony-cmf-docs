@@ -511,18 +511,44 @@ Mapping Requests to Domain Objects
 One last piece is the mapping between CreatePHP data and the application
 domain objects. Data needs to be stored back into the database.
 
-Currently, the CreateBundle only provides a service to map to Doctrine
-PHPCR-ODM. If you do not enable the phpcr persistence layer, you need to
-configure the ``cmf_create.object_mapper_service_id``.
+.. versionadded:: 1.3
+    The chain mapper and ORM configuration was introduced in CreateBundle
+    1.3. Prior, only the PHPCR-ODM mapper was available.
 
-.. tip::
+The CreateBundle provides a chain mapper service that supports multiple mappers.
+Mappers for Doctrine PHPCR-ODM and Doctrine ORM are provided and can be enabled
+via :ref:`persistence configuration <config-create-persistence>`.
 
-    Doctrine ORM support is coming soon. There is an open pull request on the
-    CreatePHP library to add such a mapper. This mapper will also be provided
-    as a service by the CreateBundle 1.1.
+You may provide mappers to the chain mapper in addition to or in place of the
+provided mappers. They must implement ``Midgard\CreatePHP\RdfChainableMapperInterface``
+and be tagged with ``create_cmf.mapper``.
 
-CreatePHP would support specific mappers per RDFa type. If you need that, dig
-into the CreatePHP and CreateBundle and do a pull request to enable this feature.
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            acme_core.my_mapper:
+                class: "%my_namespace.my_mapper_class%"
+                tags:
+                    - { name: create_cmf.mapper, alias: my_mapper_alias }
+
+    .. code-block:: xml
+
+        <service id="acme_core.my_mapper" class="%my_namespace.my_mapper_class%">
+            <tag name="create_cmf.mapper" alias="my_mapper_alias" />
+            <!-- ... -->
+        </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('acme_core.my_mapper', '%my_namespace.my_mapper_class')
+            ->addTag('create_cmf.mapper', array('alias' => 'my_mapper_alias'))
+        ;
+
+You may instead set :ref:`config-create-object-mapper-service-id` and use
+your own mapper in place of the chain mapper.
 
 Workflows
 ---------
