@@ -256,7 +256,7 @@ routing configuration to enable the REST end point for saving content:
         $collection->addCollection($loader->import("@CmfCreateBundle/Resources/config/routing/rest.xml"));
 
         return $collection;
-        
+
 .. tip::
 
     If you don't want these routes to be prefixed by the current locale, you can
@@ -515,36 +515,41 @@ domain objects. Data needs to be stored back into the database.
     The chain mapper and ORM configuration was introduced in CreateBundle
     1.3. Prior, only the PHPCR-ODM mapper was available.
 
+Adding Custom Mappers to the Chain
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 The CreateBundle provides a chain mapper service that supports multiple mappers.
 Mappers for Doctrine PHPCR-ODM and Doctrine ORM are provided and can be enabled
 via :ref:`persistence configuration <config-create-persistence>`.
 
-You may provide mappers to the chain mapper in addition to or in place of the
-provided mappers. They must implement ``Midgard\CreatePHP\RdfChainableMapperInterface``
-and be tagged with ``create_cmf.mapper``.
+You may provide mappers to the chain mapper in addition to or in place of
+the provided mappers. They must implement ``Midgard\CreatePHP\RdfChainableMapperInterface``
+and be tagged with ``create_cmf.mapper``. You may provide the tag with an
+alias which will be prepended to subjects, the RDFa about field. If an alias
+is not provided, the service's id will be used instead.
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         services:
-            acme_core.my_mapper:
-                class: "%my_namespace.my_mapper_class%"
+            app.elasticsearch_mapper:
+                class: "AppBundle\Mapper\ElasticSearchMapper"
                 tags:
-                    - { name: create_cmf.mapper, alias: my_mapper_alias }
+                    - { name: create_cmf.mapper, alias: elasticsearch }
 
     .. code-block:: xml
 
-        <service id="acme_core.my_mapper" class="%my_namespace.my_mapper_class%">
-            <tag name="create_cmf.mapper" alias="my_mapper_alias" />
+        <service id="app.elasticsearch_mapper" class="AppBundle\Mapper\ElasticSearchMapper">
+            <tag name="create_cmf.mapper" alias="elasticsearch" />
             <!-- ... -->
         </service>
 
     .. code-block:: php
 
         $container
-            ->register('acme_core.my_mapper', '%my_namespace.my_mapper_class')
-            ->addTag('create_cmf.mapper', array('alias' => 'my_mapper_alias'))
+            ->register('app.elasticsearch_mapper', 'AppBundle\Mapper\ElasticSearchMapper')
+            ->addTag('create_cmf.mapper', array('alias' => 'elasticsearch'))
         ;
 
 You may instead set :ref:`config-create-object-mapper-service-id` and use

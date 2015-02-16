@@ -72,16 +72,16 @@ For more information, see the
 You can specify a service implementing ``Midgard\CreatePHP\RdfMapperInterface``
 that will handle objects that need to be stored by the REST handler of
 CreatePHP. You need to either specify this service, enable phpcr or orm
-persistence or provide a ``cmf_create.mapper`` tagged mapper for this
-bundle to work.
+persistence or define one or more services that implement the
+``Midgard\CreatePHP\RdfChainableMapperInterface`` and tag them with ``cmf_create.mapper``.
 
 .. _config-create-persistence:
 
 ``persistence``
 ~~~~~~~~~~~~~~~
 
-This defines the persistence driver and associated classes. The default
-persistence configuration has the following configurations.
+This defines a persistence driver for Doctrine PHPCR-ODM documents or Doctrine ORM entities.
+If you specify neither, see :ref:`config-create-object-mapper-service-id`.
 
 ``phpcr``
 .........
@@ -91,7 +91,6 @@ persistence configuration has the following configurations.
     .. code-block:: yaml
 
         cmf_create:
-            object_mapper_service_id: ~
             persistence:
                 phpcr:
                     enabled:      false
@@ -181,7 +180,6 @@ your content is gone.
     .. code-block:: yaml
 
         cmf_create:
-            object_mapper_service_id: ~
             persistence:
                 orm:
                     enabled:      false
