@@ -85,10 +85,10 @@ a page by using a yaml file which was parsed by the SimpleCmsBundle. This
 time, you'll create a page by doing it yourself.
 
 First, you have to create a new DataFixture to add your new page. You do this
-by creating a new class in the AcmeMainBundle::
+by creating a new class in the AcmeDemoBundle::
 
-    // src/Acme/MainBundle/DataFixtures/PHPCR/LoadPageData.php
-    namespace Acme\MainBundle\DataFixtures\PHPCR;
+    // src/Acme/DemoBundle/DataFixtures/PHPCR/LoadPageData.php
+    namespace Acme\DemoBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
