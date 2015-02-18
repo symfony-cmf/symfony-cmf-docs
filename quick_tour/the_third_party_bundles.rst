@@ -98,7 +98,7 @@ SonataSeoBundle_. It provides a way to extract SEO information from a document
 and to make SEO information editable using an admin.
 
 To integrate the SeoBundle into the Standard Edition, you must register both
-bundles in the ``AppKernel``::
+bundles in the composer.json and the ``AppKernel``::
 
     // app/AppKernel.php
 
