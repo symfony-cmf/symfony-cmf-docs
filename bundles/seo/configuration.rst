@@ -70,7 +70,6 @@ The translation domain to use when translating the title and description
 template. See :ref:`bundles-seo-title-description-template` for more
 information.
 
-
 ``title``
 ~~~~~~~~~
 
@@ -95,8 +94,21 @@ about the usage.
 The original route strategy to use when multiple routes have the same content.
 Can be one of ``canonical`` or ``redirect``.
 
+``content_listener``
+~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 1.2
+    The ``content_listener`` configuration key was introduced in SeoBundle 1.2.
+
+``enabled``
+"""""""""""
+
+**type**: ``boolean`` **default**: ``true``
+
+Whether or not the :ref:`bundles-seo-content-listener` should be loaded.
+
 ``content_key``
-~~~~~~~~~~~~~~~
+"""""""""""""""
 
 **type**: ``string`` **default**: ``null`` (or ``DynamicRouter::CONTENT_KEY`` when RoutingBundle is enabled)
 
@@ -104,7 +116,11 @@ The name of the request attribute which contains the content object. This is
 used by the ContentListener to extract SEO information automatically. If the
 RoutingBundle is present, this defaults to ``DynamicRouter::CONTENT_KEY``
 (which evaluates to ``contentDocument``), otherwise you must define this
-manually.
+manually or disable the content listener.
+
+.. versionadded:: 1.2
+    In versions of the SeoBundle prior to 1.2, the ``content_key`` was
+    configured directly in the ``cmf_seo`` root.
 
 ``sonata_admin_extension``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
