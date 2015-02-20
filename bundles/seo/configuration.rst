@@ -130,7 +130,7 @@ The name of the form group of the group provided by the Sonata Admin
 Extension.
 
 ``enable_content_listener``
-""""""""""""""
+"""""""""""""""""""""""""""
 
 .. versionadded:: 1.2
     The ``enable_content_listener`` configuration key was introduced in SeoBundle 1.2
@@ -138,6 +138,6 @@ Extension.
 **type**: ``boolean`` **default**: ``true``
 
 Whether or not the ``Symfony\Cmf\Bundle\SeoBundle\EventListener\ContentListener`` should be loaded
-as a ``kernel.request`` listener. The ContentListener is responsible for extracting seo data from
-CMF content documents. Set this to false if you want to use your own content listener. You will need
-to register your listener as a service and tag it as a ``kernel.request`` listener.
+as a ``kernel.request`` listener. The ContentListener is responsible for extracting SEO data from
+CMF content documents. Set this to false to disable the listener. If you want to use your own content listener
+you will need to register your listener as a service and tag it as a ``kernel.request`` listener.
