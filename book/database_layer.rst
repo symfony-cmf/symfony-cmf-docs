@@ -261,7 +261,7 @@ you've configured a route to display a specific task by name::
     public function showAction($name)
     {
         $repository = $this->get('doctrine_phpcr')->getRepository('AcmeTaskBundle:Task');
-        $task = $repository->find('/task/'.$name);
+        $task = $repository->find('/tasks/'.$name);
 
         if (!$task) {
             throw $this->createNotFoundException('No task found with name '.$name);
