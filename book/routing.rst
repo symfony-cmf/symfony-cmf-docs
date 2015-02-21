@@ -507,8 +507,8 @@ also ``/projects`` as there is a default for the id parameter.
     doing it in a fixture like this).
 
 Because you defined the ``{id}`` route parameter, your controller can expect an
-``$id`` parameter. Additionally, because you called ``setRouteContent`` on the
-route, your controller can expect the ``$contentDocument`` parameter.
+``$id`` parameter. Additionally, because you called ``setContent`` on the
+route, your controller can expect the ``$content`` parameter.
 The content could be used to define an intro section that is the same for each
 project or other shared data. If you don't need content, you can just not set it
 in the document.
