@@ -100,9 +100,11 @@ content_key
 
 **type**: ``string`` **default**: ``null`` (or ``DynamicRouter::CONTENT_KEY`` when RoutingBundle is enabled)
 
-The name of the Request attribute which contains the content object. This is
-required when the RoutingBundle is not enabled, otherwise it defaults to
-``DynamicRouter::CONTENT_KEY`` (which evaluates to ``contentDocument``).
+The name of the request attribute which contains the content object. This is
+used by the ContentListener to exctract SEO information automatically. If the
+RoutingBundle is present, this defaults to ``DynamicRouter::CONTENT_KEY``
+(which evaluates to ``contentDocument``), otherwise you must define this
+manually or disable the listener.
 
 sonata_admin_extension
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -129,15 +131,15 @@ form_group
 The name of the form group of the group provided by the Sonata Admin
 Extension.
 
-``enable_content_listener``
-"""""""""""""""""""""""""""
+content_listener
+""""""""""""""""
 
 .. versionadded:: 1.1
-    The ``enable_content_listener`` configuration key was introduced in SeoBundle 1.1
+The ``content_listener`` configuration key was introduced in SeoBundle 1.1.1
+
+enabled
+~~~~~~~
 
 **type**: ``boolean`` **default**: ``true``
 
-Whether or not the ``Symfony\Cmf\Bundle\SeoBundle\EventListener\ContentListener`` should be loaded
-as a ``kernel.request`` listener. The ContentListener is responsible for extracting SEO data from
-CMF content documents. Set this to false to disable the listener. If you want to use your own content listener
-you will need to register your listener as a service and tag it as a ``kernel.request`` listener.
+Whether or not the :ref:`bundles-seo-content-listener` should be loaded.

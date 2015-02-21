@@ -62,7 +62,7 @@ The simplest use of this bundle would be to just set some configuration to the
                 ),
             ),
         ));
-    
+
 The only thing to do now is to use the twig helper in your templates:
 
 .. code-block:: html+jinja
@@ -105,11 +105,9 @@ document. This metadata can hold:
 * Anything else that uses the ``<meta>`` tag with the ``property``, ``name``
   or ``http-equiv`` type (e.g. Open Graph data).
 
-The content object is retrieved from the request attributes. By default, it
-uses the ``DynamicRouter::CONTENT_KEY`` constant when the
-:doc:`RoutingBundle <../routing/introduction>` is installed. To change this,
-or if you don't use the RoutingBundle, you can configure it with
-``cmf_seo.content_key``.
+Extracting Metadata
+~~~~~~~~~~~~~~~~~~~
+
 This bundle provides two ways of using this metadata:
 
 #. Implementing the ``SeoAwareInterface`` and persisting the ``SeoMetadata``
@@ -131,6 +129,24 @@ Both ways are documented in detail in separate sections:
 
 * :doc:`seo_aware`
 * :doc:`extractors`
+
+.. _bundles-seo-content-listener
+
+The ContentListener
+~~~~~~~~~~~~~~~~~~~
+
+The ``Symfony\Cmf\Bundle\SeoBundle\EventListener\ContentListener`` looks for a
+content document in the request attributes. If it finds a document that is
+suitable for extracting metadata, it does so to populate the metadata
+information store.
+
+If the :doc:`RoutingBundle <../routing/introduction>` is installed, the default
+attribute name is defined by the constant ``DynamicRouter::CONTENT_KEY``. When
+not using the RoutingBundle, you need to disable the listener or configure a
+key in ``cmf_seo.content_key``.
+
+You may also want to disable this listener when implementing your own mechanism
+to extract SEO information.
 
 Choosing the Original Route Pattern
 -----------------------------------
