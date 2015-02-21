@@ -478,8 +478,10 @@ follows::
             $content = new StaticContent();
             $content->setParentDocument($dm->find(null, '/cms/content'));
             $content->setName('my-content');
+            $content->setTitle('My Content');
+            $content->setBody('Some Content');
             $dm->persist($content);
-            $route->setRouteContent($content);
+            $route->setContent($content);
 
             // now define an id parameter; do not forget the leading slash if you
             // want /projects/{id} and not /projects{id}
