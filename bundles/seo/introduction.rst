@@ -32,6 +32,15 @@ Both the CmfSeoBundle and SonataSeoBundle must be registered in the
 Usage
 ~~~~~
 
+SEO data tracks some or all of the following:
+
+* The title;
+* The meta keywords;
+* The meta description;
+* The original URL (when more than one URL contains the same content).
+* Anything else that uses the ``<meta>`` tag with the ``property``, ``name``
+  or ``http-equiv`` type (e.g. Open Graph data).
+
 The simplest use of this bundle would be to just set some configuration to the
 ``sonata_seo`` configuration section and use the twig helper in your templates.
 
@@ -62,8 +71,12 @@ The simplest use of this bundle would be to just set some configuration to the
                 ),
             ),
         ));
-    
-The only thing to do now is to use the twig helper in your templates:
+
+This sets default values for the ``SeoPage`` value object. You can later update
+that object with more precise information. It is available as service
+``sonata.seo.page.default``.
+
+To render the information, use the following twig functions in your templates:
 
 .. code-block:: html+jinja
 
@@ -80,54 +93,73 @@ The only thing to do now is to use the twig helper in your templates:
         </body>
     </html>
 
-This will render a page with the default title ("Page's default title") as
-title element. The information defined for description and keywords will go
-into the correct metatags.
+This will render the last title set on the ``SeoPage`` ("Page's default title"
+if you did not add calls to the value object in your code). The information
+added for description and keywords will render as ``<meta>`` HTML tags.
 
 .. seealso::
 
     To get a deeper look into the SonataSeoBundle, you should visit the
     `Sonata documentation`_.
 
-Using SeoMetadata
------------------
+Using the CmfSeoBundle
+----------------------
 
 The basic example shown above works perfectly without the CmfSeoBundle. The
-CmfSeoBundle provides more extension points to configure the SEO data with
-data from the document (e.g. a ``StaticContent`` document). This is done by
-using SEO metadata. This is SEO data which will be used for a particular
-document. This metadata can hold:
+CmfSeoBundle provides extension points to extract the SEO data from
+content documents, e.g. a ``StaticContent``, along with utility systems
+to automatically extract the information.
 
-* The title;
-* The meta keywords;
-* The meta description;
-* The original URL (when more than one URL contains the same content).
-* Anything else that uses the ``<meta>`` tag with the ``property``, ``name``
-  or ``http-equiv`` type (e.g. Open Graph data).
+The process is:
 
-The content object is retrieved from the request attributes. By default, it
-uses the ``DynamicRouter::CONTENT_KEY`` constant when the
-:doc:`RoutingBundle <../routing/introduction>` is installed. To change this,
-or if you don't use the RoutingBundle, you can configure it with
+1. The content listener checks for a document in the request
+2. It invokes ``SeoPresentationInterface::updateSeoPage``
+3. The presentation checks of the document provides a ``SeoMetadata`` value
+   object and runs the metadata extractors.
+4. The presentation updates the Sonata ``SeoPage`` with the gathered meta data.
+
+.. _bundles-seo-content-listener:
+
+The ContentListener
+~~~~~~~~~~~~~~~~~~~
+
+The ``Symfony\Cmf\Bundle\SeoBundle\EventListener\ContentListener`` looks for a
+content document in the request attributes. If it finds a document, it calls
+``SeoPresentationInterface::updateSeoPage``.
+
+If the :doc:`RoutingBundle <../routing/introduction>` is installed, the default
+attribute name is defined by the constant ``DynamicRouter::CONTENT_KEY``. When
+not using the RoutingBundle, you need to configure a key in
 ``cmf_seo.content_key``.
-This bundle provides two ways of using this metadata:
+
+Extracting Metadata
+~~~~~~~~~~~~~~~~~~~
+
+A service implementing ``SeoPresentationInterface`` is responsible for
+determining metadata from an object and updating the Sonata ``SeoPage`` with that
+information. A default implementation is provided as ``cmf_seo.presentation``.
+
+Defining Metadata
+~~~~~~~~~~~~~~~~~
+
+This bundle provides two ways to define metadata on objects:
 
 #. Implementing the ``SeoAwareInterface`` and persisting the ``SeoMetadata``
    with the object.
-#. Using the extractors, to extract the ``SeoMetadata`` from already existing
-   values (e.g. the title of the page).
+#. Using ``ExtractorInterface`` instances, to extract the ``SeoMetadata`` from
+   already existing values (e.g. the title of the page).
 
 You can also combine both ways, even on the same document. In that case, the
 persisted ``SeoMetadata`` can be changed by the extractors, to add or tweak
 the current available SEO information. For instance, if you are writing a
 ``BlogPost`` class, you want the SEO keywords to be set to the tags/category
-of the post and any additional tags set by the admin.
+of the post and any additional tags set by the editor.
 
-Persisting the ``SeoMetadata`` with the document makes it easy to edit for the
-admin, while using the extractors are perfect to easily use values from the
-displayed content.
+Persisting the ``SeoMetadata`` with the document makes it easy to override SEO
+information for the editor, while using the extractors adds the convenience
+that values from the normal content of the document can be reused.
 
-Both ways are documented in detail in separate sections:
+Both methods are documented in detail in separate sections:
 
 * :doc:`seo_aware`
 * :doc:`extractors`
