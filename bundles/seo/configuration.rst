@@ -132,8 +132,8 @@ Extension.
 ``enable_content_listener``
 """""""""""""""""""""""""""
 
-.. versionadded:: 1.1
-    The ``enable_content_listener`` configuration key was introduced in SeoBundle 1.1
+.. versionadded:: 1.2
+    The ``enable_content_listener`` configuration key was introduced in SeoBundle 1.2
 
 **type**: ``boolean`` **default**: ``true``
 
