@@ -145,7 +145,7 @@ that knows how to fetch the feed data of an ``RssBlock``::
             $settings = $blockContext->getSettings();
             $resolver = new OptionsResolver();
             $resolver->setDefaults($settings);
-            $settings = $resolver->resolve($block->getOptions());
+            $settings = $resolver->resolve($block->getSettings());
 
             $feeds = false;
             if ($settings['url']) {
