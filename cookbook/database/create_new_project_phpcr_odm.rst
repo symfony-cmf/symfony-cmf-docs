@@ -138,11 +138,11 @@ content repository.
             ),
         ));
 
-**Step 7**: Run ``composer install``:
+**Step 7**: Run ``composer update``:
 
 .. code-block:: bash
 
-    $ composer install
+    $ composer update
 
 After installing the packages composer will ask you to confirm or modify the
 default parameters defined in ``parameters.yml.dist`` and then generate the
