@@ -131,7 +131,7 @@ class via annotations:
 
     .. code-block:: yaml
 
-        # src/Acme/TaskBundle/Resources/config/doctrine/Task.odm.yml
+        # src/Acme/TaskBundle/Resources/config/doctrine/Task.phpcr.yml
         Acme\TaskBundle\Document\Task:
             id: id
 
@@ -143,7 +143,7 @@ class via annotations:
 
     .. code-block:: xml
 
-        <!-- src/Acme/TaskBundle/Resources/config/doctrine/Task.odm.xml -->
+        <!-- src/Acme/TaskBundle/Resources/config/doctrine/Task.phpcr.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping
             xmlns="http://doctrine-project.org/schemas/phpcr-odm/phpcr-mapping"
