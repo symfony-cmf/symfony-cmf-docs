@@ -101,7 +101,7 @@ Can be one of ``canonical`` or ``redirect``.
 **type**: ``string`` **default**: ``null`` (or ``DynamicRouter::CONTENT_KEY`` when RoutingBundle is enabled)
 
 The name of the request attribute which contains the content object. This is
-used by the ContentListener to exctract SEO information automatically. If the
+used by the ContentListener to extract SEO information automatically. If the
 RoutingBundle is present, this defaults to ``DynamicRouter::CONTENT_KEY``
 (which evaluates to ``contentDocument``), otherwise you must define this
 manually.

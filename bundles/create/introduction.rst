@@ -228,7 +228,7 @@ bundles.
         ));
 
 If you were not using Assetic previously, you need to call the ``assetic:dump``
-command in your deployment process, or the Javascript and CSS files will not be
+command in your deployment process, or the JavaScript and CSS files will not be
 found:
 
 .. code-block:: bash
