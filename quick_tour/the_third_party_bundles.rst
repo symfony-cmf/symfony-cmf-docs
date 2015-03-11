@@ -97,8 +97,9 @@ There is also a SeoBundle. This bundle is build on top of the
 SonataSeoBundle_. It provides a way to extract SEO information from a document
 and to make SEO information editable using an admin.
 
-To integrate the SeoBundle into the Standard Edition, you must register both
-bundles in the ``AppKernel``::
+To integrate the SeoBundle into the Standard Edition, you need to include it in
+your project with ``composer require symfony-cmf/seo-bundle`` and then register
+both the CMF and the Sonata bundle in the ``AppKernel``::
 
     // app/AppKernel.php
 
@@ -147,7 +148,7 @@ you can configure a default title:
 
     The *default title* is configured under the ``sonata_seo`` extension, while
     the *standard title* is configured under the ``cmf_seo`` extension.
-    
+
 The title is just one feature of the SeoBundle, it can extract and process a lot
 more SEO information.
 
