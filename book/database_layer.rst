@@ -131,7 +131,7 @@ class via annotations:
 
     .. code-block:: yaml
 
-        # src/Acme/TaskBundle/Resources/config/doctrine/Task.odm.yml
+        # src/Acme/TaskBundle/Resources/config/doctrine/Task.phpcr.yml
         Acme\TaskBundle\Document\Task:
             id: id
 
@@ -143,7 +143,7 @@ class via annotations:
 
     .. code-block:: xml
 
-        <!-- src/Acme/TaskBundle/Resources/config/doctrine/Task.odm.xml -->
+        <!-- src/Acme/TaskBundle/Resources/config/doctrine/Task.phpcr.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping
             xmlns="http://doctrine-project.org/schemas/phpcr-odm/phpcr-mapping"
@@ -261,7 +261,7 @@ you've configured a route to display a specific task by name::
     public function showAction($name)
     {
         $repository = $this->get('doctrine_phpcr')->getRepository('AcmeTaskBundle:Task');
-        $task = $repository->find('/task/'.$name);
+        $task = $repository->find('/tasks/'.$name);
 
         if (!$task) {
             throw $this->createNotFoundException('No task found with name '.$name);

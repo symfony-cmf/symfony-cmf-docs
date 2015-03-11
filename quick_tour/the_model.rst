@@ -85,10 +85,10 @@ a page by using a yaml file which was parsed by the SimpleCmsBundle. This
 time, you'll create a page by doing it yourself.
 
 First, you have to create a new DataFixture to add your new page. You do this
-by creating a new class in the AcmeMainBundle::
+by creating a new class in the AcmeDemoBundle::
 
-    // src/Acme/MainBundle/DataFixtures/PHPCR/LoadPageData.php
-    namespace Acme\MainBundle\DataFixtures\PHPCR;
+    // src/Acme/DemoBundle/DataFixtures/PHPCR/LoadPageData.php
+    namespace Acme\DemoBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -98,11 +98,11 @@ by creating a new class in the AcmeMainBundle::
     {
         public function getOrder()
         {
-            // refers to the order in which the class' load function is called 
+            // refers to the order in which the class' load function is called
             // (lower return values are called first)
             return 10;
         }
-    
+
         public function load(ObjectManager $documentManager)
         {
         }
@@ -111,6 +111,7 @@ by creating a new class in the AcmeMainBundle::
 The ``$documentManager`` is the object which will persist the document to
 PHPCR. But first, you have to create a new Page document::
 
+    use Doctrine\ODM\PHPCR\DocumentManager;
     use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
 
     // ...

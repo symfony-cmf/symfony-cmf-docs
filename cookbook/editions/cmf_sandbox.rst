@@ -158,7 +158,7 @@ The sandbox should now be accessible on your web server.
     http://localhost/app_dev.php
 
 In order to run the sandbox in production mode you need to generate the
-doctrine proxies and dump the assetic assets:
+doctrine proxies and dump the Assetic assets:
 
 .. code-block:: text
 

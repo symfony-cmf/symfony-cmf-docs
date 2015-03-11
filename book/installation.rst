@@ -96,9 +96,17 @@ dependencies, use the ``install`` command:
 
     $ composer install
 
+To try out things, you can accept the default values for all questions you are
+asked about the parameters.yml. Revisit that file later when you know more
+about Jackalope.
+
+Setup
+-----
+
+You are almost there. A few more steps need to be done to be ready.
 
 Set up the Database
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 The next step is to set up the database. If you want to use SQLite as your
 database backend just go ahead and run the following:
@@ -115,7 +123,20 @@ folder, containing the database content. The two commands after it will setup
 PHPCR and the final command will load some fixtures, so you can access the
 Standard Edition using a web server.
 
-The project should now be accessible on your web server. If you have PHP 5.4
+Preparing Assetic
+~~~~~~~~~~~~~~~~~
+
+To use the frontend editing in ``prod`` environment, you need to tell Assetic
+to dump the assets to the filesystem:
+
+.. code-block:: bash
+
+    $ php app/console --env=prod assetic:dump
+
+Configure a Webserver
+~~~~~~~~~~~~~~~~~~~~~
+
+The project is now ready to be served by your web server. If you have PHP 5.4
 installed you can alternatively use the PHP internal web server:
 
 .. code-block:: bash
@@ -127,7 +148,6 @@ And then access the CMF via:
 .. code-block:: text
 
     http://localhost:8000
-
 
 If you run an Apache installation as described in the `Symfony cookbook article on setup`_,
 your URL will look like this:

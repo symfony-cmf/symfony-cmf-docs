@@ -100,9 +100,11 @@ Can be one of ``canonical`` or ``redirect``.
 
 **type**: ``string`` **default**: ``null`` (or ``DynamicRouter::CONTENT_KEY`` when RoutingBundle is enabled)
 
-The name of the Request attribute which contains the content object. This is
-required when the RoutingBundle is not enabled, otherwise it defaults to
-``DynamicRouter::CONTENT_KEY`` (which evaluates to ``contentDocument``).
+The name of the request attribute which contains the content object. This is
+used by the ContentListener to exctract SEO information automatically. If the
+RoutingBundle is present, this defaults to ``DynamicRouter::CONTENT_KEY``
+(which evaluates to ``contentDocument``), otherwise you must define this
+manually.
 
 ``sonata_admin_extension``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
