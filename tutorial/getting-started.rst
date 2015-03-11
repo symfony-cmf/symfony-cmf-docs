@@ -427,9 +427,7 @@ and add some posts::
         }
     }
 
-The 
-
-and load the fixtures:
+Then load the fixtures:
 
 .. code-block:: bash
 
