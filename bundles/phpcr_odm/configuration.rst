@@ -451,6 +451,9 @@ not configure anything here, the ODM services will not be loaded.
                 auto_generate_proxy_classes: "%kernel.debug%"
                 proxy_dir: "%kernel.cache_dir%/doctrine/PHPCRProxies"
                 proxy_namespace: PHPCRProxies
+                namespaces:
+                    translation:
+                        alias: phpcr_locale
 
                 metadata_cache_driver:
                     type:           array
@@ -477,6 +480,10 @@ not configure anything here, the ODM services will not be loaded.
                     proxy-dir="%kernel.cache_dir%/doctrine/PHPCRProxies"
                     proxy-namespace="PHPCRProxies"
                 >
+                    <namespaces>
+                        <translation alias="phpcr_locale" />
+                    </namespaces>
+
                     <mappings>
                         <"name"
                             mapping="true"
@@ -511,6 +518,11 @@ not configure anything here, the ODM services will not be loaded.
                 'auto_generate_proxy_classes' => '%kernel.debug%',
                 'proxy-dir'                   => '%kernel.cache_dir%/doctrine/PHPCRProxies',
                 'proxy_namespace'             => 'PHPCRProxies',
+                'namespaces' => array(
+                    'translation' => array(
+                        'alias' => 'phpcr_locale',
+                    ),
+                ),
                 'mappings' => array(
                     '<name>' => array(
                         'mapping'   => true,
@@ -571,6 +583,13 @@ Change folder where proxy classes are generated.
 **type**: ``string``, **default**: ``PHPCRProxies``
 
 Change namespace for generated proxy classes.
+
+``namespaces``
+""""""""""""""
+
+This configuration section is intended to allow you to customize the
+PHPCR namespaces used by PHPCR-ODM. Currently it is only possible to
+set the alias used by the translation strategy.
 
 ``mappings``
 """"""""""""
