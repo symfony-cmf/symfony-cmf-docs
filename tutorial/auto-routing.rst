@@ -214,7 +214,7 @@ In summary, for each class:
   generated.
   * Within the schema you place ``{tokens}`` - placeholders for values provided by...
 * Token providers provide values which will be substituted into the URI. Here
-  you use two different providers - ``content_date`` and ``content_method``.
+  you use two different providers - ``content_datetime`` and ``content_method``.
   Both will return dynamic values from the subject object itself.
 
 Now reload the fixtures:
