@@ -79,7 +79,7 @@ Installation
     only provides a PHPCR driver. To make the above configuration work, you
     need to enable PHPCR either globally on ``cmf_core.persistence:phpcr`` or,
     if you only use the MediaBundle, directly on the bundle at
-    ``cmf_media.persistence.phpcr``.
+    ``cmf_media.persistence.phpcr``. Since version 1.1 you could choose the ``LocalFileSystem`` as driver, too.
 
 3. When using the LiipImagineBundle, add an imagine filter for the thumbnails:
 
