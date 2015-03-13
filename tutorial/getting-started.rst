@@ -411,7 +411,7 @@ and add some posts::
 
             $parent = $dm->find(null, '/cms/posts');
 
-            foreach (array('First', 'Second', 'Third', 'Forth') as $title) {
+            foreach (array('First', 'Second', 'Third', 'Fourth') as $title) {
                 $post = new Post();
                 $post->setTitle(sprintf('My %s Post', $title));
                 $post->setParentDocument($parent);

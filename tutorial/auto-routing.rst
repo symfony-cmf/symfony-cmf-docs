@@ -45,7 +45,7 @@ Enable the routing bundles to your kernel::
         }
     }
 
-.. note:: 
+.. note::
 
     The `symfony-cmf/routing-bundle` package is installed automatically as
     `symfony-cmf/routing-auto-bundle` depends on it.
@@ -206,7 +206,7 @@ You can now proceed to mapping your documents, create the following in your
     see the :doc:`../bundles/routing_auto/introduction` documentation for more information.
 
 This will configure the routing auto system to automatically create and update
-route documents for both the ``Page`` and ``Post`` documents. 
+route documents for both the ``Page`` and ``Post`` documents.
 
 In summary, for each class:
 
@@ -242,12 +242,12 @@ Have a look at what you have:
                   my-first-post:
                   my-second-post:
                   my-third-post:
-                  my-forth-post:
+                  my-fourth-post:
         posts:
           My First Post:
           My Second Post:
           My Third Post:
-          My Forth Post:
+          My Fourth Post:
 
 The routes have been automatically created!
 
