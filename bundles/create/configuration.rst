@@ -62,20 +62,35 @@ For more information, see the
             ),
         ));
 
+.. _config-create-object-mapper-service-id:
+
+``object_mapper_service_id``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**type**: ``string`` **default**: ``"cmf_create.chain_mapper"``
+
+You can specify a service implementing ``Midgard\CreatePHP\RdfMapperInterface``
+that will handle objects that need to be stored by the REST handler of
+CreatePHP. You need to either specify this service, enable phpcr or orm
+persistence or define one or more services that implement the
+``Midgard\CreatePHP\RdfChainableMapperInterface`` and tag them with ``cmf_create.mapper``.
+
 .. _config-create-persistence:
 
 ``persistence``
 ~~~~~~~~~~~~~~~
 
-This defines the persistence driver and associated classes. The default
-persistence configuration has the following configuration:
+This defines a persistence driver for Doctrine PHPCR-ODM documents or Doctrine ORM entities.
+If you specify neither, see :ref:`config-create-object-mapper-service-id`.
+
+``phpcr``
+.........
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         cmf_create:
-            object_mapper_service_id: ~
             persistence:
                 phpcr:
                     enabled:      false
@@ -127,13 +142,6 @@ persistence configuration has the following configuration:
             ),
         ));
 
-``object_mapper_service_id``
-""""""""""""""""""""""""""""
-
-You can specify a service implementing ``Midgard\CreatePHP\RdfMapperInterface``
-that will handle objects that need to be stored by the REST handler of
-CreatePHP. You need to either specify this service or enable the phpcr
-persistence for this bundle to work.
 
 ``enabled``
 """""""""""
@@ -163,6 +171,60 @@ If you need different image handling, you can either overwrite
 Set delete to true to enable the simple delete workflow. This allows to directly
 delete content from the frontend. Be careful, there are no special checks once you confirm deletion
 your content is gone.
+
+``orm``
+.......
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        cmf_create:
+            persistence:
+                orm:
+                    enabled:      false
+                    manager_name: ~
+
+    .. code-block:: xml
+
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/create">
+                <persistence>
+                    <orm
+                        enabled="false"
+                        manager-name="null"
+                    />
+                </persistence>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_create', array(
+            'persistence' => array(
+                'orm' => array(
+                    'enabled'      => false,
+                    'manager_name' => null,
+                ),
+            ),
+        ));
+
+
+``enabled``
+"""""""""""
+
+**type**: ``boolean`` **default**: ``false``
+
+If ``true``, the ORM is included in the chain mapper.
+
+``manager_name``
+""""""""""""""""
+
+**type**: ``string`` **default**: ``null``
+
+The name of the Doctrine Manager to use.
+
 
 Metadata Handling
 ~~~~~~~~~~~~~~~~~
@@ -198,19 +260,19 @@ Metadata Handling
         ));
 
 ``auto_mapping``
-""""""""""""""""
+................
 
 If not set to false, the CreateBundle will look for mapping files in every
 bundle in the directory ``Resources/rdf-mappings``.
 
 ``rdf_config_dirs``
-"""""""""""""""""""
+...................
 
 Additional directories to look for mapping files besides the auto mapped
 directory.
 
 ``map``
-"""""""
+.......
 
 Mapping from RDF type name to class. This configuration is used when adding
 items to collections. *Note that collection support is currently incomplete
@@ -270,26 +332,26 @@ setting is the ``plain_text_types``.
         ));
 
 ``plain_text_types``
-""""""""""""""""""""
+....................
 
 A list of RDFa field types that will be edited with a plain text editor without
 any formatting options. All other fields are edited with the WYSIWYG options
 activated.
 
 ``editor_base_path``
-""""""""""""""""""""
+....................
 
 If you use a non-standard setup, you can adjust the editor base path
 configuration. This is only relevant for CKEditor.
 
 ``fixed_toolbar``
-"""""""""""""""""
+.................
 
 Fix the editor toolbar on top of the page. Currently only supported by the
 hallo.js editor.
 
 ``stanbol_url``
-"""""""""""""""
+...............
 
 Apache stanbol can be used for semantic enhancement of content. This feature
 can optionally be used with the hallo.js editor.
