@@ -8,7 +8,7 @@ Installation
 ------------
 
 You can install this bundle `with composer`_ using the
-``symfony-cmf/seo-content-bundle`` package on `Packagist`_.
+``symfony-cmf/seo-bundle`` package on `Packagist`_.
 
 Both the CmfSeoBundle and SonataSeoBundle must be registered in the
 ``AppKernel``::
