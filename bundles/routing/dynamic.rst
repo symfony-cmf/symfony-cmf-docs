@@ -422,7 +422,7 @@ This will look as follows:
     .. code-block:: html+jinja
 
         {# myRoute is an object of class Symfony\Component\Routing\Route #}
-        <a href="{{ path(myRoute) }}>Read on</a>
+        <a href="{{ path(myRoute) }}">Read on</a>
 
     .. code-block:: html+php
 
