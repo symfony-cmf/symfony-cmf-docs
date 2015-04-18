@@ -185,10 +185,23 @@ These are the list of available options:
 See the `KnpMenuBundle documentation`_ for more information about these
 attributes.
 
+Advanced Menu Options
+~~~~~~~~~~~~~~~~~~~~~
+
 By default the only available options are **Display** and **Display Children**.
-To enable the advaned options you need to add ``burgov/key-value-form-bundle``
-requirement in your ``composer.json`` and enable the advanced options in
-your config file:
+You can enable advanced options, but need to add the BurgovKeyValueFormBundle_
+to your project. Run ``composer require burgov/key-value-form-bundle``,
+instantiate the bundle in the kernel and extend the template
+``SonataAdminBundle:Form:form_admin_fields.html.twig`` to add:
+
+.. code-block:: jinja
+
+    {% block burgov_key_value_widget %}
+        {{- block('sonata_type_native_collection_widget') -}}
+    {% endblock %}
+
+Once you enabled the bundle, you can enable the advanced menu options in your
+configuration:
 
 .. configuration-block::
 
@@ -232,3 +245,4 @@ your config file:
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
 .. _`configuring sonata admin`: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/reference/configuration.html
 .. _`KnpMenuBundle documentation`: http://github.com/KnpLabs/KnpMenu/blob/master/doc/01-Basic-Menus.markdown#menu-attributes
+.. _BurgovKeyValueFormBundle: https://github.com/Burgov/KeyValueFormBundle
