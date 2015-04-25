@@ -197,7 +197,7 @@ other documents to hold a reference to the page. The ``Post`` class will also
 be referenceable and in addition will automatically set the date using the
 `pre persist lifecycle event`_ if it has not been explicitly set previously::
 
-    // src/Acme/BasicCms/Document/Post.php
+    // src/Acme/BasicCmsBundle/Document/Post.php
     namespace Acme\BasicCmsBundle\Document;
 
     use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
@@ -411,7 +411,7 @@ and add some posts::
 
             $parent = $dm->find(null, '/cms/posts');
 
-            foreach (array('First', 'Second', 'Third', 'Forth') as $title) {
+            foreach (array('First', 'Second', 'Third', 'Fourth') as $title) {
                 $post = new Post();
                 $post->setTitle(sprintf('My %s Post', $title));
                 $post->setParentDocument($parent);
@@ -427,9 +427,7 @@ and add some posts::
         }
     }
 
-The 
-
-and load the fixtures:
+Then load the fixtures:
 
 .. code-block:: bash
 

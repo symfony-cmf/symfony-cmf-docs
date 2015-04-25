@@ -44,6 +44,7 @@ library or they introduce a complete new concept.
   * :doc:`menu/menu_factory`
   * :doc:`menu/menu_provider`
   * :doc:`menu/voters`
+  * :doc:`menu/sonata_admin`
   * :doc:`menu/configuration`
 
 * :doc:`routing/index`

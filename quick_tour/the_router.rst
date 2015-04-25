@@ -151,6 +151,8 @@ Now you can add a new ``Route`` to the tree using Doctrine::
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
+    
+    use PHPCR\Util\NodeHelper;
 
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
@@ -162,6 +164,9 @@ Now you can add a new ``Route`` to the tree using Doctrine::
                 $class = get_class($documentManager);
                 throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
             }
+            
+            $session = $documentManager->getPhpcrSession();
+            NodeHelper::createPath($session, '/cms/routes');
 
             $routesRoot = $documentManager->find(null, '/cms/routes');
 
