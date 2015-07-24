@@ -26,6 +26,28 @@ Installation
 You can install this bundle `with composer`_ using the
 `symfony-cmf/menu-bundle`_ package.
 
+As the bundle is using the `KnpMenuBundle`_, you need to instantiate that
+bundles in addition to the CmfMenuBundle::
+
+    // app/AppKernel.php
+
+    // ...
+    class AppKernel extends Kernel
+    {
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+                new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+                new Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
+            );
+
+            // ...
+        }
+
+        // ...
+    }
+
 Creating a Simple Persistent Menu
 ---------------------------------
 
