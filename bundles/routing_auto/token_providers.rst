@@ -9,6 +9,15 @@ Such values can be derived form the object for which the route is being
 generated or from the environment (e.g. you could use the current locale in
 the route).
 
+Global Options
+--------------
+
+The following options apply to all token providers:
+
+``allow_empty``
+    Allow the token value to be empty. If the token value is empty then any
+    trailing slash will be removed. If the token is the last token, then the
+    leading slash will be removed. Default is ``false``.
 
 ``content_method``
 ------------------
