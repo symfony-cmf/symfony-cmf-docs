@@ -16,6 +16,9 @@ You can configure the route enhancers that decide what controller is used to
 handle the request, to avoid hard coding controller names into your route
 documents.
 
+To fully understand the capabilities of the dynamic router, read also the
+:doc:`routing component documentation <../../components/routing/index>`.
+
 Configuration
 -------------
 
@@ -617,8 +620,8 @@ See the `Sonata Admin extension documentation`_ for more information.
 FrontendLink Sonata Admin Extension
 -----------------------------------
 
-This bundle provides an extension to show a button in Sonata Admin, which links on the actual 
-frontend representation of a document. Documents which implement the ``RouteReferrersReadInterface`` 
+This bundle provides an extension to show a button in Sonata Admin, which links on the actual
+frontend representation of a document. Documents which implement the ``RouteReferrersReadInterface``
 and Routes itself (``Symfony\Component\Routing\Route``) are supported.
 
 To enable the extension in your admin classes, simply define the extension
@@ -636,7 +639,7 @@ configuration in the ``sonata_admin`` section of your project configuration:
                     implements:
                         - Symfony\Cmf\Component\Routing\RouteReferrersReadInterface
                     extends:
-                        - Symfony\Component\Routing\Route 
+                        - Symfony\Component\Routing\Route
 
     .. code-block:: xml
 
@@ -670,7 +673,7 @@ See the `Sonata Admin extension documentation`_ for more information.
 Styling
 ~~~~~~~
 
-Feel free to use your own styles. The frontend link button can be customized 
+Feel free to use your own styles. The frontend link button can be customized
 using the following example CSS rules:
 
 .. code-block:: css
@@ -678,11 +681,11 @@ using the following example CSS rules:
     .sonata-admin-menu-item a.sonata-admin-frontend-link {
         font-weight: bold;
     }
-    
+
     .sonata-admin-menu-item a.sonata-admin-frontend-link:before {
         font-family: FontAwesome;
         content: "\f08e";
-    } 
+    }
 
 Customize the DynamicRouter
 ---------------------------

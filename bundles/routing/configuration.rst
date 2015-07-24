@@ -542,6 +542,15 @@ content repository service.
 
 .. _reference-config-routing-locales:
 
+``url_generator``
+~~~~~~~~~~~~~~~~~
+
+**type**: ``string`` **default**: ``cmf_routing.generator``
+
+Service id for the DynamicRouter to generate URLs from Route objects. Overwrite
+to a service implementing ``UrlGeneratorInterface`` if you need to customize that
+service.
+
 ``locales``
 ~~~~~~~~~~~
 

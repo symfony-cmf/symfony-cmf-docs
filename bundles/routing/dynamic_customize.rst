@@ -124,7 +124,6 @@ configuration as follows:
        # app/config/config.yml
        cmf_routing:
            dynamic:
-               enabled: true
                route_provider_service_id: acme_demo.provider.endpoint
 
    .. code-block:: xml
@@ -133,10 +132,7 @@ configuration as follows:
        <?xml version="1.0" encoding="UTF-8" ?>
        <container xmlns="http://symfony.com/schema/dic/services">
            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-               <dynamic
-                   enabled="true"
-                   route-provider-service-id="acme_demo.provider.endpoint"
-               />
+               <dynamic route-provider-service-id="acme_demo.provider.endpoint"/>
            </config>
        </container>
 
@@ -145,14 +141,50 @@ configuration as follows:
        // app/config/config.php
        $container->loadFromExtension('cmf_routing', array(
            'dynamic' => array(
-              'enabled'                   => true,
               'route_provider_service_id' => 'acme_demo.provider.endpoint',
            ),
        ));
 
 Where ``acme_demo.provider.endpoint`` is the service ID of your route
-provider.  See `Creating and configuring services in the container`_ for
+provider. See `Creating and configuring services in the container`_ for
 information on creating custom services.
+
+Using a Custom URL Generator
+----------------------------
+
+The dynamic router can also generate URLs from route objects. If you need to
+customize this behavior beyond what the
+:ref:`route generate event <components-routing-events>` allows, you can
+implement the ``Symfony\Component\Routing\Generator\UrlGeneratorInterface``
+yourself and configure that service:
+
+.. configuration-block::
+
+   .. code-block:: yaml
+
+       # app/config/config.yml
+       cmf_routing:
+           dynamic:
+               url_generator: routing.my_generator
+
+   .. code-block:: xml
+
+       <!-- app/config/config.xml -->
+       <?xml version="1.0" encoding="UTF-8" ?>
+       <container xmlns="http://symfony.com/schema/dic/services">
+           <config xmlns="http://cmf.symfony.com/schema/dic/routing">
+               <dynamic url-generator="routing.my_generator"/>
+           </config>
+       </container>
+
+   .. code-block:: php
+
+       // app/config/config.php
+       $container->loadFromExtension('cmf_routing', array(
+           'dynamic' => array(
+              'url_generator' => 'routing.my_generator',
+           ),
+       ));
 
 .. _`Creating and configuring services in the container`: http://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container/
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
