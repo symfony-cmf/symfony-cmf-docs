@@ -36,14 +36,25 @@ Events
 ------
 
 Optionally, you can provide an `Event Dispatcher`_ to the dynamic router.
-If you do, it will trigger one of the following two events during the match
-process, depending on which method is used:
+If you do, it will trigger one of the pre-match events during the match
+process, depending on which method is used and another event before generating
+a URL:
 
 * **cmf_routing.pre_dynamic_match** (Dispatched at the beginning of the
   ``match`` method)
 * **cmf_routing.pre_dynamic_match_request** (Dispatched at the beginning of the
   ``matchRequest`` method. In the context of the Symfony2 full stack framework,
   only this event will be triggered.)
+* **cmf_routing.pre_dynamic_generate** (Dispatched at the beginning of the
+  ``generate`` method)
+
+..versionadded:: 1.4
+    The route generate event was added in version 1.4 of the routing component.
+
+Pre-match events are of class ``Symfony\Cmf\Component\Routing\Event\RouterMatchEvent``,
+the generate event is of class ``Symfony\Cmf\Component\Routing\Event\RouterGenerateEvent``.
+The genereate event also allows you to manipulate the route name, parameters and
+reference type in the event, by updating the values in the event.
 
 The ``Symfony\Cmf\Component\Routing\Event\Events`` class contains the event
 constants. To learn how to register the events, see
