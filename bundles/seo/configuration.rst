@@ -122,6 +122,101 @@ manually or disable the content listener.
     In versions of the SeoBundle prior to 1.2, the ``content_key`` was
     configured directly in the ``cmf_seo`` root.
 
+``sitemap``
+~~~~~~~~~~~
+
+.. versionadded:: 1.2
+    Support for sitemaps was introduced in version 1.2 of the SeoBundle.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_seo:
+            sitemap:
+                enabled: true
+                defaults:
+                    default_change_frequency: always
+                    templates:
+                        html: CmfSeoBundle:Sitemap:index.html.twig
+                        xml: CmfSeoBundle:Sitemap:index.xml.twig
+                configurations:
+                    sitemap: ~
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://example.org/schema/dic/cmf_seo">
+                <sitemap enabled="true">
+                    <defaults>
+                        <template format="html">CmfSeoBundle:Sitemap:index.html.twig</template>
+                        <template format="xml">CmfSeoBundle:Sitemap:index.xml.twig</template>
+                    </defaults>
+                    <configuration name="sitemap"/>
+                </sitemap>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_seo', array(
+            'sitemap' => array(
+                'enabled' => true,
+                'defaults' => array(
+                    'templates' => array(
+                        'html' => 'CmfSeoBundle:Sitemap:index.html.twig',
+                        'xml' => 'CmfSeoBundle:Sitemap:index.xml.twig',
+                    ),
+                ),
+                'configurations' => array(
+                    'sitemap' => null,
+                ),
+            ),
+        ));
+
+``enabled``
+"""""""""""
+
+**type**: ``boolean`` **default**: ``false``
+
+Whether or not the :doc:`sitemap` should be loaded. As soon as you configure
+anything else in the ``sitemap`` section, this defaults to true.
+
+``defaults``
+""""""""""""
+
+Contains default configuration that applies to all sitemaps.
+
+``configurations``
+""""""""""""""""""
+
+Contains the list of sitemaps that should exist. Each sitemap can overwrite
+default configuration. If not specified, a sitemap called "sitemap" exists.
+
+``default_change_frequency``
+****************************
+
+**type**: ``enum`` **default**: ``always`` **allowed values**: 'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never'
+
+Specify the change frequency for UrlInformation that do not have one explicitly
+set.
+
+``templates``
+*************
+
+**type**: ``hashmap`` **default**: templates for html and xml
+
+This hashmap specifies which template to use for the sitemap in each format.
+By default, you have:
+
+* html: CmfSeoBundle:Sitemap:index.html.twig
+* xml: CmfSeoBundle:Sitemap:index.xml.twig
+
 ``sonata_admin_extension``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
