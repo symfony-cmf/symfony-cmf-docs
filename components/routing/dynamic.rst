@@ -44,6 +44,8 @@ process, depending on which method is used:
 * **cmf_routing.pre_dynamic_match_request** (Dispatched at the beginning of the
   ``matchRequest`` method. In the context of the Symfony2 full stack framework,
   only this event will be triggered.)
+* **cmf_routing.pre_dynamic_generate** (Dispatched at the beginning of the
+  ``generate`` method)
 
 The ``Symfony\Cmf\Component\Routing\Event\Events`` class contains the event
 constants. To learn how to register the events, see
