@@ -20,6 +20,28 @@ Installation
 You can install this bundle `with composer`_ using the
 `symfony-cmf/routing-auto-bundle`_ package.
 
+This bundle is based on the :doc:`../routing/index`, and you need to
+instantiate both bundles::
+
+    // app/AppKernel.php
+
+    // ...
+    class AppKernel extends Kernel
+    {
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+                new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
+                new Symfony\Cmf\Bundle\RoutingAutoBundle\CmfRoutingAutoBundle(),
+            );
+
+            // ...
+        }
+
+        // ...
+    }
+
 Features
 --------
 
