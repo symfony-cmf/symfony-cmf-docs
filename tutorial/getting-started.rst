@@ -89,7 +89,7 @@ Now you can generate the bundle in which you will write most of your code:
 
 .. code-block:: bash
 
-    $ php app/console generate:bundle --namespace=Acme/BasicCmsBundle --dir=src --no-interaction --env=dev
+    $ php app/console generate:bundle --namespace=Acme/BasicCmsBundle --dir=src --format=yml --no-interaction
 
 The Documents
 .............
