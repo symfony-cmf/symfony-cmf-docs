@@ -40,11 +40,13 @@ persisted using Doctrine PHPCR-ODM, Doctrine ORM or something else.
 Installation
 ------------
 
-1. You can install the bundle via Composer (``symfony-cmf/media-bundle`` on
-   `Packagist`_).
+You can install this bundle `with composer`_ using the
+`symfony-cmf/media-bundle`_ package.
 
-2. When using the file and image controller for downloading, uploading and
-   displaying, add the following lines to the end of your routing file:
+Configuration
+-------------
+When using the file and image controller for downloading, uploading and
+displaying, add the following lines to your routing file:
 
    .. configuration-block::
 
@@ -88,14 +90,14 @@ Installation
 
            return $collection;
 
-3. For now, the only supported persistence layer is PHPCR. If you enabled PHPCR
-   on the CoreBundle, you need to do nothing here. If you do not have the
-   CMF CoreBundle in your project, you need to configure
-   ``cmf_media.persistence.phpcr.enabled: true``.
+For now, the only supported persistence layer is PHPCR. If you enabled PHPCR
+on the CoreBundle, you need to do nothing here. If you do not have the
+CmfCoreBundle in your project, you need to configure
+``cmf_media.persistence.phpcr.enabled: true``.
 
-4. For PHPCR, run the ``doctrine:phpcr:repository:init`` command, to have the
-   base paths initialized, using the
-   :ref:`repository initializers <phpcr-odm-repository-initializers>`.
+Then run the ``doctrine:phpcr:repository:init`` command, to have the base paths
+initialized, using the
+:ref:`repository initializers <phpcr-odm-repository-initializers>`.
 
 Interfaces
 ----------
@@ -266,8 +268,9 @@ and Symfony bundles:
 * :doc:`adapters/elfinder`
 * :doc:`adapters/gaufrette`
 
+.. _`symfony-cmf/media-bundle`: https://packagist.org/packages/symfony-cmf/media-bundle
+.. _`with composer`: http://getcomposer.org
 .. _`MediaBundle`: https://github.com/symfony-cmf/MediaBundle#readme
-.. _`Packagist`: https://packagist.org/packages/symfony-cmf/media-bundle
 .. _`KnpLabs/Gaufrette`: https://github.com/KnpLabs/Gaufrette
 .. _`phpcr/phpcr-utils`: https://github.com/phpcr/phpcr-utils
 .. _`jms/serializer-bundle`: https://github.com/schmittjoh/JMSSerializerBundle

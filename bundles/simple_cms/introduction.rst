@@ -30,6 +30,30 @@ Installation
 You can install this bundle `with composer`_ using the
 ``symfony-cmf/simple-cms-bundle`` package on `Packagist`_.
 
+This bundle integrates the routing, content and menu bundles of the CMF. All of
+them and their dependencies need to be instantiated in the kernel::
+
+    // app/AppKernel.php
+
+    // ...
+    class AppKernel extends Kernel
+    {
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+                new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+                new Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
+                new Symfony\Cmf\Bundle\ContentBundle\CmfContentBundle(),
+                new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
+            );
+
+            // ...
+        }
+
+        // ...
+    }
+
 Sections
 --------
 

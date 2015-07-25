@@ -52,9 +52,27 @@ If you want to use PHPCR-ODM, you additionally need to require
         ...
     }
 
-Besides ``Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle`` you also need to
-instantiate the ``Doctrine\Bundle\DoctrineBundle\DoctrineBundle`` in your app
-kernel.
+Besides the ``DoctrinePHPCRBundle`` you also need to instantiate the base
+``DoctrineBundle`` in your kernel::
+
+    // app/AppKernel.php
+
+    // ...
+    class AppKernel extends Kernel
+    {
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+                new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
+                new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            );
+
+            // ...
+        }
+
+        // ...
+    }
 
 Configuration
 -------------

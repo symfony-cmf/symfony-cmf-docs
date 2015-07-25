@@ -18,6 +18,29 @@ Installation
 You can install this bundle `with composer`_ using the
 `symfony-cmf/block-bundle`_ package.
 
+As the bundle is using the `SonataBlockBundle`_, you need to instantiate some
+sonata bundles in addition to the CmfBlockBundle::
+
+    // app/AppKernel.php
+
+    // ...
+    class AppKernel extends Kernel
+    {
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+                new Sonata\BlockBundle\SonataBlockBundle(),
+                new Sonata\CoreBundle\SonataCoreBundle(),
+                new Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
+            );
+
+            // ...
+        }
+
+        // ...
+    }
+
 .. _bundle-block-configuration:
 
 Usage
