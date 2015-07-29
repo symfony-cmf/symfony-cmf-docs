@@ -2,17 +2,30 @@ Alternate Locale Handling
 =========================
 
 The CMF provides a powerful way to persist document in different locales.
-Each of those translated documents are Representations of another. In a
+Each of those translated documents are representations of another. In a
 SEO context it would be great to show the available routes to translations
 of the current representation.
 
 Example
 -------
 
-Lets persist a document in three locales.
+Lets persist a document in three locales.::
 
     // src/Acme/ApplicationBundle/DataFixtures/Doctrine/PHPCR/ExampleFixture.php
 
+    <?php
+
+    namespace AppBundle\DataFixtures\PHPCR;
+
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\ODM\PHPCR\DocumentManager;
+    use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
+    use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+
+    /**
+     * @author Maximilian Berghoff <Maximilian.Berghoff@mayflower.de>
+     */
     class ExampleFeature implements FixtureInterface
     {
         /**
@@ -22,41 +35,69 @@ Lets persist a document in three locales.
          */
         public function load(ObjectManager $manager)
         {
-            $document = new Document();
+            $parent = $manager->find(null, '/cms/routes');
+
+            $document = new StaticContent();
             $document->setTitle('The Title');
             $document->setBody('The body is the main content');
             $manager->persist($document);
             $manager->bindTranslation($document, 'en');
+            $route = new Route();
+            $route->setPosition($parent, 'en');
+            $route->setCondition($document);
+            $manager->persist($route);
 
-            $document->setTitle('Der Title');
+            $document->setTitle('Der Titel');
             $document->setBody('Der Body ist der Content');
             $manager->bindTranslation($document, 'en');
+            $route = new Route();
+            $route->setPosition($parent, 'de');
+            $route->setCondition($document);
+            $manager->persist($route);
 
-            $document->setTitle('Le title');
-            $document->setBody('Le body ... Todo: @dbu');
+            $document->setTitle('Le titre');
+            $document->setBody('Le contenu principale');
             $manager->bindTranslation($document, 'fr');
+            $route = new Route();
+            $route->setPosition($parent, 'fr');
+            $route->setCondition($document);
+            $manager->persist($route);
 
             $manager->flush();
         }
     }
 
+This creates a content document for the languages german, english and french and its routes.
+So the routes are persisted as objects, but the content is available under the following urls:
+
++--------------------+---------------------+
+| locale             | url                 |
++================================+=========+
+| ``english``        | ``/en/the-title``   |
++--------------------+---------------------+
+| ``german``         | ``/de/der-title``   |
++--------------------+---------------------+
+| ``french``         | ``/fr/le-titre``    |
++--------------------+---------------------+
+
+- english: /en/
+- german: /de/der-titel
+
 .. note::
-    To get more information about translating content by the phpcr-odm have a look
-    at `translatedDocuments`_.
+    To get more information about translating content by the PHPCR-ODM have a look
+    at :doc:`PHPCR-ODM multilang<phpcr_odm/multilang>`.
 
-The mapped routes can look like ``/en/the-title``, ``/de/der-titel``
-and ``/fr/le-title``. When viewing the content of one of the route, we
-would expect hints how to navigate to the others. So a somethin like that should
-be rendered into your head section of your DOM:
+When viewing the page in one language, we would expect hints how to navigate to the others.
+Search engines expect the following in the ``<head>`` section of the page:
 
-    <link rel="alternate" href="/fr/le-title" hreflang="fr" />
+    <link rel="alternate" href="/fr/le-titre" hreflang="fr" />
     <link rel="alternate" href="/de/der-titel" hreflang="de" />
 
 Configuration
 -------------
 
 The SeoBundle serves a ``AlternateLocaleProvider`` to build alternate locale information
-for a given content based on the PHPCR. You can easily enable that by
+for a given content based on the PHPCR-ODM. You can easily enable that by:
 
 .. configuration-block::
 
@@ -99,11 +140,12 @@ You have to enable persistence by PHPCR to have the default provider available.
 Create your own provider
 ------------------------
 
-Cause the default provider serves the routes for the alternate locale contents directly from the
-phpcr-odm. For other persistence layers or custom needs on the translated location routes you can
-create your own provider by implementing the ``AlternateLocaleProviderInterface``
+The default provider serves the routes for the alternate locale contents directly from the
+PHPCR-ODM. For other persistence layers or custom needs on the translated location URLs you can
+create your own provider by implementing the ``AlternateLocaleProviderInterface``::
 
-    /src/Acme/ApplicationBundle/AlternateLocaleProvider.php
+    // src/Acme/ApplicationBundle/AlternateLocaleProvider.php
+
     use Symfony\Cmf\Bundle\SeoBundle\AlternateLocaleProviderInterface;
     use Symfony\Cmf\Bundle\SeoBundle\Model\AlternateLocale;
     use Symfony\Cmf\Bundle\SeoBundle\Model\AlternateLocaleCollection;
@@ -121,7 +163,7 @@ create your own provider by implementing the ``AlternateLocaleProviderInterface`
         {
             $alternateLocaleCollection = new AlternateLocaleCollection();
             // get the alternate locales for the given content
-            $alternateLocales = CustomLocaleHelper->getAllForContent($content);
+            $alternateLocales = $this->getAllForContent($content);
 
             // add the alternate locales except the current one
             $currentLocale = $content->getLocale();
@@ -157,10 +199,24 @@ create your own provider by implementing the ``AlternateLocaleProviderInterface`
 
             return $result;
         }
+
+        /**
+         * Creates a list of locales the content is also persisd
+         *
+         * @var object $content
+         * @return array The list of locales
+         */
+        public function getAllForContent($content)
+        {
+            $list = array();
+            // implement you logic
+
+            return $list;
+        }
+
     }
 
-Create a service for your provider
-
+Create a service for your provider:
 
 .. configuration-block::
 
@@ -190,9 +246,8 @@ Create a service for your provider
             'Acme\ApplicationBundle\AlternateLocaleProvider'
         ));
 
-Now you have to inform ``CmfSeoBundle`` to use your custom alternate locale provider instead of the default one.
-You can do so by setting the ``provider_id`` to the service id you have just created.
-
+Now you have to configure ``CmfSeoBundle`` to use your custom alternate locale provider instead of the default one.
+Set the ``alternate_locale.provider_id``  to the service you just created:
 
 .. configuration-block::
 
@@ -201,7 +256,7 @@ You can do so by setting the ``provider_id`` to the service id you have just cre
         # app/config/config.yml
         cmf_seo:
             alternate_locale:
-                provider_id: acme.application.alternate_locale_provider
+                provider_id: acme.application.alternate_locale.provider
 
     .. code-block:: xml
 
@@ -209,7 +264,7 @@ You can do so by setting the ``provider_id`` to the service id you have just cre
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/seo">
-                <alternate-locale provider-id="acme.application.alternate_locale_provider" />
+                <alternate-locale provider-id="acme.application.alternate_locale.provider" />
             </config>
         </container>
 
@@ -217,32 +272,17 @@ You can do so by setting the ``provider_id`` to the service id you have just cre
 
         $container->loadFromExtension('cmf_seo', array(
             'alternate_locale' => array (
-                'provider_id' => acme.application.alternate_locale_provider,
+                'provider_id' => acme.application.alternate_locale.provider,
             ),
         ));
+
+
 
 Alternate locales on Sitemap
 ----------------------------
 
+.. versionadded:: 1.2
+
 .. note::
-    The Sitemap was introduced in Version 1.2
+    For activated :doc:`sitemap<seo/sitemap>` the alternate locales will be pushed into the sitemap too.
 
-You can also provide alternate locale information on your Sitemap creted by the ``CmfSeoBundle``.
-To do so only have to activate the ``alternate_locale`` insider your configuration. There is an
-``AlternateLocalesGuesser`` which uses the ``AlternateLocaleProvider`` to add the alternate
-locale content to the so called ``UrlInformation``, which are rendered into the Sitemap like:
-
-    <?xml version="1.0"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-     <url>
-         <loc>http://www.your-domain.org/en/the-title</loc>
-         <changefreq>never</changefreq>
-         <xhtml:link href="http://www.your-domain.org/de/der-title" hreflang="de" rel="alternate"/>
-         <xhtml:link href="http://www.your-domain.org/fr/le-title" hreflang="fr" rel="alternate"/>
-     </url>
-    </urlset>
-
-For more information about the sitmap creation of the ``CmfSeoBundle`` have a look at `Sitemap`_.
-
-.. _`translatedDocuments`: ../phpcr-odm/multilang
-.. _`Sitemap`: sitemap
