@@ -222,7 +222,7 @@ Create a service for your provider:
 
     .. code-block:: yaml
         services:
-            acme.application.alternate_locale_provider
+            acme.application.alternate_locale.provider
                 class: "Acme\ApplicationBundle\AlternateLocaleProvider"
 
     .. code-block:: xml
@@ -233,7 +233,7 @@ Create a service for your provider:
                    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="acme.application.alternate_locale_provider" class="Acme\ApplicationBundle\AlternateLocaleProvider">
+                <service id="acme.application.alternate_locale.provider" class="Acme\ApplicationBundle\AlternateLocaleProvider">
                 </service>
             </services>
 
@@ -242,7 +242,7 @@ Create a service for your provider:
     .. code-block:: php
         use Symfony\Component\DependencyInjection\Definition;
 
-        $container->setDefinition('acme.application.alternate_locale_provider', new Definition(
+        $container->setDefinition('acme.application.alternate_locale.provider', new Definition(
             'Acme\ApplicationBundle\AlternateLocaleProvider'
         ));
 
@@ -276,13 +276,7 @@ Set the ``alternate_locale.provider_id``  to the service you just created:
             ),
         ));
 
-
-
-Alternate locales on Sitemap
-----------------------------
-
 .. versionadded:: 1.2
 
 .. note::
     For activated :doc:`sitemap<seo/sitemap>` the alternate locales will be pushed into the sitemap too.
-
