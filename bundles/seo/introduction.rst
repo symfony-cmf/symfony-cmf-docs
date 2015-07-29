@@ -368,6 +368,13 @@ For changing the default translation domain (messages), you should use the
             ),
         );
 
+.. _bundles-seo-alternate-locale:
+
+Alternate locales support
+-------------------------
+
+Tbd.
+
 Conclusion
 ----------
 

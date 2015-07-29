@@ -277,6 +277,4 @@ Set the ``alternate_locale.provider_id``  to the service you just created:
         ));
 
 .. versionadded:: 1.2
-
-.. note::
     For activated :doc:`sitemap<seo/sitemap>` the alternate locales will be pushed into the sitemap too.

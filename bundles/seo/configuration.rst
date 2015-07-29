@@ -241,3 +241,52 @@ of ``cmf_core.persistence.phpcr.use_sonata_admin``.
 
 The name of the form group of the group provided by the Sonata Admin
 Extension.
+
+``alternate_locale``
+~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 1.1
+    Support for alternate locales were added in version 1.1 of the SeoBundle
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_seo:
+            alternate_locale:
+                enabled: true
+                provider_id: acme.application.alternate_locale.provider
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/seo">
+                <alternate-locale  enabled="true" provider-id="acme.application.alternate_locale.provider" />
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_seo', array(
+            'alternate_locale' => array (
+                'enabled' => true,
+                'provider_id' => acme.application.alternate_locale.provider,
+            ),
+        ));
+
+``enabled``
+"""""""""""
+
+**type**: ``boolean`` **default**: ``true``
+
+Whether or not the the :ref:`bundles-seo-alternate-locale` should be loaded
+
+``provider_id``
+"""""""""""""""
+
+**type**: ``string`` **default**: ``null``
+
+Define your a custom :doc:`AlternateLocaleProvider<../seo/sitemap>`
