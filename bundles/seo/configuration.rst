@@ -289,4 +289,4 @@ Whether or not the the :ref:`bundles-seo-alternate-locale` should be loaded
 
 **type**: ``string`` **default**: ``null``
 
-Define your a custom :doc:`AlternateLocaleProvider<../seo/sitemap>`
+Define your a custom :doc:`AlternateLocaleProvider<../seo/alternate_locale>`
