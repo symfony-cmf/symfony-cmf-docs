@@ -280,4 +280,4 @@ Set the ``alternate_locale.provider_id``  to the service you just created:
         ));
 
 .. versionadded:: 1.2
-    For activated (ToDO add link) the alternate locales will be pushed into the sitemap too.
+    For activated :doc:`Sitemap<sitemap>` the alternate locales will be pushed into the sitemap too.
