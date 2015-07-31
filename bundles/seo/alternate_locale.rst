@@ -221,11 +221,13 @@ Create a service for your provider:
 .. configuration-block::
 
     .. code-block:: yaml
+
         services:
             acme.application.alternate_locale.provider
                 class: "Acme\ApplicationBundle\AlternateLocaleProvider"
 
     .. code-block:: xml
+
         <?xml version="1.0" ?>
 
         <container xmlns="http://symfony.com/schema/dic/services"
@@ -240,6 +242,7 @@ Create a service for your provider:
         </container>
 
     .. code-block:: php
+
         use Symfony\Component\DependencyInjection\Definition;
 
         $container->setDefinition('acme.application.alternate_locale.provider', new Definition(
