@@ -85,7 +85,7 @@ So the routes are persisted as objects, but the content is available under the f
 
 .. note::
     To get more information about translating content by the PHPCR-ODM have a look
-    at :doc:`PHPCR-ODM multilang<phpcr_odm/multilang>`.
+    at :doc:`Doctrine PHPCR-ODM Multilanguage Support<phpcr_odm/multilang>`.
 
 When viewing the page in one language, we would expect hints how to navigate to the others.
 Search engines expect the following in the ``<head>`` section of the page:
@@ -280,4 +280,4 @@ Set the ``alternate_locale.provider_id``  to the service you just created:
         ));
 
 .. versionadded:: 1.2
-    For activated :doc:`sitemap<seo/sitemap>` the alternate locales will be pushed into the sitemap too.
+    For activated (ToDO add link) the alternate locales will be pushed into the sitemap too.
