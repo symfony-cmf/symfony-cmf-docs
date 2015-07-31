@@ -31,6 +31,7 @@ frontend
 gaufrette
 github
 globalized
+hashmap
 html
 idempotency
 invalidator
@@ -77,6 +78,8 @@ rss
 schemas
 seo
 serializer
+sitemap
+sitemaps
 slideshow
 slideshows
 slugified
