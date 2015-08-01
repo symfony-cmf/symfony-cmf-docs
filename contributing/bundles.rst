@@ -202,7 +202,7 @@ Core configuration files MUST be in **XML**, this includes:
 In other cases XML should be preferred over other configuration formats where
 there is a choice.
 
-Bundles MUST adhere to the following directory and filename schema
+Bundles MUST adhere to the following directory and file name schema
 as applicable:
 
 .. code-block:: text

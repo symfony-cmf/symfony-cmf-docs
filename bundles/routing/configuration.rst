@@ -547,7 +547,7 @@ content repository service.
 
 **type**: ``array`` **default**: ``array()``
 
-To enable multilanguage, set the valid locales in this option.
+To enable multi-language, set the valid locales in this option.
 
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will
 default to the value of ``cmf_core.locales``.

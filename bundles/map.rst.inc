@@ -108,7 +108,7 @@ bundle based on the key bundles.
 Contributed Bundles
 ~~~~~~~~~~~~~~~~~~~
 
-Besides that, the Symfony CMF team also maintains some 3th party bundles which
+Besides that, the Symfony CMF team also maintains some third party bundles which
 help with integrating PHPCR concepts into the Symfony Framework.
 
 * :doc:`phpcr_odm/index`
