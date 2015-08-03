@@ -156,3 +156,16 @@ information on creating custom services.
 
 .. _`Creating and configuring services in the container`: http://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container/
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
+
+.. _bundle-routing-route-defaults-validator:
+
+The RouteDefaultsValidator
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The route ``getDefaults`` method has a ``RouteDefaults`` constraint.
+When a route is validated, the ``RouteDefaultsValidator`` will be called.
+If the ``_controller`` or the ``_template`` defaults are set, the validator
+will check that they exist.
+
+You can override the validator by setting the
+``cmf_routing.validator.route_defaults.class`` parameter.
