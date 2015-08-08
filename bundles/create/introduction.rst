@@ -508,7 +508,7 @@ reads like this:
     The metadata support in CreatePHP is not as powerful as in Doctrine. There
     are currently no drivers for annotation or yml mappings. Mappings are not
     inherited from a parent class but need to be repeated each time. And the
-    mapping file must include the full namespace in the filename to be found.
+    mapping file must include the full namespace in the file name to be found.
 
     All of these issues will hopefully be fixed in later versions if people
     step up and contribute pull requests.

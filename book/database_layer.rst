@@ -37,7 +37,7 @@ versioning and access control.
 
 Doctrine PHPCR-ODM has the same API as the other Doctrine libraries, like the
 `Doctrine ORM`_. The Doctrine PHPCR-ODM adds another great feature to PHPCR:
-Multilanguage support.
+multi-language support.
 
 .. sidebar:: PHPCR Implementations
 

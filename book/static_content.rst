@@ -78,5 +78,4 @@ developers with a small and easy to understand starting point you can extend
 or use as inspiration to develop your own content types, Controllers and Admin
 panels.
 
-.. _`multilanguage support in PHPCR-ODM`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
 .. _SonataDoctrinePHPCRAdminBundle: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle

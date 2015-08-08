@@ -210,7 +210,7 @@ If the ``multilang`` option is *not* defined at all, the CoreBundle registers a
 listener for Doctrine PHPCR-ODM that modifies PHPCR-ODM metadata to remove the
 translatable attribute from all fields.
 
-If multilang is enabled, the ``TranslatableExtension`` for
+If multi-language is enabled, the ``TranslatableExtension`` for
 ``SonataAdminBundle`` is enabled and the locales will be configured on all CMF
 bundles that use this configuration:
 

@@ -30,7 +30,7 @@ Initializers have to implement the
 ``Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface``. If you don't
 need any special logic and want to create plain PHPCR nodes and not documents,
 you can simply define services with ``GenericInitializer``. The generic
-initializer expects a name to identify the initializer, an array of repository
+Initializer expects a name to identify the Initializer, an array of repository
 paths it will create if they do not exist and an optional string defining
 namespaces and primary / mixin node types in the CND language that should be
 registered with the repository.
@@ -38,9 +38,9 @@ registered with the repository.
 .. versionadded:: 1.1
     Since version 1.1, the ``GenericInitializer`` expects a name parameter
     as first argument. With 1.0 there is no way to specify a custom name
-    for the generic initializer.
+    for the generic Initializer.
 
-A service to use the generic initializer looks like this:
+A service to use the generic Initializer looks like this:
 
 .. configuration-block::
 
@@ -87,7 +87,7 @@ A service to use the generic initializer looks like this:
         $definition->addTag('doctrine_phpcr.initializer');
         $container->setDefinition('acme_content.phpcr.initializer', $definition);
 
-You can execute your initializers using the following command:
+You can execute your Initializers using the following command:
 
 .. code-block:: bash
 
@@ -95,11 +95,11 @@ You can execute your initializers using the following command:
 
 .. versionadded:: 1.1
     Since DoctrinePHPCRBundle 1.1 the load data fixtures command will
-    automatically execute the initializers after purging the database,
+    automatically execute the Initializers after purging the database,
     before executing the fixtures.
 
-The generic initializer only creates PHPCR nodes. If you want to create
-specific documents, you need your own initializer. The interesting method
+The generic Initializer only creates PHPCR nodes. If you want to create
+specific documents, you need your own Initializer. The interesting method
 to overwrite is the ``init`` method. It is passed the ``ManagerRegistry``,
 from which you can retrieve the PHPCR session but also the document manager::
 
@@ -149,10 +149,10 @@ from which you can retrieve the PHPCR session but also the document manager::
 .. versionadded:: 1.1
     Since version 1.1, the ``init`` method is passed the ``ManagerRegistry`` rather
     than the PHPCR ``SessionInterface`` to allow the creation of documents in
-    initializers. With 1.0, you would need to manually set the ``phpcr:class``
+    Initializers. With 1.0, you would need to manually set the ``phpcr:class``
     property to the right value.
 
-Define a service for your initializer as follows:
+Define a service for your Initializer as follows:
 
 .. configuration-block::
 

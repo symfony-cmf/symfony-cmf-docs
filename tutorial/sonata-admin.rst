@@ -189,7 +189,7 @@ No translations? Uncomment the translator in the configuration file:
 .. tip::
 
     See :ref:`book_handling-multilang_sonata-admin` for more information
-    on Sonata Admin and multilanguage.
+    on Sonata Admin and multi-language.
 
 When looking at the admin dashboard, you will notice that there is an entry
 to administrate Routes. The administration class of the RoutingBundle has
