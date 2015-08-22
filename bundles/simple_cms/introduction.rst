@@ -46,6 +46,7 @@ them and their dependencies need to be instantiated in the kernel::
                 new Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
                 new Symfony\Cmf\Bundle\ContentBundle\CmfContentBundle(),
                 new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
+                new Symfony\Cmf\Bundle\SimpleCmsBundle\CmfSimpleCmsBundle(),
             );
 
             // ...
