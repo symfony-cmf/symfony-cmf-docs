@@ -512,6 +512,32 @@ reads like this:
 
     All of these issues will hopefully be fixed in later versions if people
     step up and contribute pull requests.
+    
+In some cases you may need to use a property type multiple times (e.g. your 
+text property for some reason consists of 3 columns) and you want your 
+RDF data to be semantically correct.
+
+While sending changed data via REST api, CreateJS uses RDF property names 
+(and not the identifiers) to distinguish values, so you should use 
+subsets for generic property names:
+
+.. code-block:: xml
+
+    <type
+        xmlns:schema="http://schema.org/"
+        typeof="schema:WebPage"
+    >
+        <children>
+            <property property="schema:headline" identifier="title" />
+            <property property="schema:text/column1" identifier="column1" />
+            <property property="schema:text/column2" identifier="column2" />
+            <property property="schema:text/column3" identifier="column3" />
+        </children>
+    </type>
+
+Otherwise, CreatePHP will not be able to determine which property has 
+been changed and it can lead to unexpected behaviors such as 
+overwriting contents of all elements using the same property name.
 
 Mapping Requests to Domain Objects
 ----------------------------------
