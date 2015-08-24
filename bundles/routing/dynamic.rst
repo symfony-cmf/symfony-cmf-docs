@@ -281,6 +281,11 @@ Of course you can also have several parameters, as with normal Symfony
 routes. The semantics and rules for patterns, defaults and requirements are
 exactly the same as in core routes.
 
+.. note::
+
+    The ``RouteDefaultsValidator`` validates the route defaults parameters.
+    For more information, see :ref:`bundle-routing-route-defaults-validator`.
+
 Your controller can expect the ``$id`` parameter as well as the ``$contentDocument``
 as you set a content on the route. The content could be used to define an intro
 section that is the same for each project or other shared data. If you don't
