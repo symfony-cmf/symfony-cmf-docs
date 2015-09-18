@@ -107,6 +107,7 @@ from which you can retrieve the PHPCR session but also the document manager::
     namespace Acme\ContentBundle\Initializer;
 
     use Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface;
+    use Doctrine\Bundle\PHPCRBundle\ManagerRegistry;
     use PHPCR\SessionInterface;
     use PHPCR\Util\NodeHelper;
 
