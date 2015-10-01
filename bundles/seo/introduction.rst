@@ -137,6 +137,16 @@ key in ``cmf_seo.content_key``.
 You may also want to disable this listener when implementing your own mechanism
 to extract SEO information.
 
+The Twig Extension
+~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 1.2
+    The twig extension was added in SeoBundle 1.2.
+
+This bundle provides a twig function ``cmf_seo_update_metadata``
+which lets you populate the seo page from an object. 
+For details on using the twig extension, read :doc:`twig`.
+
 Extracting Metadata
 ~~~~~~~~~~~~~~~~~~~
 

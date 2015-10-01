@@ -9,3 +9,4 @@ SeoBundle
     extractors
     sitemap
     configuration
+    twig
