@@ -258,8 +258,8 @@ This will make the routing put the document into the request parameters and if
 your controller specifies a parameter called ``$contentDocument``, it will be
 passed this document.
 
-You can also use variable patterns for the URL and define requirements and
-defaults::
+You can also use variable patterns for the URL and define requirements with
+``setRequirement`` and defaults with ``setDefault``::
 
     // do not forget leading slash if you want /projects/{id} and not /projects{id}
     $route->setVariablePattern('/{id}');
@@ -277,19 +277,24 @@ it gets chosen. Otherwise, routing checks if ``/routes/projects`` has a pattern
 that matches. If not, the top document at ``/routes`` is checked for a matching
 pattern.
 
-Of course you can also have several parameters, as with normal Symfony
-routes. The semantics and rules for patterns, defaults and requirements are
-exactly the same as in core routes.
+The semantics and rules for patterns, defaults and requirements are exactly the
+same as in core routes. If you have several parameters, or static bits *after*
+a parameter, make them part of the variable pattern::
+
+    $route->setVariablePattern('/{context}/item/{id}');
+    $route->setRequirement('context', '[a-z]+');
+    $route->setRequirement('id', '\d+');
 
 .. note::
 
     The ``RouteDefaultsValidator`` validates the route defaults parameters.
     For more information, see :ref:`bundle-routing-route-defaults-validator`.
 
-Your controller can expect the ``$id`` parameter as well as the ``$contentDocument``
-as you set a content on the route. The content could be used to define an intro
-section that is the same for each project or other shared data. If you don't
-need content, you can just not set it in the route document.
+With the above example, your controller can expect both the ``$id`` parameter
+as well as the ``$contentDocument`` if you set a content on the route and have
+a variable pattern with ``{id}``. The content could be used to define an intro
+section that is the same for each id. If you don't need content, you can also
+omit setting a content document on the route document.
 
 .. _component-route-generator-and-locales:
 
