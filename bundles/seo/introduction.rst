@@ -124,18 +124,19 @@ The ContentListener
 ~~~~~~~~~~~~~~~~~~~
 
 The ``Symfony\Cmf\Bundle\SeoBundle\EventListener\ContentListener`` looks for a
-content document in the request attributes. If it finds a document that is
-suitable for extracting metadata, the listener calls
-``SeoPresentationInterface::updateSeoPage`` to populate the metadata
-information.
+content document in the request attributes. If the listener finds a document,
+it calls ``SeoPresentationInterface::updateSeoPage`` to populate the metadata
+information if possible.
 
 If the :doc:`RoutingBundle <../routing/introduction>` is installed, the default
 attribute name is defined by the constant ``DynamicRouter::CONTENT_KEY``. When
 not using the RoutingBundle, you need to disable the listener or configure a
 key in ``cmf_seo.content_key``.
 
-You may also want to disable this listener when implementing your own mechanism
-to extract SEO information.
+If you need different behavior, build your own mechanism to extract the SEO
+information and disable this listener at ``cmf_seo.content_listener.enabled``
+to avoid duplicated work. Things that happen on every request are expensive in
+terms of application performance.
 
 The Twig Extension
 ~~~~~~~~~~~~~~~~~~
