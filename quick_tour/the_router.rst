@@ -151,13 +151,22 @@ Now you can add a new ``Route`` to the tree using Doctrine::
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
     
     use PHPCR\Util\NodeHelper;
 
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
-    class LoadRoutingData implements FixtureInterface
+    class LoadRoutingData implements FixtureInterface, OrderedFixtureInterface
     {
+        public function getOrder()
+        {
+            // refers to the order in which the class' load function is called
+            // (lower return values are called first)
+            // used value 20, because LoadPageData::getOrder returns 10 and LoadDemoData no implements OrderedFixtureInterface so will be called before it, otherwise will occur RuntimeException("Controller "Symfony\Cmf\Bundle\ContentBundle\Controller\ContentController::indexAction()" requires that you provide a value for the "$contentDocument" argument (because there is no default value or because there is a non optional argument after this one).") because '/cms/simple/quick_tour' will no exist yet
+            return 20;
+        }
+        
         public function load(ObjectManager $documentManager)
         {
             if (!$documentManager instanceof DocumentManager) {
