@@ -161,9 +161,6 @@ Now you can add a new ``Route`` to the tree using Doctrine::
     {
         public function getOrder()
         {
-            // refers to the order in which the class' load function is called
-            // (lower return values are called first)
-            // used value 20, because LoadPageData::getOrder returns 10 and LoadDemoData no implements OrderedFixtureInterface so will be called before it, otherwise will occur RuntimeException("Controller "Symfony\Cmf\Bundle\ContentBundle\Controller\ContentController::indexAction()" requires that you provide a value for the "$contentDocument" argument (because there is no default value or because there is a non optional argument after this one).") because '/cms/simple/quick_tour' will no exist yet
             return 20;
         }
         
@@ -193,6 +190,8 @@ Now you can add a new ``Route`` to the tree using Doctrine::
             $documentManager->flush(); // save it
         }
     }
+    
+Above we implemented the ``OrderedFixtureInterface`` so that our routes were loaded in the correct sequence relative to other fixtures.
 
 This creates a new node called ``/cms/routes/new-route``, which will display
 our ``quick_tour`` page when you go to ``/new-route``.
