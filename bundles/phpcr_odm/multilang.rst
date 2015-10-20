@@ -70,7 +70,9 @@ To use translated documents, you need to configure the available languages:
         );
 
 The ``locales`` is a list of alternative locales to look up if a document
-is not translated to the requested locale.
+is not translated to the requested locale. Note that the first locale listed
+is used as the default locale for the standard locale chooser strategy and
+hence will be the default locale in the document manager.
 
 This bundle provides a request listener that gets activated when any locales
 are configured. This listener updates PHPCR-ODM to use the locale Symfony
