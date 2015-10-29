@@ -381,14 +381,18 @@ manager_name
 ``route_basepaths``
 *******************
 
-**type**: ``array`` **default**: ``array('/cms/routes')``
+.. versionadded:: 1.3
+    The ``route_basepaths`` setting was introduced in version 1.3. Prior to
+    1.3, you could only configure one basepath using ``route_basepath``.
 
-The basepaths where to look for routes in the PHPCR tree.
+**type**: ``string`` | ``array`` **default**: ``/cms/routes``
+
+A set of paths where routes are located in the PHPCR tree.
 
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will
 default to ``%cmf_core.persistence.phpcr.basepath%/routes``. If the
 :doc:`SimpleCmsBundle <../simple_cms/introduction>` is registered as well,
-this will additionally default to ``%cmf_core.persistence.phpcr.basepath%/simple``.
+the SimpleCmsBundle basepath will be added as an additional route basepath.
 
 ``content_basepath``
 ********************
@@ -404,7 +408,7 @@ If the :doc:`CoreBundle <../core/introduction>` is registered, this will default
 ``admin_basepath``
 ******************
 
-**type**: ``string`` **default**: first value of route_basepaths
+**type**: ``string`` **default**: first value of ``route_basepaths``
 
 The path at which to create routes with Sonata admin. There can be additional
 route basepaths, but you will need your own tools to edit those.
