@@ -96,7 +96,10 @@ new routes in ``/cms/routes``:
             dynamic:
                 persistence:
                     phpcr:
-                        route_basepath: /cms/routes
+                        route_basepaths: /cms/routes
+                    # /cms/routes is the default base path, the above code is
+                    # equivalent to:
+                    # phpcr: true
 
     .. code-block:: xml
 
@@ -116,7 +119,13 @@ new routes in ``/cms/routes``:
 
                 <dynamic>
                     <persistence>
-                        <phpcr route-basepath="/cms/routes" />
+                        <phpcr>
+                            <route-basepath>/cms/routes</route-basepath>
+                        </phpcr>
+                        <!-- /cms/routes is the default base path, the above
+                             code is equivalent to:
+                             <phpcr />
+                        --->
                     </persistence>
                 </dynamic>
             </config>
@@ -138,8 +147,12 @@ new routes in ``/cms/routes``:
             'dynamic' => array(
                 'persistence' => array(
                     'phpcr' => array(
-                        'route_basepath' => '/cms/routes',
+                        'route_basepaths' => '/cms/routes',
                     ),
+                    /* /cms/routes is the default base path, the above code is
+                       equivalent to:
+                       'phpcr' => true,
+                    */
                 ),
             ),
         ));

@@ -72,8 +72,7 @@ Add the following to your application configuration:
             dynamic:
                 enabled: true
                 persistence:
-                    phpcr:
-                        route_basepath: /cms/routes
+                    phpcr: true
 
     .. code-block:: xml
 
@@ -86,7 +85,7 @@ Add the following to your application configuration:
                 </chain>
                 <dynamic>
                     <persistence>
-                        <phpcr route-basepath="/cms/routes" />
+                        <phpcr />
                     </persistence>
                 </dynamic>
             </config>
@@ -98,10 +97,7 @@ Add the following to your application configuration:
         $container->loadFromExtension('cmf_routing', array(
             'dynamic' => array(
                 'persistence' => array(
-                    'phpcr' => array(
-                        'enabled' => true,
-                        'route_basepath' => '/cms/routes',
-                    ),
+                    'phpcr' => true,
                 ),
             ),
         ));
