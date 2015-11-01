@@ -88,13 +88,14 @@ from the ``Accept-Language`` HTML header). All of them will never add any
 locales that where not configured in the ``locales`` to avoid a request
 injecting unexpected things into your repository:
 
-* ``hardcoded``: The default strategy does not update the fallback order from
+* ``hardcoded``: This strategy does not update the fallback order from
   the request;
 * ``replace``: takes the accepted locales from the request and updates the
   fallback order with them, removing any locales not found in the request;
 * ``merge``: does the same as ``replace`` but then adds locales not found in
   the request but on the ``locales`` configuration back to the end of the
-  fallback list. This reorders the locales without losing any of them.
+  fallback list. This reorders the locales without losing any of them. This is
+  the default strategy.
 
 Translated documents
 --------------------
