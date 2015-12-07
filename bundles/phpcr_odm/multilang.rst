@@ -25,6 +25,7 @@ To use translated documents, you need to configure the available languages:
                     de: [en, fr]
                     fr: [en, de]
                 locale_fallback: hardcoded
+                default_locale: fr
 
     .. code-block:: xml
 
@@ -50,6 +51,8 @@ To use translated documents, you need to configure the available languages:
                         <fallback>en</fallback>
                         <fallback>de</fallback>
                     </locale>
+
+                    <default_locale>fr</default_locale>
                 </odm>
             </config>
         </container>
@@ -66,13 +69,17 @@ To use translated documents, you need to configure the available languages:
                     'fr' => array('en', 'de'),
                 ),
                 'locale_fallback' => 'hardcoded',
+                'default_locale'  => 'fr',
             )
         );
 
 The ``locales`` is a list of alternative locales to look up if a document
-is not translated to the requested locale. Note that the first locale listed
-is used as the default locale for the standard locale chooser strategy and
-hence will be the default locale in the document manager.
+is not translated to the requested locale.
+
+The default locale is used for the standard locale chooser strategy and
+hence will be the default locale in the document manager. Specifying the
+default locale is optional. If you do not specify a default locale then the
+first locale listed is used as the default locale.
 
 This bundle provides a request listener that gets activated when any locales
 are configured. This listener updates PHPCR-ODM to use the locale Symfony
