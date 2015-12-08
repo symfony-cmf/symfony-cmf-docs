@@ -91,12 +91,14 @@ following class provides a simple solution using an ODM Repository.
             $document = $this->findOneBy(array(
                 'name' => $name,
             ));
-
-            if ($route) {
-                $route = new SymfonyRoute($route->getPattern(), array(
-                    'document' => $document,
-                ));
+            
+            if (!$document) {
+                throw new RouteNotFoundException("No route found for name '$name'");
             }
+
+            $route = new SymfonyRoute($document->getUrl(), array(
+                'document' => $document,
+            ));
 
             return $route;
         }
