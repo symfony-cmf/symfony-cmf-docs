@@ -67,7 +67,7 @@ following methods::
             }
 
             foreach ($routes as $route) {
-                $collection->add($route);
+                $collection->add($route->getName(), $route);
             }
 
             return $collection;
