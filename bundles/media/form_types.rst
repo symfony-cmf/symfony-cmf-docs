@@ -7,6 +7,12 @@ Form Types
 The MediaBundle provides a couple of useful form types along with form data
 transformers.
 
+.. caution::
+
+    The form types described in this chapter are only available if the PHPCR storage
+    is activated. Implementation for other storage systems would be welcome 
+    contributions.
+
 A default twig template is also included for these form types.
 To use it you will need to add the ``fields.html.twig`` template from the 
 MediaBundle to the ``form.resources`` section in twig config:
