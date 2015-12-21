@@ -25,15 +25,6 @@ section titled "installation".
 If you intend to complete the entire tutorial you can save some time by adding
 all of the required packages now.
 
-.. note::
-
-    The routing-auto bundle is currently unstable, the package versions listed below are required
-    but are not **stable**. This means that this is a somewhat volatile combination and you should
-    think twice before deploying to production -- there will be a stable release soon.
-
-Please ensure that the packages below replace any packages already defined in your ``composer.json``
-file in the previous step.
-
 .. code-block:: javascript
 
     {
