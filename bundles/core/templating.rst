@@ -16,7 +16,7 @@ function name and the ``cmf`` helper method names.
 Many methods share the same common parameters:
 
 * **ignoreRole**: Methods having this parameter by default filter the
-  resultset to only contain published documents, using
+  result set to only contain published documents, using
   :doc:`publish workflow <publish_workflow>`. You may set the parameter to
   ``true`` to disable the filtering if you know what you are doing.
 * **class**: The class parameter can be used to filter the result set by
@@ -38,72 +38,72 @@ Basic repository operations
 Walking the PHPCR tree
 ......................
 
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| Twig Function         | Templating Helper   | Arguments            | Explanation                                                              |
-+=======================+=====================+======================+==========================================================================+
-| cmf_prev              | getPrev             | $current,            | Get the previous sibling document of ``$current`` (a document or a path) |
-|                       |                     | $depth = null,       | in PHPCR order. If ``$anchor`` (also a document or a path) is set, also  |
-|                       |                     | $ignoreRole = false, | walks up the tree to find neighbours of ``$current``. If ``$depth`` is   |
-|                       |                     | $class = null,       | set, this limits how deep below ``$current`` the tree is walked.         |
-|                       |                     | $anchor = null       |                                                                          |
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_prev_linkable     | getPrevLinkable     | $current,            | Get the previous document that can be linked to, according to the        |
-|                       |                     | $anchor = null,      | ``isLinkable`` method below.                                             |
-|                       |                     | $depth = null,       |                                                                          |
-|                       |                     | $ignoreRole = false  |                                                                          |
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_next              | getNext             | $current,            | Get the next sibling document from ``$current`` (a document or a path)   |
-|                       |                     | $anchor = null,      | in PHPCR order. ``$anchor`` and ``$depth`` have the same semantics as in |
-|                       |                     | $depth = null,       | ``getPrev``.                                                             |
-|                       |                     | $ignoreRole = false, |                                                                          |
-|                       |                     | $class = null        |                                                                          |
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_next_linkable     | getNextLinkable     | $current,            | Get the next document that can be linked to, according to the            |
-|                       |                     | $anchor = null,      | ``isLinkable`` method below.                                             |
-|                       |                     | $depth = null,       |                                                                          |
-|                       |                     | $ignoreRole = false  |                                                                          |
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_child             | getChild            | $parent, $name       | Get child document named ``$name`` of the specified parent. The parent   |
-|                       |                     |                      | can be either the id or a document. No publish workflow check is done.   |
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_children          | getChildren         | $parent,             | Get all children of that parent in the order they appear in PHPCR. The   |
-|                       |                     | $limit = false,      | parent can be either the id or a document.                               |
-|                       |                     | $offset = false,     | *$filter is currently ignored*.                                          |
-|                       |                     | $filter = null,      |                                                                          |
-|                       |                     | $ignoreRole = false, |                                                                          |
-|                       |                     | $class = null        |                                                                          |
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_linkable_children | getLinkableChildren | $parent,             | Get all children of ``$parent`` that can be linked to, according to the  |
-|                       |                     | $limit = false,      | ``isLinkable`` method below.                                             |
-|                       |                     | $offset = false,     |                                                                          |
-|                       |                     | $filter = null,      |                                                                          |
-|                       |                     | $ignoreRole = false  |                                                                          |
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_descendants       | getDescendants      | $parent,             | Get all repository **paths** of descendants of ``$parent`` (a document   |
-|                       |                     | $depth = null        | or a path). ``$depth`` can be used to limit how deep into the hierarchy  |
-|                       |                     |                      | you want to descend. If not specified, depth is not limited. No publish  |
-|                       |                     |                      | workflow checks are attempted as documents are not even loaded.          |
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
++----------------------------+--------------------------+--------------------------+---------------------------------------------------------------------------+
+| Twig Function              | Templating Helper        | Arguments                | Explanation                                                               |
++============================+==========================+==========================+===========================================================================+
+| ``cmf_prev``               | ``getPrev``              | ``$current``,            | Get the previous sibling document of ``$current`` (a document or a path)  |
+|                            |                          | ``$depth = null``,       | in PHPCR order. If ``$anchor`` (also a document or a path) is set, also   |
+|                            |                          | ``$ignoreRole = false``  | walks up the tree to find neighbors of ``$current``. If ``$depth`` is     |
+|                            |                          | ``$class = null``,       | set, this limits how deep below ``$current`` the tree is walked.          |
+|                            |                          | ``$anchor = null``       |                                                                           |
++----------------------------+--------------------------+--------------------------+---------------------------------------------------------------------------+
+| ``cmf_prev_linkable``      | ``getPrevLinkable``      | ``$current``,            | Get the previous document that can be linked to, according to the         |
+|                            |                          | ``$anchor = null``,      | ``isLinkable`` method below.                                              |
+|                            |                          | ``$depth = null``,       |                                                                           |
+|                            |                          | ``$ignoreRole = false``  |                                                                           |
++----------------------------+--------------------------+--------------------------+---------------------------------------------------------------------------+
+| ``cmf_next``               | ``getNext``              | ``$current``,            | Get the next sibling document from ``$current`` (a document or a path)    |
+|                            |                          | ``$anchor = null``,      | in PHPCR order. ``$anchor`` and ``$depth`` have the same semantics as in  |
+|                            |                          | ``$depth = null``,       | ``getPrev``.                                                              |
+|                            |                          | ``$ignoreRole = false``  ,                                                                           |
+|                            |                          | ``$class = null``        |                                                                           |
++----------------------------+--------------------------+--------------------------+---------------------------------------------------------------------------+
+| ``cmf_next_linkable``      | ``getNextLinkable``      | ``$current``,            | Get the next document that can be linked to, according to the             |
+|                            |                          | ``$anchor = null``,      | ``isLinkable`` method below.                                              |
+|                            |                          | ``$depth = null``,       |                                                                           |
+|                            |                          | ``$ignoreRole = false``  |                                                                           |
++----------------------------+--------------------------+--------------------------+---------------------------------------------------------------------------+
+| ``cmf_child``              | ``getChild``             | ``$parent, $name``       | Get child document named ``$name`` of the specified parent. The parent    |
+|                            |                          |                          | can be either the id or a document. No publish workflow check is done.    |
++----------------------------+--------------------------+--------------------------+---------------------------------------------------------------------------+
+| ``cmf_children``           | ``getChildren``          | ``$parent``,             | Get all children of that parent in the order they appear in PHPCR. The    |
+|                            |                          | ``$limit = false``,      | parent can be either the id or a document.                                |
+|                            |                          | ``$offset = false``,     | *$filter is currently ignored*.                                           |
+|                            |                          | ``$filter = null``,      |                                                                           |
+|                            |                          | ``$ignoreRole = false``, |                                                                           |
+|                            |                          | ``$class = null``        |                                                                           |
++----------------------------+--------------------------+--------------------------+---------------------------------------------------------------------------+
+| ``cmf_linkable_children``  | ``getLinkableChildren``  | ``$parent``,             | Get all children of ``$parent`` that can be linked to, according to the   |
+|                            |                          | ``$limit = false``,      | ``isLinkable`` method below.                                              |
+|                            |                          | ``$offset = false``,     |                                                                           |
+|                            |                          | ``$filter = null``,      |                                                                           |
+|                            |                          | ``$ignoreRole = false``  |                                                                           |
++----------------------------+--------------------------+--------------------------+---------------------------------------------------------------------------+
+| ``cmf_descendants``        | ``getDescendants``       | ``$parent``,             | Get all repository **paths** of descendants of ``$parent`` (a document    |
+|                            |                          | ``$depth = null``        | or a path). ``$depth`` can be used to limit how deep into the hierarchy   |
+|                            |                          |                          | you want to descend. If not specified, depth is not limited. No publish   |
+|                            |                          |                          | workflow checks are attempted as documents are not even loaded.           |
++----------------------------+--------------------------+--------------------------+---------------------------------------------------------------------------+
 
 
 Helper methods
 ..............
 
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_document_locales  | getLocalesFor       | $document,           | Get the locales of the provided document. If ``$includeFallbacks`` is    |
-|                       |                     | $includeFallbacks =  | ``true``, all fallback locales are provided as well, even if no          |
-|                       |                     | false                | translation in that language exists.                                     |
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_is_linkable       | isLinkable          | $document            | Check if the provided object can be used to generate a URL. If this      |
-|                       |                     |                      | check returns true, it should be save to pass it to ``path`` or ``url``. |
-|                       |                     |                      | An object is considered linkable if it either *is* an instance of        |
-|                       |                     |                      | ``Route`` or implements the ``RouteReferrersReadInterface`` *and*        |
-|                       |                     |                      | actually returns a route.                                                |
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
-| cmf_is_published      | isPublished         | $document            | Check with the publish workflow if the provided object is published. See |
-|                       |                     |                      | also :ref:`cmf_is_published <bundle-core-publish-workflow-twig_function>`|
-|                       |                     |                      | for an example.                                                          |
-+-----------------------+---------------------+----------------------+--------------------------------------------------------------------------+
++---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
+| ``cmf_document_locales``  | ``getLocalesFor``   | ``$document``,         | Get the locales of the provided document. If ``$includeFallbacks`` is    |
+|                           |                     | ``$includeFallbacks``, | ``true``, all fallback locales are provided as well, even if no          |
+|                           |                     | ``false``              | translation in that language exists.                                     |
++---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
+| ``cmf_is_linkable``       | ``isLinkable``      | ``$document``          | Check if the provided object can be used to generate a URL. If this      |
+|                           |                     |                        | check returns true, it should be save to pass it to ``path`` or ``url``. |
+|                           |                     |                        | An object is considered linkable if it either *is* an instance of        |
+|                           |                     |                        | ``Route`` or implements the ``RouteReferrersReadInterface`` *and*        |
+|                           |                     |                        | actually returns a route.                                                |
++---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
+| ``cmf_is_published``      | ``isPublished``     | ``$document``          | Check with the publish workflow if the provided object is published. See |
+|                           |                     |                        | also :ref:`cmf_is_published <bundle-core-publish-workflow-twig_function>`|
+|                           |                     |                        | for an example.                                                          |
++---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
 
 Code examples
 .............

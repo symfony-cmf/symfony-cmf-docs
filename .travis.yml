@@ -3,6 +3,14 @@ language: python
 python:
     - "2.7"
 
+sudo: false
+
+addons:
+    apt:
+        packages: [enchant]
+
 install: "pip install -q -r requirements.txt --use-mirrors"
 
-script: sphinx-build -nW -b html -d _build/doctrees . _build/html
+script: 
+    - sphinx-build -nW -b html -d _build/doctrees . _build/html
+    - make spelling

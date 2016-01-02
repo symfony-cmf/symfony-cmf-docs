@@ -16,6 +16,9 @@ You can configure the route enhancers that decide what controller is used to
 handle the request, to avoid hard coding controller names into your route
 documents.
 
+To fully understand the capabilities of the dynamic router, read also the
+:doc:`routing component documentation <../../components/routing/index>`.
+
 Configuration
 -------------
 
@@ -159,7 +162,7 @@ precedence):
 #. ``controllers_by_class``: requires the route document to be an instance of
    ``RouteObjectInterface`` and to return an object for ``getRouteContent()``.
    The content document is checked for being ``instanceof`` the class names in
-   the map and if matched that controller is used. Instanceof is used instead of
+   the map and if matched that controller is used. ``Instanceof`` is used instead of
    direct comparison to work with proxy classes and other extending classes.
    **priority: 50**;
 #. ``templates_by_class``: requires the route document to be an instance of
@@ -255,8 +258,8 @@ This will make the routing put the document into the request parameters and if
 your controller specifies a parameter called ``$contentDocument``, it will be
 passed this document.
 
-You can also use variable patterns for the URL and define requirements and
-defaults::
+You can also use variable patterns for the URL and define requirements with
+``setRequirement`` and defaults with ``setDefault``::
 
     // do not forget leading slash if you want /projects/{id} and not /projects{id}
     $route->setVariablePattern('/{id}');
@@ -274,14 +277,24 @@ it gets chosen. Otherwise, routing checks if ``/routes/projects`` has a pattern
 that matches. If not, the top document at ``/routes`` is checked for a matching
 pattern.
 
-Of course you can also have several parameters, as with normal Symfony
-routes. The semantics and rules for patterns, defaults and requirements are
-exactly the same as in core routes.
+The semantics and rules for patterns, defaults and requirements are exactly the
+same as in core routes. If you have several parameters, or static bits *after*
+a parameter, make them part of the variable pattern::
 
-Your controller can expect the ``$id`` parameter as well as the ``$contentDocument``
-as you set a content on the route. The content could be used to define an intro
-section that is the same for each project or other shared data. If you don't
-need content, you can just not set it in the route document.
+    $route->setVariablePattern('/{context}/item/{id}');
+    $route->setRequirement('context', '[a-z]+');
+    $route->setRequirement('id', '\d+');
+
+.. note::
+
+    The ``RouteDefaultsValidator`` validates the route defaults parameters.
+    For more information, see :ref:`bundle-routing-route-defaults-validator`.
+
+With the above example, your controller can expect both the ``$id`` parameter
+as well as the ``$contentDocument`` if you set a content on the route and have
+a variable pattern with ``{id}``. The content could be used to define an intro
+section that is the same for each id. If you don't need content, you can also
+omit setting a content document on the route document.
 
 .. _component-route-generator-and-locales:
 
@@ -296,7 +309,7 @@ need content, you can just not set it in the route document.
     Make sure you configure the valid locales in the configuration so that the
     bundle can optimally handle locales. The
     :ref:`configuration reference <reference-config-routing-locales>` lists
-    some options to tweak behaviour and performance.
+    some options to tweak behavior and performance.
 
 .. note::
 
@@ -451,7 +464,7 @@ to generate a route:
 
 .. caution::
 
-    It is dangerous to hardcode paths to PHPCR-ODM documents into your
+    It is dangerous to hard-code paths to PHPCR-ODM documents into your
     templates. An admin user could edit or delete them in a way that your
     application breaks. If the route must exist for sure, it probably
     should be a statically configured route. But route names could come from
@@ -613,6 +626,76 @@ configuration in the ``sonata_admin`` section of your project configuration:
         ));
 
 See the `Sonata Admin extension documentation`_ for more information.
+
+FrontendLink Sonata Admin Extension
+-----------------------------------
+
+This bundle provides an extension to show a button in Sonata Admin, which links on the actual
+frontend representation of a document. Documents which implement the ``RouteReferrersReadInterface``
+and Routes itself (``Symfony\Component\Routing\Route``) are supported.
+
+To enable the extension in your admin classes, simply define the extension
+configuration in the ``sonata_admin`` section of your project configuration:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        sonata_admin:
+            # ...
+            extensions:
+                cmf_routing.admin_extension.frontend_link:
+                    implements:
+                        - Symfony\Cmf\Component\Routing\RouteReferrersReadInterface
+                    extends:
+                        - Symfony\Component\Routing\Route
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <config xmlns="http://sonata-project.org/schema/dic/admin">
+            <!-- ... -->
+            <extension id="cmf_routing.admin_extension.frontend_link">
+                <implement>Symfony\Cmf\Component\Routing\RouteReferrersReadInterface</implement>
+                <extend>Symfony\Component\Routing\Route</extend>
+            </extension>
+        </config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('sonata_admin', array(
+            'extensions' => array(
+                'cmf_routing.admin_extension.frontend_link' => array(
+                    'implements' => array(
+                        'Symfony\Cmf\Component\Routing\RouteReferrersReadInterface',
+                    ),
+                    'extends' => array(
+                        'Symfony\Component\Routing\Route',
+                    ),
+                ),
+            ),
+        ));
+
+See the `Sonata Admin extension documentation`_ for more information.
+
+Styling
+~~~~~~~
+
+Feel free to use your own styles. The frontend link button can be customized
+using the following example CSS rules:
+
+.. code-block:: css
+
+    .sonata-admin-menu-item a.sonata-admin-frontend-link {
+        font-weight: bold;
+    }
+
+    .sonata-admin-menu-item a.sonata-admin-frontend-link:before {
+        font-family: FontAwesome;
+        content: "\f08e";
+    }
 
 Customize the DynamicRouter
 ---------------------------

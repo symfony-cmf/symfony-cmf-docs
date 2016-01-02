@@ -7,7 +7,7 @@ It will work for all image object implementing
 ``Symfony\Cmf\Bundle\MediaBundle\ImageInterface`` and is automatically enabled
 if the LiipImagineBundle is installed.
 
-The dataloader has the name: ``cmf_media_doctrine_phpcr``.
+The data loader has the name: ``cmf_media_doctrine_phpcr``.
 
 .. configuration-block::
 

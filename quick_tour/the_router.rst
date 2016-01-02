@@ -96,7 +96,10 @@ new routes in ``/cms/routes``:
             dynamic:
                 persistence:
                     phpcr:
-                        route_basepath: /cms/routes
+                        route_basepaths: /cms/routes
+                    # /cms/routes is the default base path, the above code is
+                    # equivalent to:
+                    # phpcr: true
 
     .. code-block:: xml
 
@@ -116,7 +119,13 @@ new routes in ``/cms/routes``:
 
                 <dynamic>
                     <persistence>
-                        <phpcr route-basepath="/cms/routes" />
+                        <phpcr>
+                            <route-basepath>/cms/routes</route-basepath>
+                        </phpcr>
+                        <!-- /cms/routes is the default base path, the above
+                             code is equivalent to:
+                             <phpcr />
+                        --->
                     </persistence>
                 </dynamic>
             </config>
@@ -138,8 +147,12 @@ new routes in ``/cms/routes``:
             'dynamic' => array(
                 'persistence' => array(
                     'phpcr' => array(
-                        'route_basepath' => '/cms/routes',
+                        'route_basepaths' => '/cms/routes',
                     ),
+                    /* /cms/routes is the default base path, the above code is
+                       equivalent to:
+                       'phpcr' => true,
+                    */
                 ),
             ),
         ));
@@ -151,13 +164,19 @@ Now you can add a new ``Route`` to the tree using Doctrine::
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
     
     use PHPCR\Util\NodeHelper;
 
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
-    class LoadRoutingData implements FixtureInterface
+    class LoadRoutingData implements FixtureInterface, OrderedFixtureInterface
     {
+        public function getOrder()
+        {
+            return 20;
+        }
+        
         public function load(ObjectManager $documentManager)
         {
             if (!$documentManager instanceof DocumentManager) {
@@ -184,6 +203,8 @@ Now you can add a new ``Route`` to the tree using Doctrine::
             $documentManager->flush(); // save it
         }
     }
+    
+Above we implemented the ``OrderedFixtureInterface`` so that our routes were loaded in the correct sequence relative to other fixtures.
 
 This creates a new node called ``/cms/routes/new-route``, which will display
 our ``quick_tour`` page when you go to ``/new-route``.

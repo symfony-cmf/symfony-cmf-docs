@@ -76,6 +76,7 @@ displaying, add the following lines to your routing file:
 
               <import resource="@CmfMediaBundle/Resources/config/routing/file.xml" />
               <import resource="@CmfMediaBundle/Resources/config/routing/image.xml" />
+              <import resource="@LiipImagineBundle/Resources/config/routing.xml" />
            </routes>
 
        .. code-block:: php
@@ -86,6 +87,9 @@ displaying, add the following lines to your routing file:
            );
            $collection->addCollection(
                $loader->import("@CmfMediaBundle/Resources/config/routing/image.xml")
+           );
+           $collection->addCollection(
+               $loader->import("@LiipImagineBundle/Resources/config/routing.xml")
            );
 
            return $collection;

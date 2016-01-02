@@ -449,10 +449,12 @@ As mentioned above, you can use any route provider. The example in this
 section applies if you use the default PHPCR-ODM route provider
 (``Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider``).
 
-All routes are located under the base path configured in the application
-configuration ``cmf_routing.persistence.phpcr.route_basepath``. By default
-this path is ``/cms/routes``. A new route can be created in PHP code as
-follows::
+PHPCR-ODM documents are stored in a tree, and their ID is the path in that
+tree. To match routes, a part of the repository path is used as URL. To avoid
+mixing routes and other documents, routes are placed under a common root path
+and that path is removed from the ID to build the URL. The common root path is
+called "route basepath". The default base path is ``/cms/routes``. A new route
+can be created in PHP code as follows::
 
     // src/Acme/MainBundle/DataFixtures/PHPCR/LoadRoutingData.php
     namespace Acme\DemoBundle\DataFixtures\PHPCR;
@@ -481,7 +483,7 @@ follows::
 
             $route = new Route();
             $route->setParentDocument($dm->find(null, '/cms/routes'));
-            $route->setName('projects');
+            $route->setName('my-page');
 
             // link a content to the route
             $content = new StaticContent();
@@ -492,37 +494,28 @@ follows::
             $dm->persist($content);
             $route->setContent($content);
 
-            // now define an id parameter; do not forget the leading slash if you
-            // want /projects/{id} and not /projects{id}
-            $route->setVariablePattern('/{id}');
-            $route->setRequirement('id', '\d+');
-            $route->setDefault('id', 1);
-
             $dm->persist($route);
             $dm->flush();
         }
     }
 
-This will give you a document that matches the URL ``/projects/<number>`` but
-also ``/projects`` as there is a default for the id parameter.
+Now the CMF will be able to handle requests for the URL ``/my-content``.
 
 .. caution::
 
-    As you can see, the code explicitely creates the ``/cms/routes`` path.
+    As you can see, the code explicitly creates the ``/cms/routes`` path.
     The RoutingBundle only creates this path automatically if the Sonata Admin
     was enabled in the routing configuration using an :ref:`initializer
     <phpcr-odm-repository-initializers>`. Otherwise, it'll assume you do
     something yourself to create the path (by configuring an initializer or
     doing it in a fixture like this).
 
-Because you defined the ``{id}`` route parameter, your controller can expect an
-``$id`` parameter. Additionally, because you called ``setContent`` on the
-route, your controller can expect the ``$contentDocument`` parameter.
-The content could be used to define an intro section that is the same for each
-project or other shared data. If you don't need content, you can just not set it
-in the document.
+Because you called ``setContent`` on the route, the controller can expect the
+``$contentDocument`` parameter. You can now configure which controller should
+handle ``StaticContent`` as :ref:`explained above <start-routing-getting-controller-template>`.
 
-For more details, see the
+The PHPCR-ODM routes support more things, for example route parameters,
+requirements and defaults. This is explained in the
 :ref:`route document section in the RoutingBundle documentation <bundle-routing-document>`.
 
 Further Notes

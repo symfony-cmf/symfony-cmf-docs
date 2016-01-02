@@ -54,7 +54,7 @@ array or in the ``Request`` object attributes field.
     To use this component outside of the Symfony2 framework context, have a
     look at the core Symfony2 `Routing Component`_ to get a fundamental
     understanding of the component. The CMF Routing Component just extends the
-    basic behaviour.
+    basic behavior.
 
 Installation
 ------------

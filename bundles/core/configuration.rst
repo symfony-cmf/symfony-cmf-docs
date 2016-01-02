@@ -10,11 +10,11 @@ Configuration
 
 .. _config-core-persistence:
 
-persistence
-~~~~~~~~~~~
+``persistence``
+~~~~~~~~~~~~~~~
 
-phpcr
-.....
+``phpcr``
+.........
 
 This defines the persistence driver. The default configuration of persistence
 is the following configuration:
@@ -68,8 +68,8 @@ is the following configuration:
             ),
         ));
 
-orm
-...
+``orm``
+.......
 
 This defines the persistence driver. The default configuration of persistence
 is the following configuration:
@@ -114,8 +114,8 @@ is the following configuration:
             ),
         ));
 
-enabled
-"""""""
+``enabled``
+"""""""""""
 
 .. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
@@ -131,8 +131,8 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 * :doc:`TreeBrowserCmsBundle <../tree_browser/introduction>`
 
-basepath
-""""""""
+``basepath``
+""""""""""""
 
 **type**: ``string`` **default**: ``/cms/``
 
@@ -148,8 +148,8 @@ Enabling this setting will also automatically enable the equivalent settings in 
 * :doc:`SearchBundle <../search/introduction>`
 * :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 
-manager_registry
-""""""""""""""""
+``manager_registry``
+""""""""""""""""""""
 
 **type**: ``string`` **default**: ``doctrine_phpcr``
 
@@ -158,8 +158,8 @@ Enabling this setting will also automatically enable the equivalent settings in 
 * :doc:`SearchBundle <../search/introduction>`
 * :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 
-manager_name
-""""""""""""
+``manager_name``
+""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
 
@@ -175,8 +175,8 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`SearchBundle <../search/introduction>`
 * :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 
-use_sonata_admin
-""""""""""""""""
+``use_sonata_admin``
+""""""""""""""""""""
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 
@@ -192,8 +192,8 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`RoutingBundle <../routing/introduction>`
 * :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 
-translation_strategy
-""""""""""""""""""""
+``translation_strategy``
+""""""""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
 
@@ -201,8 +201,8 @@ This setting can be used to force a specific translation strategy for all docume
 
 .. _config-core-multilang:
 
-multilang
-~~~~~~~~~
+``multilang``
+~~~~~~~~~~~~~
 
 This configures whether multiple languages mode should be activated.
 
@@ -210,7 +210,7 @@ If the ``multilang`` option is *not* defined at all, the CoreBundle registers a
 listener for Doctrine PHPCR-ODM that modifies PHPCR-ODM metadata to remove the
 translatable attribute from all fields.
 
-If multilang is enabled, the ``TranslatableExtension`` for
+If multi-language is enabled, the ``TranslatableExtension`` for
 ``SonataAdminBundle`` is enabled and the locales will be configured on all CMF
 bundles that use this configuration:
 
@@ -249,15 +249,15 @@ bundles that use this configuration:
             ),
         ));
 
-locales
-.......
+``locales``
+...........
 
 **type**: ``array`` **default**: ``null``
 
 This define languages that can be used.
 
-publish_workflow
-~~~~~~~~~~~~~~~~
+``publish_workflow``
+~~~~~~~~~~~~~~~~~~~~
 
 This configures whether the publish workflow should be enabled, which service to use
 and what role may view content not yet published. The request listener ensures
@@ -357,8 +357,8 @@ This section configures the Sonata Admin Extensions, see:
             ),
         ));
 
-form_group
-~~~~~~~~~~
+``form_group``
+~~~~~~~~~~~~~~
 
 **type**: ``string`` **default**: as in above example.
 

@@ -77,8 +77,8 @@ Why not just do that?
 #. By separating the route from the content you allow the route to be
    customized independently of the content, for example, a topic may have
    the same title as another topic but might need a different URI;
-#. Separate route documents are translateable - this means you can have a URI
-   for *each language*, "/welcome" and "/bienvenue" would each reference the
+#. Separate route documents are translatable - this means you can have a URI
+   for *each language*, ``/welcome`` and ``/bienvenue`` would each reference the
    same document in English and French respectively. This would be difficult
    if the slug was embedded in the content document;
 #. By decoupling route and content the application doesn't care *what* is
@@ -177,7 +177,7 @@ idea.
     to achieve the same thing with objects which are not related.
 
 This is just a basic example. You can also configure what should happen when
-a route already exists (confict resolution) and what to do with old routes
+a route already exists (conflict resolution) and what to do with old routes
 when the generated URI is changed (defunct route handling).
 
 Read more

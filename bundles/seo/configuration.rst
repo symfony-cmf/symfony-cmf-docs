@@ -8,11 +8,11 @@ configuration. When using XML, you can use the
 Configuration
 -------------
 
-persistence
-~~~~~~~~~~~
+``persistence``
+~~~~~~~~~~~~~~~
 
-phpcr
-"""""
+``phpcr``
+"""""""""
 
 .. configuration-block::
 
@@ -51,18 +51,18 @@ phpcr
             ),
         ));
 
-enabled
-*******
+``enabled``
+***********
 
 .. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
-manager_name
-************
+``manager_name``
+****************
 
 .. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
-translation_domain
-~~~~~~~~~~~~~~~~~~
+``translation_domain``
+~~~~~~~~~~~~~~~~~~~~~~
 
 **type**: ``string`` **default**: ``messages``
 
@@ -70,50 +70,161 @@ The translation domain to use when translating the title and description
 template. See :ref:`bundles-seo-title-description-template` for more
 information.
 
-
-title
-~~~~~
+``title``
+~~~~~~~~~
 
 **type**: ``string`` **default**: ``null``
 
 The title template, read :ref:`here <bundles-seo-title-description-template>`
 about the usage.
 
-description
-~~~~~~~~~~~
+``description``
+~~~~~~~~~~~~~~~
 
 **type**: ``string`` **default**: ``null``
 
 The description template, read :ref:`here <bundles-seo-title-description-template>`
 about the usage.
 
-original_route_pattern
-~~~~~~~~~~~~~~~~~~~~~~
+``original_route_pattern``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **type**: ``string`` **default**: ``canonical``
 
 The original route strategy to use when multiple routes have the same content.
 Can be one of ``canonical`` or ``redirect``.
 
-content_key
-~~~~~~~~~~~
+``content_listener``
+~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 1.2
+    The ``content_listener`` configuration key was introduced in SeoBundle 1.2.
+
+``enabled``
+"""""""""""
+
+**type**: ``boolean`` **default**: ``true``
+
+Whether or not the :ref:`bundles-seo-content-listener` should be loaded.
+
+``content_key``
+"""""""""""""""
 
 **type**: ``string`` **default**: ``null`` (or ``DynamicRouter::CONTENT_KEY`` when RoutingBundle is enabled)
 
 The name of the request attribute which contains the content object. This is
-used by the ContentListener to exctract SEO information automatically. If the
+used by the ContentListener to extract SEO information automatically. If the
 RoutingBundle is present, this defaults to ``DynamicRouter::CONTENT_KEY``
 (which evaluates to ``contentDocument``), otherwise you must define this
-manually.
+manually or disable the content listener.
 
-sonata_admin_extension
-~~~~~~~~~~~~~~~~~~~~~~
+.. versionadded:: 1.2
+    In versions of the SeoBundle prior to 1.2, the ``content_key`` was
+    configured directly in the ``cmf_seo`` root.
+
+``sitemap``
+~~~~~~~~~~~
+
+.. versionadded:: 1.2
+    Support for sitemaps was introduced in version 1.2 of the SeoBundle.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_seo:
+            sitemap:
+                enabled: true
+                defaults:
+                    default_change_frequency: always
+                    templates:
+                        html: CmfSeoBundle:Sitemap:index.html.twig
+                        xml: CmfSeoBundle:Sitemap:index.xml.twig
+                configurations:
+                    sitemap: ~
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://example.org/schema/dic/cmf_seo">
+                <sitemap enabled="true">
+                    <defaults>
+                        <template format="html">CmfSeoBundle:Sitemap:index.html.twig</template>
+                        <template format="xml">CmfSeoBundle:Sitemap:index.xml.twig</template>
+                    </defaults>
+                    <configuration name="sitemap"/>
+                </sitemap>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_seo', array(
+            'sitemap' => array(
+                'enabled' => true,
+                'defaults' => array(
+                    'templates' => array(
+                        'html' => 'CmfSeoBundle:Sitemap:index.html.twig',
+                        'xml' => 'CmfSeoBundle:Sitemap:index.xml.twig',
+                    ),
+                ),
+                'configurations' => array(
+                    'sitemap' => null,
+                ),
+            ),
+        ));
+
+``enabled``
+"""""""""""
+
+**type**: ``boolean`` **default**: ``false``
+
+Whether or not the :doc:`sitemap` should be loaded. As soon as you configure
+anything else in the ``sitemap`` section, this defaults to true.
+
+``defaults``
+""""""""""""
+
+Contains default configuration that applies to all sitemaps.
+
+``configurations``
+""""""""""""""""""
+
+Contains the list of sitemaps that should exist. Each sitemap can overwrite
+default configuration. If not specified, a sitemap called "sitemap" exists.
+
+``default_change_frequency``
+****************************
+
+**type**: ``enum`` **default**: ``always`` **allowed values**: 'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never'
+
+Specify the change frequency for UrlInformation that do not have one explicitly
+set.
+
+``templates``
+*************
+
+**type**: ``hashmap`` **default**: templates for html and xml
+
+This hashmap specifies which template to use for the sitemap in each format.
+By default, you have:
+
+* html: CmfSeoBundle:Sitemap:index.html.twig
+* xml: CmfSeoBundle:Sitemap:index.xml.twig
+
+``sonata_admin_extension``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If set to ``true``, the Sonata Admin Extension provided by the SeoBundle is
 activated.
 
-enabled
-"""""""
+``enabled``
+"""""""""""
 
 **type**: ``enum`` **valid values** ``true|false|auto`` **default**: ``auto``
 
@@ -123,8 +234,8 @@ it is activated only if the SonataPhpcrAdminBundle is present.
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to the value
 of ``cmf_core.persistence.phpcr.use_sonata_admin``.
 
-form_group
-""""""""""
+``form_group``
+""""""""""""""
 
 **type**: ``string`` **default**: ``form.group_seo``
 

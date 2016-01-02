@@ -7,4 +7,6 @@ SeoBundle
     introduction
     seo_aware
     extractors
+    sitemap
     configuration
+    twig

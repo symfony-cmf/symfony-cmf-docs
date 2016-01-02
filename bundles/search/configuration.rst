@@ -10,11 +10,11 @@ Configuration
 
 .. _config-search-persistence:
 
-persistence
-~~~~~~~~~~~
+``persistence``
+~~~~~~~~~~~~~~~
 
-phpcr
-.....
+``phpcr``
+.........
 
 This defines the persistence driver. The default configuration of persistence
 is the following configuration:
@@ -75,13 +75,13 @@ is the following configuration:
             'max_results' => null
         ));
 
-enabled
-"""""""
+``enabled``
+"""""""""""
 
 .. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
-search_basepath
-"""""""""""""""
+``search_basepath``
+"""""""""""""""""""
 
 **type**: ``string`` **default**: ``/cms/content``
 
@@ -90,29 +90,29 @@ The basepath for CMS documents in the PHPCR tree.
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/content``.
 
-manager_registry
-""""""""""""""""
+``manager_registry``
+""""""""""""""""""""
 
 **type**: ``string`` **default**: ``doctrine_phpcr``
 
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 the value of ``cmf_core.persistence.phpcr.manager_registry``.
 
-manager_name
-""""""""""""
+``manager_name``
+""""""""""""""""
 
 .. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
-translation_strategy
-""""""""""""""""""""
+``translation_strategy``
+""""""""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
 
 The translation strategy used in the documents that are searched. Can either be ``null``,
 ``child`` or ``attribute``.
 
-search_fields
-"""""""""""""
+``search_fields``
+"""""""""""""""""
 
 **type**: ``array``  **default**: ``array()``
 
@@ -146,8 +146,8 @@ template.
 
 .. _`LiipSearchBundle`: https://github.com/liip/LiipSearchBundle
 
-max_results
-""""""""""""""""
+``max_results``
+"""""""""""""""
 
 **type**: ``integer`` **default**: ``null``
 

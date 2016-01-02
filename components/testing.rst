@@ -358,11 +358,11 @@ You can access the Entity Manager and repository using::
 
     $entityManager = $this->db('ORM')->getOm();
 
-Seperating PHPCR and ORM configuration
+Separating PHPCR and ORM configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Most of the time, you cannot load both the PHPCR and ORM configuration. The
-Testing component uses environments to seperate these configurations. First,
+Testing component uses environments to separate these configurations. First,
 create a file ``config_phpcr.php`` which loads all needed configuration for
 the PHPCR and a file ``config_orm.php`` which loads all needed configuration
 for the ORM. After that, edit the

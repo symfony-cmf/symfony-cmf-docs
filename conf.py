@@ -31,8 +31,19 @@ from pygments.lexers.web import PhpLexer
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.todo',
-    'sensio.sphinx.refinclude', 'sensio.sphinx.configurationblock', 'sensio.sphinx.phpcode']
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.doctest',
+    'sphinx.ext.todo',
+    'sensio.sphinx.refinclude',
+    'sensio.sphinx.configurationblock',
+    'sensio.sphinx.phpcode',
+    'sphinxcontrib.spelling'
+]
+
+spelling_show_sugestions=True
+spelling_lang='en_US'
+spelling_word_list_filename='spelling_word_list.txt'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

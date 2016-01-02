@@ -100,7 +100,7 @@ the path in question - they will have the permission to view unpublished content
     }
 
     // check if the document is published. even if the current role would allow
-    // to see the document, this will still return false if the documet is not
+    // to see the document, this will still return false if the document is not
     // published
     if ($publishWorkflowChecker->isGranted(
             PublishWorkflowChecker::VIEW_ANONYMOUS_ATTRIBUTE,
@@ -265,7 +265,7 @@ is met, but if a single voter returns ``ACCESS_DENIED``, the content is
 considered not published.
 
 You can also implement your :ref:`own voters <bundle-core-workflow-custom-voters>`
-for additional publication behaviour.
+for additional publication behavior.
 
 PublishableVoter
 ................

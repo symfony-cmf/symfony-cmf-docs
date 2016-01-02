@@ -59,7 +59,7 @@ including how you can configure a query.
 
 If you are using SonataDoctrinePHPCRAdminBundle_, you might want to look into
 ``sonata_type_collection``. That form type allows to edit related
-documents (references as well as children) inline and also to create
+documents (references as well as children) in-line and also to create
 and remove them on the fly.
 
 phpcr_odm_reference_collection

@@ -1,10 +1,10 @@
 .. index::
-    single: Multilanguage; DoctrinePHPCRBundle
+    single: Multi-Language; DoctrinePHPCRBundle
 
-Doctrine PHPCR-ODM Multilanguage Support
-========================================
+Doctrine PHPCR-ODM Multi-Language Support
+=========================================
 
-To use the multilanguage features of PHPCR-ODM you need to enable locales in
+To use the multi-language features of PHPCR-ODM you need to enable locales in
 the configuration.
 
 Translation Configuration
@@ -25,6 +25,7 @@ To use translated documents, you need to configure the available languages:
                     de: [en, fr]
                     fr: [en, de]
                 locale_fallback: hardcoded
+                default_locale: fr
 
     .. code-block:: xml
 
@@ -50,6 +51,8 @@ To use translated documents, you need to configure the available languages:
                         <fallback>en</fallback>
                         <fallback>de</fallback>
                     </locale>
+
+                    <default_locale>fr</default_locale>
                 </odm>
             </config>
         </container>
@@ -66,11 +69,17 @@ To use translated documents, you need to configure the available languages:
                     'fr' => array('en', 'de'),
                 ),
                 'locale_fallback' => 'hardcoded',
+                'default_locale'  => 'fr',
             )
         );
 
 The ``locales`` is a list of alternative locales to look up if a document
 is not translated to the requested locale.
+
+The default locale is used for the standard locale chooser strategy and
+hence will be the default locale in the document manager. Specifying the
+default locale is optional. If you do not specify a default locale then the
+first locale listed is used as the default locale.
 
 This bundle provides a request listener that gets activated when any locales
 are configured. This listener updates PHPCR-ODM to use the locale Symfony
@@ -86,13 +95,14 @@ from the ``Accept-Language`` HTML header). All of them will never add any
 locales that where not configured in the ``locales`` to avoid a request
 injecting unexpected things into your repository:
 
-* ``hardcoded``: The default strategy does not update the fallback order from
+* ``hardcoded``: This strategy does not update the fallback order from
   the request;
 * ``replace``: takes the accepted locales from the request and updates the
   fallback order with them, removing any locales not found in the request;
 * ``merge``: does the same as ``replace`` but then adds locales not found in
   the request but on the ``locales`` configuration back to the end of the
-  fallback list. This reorders the locales without losing any of them.
+  fallback list. This reorders the locales without losing any of them. This is
+  the default strategy.
 
 Translated documents
 --------------------
@@ -167,7 +177,7 @@ depending on the locale.
                 type: binary
                 translated: true
 
-Unless you explicitly interact with the multilanguage features of PHPCR-ODM,
+Unless you explicitly interact with the multi-language features of PHPCR-ODM,
 documents are loaded in the request locale and saved in the locale they where
 loaded. (This could be a different locale, if the PHPCR-ODM did not find the
 requested locale and had to fall back to an alternative locale.)
@@ -175,6 +185,6 @@ requested locale and had to fall back to an alternative locale.)
 .. tip::
 
     For more information on multilingual documents, see the
-    `PHPCR-ODM documentation on Multilanguage`_.
+    `PHPCR-ODM documentation on multi-language`_.
 
-.. _`PHPCR-ODM documentation on Multilanguage`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
+.. _`PHPCR-ODM documentation on multi-language`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html

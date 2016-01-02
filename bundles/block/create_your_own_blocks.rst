@@ -10,10 +10,10 @@ Follow these steps to create a block:
 * render the block, see :ref:`bundle-block-rendering`;
 
 Lets say you are working on a project where you have to integrate data
-received from several RSS feeds.  Of course you could create an ActionBlock
-for each of these feeds, but wouldn't this be silly? In fact, all those actions
-would look similar: Receive data from a feed, sanitize it and pass the data to
-a template. So instead you decide to create your own block, the ``RssBlock``.
+received from several RSS feeds. You could create an ActionBlock for each of
+these feeds, but all those actions would look similar: Receive data from a
+feed, sanitize it and pass the data to a template. This would be code
+duplication, so instead you decide to create your own block, the ``RssBlock``.
 
 .. tip::
 

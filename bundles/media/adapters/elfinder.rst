@@ -16,62 +16,76 @@ Installation
 1. Install the FMElfinderBundle according to the `FMElfinderBundle documentation`_.
 2. Configure the FMElfinderBundle to use the MediaBundle adapter:
 
-   .. configuration-block::
+    .. configuration-block::
 
-       .. code-block:: yaml
+        .. code-block:: yaml
 
-           # app/config/config.yml
-           fm_elfinder:
-               locale: "%locale%"
-               editor: ckeditor
-               connector:
-                   roots:
-                       media:
-                           driver: cmf_media.adapter.elfinder.phpcr_driver
-                           path: "%cmf_media.persistence.phpcr.media_basepath%"
-                           upload_allow: ['all']
-                           upload_max_size: 2M
+            # app/config/config.yml
+            fm_elfinder:
+                instances:
+                    default:
+                        locale: "%locale%"
+                        editor: ckeditor
+                        connector:
+                            roots:
+                                media:
+                                    driver: cmf_media.adapter.elfinder.phpcr_driver
+                                    path: "%cmf_media.persistence.phpcr.media_basepath%"
+                                    upload_allow: ['all']
+                                    upload_max_size: 2M
 
-       .. code-block:: xml
+        .. code-block:: xml
 
-           <!-- app/config/config.xml -->
-           <?xml version="1.0" charset="UTF-8" ?>
-           <container xmlns="http://symfony.com/schema/dic/services">
+            <!-- app/config/config.xml -->
+            <?xml version="1.0" charset="UTF-8" ?>
+            <container xmlns="http://symfony.com/schema/dic/services">
 
-                <config xmlns="http://example.org/dic/schema/fm_elfinder"
-                    locale="%locale%"
-                    editor="ckeditor"
-                >
-                    <connector>
-                        <root
-                            name="media"
-                            driver="cmf_media.adapter.elfinder.phpcr_driver"
-                            path="%cmf_media.persistence.phpcr.media_basepath%"
-                            upload-max-size="2M"
-                            upload-allow="all"
-                        />
-                    </connector>
+                <config xmlns="http://example.org/dic/schema/fm_elfinder">
+                    <instances
+                        locale="%locale%"
+                        editor="ckeditor"
+                    >
+                        <default>
+                            <connector>
+                                <root
+                                    name="media"
+                                    driver="cmf_media.adapter.elfinder.phpcr_driver"
+                                    path="%cmf_media.persistence.phpcr.media_basepath%"
+                                    upload-max-size="2M"
+                                    upload-allow="all"
+                                />
+                            </connector>
+                        </default>
+                    </instances>
                 </config>
+            </container>
 
-           </container>
+        .. code-block:: php
 
-       .. code-block:: php
-
-           // app/config/config.php
-           $container->loadFromExtension('fm_elfinder', array(
-               'locale' => '%locale%',
-               'editor' => 'ckeditor',
-               'connector' => array(
-                   'roots' => array(
-                       'media' => array(
-                           'driver' => 'cmf_media.adapter.elfinder.phpcr_driver',
-                           'path' => '%cmf_media.persistence.phpcr.media_basepath%',
-                           'upload_allow': array('all'),
-                           'upload_max_size' => '2M',
-                       ),
-                   ),
-               ),
+            // app/config/config.php
+            $container->loadFromExtension('fm_elfinder', array(
+                'instances' => array(
+                    'default' => array(
+                        'locale' => '%locale%',
+                        'editor' => 'ckeditor',
+                        'connector' => array(
+                            'roots' => array(
+                                'media' => array(
+                                    'driver' => 'cmf_media.adapter.elfinder.phpcr_driver',
+                                    'path' => '%cmf_media.persistence.phpcr.media_basepath%',
+                                    'upload_allow': array('all'),
+                                    'upload_max_size' => '2M',
+                                ),
+                           ),
+                        ),
+                    ),
+                ),
            ));
+
+.. versionadded:: 2.0
+    The above configuration is intended for the FMElfinderBundle version 2.0
+    and above. Version 1 used a different format without the possibility to
+    configure more than one editor.
 
 .. note::
 
@@ -83,27 +97,27 @@ Installation
 
 3. When using the LiipImagineBundle, add an imagine filter for the thumbnails:
 
-   .. configuration-block::
+    .. configuration-block::
 
-       .. code-block:: yaml
+        .. code-block:: yaml
 
-           # app/config/config.yml
-           liip_imagine:
-               # ...
-               filter_sets:
-                   # default filter to be used for elfinder thumbnails
-                   elfinder_thumbnail:
-                       data_loader: cmf_media_doctrine_phpcr
-                       quality: 85
-                       filters:
-                           thumbnail: { size: [48, 48], mode: inset }
-                   # ...
+            # app/config/config.yml
+            liip_imagine:
+                # ...
+                filter_sets:
+                    # default filter to be used for elfinder thumbnails
+                    elfinder_thumbnail:
+                        data_loader: cmf_media_doctrine_phpcr
+                        quality: 85
+                        filters:
+                            thumbnail: { size: [48, 48], mode: inset }
+                    # ...
 
-       .. code-block:: xml
+        .. code-block:: xml
 
-           <!-- app/config/config.xml -->
-           <?xml version="1.0" charset="UTF-8" ?>
-           <container xmlns="http://symfony.com/schema/dic/services">
+            <!-- app/config/config.xml -->
+            <?xml version="1.0" charset="UTF-8" ?>
+            <container xmlns="http://symfony.com/schema/dic/services">
 
                 <config xmlns="http://example.org/dic/schema/liip_imagine">
                     <!-- ... -->
@@ -114,28 +128,28 @@ Installation
                     <!-- ... -->
                 </config>
 
-           </container>
+            </container>
 
-       .. code-block:: php
+        .. code-block:: php
 
-           // app/config/config.php
-           $container->loadFromExtension('liip_imagine', array(
-               // ...
-               'filter_sets' => array(
-                   // default filter to be used for elfinder thumbnails
-                   'elfinder_thumbnail' => array(
-                       'data_loader' => 'cmf_media_doctrine_phpcr',
-                       'quality'     => 85,
-                       'filters'     => array(
-                           'thumbnail' => array(
-                               'size' => array(48, 48),
-                               'mode' => 'inset',
-                           ),
-                       ),
-                   ),
-                   // ...
-               ),
-           ));
+            // app/config/config.php
+            $container->loadFromExtension('liip_imagine', array(
+                // ...
+                'filter_sets' => array(
+                    // default filter to be used for elfinder thumbnails
+                    'elfinder_thumbnail' => array(
+                        'data_loader' => 'cmf_media_doctrine_phpcr',
+                        'quality'     => 85,
+                        'filters'     => array(
+                            'thumbnail' => array(
+                                'size' => array(48, 48),
+                                'mode' => 'inset',
+                            ),
+                        ),
+                    ),
+                    // ...
+                ),
+            ));
 
 4. Test the elFinder browser by navigating to: ``http://<yoursite>/app_dev.php/elfinder``
 

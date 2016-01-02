@@ -11,7 +11,7 @@ of the CMF.
 .. note::
 
     Again, this chapter is talking about the PHPCR storage layer. But the CMF
-    is storage agnosticly created, meaning it is not tied to specific storage
+    is storage agnostically created, meaning it is not tied to specific storage
     system.
 
 Getting Familiar with PHPCR
@@ -73,7 +73,7 @@ Doctrine PHPCR-ODM
 
 The Symfony CMF uses the `Doctrine PHPCR-ODM`_ to interact with PHPCR.
 Doctrine allows a user to create objects (called *documents*) which are
-directly persisted into and retrieved from the PHPCR tree. This is similair to
+directly persisted into and retrieved from the PHPCR tree. This is similar to
 the Doctrine ORM used by the Symfony2 Framework, but then for PHPCR.
 
 Creating a Page with code
@@ -178,7 +178,7 @@ then you can visit your website again. You'll see your new page you added!
 Final Thoughts
 --------------
 
-PHPCR is a powerfull way to store your pages in a CMS. But, if you're not
+PHPCR is a powerful way to store your pages in a CMS. But, if you're not
 comfortable with it, you can always
 :doc:`switch to another storage layer <../cookbook/database/choosing_storage_layer>`.
 

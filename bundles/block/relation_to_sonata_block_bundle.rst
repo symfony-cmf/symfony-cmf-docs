@@ -4,8 +4,8 @@ Relation to Sonata Block Bundle
 The Symfony2 CMF BlockBundle is based on the `SonataBlockBundle`_.  It replaces
 components of the SonataBlockBundle where needed to be compatible with PHPCR.
 
-Classdiagram
-------------
+Class Diagram
+-------------
 
 The following diagram shows the components the Symfony CMF BlockBundle replaces
 in blue color:

@@ -9,8 +9,8 @@ your application configuration. When using XML, you can use the
 Configuration
 -------------
 
-session
-~~~~~~~
+``session``
+~~~~~~~~~~~
 
 .. tip::
 
@@ -93,8 +93,8 @@ session
             ),
         ));
 
-workspace
-"""""""""
+``workspace``
+"""""""""""""
 
 **type**: ``string`` **required**
 
@@ -107,8 +107,8 @@ Defines the PHPCR workspace to use for this PHPCR session.
     ``doctrine:phpcr:workspace:create`` command to initialize a new workspace.
     See also :ref:`bundle-phpcr-odm-commands`.
 
-username and password
-"""""""""""""""""""""
+``username and password``
+"""""""""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
 
@@ -119,8 +119,8 @@ Do not confuse these credentials with the username and password used by
 Doctrine DBAL to connect to the underlying RDBMS where the data
 is actually stored.
 
-backend type
-""""""""""""
+``backend type``
+""""""""""""""""
 
 **type**: ``string`` **default**: ``jackrabbit``
 
@@ -130,8 +130,8 @@ This designates the PHPCR implementation. Valid options are
 * ``doctrinedbal``;
 * ``prismic``.
 
-backend parameters
-""""""""""""""""""
+``backend parameters``
+""""""""""""""""""""""
 
 If you are using one of the Jackalope backends, you can set a couple of
 parameters. This section explains the general parameters that are
@@ -150,15 +150,15 @@ available with all Jackalope backends. You can also
     into the parameters section with the ``jackalope.`` part in front of them.
     Note that only Jackalope Doctrine Dbal supports transactions.
 
-jackalope.factory
-.................
+``jackalope.factory``
+.....................
 
 **type**: ``string or object`` **default**: ``Jackalope\Factory``
 
 Use a custom factory class for Jackalope objects.
 
-jackalope.check_login_on_server
-...............................
+``jackalope.check_login_on_server``
+...................................
 
 **type**: ``boolean`` **default**: ``false``
 
@@ -170,8 +170,8 @@ only notice connectivity problems on the first attempt to use the repository.
    on ``%kernel.debug%``. We recommend setting the value to false to avoid
    bootstraping issues.
 
-jackalope.disable_stream_wrapper
-................................
+``jackalope.disable_stream_wrapper``
+....................................
 
 **type**: ``boolean`` **default**: ``false``
 
@@ -181,12 +181,12 @@ Otherwise you probably don't want to disable the wrappers, or all binaries
 will be loaded each time their containing document is loaded, resulting in a
 severe performance penalty.
 
-jackalope.auto_lastmodified
-...........................
+``jackalope.auto_lastmodified``
+...............................
 
 **type**: ``boolean`` **default**: ``true``
 
-Whether to automatically update nodes having mix:lastModified.
+Whether to automatically update nodes having ``mix:lastModified``.
 See `last modified listener cookbook entry`_.
 
 PHPCR Session with Jackalope Jackrabbit
@@ -246,16 +246,16 @@ PHPCR Session with Jackalope Jackrabbit
             ),
         ));
 
-url
-"""
+``url``
+"""""""
 
 **type**: ``string``, **required**
 
 The configuration needs the ``url`` parameter to point to your Jackrabbit.
 This looks like http://localhost:8080/server/
 
-jackalope.default_header
-""""""""""""""""""""""""
+``jackalope.default_header``
+""""""""""""""""""""""""""""
 
 **type**: ``string``, **default**: ``null``
 
@@ -263,8 +263,8 @@ Set a default header to send on each request to the backend.
 This is useful when using a load balancer between the webserver and jackrabbit,
 to identify sessions.
 
-jackalope.jackrabbit_expect
-"""""""""""""""""""""""""""
+``jackalope.jackrabbit_expect``
+"""""""""""""""""""""""""""""""
 
 **type**: ``boolean``, **default**: ``false``
 
@@ -346,8 +346,8 @@ supported by Doctrine.
             ),
         ));
 
-connection
-""""""""""
+``connection``
+""""""""""""""
 
 **type**: ``string``, **default**: ``default``
 
@@ -355,8 +355,8 @@ Specify the Doctrine DBAL connection name to use if you don't want to use the
 default connection. The name must be one of the names of the ``doctrine.dbal``
 section of your Doctrine configuration, see the `Symfony2 Doctrine documentation`_.
 
-jackalope.disable_transactions
-""""""""""""""""""""""""""""""
+``jackalope.disable_transactions``
+""""""""""""""""""""""""""""""""""
 
 **type**: ``boolean``, **default**: ``false``
 
@@ -456,6 +456,9 @@ not configure anything here, the ODM services will not be loaded.
                 auto_generate_proxy_classes: "%kernel.debug%"
                 proxy_dir: "%kernel.cache_dir%/doctrine/PHPCRProxies"
                 proxy_namespace: PHPCRProxies
+                namespaces:
+                    translation:
+                        alias: phpcr_locale
 
                 metadata_cache_driver:
                     type:           array
@@ -482,6 +485,10 @@ not configure anything here, the ODM services will not be loaded.
                     proxy-dir="%kernel.cache_dir%/doctrine/PHPCRProxies"
                     proxy-namespace="PHPCRProxies"
                 >
+                    <namespaces>
+                        <translation alias="phpcr_locale" />
+                    </namespaces>
+
                     <mappings>
                         <"name"
                             mapping="true"
@@ -516,6 +523,11 @@ not configure anything here, the ODM services will not be loaded.
                 'auto_generate_proxy_classes' => '%kernel.debug%',
                 'proxy-dir'                   => '%kernel.cache_dir%/doctrine/PHPCRProxies',
                 'proxy_namespace'             => 'PHPCRProxies',
+                'namespaces' => array(
+                    'translation' => array(
+                        'alias' => 'phpcr_locale',
+                    ),
+                ),
                 'mappings' => array(
                     '<name>' => array(
                         'mapping'   => true,
@@ -538,15 +550,15 @@ not configure anything here, the ODM services will not be loaded.
             ),
         ));
 
-configuration_id
-""""""""""""""""
+``configuration_id``
+""""""""""""""""""""
 
 **type**: ``string``, **default**: ``doctrine_phpcr.odm.configuration``
 
 The service to use as base for building the PHPCR-ODM configuration.
 
-auto_mapping
-""""""""""""
+``auto_mapping``
+""""""""""""""""
 
 **type**: ``boolean``, **default**: ``true``
 
@@ -555,37 +567,44 @@ When enabled, you can place your mappings in
 to configure mappings for documents you provide in the ``<Bundle>/Document``
 folder. Otherwise you need to manually configure the mappings section.
 
-auto_generate_proxy_classes
-"""""""""""""""""""""""""""
+``auto_generate_proxy_classes``
+"""""""""""""""""""""""""""""""
 
 **type**: ``boolean``, **default**: ``%kernel.debug%``
 
 When disabled, you need to run the ``cache:warmup`` command in order to have
 the proxy classes generated after you modified a document.
 
-proxy_dir
-"""""""""
+``proxy_dir``
+"""""""""""""
 
 **type**: ``string``, **default**: ``%kernel.cache_dir%/doctrine/PHPCRProxies``
 
 Change folder where proxy classes are generated.
 
-proxy_namespace
-"""""""""""""""
+``proxy_namespace``
+"""""""""""""""""""
 
 **type**: ``string``, **default**: ``PHPCRProxies``
 
 Change namespace for generated proxy classes.
 
-mappings
-""""""""
+``namespaces``
+""""""""""""""
+
+This configuration section is intended to allow you to customize the
+PHPCR namespaces used by PHPCR-ODM. Currently it is only possible to
+set the alias used by the translation strategy.
+
+``mappings``
+""""""""""""
 
 When ``auto_mapping`` is disabled, you need to explicitly list the bundles
 handled by this document manager. Usually its fine to just list the bundle
 names without any actual configuration.
 
-metadata_cache_driver
-"""""""""""""""""""""
+``metadata_cache_driver``
+"""""""""""""""""""""""""
 
 Configure a cache driver for the Doctrine metadata. This is the same as for
 `Doctrine ORM`_.
@@ -596,7 +615,7 @@ directories. By default, Symfony will try to generate a unique namespace
 value for each application but if code is very similar between two
 applications, it is very easy to have two applications share the same
 namespace. This option also prevents Symfony from needing to re-build
-applicationcache on each Composer update on a newly generated namespace.
+application cache on each Composer update on a newly generated namespace.
 
 General Settings
 ~~~~~~~~~~~~~~~~
@@ -630,16 +649,16 @@ General Settings
             'dump_max_line_length' => 120,
         ));
 
-jackrabbit_jar
-""""""""""""""
+``jackrabbit_jar``
+""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
 
 Absolute path to the jackrabbit jar file. If this is set, you can use the
 ``doctrine:phpcr:jackrabbit`` console command to start and stop Jackrabbit.
 
-dump_max_line_length
-""""""""""""""""""""
+``dump_max_line_length``
+""""""""""""""""""""""""
 
 **type**: ``integer`` **default**: ``120``
 

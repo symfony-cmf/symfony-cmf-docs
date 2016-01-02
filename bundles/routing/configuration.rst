@@ -8,13 +8,13 @@ application configuration. When using XML, you can use the
 Configuration
 -------------
 
-chain
-~~~~~
+``chain``
+~~~~~~~~~
 
 .. _reference-config-routing-chain_routers:
 
-routers_by_id
-.............
+``routers_by_id``
+.................
 
 **prototype**: ``array`` **default**: ``{ router.default: 100 }``
 
@@ -64,13 +64,13 @@ To add the ``DynamicRouter``, use the following configuration:
     You can also add routers to the chain using the ``cmf_routing.router`` tag
     on a service, learn more in ":ref:`routing-chain-router-tag`".
 
-replace_symfony_router
-......................
+``replace_symfony_router``
+..........................
 
 **type**: ``Boolean`` **default**: ``true``
 
 If this option is set to ``false``, the default Symfony2 router will *not* be
-overriden by the ``ChainRouter``. By default, the ``ChainRouter`` will
+overridden by the ``ChainRouter``. By default, the ``ChainRouter`` will
 override the default Symfony2 router, but it will pass all requests to the
 default router, because :ref:`no other routers were set <reference-config-routing-chain_routers>`.
 
@@ -132,8 +132,8 @@ If the :doc:`CoreBundle <../core/introduction>` and
 :doc:`ContentBundle <../content/introduction>` are registered, this
 defaults to ``cmf_content.controller:indexAction``.
 
-default_controller
-..................
+``default_controller``
+......................
 
 **type**: ``string`` **default**: value of ``generic_controller``
 
@@ -142,8 +142,8 @@ value is the name of a controller using either the
 ``AcmeDemoBundle::Page::index`` or ``acme_demo.controller.page:indexAction``
 notation.
 
-controllers_by_type
-...................
+``controllers_by_type``
+.......................
 
 **prototype**: ``array``
 
@@ -192,7 +192,7 @@ controllers_by_class
 The controller to use when the matching route implements
 ``RouteObjectInterface`` and returns an object for ``getRouteContent()``.
 This object is checked for being ``instanceof`` the class names in this map.
-Instanceof is used instead of direct comparison to work with proxy classes and
+``instanceof`` is used instead of direct comparison to work with proxy classes and
 other extending classes. The order in which the classes are specified, matters.
 The first match is taken.
 
@@ -236,14 +236,14 @@ choose this controller to handle the request.
 
 .. _reference-config-routing-template_by_class:
 
-template_by_class
-.................
+``template_by_class``
+.....................
 
 **prototype**: ``array``
 
 The template to use when the route implements ``RouteObjectInterface`` and
 returns an object for ``getRouteContent()``. This object is checked for being
-``instanceof`` the class names in this map. Instanceof is used instead of
+``instanceof`` the class names in this map. ``instanceof`` is used instead of
 direct comparison to work with proxy classes and other extending classes. The
 order in which the classes are specified, matters. The first match is taken.
 
@@ -286,8 +286,8 @@ setting is set as controller.
             ),
         ));
 
-route_collection_limit
-......................
+``route_collection_limit``
+..........................
 
 **type**: ``scalar``, **default**: ``0``
 
@@ -296,13 +296,13 @@ are returned in the ``getRouteCollection``. The limit serves to prevent huge
 route lists if you have a large database. Setting the limit to ``false``
 disables the limit entirely.
 
-persistence
-...........
+``persistence``
+...............
 
 .. _reference-configuration-routing-persistence-phpcr:
 
-phpcr
-"""""
+``phpcr``
+"""""""""
 
 .. configuration-block::
 
@@ -378,20 +378,24 @@ manager_name
 
 .. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
-route_basepaths
-***************
+``route_basepaths``
+*******************
 
-**type**: ``array`` **default**: ``array('/cms/routes')``
+.. versionadded:: 1.3
+    The ``route_basepaths`` setting was introduced in version 1.3. Prior to
+    1.3, you could only configure one basepath using ``route_basepath``.
 
-The basepaths where to look for routes in the PHPCR tree.
+**type**: ``string`` | ``array`` **default**: ``/cms/routes``
+
+A set of paths where routes are located in the PHPCR tree.
 
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will
 default to ``%cmf_core.persistence.phpcr.basepath%/routes``. If the
 :doc:`SimpleCmsBundle <../simple_cms/introduction>` is registered as well,
-this will additionally default to ``%cmf_core.persistence.phpcr.basepath%/simple``.
+the SimpleCmsBundle basepath will be added as an additional route basepath.
 
-content_basepath
-****************
+``content_basepath``
+********************
 
 **type**: ``string`` **default**: ``/cms/content``
 
@@ -401,16 +405,16 @@ with the sonata admin to offer the correct subtree to select content documents.
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 ``%cmf_core.persistence.phpcr.basepath%/content``.
 
-admin_basepath
-**************
+``admin_basepath``
+******************
 
-**type**: ``string`` **default**: first value of route_basepaths
+**type**: ``string`` **default**: first value of ``route_basepaths``
 
 The path at which to create routes with Sonata admin. There can be additional
 route basepaths, but you will need your own tools to edit those.
 
-use_sonata_admin
-****************
+``use_sonata_admin``
+********************
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 
@@ -427,8 +431,8 @@ SonataPhpcrAdminBundle is present.
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will
 default to the value of ``cmf_core.persistence.phpcr.use_sonata_admin``.
 
-enable_initializer
-******************
+``enable_initializer``
+**********************
 
 **type**: ``boolean`` **default**: ``true``
 
@@ -448,25 +452,25 @@ initializer when you create your nodes your self (e.g. using Alice_).
     by other sources. If the route basepath isn't created by another source,
     you have to configure an :ref:`initializer <phpcr-odm-repository-initializers>`.
 
-orm
-"""
+``orm``
+"""""""
 
-enabled
-*******
+``enabled``
+***********
 
 **type**: ``boolean`` **default**: ``false``
 
 If ``true``, the ORM is included in the service container.
 
-manager_name
-************
+``manager_name``
+****************
 
 **type**: ``string`` **default**: ``null``
 
 The name of the Doctrine Manager to use.
 
-uri_filter_regexp
-~~~~~~~~~~~~~~~~~
+``uri_filter_regexp``
+~~~~~~~~~~~~~~~~~~~~~
 
 **type**: ``string`` **default**: ``""``
 
@@ -474,8 +478,8 @@ Sets a pattern to which the Route must match before attempting to get any
 routes from a database. This can improve the performance a lot when only a
 subsection of your site is using the dynamic router.
 
-route_provider_service_id
-~~~~~~~~~~~~~~~~~~~~~~~~~
+``route_provider_service_id``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **type**: ``string``
 
@@ -483,8 +487,8 @@ When none of the persistence layers is enabled, a route provider service *must*
 be provided in order to get the routes. This is done by using the
 ``route_provider_service_id`` setting.
 
-route_filters_by_id
-~~~~~~~~~~~~~~~~~~~
+``route_filters_by_id``
+~~~~~~~~~~~~~~~~~~~~~~~
 
 **prototype**: ``array``
 
@@ -526,8 +530,8 @@ priority.
             ),
         ));
 
-content_repository_service_id
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``content_repository_service_id``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **type**: ``scalar`` **default**: ``null``
 
@@ -537,27 +541,36 @@ content repository service.
 .. note::
 
     If PHPCR is enabled, it'll automatically use the phpcr content repository.
-    This can be overriden by this option. ORM doesn't have a content
+    This can be overridden by this option. ORM doesn't have a content
     repository at the moment.
 
 .. _reference-config-routing-locales:
 
-locales
-~~~~~~~
+``url_generator``
+~~~~~~~~~~~~~~~~~
+
+**type**: ``string`` **default**: ``cmf_routing.generator``
+
+Service id for the DynamicRouter to generate URLs from Route objects. Overwrite
+to a service implementing ``UrlGeneratorInterface`` if you need to customize that
+service.
+
+``locales``
+~~~~~~~~~~~
 
 **type**: ``array`` **default**: ``array()``
 
-To enable multilanguage, set the valid locales in this option.
+To enable multi-language, set the valid locales in this option.
 
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will
 default to the value of ``cmf_core.locales``.
 
-limit_candidates
-~~~~~~~~~~~~~~~~
+``limit_candidates``
+~~~~~~~~~~~~~~~~~~~~
 
 **type**: ``integer`` **default**: ``20``
 
-With this flag you can tune the routing behaviour when using the dynamic
+With this flag you can tune the routing behavior when using the dynamic
 pattern part of routes stored in the database. If you do never use the variable
 pattern field of the Route model, you can set this to 1 as a small performance
 optimization. If you have very complex URLs with patterns, you might need to
@@ -569,8 +582,8 @@ increase the limit.
     when someone visits your site with URLs with lots of slashes in them, since
     every slash will lead to a document being tried to be loaded.
 
-match_implicit_locale
-~~~~~~~~~~~~~~~~~~~~~
+``match_implicit_locale``
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **type**: ``boolean`` **default**: ``true``
 
@@ -584,8 +597,8 @@ single route for multiple languages. This is used for example by the
 
 If you do not need this, disabling the option will gain some performance.
 
-auto_locale_pattern
-~~~~~~~~~~~~~~~~~~~
+``auto_locale_pattern``
+~~~~~~~~~~~~~~~~~~~~~~~
 
 **type**: ``boolean`` **default**: ``false``
 

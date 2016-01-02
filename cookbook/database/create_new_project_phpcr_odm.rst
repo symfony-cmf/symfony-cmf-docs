@@ -83,7 +83,7 @@ content repository.
 
 .. note::
 
-    You are modififying ``parameters.yml.dist`` and not ``paramaters.yml``.
+    You are modifying ``parameters.yml.dist`` and not ``paramaters.yml``.
     This is because the Standard Edition will use this file as a template when
     updating the configuration.
 

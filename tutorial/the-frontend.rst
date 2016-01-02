@@ -52,7 +52,7 @@ implements the this interface::
 
     class Page implements RouteReferrersReadInterface, NodeInterface
 
-Now add the following to the document to fulfil the contract::
+Now add the following to the document to fulfill the contract::
 
     // src/Acme/BasicCmsBundle/Document/Page.php
 

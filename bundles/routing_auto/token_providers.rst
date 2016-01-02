@@ -9,9 +9,18 @@ Such values can be derived form the object for which the route is being
 generated or from the environment (e.g. you could use the current locale in
 the route).
 
-
-content_method
+Global Options
 --------------
+
+The following options apply to all token providers:
+
+``allow_empty``
+    Allow the token value to be empty. If the token value is empty then any
+    trailing slash will be removed. If the token is the last token, then the
+    leading slash will be removed. Default is ``false``.
+
+``content_method``
+------------------
 
 The ``content_method`` provider allows the content object (e.g. a forum
 ``Topic``) to specify a path using one of its methods. This is quite a powerful
@@ -40,7 +49,7 @@ route.
             </mapping>
         </auto-mapping>
 
-This example will use the existing method "getTitle" of the ``Topic`` document
+This example will use the existing method ``getTitle`` of the ``Topic`` document
 to retrieve the title. By default all strings are *slugified*.
 
 Options
@@ -51,8 +60,8 @@ Options
 ``slugify``
     If the return value should be slugified, default is ``true``.
 
-content_datetime
-----------------
+``content_datetime``
+--------------------
 
 The ``content_datetime`` provider will provide a path from a ``DateTime``
 object provided by a designated method on the content document.
@@ -89,8 +98,8 @@ Options
 ``date_format``
     Any date format accepted by the `DateTime` class, default ``Y-m-d``.
 
-content_locale
---------------
+``content_locale``
+------------------
 
 The ``content_locale`` provider will provide the locale (e.g. ``fr``, ``de``,
 etc) from the subject object. It ultimately determines the locale from the
@@ -116,6 +125,42 @@ feature.
                 <token-provider token="locale" name="content_locale" />
             </mapping>
         </auto-mapping>
+
+``container``
+-------------
+
+.. versionadded:: 1.1
+    The container provider was introduced in RoutingAutoBundle 1.1
+
+The ``container`` provider allows you to use parameters which have
+been defined in the Symfony DI container.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/ForumBundle/Resources/config/cmf_routing_auto.yml
+        Acme\ForumBundle\Document\Article:
+            uri_schema: {base_url}/good-day
+            token_providers:
+                base_url: [container, { parameter: my_parameter.base_path }
+
+    .. code-block: xml
+
+        <!-- src/Acme/ForumBundle/Resources/config/cmf_routing_auto.xml -->
+        <?xml version="1.0" ?>
+        <auto-mapping xmlns="http://cmf.symfony.com/schema/routing_auto">
+            <mapping class="Acme\ForumBundle\Document\Article" uri-schema="/{base_url}/good-day">
+                <token-provider token="base_url" name="container" >
+                    <option name="parameter">my_parameter.base_path</option>
+                </token>
+            </mapping>
+        </auto-mapping>
+
+.. note::
+
+    Parameters from the container will not be slugified. It is your
+    responsibility to ensure that they contain safe characters.
 
 Options
 ~~~~~~~

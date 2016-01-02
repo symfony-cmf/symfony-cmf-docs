@@ -16,13 +16,15 @@ After that, you get a quick introduction of the bundles you have installed.
 This can be used to familiarize yourself with the CMF or as a starting point
 for a new custom application.
 
-.. note::
+This tutorial is aimed at people who want to get started with a project based
+on the Symfony CMF. There are two alternate articles in the cookbook you might
+want to look at, depending on what you need:
 
-    You can also install the CMF Sandbox, this is a more complete demo
-    instance of the Symfony CMF. You can view it online at `cmf.liip.ch`_.
-    You can also install it locally, so you can play with the code. For
-    installation instructions for the sandbox, please read
-    ":doc:`../cookbook/editions/cmf_sandbox`".
+* :doc:`../cookbook/editions/cmf_core` - a guide for adding the CMF to a standard
+  Symfony project.
+* :doc:`../cookbook/editions/cmf_sandbox` for instructions on how to install a
+  demonstration sandbox. The sandbox contains many examples of what you can do
+  with the CMF.
 
 Preconditions
 -------------
@@ -251,7 +253,7 @@ Adding new pages
 Symfony CMF SE does not provide any admin tools to create new pages. If you
 are interested in adding an admin UI one solution can be found in
 :doc:`../tutorial/sonata-admin`. However, if all you want
-is a simple way to add new pages that you can then edit via the inline
+is a simple way to add new pages that you can then edit via the in-line
 editing, then you can use the SimpleCmsBundle ``page`` migrator. For example,
 to add a page called "Testing", creating a file called
 ``app/Resources/data/pages/test.yml`` with the following contents:

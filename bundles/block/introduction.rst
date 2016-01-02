@@ -159,8 +159,8 @@ to the `SonataBlockBundle`_ to make it work nicely. This is done using the
 `prepended configuration`_ option of Symfony. The following defaults are
 updated:
 
-* **templates.block_base** the cmf base template wraps the block output in
-  a div and dashifies the PHPCR path as id; The base template is
+* **templates.block_base** the CMF base template wraps the block output in
+  a ``div`` and slugifies the PHPCR path as id; The base template is
   kept compatible with the Sonata base template for non-cmf blocks;
 * **RssBlock configuration** adds the
   :ref:`default RssBlock settings <bundle-block-rss-settings>`.

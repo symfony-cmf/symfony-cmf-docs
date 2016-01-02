@@ -7,6 +7,48 @@ Form Types
 The MediaBundle provides a couple of useful form types along with form data
 transformers.
 
+.. caution::
+
+    The form types described in this chapter are only available if the PHPCR storage
+    is activated. Implementation for other storage systems would be welcome 
+    contributions.
+
+A default twig template is also included for these form types.
+To use it you will need to add the ``fields.html.twig`` template from the 
+MediaBundle to the ``form.resources`` section in twig config:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        twig:
+            form:
+                resources:
+                    - 'CmfMediaBundle:Form:fields.html.twig'
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://symfony.com/schem/dic/twig">
+
+                <form>
+                    <resource>CmfMediaBundle:Form:fields.html.twig</resource>
+                </form>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('twig', array(
+            'form' => array(
+                'resources' => array(
+                    'CmfMediaBundle:Form:fields.html.twig',
+                ),
+            ),
+        ));
+
 cmf_media_image
 ~~~~~~~~~~~~~~~
 
@@ -89,42 +131,6 @@ Then you can add images to document forms as follows::
    it optional when editing an existing document. We are
    `trying to make this automatic`_.
 
-Next you will need to add the ``fields.html.twig`` template from the
-MediaBundle to the ``form.resources``, to actually see the preview of the
-uploaded image in the backend:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        twig:
-            form:
-                resources:
-                    - 'CmfMediaBundle:Form:fields.html.twig'
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-
-            <config xmlns="http://symfony.com/schem/dic/twig">
-
-                <form>
-                    <resource>CmfMediaBundle:Form:fields.html.twig</resource>
-                </form>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        $container->loadFromExtension('twig', array(
-            'form' => array(
-                'resources' => array(
-                    'CmfMediaBundle:Form:fields.html.twig',
-                ),
-            ),
-        ));
-
 The document that should contain the ``Image`` document has to implement a
 setter method. To profit from the automatic guesser of the form layer, the
 name in the form element and this method name have to match. See
@@ -141,6 +147,17 @@ To delete an image, you need to delete the document containing the image.
     changed in a web request, but not when a CLI command changes images. When
     changing images with commands, you should handle cache invalidation in the
     command or manually remove the imagine cache afterwards.
+
+cmf_media_file
+~~~~~~~~~~~~~~~
+
+.. versionadded: 1.3
+    The ``cmf_media_file`` form type was introduced in MediaBundle 1.3.
+    
+The ``cmf_media_file`` form maps to an object that implements the
+``Symfony\Cmf\Bundle\MediaBundle\FileInterface``.
+It renders as a file upload button with a link for downloading the existing
+file, if any.
 
 .. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
 .. _`trying to make this automatic`: https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4

@@ -13,8 +13,8 @@ Configuration
 persistence
 ~~~~~~~~~~~
 
-phpcr
-.....
+``phpcr``
+.........
 
 This defines the persistence driver. The default configuration of persistence
 is the following configuration:
@@ -76,13 +76,13 @@ is the following configuration:
         ));
 
 
-enabled
-"""""""
+``enabled``
+"""""""""""
 
 .. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
-basepath
-""""""""
+``basepath``
+""""""""""""
 
 **type**: ``string`` **default**: ``/cms/simple``
 
@@ -91,28 +91,28 @@ The basepath for CMS documents in the PHPCR tree.
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/simple``.
 
-manager_registry
-""""""""""""""""
+``manager_registry``
+""""""""""""""""""""
 
 **type**: ``string`` **default**: ``doctrine_phpcr``
 
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 the value of ``cmf_core.persistence.phpcr.manager_registry``.
 
-manager_name
-""""""""""""
+``manager_name``
+""""""""""""""""
 
 .. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
-document_class
-""""""""""""""
+``document_class``
+""""""""""""""""""
 
 **type**: ``string`` **default**: ``'Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page'``
 
 The class for the pages, used by sonata admin.
 
-use_sonata_admin
-""""""""""""""""
+``use_sonata_admin``
+""""""""""""""""""""
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 
@@ -123,8 +123,8 @@ SonataPhpcrAdminBundle is present.
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to the value
 of ``cmf_core.persistence.phpcr.use_sonata_admin``.
 
-sonata_admin.sort
-"""""""""""""""""
+``sonata_admin.sort``
+"""""""""""""""""""""
 
 **type**: ``enum`` **valid values**: ``false|asc|desc`` **default**: ``false``
 
@@ -134,8 +134,8 @@ date first, then creation date.
 
 .. _config-simple_cms-use_menu:
 
-use_menu
-~~~~~~~~
+``use_menu``
+~~~~~~~~~~~~
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 
@@ -179,15 +179,15 @@ Configure integration with CmfMenuBundle.
             'use_menu' => 'auto',
         ));
 
-routing
-~~~~~~~
+``routing``
+~~~~~~~~~~~
 
 .. versionadded:: 1.1
     Since SimpleCmsBundle 1.1, this configuration is done directly on the
     :ref:`RoutingBundle <reference-config-routing-dynamic>`.
 
-multilang
-~~~~~~~~~
+``multilang``
+~~~~~~~~~~~~~
 
 .. versionadded:: 1.1
     Since SimpleCmsBundle 1.1, this configuration is done directly on the

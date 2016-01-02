@@ -62,8 +62,12 @@ path.
             </mapping>
         </auto-mapping>
 
-For the redirect to work you will also need to configure a redirect controller
-in the ``cmf_routing`` configuration:
+For the redirect to take place you will need to tell the ``DynamicRouter`` to
+route routes with the type ``cmf_routing_auto.redirect`` to a controller which
+can perform the redirect.
+
+The RoutingAutoBundle has included such a controller for your convenience. It
+can be configured as follows:
 
 .. configuration-block::
 
@@ -73,7 +77,9 @@ in the ``cmf_routing`` configuration:
         cmf_routing:
             dynamic:
                 controllers_by_class:
-                    Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute: cmf_routing.redirect_controller:redirectAction
+                    # ...
+                controllers_by_type:
+                    cmf_routing_auto.redirect: cmf_routing_auto.redirect_controller:redirectAction
 
     .. code-block:: xml
 
@@ -83,9 +89,9 @@ in the ``cmf_routing`` configuration:
 
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic>
-                    <controller-by-class
-                        class="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute">
-                        cmf_routing.redirect_controller:redirectAction
+                    <controller-by-type
+                        type="cmf_routing_auto.redirect">
+                        cmf_routing_auto.redirect_controller:redirectAction
                     </controller-by-class>
                 </dynamic>
             </config>
@@ -97,8 +103,8 @@ in the ``cmf_routing`` configuration:
         // app/config/config.php
         $container->loadFromExtension('cmf_routing', array(
             'dynamic' => array(
-                'controllers_by_class' => array(
-                    'Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute' => 'cmf_routing.redirect_controller:redirectAction',
+                'controllers_by_type' => array(
+                    'cmf_routing_auto.redirect' => 'cmf_routing_auto.redirect_controller:redirectAction'
                 ),
             ),
         ));
@@ -109,7 +115,7 @@ Creating a Custom Defunct Route Handler
 To create a custom default route handler, you have to implement
 ``DefunctRouteHandlerInterface``. This requires a method ``handleDefunctRoutes()``.
 
-They are not alltogether trivial - the following handler removes old routes and is
+They are not all-together trivial - the following handler removes old routes and is
 the default handler::
 
     namespace Symfony\Cmf\Component\RoutingAuto\DefunctRouteHandler;

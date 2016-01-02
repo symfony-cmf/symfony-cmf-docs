@@ -228,7 +228,7 @@ bundles.
         ));
 
 If you were not using Assetic previously, you need to call the ``assetic:dump``
-command in your deployment process, or the Javascript and CSS files will not be
+command in your deployment process, or the JavaScript and CSS files will not be
 found:
 
 .. code-block:: bash
@@ -340,8 +340,8 @@ is allowed to edit according to
 The JavaScript loader also parametrizes the configuration for create.js and
 WYSIWYG editor.
 
-Alternatively, you can of course use your own templates to include the assets
-needed by create.js.
+If you need to include the assets for create.js in a different way, you will
+need to write your own templates and include those instead.
 
 In the page header, include the base CSS files (and add your own CSS files
 after those to be able to customize as needed) with:
@@ -508,10 +508,36 @@ reads like this:
     The metadata support in CreatePHP is not as powerful as in Doctrine. There
     are currently no drivers for annotation or yml mappings. Mappings are not
     inherited from a parent class but need to be repeated each time. And the
-    mapping file must include the full namespace in the filename to be found.
+    mapping file must include the full namespace in the file name to be found.
 
     All of these issues will hopefully be fixed in later versions if people
     step up and contribute pull requests.
+
+In some cases you may need to use a property type multiple times (e.g. your
+text property for some reason consists of 3 columns) and you want your
+RDF data to be semantically correct.
+
+While sending changed data via REST api, CreateJS uses RDF property names
+(and not the identifiers) to distinguish values, so you should use
+subsets for generic property names:
+
+.. code-block:: xml
+
+    <type
+        xmlns:schema="http://schema.org/"
+        typeof="schema:WebPage"
+    >
+        <children>
+            <property property="schema:headline" identifier="title" />
+            <property property="schema:text/column1" identifier="column1" />
+            <property property="schema:text/column2" identifier="column2" />
+            <property property="schema:text/column3" identifier="column3" />
+        </children>
+    </type>
+
+Otherwise, CreatePHP will not be able to determine which property has
+been changed and it can lead to unexpected behaviors such as
+overwriting contents of all elements using the same property name.
 
 Mapping Requests to Domain Objects
 ----------------------------------
@@ -519,18 +545,49 @@ Mapping Requests to Domain Objects
 One last piece is the mapping between CreatePHP data and the application
 domain objects. Data needs to be stored back into the database.
 
-Currently, the CreateBundle only provides a service to map to Doctrine
-PHPCR-ODM. If you do not enable the phpcr persistence layer, you need to
-configure the ``cmf_create.object_mapper_service_id``.
+.. versionadded:: 1.3
+    The chain mapper and ORM configuration was introduced in CreateBundle
+    1.3. Prior, only the PHPCR-ODM mapper was available.
 
-.. tip::
+Adding Custom Mappers to the Chain
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    Doctrine ORM support is coming soon. There is an open pull request on the
-    CreatePHP library to add such a mapper. This mapper will also be provided
-    as a service by the CreateBundle 1.1.
+The CreateBundle provides a chain mapper service that supports multiple mappers.
+Mappers for Doctrine PHPCR-ODM and Doctrine ORM are provided and can be enabled
+via :ref:`persistence configuration <config-create-persistence>`.
 
-CreatePHP would support specific mappers per RDFa type. If you need that, dig
-into the CreatePHP and CreateBundle and do a pull request to enable this feature.
+You may provide mappers to the chain mapper in addition to or in place of
+the provided mappers. They must implement ``Midgard\CreatePHP\RdfChainableMapperInterface``
+and be tagged with ``create_cmf.mapper``. You may provide the tag with an
+alias which will be prepended to subjects, the RDFa about field. If an alias
+is not provided, the service's id will be used instead.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            app.elasticsearch_mapper:
+                class: "AppBundle\Mapper\ElasticSearchMapper"
+                tags:
+                    - { name: create_cmf.mapper, alias: elasticsearch }
+
+    .. code-block:: xml
+
+        <service id="app.elasticsearch_mapper" class="AppBundle\Mapper\ElasticSearchMapper">
+            <tag name="create_cmf.mapper" alias="elasticsearch" />
+            <!-- ... -->
+        </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('app.elasticsearch_mapper', 'AppBundle\Mapper\ElasticSearchMapper')
+            ->addTag('create_cmf.mapper', array('alias' => 'elasticsearch'))
+        ;
+
+You may instead set :ref:`config-create-object-mapper-service-id` and use
+your own mapper in place of the chain mapper.
 
 Workflows
 ---------
