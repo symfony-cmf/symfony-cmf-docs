@@ -29,7 +29,7 @@ session
                     # optional parameters for Jackalope
                     parameters:
                         jackalope.factory:                Jackalope\Factory
-                        jackalope.check_login_on_server:  %kernel.debug%
+                        jackalope.check_login_on_server:  false
                         jackalope.disable_stream_wrapper: false
                         jackalope.auto_lastmodified:      true
                         # see below for how to configure the backend of your choice
@@ -58,7 +58,7 @@ session
                         type="X"
                     >
                         <parameter key="jackalope.factory">Jackalope\Factory</parameter>
-                        <parameter key="jackalope.check_login_on_server">%kernel.debug%</parameter>
+                        <parameter key="jackalope.check_login_on_server">false</parameter>
                         <parameter key="jackalope.disable_stream_wrapper">false</parameter>
                         <parameter key="jackalope.auto_lastmodified">true</parameter>
                     </backend>
@@ -79,7 +79,7 @@ session
                     'type' => 'X',
                     'parameters' => array(
                         'jackalope.factory'                => 'Jackalope\Factory',
-                        'jackalope.check_login_on_server'  => '%kernel.debug%',
+                        'jackalope.check_login_on_server'  => false,
                         'jackalope.disable_stream_wrapper' => false,
                         'jackalope.auto_lastmodified'      => true,
                     ),
@@ -160,10 +160,15 @@ Use a custom factory class for Jackalope objects.
 jackalope.check_login_on_server
 ...............................
 
-**type**: ``boolean`` **default**: ``%kernel.debug%``
+**type**: ``boolean`` **default**: ``false``
 
 If set to ``false``, skip initial check whether repository exists. You will
 only notice connectivity problems on the first attempt to use the repository.
+
+.. versionadded:: 1.3.1
+   In version 1.2 and 1.3.0 of the DoctrinePhpcrBundle, the default value depends
+   on ``%kernel.debug%``. We recommend setting the value to false to avoid
+   bootstraping issues.
 
 jackalope.disable_stream_wrapper
 ................................
