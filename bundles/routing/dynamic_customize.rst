@@ -91,7 +91,7 @@ following class provides a simple solution using an ODM Repository.
             $document = $this->findOneBy(array(
                 'name' => $name,
             ));
-            
+
             if (!$document) {
                 throw new RouteNotFoundException("No route found for name '$name'");
             }
@@ -152,7 +152,10 @@ provider. See `Creating and configuring services in the container`_ for
 information on creating custom services.
 
 Using a Custom URL Generator
-----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 1.4
+    The configuration option to specify a custom URL generator was introduced in CmfRoutingBundle 1.4.
 
 The dynamic router can also generate URLs from route objects. If you need to
 customize this behavior beyond what the
