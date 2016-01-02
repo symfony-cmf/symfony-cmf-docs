@@ -57,7 +57,6 @@ Now add the following to the document to fulfill the contract::
     // src/Acme/BasicCmsBundle/Document/Page.php
 
     // ...
-
     class Page implements RouteReferrersReadInterface, NodeInterface
     {
         // ...
@@ -211,7 +210,7 @@ configuration:
                 <service
                     id="acme.basic_cms.menu_provider"
                     class="Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider">
-                    <argument type="service" id="cmf_menu.factory"/>
+                    <argument type="service" id="cmf_menu.loader.node"/>
                     <argument type="service" id="doctrine_phpcr"/>
                     <argument>/cms/pages</argument>
                     <call method="setRequest">
@@ -238,7 +237,7 @@ configuration:
                 'acme.basic_cms.menu_provider',
                 'Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider'
             )
-            ->addArgument(new Reference('cmf_menu.factory'))
+            ->addArgument(new Reference('cmf_menu.loader.node'))
             ->addArgument(new Reference('doctrine_phpcr'))
             ->addArgument('/cms/pages')
             ->addMethodCall('setRequest', array(
@@ -251,7 +250,11 @@ configuration:
             ->addTag('knp_menu.provider')
         ;
 
-and enable the Twig rendering functionality of the KnpMenu bundle:
+.. versionadded:: 2.0
+    The first argument of the ``PhpcrMenuProvider`` class was changed in CmfMenuBundle 2.0.
+    You had to inject the ``cmf_menu.factory`` service prior to version 2.0.
+
+and enable the Twig rendering functionality of the KnpMenuBundle:
 
 .. configuration-block::
 
