@@ -334,6 +334,15 @@ as soon as you add any other configuration to the ``dynamic`` entry.
 
 .. note::
 
+    This example uses a controller which is defined as a service. You can also
+    configure a controller by using a fully qualified class name:
+    ``CmfContentBundle:Content:index``.
+    
+    For more information on using controllers as a service read cook book 
+    section `How to Define Controllers as Services`_
+
+.. note::
+
     Internally, the routing component maps these configuration options to
     several ``RouteEnhancerInterface`` instances. The actual scope of these
     enhancers is much wider, and you can find more information about them in
@@ -522,3 +531,4 @@ For more information on the Routing component of Symfony CMF, please refer to:
 .. _`Doctrine ORM`: http://www.doctrine-project.org/projects/orm.html
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
 .. _`Routing`: http://symfony.com/doc/current/components/routing/introduction.html
+.. _`How to Define Controllers as Services`: http://symfony.com/doc/current/cookbook/controller/service.html

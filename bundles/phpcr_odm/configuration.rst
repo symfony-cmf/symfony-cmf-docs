@@ -165,6 +165,11 @@ Use a custom factory class for Jackalope objects.
 If set to ``false``, skip initial check whether repository exists. You will
 only notice connectivity problems on the first attempt to use the repository.
 
+.. versionadded:: 1.3.1
+   In version 1.2 and 1.3.0 of the DoctrinePhpcrBundle, the default value depends
+   on ``%kernel.debug%``. We recommend setting the value to false to avoid
+   bootstraping issues.
+
 ``jackalope.disable_stream_wrapper``
 ....................................
 

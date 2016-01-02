@@ -183,6 +183,26 @@ The Sonata admin class to use for the menu node.
 When editing a node, this setting will cause the Sonata admin breadcrumb to
 include ancestors of the node being edited.
 
+content_url_generator
+~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 1.2
+    This option was introduced in version 1.2.0. Prior to 1.2, this option is
+    not available and the default service ``router`` is hardcoded.
+
+**type**: ``string`` **default**: ``router``
+
+With this option, you can change what router should be used for generating
+URLs from menu nodes of type "content".
+
+allow_empty_items
+~~~~~~~~~~~~~~~~~
+
+**type**: ``boolean`` **default**: ``false``
+
+Whether menu nodes without URL should be hidden or rendered as text without a
+link.
+
 Admin Extensions
 ----------------
 

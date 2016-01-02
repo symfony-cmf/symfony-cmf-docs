@@ -26,9 +26,17 @@ A menu item should have a URL associated with it. The CMF provides the
   from the ``content`` and ``routeParameters`` options when using the
   :ref:`dynamic router <bundles-routing-dynamic-generator>`.
 
-The ``content`` option, if specified, must contain a class which implements
-the ``RouteReferrersInterface``, see the :ref:`dynamic router
-<bundles-routing-dynamic-generator>` documentation for more information.
+The ``content`` option, if specified, must contain something that the content
+URL generator can work with. When using the :ref:`dynamic router
+<bundles-routing-dynamic-generator>`, this needs to be a class implementing
+the ``RouteReferrersInterface``. You can alternatively specify a custom
+``UrlGeneratorInterface`` with the ``content_url_generator`` configuration
+option.
+
+.. versionadded:: 1.2
+    The ``content_url_generator`` option was introduced in CmfMenuBundle 1.2.0.
+    Prior to 1.2, the default service ``router`` was hardcoded to generate URLs
+    from content.
 
 URL generation is absolute or relative, depending on the boolean value of the
 ``routeAbsolute`` option.
@@ -44,14 +52,24 @@ of the three URL generation techniques to use.
 The values for this options can be one of the following:
 
 * ``null``: If the value is ``null`` (or the options is not set) then the link
-  type is determined automatically by looking at each of the ``uri``, ``route`` and
-  ``content`` options and using the first one which is non-null.
+  type is determined automatically by looking at each of the ``uri``, ``route``
+  and ``content`` options and using the first one which is non-null.
 * **uri**: Use the URI provided by the ``uri`` option.
 * **route**: Generate a URL using the route named by the ``route`` option
   and the parameters provided by the ``routeParameters`` option.
-* **content**: Generate a URL by passing the ``RouteReferrersInterface``
-  instance provided by the ``content`` option to the router using any
-  parameters provided by the ``routeParameters`` option.
+* **content**: Generate a URL by passing the value of the ``content`` option to
+  the content URL generator, using any parameters provided by the
+  ``routeParameters`` option.
+
+Menu Nodes without URL
+~~~~~~~~~~~~~~~~~~~~~~
+
+A menu node document might not have a URL, when that information was never set
+or it points to a content that has been deleted meanwhile. In that case, there
+are two options: The menu node can be skipped, or it can be rendered as text
+without link. By default, the node is skipped.
+
+You can set ``cmf_menu.allow_empty_items`` to true to render nodes without URL.
 
 Publish Workflow
 ----------------
@@ -61,7 +79,7 @@ visible by use of the :doc:`publish workflow checker
 <../core/publish_workflow>`.
 
 .. versionadded:: 1.1
-    The ``MenuContentVoter`` was added in CmfMenuBundle 1.1.
+    The ``MenuContentVoter`` was introduced in CmfMenuBundle 1.1.
 
 The ``MenuContentVoter`` decides that a menu node is not published if the
 content it is pointing to is not published.
