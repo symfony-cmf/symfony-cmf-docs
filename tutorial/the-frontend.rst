@@ -188,7 +188,7 @@ configuration:
             acme.basic_cms.menu_provider:
                 class: Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider
                 arguments:
-                    - '@cmf_menu.factory'
+                    - '@cmf_menu.loader.node'
                     - '@doctrine_phpcr'
                     - /cms/pages
                 calls:
