@@ -337,8 +337,8 @@ as soon as you add any other configuration to the ``dynamic`` entry.
     This example uses a controller which is defined as a service. You can also
     configure a controller by using a fully qualified class name:
     ``CmfContentBundle:Content:index``.
-    
-    For more information on using controllers as a service read cook book 
+
+    For more information on using controllers as a service read cook book
     section `How to Define Controllers as Services`_
 
 .. note::
@@ -362,9 +362,12 @@ automatically passed to the Controller as the ``contentDocument`` method paramet
 Note that a Route can implement the above mentioned interface but still not
 return any model instance, in which case no associated object will be provided.
 
-Furthermore, Routes that implement this interface can also have a custom Route
-name, instead of the default Symfony core compatible name, and can contain
-any characters. This allows you, for example, to set a path as the route name.
+Furthermore, Routes that implement this interface can also provide their own
+name with the ``getRouteKey`` method. For normal Symfony routes, the name is
+only known from their key in the ``RouteCollection`` collection hashmap. In the
+CMF, it is possible to use route documents outside of collections, and thus
+useful to have routes provide their name. The PHPCR routes for example return
+the repository path when this method is called.
 
 Redirects
 ---------
