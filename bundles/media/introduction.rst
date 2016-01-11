@@ -216,6 +216,20 @@ The media bundle contains a Twig extension, it contains the following functions:
 
           <img src="<?php echo $view['cmf_media']->displayUrl($image) ?>" alt="" />
 
+    If :doc:`LiipImagine <adapters/liip_imagine>` is enabled you can also pass :doc:`filter </bundles/LiipImagineBundle/filters>` and `runtime_config` like below:
+    
+      .. code-block:: html+jinja
+
+        <a href="{{ cmf_media_display_url(file, {
+           imagine_filter: 'my_filter',
+           imagine_runtime_config: {
+              'thumbnail': {'size': [120, 60]}
+           }
+        }) }}" title="Download">Download</a>
+
+.. versionadded:: 1.3
+    Option `imagine_runtime_config` was introduced in MediaBundle 1.3
+
 SonataMediaBundle Integration
 -----------------------------
 
