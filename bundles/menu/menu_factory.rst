@@ -152,7 +152,7 @@ the ``MenuReferrerInterface``::
         {
             $node = $event->getNode();
 
-            if ($node implements MenuReferrerInterface) {
+            if ($node instanceof MenuReferrerInterface) {
                 $menuName = $node->getMenuName();
                 $menuOptions = $node->getMenuOptions();
 
