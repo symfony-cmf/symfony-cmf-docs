@@ -294,6 +294,7 @@ A simple example fixture class looks like this::
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\ODM\PHPCR\DocumentManager;
 
     class LoadPageData implements FixtureInterface
     {
