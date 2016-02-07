@@ -201,7 +201,7 @@ menu item.
 To use this voter you need to configure a custom service with the name of the
 content in the request and your model class to avoid calling ``getParent`` on
 objects that do not have that method. You need to tag the service as
-``cmf_menu.voter``. The service looks the same as for complete custom
+``knp_menu.voter``. The service looks the same as for complete custom
 voters (see below), except you do not need to write your own PHP code:
 
 .. configuration-block::
@@ -218,7 +218,7 @@ voters (see below), except you do not need to write your own PHP code:
                 calls:
                     - [setRequest, ["@?request="]]
                 tags:
-                    - { name: "cmf_menu.voter" }
+                    - { name: "knp_menu.voter" }
 
     .. code-block:: xml
 
@@ -240,7 +240,7 @@ voters (see below), except you do not need to write your own PHP code:
                             strict="false"
                         />
                     </call>
-                    <tag name="cmf_menu.voter"/>
+                    <tag name="knp_menu.voter"/>
                 </service>
             </services>
 
@@ -260,7 +260,7 @@ voters (see below), except you do not need to write your own PHP code:
                 false
             )
         ));
-        $definition->addTag('cmf_menu.voter');
+        $definition->addTag('knp_menu.voter');
 
         $container->setDefinition('my_bundle.menu_voter.parent', $definition);
 
@@ -270,7 +270,7 @@ Custom Voter
 ------------
 
 Voters must implement the ``Symfony\Cmf\MenuBundle\Voter\VoterInterface``. To
-make the menu bundle notice the voter, tag it with ``cmf_menu.voter``.
+make the menu bundle notice the voter, tag it with ``knp_menu.voter``.
 
 If you need to know the content the menu item points to, look in the
 ``content`` field of the menu item extras: ``$item->getExtra('content');``.
