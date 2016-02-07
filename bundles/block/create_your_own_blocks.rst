@@ -45,12 +45,12 @@ for instance ``acme_main.block.rss``::
     class RssBlock extends AbstractBlock
     {
         /**
-         * @PHPCR\String(nullable=true)
+         * @PHPCR\Field(type="string", nullable=true)
          */
         private $feedUrl;
 
         /**
-         * @PHPCR\String()
+         * @PHPCR\Field(type="string")
          */
         private $title;
 
