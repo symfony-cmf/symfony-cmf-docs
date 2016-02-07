@@ -139,7 +139,7 @@ depending on the locale.
 
             /**
              * Translated property
-             * @PHPCR\String(translated=true)
+             * @PHPCR\Field(type="string", translated=true)
              */
             private $topic;
 

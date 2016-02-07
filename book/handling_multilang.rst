@@ -107,7 +107,7 @@ always happens on a document level, not on the individual translatable fields.
     {
         /**
          * Translated property
-         * @PHPCR\String(translated=true)
+         * @PHPCR\Field(type="string", translated=true)
          */
         private $topic;
 

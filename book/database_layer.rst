@@ -114,12 +114,12 @@ class via annotations:
             protected $id;
 
             /**
-             * @PHPCR\String()
+             * @PHPCR\Field(type="string")
              */
             protected $description;
 
             /**
-             * @PHPCR\Boolean()
+             * @PHPCR\Field(type="boolean")
              */
             protected $done = false;
 
