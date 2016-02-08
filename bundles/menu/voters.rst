@@ -10,7 +10,7 @@ its menu items correspond to the page the user is currently viewing.
 
 To determine which menu item should be marked as the current item, KnpMenu
 includes voters. By default, KnpMenu comes with a voter that uses the Symfony
-router to determine if the current page is equal to the page referced by the
+router to determine if the current page is equal to the page referenced by the
 item.
 
 This works well for static pages, highlighting the "About" item when viewing

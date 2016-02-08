@@ -106,8 +106,8 @@ The Factory
 ...........
 
 Menu factories generate the full ``MenuItem`` hierarchy from the provided
-MenuNode. The data generated this way is later used to generate the actual HTML
-representation of the menu.
+menu node. The data generated this way is later used to generate the actual
+HTML representation of the menu.
 
 The included implementation focuses on generating ``MenuItem`` instances from
 ``NodeInterface`` instances, as this is usually the best approach to handle

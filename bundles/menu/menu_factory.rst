@@ -19,8 +19,8 @@ URL Generation
     in CmfMenuBundle 2.0. Prior to 2.0, you had to use the
     ``ContentAwareFactory`` class and ``cmf_menu.factory`` service.
 
-Most menu items will need a URL. By default, KnpMenu allows generating such
-route by specifying a URI or a Symfony route name.
+Most menu items will need a URL. By default, KnpMenu allows generating this URL
+by specifying a URI or a Symfony route name.
 
 The CmfMenuBundle provides another way to generate URLs: By using the
 :ref:`dynamic router <bundles-routing-dynamic-generator>` to generate routes
@@ -91,7 +91,7 @@ during the process of creating a menu item from a menu node. You can use this
 event to control the ``MenuItem`` that is created and to mark the current node
 or its children as skipped.
 
-Listeners for this method recieve a ``CreateMenuItemFromNodeEvent`` instance,
+Listeners for this method receive a ``CreateMenuItemFromNodeEvent`` instance,
 which provides access to node using the ``getNode()`` method and allows
 skipping nodes using the ``setSkipNode()`` and ``setSkipChildren()`` methods.
 
