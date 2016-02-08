@@ -32,7 +32,7 @@ all of the required packages now.
         require: {
             ...
             "symfony-cmf/routing-auto-bundle": "~1.0",
-            "symfony-cmf/menu-bundle": "~1.2",
+            "symfony-cmf/menu-bundle": "~2.0",
             "sonata-project/doctrine-phpcr-admin-bundle": "~1.2",
             "symfony-cmf/tree-browser-bundle": "~1.1",
             "doctrine/data-fixtures": "~1.0",

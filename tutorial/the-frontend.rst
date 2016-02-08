@@ -190,8 +190,6 @@ configuration:
                     - '@cmf_menu.loader.node'
                     - '@doctrine_phpcr'
                     - /cms/pages
-                calls:
-                    - [setRequest, ["@?request="]]
                 tags:
                     - { name: knp_menu.provider }
 
@@ -209,18 +207,12 @@ configuration:
                 <!-- ... -->
                 <service
                     id="acme.basic_cms.menu_provider"
-                    class="Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider">
+                    class="Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider"
+                >
                     <argument type="service" id="cmf_menu.loader.node"/>
                     <argument type="service" id="doctrine_phpcr"/>
                     <argument>/cms/pages</argument>
-                    <call method="setRequest">
-                        <argument
-                            type="service"
-                            id="request"
-                            on-invalid="null"
-                            strict="false"
-                        />
-                    </call>
+
                     <tag name="knp_menu.provider" />
                 </service>
             </services>
@@ -240,13 +232,6 @@ configuration:
             ->addArgument(new Reference('cmf_menu.loader.node'))
             ->addArgument(new Reference('doctrine_phpcr'))
             ->addArgument('/cms/pages')
-            ->addMethodCall('setRequest', array(
-                new Reference(
-                    'request',
-                    ContainerInterface::NULL_ON_INVALID_REFERENCE,
-                    false
-                )
-            ))
             ->addTag('knp_menu.provider')
         ;
 
