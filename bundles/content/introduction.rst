@@ -226,6 +226,18 @@ removing static content from the admin panel. To enable the admin, use the
 also provides :ref:`several useful extensions <bundles-core-persistence>` for
 SonataAdminBundle.
 
+.. tip::
+
+    Install the IvoryCKEditorBundle_ to enable a CKEditor to edit the content
+    body:
+
+    .. code-block:: bash
+
+        $ composer require egeloen/ckeditor-bundle
+
+    .. versionadded:: 1.3
+        IvoryCKEditorBundle integration was introduced in CmfContentBundle 1.3.
+
 Read On
 -------
 
@@ -234,3 +246,4 @@ Read On
 
 .. _`with composer`: http://getcomposer.org
 .. _`symfony-cmf/content-bundle`: https://packagist.org/packages/symfony-cmf/content-bundle
+.. _IvoryCKEditorBundle: https://github.com/egeloen/IvoryCKEditorBundle
