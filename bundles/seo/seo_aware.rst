@@ -235,6 +235,8 @@ do this, you have to enable ORM support just like you enabled PHPCR enabled
 above and add a OneToOne or ManyToOne relation between the content entity and
 the ``SeoMetadata`` entity.
 
+.. _bundles-seo-metadata-form-type:
+
 Form Type
 ---------
 
@@ -243,8 +245,8 @@ form type can be used in forms to edit the ``SeoMetadata`` object.
 
 .. caution::
 
-    The bundle requires the `BurgovKeyValueFormBundle`_ when using the form
-    type. Make sure you install and enable it.
+    The form type requires the `BurgovKeyValueFormBundle`_ to be installed and
+    registered.
 
 Sonata Admin Integration
 ------------------------
