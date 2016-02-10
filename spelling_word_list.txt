@@ -21,6 +21,7 @@ cacheable
 cdn
 checkbox
 ckfinder
+CKeditor
 cmf
 coffeescript
 config

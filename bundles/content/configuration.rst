@@ -71,33 +71,33 @@ is the following configuration:
         ));
 
 ``enabled``
-***********
+...........
 
 .. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
 ``admin_class``
-***************
+...............
 
 **type**: ``string`` **default**: ``Symfony\Cmf\Bundle\ContentBundle\Admin\StaticContentAdmin``
 
 The admin class to use when :ref:`Sonata Admin is activated <quick-tour-third-party-sonata>`.
 
 ``document_class``
-******************
+..................
 
 **type**: ``string`` **default**: ``Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent``
 
 The Content class to use.
 
 ``content_basepath``
-********************
+....................
 
 **type**: ``string`` **default**: ``/cms/content``
 
 The basepath for Content documents in the PHPCR tree.
 
 ``use_sonata_admin``
-********************
+....................
 
 **type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
 
@@ -107,3 +107,5 @@ SonataPhpcrAdminBundle is present.
 
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will
 default to the value of ``cmf_core.persistence.phpcr.use_sonata_admin``.
+
+.. include:: ../_partials/ivory_ckeditor.rst.inc
