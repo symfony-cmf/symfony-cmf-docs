@@ -35,6 +35,7 @@ base twig template and override it in a sub template, calling
     {% extends 'base.html.twig' %}
 
     {% block metadata %}
-        {{ cmf_seo_update_metadata(post) }}
+        {% do cmf_seo_update_metadata(post) %}
+
         {{ parent() }}
     {% endblock metadata %}
