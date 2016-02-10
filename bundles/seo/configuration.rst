@@ -241,3 +241,23 @@ of ``cmf_core.persistence.phpcr.use_sonata_admin``.
 
 The name of the form group of the group provided by the Sonata Admin
 Extension.
+
+``form``
+~~~~~~~~
+
+``data_class``
+"""""""""""""""
+
+``seo_metadata``
+****************
+
+.. versionadded:: 1.2
+    The ``seo_metadata`` setting was introduced in version 1.2.
+
+**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\SeoBundle\Model\SeoMetadata``
+
+Configures the class to use when creating new ``SeoMetadata`` objects using the
+:ref:`SeoMetadata form type <bundles-seo-metadata-form-type>`.
+
+When the `phpcr`_ persistence layer is enabled, this defaults to
+``Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoMetadata``.
