@@ -267,7 +267,7 @@ When the `phpcr`_ persistence layer is enabled, this defaults to
 error
 ~~~~~
 
-.. versionadded::
+.. versionadded:: 1.2
     The ``error`` settings were introduced in SeoBundle 1.2.
 
 .. seealso::
@@ -308,10 +308,10 @@ will be used instead.
 
 Exclusion rules allow to match the following fields:
 
-* path
-* host
-* methods
-* ips
+* ``path``
+* ``host``
+* ``methods``
+* ``ips``
 
 For instance, to not use the special exception controller for the ``/admin``
 routes, use:

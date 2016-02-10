@@ -16,8 +16,9 @@ this on the error page.
 Using the Exception Controller
 ------------------------------
 
-To use the exception controller provided by this bundle, configure the twig
-bundle:
+When you want to add suggestions to the error pages, register the
+``SuggestionProviderController`` provided by this bundle as the exception
+controller:
 
 .. configuration-block::
 
@@ -49,14 +50,20 @@ bundle:
             'exception_controller' => 'cmf_seo.error.suggestion_provider.controller:showAction',
         ));
 
+.. seealso::
+
+    You can read more about exception controllers in the `Symfony documentation`_.
+
 After this, you need to enable some suggestion providers. Suggestion providers
 provide relevant other pages, which are displayed on the error page. The bundle
 comes with two built-in providers:
 
 ``ParentSuggestionProvider``
-    This provides the parent page of the not found page.
+    This provides the parent page of the not found page (e.g. ``/blog`` when
+    ``/blog/foo`` resulted in a 404 page).
 ``SiblingSuggestionProvider``
-    This provides the siblings of the current page.
+    This provides the siblings of the current page (e.g. ``/blog/something``
+    when ``/blog/foo`` resulted in a 404 page).
 
 .. note::
 
@@ -177,3 +184,5 @@ Now, register this new class as a service and tag it as
         $container->setDefinition('app.suggestions.homepage', $definition);
 
 The tag allows a ``group`` attribute, in order to group suggested links.
+
+.. _Symfony Documentation: http://symfony.com/doc/current/cookbook/controller/error_pages.html#overriding-the-default-exceptioncontroller
