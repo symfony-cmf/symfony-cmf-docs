@@ -29,7 +29,7 @@ session
                     # optional parameters for Jackalope
                     parameters:
                         jackalope.factory:                Jackalope\Factory
-                        jackalope.check_login_on_server:  %kernel.debug%
+                        jackalope.check_login_on_server:  '%kernel.debug%'
                         jackalope.disable_stream_wrapper: false
                         jackalope.auto_lastmodified:      true
                         # see below for how to configure the backend of your choice
@@ -43,29 +43,19 @@ session
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
+        <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
             <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
-
-                <session
-                    workspace="default"
-                    username="admin"
-                    password="admin"
-                >
-
-                    <backend
-                        type="X"
-                    >
+                <session workspace="default" username="admin" password="admin">
+                    <backend type="X">
                         <parameter key="jackalope.factory">Jackalope\Factory</parameter>
                         <parameter key="jackalope.check_login_on_server">%kernel.debug%</parameter>
                         <parameter key="jackalope.disable_stream_wrapper">false</parameter>
                         <parameter key="jackalope.auto_lastmodified">true</parameter>
                     </backend>
 
-                    <options
-                        jackalope.fetch_depth="1"
-                    />
+                    <options jackalope.fetch_depth="1" />
                 </session>
             </config>
         </container>
@@ -465,28 +455,23 @@ not configure anything here, the ODM services will not be loaded.
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
+        <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-
             <config xmlns="http://doctrine-project.org/schema/symfony-dic/odm/phpcr">
-
-                <odm
-                    configuration-id="null"
+                <odm configuration-id="null"
                     auto-mapping="true"
                     auto-generate-proxy-classes="%kernel.debug%"
                     proxy-dir="%kernel.cache_dir%/doctrine/PHPCRProxies"
                     proxy-namespace="PHPCRProxies"
                 >
-                    <mappings>
-                        <"name"
-                            mapping="true"
-                            type="null"
-                            dir="null"
-                            alias="null"
-                            prefix="null"
-                            is-bundle="null"
-                        />
-                    </mappings>
+                    <mapping name="<name>"
+                        mapping="true"
+                        type="null"
+                        dir="null"
+                        alias="null"
+                        prefix="null"
+                        is-bundle="null"
+                    />
 
                     <metadata-cache-driver
                         type="array"
