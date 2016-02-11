@@ -158,7 +158,7 @@ only notice connectivity problems on the first attempt to use the repository.
 .. versionadded:: 1.3.1
    In version 1.2 and 1.3.0 of the DoctrinePhpcrBundle, the default value depends
    on ``%kernel.debug%``. We recommend setting the value to false to avoid
-   bootstraping issues.
+   bootstrapping issues.
 
 ``jackalope.disable_stream_wrapper``
 ....................................

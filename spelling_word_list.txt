@@ -38,6 +38,7 @@ getters
 github
 globalized
 hashmap
+hardcoded
 html
 idempotency
 initializer
