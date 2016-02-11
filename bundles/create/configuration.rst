@@ -236,9 +236,9 @@ Metadata Handling
         cmf_create:
             auto_mapping: true
             rdf_config_dirs:
-                - "%kernel.root_dir%/Resources/rdf-mappings"
+                - '%kernel.root_dir%/Resources/rdf-mappings'
             map:
-                "<http://rdfs.org/sioc/ns#Post>": "Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent"
+                '<http://rdfs.org/sioc/ns#Post>': 'Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent'
 
     .. code-block:: xml
 
