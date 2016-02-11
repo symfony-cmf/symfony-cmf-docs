@@ -568,7 +568,7 @@ is not provided, the service's id will be used instead.
 
         services:
             app.elasticsearch_mapper:
-                class: "AppBundle\Mapper\ElasticSearchMapper"
+                class: 'AppBundle\Mapper\ElasticSearchMapper'
                 tags:
                     - { name: create_cmf.mapper, alias: elasticsearch }
 
