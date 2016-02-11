@@ -261,3 +261,95 @@ Configures the class to use when creating new ``SeoMetadata`` objects using the
 
 When the `phpcr`_ persistence layer is enabled, this defaults to
 ``Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoMetadata``.
+
+.. _bundles-seo-config-error:
+
+error
+~~~~~
+
+.. versionadded:: 1.2
+    The ``error`` settings were introduced in SeoBundle 1.2.
+
+.. seealso::
+
+    Learn more about error pages in ":doc:`error_pages`".
+
+enable_parent_provider
+""""""""""""""""""""""
+
+**type**: ``boolean`` **default**: ``false``
+
+Whether the parent suggestion provider should be enabled.
+
+enable_sibling_provider
+"""""""""""""""""""""""
+
+**type**: ``boolean`` **default**: ``false``
+
+Whether the sibling suggestion provider should be enabled.
+
+templates
+"""""""""
+
+**type**: ``array`` **default**: ``{ html: 'CmfSeoBundle:Exception:error.html.twig' }``
+
+A list of templates to use for the custom error page. By default, only the HTML
+format is configured. The default Symfony exception controller will be used for
+the other formats.
+
+exclusion_rules
+"""""""""""""""
+
+**type**: ``array``
+
+To specify exclusion rules for pages that shouldn't be handled by the custom
+exception controller. In these cases, the default Symfony exception controller
+will be used instead.
+
+Exclusion rules allow to match the following fields:
+
+* ``path``
+* ``host``
+* ``methods``
+* ``ips``
+
+For instance, to not use the special exception controller for the ``/admin``
+routes, use:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_seo:
+            error:
+                exclusion_rules:
+                    - { path: ^/admin }
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://cmf.symfony.com/schema/dic/seo http://cmf.symfony.com/schema/dic/seo/seo-1.0.xsd"
+        >
+
+            <config xmlns="http://symfony.com/schema/dic/seo">
+                <error>
+                    <exclusion-rule path="^/admin" />
+                </error>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_seo', array(
+            'error' => array(
+                'exclusion_rules' => array(
+                    array('path' => '^/admin'),
+                ),
+            ),
+        ));

@@ -8,5 +8,6 @@ SeoBundle
     seo_aware
     extractors
     sitemap
+    error_pages
     configuration
     twig

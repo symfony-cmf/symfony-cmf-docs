@@ -1,14 +1,14 @@
 Building Sitemaps
 =================
 
+.. versionadded:: 1.2
+    Sitemap support was introduced in SeoBundle 1.2.
+
 This bundle helps loading documents that should go in a sitemap, extracting
 the information from them and rendering them to a sitemap information.
 
 You can generate sitemaps in different formats and it is possible to provide
 more than one set of configurations.
-
-.. versionadded:: 1.2
-    Sitemap support was introduced in SeoBundle 1.2.
 
 Setting Up the Bundle
 ---------------------

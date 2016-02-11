@@ -71,8 +71,10 @@ library or they introduce a complete new concept.
   * :doc:`seo/introduction`
   * :doc:`seo/seo_aware`
   * :doc:`seo/extractors`
-  * :doc:`seo/configuration`
   * :doc:`seo/twig`
+  * :doc:`seo/sitemap`
+  * :doc:`seo/error_pages`
+  * :doc:`seo/configuration`
 
 * :doc:`tree_browser/index`
 
