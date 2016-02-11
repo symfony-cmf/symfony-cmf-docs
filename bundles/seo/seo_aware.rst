@@ -132,7 +132,7 @@ After you've enabled PHPCR, map your seoMetadata as a child:
         >
             <document name="Acme\SiteBundle\Document\Page">
                 <!-- ... -->
-                <child fieldName="seoMetadata" />
+                <child name="seoMetadata" />
             </document>
         </doctrine-mapping>
 
