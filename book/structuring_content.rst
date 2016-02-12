@@ -105,36 +105,29 @@ rendered by the ``MenuFactory``.
 The Factory
 ...........
 
-The ``ContentAwareFactory`` is a ``FactoryInterface`` implementation, which
-generates the full ``MenuItem`` hierarchy from the provided MenuNode. The data
-generated this way is later used to generate the actual HTML representation of
-the menu.
+Menu factories generate the full ``MenuItem`` hierarchy from the provided
+menu node. The data generated this way is later used to generate the actual
+HTML representation of the menu.
 
 The included implementation focuses on generating ``MenuItem`` instances from
 ``NodeInterface`` instances, as this is usually the best approach to handle
 tree-like structures typically used by a CMS. Other approaches are implemented in
-the base classes, and their respective documentation pages can be found in
+the base classes and their respective documentation pages can be found in
 KnpMenuBundle_'s page.
 
-``ContentAwareFactory`` is responsible for loading the full menu hierarchy and
-transforming the ``MenuNode`` instances from the root node it receives from
-the ``MenuProviderInterface`` implementation. It is also responsible for
-determining which (if any) menu item is currently being viewed by the user.
-It supports a voter mechanism to have custom code decide what menu item is
-the current item.
-``KnpMenu`` already includes a specific factory targeted at Symfony2's Routing
-component, which this bundle extends, to add support for:
+``KnpMenu`` already includes a specific factory targeted at the Symfony Routing
+component to add support for:
 
-* ``Route`` instances stored in a database (refer to :ref:`RoutingBundle's
-  RouteProvider <start-routing-getting-route-object>` for more details on
-  this)
+* ``Route`` instances stored in a database (refer to
+  :ref:`RoutingBundle's RouteProvider <start-routing-getting-route-object>` for
+  more details on this)
 * ``Route`` instances with associated content (more on this on respective
   :ref:`RoutingBundle's section <start-routing-linking-a-route-with-a-model-instance>`)
 
-As mentioned before, ``ContentAwareFactory`` is responsible for loading
-all the menu nodes from the provided root element. The actual loaded nodes can
-be of any class, even if it's different from the root's, but all must
-implement ``NodeInterface`` in order to be included in the generated menu.
+As mentioned before, the factory is responsible for loading all the menu nodes
+from the provided root element. The actual loaded nodes can be of any class,
+even if it's different from the root's, but all must implement
+``NodeInterface`` in order to be included in the generated menu.
 
 The Menu Nodes
 ..............

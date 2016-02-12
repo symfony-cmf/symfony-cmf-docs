@@ -5,17 +5,15 @@ Menu Admin with Sonata PHPCR-ODM
 ================================
 
 If the SonataDoctrinePHPCRAdminBundle_ is loaded in the application kernel,
-menu node and menu documents can be administrated in Sonata admin. For
-instructions on how to configure Sonata, see `configuring sonata admin`_.
+menu nodes and documents can be administrated in the Sonata admin panel. For
+instructions on how to configure Sonata, see `the sonata admin documentation`_.
 
-Loading of Sonata is controlled with the ``use_sonata_admin`` configuration
-setting. By default, this option is automatically set based on whether
-SonataDoctrinePHPCRAdminBundle is available, but you can explicitly
-disable the flag to not provide the Sonata services even if Sonata would be
-available. You can also explicitly enable the flag to get an error if Sonata
-becomes unavailable.
+The ``use_sonata_admin`` option configures whether to enable the menu admin.
+This defaults to ``auto``, meaning it will be enabled when the
+SonataAdminBundle is registered. Other values are ``true`` and ``false``,
+forcing the admin to respectively be enabled or disabled.
 
-Sonata admin is using the ``content_basepath`` to show the tree of content to
+The menu admin uses the ``content_basepath`` to show the tree of nodes to
 select the menu node target.
 
 .. configuration-block::
@@ -243,6 +241,6 @@ configuration:
 
 .. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
-.. _`configuring sonata admin`: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/reference/configuration.html
+.. _`the sonata admin documentation`: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/reference/configuration.html
 .. _`KnpMenuBundle documentation`: http://github.com/KnpLabs/KnpMenu/blob/master/doc/01-Basic-Menus.markdown#menu-attributes
 .. _BurgovKeyValueFormBundle: https://github.com/Burgov/KeyValueFormBundle

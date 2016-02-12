@@ -120,8 +120,8 @@ tree:
 
         echo $view['knp_menu']->render('main-menu');
 
-Here the ``main-menu`` document from the previous
-example is specified. This will render an unordered list as follows:
+Here the ``main-menu`` document from the previous example is specified. This
+will render an unordered list as follows:
 
 .. code-block:: html
 

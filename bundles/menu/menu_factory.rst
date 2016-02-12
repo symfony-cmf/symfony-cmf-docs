@@ -5,118 +5,109 @@ Menu Factory
 ============
 
 The menu documents are only used for persisting the menu data, they are not
-actually used when rendering a menu. ``MenuItem`` classes from the KnpMenu
-component are the objects that are needed, a menu factory takes data provided by
-a class implementing ``NodeInterface`` and creates a ``MenuItem`` tree.
+actually used when rendering a menu. Menu items are the objects that are needed
+to render a menu. A menu factory creates such *menu items* from the *menu
+nodes* provided by the menu provider.
 
 .. _bundles_menu_menu_factory_url_generation:
 
 URL Generation
 --------------
 
-A menu item should have a URL associated with it. The CMF provides the
-``ContentAwareFactory``, which extends the KnpMenu ``RouterAwareFactory`` and
-``MenuFactory``.
+.. versionadded:: 2.0
+    Adding content support to the ``knp_menu.factory`` service was introduced
+    in CmfMenuBundle 2.0. Prior to 2.0, you had to use the
+    ``ContentAwareFactory`` class and ``cmf_menu.factory`` service.
 
-* The ``MenuFactory`` only supports using the ``uri`` option to specify the
-  menu items link.
-* The ``RouterAwareFactory`` adds support for for generating a URL from the
-  ``route`` and ``routeParameters`` options.
-* The CMF adds the ``ContentAwareFactory`` which supports generating the URL
-  from the ``content`` and ``routeParameters`` options when using the
-  :ref:`dynamic router <bundles-routing-dynamic-generator>`.
+Most menu items will need a URL. By default, KnpMenu allows generating this URL
+by specifying a URI or a Symfony route name.
 
-The ``content`` option, if specified, must contain something that the content
-URL generator can work with. When using the :ref:`dynamic router
-<bundles-routing-dynamic-generator>`, this needs to be a class implementing
-the ``RouteReferrersInterface``. You can alternatively specify a custom
-``UrlGeneratorInterface`` with the ``content_url_generator`` configuration
-option.
+The CmfMenuBundle provides another way to generate URLs: By using the
+:ref:`dynamic router <bundles-routing-dynamic-generator>` to generate routes
+from content objects.
 
-.. versionadded:: 1.2
-    The ``content_url_generator`` option was introduced in CmfMenuBundle 1.2.0.
-    Prior to 1.2, the default service ``router`` was hardcoded to generate URLs
-    from content.
+The ``content`` menu node option, if specified, must contain something that the
+content URL generator can work with. When using the :ref:`dynamic router
+<bundles-routing-dynamic-generator>`, this needs to be a class implementing the
+``RouteReferrersInterface``.
 
-URL generation is absolute or relative, depending on the boolean value of the
-``routeAbsolute`` option.
+.. tip::
+
+    When you don't use the dynamic router, you can create a custom url
+    generator by implementing ``UrlGeneratorInterface`` and configure it using
+    the ``content_url_generator`` option in ``config.yml``.
+
+    .. versionadded:: 1.2
+        The ``content_url_generator`` option was introduced in CmfMenuBundle 1.2.
+
+How to handle Items without a URL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When menu nodes refer to content that has been deleted or there is another
+error during route generation, a menu node is skipped by default. You can set
+the ``allow_empty_items`` setting of the CmfMenuBundle to ``true`` to render
+these nodes as plain text instead.
 
 .. _bundles_menu_menu_factory_link_type:
 
-Link Type
----------
+Specifying the Link Type
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``linkType`` option is a CMF addition which enables you to specify which
-of the three URL generation techniques to use.
+The CMF provides a ``linkType`` option, which enables you to specify which URL
+generation technique (URI, route or content) should be used.
 
 The values for this options can be one of the following:
 
-* ``null``: If the value is ``null`` (or the options is not set) then the link
-  type is determined automatically by looking at each of the ``uri``, ``route``
-  and ``content`` options and using the first one which is non-null.
-* **uri**: Use the URI provided by the ``uri`` option.
-* **route**: Generate a URL using the route named by the ``route`` option
-  and the parameters provided by the ``routeParameters`` option.
-* **content**: Generate a URL by passing the value of the ``content`` option to
-  the content URL generator, using any parameters provided by the
-  ``routeParameters`` option.
+`null``
+    If the value is ``null`` (or the option is not set) then the link type is
+    determined automatically by looking at each of the ``uri``, ``route`` and
+    ``content`` options; using the first one which is non-null;
 
-Menu Nodes without URL
-~~~~~~~~~~~~~~~~~~~~~~
+uri
+    Use the URI provided by the ``uri`` option;
 
-A menu node document might not have a URL, when that information was never set
-or it points to a content that has been deleted meanwhile. In that case, there
-are two options: The menu node can be skipped, or it can be rendered as text
-without link. By default, the node is skipped.
+route
+    Generate a URL using the route named by the ``route`` option and the
+    parameters provided by the ``routeParameters`` option;
 
-You can set ``cmf_menu.allow_empty_items`` to true to render nodes without URL.
+content
+    Generate a URL by passing the value of the ``content`` option to the
+    content URL generator, using any parameters provided by the
+    ``routeParameters`` option.
 
 Publish Workflow
-----------------
+~~~~~~~~~~~~~~~~
 
-The CMF menu factory also determines if menu nodes are published and therefore
-visible by use of the :doc:`publish workflow checker
-<../core/publish_workflow>`.
-
-.. versionadded:: 1.1
-    The ``MenuContentVoter`` was introduced in CmfMenuBundle 1.1.
-
-The ``MenuContentVoter`` decides that a menu node is not published if the
-content it is pointing to is not published.
+The CmfMenuBundle provides a ``MenuContentVoter``, which checks if the
+referenced content is published using the
+:doc:`publish workflow checker <../core/publish_workflow>`. If the content is
+not yet published, the menu item not will not be rendered.
 
 Customizing Menus using Events
 ------------------------------
 
-The CMF menu factory dispatches a ``cmf_menu.create_menu_item_from_node`` event
-during the process of creating a ``MenuItem`` from a class implementing
-``NodeInterface``. You can use this event to control the ``MenuItem`` that is
-created. The ``CreateMenuItemFromNodeEvent`` provides access to the
-``NodeInterface`` and ``ContentAwareFactory``, which can be used to create a
-custom ``MenuItem``, or to tell the factory to ignore the current node or its
-children. For example, this event is used by the
-:doc:`publish workflow checker <../core/publish_workflow>` to skip
-``MenuItem`` generation for unpublished nodes.
+The CmfMenuBundle dispatches a ``cmf_menu.create_menu_item_from_node`` event
+during the process of creating a menu item from a menu node. You can use this
+event to control the ``MenuItem`` that is created and to mark the current node
+or its children as skipped.
 
-The ``CreateMenuItemFromNodeEvent`` which is dispatched includes the following
-methods which can be used to customize the creation of the ``MenuItem`` for a
-``NodeInterface``.
+Listeners for this method receive a ``CreateMenuItemFromNodeEvent`` instance,
+which provides access to node using the ``getNode()`` method and allows
+skipping nodes using the ``setSkipNode()`` and ``setSkipChildren()`` methods.
 
-* ``CreateMenuItemFromNodeEvent::setSkipNode(true|false)``: Setting
-  ``skipNode`` to true will prevent creation of item from the node and skip
-  any child nodes.
-  **Note:** If ``setSkipNode(true)`` is called for ``Menu`` the
-  ``ContentAwareFactory`` will still create an empty item for the menu. This is
-  to prevent the KnpMenuBundle code from throwing an exception due to ``null``
-  being passed to a function to render a menu;
-* ``CreateMenuItemFromNodeEvent::setItem(ItemInterface $item|null)``: A
-  listener can call ``setItem`` to provide a custom item to use for the given node.
-  If an item is set, the ``ContentAwareFactory`` will use it instead of
-  creating one for the node. The children of the node will still be processed
-  by the ``ContentAwareFactory`` and listeners will have an opportunity then to
-  override their items using this method;
-* ``CreateMenuItemFromNodeEvent::setSkipChildren(true|false)``: Listeners can
-  set this to true and the ``ContentAwareFactory`` will skip processing of the
-  children of the current node.
+.. note::
+
+    If you mark the ``Menu`` document (the root node of each menu) as skipped,
+    an empty item is still created to avoid errors when rendering a menu.
+
+You can use the ``setItem()`` method to set the menu item to use instead of one
+generated using the menu node. The child nodes are still processed like normal
+and added to this new item.
+
+.. tip::
+
+    You can inject the ``knp_menu.factory`` service in the listener to generate
+    new menu items from nodes.
 
 Example Menu Listener
 ~~~~~~~~~~~~~~~~~~~~~
@@ -124,8 +115,8 @@ Example Menu Listener
 This listener handles menu nodes that point to a different menu by implementing
 the ``MenuReferrerInterface``::
 
-    // src/Acme/DemoBundle/MenuReferrerInterface.php
-    namespace Acme\DemoBundle;
+    // src/AppBundle/Menu/MenuReferrerInterface.php
+    namespace AppBundle\Menu;
 
     interface MenuReferrerInterface
     {
@@ -133,15 +124,16 @@ the ``MenuReferrerInterface``::
         public function getMenuOptions();
     }
 
-    namespace Acme\DemoBundle\EventListener;
+    // src/AppBundle/EventListener/CreateMenuItemFromMenuListener.php
+    namespace AppBundle\EventListener;
 
     use Symfony\Cmf\Bundle\MenuBundle\Event\CreateMenuItemFromNodeEvent;
-    use Acme\DemoBundle\MenuReferrerInterface;
     use Knp\Menu\Provider\MenuProviderInterface;
+    use AppBundle\Menu\MenuReferrerInterface;
 
-    class CreateMenuItemFromNodeListener
+    class CreateMenuItemFromMenuListener
     {
-        protected $provider;
+        private $provider;
 
         public function __construct(MenuProviderInterface $provider)
         {
@@ -162,9 +154,6 @@ the ``MenuReferrerInterface``::
 
                 $menu = $this->provider->get($menuName, $menuOptions);
                 $event->setItem($menu);
-
-                // as this does not call $event->setSkipChildren(true),
-                // children of $node will be rendered as children items of $menu.
             }
         }
 
@@ -176,12 +165,11 @@ The service needs to be tagged as event listener:
 
     .. code-block:: yaml
 
-        # src/Acme/DemoBundle/Resources/config/services.yml
+        # app/config/services.yml
         services:
-            acme_demo.listener.menu_referrer_listener:
-                class: Acme\DemoBundle\EventListener\CreateMenuItemFromNodeListener
-                arguments:
-                    - "@knp_menu.menu_provider"
+            app.menu_referrer_listener:
+                class: AppBundle\EventListener\CreateMenuItemFromMenuListener
+                arguments: ['@knp_menu.menu_provider']
                 tags:
                     -
                         name: kernel.event_listener
@@ -190,25 +178,31 @@ The service needs to be tagged as event listener:
 
     .. code-block:: xml
 
-        <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
+        <!-- app/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            <service id="acme_demo.listener.menu_referrer_listener" class="Acme\DemoBundle\EventListener\CreateMenuItemFromNodeListener">
-                <argument type="service" id="knp_menu.menu_provider" />
-                <tag name="kernel.event_listener"
-                    event="cmf_menu.create_menu_item_from_node"
-                    method="onCreateMenuItemFromNode"
-                />
-            </service>
+
+            <services>
+                <service id="acme_demo.listener.menu_referrer_listener"
+                    class="AppBundle\EventListener\CreateMenuItemFromMenuListener"
+                >
+                    <argument type="service" id="knp_menu.menu_provider" />
+
+                    <tag name="kernel.event_listener"
+                        event="cmf_menu.create_menu_item_from_node"
+                        method="onCreateMenuItemFromNode"
+                    />
+                </service>
+            </services>
         </container>
 
     .. code-block:: php
 
-        // src/Acme/DemoBundle/Resources/config/services.php
+        // app/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
-        $definition = new Definition('Acme\DemoBundle\EventListener\CreateMenuItemFromNodeListener', array(
+        $definition = new Definition('AppBundle\EventListener\CreateMenuItemFromMenuListener', array(
             new Reference('knp_menu.menu_provider'),
         ));
         $definition->addTag('kernel.event_listener', array(
