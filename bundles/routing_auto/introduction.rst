@@ -2,8 +2,8 @@
     single: RoutingAuto; Bundles
     single: RoutingAutoBundle
 
-RoutingAutoBundle
-=================
+Introduction
+============
 
 The RoutingAutoBundle allows you to automatically persist routes when
 documents are persisted based on URI schemas and contextual information.
@@ -93,7 +93,7 @@ forum topic with the following fictional URI:
 
 - ``https://mywebsite.com/my-forum/drinks/coffee``
 
-The RoutingAutoBundle uses a URI schema to define how routes are generated. A
+The RoutingAutoBundle uses a URI schema definitions to define how routes are generated. A
 schema for the above URI would look like this (the bundle does not care about
 the host or protocol):
 
@@ -105,7 +105,7 @@ You can see that ``my-forum`` is static (it will not change) but that
 
 The value for tokens are provided by *token providers*.
 
-The schema, token providers, and other configurations (more on this later) are
+The schema definitions, token providers, and other configurations (more on this later) are
 contained within ``routing_auto.format`` files (currently ``xml`` and ``yaml`` are
 supported). These files are contained either in your bundles
 ``Resources/config`` directory or in a custom location specified in
@@ -120,7 +120,9 @@ document could be defined as follows:
 
         # src/Acme/ForumBundle/Resources/config/cmf_routing_auto.yml
         Acme\ForumBundle\Document\Topic:
-            uri_schema: /my-forum/{category}/{title}
+            definitions: 
+                 main:
+                     uri_schema: /my-forum/{category}/{title}
             token_providers:
                 category: [content_method, { method: getCategoryTitle, slugify: true }]
                 title: [content_method, { method: getTitle }] # slugify is true by default
@@ -130,7 +132,9 @@ document could be defined as follows:
         <!-- src/Acme/ForumBundle/Resources/config/cmf_routing_auto.xml -->
         <?xml version="1.0" ?>
         <auto-mapping xmlns="http://cmf.symfony.com/schema/routing_auto">
-            <mapping class="Acme\ForumBundle\Document\Topic" uri-schema="/my-forum/{category}/{title}">
+            <mapping class="Acme\ForumBundle\Document\Topic">
+                <definition name="main" uri-schema="/my-forum/{category}/{title}" />
+
                 <token-provider token="category" name="content_method">
                     <option name="method">getCategoryName</option>
                     <option name="slugify">true</option>
@@ -186,6 +190,7 @@ Read more
 * :doc:`token_providers`
 * :doc:`conflict_resolvers`
 * :doc:`defunct_route_handlers`
+* :doc:`definitions`
 
 .. _`with composer`: http://getcomposer.org/
 .. _`symfony-cmf/routing-auto-bundle`: https:/packagist.org/packages/symfony-cmf/routing-auto-bundle
