@@ -179,6 +179,13 @@ severe performance penalty.
 Whether to automatically update nodes having ``mix:lastModified``.
 See `last modified listener cookbook entry`_.
 
+``backend curl_options``
+""""""""""""""""""""""
+
+If you are using one of the Jackalope Jackrabbit backend, you can set
+the curl options which are described in the php-documentation
+`curl-setopt`_.
+
 PHPCR Session with Jackalope Jackrabbit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -652,3 +659,4 @@ For tuning the output of the ``doctrine:phpcr:dump`` command.
 .. _`Symfony2 Doctrine documentation`: http://symfony.com/doc/current/book/doctrine.html
 .. _`last modified listener cookbook entry`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/cookbook/last-modified.html
 .. _`Doctrine ORM`: http://symfony.com/doc/current/reference/configuration/doctrine.html#caching-drivers
+.. _`curl-setopt`: http://php.net/manual/de/function.curl-setopt.php
