@@ -180,11 +180,14 @@ Whether to automatically update nodes having ``mix:lastModified``.
 See `last modified listener cookbook entry`_.
 
 ``backend curl_options``
-""""""""""""""""""""""
+""""""""""""""""""""""""
 
 If you are using one of the Jackalope Jackrabbit backend, you can set
 the curl options which are described in the php-documentation
 `curl-setopt`_.
+
+.. versionadded:: 1.3
+    Since jackalope-jackrabbit 1.3, curl-options can be configured.
 
 PHPCR Session with Jackalope Jackrabbit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
