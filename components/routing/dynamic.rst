@@ -100,6 +100,9 @@ do not exist yet:
   keys.
 * ``FieldPresenceEnhancer``: If a field is present in the route match, sets an
   other field to a specified value if that field is not set yet.
+* ``ContentRepositoryEnhancer``: If the source field is present in the route match,
+  sets target field to the сontent returned by the ``ContentRepositoryInterface`` with
+  value of the source field, if target field is not yet set.
 
 You can also create your own route enhancer by creating a class which
 implements ``Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface``.
