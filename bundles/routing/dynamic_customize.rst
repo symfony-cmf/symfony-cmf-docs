@@ -22,11 +22,67 @@ Writing your own Route Enhancers
 
 You can add your own :ref:`RouteEnhancerInterface <bundles-routing-dynamic_router-enhancer>`
 implementations if you have a case not handled by the
-:ref:`provided enhancers <component-routing-enhancers>`. Simply define services
-for your enhancers and tag them with ``dynamic_router_route_enhancer`` to have
-them added to the routing.
+:ref:`provided enhancers <component-routing-enhancers>`.
+
+.. code-block:: php
+
+    // src/AppBundle/Routing/Enhancer/SimpleEnhancer.php
+    namespace AppBundle\Routing\Enhancer;
+
+    use Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface;
+    use Symfony\Component\HttpFoundation\Request;
+
+    class SimpleEnhancer implements RouteEnhancerInterface
+    {
+        public function enhance(array $defaults, Request $request)
+        {
+            // own logic.
+
+            // Enhancer MUST return the $defaults but may add or remove values.
+            return $defaults;
+        }
+    }
+
+
+Simply define services for your enhancers and tag them with ``dynamic_router_route_enhancer`` to have
+them added to the routing. You can specify an optional ``priority`` parameter
+on the tag to control the order in which enhancers are executed. The higher the
+priority, the earlier the enhancer is executed.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            app.routing.enhancer.simple:
+                class: AppBundle\Routing\Enhancer\SimpleEnhancer
+                tags:
+                    -  { name: dynamic_router_route_enhancer, priority: 10 }
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="app.routing.enhancer.simple" class="AppBundle\Routing\Enhancer\SimpleEnhancer">
+                    <tag name="dynamic_router_route_enhancer" priority="10" />
+                </service>
+            </services>
+        </container>
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $definition = new Definition('AppBundle\Routing\Enhancer\SimpleEnhancer');
+        $definition->addTag('dynamic_router_route_enhancer',array('priority' => 10));
+        $container->setDefinition('app.routing.enhancer.simple', $definition);
 
 .. index:: Route Provider
+
 .. _bundle-routing-custom_provider:
 
 Using a Custom Route Provider
