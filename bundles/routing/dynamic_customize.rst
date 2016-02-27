@@ -30,9 +30,14 @@ implementations if you have a case not handled by the
     namespace AppBundle\Routing\Enhancer;
 
     use Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface;
+    use Symfony\Component\HttpFoundation\Request;
 
     class SimpleEnhancer implements RouteEnhancerInterface
     {
+        public function enhance(array $defaults, Request $request)
+        {
+            //own logic
+        }
     }
 
 
