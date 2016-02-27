@@ -54,7 +54,7 @@ priority, the earlier the enhancer is executed.
             app.routing.enhancer.simple:
                 class: AppBundle\Routing\Enhancer\SimpleEnhancer
                 tags:
-                    -  { name: dynamic_router_route_enhancer priority: 10 }
+                    -  { name: dynamic_router_route_enhancer, priority: 10 }
 
     .. code-block:: xml
 
@@ -74,9 +74,9 @@ priority, the earlier the enhancer is executed.
 
         use Symfony\Component\DependencyInjection\Definition;
 
-        $definitionSendmail = new Definition('AppBundle\Routing\Enhancer\SimpleEnhancer');
-        $definitionSendmail->addTag('dynamic_router_route_enhancer',array('priority' => 10));
-        $container->setDefinition('app.routing.enhancer.simple', $definitionSendmail);
+        $definition = new Definition('AppBundle\Routing\Enhancer\SimpleEnhancer');
+        $definition->addTag('dynamic_router_route_enhancer',array('priority' => 10));
+        $container->setDefinition('app.routing.enhancer.simple', $definition);
 
 .. index:: Route Provider
 
