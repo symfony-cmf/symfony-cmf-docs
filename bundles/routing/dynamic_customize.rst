@@ -36,7 +36,10 @@ implementations if you have a case not handled by the
     {
         public function enhance(array $defaults, Request $request)
         {
-            //own logic
+            // own logic.
+
+            // Enhancer MUST return the $defaults but may add or remove values.
+            return $defaults;
         }
     }
 
