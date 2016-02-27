@@ -36,25 +36,24 @@ implementations if you have a case not handled by the
     {
         public function enhance(array $defaults, Request $request)
         {
-            // own logic.
+            // ... customize the $defaults array
 
-            // Enhancer MUST return the $defaults but may add or remove values.
             return $defaults;
         }
     }
 
-
-Simply define services for your enhancers and tag them with ``dynamic_router_route_enhancer`` to have
-them added to the routing. You can specify an optional ``priority`` parameter
-on the tag to control the order in which enhancers are executed. The higher the
-priority, the earlier the enhancer is executed.
+Simply define services for your enhancers and tag them with
+``dynamic_router_route_enhancer`` to have them added to the routing. You can
+specify an optional ``priority`` parameter on the tag to control the order in
+which enhancers are executed. The higher the priority, the earlier the enhancer
+is executed.
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         services:
-            app.routing.enhancer.simple:
+            app.routing.simple_enhancer:
                 class: AppBundle\Routing\Enhancer\SimpleEnhancer
                 tags:
                     -  { name: dynamic_router_route_enhancer, priority: 10 }
@@ -67,7 +66,7 @@ priority, the earlier the enhancer is executed.
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="app.routing.enhancer.simple" class="AppBundle\Routing\Enhancer\SimpleEnhancer">
+                <service id="app.routing.simple_enhancer" class="AppBundle\Routing\Enhancer\SimpleEnhancer">
                     <tag name="dynamic_router_route_enhancer" priority="10" />
                 </service>
             </services>
@@ -78,8 +77,11 @@ priority, the earlier the enhancer is executed.
         use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition('AppBundle\Routing\Enhancer\SimpleEnhancer');
-        $definition->addTag('dynamic_router_route_enhancer',array('priority' => 10));
-        $container->setDefinition('app.routing.enhancer.simple', $definition);
+        $definition->addTag('dynamic_router_route_enhancer', array(
+            'priority' => 10,
+        ));
+
+        $container->setDefinition('app.routing.simple_enhancer', $definition);
 
 .. index:: Route Provider
 
