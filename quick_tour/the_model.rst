@@ -63,7 +63,7 @@ dump command.
 .. note::
 
     Previously, the PHPCR tree was compared with a Filesystem. While this
-    gives you a good imagine of what happends, it's not the truth. You can
+    gives you a good image of what happens, it's not the truth. You can
     better compare it to an XML file, where each node is an element and its
     properties are attributes.
 
