@@ -112,7 +112,7 @@ to reduce code duplication::
         protected $title;
 
         /**
-         * @PHPCR\Field(type='string', nullable=true)
+         * @PHPCR\Field(type="string", nullable=true)
          */
         protected $content;
 
