@@ -173,7 +173,7 @@ just need to edit such a data file, which is located in the
 
 .. code-block:: yaml
 
-    # src/Acme/MainBundle/Resources/data/pages.yml
+    # src/Acme/DemoBundle/Resources/data/pages.yml
     Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page:
         # ...
 
