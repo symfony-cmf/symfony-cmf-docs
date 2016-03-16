@@ -96,7 +96,8 @@ new routes in ``/cms/routes``:
             dynamic:
                 persistence:
                     phpcr:
-                        route_basepaths: /cms/routes
+                        route_basepaths:
+                            - /cms/routes
                     # /cms/routes is the default base path, the above code is
                     # equivalent to:
                     # phpcr: true
