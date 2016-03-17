@@ -166,6 +166,7 @@ Now you can add a new ``Route`` to the tree using Doctrine::
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+    use Doctrine\ODM\PHPCR\DocumentManager;
     
     use PHPCR\Util\NodeHelper;
 
@@ -206,6 +207,8 @@ Now you can add a new ``Route`` to the tree using Doctrine::
     }
     
 Above we implemented the ``OrderedFixtureInterface`` so that our routes were loaded in the correct sequence relative to other fixtures.
+
+Now you need ``doctrine:phpcr:fixtures:load`` again.
 
 This creates a new node called ``/cms/routes/new-route``, which will display
 our ``quick_tour`` page when you go to ``/new-route``.
