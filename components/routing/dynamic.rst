@@ -85,24 +85,28 @@ The component already provides some general purpose enhancers. They all follow
 the principle to never change an existing field but only add fields if they
 do not exist yet:
 
-* ``RouteContentEnhancer``: If the route is an instance of ``RouteObjectInterface``,
-  this enhancer sets the target field to the return value of ``getContent()``.
-* ``FieldMapEnhancer``: Configured with a key-value map. If a specified field of
-  the match contains a key, the target field is set to the value.
-* ``FieldByClassEnhancer``: Configured with a map of class names to values.
-  If the specified field contains an object that is an instance of a class in
-  the map, sets the target field to the corresponding value. Note that the
-  first match is taken, should the objects be instance of more than one of the
-  classes. This enhancer is for example used to determine the controller and
-  template based on the class of a Content document.
-  This enhancer is similar to ``FieldMapEnhancer``, but doing an
-  :phpfunction:`instanceof` check rather than string comparison for the map
-  keys.
-* ``FieldPresenceEnhancer``: If a field is present in the route match, sets an
-  other field to a specified value if that field is not set yet.
-* ``ContentRepositoryEnhancer``: If the source field is present in the route match,
-  sets target field to the сontent returned by the ``ContentRepositoryInterface`` with
-  value of the source field, if target field is not yet set.
+``RouteContentEnhancer``
+    If the route is an instance of ``RouteObjectInterface``, this enhancer sets
+    the target field to the return value of ``getContent()``.
+``FieldMapEnhancer``
+    Configured with a key-value map. If a specified field of the match contains
+    a key, the target field is set to the value.
+``FieldByClassEnhancer``
+    Configured with a map of class names to values.  If the specified field
+    contains an object that is an instance of a class in the map, sets the
+    target field to the corresponding value. Note that the first match is
+    taken, should the objects be instance of more than one of the classes. This
+    enhancer is for example used to determine the controller and template based
+    on the class of a Content document.  This enhancer is similar to
+    ``FieldMapEnhancer``, but doing an :phpfunction:`instanceof` check rather
+    than string comparison for the map keys.
+``FieldPresenceEnhancer``
+    If a field is present in the route match, sets an other field to a
+    specified value if that field is not set yet.
+``ContentRepositoryEnhancer``
+    If the source field is present in the route match, sets target field to the
+    content returned by the ``ContentRepositoryInterface`` with value of the
+    source field, if target field is not yet set.
 
 You can also create your own route enhancer by creating a class which
 implements ``Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface``.
