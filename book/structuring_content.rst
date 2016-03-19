@@ -172,4 +172,4 @@ configuration options list and additional information.
 .. _`respective documentation page`: https://symfony.com/doc/master/bundles/KnpMenuBundle/index.html#rendering-menus
 .. _`Doctrine PHPCR documentation page`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/association-mapping.html#references
 .. _`KnpMenu`: https://github.com/knplabs/KnpMenu
-.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
+.. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html

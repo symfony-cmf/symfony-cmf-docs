@@ -93,6 +93,6 @@ You can find more information and examples of the doctrine event system
 in "`How to Register Event Listeners and Subscribers`_" of the core documentation.
 
 .. _`Doctrine PHPCR-ODM event system documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html
-.. _`Symfony event subscriber`: http://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers
-.. _`Doctrine ORM events`: http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html
-.. _`How to Register Event Listeners and Subscribers`: http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html
+.. _`Symfony event subscriber`: https://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers
+.. _`Doctrine ORM events`: https://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html
+.. _`How to Register Event Listeners and Subscribers`: https://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html

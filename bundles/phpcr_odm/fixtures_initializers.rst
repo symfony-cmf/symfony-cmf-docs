@@ -311,5 +311,5 @@ A simple example fixture class looks like this::
 
 For more on fixtures, see the `documentation of the DoctrineFixturesBundle`_.
 
-.. _`documentation of the DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
+.. _`documentation of the DoctrineFixturesBundle`: https://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`Doctrine data-fixtures`: https://github.com/doctrine/data-fixtures

@@ -82,5 +82,5 @@ Sections
 
 .. _`with composer`: http://getcomposer.org
 .. _`symfony-cmf/routing`: https://packagist.org/packages/symfony-cmf/routing
-.. _`Routing chapter of the Symfony2 book`: http://symfony.com/doc/current/book/routing.html
-.. _`Routing Component`: http://symfony.com/doc/current/components/routing/introduction.html
+.. _`Routing chapter of the Symfony2 book`: https://symfony.com/doc/current/book/routing.html
+.. _`Routing Component`: https://symfony.com/doc/current/components/routing/introduction.html

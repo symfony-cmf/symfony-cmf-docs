@@ -229,8 +229,8 @@ object, generators that are able to do so have to implement the
 ``VersatileGeneratorInterface`` and return true for the ``supports($route)``
 call  with any object they can handle.
 
-.. _`Event Dispatcher`: http://symfony.com/doc/current/components/event_dispatcher/index.html
-.. _`How to create an Event Listener`: http://symfony.com/doc/current/cookbook/event_dispatcher/event_listener.html
+.. _`Event Dispatcher`: https://symfony.com/doc/current/components/event_dispatcher/index.html
+.. _`How to create an Event Listener`: https://symfony.com/doc/current/cookbook/event_dispatcher/event_listener.html
 .. _instanceof: http://php.net/operators.type
-.. _`Symfony2 Dependency Injection Component`: http://symfony.com/doc/master/components/dependency_injection/index.html
-.. _`Symfony2 DI Component compilation section`: http://symfony.com/doc/current/components/dependency_injection/compilation.html
+.. _`Symfony2 Dependency Injection Component`: https://symfony.com/doc/master/components/dependency_injection/index.html
+.. _`Symfony2 DI Component compilation section`: https://symfony.com/doc/current/components/dependency_injection/compilation.html

@@ -664,4 +664,4 @@ Read On
 .. _`symfony-cmf/create-bundle`: https://packagist.org/packages/symfony-cmf/create-bundle
 .. _`RDF`: https://en.wikipedia.org/wiki/Resource_Description_Framework
 .. _`RDFa`: https://en.wikipedia.org/wiki/RDFa
-.. _`Symfony2 security chapter`: http://symfony.com/doc/current/book/security.html
+.. _`Symfony2 security chapter`: https://symfony.com/doc/current/book/security.html

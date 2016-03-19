@@ -123,6 +123,6 @@ is faster in taking routing decisions.
 
 Read on about the dynamic router in the :doc:`next section<dynamic>`.
 
-.. _`Routing Component`: http://symfony.com/doc/current/components/routing/introduction.html
-.. _`Symfony2 Dependency Injection Component`: http://symfony.com/doc/master/components/dependency_injection/index.html
-.. _`Symfony2 DI Component compilation section`: http://symfony.com/doc/current/components/dependency_injection/compilation.html
+.. _`Routing Component`: https://symfony.com/doc/current/components/routing/introduction.html
+.. _`Symfony2 Dependency Injection Component`: https://symfony.com/doc/master/components/dependency_injection/index.html
+.. _`Symfony2 DI Component compilation section`: https://symfony.com/doc/current/components/dependency_injection/compilation.html

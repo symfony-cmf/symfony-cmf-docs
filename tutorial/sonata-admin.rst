@@ -671,4 +671,4 @@ to tell sonata about them:
     menu will propose only those documents. This makes it easier for your
     users to not make mistakes.
 
-.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
+.. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html

@@ -167,6 +167,6 @@ doctrine proxies and dump the Assetic assets:
 
 .. _`Composer`: https://getcomposer.org
 .. _`CMF sandbox github repository`: https://github.com/symfony-cmf/cmf-sandbox
-.. _`Requirements for running Symfony2`: http://symfony.com/doc/current/reference/requirements.html
+.. _`Requirements for running Symfony2`: https://symfony.com/doc/current/reference/requirements.html
 .. _`Git 1.6+`: https://git-scm.com/
 .. _`register the node types`: https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged
