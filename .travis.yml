@@ -15,6 +15,6 @@ addons:
 
 install: pip install sphinx~=1.3 git+https://github.com/fabpot/sphinx-php.git sphinxcontrib-spelling pyenchant
 
-script: 
-    - sphinx-build -nW -b html -d _build/doctrees . _build/html
-    - make spelling
+script: sphinx-build -nW -b html -d _build/doctrees . _build/html
+
+after_success: if [[ $TRAVIS_PULL_REQUEST == false ]]; then make spelling; fi
