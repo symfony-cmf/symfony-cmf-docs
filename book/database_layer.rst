@@ -370,10 +370,10 @@ take different actions as objects go through their persistence lifecycle.
 
 .. _`Doctrine PHPCR-ODM`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/index.html
 .. _`PHP Content Repository`: http://phpcr.github.io/
-.. _`JSR-283 specification`: http://jcp.org/en/jsr/detail?id=283
-.. _`Doctrine ORM`: http://symfony.com/doc/current/book/doctrine.html
+.. _`JSR-283 specification`: https://jcp.org/en/jsr/detail?id=283
+.. _`Doctrine ORM`: https://symfony.com/doc/current/book/doctrine.html
 .. _`doctrine documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/basic-mapping.html#basicmapping-identifier-generation-strategies
 .. _`Basic Mapping Documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/basic-mapping.html
 .. _`the QueryBuilder documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/query-builder.html
 .. _`create complex queries`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/query-builder.html
-.. _`Custom Repository Classes`: http://symfony.com/doc/current/book/doctrine.html#custom-repository-classes
+.. _`Custom Repository Classes`: https://symfony.com/doc/current/book/doctrine.html#custom-repository-classes

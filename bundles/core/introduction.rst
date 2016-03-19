@@ -33,4 +33,4 @@ Sections
 * :doc:`configuration`
 
 .. _`symfony-cmf/core-bundle`: https://packagist.org/packages/symfony-cmf/core-bundle
-.. _`with composer`: http://getcomposer.org
+.. _`with composer`: https://getcomposer.org

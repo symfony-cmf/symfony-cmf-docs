@@ -168,8 +168,8 @@ optional. You can go to the :doc:`../bundles/menu/index` reference page for the 
 configuration options list and additional information.
 
 .. _KnpMenuBundle: https://github.com/knplabs/KnpMenuBundle
-.. _`KnpMenuBundle's documentation`: http://symfony.com/doc/master/bundles/KnpMenuBundle/index.html
-.. _`respective documentation page`: http://symfony.com/doc/master/bundles/KnpMenuBundle/index.html#rendering-menus
+.. _`KnpMenuBundle's documentation`: https://symfony.com/doc/master/bundles/KnpMenuBundle/index.html
+.. _`respective documentation page`: https://symfony.com/doc/master/bundles/KnpMenuBundle/index.html#rendering-menus
 .. _`Doctrine PHPCR documentation page`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/association-mapping.html#references
 .. _`KnpMenu`: https://github.com/knplabs/KnpMenu
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html

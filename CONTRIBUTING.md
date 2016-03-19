@@ -12,7 +12,7 @@ Format][4].
 > If you are documenting new features you should base your PR on the
 > **dev branch**, *not* the master branch.
 
- [1]: http://symfony.com/doc/current/contributing/documentation/index.html
- [2]: http://symfony.com/doc/current/contributing/documentation/format.html
- [3]: http://symfony.com/doc/current/contributing/documentation/overview.html#creating-a-pull-request
- [4]: http://symfony.com/doc/current/contributing/documentation/overview.html#pull-request-format
+ [1]: https://symfony.com/doc/current/contributing/documentation/index.html
+ [2]: https://symfony.com/doc/current/contributing/documentation/format.html
+ [3]: https://symfony.com/doc/current/contributing/documentation/overview.html#creating-a-pull-request
+ [4]: https://symfony.com/doc/current/contributing/documentation/overview.html#pull-request-format

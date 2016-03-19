@@ -53,5 +53,5 @@ Read On
 
 .. _`LiipSearchBundle`: https://github.com/liip/LiipSearchBundle
 .. _`symfony-cmf/search-bundle`: https://packagist.org/packages/symfony-cmf/search-bundle
-.. _`with composer`: http://getcomposer.org
+.. _`with composer`: https://getcomposer.org
 

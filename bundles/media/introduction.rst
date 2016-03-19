@@ -287,7 +287,7 @@ and Symfony bundles:
 * :doc:`adapters/gaufrette`
 
 .. _`symfony-cmf/media-bundle`: https://packagist.org/packages/symfony-cmf/media-bundle
-.. _`with composer`: http://getcomposer.org
+.. _`with composer`: https://getcomposer.org
 .. _`MediaBundle`: https://github.com/symfony-cmf/MediaBundle#readme
 .. _`KnpLabs/Gaufrette`: https://github.com/KnpLabs/Gaufrette
 .. _`phpcr/phpcr-utils`: https://github.com/phpcr/phpcr-utils

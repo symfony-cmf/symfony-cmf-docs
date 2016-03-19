@@ -230,4 +230,4 @@ the Symfony CMF!
 .. _FOSRestBundle: https://github.com/friendsofsymfony/FOSRestBundle
 .. _SonataAdminBundle: http://sonata-project.org/bundles/admin/master/doc/index.html
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
-.. _`RDFa Mappings`: http://en.wikipedia.org/wiki/RDFa
+.. _`RDFa Mappings`: https://en.wikipedia.org/wiki/RDFa

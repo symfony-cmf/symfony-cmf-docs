@@ -104,7 +104,7 @@ For more information on Routing in the Symfony CMF, please refer to:
   for implementation details of the routers;
 * Symfony2's `Routing`_ component documentation.
 
-.. _`with composer`: http://getcomposer.org
+.. _`with composer`: https://getcomposer.org
 .. _`symfony-cmf/routing-bundle`: https://packagist.org/packages/symfony-cmf/routing-bundle
 .. _`RoutingBundle`: https://github.com/symfony-cmf/RoutingBundle#readme
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html

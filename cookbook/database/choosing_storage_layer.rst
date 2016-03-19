@@ -195,4 +195,4 @@ storage solution.
 .. _`PHPCR`: http://phpcr.github.io
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
 .. _`Jackalope`: https://github.com/jackalope/jackalope
-.. _`Jackrabbit`: http://jackrabbit.apache.org
+.. _`Jackrabbit`: http://jackrabbit.apache.org/jcr/index.html

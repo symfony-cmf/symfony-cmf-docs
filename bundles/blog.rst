@@ -324,6 +324,6 @@ The blog will now use ``MyApplicationBundle::my_layout.html.twig`` instead of
 See `Overriding Bundle Templates`_ in the Symfony documentation for more
 information.
 
-.. _`controllers as services`: http://symfony.com/doc/current/cookbook/controller/service.html
-.. _`Twitter Bootstrap`: http://twitter.github.com/bootstrap/
-.. _`Overriding Bundle Templates`: http://symfony.com/doc/current/book/templating.html#overriding-bundle-templates
+.. _`controllers as services`: https://symfony.com/doc/current/cookbook/controller/service.html
+.. _`Twitter Bootstrap`: http://getbootstrap.com/
+.. _`Overriding Bundle Templates`: https://symfony.com/doc/current/book/templating.html#overriding-bundle-templates

@@ -59,7 +59,7 @@ The Symfony CMF documentation is licensed under a Creative Commons
 
 This is a human-readable summary of the `Legal Code (the full license)`_.
 
-.. _Apache license: http://en.wikipedia.org/wiki/Apache_license
-.. _MIT licensed: http://en.wikipedia.org/wiki/MIT_License
+.. _Apache license: https://en.wikipedia.org/wiki/Apache_license
+.. _MIT licensed: https://en.wikipedia.org/wiki/MIT_License
 .. _Attribution-Share Alike 3.0 Unported License: http://creativecommons.org/licenses/by-sa/3.0/
 .. _Legal Code (the full license): http://creativecommons.org/licenses/by-sa/3.0/legalcode

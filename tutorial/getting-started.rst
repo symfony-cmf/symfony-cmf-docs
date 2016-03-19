@@ -426,11 +426,11 @@ Then load the fixtures:
 
 You should now have some data in your content repository.
 
-.. _`idempotent`: http://en.wiktionary.org/wiki/idempotent
+.. _`idempotent`: https://en.wiktionary.org/wiki/idempotent
 .. _`symfony-cmf/routing-auto-bundle`: https://packagist.org/packages/symfony-cmf/routing-auto-bundle
 .. _`symfony-cmf/menu-bundle`: https://packagist.org/packages/symfony-cmf/menu-bundle
 .. _`sonata-project/doctrine-phpcr-admin-bundle`: https://packagist.org/packages/sonata-project/doctrine-phpcr-admin-bundle
 .. _`doctrine/data-fixtures`: https://packagist.org/packages/doctrine/data-fixtures
 .. _`Doctrine DBAL Jackalope`: https://github.com/jackalope/jackalope-doctrine-dbal
-.. _`Apache Jackrabbit`: https://jackrabbit.apache.org
+.. _`Apache Jackrabbit`: https://jackrabbit.apache.org/jcr/index.html
 .. _`pre persist lifecycle event`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html#lifecycle-callbacks

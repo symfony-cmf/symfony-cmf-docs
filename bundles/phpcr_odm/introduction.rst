@@ -519,8 +519,8 @@ Read On
 .. _`Jackalope`: http://jackalope.github.io/
 .. _`the PHPCR website`: http://phpcr.github.io/
 .. _`PHPCR-ODM documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/
-.. _`bug in libxml`: http://bugs.php.net/bug.php?id=36501)
-.. _`with composer`: http://getcomposer.org
+.. _`bug in libxml`: https://bugs.php.net/bug.php?id=36501
+.. _`with composer`: https://getcomposer.org
 .. _`doctrine/phpcr-bundle`: https://packagist.org/packages/doctrine/phpcr-bundle
 .. _`metadata caching`: http://symfony.com/doc/master/reference/configuration/doctrine.html
 .. _`PHPCR-ODM documentation on Multilanguage`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html

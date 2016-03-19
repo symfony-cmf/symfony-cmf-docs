@@ -29,8 +29,8 @@ For unix systems, you can get the start-stop script for ``/etc/init.d``
 More information about `running a Jackrabbit server`_ can be found on the
 Jackalope wiki.
 
-.. _`Apache Jackrabbit`: http://jackrabbit.apache.org/
+.. _`Apache Jackrabbit`: http://jackrabbit.apache.org/jcr/index.html
 .. _`jackalope-jackrabbit`: https://github.com/jackalope/jackalope-jackrabbit
-.. _`official download page`: http://jackrabbit.apache.org/downloads.html
+.. _`official download page`: http://jackrabbit.apache.org/jcr/downloads.html
 .. _`here`: https://github.com/sixty-nine/Jackrabbit-startup-script
 .. _`running a Jackrabbit server`: https://github.com/jackalope/jackalope/wiki/Running-a-jackrabbit-server

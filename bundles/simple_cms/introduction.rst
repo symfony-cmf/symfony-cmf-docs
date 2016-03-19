@@ -66,5 +66,5 @@ Sections
 
 .. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/standard-edition
 .. _`CMF website`: https://github.com/symfony-cmf/symfony-cmf-website/
-.. _`with composer`: http://getcomposer.org
+.. _`with composer`: https://getcomposer.org
 .. _`Packagist`: https://packagist.org/packages/symfony-cmf/simple-cms-bundle

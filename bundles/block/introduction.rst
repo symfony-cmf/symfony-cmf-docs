@@ -416,8 +416,8 @@ Read on
 * :doc:`configuration`
 
 .. _`symfony-cmf/block-bundle`: https://packagist.org/packages/symfony-cmf/block-bundle
-.. _`with composer`: http://getcomposer.org
+.. _`with composer`: https://getcomposer.org
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
-.. _`prepended configuration`: http://symfony.com/doc/current/components/dependency_injection/compilation.html#prepending-configuration-passed-to-the-extension
+.. _`prepended configuration`: https://symfony.com/doc/current/components/dependency_injection/compilation.html#prepending-configuration-passed-to-the-extension
 .. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle
 .. _`discussion how to fix this`: https://github.com/symfony-cmf/BlockBundle/issues/143

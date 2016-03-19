@@ -155,4 +155,4 @@ Your should now be all set to start using PHPCR-ODM in your project!
 .. _`Apache Jackrabbit`: https://jackrabbit.apache.org
 .. _`Jackalope`: https://github.com/jackalope/jackalope
 .. _`Doctrine DBAL`: https://github.com/doctrine/dbal
-.. _`installed composer`: http://getcomposer.org/doc/00-intro.md#system-requirements
+.. _`installed composer`: https://getcomposer.org/doc/00-intro.md#system-requirements
