@@ -166,6 +166,7 @@ Now you can add a new ``Route`` to the tree using Doctrine::
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+    use Doctrine\ODM\PHPCR\DocumentManager;
     
     use PHPCR\Util\NodeHelper;
 
