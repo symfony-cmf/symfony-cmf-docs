@@ -247,6 +247,8 @@ yourself and configure that service:
            ),
        ));
 
+.. _bundle-routing-route-defaults-validator:
+
 The RouteDefaultsValidator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -260,5 +262,3 @@ You can override the validator by setting the
 
 .. _`Creating and configuring services in the container`: https://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
-
-.. _bundle-routing-route-defaults-validator:
