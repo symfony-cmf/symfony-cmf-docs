@@ -515,25 +515,25 @@ Read On
 * :doc:`configuration`
 
 .. _`DoctrinePHPCRBundle`: https://github.com/doctrine/DoctrinePHPCRBundle
-.. _`Symfony2 Doctrine documentation`: http://symfony.com/doc/current/book/doctrine.html
+.. _`Symfony2 Doctrine documentation`: https://symfony.com/doc/current/book/doctrine.html
 .. _`Jackalope`: http://jackalope.github.io/
 .. _`the PHPCR website`: http://phpcr.github.io/
 .. _`PHPCR-ODM documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/
-.. _`bug in libxml`: http://bugs.php.net/bug.php?id=36501)
-.. _`with composer`: http://getcomposer.org
+.. _`bug in libxml`: https://bugs.php.net/bug.php?id=36501
+.. _`with composer`: https://getcomposer.org
 .. _`doctrine/phpcr-bundle`: https://packagist.org/packages/doctrine/phpcr-bundle
-.. _`metadata caching`: http://symfony.com/doc/master/reference/configuration/doctrine.html
+.. _`metadata caching`: https://symfony.com/doc/master/reference/configuration/doctrine.html
 .. _`PHPCR-ODM documentation on Multilanguage`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
 .. _`custom node type`: https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged
 .. _`the PHPCR-ODM documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html
-.. _`Symfony event subscriber`: http://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers
-.. _`Symfony cookbook entry`: http://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html
-.. _`Symfony documentation on the entity form type`: http://symfony.com/doc/current/reference/forms/types/entity.html
-.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
+.. _`Symfony event subscriber`: https://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers
+.. _`Symfony cookbook entry`: https://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html
+.. _`Symfony documentation on the entity form type`: https://symfony.com/doc/current/reference/forms/types/entity.html
+.. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
 .. _`currently broken`: https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145
-.. _`DoctrineMigrationsBundle`: http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
-.. _`DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
+.. _`DoctrineMigrationsBundle`: https://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
+.. _`DoctrineFixturesBundle`: https://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`Doctrine data-fixtures`: https://github.com/doctrine/data-fixtures
-.. _`documentation of the DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
+.. _`documentation of the DoctrineFixturesBundle`: https://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`SQL2 queries`: http://www.h2database.com/jcr/grammar.html
 .. _`BurgovKeyValueFormBundle`: https://github.com/Burgov/KeyValueFormBundle

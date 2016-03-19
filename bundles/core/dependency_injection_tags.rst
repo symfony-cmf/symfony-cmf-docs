@@ -15,4 +15,4 @@ workflow.
 This tag has the attribute ``priority``. The lower the priority number, the
 earlier the voter gets to vote.
 
-.. _`synchronized service`: http://symfony.com/doc/current/cookbook/service_container/scopes.html#a-using-a-synchronized-service
+.. _`synchronized service`: https://symfony.com/doc/current/cookbook/service_container/scopes.html#a-using-a-synchronized-service

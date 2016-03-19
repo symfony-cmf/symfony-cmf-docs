@@ -341,4 +341,4 @@ handles, as per the ``getType`` method of the block. The second argument is the
             ->addTag('sonata.block')
         ;
 
-.. _Assetic: http://symfony.com/doc/current/cookbook/assetic/asset_management.html
+.. _Assetic: https://symfony.com/doc/current/cookbook/assetic/asset_management.html

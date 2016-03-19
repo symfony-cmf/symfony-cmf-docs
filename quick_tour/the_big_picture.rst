@@ -220,11 +220,11 @@ some CMS bundles. If you want to discover more, you can dive into the next
 section: ":doc:`the_model`".
 
 .. _`decoupled CMS`: http://decoupledcms.org
-.. _`Symfony Framework Quick Tour`: http://symfony.com/doc/current/quick_tour/the_big_picture.html
+.. _`Symfony Framework Quick Tour`: https://symfony.com/doc/current/quick_tour/the_big_picture.html
 .. _`Symfony Standard Edition`: https://github.com/symfony/symfony-standard
-.. _JCR: http://en.wikipedia.org/wiki/Content_repository_API_for_Java
+.. _JCR: https://en.wikipedia.org/wiki/Content_repository_API_for_Java
 .. _PHPCR: http://phpcr.github.io/
 .. _KnpMenuBundle: http://knpbundles.com/KnpLabs/KnpMenuBundle
-.. _Composer: http://getcomposer.org/
+.. _Composer: https://getcomposer.org/
 .. _`Create.js`: http://createjs.org/
 .. _CreatePHP: http://demo.createphp.org/

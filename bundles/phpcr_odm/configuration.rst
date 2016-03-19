@@ -659,7 +659,7 @@ Absolute path to the jackrabbit jar file. If this is set, you can use the
 
 For tuning the output of the ``doctrine:phpcr:dump`` command.
 
-.. _`Symfony2 Doctrine documentation`: http://symfony.com/doc/current/book/doctrine.html
+.. _`Symfony2 Doctrine documentation`: https://symfony.com/doc/current/book/doctrine.html
 .. _`last modified listener cookbook entry`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/cookbook/last-modified.html
-.. _`Doctrine ORM`: http://symfony.com/doc/current/reference/configuration/doctrine.html#caching-drivers
+.. _`Doctrine ORM`: https://symfony.com/doc/current/reference/configuration/doctrine.html#caching-drivers
 .. _`curl-setopt`: http://php.net/manual/de/function.curl-setopt.php

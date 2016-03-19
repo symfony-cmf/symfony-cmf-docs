@@ -82,5 +82,5 @@ This release process was adopted to give more *predictability* and
 
 .. _Git repository: https://github.com/symfony/symfony
 .. _SensioLabs: http://sensiolabs.com/
-.. _core Symfony release process: http://symfony.com/doc/current/contributing/community/releases.html
-.. _conventions: http://symfony.com/doc/current/contributing/code/conventions.html#contributing-code-conventions-deprecations
+.. _core Symfony release process: https://symfony.com/doc/current/contributing/community/releases.html
+.. _conventions: https://symfony.com/doc/current/contributing/code/conventions.html#contributing-code-conventions-deprecations

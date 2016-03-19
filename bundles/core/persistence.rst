@@ -222,5 +222,5 @@ configuration in the ``sonata_admin`` section of your project configuration:
 
 See the `Sonata Admin extension documentation`_ for more information.
 
-.. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
+.. _`Sonata Admin extension documentation`: https://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _`PHPCR-ODM documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html#full-example

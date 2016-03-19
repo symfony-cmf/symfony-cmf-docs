@@ -246,6 +246,6 @@ Have a look at what you have:
 
 The routes have been automatically created!
 
-.. _`routingautobundle documentation`: http://symfony.com/doc/current/cmf/bundles/routing_auto.html
+.. _`routingautobundle documentation`: https://symfony.com/doc/current/cmf/bundles/routing_auto.html
 .. _`SonataDoctrinePhpcrAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle
-.. _`routingbundle`: http://symfony.com/doc/master/cmf/bundles/routing/index.html
+.. _`routingbundle`: https://symfony.com/doc/master/cmf/bundles/routing/index.html

@@ -293,7 +293,7 @@ Custom Voters
 .............
 
 To build voters with custom logic, you need to implement
-:class:`Symfony\\Component\\Security\\Core\\Authentication\\Voter\\VoterInterface`
+:class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface`
 and define a service with the tag ``cmf_published_voter``. This is similar
 to the ``security.voter`` tag, but adds your voter to the publish workflow. As
 with the security voters, you can specify a priority, though it is of limited
@@ -431,8 +431,8 @@ configuration in the ``sonata_admin`` section of your project configuration:
 
 See the `Sonata Admin extension documentation`_ for more information.
 
-.. _`Symfony2 security component`: http://symfony.com/doc/current/components/security/index.html
-.. _`Symfony2 Authorization`: http://symfony.com/doc/current/components/security/authorization.html
-.. _`Security Chapter`: http://symfony.com/doc/current/book/security.html
-.. _`ACL checks`: http://symfony.com/doc/current/cookbook/security/acl.html
-.. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
+.. _`Symfony2 security component`: https://symfony.com/doc/current/components/security/index.html
+.. _`Symfony2 Authorization`: https://symfony.com/doc/current/components/security/authorization.html
+.. _`Security Chapter`: https://symfony.com/doc/current/book/security.html
+.. _`ACL checks`: https://symfony.com/doc/current/cookbook/security/acl.html
+.. _`Sonata Admin extension documentation`: https://sonata-project.org/bundles/admin/master/doc/reference/extensions.html

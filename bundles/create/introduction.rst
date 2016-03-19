@@ -660,8 +660,8 @@ Read On
 .. _`hallo.js`: http://hallojs.org
 .. _`CKEditor`: http://ckeditor.com/
 .. _`CreatePHP`: https://github.com/flack/createphp
-.. _`with composer`: http://getcomposer.org
+.. _`with composer`: https://getcomposer.org
 .. _`symfony-cmf/create-bundle`: https://packagist.org/packages/symfony-cmf/create-bundle
-.. _`RDF`: http://en.wikipedia.org/wiki/Resource_Description_Framework
-.. _`RDFa`: http://en.wikipedia.org/wiki/RDFa
-.. _`Symfony2 security chapter`: http://symfony.com/doc/current/book/security.html
+.. _`RDF`: https://en.wikipedia.org/wiki/Resource_Description_Framework
+.. _`RDFa`: https://en.wikipedia.org/wiki/RDFa
+.. _`Symfony2 security chapter`: https://symfony.com/doc/current/book/security.html

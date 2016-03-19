@@ -533,5 +533,5 @@ For more information on the Routing component of Symfony CMF, please refer to:
 
 .. _`Doctrine ORM`: http://www.doctrine-project.org/projects/orm.html
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
-.. _`Routing`: http://symfony.com/doc/current/components/routing/introduction.html
-.. _`How to Define Controllers as Services`: http://symfony.com/doc/current/cookbook/controller/service.html
+.. _`Routing`: https://symfony.com/doc/current/components/routing/introduction.html
+.. _`How to Define Controllers as Services`: https://symfony.com/doc/current/cookbook/controller/service.html

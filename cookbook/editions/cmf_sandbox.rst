@@ -165,8 +165,8 @@ doctrine proxies and dump the Assetic assets:
     $ php app/console cache:clear --env=prod --no-debug
     $ php app/console assetic:dump --env=prod --no-debug
 
-.. _`Composer`: http://getcomposer.org
+.. _`Composer`: https://getcomposer.org
 .. _`CMF sandbox github repository`: https://github.com/symfony-cmf/cmf-sandbox
-.. _`Requirements for running Symfony2`: http://symfony.com/doc/current/reference/requirements.html
-.. _`Git 1.6+`: http://git-scm.com/
+.. _`Requirements for running Symfony2`: https://symfony.com/doc/current/reference/requirements.html
+.. _`Git 1.6+`: https://git-scm.com/
 .. _`register the node types`: https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged

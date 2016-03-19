@@ -158,4 +158,4 @@ If you want to support multiple languages, have a look at
 Then have a look at the individual :doc:`bundles <../../bundles/index>` you are
 interested in.
 
-.. _`Installation of Symfony2`: http://symfony.com/doc/current/book/installation.html
+.. _`Installation of Symfony2`: https://symfony.com/doc/current/book/installation.html

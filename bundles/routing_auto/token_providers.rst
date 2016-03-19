@@ -246,4 +246,4 @@ To use the path provider, you must register it in the container and add the
 The ``FoobarTokenProvider`` is now available as **foobar** in the routing auto
 configuration.
 
-.. _`OptionsResolver component`: http://symfony.com/doc/current/components/options_resolver.html
+.. _`OptionsResolver component`: https://symfony.com/doc/current/components/options_resolver.html

@@ -229,8 +229,8 @@ be referenceable and in addition will automatically set the date using the
 
 Both the ``Post`` and ``Page`` classes implement the
 ``RouteReferrersReadInterface``. This interface enables the
-`DynamicRouter to generate URLs`_ from instances of these classes. (for
-example with ``{{ path(content) }}`` in Twig).
+:ref:`DynamicRouter to generate URLs <bundles-routing-dynamic-generator>` from
+instances of these classes. (for example with ``{{ path(content) }}`` in Twig).
 
 Repository Initializer
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -426,13 +426,11 @@ Then load the fixtures:
 
 You should now have some data in your content repository.
 
-.. _`routingautobundle documentation`: http://symfony.com/doc/current/cmf/bundles/routing_auto.html
-.. _`dynamicrouter to generate urls`: http://symfony.com/doc/current/cmf/bundles/routing/dynamic.html#url-generation-with-the-dynamicrouterA
-.. _`idempotent`: http://en.wiktionary.org/wiki/idempotent
+.. _`idempotent`: https://en.wiktionary.org/wiki/idempotent
 .. _`symfony-cmf/routing-auto-bundle`: https://packagist.org/packages/symfony-cmf/routing-auto-bundle
 .. _`symfony-cmf/menu-bundle`: https://packagist.org/packages/symfony-cmf/menu-bundle
 .. _`sonata-project/doctrine-phpcr-admin-bundle`: https://packagist.org/packages/sonata-project/doctrine-phpcr-admin-bundle
 .. _`doctrine/data-fixtures`: https://packagist.org/packages/doctrine/data-fixtures
-.. _`doctrine dbal jackalope`: https://github.com/jackalope/jackalope-doctrine-dbal
-.. _`Apache Jackrabbit`: https://jackrabbit.apache.org
+.. _`Doctrine DBAL Jackalope`: https://github.com/jackalope/jackalope-doctrine-dbal
+.. _`Apache Jackrabbit`: https://jackrabbit.apache.org/jcr/index.html
 .. _`pre persist lifecycle event`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html#lifecycle-callbacks

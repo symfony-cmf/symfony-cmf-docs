@@ -285,10 +285,10 @@ and then run the following command:
     $ php app/console doctrine:phpcr:migrator:migrate page --identifier=/cms/simple/test/foo
 
 .. _`cmf.liip.ch`: http://cmf.liip.ch
-.. _`Requirements for running Symfony2`: http://symfony.com/doc/current/reference/requirements.html
+.. _`Requirements for running Symfony2`: https://symfony.com/doc/current/reference/requirements.html
 .. _`SQLite`: http://www.sqlite.org/
-.. _`Composer`: http://getcomposer.org/
-.. _`guidelines in the symfony book`: http://symfony.com/doc/master/book/installation.html#configuration-and-setup
-.. _`the Symfony2 book`: http://symfony.com/doc/current/book/
-.. _`Fixtures`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
-.. _`Symfony cookbook article on setup`: http://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html
+.. _`Composer`: https://getcomposer.org/
+.. _`guidelines in the symfony book`: https://symfony.com/doc/current/book/installation.html#book-installation-permissions
+.. _`the Symfony2 book`: https://symfony.com/doc/current/book/index.html
+.. _`Fixtures`: https://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
+.. _`Symfony cookbook article on setup`: https://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html

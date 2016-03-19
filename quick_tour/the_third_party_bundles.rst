@@ -223,11 +223,11 @@ but there is much much more to explore. Take a look at
 the Symfony CMF!
 
 .. _KnpMenuBundle: https://github.com/KnpLabs/KnpMenuBundle
-.. _SonataBlockBundle: http://sonata-project.org/bundles/block/master/doc/index.html
-.. _SonataSeoBundle: http://sonata-project.org/bundles/seo/master/doc/index.html
+.. _SonataBlockBundle: https://sonata-project.org/bundles/block/master/doc/index.html
+.. _SonataSeoBundle: https://sonata-project.org/bundles/seo/master/doc/index.html
 .. _CreatePHP: http://demo.createphp.org/
 .. _`Create.js`: http://createjs.org/
 .. _FOSRestBundle: https://github.com/friendsofsymfony/FOSRestBundle
-.. _SonataAdminBundle: http://sonata-project.org/bundles/admin/master/doc/index.html
-.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
-.. _`RDFa Mappings`: http://en.wikipedia.org/wiki/RDFa
+.. _SonataAdminBundle: https://sonata-project.org/bundles/admin/master/doc/index.html
+.. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
+.. _`RDFa Mappings`: https://en.wikipedia.org/wiki/RDFa

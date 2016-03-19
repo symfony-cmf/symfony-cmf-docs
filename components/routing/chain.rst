@@ -22,9 +22,10 @@ the URL and provide the request parameters.
     Historically, the router had to do the matching on the URL string alone.
     Since Symfony 2.2, it can alternatively implement the
     ``RequestMatcherInterface`` to do the matching on the full
-    :class:`Symfony\\Component\\Routing\\Request` object if it wants to use
-    other request information into account like the domain or accept-encoding.
-    The ``ChainRouter`` supports both types of route matching.
+    :class:`Symfony\\Component\\HttpFoundation\\Request` object if it wants to
+    use other request information into account like the domain or
+    accept-encoding.  The ``ChainRouter`` supports both types of route
+    matching.
 
 Adding Routers to the Chain
 ---------------------------
@@ -122,6 +123,6 @@ is faster in taking routing decisions.
 
 Read on about the dynamic router in the :doc:`next section<dynamic>`.
 
-.. _`Routing Component`: http://symfony.com/doc/current/components/routing/introduction.html
-.. _`Symfony2 Dependency Injection Component`: http://symfony.com/doc/master/components/dependency_injection/index.html
-.. _`Symfony2 DI Component compilation section`: http://symfony.com/doc/current/components/dependency_injection/compilation.html
+.. _`Routing Component`: https://symfony.com/doc/current/components/routing/introduction.html
+.. _`Symfony2 Dependency Injection Component`: https://symfony.com/doc/master/components/dependency_injection/index.html
+.. _`Symfony2 DI Component compilation section`: https://symfony.com/doc/current/components/dependency_injection/compilation.html

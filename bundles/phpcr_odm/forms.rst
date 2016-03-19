@@ -180,6 +180,6 @@ correct.
         }
 
 .. _BurgovKeyValueFormBundle: https://github.com/Burgov/KeyValueFormBundle
-.. _`Symfony documentation on the entity form type`: http://symfony.com/doc/current/reference/forms/types/entity.html
-.. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
+.. _`Symfony documentation on the entity form type`: https://symfony.com/doc/current/reference/forms/types/entity.html
+.. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
 .. _`currently broken`: https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145
