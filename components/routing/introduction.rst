@@ -39,10 +39,10 @@ The goal of Routing
 Routing is the task of a framework to determine, based on the web request, what
 code it has to call and which parameters to apply. The Symfony2 core
 :class:`Symfony\\Component\\Routing\\Matcher\\RequestMatcherInterface` defines
-that a router must convert a :class:`Symfony\\Component\\Routing\\Request` into
-an array of routing information. In the full stack Symfony2 framework, the code
-to call is defined in the ``_controller`` field of the match parameters. The
-framework is going to call the controller specified, matching eventual
+that a router must convert a :class:`Symfony\\Component\\HttpFoundation\\Request`
+into an array of routing information. In the full stack Symfony2 framework, the
+code to call is defined in the ``_controller`` field of the match parameters.
+The framework is going to call the controller specified, matching eventual
 parameters of that method by name with the other parameters found in the match
 array or in the ``Request`` object attributes field.
 

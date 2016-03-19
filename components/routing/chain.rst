@@ -22,9 +22,10 @@ the URL and provide the request parameters.
     Historically, the router had to do the matching on the URL string alone.
     Since Symfony 2.2, it can alternatively implement the
     ``RequestMatcherInterface`` to do the matching on the full
-    :class:`Symfony\\Component\\Routing\\Request` object if it wants to use
-    other request information into account like the domain or accept-encoding.
-    The ``ChainRouter`` supports both types of route matching.
+    :class:`Symfony\\Component\\HttpFoundation\\Request` object if it wants to
+    use other request information into account like the domain or
+    accept-encoding.  The ``ChainRouter`` supports both types of route
+    matching.
 
 Adding Routers to the Chain
 ---------------------------

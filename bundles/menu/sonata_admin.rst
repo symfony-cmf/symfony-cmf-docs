@@ -242,5 +242,5 @@ configuration:
 .. _`Sonata Admin extension documentation`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
 .. _`the sonata admin documentation`: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/reference/configuration.html
-.. _`KnpMenuBundle documentation`: http://github.com/KnpLabs/KnpMenu/blob/master/doc/01-Basic-Menus.markdown#menu-attributes
+.. _`KnpMenuBundle documentation`: https://github.com/KnpLabs/KnpMenu/blob/master/doc/01-Basic-Menus.markdown#menu-attributes
 .. _BurgovKeyValueFormBundle: https://github.com/Burgov/KeyValueFormBundle

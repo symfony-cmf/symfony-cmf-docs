@@ -182,5 +182,5 @@ Read On
 .. _`KnpMenu`: https://github.com/knplabs/KnpMenu
 .. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle
 .. _`with composer`: http://getcomposer.org
-.. _`rendering menus`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md#rendering-menus
+.. _`rendering menus`: http://symfony.com/doc/master/bundles/KnpMenuBundle/index.html#rendering-menus
 .. _`symfony-cmf/menu-bundle`: https://packagist.org/packages/symfony-cmf/menu-bundle

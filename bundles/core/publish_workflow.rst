@@ -293,7 +293,7 @@ Custom Voters
 .............
 
 To build voters with custom logic, you need to implement
-:class:`Symfony\\Component\\Security\\Core\\Authentication\\Voter\\VoterInterface`
+:class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface`
 and define a service with the tag ``cmf_published_voter``. This is similar
 to the ``security.voter`` tag, but adds your voter to the publish workflow. As
 with the security voters, you can specify a priority, though it is of limited

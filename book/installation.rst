@@ -288,7 +288,7 @@ and then run the following command:
 .. _`Requirements for running Symfony2`: http://symfony.com/doc/current/reference/requirements.html
 .. _`SQLite`: http://www.sqlite.org/
 .. _`Composer`: http://getcomposer.org/
-.. _`guidelines in the symfony book`: http://symfony.com/doc/master/book/installation.html#configuration-and-setup
+.. _`guidelines in the symfony book`: http://symfony.com/doc/current/book/installation.html#book-installation-permissions
 .. _`the Symfony2 book`: http://symfony.com/doc/current/book/
 .. _`Fixtures`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`Symfony cookbook article on setup`: http://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html

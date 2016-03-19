@@ -427,5 +427,5 @@ for further information.
 .. _`Sonata Admin Extensions`: http://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
 .. _`LiipImagineBundle documentation`: https://github.com/liip/LiipImagineBundle/tree/master/Resources/doc
-.. _`sub-request`: http://symfony.com/doc/current/book/internals.html#internal-requests
+.. _`sub-request`: https://symfony.com/doc/current/components/http_kernel/introduction.html#http-kernel-sub-requests
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html

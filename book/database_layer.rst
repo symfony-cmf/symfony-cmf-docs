@@ -373,7 +373,7 @@ take different actions as objects go through their persistence lifecycle.
 .. _`JSR-283 specification`: http://jcp.org/en/jsr/detail?id=283
 .. _`Doctrine ORM`: http://symfony.com/doc/current/book/doctrine.html
 .. _`doctrine documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/basic-mapping.html#basicmapping-identifier-generation-strategies
-.. _`Basic Mapping Documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/annotations-reference.html
+.. _`Basic Mapping Documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/basic-mapping.html
 .. _`the QueryBuilder documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/query-builder.html
 .. _`create complex queries`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/query-builder.html
 .. _`Custom Repository Classes`: http://symfony.com/doc/current/book/doctrine.html#custom-repository-classes

@@ -32,4 +32,4 @@ use an absolute path to get menus that are not located in the menu basepath.
     You can also write your completely custom provider and register it with the
     KnpMenu as explained in the `KnpMenuBundle custom provider documentation`_.
 
-.. _`KnpMenuBundle custom provider documentation`: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/custom_provider.md
+.. _`KnpMenuBundle custom provider documentation`: http://symfony.com/doc/master/bundles/KnpMenuBundle/custom_provider.html
