@@ -36,6 +36,10 @@ For example::
 
     $dm->flush();
 
+Unless you write your own listener to update the locale *before* the routing
+takes place, your content will be loaded in the default locale and you will
+need to reload the content after the routing step to get the requested locale.
+
 .. sidebar:: Translating the URL
 
     Since SimpleCmsBundle only provides a single tree structure, all nodes
@@ -45,5 +49,8 @@ For example::
 
     If you need language specific URLs, you can either add Route documents for
     the other locales and configure the dynamic router to look for routes under
-    both prefixes. You can also completely separate routing and content by using
-    the separate documents from the RoutingBundle and ContentBundle.
+    both prefixes, or contribute the feature described in the `issue tracker`_.
+    You can also completely separate routing and content by using the separate
+    documents from the RoutingBundle and ContentBundle.
+
+.. _`issue tracker`: https://github.com/symfony-cmf/SimpleCmsBundle/issues/109
