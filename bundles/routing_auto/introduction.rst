@@ -2,8 +2,8 @@
     single: RoutingAuto; Bundles
     single: RoutingAutoBundle
 
-Introduction
-============
+RoutingAutoBundle
+=================
 
 The RoutingAutoBundle allows you to automatically persist routes when
 documents are persisted based on URI schemas and contextual information.
@@ -120,7 +120,7 @@ document could be defined as follows:
 
         # src/Acme/ForumBundle/Resources/config/cmf_routing_auto.yml
         Acme\ForumBundle\Document\Topic:
-            definitions: 
+            definitions:
                  main:
                      uri_schema: /my-forum/{category}/{title}
             token_providers:
