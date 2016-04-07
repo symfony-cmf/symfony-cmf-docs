@@ -43,8 +43,8 @@ Assume you have an ``Article`` object and you want to use both the ``$title``
 and ``$date`` properties as page title and the ``$intro`` property as
 description, you can implement both interfaces and your result will be::
 
-    // src/Acme/BlogBundle/Document/Article.php
-    namespace Acme\BlogBundle\Document;
+    // src/AppBundle/Document/Article.php
+    namespace AppBundle\Document;
 
     use Symfony\Cmf\Bundle\SeoBundle\Extractor\TitleReadInterface;
     use Symfony\Cmf\Bundle\SeoBundle\Extractor\DescriptionReadInterface;
@@ -89,12 +89,9 @@ create a class which implements the ``SeoExtractorInterface`` and tag it with
 
     .. code-block:: yaml
 
-        parameters:
-            acme_demo.extractor.custom.class: Acme\DemoBundle\Extractor\MyCustomExtractor
-
         services:
-            acme_demo.extractor.custom:
-                class: "%acme_demo.extractor.custom.class%"
+            extractor.custom:
+                class: "AppBundle\Extractor\MyCustomExtractor"
                 tags:
                     - { name: cmf_seo.extractor }
 
@@ -104,12 +101,8 @@ create a class which implements the ``SeoExtractorInterface`` and tag it with
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-            <parameters>
-                <parameter key="acme_demo.extractor.custom.class">Acme\DemoBundle\Extractor\MyCustomExtractor</parameter>
-            </parameters>
-
             <services>
-                <service id="acme_demo.extractor.custom" class="%acme_demo.extractor.custom.class%">
+                <service id="extractor.custom" class="AppBundle\Extractor\MyCustomExtractor">
                     <tag name="cmf_seo.extractor"/>
                 </service>
             </services>
@@ -117,11 +110,6 @@ create a class which implements the ``SeoExtractorInterface`` and tag it with
 
     .. code-block:: php
 
-        $container->addParameter(
-            'acme_demo.extractor.custom.class',
-            'Acme\DemoBundle\Extractor\MyCustomExtractor'
-        );
-
-        $container->register('acme_demo.extractor.custom', '%acme_demo.extractor.custom.class%')
+        $container->register('extractor.custom', 'AppBundle\Extractor\MyCustomExtractor')
             ->addTag('cmf_seo.extractor')
         ;

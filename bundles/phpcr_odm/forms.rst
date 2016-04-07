@@ -44,7 +44,7 @@ A simple example of using the ``phpcr_document`` form type looks as follows::
             'phpcr_document',
             array(
                 'property' => 'title',
-                'class'    => 'Acme\DemoBundle\Document\TargetClass',
+                'class'    => 'AppBundle\Document\TargetClass',
                 'multiple' => true,
             )
         )
@@ -123,14 +123,14 @@ correct.
 
     .. code-block:: yaml
 
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
+        # src/AppBundle/Resources/config/validation.yml
+        AppBundle\Entity\Author:
             constraints:
                 - Doctrine\Bundle\PHPCRBundle\Validator\Constraints\ValidPhpcrOdm
 
     .. code-block:: php-annotations
 
-        // src/Acme/BlogBundle/Entity/Author.php
+        // src/AppBundle/Entity/Author.php
 
         // ...
         use Doctrine\Bundle\PHPCRBundle\Validator\Constraints as OdmAssert;
@@ -160,7 +160,7 @@ correct.
 
     .. code-block:: php
 
-        // src/Acme/BlogBundle/Entity/Author.php
+        // src/AppBundle/Entity/Author.php
 
         // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
