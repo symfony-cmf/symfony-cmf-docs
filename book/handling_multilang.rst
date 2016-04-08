@@ -347,4 +347,4 @@ save the edited document in the same language as it was loaded.
 .. _`this discussion about ICU`: https://github.com/symfony/symfony/issues/5279#issuecomment-11710480
 .. _`cmf-sandbox config.yml file`: https://github.com/symfony-cmf/cmf-sandbox/blob/master/app/config/config.yml
 .. _`PHPCR-ODM documentation on multi-language`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
-.. _`issue`: https://github.com/symfony-cmf/CreateBundle/issues/39
+.. _`issue`: https://github.com/symfony-cmf/create-bundle/issues/39

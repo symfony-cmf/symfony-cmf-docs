@@ -289,5 +289,5 @@ fixtures.
 
 .. _`knpmenubundle`: https://github.com/KnpLabs/KnpMenuBundle
 .. _`knpmenu`: https://github.com/KnpLabs/KnpMenu
-.. _`MenuBundle`: https://github.com/symfony-cmf/MenuBundle
-.. _`CoreBundle`: https://github.com/symfony-cmf/CoreBundle
+.. _`MenuBundle`: https://github.com/symfony-cmf/menu-bundle
+.. _`CoreBundle`: https://github.com/symfony-cmf/core-bundle

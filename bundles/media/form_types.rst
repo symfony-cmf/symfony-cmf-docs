@@ -10,11 +10,11 @@ transformers.
 .. caution::
 
     The form types described in this chapter are only available if the PHPCR storage
-    is activated. Implementation for other storage systems would be welcome 
+    is activated. Implementation for other storage systems would be welcome
     contributions.
 
 A default twig template is also included for these form types.
-To use it you will need to add the ``fields.html.twig`` template from the 
+To use it you will need to add the ``fields.html.twig`` template from the
 MediaBundle to the ``form.resources`` section in twig config:
 
 .. configuration-block::
@@ -153,7 +153,7 @@ cmf_media_file
 
 .. versionadded: 1.3
     The ``cmf_media_file`` form type was introduced in MediaBundle 1.3.
-    
+
 The ``cmf_media_file`` form maps to an object that implements the
 ``Symfony\Cmf\Bundle\MediaBundle\FileInterface``.
 It renders as a file upload button with a link for downloading the existing
@@ -161,5 +161,5 @@ file, if any.
 
 .. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
 .. _`trying to make this automatic`: https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4
-.. _`ImagineBlock::setImage`: https://github.com/symfony-cmf/BlockBundle/blob/master/Doctrine/Phpcr/ImagineBlock.php#L121
-.. _`MediaBundle issue`: https://github.com/symfony-cmf/MediaBundle/issues/9
+.. _`ImagineBlock::setImage`: https://github.com/symfony-cmf/block-bundle/blob/master/Doctrine/Phpcr/ImagineBlock.php#L121
+.. _`MediaBundle issue`: https://github.com/symfony-cmf/media-bundle/issues/9
