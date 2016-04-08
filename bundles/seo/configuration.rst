@@ -353,3 +353,52 @@ routes, use:
                 ),
             ),
         ));
+
+``alternate_locale``
+~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 1.1
+    Support for alternate locales was added in version 1.1 of the SeoBundle.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_seo:
+            alternate_locale:
+                enabled: true
+                provider_id: app.alternate_locale.provider
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/seo">
+                <alternate-locale  enabled="true" provider-id="app.alternate_locale.provider" />
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('cmf_seo', array(
+            'alternate_locale' => array (
+                'enabled' => true,
+                'provider_id' => app.alternate_locale.provider,
+            ),
+        ));
+
+``enabled``
+"""""""""""
+
+**type**: ``boolean`` **default**: ``true``
+
+Whether or not the the :ref:`bundles-seo-alternate-locale` should be loaded
+
+``provider_id``
+"""""""""""""""
+
+**type**: ``string`` **default**: ``null``
+
+Specify the service id of a custom :doc:`AlternateLocaleProvider <../seo/alternate_locale>`.
