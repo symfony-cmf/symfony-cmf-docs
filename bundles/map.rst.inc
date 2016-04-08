@@ -89,10 +89,6 @@ show a different way of implementing a concept. You can use these bundles in
 your project, but you can also get ideas from these bundles to create your own
 bundle based on the key bundles.
 
-* **BlogBundle** (work in progress)
-
-  * :doc:`blog`
-
 * :doc:`content/index`
 
   * :doc:`content/introduction`

@@ -193,7 +193,7 @@ desired.
 
 Below is an example publish workflow implementation::
 
-    namespace Acme\BlogBundle\Document;
+    namespace AppBundle\Document;
 
     use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface;
     use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface;
@@ -298,15 +298,15 @@ and define a service with the tag ``cmf_published_voter``. This is similar
 to the ``security.voter`` tag, but adds your voter to the publish workflow. As
 with the security voters, you can specify a priority, though it is of limited
 use as the access decision must be unanimous. If you have more expensive checks,
-you can lower the priority of those voters.
+you can lower the priority of those voters:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         services:
-            acme.security.publishable_voter:
-                class: "%my_namespace.security.publishable_voter.class%"
+            security.publishable_voter:
+                class: "AppBundle\Security\PublishableVoter"
                 tags:
                     - { name: cmf_published_voter, priority: 30 }
 
@@ -314,8 +314,8 @@ you can lower the priority of those voters.
 
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            <service id="acme.security.publishable_voter"
-                class="%acme.security.publishable_voter.class%">
+            <service id="security.publishable_voter"
+                class="AppBundle\Security\PublishableVoter">
 
                 <tag name="cmf_published_voter" priority="30"/>
             </service>
@@ -327,8 +327,8 @@ you can lower the priority of those voters.
 
         $container
             ->register(
-                'acme.security.publishable_voter',
-                '%acme.security.publishable_voter.class%'
+                'security.publishable_voter',
+                'AppBundle\Security\PublishableVoter'
             )
             ->addTag('cmf_published_voter', array('priority' => 30))
         ;

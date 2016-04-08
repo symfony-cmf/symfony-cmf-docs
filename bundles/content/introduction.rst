@@ -79,7 +79,7 @@ For instance, a very simple template looks like:
 
     .. code-block:: html+jinja
 
-        {# src/Acme/BlogBundle/Resources/views/Post/index.html.twig #}
+        {# src/AppBundle/Resources/views/Post/index.html.twig #}
         {% extends '::layout.html.twig' %}
 
         {% block title -%}
@@ -94,7 +94,7 @@ For instance, a very simple template looks like:
 
     .. code-block:: html+php
 
-        <!-- src/Acme/BlogBundle/Resources/views/Post/index.html.php -->
+        <!-- src/AppBundle/Resources/views/Post/index.html.php -->
         <?php $view->extend('::layout.html.twig') ?>
 
         <?php $view['slots']->set('title', $cmfMainContent->getTitle()) ?>
@@ -120,7 +120,7 @@ To configure a default template, use the ``default_template`` option:
 
         # ...
         cmf_content:
-            default_template: AcmeBlogBundle:Content:static.html.twig
+            default_template: AppBundle:Content:static.html.twig
 
     .. code-block:: xml
 
@@ -131,7 +131,7 @@ To configure a default template, use the ``default_template`` option:
             <!-- ... -->
 
             <config xmlns="http://cmf.symfony.com/schema/dic/content"
-                default-template="AcmeMainBundle:Content:static.html.twig"
+                default-template="AppBundle:Content:static.html.twig"
             />
         </container>
 
@@ -141,7 +141,7 @@ To configure a default template, use the ``default_template`` option:
 
         // ...
         $container->loadFromExtension('cmf_content', array(
-            'default_template' => 'AcmeMainBundle:Content:static.html.twig',
+            'default_template' => 'AppBundle:Content:static.html.twig',
         ));
 
 Whenever the content controller gets called without a specified template, it
