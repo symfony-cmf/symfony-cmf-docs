@@ -5,7 +5,6 @@ Bundles
     :hidden:
 
     block/index
-    blog
     content/index
     core/index
     create/index
