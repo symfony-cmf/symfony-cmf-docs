@@ -53,4 +53,4 @@ need to reload the content after the routing step to get the requested locale.
     You can also completely separate routing and content by using the separate
     documents from the RoutingBundle and ContentBundle.
 
-.. _`issue tracker`: https://github.com/symfony-cmf/SimpleCmsBundle/issues/109
+.. _`issue tracker`: https://github.com/symfony-cmf/simple-cms-bundle/issues/109

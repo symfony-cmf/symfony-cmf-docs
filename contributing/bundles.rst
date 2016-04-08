@@ -250,6 +250,6 @@ instructions on how the component should be integrated.
 .. _`XML in the configuration class`: https://symfony.com/doc/current/components/config/definition.html#normalization
 .. _`XML schema`: https://en.wikipedia.org/wiki/.xsd
 .. _`XLIFF format`: https://symfony.com/doc/current/book/translation.html#basic-translation
-.. _`CONTRIBUTING file from CoreBundle`: https://github.com/symfony-cmf/CoreBundle/blob/master/CONTRIBUTING.md
+.. _`CONTRIBUTING file from CoreBundle`: https://github.com/symfony-cmf/core-bundle/blob/master/CONTRIBUTING.md
 .. _`LICENSE template on wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki/LICENSE-Template
 .. _`service naming conventions`: https://symfony.com/doc/current/contributing/code/standards.html#service-naming-conventions

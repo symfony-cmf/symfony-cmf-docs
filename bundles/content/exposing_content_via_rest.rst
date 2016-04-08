@@ -154,4 +154,4 @@ for details.
 .. _`FOSRestBundle view layer`: https://symfony.com/doc/master/bundles/FOSRestBundle/2-the-view-layer.html
 .. _Composer: https://getcomposer.org/
 .. _`documentation of the JMS serializer`: http://jmsyst.com/libs/#serializer
-.. _`default response format changed between 1.0 and 1.1 of the ContentBundle`: https://github.com/symfony-cmf/ContentBundle/pull/91
+.. _`default response format changed between 1.0 and 1.1 of the ContentBundle`: https://github.com/symfony-cmf/content-bundle/pull/91
