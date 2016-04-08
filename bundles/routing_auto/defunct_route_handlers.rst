@@ -92,7 +92,7 @@ can be configured as follows:
                     <controller-by-type
                         type="cmf_routing_auto.redirect">
                         cmf_routing_auto.redirect_controller:redirectAction
-                    </controller-by-class>
+                    </controller-by-type>
                 </dynamic>
             </config>
 
