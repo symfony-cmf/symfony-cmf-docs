@@ -38,7 +38,7 @@ The SimpleCmsBundle provides a class called ``Page`` which extends from the core
 the key concept behind the bundle.
 
 The mapping of the ``Page`` to a template and controller works as explained in
-the :doc:`previous chapter <routing>`.
+the :doc:`next chapter <routing>`.
 
 Creating a new Page
 ~~~~~~~~~~~~~~~~~~~
