@@ -272,9 +272,10 @@ Create the following admin classes, first for the ``Page`` document::
         {
             $formMapper
                 ->with('form.group_general')
-                ->add('title', 'text')
-                ->add('content', 'textarea')
-            ->end();
+                    ->add('title', 'text')
+                    ->add('content', 'textarea')
+                ->end()
+            ;
         }
 
         public function prePersist($document)
@@ -314,8 +315,9 @@ to avoid code duplication::
 
             $formMapper
                 ->with('form.group_general')
-                ->add('date', 'date')
-            ->end();
+                    ->add('date', 'date')
+                ->end()
+            ;
         }
     }
 
