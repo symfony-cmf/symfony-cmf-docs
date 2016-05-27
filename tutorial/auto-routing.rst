@@ -161,13 +161,13 @@ You can now proceed to mapping your documents, create the following in your
 
     .. code-block:: yaml
 
-        # src/Acme/BasicCmsBundle/Resources/config/cmf_routing_auto.yml
-        Acme\BasicCmsBundle\Document\Page:
+        # src/AppBundle/Resources/config/cmf_routing_auto.yml
+        AppBundle\Document\Page:
             uri_schema: /page/{title}
             token_providers:
                 title: [content_method, { method: getTitle }]
 
-        Acme\BasicCmsBundle\Document\Post:
+        AppBundle\Document\Post:
             uri_schema: /post/{date}/{title}
             token_providers:
                 date: [content_datetime, { method: getDate }]
@@ -175,9 +175,9 @@ You can now proceed to mapping your documents, create the following in your
 
     .. code-block:: xml
 
-        <!-- src/Acme/BasicCmsBundle/Resources/config/cmf_routing_auto.xml -->
+        <!-- src/AppBundle/Resources/config/cmf_routing_auto.xml -->
         <auto-mapping xmlns="http://cmf.symfony.com/schema/routing_auto">
-            <mapping class="Acme\BasicCmsBundle\Document\Page"
+            <mapping class="AppBundle\Document\Page"
                 uri-schema="/page/{title}">
 
                 <token-provider token="title" name="content_method">
@@ -185,7 +185,7 @@ You can now proceed to mapping your documents, create the following in your
                 </token-provider>
             </mapping>
 
-            <mapping class="Acme\BasicCmsBundle\Document\Post"
+            <mapping class="AppBundle\Document\Post"
                 uri-schema="/post/{date}/{title}">
 
                 <token-provider token="date" name="content_datetime">

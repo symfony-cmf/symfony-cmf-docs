@@ -23,27 +23,16 @@ Each part of the tutorial will detail the packages that it requires (if any) in 
 section titled "installation".
 
 If you intend to complete the entire tutorial you can save some time by adding
-all of the required packages now.
+all of the required packages now:
 
-.. code-block:: javascript
+.. code-block:: bash
 
-    {
-        ...
-        require: {
-            ...
-            "symfony-cmf/routing-auto-bundle": "~1.0",
-            "symfony-cmf/menu-bundle": "~2.0",
-            "sonata-project/doctrine-phpcr-admin-bundle": "~1.2",
-            "symfony-cmf/tree-browser-bundle": "~1.1",
-            "doctrine/data-fixtures": "~1.0",
-            "symfony-cmf/routing-bundle": "~1.3",
-            "symfony-cmf/routing": "~1.3"
-        },
-        ...
-    }
-
-Note that each time you modify your ``composer.json`` file you are required to
-run ``composer update``.
+    $ composer require symfony-cmf/routing-auto-bundle \
+        symfony-cmf/menu-bundle \
+        sonata-project/doctrine-phpcr-admin-bundle \
+        symfony-cmf/tree-browser-bundle \
+        doctrine/data-fixtures \
+        symfony-cmf/routing-bundle
 
 Initialize the Database
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,7 +69,7 @@ Now you can generate the bundle in which you will write most of your code:
 
 .. code-block:: bash
 
-    $ php app/console generate:bundle --namespace=Acme/BasicCmsBundle --dir=src --format=yml --no-interaction
+    $ php app/console generate:bundle --namespace=AppBundle --dir=src --format=yml --no-interaction
 
 The Documents
 .............
@@ -89,8 +78,8 @@ You will create two document classes, one for the pages and one for the posts.
 These two documents share much of the same logic, so you create a ``trait``
 to reduce code duplication::
 
-    // src/Acme/BasicCmsBundle/Document/ContentTrait.php
-    namespace Acme\BasicCmsBundle\Document;
+    // src/AppBundle/Document/ContentTrait.php
+    namespace AppBundle\Document;
 
     use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
@@ -168,8 +157,8 @@ to reduce code duplication::
 
 The ``Page`` class is therefore nice and simple::
 
-    // src/Acme/BasicCmsBundle/Document/Page.php
-    namespace Acme\BasicCmsBundle\Document;
+    // src/AppBundle/Document/Page.php
+    namespace AppBundle\Document;
 
     use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
 
@@ -188,8 +177,8 @@ other documents to hold a reference to the page. The ``Post`` class will also
 be referenceable and in addition will automatically set the date using the
 `pre persist lifecycle event`_ if it has not been explicitly set previously::
 
-    // src/Acme/BasicCmsBundle/Document/Post.php
-    namespace Acme\BasicCmsBundle\Document;
+    // src/AppBundle/Document/Post.php
+    namespace AppBundle\Document;
 
     use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
     use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
@@ -246,9 +235,9 @@ configuration:
 
     .. code-block:: yaml
 
-        # src/Acme/BasicCmsBundle/Resources/config/services.yml
+        # src/AppBundle/Resources/config/services.yml
         services:
-            acme_basiccms.basic_cms.phpcr.initializer:
+            app.phpcr.initializer:
                 class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
                 arguments:
                     - My custom initializer
@@ -259,10 +248,10 @@ configuration:
     .. code-block:: xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
-        <!-- src/Acme\BasicCmsBundle\Resources\services.xml -->
+        <!-- src/AppBundle\Resources\services.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:acme_demo="http://www.example.com/symfony/schema/"
+            xmlns:app="http://www.example.com/symfony/schema/"
             xsi:schemaLocation="http://symfony.com/schema/dic/services
                 http://symfony.com/schema/dic/services/services-1.0.xsd">
 
@@ -270,7 +259,7 @@ configuration:
             <services>
                 <!-- ... -->
 
-                <service id="acme_basiccms.basic_cms.phpcr.initializer"
+                <service id="app.phpcr.initializer"
                     class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
 
                     <argument>My custom initializer</argument>
@@ -288,10 +277,10 @@ configuration:
 
     .. code-block:: php
 
-        // src/Acme/BasicCmsBundle/Resources/config/services.php
+        // src/AppBundle/Resources/config/services.php
         $container
             ->register(
-                'acme_basiccms.basic_cms.phpcr.initializer',
+                'app.phpcr.initializer',
                 'Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer'
             )
             ->addArgument('My custom initializer')
@@ -349,10 +338,10 @@ Ensure that you have the following package installed:
 
 Create a page for your CMS::
 
-    // src/Acme/BasicCmsBundle/DataFixtures/PHPCR/LoadPageData.php
-    namespace Acme\BasicCmsBundle\DataFixtures\PHPCR;
+    // src/AppBundle/DataFixtures/PHPCR/LoadPageData.php
+    namespace AppBundle\DataFixtures\PHPCR;
 
-    use Acme\BasicCmsBundle\Document\Page;
+    use AppBundle\Document\Page;
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\ODM\PHPCR\DocumentManager;
@@ -383,13 +372,13 @@ Create a page for your CMS::
 
 and add some posts::
 
-    // src/Acme/BasicCmsBundle/DataFixtures/PHPCR/LoadPostData.php
-    namespace Acme\BasicCmsBundle\DataFixtures\PHPCR;
+    // src/AppBundle/DataFixtures/PHPCR/LoadPostData.php
+    namespace AppBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\ODM\PHPCR\DocumentManager;
-    use Acme\BasicCmsBundle\Document\Post;
+    use AppBundle\Document\Post;
 
     class LoadPostData implements FixtureInterface
     {
