@@ -78,7 +78,7 @@ Optionally, and following the matching process, a set of
 Route enhancers are a way to manipulate the parameters from the matched route
 before the framework continues. They can be used, for example, to dynamically
 assign a controller or to keep logic out of the controller by determining
-parameters or "upcasting" request parameters to to the objects they correspond
+parameters or "upcasting" request parameters to the objects they correspond
 to.
 
 The component already provides some general purpose enhancers. They all follow
