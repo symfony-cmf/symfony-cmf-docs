@@ -45,8 +45,16 @@ The best way to download the Symfony CMF Standard Edition is using Composer_:
 
 .. code-block:: bash
 
-    $ composer create-project symfony-cmf/standard-edition cmf '~1.2'
+    $ composer create-project symfony-cmf/standard-edition cmf '1.2.1'
 
+.. note::
+
+   The `AcmeDemoBundle` that is used in this tour was removed in
+   version 1.3 of the Symfony CMF Standard Edition.  Since then it has
+   become the skeleton for a simple CMS application.  This is why we
+   install version 1.2.1.  If you insist on checking out the most
+   recent versions of the CMF, check out `symfony-cmf/cmf-sandbox`.
+    
 Setting up the Database
 ~~~~~~~~~~~~~~~~~~~~~~~
 
