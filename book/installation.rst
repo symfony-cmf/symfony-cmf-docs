@@ -116,7 +116,7 @@ database backend just go ahead and run the following:
 .. code-block:: bash
 
     $ php app/console doctrine:database:create
-    $ php app/console doctrine:phpcr:init:dbal
+    $ php app/console doctrine:phpcr:init:dbal --force
     $ php app/console doctrine:phpcr:repository:init
     $ php app/console doctrine:phpcr:fixtures:load
 
