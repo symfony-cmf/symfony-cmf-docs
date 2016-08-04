@@ -29,11 +29,18 @@ Basic repository operations
 
 * **cmf_find|find(path)**: Get the document for the provided path or null if not found.
   No publish workflow check is done.
+* **cmf_find_translation|findTranslation($pathOrDocument, $locale, $fallback = true)**: Get the document translation
+  for the provided path/document and locale or null if not found. The document will stay in the last requested locale
+  for the rest of the request.
+  No publish workflow check is done.
 * **cmf_find_many|findMany($paths, $limit = false, $offset = false, $ignoreRole = false, $class = false)**:
   Get a list of documents for the provided paths.
 * **cmf_nodename|getNodeName($document)**: Get the node name of the provided document.
 * **cmf_path|getPath($document)**: Get the path of the provided document.
 * **cmf_parent_path|getParentPath($document)**: Get the path of the parent of the provided document.
+
+.. versionadded:: 1.3.1
+    The cmf_find_translation twig function has been added in version 1.3.1 of the CMF CoreBundle.
 
 Walking the PHPCR tree
 ......................

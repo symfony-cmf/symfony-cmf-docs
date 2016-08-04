@@ -420,4 +420,4 @@ Read on
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`prepended configuration`: https://symfony.com/doc/current/components/dependency_injection/compilation.html#prepending-configuration-passed-to-the-extension
 .. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle
-.. _`discussion how to fix this`: https://github.com/symfony-cmf/BlockBundle/issues/143
+.. _`discussion how to fix this`: https://github.com/symfony-cmf/block-bundle/issues/143

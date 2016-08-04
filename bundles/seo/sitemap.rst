@@ -10,8 +10,8 @@ the information from them and rendering them to a sitemap information.
 You can generate sitemaps in different formats and it is possible to provide
 more than one set of configurations.
 
-Setting Up the Bundle
----------------------
+Setting Up Sitemap Support
+--------------------------
 
 You need to register the route for the controller that is serving sitemaps:
 

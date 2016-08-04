@@ -145,7 +145,7 @@ The Twig Extension
     The twig extension was added in SeoBundle 1.2.
 
 This bundle provides a twig function ``cmf_seo_update_metadata``
-which lets you populate the seo page from an object. 
+which lets you populate the seo page from an object.
 For details on using the twig extension, read :doc:`twig`.
 
 Extracting Metadata
@@ -378,6 +378,24 @@ For changing the default translation domain (messages), you should use the
                 'translation_domain' => 'AcmeDemoBundle',
             ),
         );
+
+.. _bundles-seo-alternate-locale:
+
+Alternate Locales Support
+-------------------------
+
+Alternate locales are a way of telling search engines how to find translations
+of the current page. The SeoBundle provides a way to manage alternate locales
+and output them together with the other SEO information.
+
+This feature is explained in :doc:`alternate_locale`.
+
+Sitemap Support
+---------------
+
+The SEO bundle can help you provide XML sitemaps to be consumed by search engines.
+
+This feature is explained in :doc:`sitemap`.
 
 Conclusion
 ----------

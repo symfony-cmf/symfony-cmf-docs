@@ -217,7 +217,7 @@ The media bundle contains a Twig extension, it contains the following functions:
           <img src="<?php echo $view['cmf_media']->displayUrl($image) ?>" alt="" />
 
     If :doc:`LiipImagine <adapters/liip_imagine>` is enabled you can also pass :doc:`filter </bundles/LiipImagineBundle/filters>` and `runtime_config` like below:
-    
+
       .. code-block:: html+jinja
 
         <a href="{{ cmf_media_display_url(file, {
@@ -288,7 +288,7 @@ and Symfony bundles:
 
 .. _`symfony-cmf/media-bundle`: https://packagist.org/packages/symfony-cmf/media-bundle
 .. _`with composer`: https://getcomposer.org
-.. _`MediaBundle`: https://github.com/symfony-cmf/MediaBundle#readme
+.. _`MediaBundle`: https://github.com/symfony-cmf/media-bundle#readme
 .. _`KnpLabs/Gaufrette`: https://github.com/KnpLabs/Gaufrette
 .. _`phpcr/phpcr-utils`: https://github.com/phpcr/phpcr-utils
 .. _`jms/serializer-bundle`: https://github.com/schmittjoh/JMSSerializerBundle

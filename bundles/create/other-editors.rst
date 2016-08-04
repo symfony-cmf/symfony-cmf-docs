@@ -114,4 +114,4 @@ editor parameter:
     help, please see the github issue for `aloha`_ integration.
 
 .. _`Aloha editor`: http://www.alohaeditor.org/Content.Node/index.html
-.. _`aloha`: https://github.com/symfony-cmf/CreateBundle/issues/32
+.. _`aloha`: https://github.com/symfony-cmf/create-bundle/issues/32
