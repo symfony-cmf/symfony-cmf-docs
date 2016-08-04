@@ -170,7 +170,7 @@ Load the fixtures again:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:fixtures:load
+    $ php bin/console doctrine:phpcr:fixtures:load
 
 Register the Menu Provider
 --------------------------

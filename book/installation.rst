@@ -72,7 +72,7 @@ and then get the Symfony CMF code with it (this may take a while):
 
 This will clone the Standard Edition and install all the dependencies and run
 some initial commands. These commands require write permissions to the
-``app/cache`` and ``app/logs`` directory. In case the final commands end up
+``var/cache`` and ``var/logs`` directory. In case the final commands end up
 giving permissions errors, please follow the `guidelines in the Symfony Book`_
 to configure the permissions and then run the ``install`` command:
 
@@ -115,10 +115,10 @@ database backend just go ahead and run the following:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:database:create
-    $ php app/console doctrine:phpcr:init:dbal --force
-    $ php app/console doctrine:phpcr:repository:init
-    $ php app/console doctrine:phpcr:fixtures:load
+    $ php bin/console doctrine:database:create
+    $ php bin/console doctrine:phpcr:init:dbal --force
+    $ php bin/console doctrine:phpcr:repository:init
+    $ php bin/console doctrine:phpcr:fixtures:load
 
 The first command will create a file called ``app.sqlite`` inside your app
 folder, containing the database content. The two commands after it will setup
@@ -133,7 +133,7 @@ to dump the assets to the filesystem:
 
 .. code-block:: bash
 
-    $ php app/console --env=prod assetic:dump
+    $ php bin/console --env=prod assetic:dump
 
 Configure a Webserver
 ~~~~~~~~~~~~~~~~~~~~~
@@ -143,7 +143,7 @@ installed you can alternatively use the PHP internal web server:
 
 .. code-block:: bash
 
-    $ php app/console server:run
+    $ php bin/console server:run
 
 And then access the CMF via:
 
@@ -234,9 +234,9 @@ following commands:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:dump
-    $ php app/console doctrine:phpcr:node:dump --props
-    $ php app/console doctrine:phpcr:node:dump /path/to/node
+    $ php bin/console doctrine:phpcr:node:dump
+    $ php bin/console doctrine:phpcr:node:dump --props
+    $ php bin/console doctrine:phpcr:node:dump /path/to/node
 
 The above examples respectively show a summary, a detailed view, and a summary
 of a node and all its children (instead of starting at the root node).
@@ -245,7 +245,7 @@ Don't forget to look at the ``--help`` output for more possibilities:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:dump --help
+    $ php bin/console doctrine:phpcr:node:dump --help
 
 Adding new pages
 ~~~~~~~~~~~~~~~~
@@ -270,7 +270,7 @@ The contents of this file can be loaded into the PHPCR database by calling:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:migrator:migrate page --identifier=/cms/simple/test
+    $ php bin/console doctrine:phpcr:migrator:migrate page --identifier=/cms/simple/test
 
 Note that the above identifier is mapped to
 ``app/Resources/data/pages/test.yml`` by stripping off the ``basepath``
@@ -282,7 +282,7 @@ and then run the following command:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:migrator:migrate page --identifier=/cms/simple/test/foo
+    $ php bin/console doctrine:phpcr:migrator:migrate page --identifier=/cms/simple/test/foo
 
 .. _`cmf.liip.ch`: http://cmf.liip.ch
 .. _`Requirements for running Symfony2`: https://symfony.com/doc/current/reference/requirements.html

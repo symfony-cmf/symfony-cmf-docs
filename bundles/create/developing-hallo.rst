@@ -11,7 +11,7 @@ in the symfony console:
 
 .. code-block:: bash
 
-    $ php app/console cmf:create:init-hallo-devel
+    $ php bin/console cmf:create:init-hallo-devel
 
 The CreateBundle provides a special template that loads the coffeescript files.
 To use this template, specify ``hallo-coffee`` as editor in the

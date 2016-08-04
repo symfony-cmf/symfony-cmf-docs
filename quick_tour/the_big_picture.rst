@@ -68,10 +68,10 @@ extension. After that, run these commands:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:database:create
-    $ php app/console doctrine:phpcr:init:dbal
-    $ php app/console doctrine:phpcr:repository:init
-    $ php app/console doctrine:phpcr:fixtures:load
+    $ php bin/console doctrine:database:create
+    $ php bin/console doctrine:phpcr:init:dbal
+    $ php bin/console doctrine:phpcr:repository:init
+    $ php bin/console doctrine:phpcr:fixtures:load
 
 .. tip::
 

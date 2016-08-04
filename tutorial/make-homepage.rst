@@ -198,14 +198,14 @@ Now empty your repository, reinitialize it and reload your fixtures:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:fixtures:load
+    $ php bin/console doctrine:phpcr:fixtures:load
 
 and verify that the ``cms`` node has been created correctly, using the
 ``doctrine:phpcr:node:dump`` command with the ``props`` flag:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:dump --props
+    $ php bin/console doctrine:phpcr:node:dump --props
     ROOT:
       cms:
         - jcr:primaryType = nt:unstructured

@@ -136,13 +136,13 @@ and publish your assets (remove ``--symlink`` if you use Windows!):
 
 .. code-block:: bash
 
-    $ php app/console assets:install --symlink web/
+    $ php bin/console assets:install --symlink web/
 
 Now start a local webserver:
 
 .. code-block:: bash
 
-    $ php app/console server:run
+    $ php bin/console server:run
 
 
 That works? Great, now have a look at http://127.0.0.1:8000/admin/dashboard
@@ -480,7 +480,7 @@ Now publish your assets again:
 
 .. code-block:: bash
 
-    $ php app/console assets:install --symlink web/
+    $ php bin/console assets:install --symlink web/
 
 Routes used by the tree in the frontend are handled by the FOSJsRoutingBundle.
 The relevant routes are tagged with the ``expose`` flag, they are available
