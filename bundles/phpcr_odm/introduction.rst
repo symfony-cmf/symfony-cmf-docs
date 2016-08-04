@@ -233,8 +233,8 @@ Now make sure the database exists and initialize it:
 .. code-block:: bash
 
     # without Doctrine ORM
-    php app/console doctrine:database:create
-    php app/console doctrine:phpcr:init:dbal
+    php bin/console doctrine:database:create
+    php bin/console doctrine:phpcr:init:dbal
 
 .. tip::
 
@@ -257,8 +257,8 @@ so that you can create migrations.
 .. code-block:: bash
 
     # Using Doctrine ORM
-    php app/console doctrine:database:create
-    php app/console doctrine:schema:create
+    php bin/console doctrine:database:create
+    php bin/console doctrine:schema:create
 
 .. note::
 
@@ -328,7 +328,7 @@ bundles:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:repository:init
+    $ php bin/console doctrine:phpcr:repository:init
 
 You only need to run this command once when you created a new repository. (But
 nothing goes wrong if you run it on each deployment for example.)
@@ -422,7 +422,7 @@ PHPCR sessions.
 Some of these commands are specific to a backend or to the ODM. Those commands
 will only be available if such a backend is configured.
 
-Use ``app/console help <command>`` to see all options each of the commands
+Use ``php bin/console help <command>`` to see all options each of the commands
 has.
 
 * **doctrine:phpcr:document:migrate-class**: Command to migrate document classes;
@@ -462,13 +462,13 @@ Running `SQL2 queries`_ against the repository:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:workspace:query "SELECT title FROM [nt:unstructured] WHERE NAME() = 'home'"
+    $ php bin/console doctrine:phpcr:workspace:query "SELECT title FROM [nt:unstructured] WHERE NAME() = 'home'"
 
 Dumping nodes under ``/cms/simple`` including their properties:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:dump /cms/simple --props
+    $ php bin/console doctrine:phpcr:node:dump /cms/simple --props
 
 .. _phpcr-odm-backup-restore:
 
@@ -479,7 +479,7 @@ To export all repository data into a file, you can use:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:workspace:export --path /cms /path/to/backup.xml
+    $ php bin/console doctrine:phpcr:workspace:export --path /cms /path/to/backup.xml
 
 .. note::
 
@@ -491,7 +491,7 @@ To restore this backup you can run:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:workspace:import /path/to/backup.xml
+    $ php bin/console doctrine:phpcr:workspace:import /path/to/backup.xml
 
 Note that you can also export and import parts of your repository by choosing a
 different path on export and specifying the ``--parentpath`` option to the
@@ -502,7 +502,7 @@ remove the target node first:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:remove /cms
+    $ php bin/console doctrine:phpcr:node:remove /cms
 
 Read On
 -------

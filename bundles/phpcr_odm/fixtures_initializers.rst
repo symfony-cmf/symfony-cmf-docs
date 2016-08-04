@@ -91,7 +91,7 @@ You can execute your Initializers using the following command:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:repository:init
+    $ php bin/console doctrine:phpcr:repository:init
 
 .. versionadded:: 1.1
     Since DoctrinePHPCRBundle 1.1 the load data fixtures command will
@@ -259,7 +259,7 @@ To find out available migrations run:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:migrator:migrate
+    $ php bin/console doctrine:phpcr:migrator:migrate
 
 Then pass in the name of the migrator to run it, optionally passing in an
 ``--identifier``, ``--depth`` or ``--session`` argument. The later argument

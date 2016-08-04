@@ -216,13 +216,13 @@ Now reload the fixtures:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:fixtures:load
+    $ php bin/console doctrine:phpcr:fixtures:load
 
 Have a look at what you have:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:dump
+    $ php bin/console doctrine:phpcr:node:dump
     ROOT:
       cms:
         pages:

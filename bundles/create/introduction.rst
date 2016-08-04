@@ -233,7 +233,7 @@ found:
 
 .. code-block:: bash
 
-    $ php app/console --env=prod assetic:dump
+    $ php bin/console --env=prod assetic:dump
 
 Routing
 ~~~~~~~

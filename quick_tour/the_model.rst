@@ -29,7 +29,7 @@ following command:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:dump
+    $ php bin/console doctrine:phpcr:node:dump
 
 The result will be the PHPCR tree:
 

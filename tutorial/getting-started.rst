@@ -54,7 +54,7 @@ you will need to create the database:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:database:create
+    $ php bin/console doctrine:database:create
 
 This will create a new database according to the configuration file
 ``parameters.yml``.
