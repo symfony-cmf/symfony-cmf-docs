@@ -40,7 +40,7 @@ Modify the Page Document
 
 The menu document has to implement the ``Knp\Menu\NodeInterface``
 provided by the KnpMenuBundle. Modify the Page document so that it
-implements the this interface::
+implements this interface::
 
     // src/Acme/BasicCmsBundle/Document/Page.php
     namespace Acme\BasicCmsBundle\Document;
