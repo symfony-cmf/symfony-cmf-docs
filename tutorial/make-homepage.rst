@@ -22,8 +22,8 @@ which will act as the homepage.
 
 Create the site document::
 
-    // src/Acme/BasicCmsBundle/Document/Site.php
-    namespace Acme\BasicCmsBundle\Document;
+    // src/AppBundle/Document/Site.php
+    namespace AppBundle\Document;
 
     use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
@@ -38,7 +38,7 @@ Create the site document::
         protected $id;
 
         /**
-         * @PHPCR\ReferenceOne(targetDocument="Acme\BasicCmsBundle\Document\Page")
+         * @PHPCR\ReferenceOne(targetDocument="AppBundle\Document\Page")
          */
         protected $homepage;
 
@@ -84,13 +84,13 @@ You can *replace* the ``GenericInitializer`` with a custom initializer which
 will create the necessary paths **and** assign a document class to the ``cms``
 node::
 
-    // src/Acme/BasicCmsBundle/Initializer/SiteInitializer.php
-    namespace Acme\BasicCmsBundle\Initializer;
+    // src/AppBundle/Initializer/SiteInitializer.php
+    namespace AppBundle\Initializer;
 
     use Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface;
     use PHPCR\Util\NodeHelper;
     use Doctrine\Bundle\PHPCRBundle\ManagerRegistry;
-    use Acme\BasicCmsBundle\Document\Site;
+    use AppBundle\Document\Site;
 
     class SiteInitializer implements InitializerInterface
     {
@@ -138,36 +138,36 @@ node::
 Now:
 
 1. *Remove* the initializer service that you created in the
-   :doc:`getting-started` chapter (``acme_basiccms.basic_cms.phpcr.initializer``).
+   :doc:`getting-started` chapter (``app.phpcr.initializer``).
 2. Register your new site initializer:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # src/Acme/BasicCmsBundle/Resources/config/services.yml
+        # src/AppBundle/Resources/config/services.yml
         services:
             # ...
-            acme_basiccms.phpcr.initializer.site:
-                class: Acme\BasicCmsBundle\Initializer\SiteInitializer
+            app.phpcr.initializer.site:
+                class: AppBundle\Initializer\SiteInitializer
                 tags:
                     - { name: doctrine_phpcr.initializer, priority: 50 }
 
     .. code-block:: xml
 
-        <!-- src/Acme/BasicCmsBUndle/Resources/config/services.xml
+        <!-- src/AppBundle/Resources/config/services.xml
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:acme_demo="http://www.example.com/symfony/schema/"
+            xmlns:app="http://www.example.com/symfony/schema/"
             xsi:schemaLocation="http://symfony.com/schema/dic/services
                  http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <!-- ... -->
             <services>
                 <!-- ... -->
-                <service id="acme_basiccms.phpcr.initializer.site"
-                    class="Acme\BasicCmsBundle\Initializer\SiteInitializer">
+                <service id="app.phpcr.initializer.site"
+                    class="AppBundle\Initializer\SiteInitializer">
                     <tag name="doctrine_phpcr.initializer" priority="50"/>
                 </service>
             </services>
@@ -176,13 +176,13 @@ Now:
 
     .. code-block:: php
 
-        // src/Acme/BasicCmsBundle/Resources/config/services.php
+        // src/AppBundle/Resources/config/services.php
 
         //  ...
         $container
             ->register(
-                'acme_basiccms.phpcr.initializer.site',
-                'Acme\BasicCmsBundle\Initializer\SiteInitializer'
+                'app.phpcr.initializer.site',
+                'AppBundle\Initializer\SiteInitializer'
             )
             ->addTag('doctrine_phpcr.initializer', array('name' => 'doctrine_phpcr.initializer', 'priority' => 50)
         ;
@@ -209,7 +209,7 @@ and verify that the ``cms`` node has been created correctly, using the
     ROOT:
       cms:
         - jcr:primaryType = nt:unstructured
-        - phpcr:class = Acme\BasicCmsBundle\Document\Site
+        - phpcr:class = AppBundle\Document\Site
         ...
 
 .. note::
@@ -244,7 +244,7 @@ the root of your websites content tree:
             # ...
             document_tree:
                 # ...
-                Acme\BasicCmsBundle\Document\Site:
+                AppBundle\Document\Site:
                     valid_children:
                         - all
 
@@ -257,7 +257,7 @@ the root of your websites content tree:
 
                 <!-- ... -->
 
-                <document-tree class="Acme\BasicCmsBundle\Document\Site">
+                <document-tree class="AppBundle\Document\Site">
                     <valid-child>all</valid-child>
                 </document-tree>
             </config>
@@ -268,7 +268,7 @@ the root of your websites content tree:
         $container->loadFromExtension('sonata_doctrine_phpcr_admin', array(
             // ...
             'document_tree' => array(
-                'Acme\BasicCmsBundle\Document\Site' => array(
+                'AppBundle\Document\Site' => array(
                     'valid_children' => array(
                         'all',
                     ),
@@ -280,9 +280,9 @@ If you check your admin interface you will see that the ``Site`` document is
 now being displayed, however it has no children. You need to map the children on the
 ``Site`` document, modify it as follows::
 
-    // src/Acme/BasicCmsBundle/Document/Site.php
+    // src/AppBundle/Document/Site.php
 
-    // ... 
+    // ...
 
     /**
      * @PHPCR\Document()
@@ -316,7 +316,7 @@ Firstly though you will need to create an action which will do the work of
 making a given page the homepage. Add the following to the existing
 ``DefaultController``::
 
-    // src/Acme/BasicCmsBundle/Controller/DefaultController.php
+    // src/AppBundle/Controller/DefaultController.php
 
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -347,7 +347,7 @@ making a given page the homepage. Add the following to the existing
             $dm->persist($page);
             $dm->flush();
 
-            return $this->redirect($this->generateUrl('admin_acme_basiccms_page_edit', array(
+            return $this->redirect($this->generateUrl('admin_app_page_edit', array(
                 'id' => $page->getId()
             )));
         }
@@ -361,7 +361,7 @@ making a given page the homepage. Add the following to the existing
 
 Now modify the ``PageAdmin`` class to add the button in a side-menu::
 
-    // src/Acme/BasicCmsBundle/Admin/PageAdmin
+    // src/AppBundle/Admin/PageAdmin
 
     // ...
     use Knp\Menu\ItemInterface;
@@ -413,7 +413,7 @@ This is easily accomplished by modifying the ``indexAction`` action of the
 ``DefaultController`` to forward requests matching the route pattern ``/`` to
 the page action::
 
-    // src/Acme/BasicCmsBundle/Controller/DefaultController.php
+    // src/AppBundle/Controller/DefaultController.php
 
     // ...
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -423,19 +423,21 @@ the page action::
         // ...
 
         /**
+         * Load the site definition and redirect to the default page.
+         *
          * @Route("/")
          */
         public function indexAction()
         {
             $dm = $this->get('doctrine_phpcr')->getManager();
-            $site = $dm->find('Acme\BasicCmsBundle\Document\Site', '/cms');
+            $site = $dm->find('AppBundle\Document\Site', '/cms');
             $homepage = $site->getHomepage();
 
             if (!$homepage) {
                 throw $this->createNotFoundException('No homepage configured');
             }
 
-            return $this->forward('AcmeBasicCmsBundle:Default:page', array(
+            return $this->forward('AppBundle:Default:page', array(
                 'contentDocument' => $homepage
             ));
         }

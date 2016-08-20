@@ -40,10 +40,10 @@ Modify the Page Document
 
 The menu document has to implement the ``Knp\Menu\NodeInterface``
 provided by the KnpMenuBundle. Modify the Page document so that it
-implements the this interface::
+implements this interface::
 
-    // src/Acme/BasicCmsBundle/Document/Page.php
-    namespace Acme\BasicCmsBundle\Document;
+    // src/AppBundle/Document/Page.php
+    namespace AppBundle\Document;
 
     // ...
     use Knp\Menu\NodeInterface;
@@ -54,7 +54,7 @@ implements the this interface::
 
 Now add the following to the document to fulfill the contract::
 
-    // src/Acme/BasicCmsBundle/Document/Page.php
+    // src/AppBundle/Document/Page.php
 
     // ...
     class Page implements RouteReferrersReadInterface, NodeInterface
@@ -120,13 +120,13 @@ The menu system expects to be able to find a root item which contains the
 first level of child items. Modify your fixtures to declare a root element
 to which you will add the existing ``Home`` page and an additional ``About`` page::
 
-    // src/Acme/BasicCmsBundle/DataFixtures/PHPCR/LoadPageData.php
-    namespace Acme\BasicCmsBundle\DataFixtures\PHPCR;
+    // src/AppBundle/DataFixtures/PHPCR/LoadPageData.php
+    namespace AppBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\ODM\PHPCR\DocumentManager;
-    use Acme\BasicCmsBundle\Document\Page;
+    use AppBundle\Document\Page;
 
     class LoadPageData implements FixtureInterface
     {
@@ -182,9 +182,9 @@ configuration:
 
     .. code-block:: yaml
 
-        # src/Acme/BasicCmsBundle/Resources/config/services.yml
+        # src/AppBundle/Resources/config/services.yml
         services:
-            acme.basic_cms.menu_provider:
+            app.menu_provider:
                 class: Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider
                 arguments:
                     - '@cmf_menu.loader.node'
@@ -198,7 +198,7 @@ configuration:
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns:acme_demo="http://www.example.com/symfony/schema/"
+            xmlns:app="http://www.example.com/symfony/schema/"
             xsi:schemaLocation="http://symfony.com/schema/dic/services
                 http://symfony.com/schema/dic/services/services-1.0.xsd">
 
@@ -206,7 +206,7 @@ configuration:
             <services>
                 <!-- ... -->
                 <service
-                    id="acme.basic_cms.menu_provider"
+                    id="app.menu_provider"
                     class="Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider"
                 >
                     <argument type="service" id="cmf_menu.loader.node"/>
@@ -220,13 +220,13 @@ configuration:
 
     .. code-block:: php
 
-        // src/Acme/BasicCmsBundle/Resources/config/services.php
+        // src/AppBundle/Resources/config/services.php
         use Symfony\Component\DependencyInjection\Reference;
         // ...
 
         $container
             ->register(
-                'acme.basic_cms.menu_provider',
+                'app.menu_provider',
                 'Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider'
             )
             ->addArgument(new Reference('cmf_menu.loader.node'))
@@ -272,14 +272,14 @@ and finally you can render the menu!
 
     .. code-block:: jinja
 
-        {# src/Acme/BasicCmsBundle/Resources/views/Default/page.html.twig #}
+        {# src/AppBundle/Resources/views/Default/page.html.twig #}
 
         {# ... #}
         {{ knp_menu_render('main') }}
 
     .. code-block:: html+php
 
-        <!-- src/Acme/BasicCmsBundle/Resources/views/Default/page.html.php -->
+        <!-- src/AppBundle/Resources/views/Default/page.html.php -->
 
         <!-- ... -->
         <?php echo $view['knp_menu']->render('main') ?>

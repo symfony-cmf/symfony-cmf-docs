@@ -251,8 +251,8 @@ Creating the Admin Classes
 
 Create the following admin classes, first for the ``Page`` document::
 
-    // src/Acme/BasicCmsBundle/Admin/PageAdmin.php
-    namespace Acme\BasicCmsBundle\Admin;
+    // src/AppBundle/Admin/PageAdmin.php
+    namespace AppBundle\Admin;
 
     use Sonata\DoctrinePHPCRAdminBundle\Admin\Admin;
     use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -299,8 +299,8 @@ and then for the ``Post`` document - as you have already seen this document is
 almost identical to the ``Page`` document, so extend the ``PageAdmin`` class
 to avoid code duplication::
 
-    // src/Acme/BasicCmsBundle/Admin/PostAdmin.php
-    namespace Acme\BasicCmsBundle\Admin;
+    // src/AppBundle/Admin/PostAdmin.php
+    namespace AppBundle\Admin;
 
     use Sonata\DoctrinePHPCRAdminBundle\Admin\Admin;
     use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -334,23 +334,23 @@ container configuration:
 
     .. code-block:: yaml
 
-            # src/Acme/BasicCmsBundle/Resources/config/services.yml
+            # src/AppBundle/Resources/config/services.yml
             services:
-                acme.basic_cms.admin.page:
-                    class: Acme\BasicCmsBundle\Admin\PageAdmin
+                app.admin.page:
+                    class: AppBundle\Admin\PageAdmin
                     arguments:
                         - ''
-                        - Acme\BasicCmsBundle\Document\Page
+                        - AppBundle\Document\Page
                         - 'SonataAdminBundle:CRUD'
                     tags:
                         - { name: sonata.admin, manager_type: doctrine_phpcr, group: 'Basic CMS', label: Page }
                     calls:
                         - [setRouteBuilder, ['@sonata.admin.route.path_info_slashes']]
-                acme.basic_cms.admin.post:
-                    class: Acme\BasicCmsBundle\Admin\PostAdmin
+                app.admin.post:
+                    class: AppBundle\Admin\PostAdmin
                     arguments:
                         - ''
-                        - Acme\BasicCmsBundle\Document\Post
+                        - AppBundle\Document\Post
                         - 'SonataAdminBundle:CRUD'
                     tags:
                         - { name: sonata.admin, manager_type: doctrine_phpcr, group: 'Basic CMS', label: 'Blog Posts' }
@@ -359,7 +359,7 @@ container configuration:
 
     .. code-block:: xml
 
-        <!-- src/Acme/BasicCmsBundle/Resources/config/services.yml -->
+        <!-- src/AppBundle/Resources/config/services.yml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -369,8 +369,8 @@ container configuration:
             <!-- ... -->
             <services>
                 <!-- ... -->
-                <service id="acme.basic_cms.admin.page"
-                    class="Acme\BasicCmsBundle\Admin\PageAdmin">
+                <service id="aüü.admin.page"
+                    class="AppBundle\Admin\PageAdmin">
 
                     <call method="setRouteBuilder">
                         <argument type="service" id="sonata.admin.route.path_info_slashes" />
@@ -383,12 +383,12 @@ container configuration:
                         label="Page"
                     />
                     <argument/>
-                    <argument>Acme\BasicCmsBundle\Document\Page</argument>
+                    <argument>AppBundle\Document\Page</argument>
                     <argument>SonataAdminBundle:CRUD</argument>
                 </service>
 
-                <service id="acme.basic_cms.admin.post"
-                    class="Acme\BasicCmsBundle\Admin\PostAdmin">
+                <service id="app.admin.post"
+                    class="AppBundle\Admin\PostAdmin">
 
                     <call method="setRouteBuilder">
                         <argument type="service" id="sonata.admin.route.path_info_slashes" />
@@ -401,7 +401,7 @@ container configuration:
                         label="Blog Posts"
                     />
                     <argument/>
-                    <argument>Acme\BasicCmsBundle\Document\Post</argument>
+                    <argument>AppBundle\Document\Post</argument>
                     <argument>SonataAdminBundle:CRUD</argument>
                 </service>
             </services>
@@ -409,13 +409,13 @@ container configuration:
 
     .. code-block:: php
 
-            // src/Acme/BasicCmsBundle/Resources/config/services.php
+            // src/AppBundle/Resources/config/services.php
             use Symfony\Component\DependencyInjection\Reference;
             // ...
 
-            $container->register('acme.basic_cms.admin.page', 'Acme\BasicCmsBundle\Admin\PageAdmin')
+            $container->register('app.admin.page', 'AppBundle\Admin\PageAdmin')
               ->addArgument('')
-              ->addArgument('Acme\BasicCmsBundle\Document\Page')
+              ->addArgument('AppBundle\Document\Page')
               ->addArgument('SonataAdminBundle:CRUD')
               ->addTag('sonata.admin', array(
                   'manager_type' => 'doctrine_phpcr',
@@ -426,9 +426,9 @@ container configuration:
                   new Reference('sonata.admin.route.path_info_slashes'),
               ))
             ;
-            $container->register('acme.basic_cms.admin.post', 'Acme\BasicCmsBundle\Admin\PostAdmin')
+            $container->register('app.admin.post', 'AppBundle\Admin\PostAdmin')
               ->addArgument('')
-              ->addArgument('Acme\BasicCmsBundle\Document\Post')
+              ->addArgument('AppBundle\Document\Post')
               ->addArgument('SonataAdminBundle:CRUD')
               ->addTag('sonata.admin', array(
                    'manager_type' => 'doctrine_phpcr',
@@ -614,10 +614,10 @@ to tell sonata about them:
                 Doctrine\ODM\PHPCR\Document\Generic:
                     valid_children:
                         - all
-                Acme\BasicCmsBundle\Document\Page:
+                AppBundle\Document\Page:
                     valid_children:
-                        - Acme\BasicCmsBundle\Document\Post
-                Acme\BasicCmsBundle\Document\Post:
+                        - AppBundle\Document\Post
+                AppBundle\Document\Post:
                     valid_children: []
                 # ...
 
@@ -634,11 +634,11 @@ to tell sonata about them:
                     <valid-child>all</valid-child>
                 </document-tree>
 
-                <document-tree class="Acme\BasicCmsBundle\Document\Post">
-                    <valid-child>Acme\BasicCmsBundle\Document\Post</valid-child>
+                <document-tree class="AppBundle\Document\Post">
+                    <valid-child>AppBundle\Document\Post</valid-child>
                 </document-tree>
 
-                <document-tree class="Acme\BasicCmsBundle\Document\Post" />
+                <document-tree class="AppBundle\Document\Post" />
 
                 <!-- ... -->
             </config>
@@ -654,12 +654,12 @@ to tell sonata about them:
                         'all',
                     ),
                 ),
-                'Acme\BasicCmsBundle\Document\Post' => array(
+                'AppBundle\Document\Post' => array(
                     'valid_children' => array(
-                        'Acme\BasicCmsBundle\Document\Post',
+                        'AppBundle\Document\Post',
                     ),
                 ),
-                'Acme\BasicCmsBundle\Document\Post' => array(
+                'AppBundle\Document\Post' => array(
                     'valid_children' => array(),
                 ),
                 // ...
