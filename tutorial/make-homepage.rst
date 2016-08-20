@@ -328,9 +328,10 @@ making a given page the homepage. Add the following to the existing
         /**
          * @Route(
          *   name="make_homepage",
-         *   pattern="/_cms/make_homepage/{id}",
+         *   pattern="/admin/make_homepage/{id}",
          *   requirements={"id": ".+"}
          * )
+         * @Method({"GET"})
          */
         public function makeHomepageAction($id)
         {
