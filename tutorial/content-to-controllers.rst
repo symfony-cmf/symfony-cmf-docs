@@ -9,12 +9,12 @@ implementing the ``RoutesReferrersReadInterface``. This interface enables the ro
 to retrieve routes which refer to the object implementing this interface, and this enables
 the system to generate a URL (for example when you use ``{{ path(mydocument) }}`` in Twig).
 
-Earlier you did not have the RoutingBundle installed, so you could not add the mapping. 
+Earlier you did not have the RoutingBundle installed, so you could not add the mapping.
 
 Map the ``$routes`` property to contain a collection of all the routes which refer to this
 document::
 
-    // src/AcmeBundle/BasicCmsBundle/Document/ContentTrait.php
+    // src/AppBundle/Document/ContentTrait.php
 
     // ...
     trait ContentTrait
@@ -30,7 +30,7 @@ document::
         protected $routes;
 
         // ...
-    } 
+    }
 
 And clear your cache:
 
@@ -60,7 +60,7 @@ You can map a default controller for all instances of ``Page``:
             dynamic:
                 # ...
                 controllers_by_class:
-                    Acme\BasicCmsBundle\Document\Page: Acme\BasicCmsBundle\Controller\DefaultController::pageAction
+                    AppBundle\Document\Page: AppBundle\Controller\DefaultController::pageAction
 
     .. code-block:: xml
 
@@ -74,9 +74,9 @@ You can map a default controller for all instances of ``Page``:
                 <dynamic generic-controller="cmf_content.controller:indexAction">
                     <!-- ... -->
                     <controllers-by-class
-                        class="Acme\BasicCmsBundle\Document\Page"
+                        class="AppBundle\Document\Page"
                     >
-                        Acme\BasicCmsBundle\Controller\DefaultController::pageAction
+                        AppBundle\Controller\DefaultController::pageAction
                     </controllers-by-class>
                 </dynamic>
             </config>
@@ -89,7 +89,7 @@ You can map a default controller for all instances of ``Page``:
             'dynamic' => array(
                 // ...
                 'controllers_by_class' => array(
-                    'Acme\BasicCmsBundle\Document\Page' => 'Acme\BasicCmsBundle\Controller\DefaultController::pageAction',
+                    'AppBundle\Document\Page' => 'AppBundle\Controller\DefaultController::pageAction',
                 ),
             ),
         ));
@@ -97,12 +97,12 @@ You can map a default controller for all instances of ``Page``:
 This will cause requests to be forwarded to this controller when the route
 which matches the incoming request is provided by the dynamic router **and**
 the content document that that route references is of class
-``Acme\BasicCmsBundle\Document\Page``.
+``AppBundle\Document\Page``.
 
 Now create the action in the default controller - you can pass the ``Page``
 object and all the ``Posts`` to the view::
 
-    // src/Acme/BasicCmsBundle/Controller/DefaultController.php
+    // src/AppBundle/Controller/DefaultController.php
 
     // ...
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -117,7 +117,7 @@ object and all the ``Posts`` to the view::
         public function pageAction($contentDocument)
         {
             $dm = $this->get('doctrine_phpcr')->getManager();
-            $posts = $dm->getRepository('AcmeBasicCmsBundle:Post')->findAll();
+            $posts = $dm->getRepository('AppBundle:Post')->findAll();
 
             return array(
                 'page'  => $contentDocument,
@@ -135,7 +135,7 @@ Add a corresponding template (note that this works because you use the
 
     .. code-block:: html+jinja
 
-        {# src/Acme/BasicCmsBundle/Resources/views/Default/page.html.twig #}
+        {# src/AppBundle/Resources/views/Default/page.html.twig #}
         <h1>{{ page.title }}</h1>
         <p>{{ page.content|raw }}</p>
         <h2>Our Blog Posts</h2>
@@ -147,7 +147,7 @@ Add a corresponding template (note that this works because you use the
 
     .. code-block:: html+php
 
-        <!-- src/Acme/BasicCmsBundle/Resources/views/Default/page.html.twig -->
+        <!-- src/AppBundle/Resources/views/Default/page.html.twig -->
         <h1><?php echo $page->getTitle() ?></h1>
         <p><?php echo $page->getContent() ?></p>
         <h2>Our Blog Posts</h2>
