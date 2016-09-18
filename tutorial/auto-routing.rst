@@ -67,7 +67,7 @@ Add the following to your application configuration:
         cmf_routing:
             chain:
                 routers_by_id:
-                    cmf_routing.dynamic_router: 20
+                    cmf_routing.dynamic_router: 200
                     router.default: 100
             dynamic:
                 enabled: true
@@ -109,7 +109,7 @@ This will:
    add the dynamic router (which can retrieve routes from the database) and
    the default Symfony router (which retrieves routes from configuration
    files). The number indicates the order of precedence - the router with the
-   lowest number will be called first;
+   highest number will be called first;
 #. Configure the **dynamic** router which you have added to the router chain.
    You specify that it should use the PHPCR backend and that the *root* route
    can be found at ``/cms/routes``.
