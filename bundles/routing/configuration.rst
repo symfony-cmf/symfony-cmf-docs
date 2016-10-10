@@ -474,7 +474,7 @@ The name of the Doctrine Manager to use.
 
 **type**: ``string`` **default**: ``'Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route'``
 
-Class used by bundle to work with routes.
+The route class to use in your application.
 
 ``uri_filter_regexp``
 ~~~~~~~~~~~~~~~~~~~~~
