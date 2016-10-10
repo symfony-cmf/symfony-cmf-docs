@@ -469,6 +469,16 @@ If ``true``, the ORM is included in the service container.
 
 The name of the Doctrine Manager to use.
 
+``route_class``
+****************
+
+**type**: ``string`` **default**: ``'Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route'``
+
+The route class to use in your application.
+
+versionadded:: 2.0
+    The ``route_class`` parameter has been added in version 2.0.
+
 ``uri_filter_regexp``
 ~~~~~~~~~~~~~~~~~~~~~
 
