@@ -50,7 +50,7 @@ description, you can implement both interfaces and your result will be::
     use Symfony\Cmf\Bundle\SeoBundle\Extractor\DescriptionReadInterface;
     use Symfony\Cmf\Bundle\SeoBundle\Extractor\ExtrasReadInterface;
 
-    class Article implements TitleReadInterface, DescriptionReadInterface, ExtraReadInterface
+    class Article implements TitleReadInterface, DescriptionReadInterface, ExtrasReadInterface
     {
         protected $title;
         protected $publishDate;
