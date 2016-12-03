@@ -319,6 +319,7 @@ making a given page the homepage. Add the following to the existing
     // src/AppBundle/Controller/DefaultController.php
 
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
     // ...
     class DefaultController extends Controller
