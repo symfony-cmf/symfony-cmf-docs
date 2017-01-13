@@ -1,5 +1,5 @@
-SonataAdminIntegrationBundle
-============================
+SonataPhpcrAdminIntegrationBundle
+=================================
 
 .. toctree::
     :maxdepth: 2
