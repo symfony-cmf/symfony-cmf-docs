@@ -285,3 +285,4 @@ Learn More
 .. _SonataDoctrinePhpcrAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/1-x/doc/index.html
 .. _its official installation guide: https://sonata-project.org/bundles/doctrine-phpcr-admin/1-x/doc/reference/installation.html
 .. _SonataAdminBundle: https://sonata-project.org/bundles/admin/3-x/doc/index.html
+.. _IvoryCKEditorBundle: https://github.com/egeloen/IvoryCKEditorBundle
