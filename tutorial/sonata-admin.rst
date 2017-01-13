@@ -4,7 +4,7 @@ The Backend - Sonata Admin
 In this chapter you will build an administration interface with the help
 of the SonataDoctrinePHPCRAdminBundle_.
 
-For the setup, follow the instructions in :doc:`../bundles/sonata_admin_integration/introduction`.
+For the setup, follow the instructions in :doc:`../bundles/sonata_phpcr_admin_integration/introduction`.
 
 Configuration
 -------------
