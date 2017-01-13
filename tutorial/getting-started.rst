@@ -148,13 +148,6 @@ to reduce code duplication::
         }
     }
 
-.. note::
-
-    Traits are only available as of PHP 5.4. If you are running a lesser
-    version of PHP you may copy the above code into each class to have the
-    same effect. You may not, however, ``extend`` one class from the other, as
-    this will cause unintended behavior in the admin integration later on.
-
 The ``Page`` class is therefore nice and simple::
 
     // src/AppBundle/Document/Page.php
