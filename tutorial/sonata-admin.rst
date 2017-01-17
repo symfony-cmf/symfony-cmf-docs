@@ -4,139 +4,11 @@ The Backend - Sonata Admin
 In this chapter you will build an administration interface with the help
 of the SonataDoctrinePHPCRAdminBundle_.
 
-Installation
-------------
+First, follow the `Sonata installation guide`_, and then the
+:doc:`instructions to set up the SonataPhpcrAdminIntegrationBundle <../bundles/sonata_phpcr_admin_integration/introduction>`.
 
-Ensure that you installed the ``sonata-project/doctrine-phpcr-admin-bundle``
-package as detailed in the :ref:`gettingstarted_installadditionbundles`
-section.
-
-Enable the Sonata related bundles to your kernel::
-
-    // app/AppKernel.php
-    class AppKernel extends Kernel
-    {
-        public function registerBundles()
-        {
-            $bundles = array(
-                // ...
-                new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-                new Sonata\CoreBundle\SonataCoreBundle(),
-                new Sonata\jQueryBundle\SonatajQueryBundle(),
-                new Sonata\BlockBundle\SonataBlockBundle(),
-                new Sonata\AdminBundle\SonataAdminBundle(),
-                new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
-            );
-
-            // ...
-        }
-    }
-
-Sonata requires the ``sonata_block`` bundle to be configured in your main
-configuration:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-
-        # ...
-        sonata_block:
-            default_contexts: [cms]
-            blocks:
-                # Enable the SonataAdminBundle block
-                sonata.admin.block.admin_list:
-                    contexts: [admin]
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="htp://symfony.com/schema/dic/services">
-            <config xmlns="http://sonata-project.org/schema/dic/block">
-                <default-context>cms</default-context>
-
-                <block id="sonata.admin.block.admin_list">
-                    <context>admin</context>
-                </block>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('sonata_block', array(
-            'default_contexts' => array('cms'),
-            'blocks' => array(
-                'sonata.admin.block.admin_list' => array(
-                    'contexts' => array('admin'),
-                ),
-            ),
-        ));
-
-and it requires the following entries in your routing file:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/routing.yml
-
-        admin:
-            resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-            prefix: /admin
-
-        _sonata_admin:
-            resource: .
-            type: sonata_admin
-            prefix: /admin
-
-    .. code-block:: xml
-
-        <!-- app/config/routing.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                http://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <import
-                resource="@SonataAdminBundle/Resources/config/sonata_admin.xml"
-                prefix="/admin"
-            />
-
-            <import
-                resource="."
-                type="sonata_admin"
-                prefix="/admin"
-            />
-
-        </routes>
-
-    .. code-block:: php
-
-        // app/config/routing.php
-        use Symfony\Component\Routing\RouteCollection;
-
-        $collection = new RouteCollection();
-        $routing = $loader->import(
-            "@SonataAdminBundle/Resources/config/sonata_admin.xml"
-        );
-        $routing->setPrefix('/admin');
-        $collection->addCollection($routing);
-
-        $_sonataAdmin = $loader->import('.', 'sonata_admin');
-        $_sonataAdmin->addPrefix('/admin');
-        $collection->addCollection($_sonataAdmin);
-
-        return $collection;
-
-and publish your assets (remove ``--symlink`` if you use Windows!):
-
-.. code-block:: bash
-
-    $ php bin/console assets:install --symlink web/
+Configuration
+-------------
 
 Now start a local webserver:
 
@@ -674,3 +546,4 @@ to tell sonata about them:
     users to not make mistakes.
 
 .. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
+.. _Sonata installation guide: https://sonata-project.org/bundles/doctrine-phpcr-admin/1-x/doc/reference/installation.html
