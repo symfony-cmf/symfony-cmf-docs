@@ -98,7 +98,7 @@ specific settings for one of the block classes.
         # app/config/config.yml
         sonata_block:
             blocks:
-                acme_main.block.news:
+                block.news:
                     settings:
                         maxItems: 3
             blocks_by_class:
@@ -113,7 +113,7 @@ specific settings for one of the block classes.
         <container xmlns="http://symfony.com/schema/dic/services">
 
             <config xmlns="http://sonata-project.com/schema/dic/block">
-                <blocks id="acme_main.block.rss">
+                <blocks id="app.block.rss">
                     <setting id="maxItems">3</setting>
                 </blocks>
                 <block-by-class class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock">
@@ -127,7 +127,7 @@ specific settings for one of the block classes.
         // app/config/config.php
         $container->loadFromExtension('sonata_block', array(
             'blocks' => array(
-                'acme_main.block.rss' => array(
+                'app.block.rss' => array(
                     'settings' => array(
                         'maxItems' => 3,
                     ),
