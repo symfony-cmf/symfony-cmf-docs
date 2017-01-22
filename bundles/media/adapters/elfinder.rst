@@ -1,6 +1,8 @@
 elFinder
 ========
 
+.. include:: ../../_partials/unmaintained.rst.inc
+
 The media browser `elFinder`_ is integrated with Symfony using the
 `FMElfinderBundle`_. The MediaBundle provides an adapter to use it with objects
 implementing the MediaBundle interfaces.

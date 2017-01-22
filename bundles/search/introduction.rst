@@ -7,6 +7,8 @@ SearchBundle
     The SearchBundle provides integration with `LiipSearchBundle`_ to provide a
     site wide search.
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 Installation
 ------------
 

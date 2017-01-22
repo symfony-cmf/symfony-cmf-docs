@@ -23,20 +23,6 @@ library or they introduce a complete new concept.
   * :doc:`core/forms`
   * :doc:`core/configuration`
 
-* :doc:`create/index`
-
-  * :doc:`create/introduction`
-  * :doc:`create/other-editors`
-  * :doc:`create/developing-hallo`
-  * :doc:`create/configuration`
-
-* :doc:`media/index`
-
-  * :doc:`media/introduction`
-  * :doc:`media/form_types`
-  * :doc:`media/adapters/index`
-  * :doc:`media/configuration`
-
 * :doc:`menu/index`
 
   * :doc:`menu/introduction`
@@ -60,11 +46,6 @@ library or they introduce a complete new concept.
   * :doc:`routing_auto/token_providers`
   * :doc:`routing_auto/conflict_resolvers`
   * :doc:`routing_auto/defunct_route_handlers`
-
-* :doc:`search/index`
-
-  * :doc:`search/introduction`
-  * :doc:`search/configuration`
 
 * :doc:`seo/index`
 
@@ -103,15 +84,6 @@ bundle based on the key bundles.
   * :doc:`content/configuration`
   * :doc:`content/exposing_content_via_rest`
 
-* :doc:`simple_cms/index`
-
-  * :doc:`simple_cms/introduction`
-  * :doc:`simple_cms/multilang`
-  * :doc:`simple_cms/rendering`
-  * :doc:`simple_cms/menus`
-  * :doc:`simple_cms/extending_page_class`
-  * :doc:`simple_cms/configuration`
-
 Contributed Bundles
 ~~~~~~~~~~~~~~~~~~~
 
@@ -127,5 +99,39 @@ help with integrating PHPCR concepts into the Symfony Framework.
   * :doc:`phpcr_odm/multilang`
   * :doc:`phpcr_odm/multiple_sessions`
   * :doc:`phpcr_odm/configuration`
+
+Unmaintained Bundles
+~~~~~~~~~~~~~~~~~~~~
+
+The following bundles were created for the CMF, but to focus our efforts on the
+core components, they are currently unmaintained.
+
+* :doc:`create/index`
+
+  * :doc:`create/introduction`
+  * :doc:`create/other-editors`
+  * :doc:`create/developing-hallo`
+  * :doc:`create/configuration`
+
+* :doc:`media/index`
+
+  * :doc:`media/introduction`
+  * :doc:`media/form_types`
+  * :doc:`media/adapters/index`
+  * :doc:`media/configuration`
+
+* :doc:`search/index`
+
+  * :doc:`search/introduction`
+  * :doc:`search/configuration`
+
+* :doc:`simple_cms/index`
+
+  * :doc:`simple_cms/introduction`
+  * :doc:`simple_cms/multilang`
+  * :doc:`simple_cms/rendering`
+  * :doc:`simple_cms/menus`
+  * :doc:`simple_cms/extending_page_class`
+  * :doc:`simple_cms/configuration`
 
 .. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html

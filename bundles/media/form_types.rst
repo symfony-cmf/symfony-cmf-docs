@@ -4,8 +4,10 @@
 Form Types
 ----------
 
-The MediaBundle provides a couple of useful form types along with form data
-transformers.
+    The MediaBundle provides a couple of useful form types along with form data
+    transformers.
+
+.. include:: ../_partials/unmaintained.rst.inc
 
 .. caution::
 
@@ -134,7 +136,7 @@ Then you can add images to document forms as follows::
 The document that should contain the ``Image`` document has to implement a
 setter method. To profit from the automatic guesser of the form layer, the
 name in the form element and this method name have to match. See
-`ImagineBlock::setImage`_ for an example implementation.
+`ImagineBlock::setImage <ImagineBlock_setImage>`_ for an example implementation.
 
 To delete an image, you need to delete the document containing the image.
 (There is a proposal to improve the user experience for that in a
@@ -149,7 +151,7 @@ To delete an image, you need to delete the document containing the image.
     command or manually remove the imagine cache afterwards.
 
 cmf_media_file
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 
 .. versionadded: 1.3
     The ``cmf_media_file`` form type was introduced in MediaBundle 1.3.
@@ -161,5 +163,5 @@ file, if any.
 
 .. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
 .. _`trying to make this automatic`: https://groups.google.com/forum/?fromgroups=#!topic/symfony2/CrooBoaAlO4
-.. _`ImagineBlock::setImage`: https://github.com/symfony-cmf/block-bundle/blob/master/Doctrine/Phpcr/ImagineBlock.php#L121
+.. _`ImagineBlock_setImage`: https://github.com/symfony-cmf/block-bundle/blob/master/Doctrine/Phpcr/ImagineBlock.php#L121
 .. _`MediaBundle issue`: https://github.com/symfony-cmf/media-bundle/issues/9
