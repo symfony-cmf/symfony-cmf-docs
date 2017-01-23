@@ -56,7 +56,7 @@ for instance ``rss_block``::
 
         public function getType()
         {
-            return 'rss_block';
+            return 'app.rss_block';
         }
 
         public function getOptions()
@@ -314,7 +314,7 @@ handles, as per the ``getType`` method of the block. The second argument is the
             app.rss_block:
                 class: AppBundle\Block\RssBlockService
                 arguments:
-                    - "rss_block"
+                    - "app.rss_block"
                     - "@templating"
                 tags:
                     - { name: "sonata.block" }
@@ -325,7 +325,7 @@ handles, as per the ``getType`` method of the block. The second argument is the
         <service id="app.rss_block" class="AppBundle\Block\RssBlockService">
             <tag name="sonata.block" />
 
-            <argument>rss_block</argument>
+            <argument>app.rss_block</argument>
             <argument type="service" id="templating" />
         </service>
 
@@ -339,7 +339,7 @@ handles, as per the ``getType`` method of the block. The second argument is the
             ->addDefinition('app.rss_block', new Definition(
                 'AppBundle\Block\RssBlockService',
                 array(
-                    'rss_block',
+                    'app.rss_block',
                     new Reference('templating'),
                 )
             ))
