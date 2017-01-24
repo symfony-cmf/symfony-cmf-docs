@@ -62,11 +62,11 @@ Besides the ``DoctrinePHPCRBundle`` you also need to instantiate the base
     {
         public function registerBundles()
         {
-            $bundles = array(
+            $bundles = [
                 // ...
                 new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
                 new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            );
+            ];
 
             // ...
         }
@@ -139,15 +139,15 @@ with the DoctrineBundle. For detailed information, see the
     .. code-block:: php
 
         // app/config/config.php
-        $configuration->loadFromExtension('doctrine', array(
-            'dbal' => array(
+        $configuration->loadFromExtension('doctrine', [
+            'dbal' => [
                 'driver'   => '%database_driver%',
                 'host'     => '%database_host%',
                 'dbname'   => '%database_name%',
                 'user'     => '%database_user%',
                 'password' => '%database_password%',
-            ),
-        ));
+            ],
+        ]);
 
 Jackalope Doctrine DBAL provides a PHPCR implementation without any
 installation requirements beyond any of the RDBMS supported by Doctrine.
@@ -210,23 +210,23 @@ Once you set up Doctrine DBAL, you can configure Jackalope:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'backend' => [
                     'type'       => 'doctrinedbal',
                     //'connection': 'default',
                     'logging'    => true,
                     'profiling'  => true,
-                    //'caches' => array(
+                    //'caches' => [
                     //    'meta' => 'doctrine_cache.providers.phpcr_meta'
                     //    'nodes' => 'doctrine_cache.providers.phpcr_nodes'
-                    //),
-                ),
+                    //],
+                ],
                 'workspace' => 'default',
                 'username'  => 'admin',
                 'password'  => 'admin',
-            ),
-        ));
+            ],
+        ]);
 
 Now make sure the database exists and initialize it:
 
@@ -301,12 +301,12 @@ here, the ODM services will not be loaded.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'odm' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'odm' => [
                 'auto_mapping' => true,
                 'auto_generate_proxy_classes' => '%kernel.debug%',
-            ),
-        ));
+            ],
+        ]);
 
 Unless you disable ``auto_mapping``, you can place your documents in the
 ``Document`` folder inside your bundles and use annotations or name the
@@ -373,15 +373,15 @@ debug toolbar:
     .. code-block:: php
 
         // app/config/config.yml
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'backend' => [
                     // ...
                     'logging'   => true,
                     'profiling' => true,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 Now that you can see the effects of changes, you can try if adjusting the global
 fetch depth reduces the number and duration for queries. Set the option
