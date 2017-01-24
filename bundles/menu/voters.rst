@@ -50,6 +50,7 @@ setting to your configuration. Example config:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_menu:
             voters:
                 content_identity:
@@ -59,6 +60,7 @@ setting to your configuration. Example config:
     .. code-block:: xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/menu">
                 <voters>
@@ -69,14 +71,15 @@ setting to your configuration. Example config:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_menu', array(
-            'voters' => array(
-                'content_identity' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_menu', [
+            'voters' => [
+                'content_identity' => [
                     'enabled'     => true,
                     'content_key' => 'myKey',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 .. note::
 
@@ -107,7 +110,7 @@ article which can be reached at ``/articles/computers/laptops/acme/A200``::
 
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
     use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuItem;
-    use Acme\FooBundle\Document\Article;
+    use AppBundle\Document\Article;
 
     $dm = ...; // get an instance of the document manager
 
@@ -162,11 +165,11 @@ configuration.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_menu', array(
-            'voters' => array(
+        $container->loadFromExtension('cmf_menu', [
+            'voters' => [
                 'uri_prefix' => true,
-            ),
-        ));
+            ],
+        ]);
 
 RequestParentContentIdentityVoter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -206,11 +209,11 @@ voters (see below), except you do not need to write your own PHP code:
 
         # app/config/services.yml
         services:
-            my_bundle.menu_voter.parent:
+            app.menu_voter_parent:
                 class: Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter
                 arguments:
                     - contentDocument
-                    - '%my_bundle.my_model_class%'
+                    - AppBundle\Document\Article
                 tags:
                     - { name: "knp_menu.voter", request: true }
 
@@ -223,10 +226,10 @@ voters (see below), except you do not need to write your own PHP code:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="my_bundle.menu_voter.parent"
+                <service id="app.menu_voter_parent"
                          class="Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter">
                     <argument>contentDocument</argument>
-                    <argument>%my_bundle.my_model_class%</argument>
+                    <argument>AppBundle\Document\Article</argument>
 
                     <tag name="knp_menu.voter" request="true"/>
                 </service>
@@ -236,22 +239,24 @@ voters (see below), except you do not need to write your own PHP code:
     .. code-block:: php
 
         // app/config/services.php
+        use AppBundle\Document\Article;
+        use Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter;
         use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition(
-            'Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter',
-            array('contentDocument', '%my_bundle.my_model_class%')
+            RequestParentContentIdentityVoter,
+            ['contentDocument', Article::class]
         ));
-        $definition->addMethodCall('setRequest', array(
+        $definition->addMethodCall('setRequest', [
             new Reference(
                 'request',
                 ContainerInterface::NULL_ON_INVALID_REFERENCE,
                 false
             )
-        ));
-        $definition->addTag('knp_menu.voter', array('request' => true));
+        ]);
+        $definition->addTag('knp_menu.voter', ['request' => true]);
 
-        $container->setDefinition('my_bundle.menu_voter.parent', $definition);
+        $container->setDefinition('app.menu_voter_parent', $definition);
 
 .. _bundles_menu_voters_custom_voter:
 

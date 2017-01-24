@@ -64,9 +64,9 @@ persistence configuration has the following configuration:
     .. code-block:: php
 
         //  app/config/config.php
-        $container->loadFromExtension('cmf_menu', array(
-            'persistence' => array(
-                'phpcr' => array(
+        $container->loadFromExtension('cmf_menu', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled'                     => false,
                     'menu_basepath'               => '/cms/menu',
                     'content_basepath'            => null,
@@ -78,9 +78,9 @@ persistence configuration has the following configuration:
                     'menu_admin_class'            => null,
                     'node_admin_class'            => null,
                     'admin_recursive_breadcrumbs' => true,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``enabled``
 """""""""""
@@ -244,15 +244,14 @@ You can configure the menu options extension in this sections.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_menu', array(
-            'admin_extensions' => array(
-                'menu_options' => array(
-                        'enabled'  => 'auto',
-                        'advanced' =>  false,
-                    ),
-                ),
-            ),
-        ));
+        $container->loadFromExtension('cmf_menu', [
+            'admin_extensions' => [
+                'menu_options' => [
+                    'enabled'  => 'auto',
+                    'advanced' =>  false,
+                ],
+            ],
+        ]);
 
 ``enabled``
 """""""""""
@@ -303,16 +302,16 @@ The ``voters`` section enables you to enable and configure *pre-defined*
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_menu', array(
-            'persistence' => array(
-                'voters' => array(
-                    'content_identity' => array(
+        $container->loadFromExtension('cmf_menu', [
+            'persistence' => [
+                'voters' => [
+                    'content_identity' => [
                         'content_key' => null,
-                    ),
+                    ],
                     'uri_prefix' => false,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``content_identity``
 ~~~~~~~~~~~~~~~~~~~~
@@ -382,8 +381,8 @@ To disable the menu content voter, use:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_core', array(
-            'publish_workflow' => array(
+        $container->loadFromExtension('cmf_core', [
+            'publish_workflow' => [
                 'enabled' => false,
-            ),
-        ));
+            ],
+        ]);

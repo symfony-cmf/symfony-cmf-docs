@@ -54,17 +54,17 @@ select the menu node target.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_menu', array(
-            'persistence' => array(
-                'phpcr' => array(
+        $container->loadFromExtension('cmf_menu', [
+            'persistence' => [
+                'phpcr' => [
                     // use true/false to force using / not using sonata admin
                     'use_sonata_admin' => 'auto',
 
                     // used with Sonata Admin to manage content; defaults to %cmf_core.basepath%/content
                     'content_basepath' => null,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 
 MenuNodeReferrersInterface Sonata Admin Extension
@@ -107,15 +107,17 @@ configuration in the ``sonata_admin`` section of your project configuration:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
-            'extensions' => array(
-                'cmf_menu.admin_extension.menu_node_referrers' => array(
-                    'implements' => array(
-                        'Symfony\Cmf\Bundle\MenuBundle\Model\MenuNodeReferrersInterface',
-                    ),
-                ),
-            ),
-        ));
+        use Symfony\Cmf\Bundle\MenuBundle\Model\MenuNodeReferrersInterface;
+
+        $container->loadFromExtension('sonata_admin', [
+            'extensions' => [
+                'cmf_menu.admin_extension.menu_node_referrers' => [
+                    'implements' => [
+                        MenuNodeReferrersInterface::class,
+                    ],
+                ],
+            ],
+        ]);
 
 See the `Sonata Admin extension documentation`_ for more information.
 
@@ -159,15 +161,17 @@ configuration in the ``sonata_admin`` section of your project configuration:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
-            'extensions' => array(
-                'cmf_menu.admin_extension.menu_options' => array(
-                    'implements' => array(
-                        'Symfony\Cmf\Bundle\MenuBundle\Model\MenuOptionsInterface',
-                    ),
-                ),
-            ),
-        ));
+        use Symfony\Cmf\Bundle\MenuBundle\Model\MenuOptionsInterface;
+
+        $container->loadFromExtension('sonata_admin', [
+            'extensions' => [
+                'cmf_menu.admin_extension.menu_options' => [
+                    'implements' => [
+                        MenuOptionsInterface::class,
+                    ],
+                ],
+            ],
+        ]);
 
 See the `Sonata Admin extension documentation`_ for more information.
 
@@ -231,13 +235,13 @@ configuration:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_menu', array(
-            'admin_extensions' => array(
-                'menu_options' => array(
+        $container->loadFromExtension('cmf_menu', [
+            'admin_extensions' => [
+                'menu_options' => [
                     'advanced' => true,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 .. _`Sonata Admin extension documentation`: https://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
