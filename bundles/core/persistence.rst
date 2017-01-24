@@ -16,12 +16,15 @@ the following to your main configuration file:
 
     .. code-block:: yaml
 
-        cmf_core:
-            persistence:
-                phpcr: ~
+        # app/config/config.yml
+        services:
+            cmf_core:
+                persistence:
+                    phpcr: ~
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -35,11 +38,12 @@ the following to your main configuration file:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'persistence' => array(
-                'phpcr' => array(),
-            ),
-        ));
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'persistence' => [
+                'phpcr' => [],
+            ],
+        ]);
 
 .. _bundles-core-multilang-persisting_multilang_documents:
 
@@ -64,6 +68,7 @@ enforce a single translation strategy for all documents:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_core:
             persistence:
                 phpcr:
@@ -71,14 +76,13 @@ enforce a single translation strategy for all documents:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
             <config xmlns="http://cmf.symfony.com/schema/dic/core">
                 <persistence>
-                    <phpcr
-                        translation-strategy="attribute"
-                    />
+                    <phpcr translation-strategy="attribute"/>
                 </persistence>
             </config>
 
@@ -86,13 +90,14 @@ enforce a single translation strategy for all documents:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'persistence' => array(
-                'phpcr' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'persistence' => [
+                'phpcr' => [
                     'translation_strategy' => 'attribute',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 .. caution::
 
@@ -152,17 +157,17 @@ configuration in the ``sonata_admin`` section of your project configuration:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
+        $container->loadFromExtension('sonata_admin', [
             // ...
-            'extensions' => array(
-                'cmf_core.admin_extension.child' => array(
-                    'implements' => array(
+            'extensions' => [
+                'cmf_core.admin_extension.child' => [
+                    'implements' => [
                         'Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface',
                         'Doctrine\ODM\PHPCR\HierarchyInterface',
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 See the `Sonata Admin extension documentation`_ for more information.
 
@@ -209,16 +214,16 @@ configuration in the ``sonata_admin`` section of your project configuration:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
+        $container->loadFromExtension('sonata_admin', [
             // ...
-            'extensions' => array(
-                'cmf_core.admin_extension.translatable' => array(
-                    'implements' => array(
+            'extensions' => [
+                'cmf_core.admin_extension.translatable' => [
+                    'implements' => [
                         'Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface',
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 See the `Sonata Admin extension documentation`_ for more information.
 
