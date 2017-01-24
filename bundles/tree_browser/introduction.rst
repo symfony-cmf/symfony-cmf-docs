@@ -27,11 +27,11 @@ Both the CmfTreeBrowserBundle and FOSJsRoutingBundle_ must be registered in the
     // ...
     public function registerBundles()
     {
-        $bundles = array(
+        $bundles = [
             // ...
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Symfony\Cmf\Bundle\TreeBrowserBundle\CmfTreeBrowserBundle(),
-        );
+        ];
         // ...
 
         return $bundles;
@@ -165,10 +165,10 @@ from the admin tree:
     .. code-block:: html+php
 
         <?php
-        $view['actions']->render('sonata.admin.doctrine_phpcr.tree_controller:treeAction', array(
+        $view['actions']->render('sonata.admin.doctrine_phpcr.tree_controller:treeAction', [
             'root'     => $sitePath . '/menu',
             'selected' => $menuNodeId,
-        ))?>
+        ])?>
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#tree').bind("before.jstree", function (e, data) {
