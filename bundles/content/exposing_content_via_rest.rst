@@ -54,6 +54,7 @@ Here is an example configuration for the FOSRestBundle.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         fos_rest:
             # configure the view handler
             view:
@@ -72,6 +73,7 @@ Here is an example configuration for the FOSRestBundle.
     .. code-block:: xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services">
 
             <config xmlns="http://example.org/schema/dic/fos_rest">
@@ -98,38 +100,39 @@ Here is an example configuration for the FOSRestBundle.
 
     .. code-block:: php
 
-        $container->loadFromExtension('fos_rest', array(
+        // app/config/config.php
+        $container->loadFromExtension('fos_rest', [
             // configure the view handler
-            'view' => array(
-                'force_redirects' => array(
+            'view' => [
+                'force_redirects' => [
                     'html' => true,
-                ),
-                'formats' => array(
+                ],
+                'formats' => [
                     'json' => true,
                     'xml' => true,
-                ),
-                'templating_formats' => array(
+                ],
+                'templating_formats' => [
                     'html' => true,
-                ),
-            ),
+                ],
+            ],
             // add a content negotiation rule, enabling support for json/xml for the entire website
-            'format_listener' => array(
-                'rules' => array(
-                    array(
+            'format_listener' => [
+                'rules' => [
+                    [
                         'path' => '^/',
-                        'priorities' => array('html', 'json', 'xml'),
+                        'priorities' => ['html', 'json', 'xml'],
                         'fallback_format' => 'html',
                         'prefer_extension' => false,
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 Using the REST API
 ------------------
 
-After you configured the FOSRestBundle, you need to execute the following
-commands:
+This is all it takes to enable read support via JSON or XML!
+Test if the setup works as expected with curl:
 
 .. code-block:: bash
 
@@ -137,9 +140,8 @@ commands:
     curl http://my-cmf.org/app_dev.php -H Accept:application/xml
     curl http://my-cmf.org/app_dev.php -H Accept:text/html
 
-This is all it takes to enable read support via JSON or XML!
 
-The JMS serializer comes with sense defaults for Doctrine object mappers.
+The JMS serializer comes with sensible defaults for Doctrine object mappers.
 However it might be necessary to add additional mapping to more tightly
 control what gets exposed. See the `documentation of the JMS serializer`_
 for details.

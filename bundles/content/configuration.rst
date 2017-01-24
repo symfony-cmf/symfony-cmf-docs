@@ -60,15 +60,17 @@ is the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_content', array(
-            'persistence' => array(
-                'phpcr' => array(
+        $container->loadFromExtension('cmf_content', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled'          => false,
                     'admin_class'      => null,
                     'document_class'   => null,
                     'content_basepath' => '/cms/content',
                     'use_sonata_admin' => 'auto',
-        ));
+                ],
+            ],
+        ]);
 
 ``enabled``
 ...........

@@ -140,9 +140,9 @@ To configure a default template, use the ``default_template`` option:
         // app/config/config.yml
 
         // ...
-        $container->loadFromExtension('cmf_content', array(
+        $container->loadFromExtension('cmf_content', [
             'default_template' => 'AppBundle:Content:static.html.twig',
-        ));
+        ]);
 
 Whenever the content controller gets called without a specified template, it
 will now use this template.
@@ -187,16 +187,16 @@ Lets assume that you want to handle ``StaticContent`` with the default
 
     .. code-block:: php
 
-        // app/config/config.yml
-
+        // app/config/config.php
+        use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
         // ...
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'controller_by_class' => array(
-                    'Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent' => 'cmf_content.controller:indexAction',
-                ),
-            ),
-        ));
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'controller_by_class' => [
+                    StaticContent::class => 'cmf_content.controller:indexAction',
+                ],
+            ],
+        ]);
 
 Now everything is configured correctly, navigating to ``/hello`` results in a
 page displaying your content.
