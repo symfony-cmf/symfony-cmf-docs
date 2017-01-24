@@ -28,6 +28,7 @@ is the following configuration:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_tree_browser:
             persistence:
                 phpcr:
@@ -36,6 +37,7 @@ is the following configuration:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -52,14 +54,15 @@ is the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_tree_browser', array(
-            'persistence' => array(
-                'phpcr' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_tree_browser', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled'      => false,
                     'session_name' => 'default',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 
 ``enabled``
