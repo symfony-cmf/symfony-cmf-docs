@@ -52,6 +52,7 @@ is executed.
 
     .. code-block:: yaml
 
+        # app/config/services.yml
         services:
             app.routing.simple_enhancer:
                 class: AppBundle\Routing\Enhancer\SimpleEnhancer
@@ -60,6 +61,7 @@ is executed.
 
     .. code-block:: xml
 
+        <!-- app/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -74,12 +76,14 @@ is executed.
 
     .. code-block:: php
 
+        // app/config/services.php
+        use AppBundle\Routing\Enhancer\SimpleEnhancer;
         use Symfony\Component\DependencyInjection\Definition;
 
-        $definition = new Definition('AppBundle\Routing\Enhancer\SimpleEnhancer');
-        $definition->addTag('dynamic_router_route_enhancer', array(
+        $definition = new Definition(SimpleEnhancer::class);
+        $definition->addTag('dynamic_router_route_enhancer', [
             'priority' => 10,
-        ));
+        ]);
 
         $container->setDefinition('app.routing.simple_enhancer', $definition);
 
@@ -102,8 +106,8 @@ following class provides a simple solution using an ODM Repository.
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/Repository/RouteProvider.php
-    namespace Acme\DemoBundle\Repository;
+    // src/AppBundle/Repository/RouteProvider.php
+    namespace AppBundle\Repository;
 
     use Doctrine\ODM\PHPCR\DocumentRepository;
     use Symfony\Cmf\Component\Routing\RouteProviderInterface;
@@ -118,9 +122,9 @@ following class provides a simple solution using an ODM Repository.
         public function findManyByUrl($url)
         {
             // for simplicity we retrieve one route
-            $document = $this->findOneBy(array(
+            $document = $this->findOneBy([
                 'url' => $url,
-            ));
+            ]);
 
             $pattern = $document->getUrl(); // e.g. "/this/is/a/url"
 
@@ -128,9 +132,9 @@ following class provides a simple solution using an ODM Repository.
 
             // create a new Route and set our document as
             // a default (so that we can retrieve it from the request)
-            $route = new SymfonyRoute($pattern, array(
+            $route = new SymfonyRoute($pattern, [
                 'document' => $document,
-            ));
+            ]);
 
             // add the route to the RouteCollection using
             // a unique ID as the key.
@@ -142,19 +146,19 @@ following class provides a simple solution using an ODM Repository.
         /**
          * This method is used to generate URLs, e.g. {{ path('foobar') }}.
          */
-        public function getRouteByName($name, $params = array())
+        public function getRouteByName($name, $params = [])
         {
-            $document = $this->findOneBy(array(
+            $document = $this->findOneBy([
                 'name' => $name,
-            ));
+            ]);
 
             if (!$document) {
                 throw new RouteNotFoundException("No route found for name '$name'");
             }
 
-            $route = new SymfonyRoute($document->getUrl(), array(
+            $route = new SymfonyRoute($document->getUrl(), [
                 'document' => $document,
-            ));
+            ]);
 
             return $route;
         }
@@ -182,7 +186,7 @@ configuration as follows:
        # app/config/config.yml
        cmf_routing:
            dynamic:
-               route_provider_service_id: acme_demo.provider.endpoint
+               route_provider_service_id: app.route_provider
 
    .. code-block:: xml
 
@@ -190,20 +194,20 @@ configuration as follows:
        <?xml version="1.0" encoding="UTF-8" ?>
        <container xmlns="http://symfony.com/schema/dic/services">
            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-               <dynamic route-provider-service-id="acme_demo.provider.endpoint"/>
+               <dynamic route-provider-service-id="app.route_provider"/>
            </config>
        </container>
 
    .. code-block:: php
 
        // app/config/config.php
-       $container->loadFromExtension('cmf_routing', array(
-           'dynamic' => array(
-              'route_provider_service_id' => 'acme_demo.provider.endpoint',
-           ),
-       ));
+       $container->loadFromExtension('cmf_routing', [
+           'dynamic' => [
+              'route_provider_service_id' => 'app.route_provider',
+           ],
+       ]);
 
-Where ``acme_demo.provider.endpoint`` is the service ID of your route
+Where ``app.route_provider`` is the service ID of your route
 provider. See `Creating and configuring services in the container`_ for
 information on creating custom services.
 
@@ -226,7 +230,7 @@ yourself and configure that service:
        # app/config/config.yml
        cmf_routing:
            dynamic:
-               url_generator: routing.my_generator
+               url_generator: app.my_url_generator
 
    .. code-block:: xml
 
@@ -234,18 +238,18 @@ yourself and configure that service:
        <?xml version="1.0" encoding="UTF-8" ?>
        <container xmlns="http://symfony.com/schema/dic/services">
            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-               <dynamic url-generator="routing.my_generator"/>
+               <dynamic url-generator="app.my_url_generator"/>
            </config>
        </container>
 
    .. code-block:: php
 
        // app/config/config.php
-       $container->loadFromExtension('cmf_routing', array(
-           'dynamic' => array(
-              'url_generator' => 'routing.my_generator',
-           ),
-       ));
+       $container->loadFromExtension('cmf_routing', [
+           'dynamic' => [
+              'url_generator' => 'app.my_url_generator',
+           ],
+       ]);
 
 .. _bundle-routing-route-defaults-validator:
 
