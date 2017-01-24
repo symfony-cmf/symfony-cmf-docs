@@ -50,14 +50,14 @@ To add the ``DynamicRouter``, use the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'chain' => array(
-                'routers_by_id' => array(
+        $container->loadFromExtension('cmf_routing', [
+            'chain' => [
+                'routers_by_id' => [
                     'cmf_routing.dynamic_router' => 200,
                     'router.default'             => 100,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 .. tip::
 
@@ -98,11 +98,11 @@ default router, because :ref:`no other routers were set <reference-config-routin
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'chain' => array(
+        $container->loadFromExtension('cmf_routing', [
+            'chain' => [
                 'replace_symfony_router' => true,
-            ),
-        ));
+            ],
+        ]);
 
 
 .. _reference-config-routing-dynamic:
@@ -125,7 +125,7 @@ generic_controller
 
 The controller to use when the route enhancers only determined the template but
 no explicit controller. The value is the name of a controller using either the
-``AcmeDemoBundle::Page::index`` or ``acme_demo.controller.page:indexAction``
+``AppBundle::Page::index`` or ``app.page_controller:indexAction``
 notation.
 
 If the :doc:`CoreBundle <../core/introduction>` and
@@ -139,7 +139,7 @@ defaults to ``cmf_content.controller:indexAction``.
 
 The default controller to use if none of the enhancers found a controller. The
 value is the name of a controller using either the
-``AcmeDemoBundle::Page::index`` or ``acme_demo.controller.page:indexAction``
+``AppBundle::Page::index`` or ``app.page_controller:indexAction``
 notation.
 
 ``controllers_by_type``
@@ -155,20 +155,21 @@ type:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_routing:
             dynamic:
                 controllers_by_type:
-                    editable: acme_main.controller:editableAction
+                    editable: app.cms_controller:editableAction
 
     .. code-block:: xml
 
-
         <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services">
 
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic>
-                    <controller-by-type type="editable">acme_main.controller:editableAction</controller-by-type>
+                    <controller-by-type type="editable">app.cms_controller:editableAction</controller-by-type>
                 </dynamic>
             </config>
 
@@ -176,13 +177,14 @@ type:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'controllers_by_type' => array(
-                    'editable' => 'acme_main.controller:editableAction',
-                ),
-            ),
-        ));
+        # app/config/config.yml
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'controllers_by_type' => [
+                    'editable' => 'app.cms_controller:editableAction',
+                ],
+            ],
+        ]);
 
 controllers_by_class
 ....................
@@ -203,6 +205,7 @@ choose this controller to handle the request.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_routing:
             dynamic:
                 controllers_by_class:
@@ -211,6 +214,7 @@ choose this controller to handle the request.
     .. code-block:: xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services">
 
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
@@ -226,10 +230,13 @@ choose this controller to handle the request.
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'controllers_by_class' => array(
-                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'cmf_content.controller:indexAction',
+        // app/config/config.php
+        use Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent;
+
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'controllers_by_class' => [
+                    StaticContent::class => 'cmf_content.controller:indexAction',
                 ),
             ),
         ));
@@ -255,6 +262,7 @@ setting is set as controller.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_routing:
             dynamic:
                 templates_by_class:
@@ -264,7 +272,7 @@ setting is set as controller.
 
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-
+            <!-- app/config/config.xml -->
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic>
                     <template-by-class
@@ -278,10 +286,13 @@ setting is set as controller.
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'templates_by_class' => array(
-                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'CmfContentBundle:StaticContent:index.html.twig',
+        // app/config/config.php
+        use Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent;
+
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'templates_by_class' => [
+                    StaticContent::class => 'CmfContentBundle:StaticContent:index.html.twig',
                 ),
             ),
         ));
@@ -325,8 +336,8 @@ disables the limit entirely.
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic>
@@ -349,24 +360,25 @@ disables the limit entirely.
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'persistence' => array(
-                    'phpcr' => array(
+        # app/config/config.php
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'persistence' => [
+                    'phpcr' => [
                         'enabled'            => false,
                         'manager_name'       => null,
-                        'route_basepaths'    => array(
+                        'route_basepaths'    => [
                             '/cms/routes',
                             '/cms/simple',
-                        )
+                        ],
                         'content_basepath'   => '/cms/content',
                         'admin_basepath'     => '/cms/routes',
                         'use_sonata_admin'   => 'auto',
                         'enable_initializer' => true,
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 enabled
 *******
@@ -470,7 +482,7 @@ If ``true``, the ORM is included in the service container.
 The name of the Doctrine Manager to use.
 
 ``route_class``
-****************
+***************
 
 **type**: ``string`` **default**: ``'Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route'``
 
@@ -514,7 +526,7 @@ priority.
         cmf_routing:
             dynamic:
                 route_filters_by_id:
-                    acme_main.routing.foo_filter: 100
+                    app.routing_filter: 100
 
     .. code-block:: xml
 
@@ -524,7 +536,7 @@ priority.
 
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic>
-                    <route-filter-by-id id="acme_main.routing.foo_filter">100</route-filter-by-id>
+                    <route-filter-by-id id="app.routing_filter">100</route-filter-by-id>
                 </dynamic>
             </config>
 
@@ -532,13 +544,13 @@ priority.
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'route_filters_by_id' => array(
-                    'acme_main.routing.foo_filter' => 100,
-                ),
-            ),
-        ));
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'route_filters_by_id' => [
+                    'app.routing_filter' => 100,
+                ],
+            ],
+        ]);
 
 ``content_repository_service_id``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -568,7 +580,7 @@ service.
 ``locales``
 ~~~~~~~~~~~
 
-**type**: ``array`` **default**: ``array()``
+**type**: ``array`` **default**: ``[]``
 
 To enable multi-language, set the valid locales in this option.
 
