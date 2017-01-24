@@ -42,14 +42,14 @@ Configuration
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_seo', array(
-            'persistence' => array(
-                'phpcr' => array(
+        $container->loadFromExtension('cmf_seo', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled' => false,
                     'manager_name' => null,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``enabled``
 ***********
@@ -139,8 +139,8 @@ manually or disable the content listener.
                 defaults:
                     default_change_frequency: always
                     templates:
-                        html: CmfSeoBundle:Sitemap:index.html.twig
-                        xml: CmfSeoBundle:Sitemap:index.xml.twig
+                        html: :sitemap/index.html.twig
+                        xml: ::sitemap:index.xml.twig
                 configurations:
                     sitemap: ~
 
@@ -164,20 +164,20 @@ manually or disable the content listener.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_seo', array(
-            'sitemap' => array(
+        $container->loadFromExtension('cmf_seo', [
+            'sitemap' => [
                 'enabled' => true,
-                'defaults' => array(
-                    'templates' => array(
+                'defaults' => [
+                    'templates' => [
                         'html' => 'CmfSeoBundle:Sitemap:index.html.twig',
                         'xml' => 'CmfSeoBundle:Sitemap:index.xml.twig',
-                    ),
-                ),
-                'configurations' => array(
+                    ],
+                ],
+                'configurations' => [
                     'sitemap' => null,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``enabled``
 """""""""""
@@ -246,7 +246,7 @@ Extension.
 ~~~~~~~~
 
 ``data_class``
-"""""""""""""""
+""""""""""""""
 
 ``seo_metadata``
 ****************
@@ -346,13 +346,13 @@ routes, use:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_seo', array(
-            'error' => array(
-                'exclusion_rules' => array(
-                    array('path' => '^/admin'),
-                ),
-            ),
-        ));
+        $container->loadFromExtension('cmf_seo', [
+            'error' => [
+                'exclusion_rules' => [
+                    ['path' => '^/admin'],
+                ],
+            ],
+        ]);
 
 ``alternate_locale``
 ~~~~~~~~~~~~~~~~~~~~
@@ -382,12 +382,12 @@ routes, use:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_seo', array(
-            'alternate_locale' => array (
+        $container->loadFromExtension('cmf_seo', [
+            'alternate_locale' => [
                 'enabled' => true,
                 'provider_id' => app.alternate_locale.provider,
-            ),
-        ));
+            ],
+        ]);
 
 ``enabled``
 """""""""""
@@ -402,3 +402,5 @@ Whether or not the the :ref:`bundles-seo-alternate-locale` should be loaded
 **type**: ``string`` **default**: ``null``
 
 Specify the service id of a custom :doc:`AlternateLocaleProvider <../seo/alternate_locale>`.
+
+.. _phpcr: ../phpcrodm-admin
