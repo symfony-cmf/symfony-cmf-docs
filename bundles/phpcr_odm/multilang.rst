@@ -60,18 +60,18 @@ To use translated documents, you need to configure the available languages:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'odm' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'odm' => [
                 // ...
-                'locales' => array(
-                    'en' => array('de', 'fr'),
-                    'de' => array('en', 'fr'),
-                    'fr' => array('en', 'de'),
-                ),
+                'locales' => [
+                    'en' => ['de', 'fr'],
+                    'de' => ['en', 'fr'],
+                    'fr' => ['en', 'de'],
+                ],
                 'locale_fallback' => 'hardcoded',
                 'default_locale'  => 'fr',
-            )
-        );
+            ]
+        ]);
 
 The ``locales`` is a list of alternative locales to look up if a document
 is not translated to the requested locale.
@@ -116,14 +116,15 @@ depending on the locale.
 
     .. code-block:: php
 
-        <?php
+        // src/AppBundle/Documents/Article.php
+        namespace AppBundle\Documents\Article;
 
         use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
         /**
          * @PHPCR\Document(translator="attribute")
          */
-        class MyPersistentClass
+        class Article
         {
             /**
              * The language this document currently is in
@@ -153,7 +154,7 @@ depending on the locale.
     .. code-block:: xml
 
         <doctrine-mapping>
-            <document class="MyPersistentClass"
+            <document class="AppBundle\Documents\Article"
                       translator="attribute">
                 <locale fieldName="locale" />
                 <field fieldName="publishDate" type="date" />
@@ -164,18 +165,18 @@ depending on the locale.
 
     .. code-block:: yaml
 
-        MyPersistentClass:
-          translator: attribute
-          locale: locale
-          fields:
-            publishDate:
-                type: date
-            topic:
-                type: string
-                translated: true
-            image:
-                type: binary
-                translated: true
+        AppBundle\Documents\Article:
+            translator: attribute
+            locale: locale
+            fields:
+                publishDate:
+                    type: date
+                topic:
+                    type: string
+                    translated: true
+                image:
+                    type: binary
+                    translated: true
 
 Unless you explicitly interact with the multi-language features of PHPCR-ODM,
 documents are loaded in the request locale and saved in the locale they where
