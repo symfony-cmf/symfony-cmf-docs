@@ -81,6 +81,14 @@ library or they introduce a complete new concept.
   * :doc:`tree_browser/introduction`
   * :doc:`tree_browser/configuration`
 
+Admin Integrations
+~~~~~~~~~~~~~~~~~~
+
+Since version 2 of the CMF, we provide a separate bundle with admin implementations for the
+SonataDoctrinePHPCRAdminBundle_.
+
+* :doc:`sonata_phpcr_admin_integration/index`
+
 Showcase Bundles
 ~~~~~~~~~~~~~~~~
 
@@ -119,7 +127,5 @@ help with integrating PHPCR concepts into the Symfony Framework.
   * :doc:`phpcr_odm/multilang`
   * :doc:`phpcr_odm/multiple_sessions`
   * :doc:`phpcr_odm/configuration`
-
-* SonataDoctrinePHPCRAdminBundle_
 
 .. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html

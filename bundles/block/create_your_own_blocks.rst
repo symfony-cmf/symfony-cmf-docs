@@ -30,10 +30,10 @@ the location where the RSS feed should be shown. The easiest way is to extend
 free to do create your own document. At least, you have to implement
 ``Sonata\BlockBundle\Model\BlockInterface``. In your document, you
 need to define the ``getType`` method which returns the type name of your block,
-for instance ``acme_main.block.rss``::
+for instance ``rss_block``::
 
-    // src/Acme/MainBundle/Document/RssBlock.php
-    namespace Acme\MainBundle\Document;
+    // src/AppBundle/Document/RssBlock.php
+    namespace AppBundle\Document;
 
     use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
@@ -56,7 +56,7 @@ for instance ``acme_main.block.rss``::
 
         public function getType()
         {
-            return 'acme_main.block.rss';
+            return 'app.rss_block';
         }
 
         public function getOptions()
@@ -97,8 +97,8 @@ services provided by the CmfBlockBundle are in the namespace
 For your RSS block, you need a custom service
 that knows how to fetch the feed data of an ``RssBlock``::
 
-    // src/Acme/MainBundle/Block/RssBlockService.php
-    namespace Acme\MainBundle\Block;
+    // src/AppBundle/Block/RssBlockService.php
+    namespace AppBundle\Block;
 
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -125,7 +125,8 @@ that knows how to fetch the feed data of an ``RssBlock``::
             $resolver->setDefaults(array(
                 'url'      => false,
                 'title'    => 'Feed items',
-                'template' => 'AcmeMainBundle:Block:rss.html.twig',
+                // template is at app/Resources/views/block/rss.html.twig
+                'template' => 'block/rss.html.twig',
             ));
         }
 
@@ -308,33 +309,37 @@ handles, as per the ``getType`` method of the block. The second argument is the
 
     .. code-block:: yaml
 
-        sandbox_main.block.rss:
-            class: Acme\MainBundle\Block\RssBlockService
-            arguments:
-                - "acme_main.block.rss"
-                - "@templating"
-            tags:
-                - {name: "sonata.block"}
+        # app/config/services.yml
+        services:
+            app.rss_block:
+                class: AppBundle\Block\RssBlockService
+                arguments:
+                    - "app.rss_block"
+                    - "@templating"
+                tags:
+                    - { name: "sonata.block" }
 
     .. code-block:: xml
 
-        <service id="sandbox_main.block.rss" class="Acme\MainBundle\Block\RssBlockService">
+        <!-- app/config/services.xml -->
+        <service id="app.rss_block" class="AppBundle\Block\RssBlockService">
             <tag name="sonata.block" />
 
-            <argument>acme_main.block.rss</argument>
+            <argument>app.rss_block</argument>
             <argument type="service" id="templating" />
         </service>
 
     .. code-block:: php
 
+        // app/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
         $container
-            ->addDefinition('sandbox_main.block.rss', new Definition(
-                'Acme\MainBundle\Block\RssBlockService',
+            ->addDefinition('app.rss_block', new Definition(
+                'AppBundle\Block\RssBlockService',
                 array(
-                    'acme_main.block.rss',
+                    'app.rss_block',
                     new Reference('templating'),
                 )
             ))

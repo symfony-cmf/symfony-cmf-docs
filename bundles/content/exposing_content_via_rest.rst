@@ -139,7 +139,7 @@ commands:
 
 This is all it takes to enable read support via JSON or XML!
 
-The JMS serializer comes with sense defaults for Doctrine object mappers.
+The JMS serializer comes with sensible defaults for Doctrine object mappers.
 However it might be necessary to add additional mapping to more tightly
 control what gets exposed. See the `documentation of the JMS serializer`_
 for details.
