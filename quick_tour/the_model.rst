@@ -11,8 +11,8 @@ of the CMF.
 .. note::
 
     Again, this chapter is talking about the PHPCR storage layer. But the CMF
-    is storage agnostically created, meaning it is not tied to specific storage
-    system.
+    is written in a storage agnostic way, meaning it is not tied to specific
+    storage system.
 
 Getting Familiar with PHPCR
 ---------------------------
@@ -85,10 +85,10 @@ a page by using a yaml file which was parsed by the SimpleCmsBundle. This
 time, you'll create a page by doing it yourself.
 
 First, you have to create a new DataFixture to add your new page. You do this
-by creating a new class in the AcmeDemoBundle::
+by creating a new class in the AppBundle::
 
-    // src/Acme/DemoBundle/DataFixtures/PHPCR/LoadPageData.php
-    namespace Acme\DemoBundle\DataFixtures\PHPCR;
+    // src/AppBundle/DataFixtures/PHPCR/LoadPageData.php
+    namespace AppBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;

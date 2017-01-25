@@ -135,39 +135,39 @@ new routes in ``/cms/routes``:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_routing', array(
-            'chain' => array(
-                'routers_by_id' => array(
+        $container->loadFromExtension('cmf_routing', [
+            'chain' => [
+                'routers_by_id' => [
                     // the standard DynamicRouter
                     'cmf_routing.dynamic_router' => 200,
 
                     // the core symfony router
                     'router.default' => 100,
-                ),
-            ),
-            'dynamic' => array(
-                'persistence' => array(
-                    'phpcr' => array(
+                ],
+            ],
+            'dynamic' => [
+                'persistence' => [
+                    'phpcr' => [
                         'route_basepaths' => '/cms/routes',
-                    ),
+                    ],
                     /* /cms/routes is the default base path, the above code is
                        equivalent to:
                        'phpcr' => true,
                     */
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 Now you can add a new ``Route`` to the tree using Doctrine::
 
-    // src/Acme/DemoBundle/DataFixtures/PHPCR/LoadRoutingData.php
-    namespace Acme\DemoBundle\DataFixtures\PHPCR;
+    // src/AppBundle/DataFixtures/PHPCR/LoadRoutingData.php
+    namespace AppBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
     use Doctrine\ODM\PHPCR\DocumentManager;
-    
+
     use PHPCR\Util\NodeHelper;
 
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
@@ -178,14 +178,14 @@ Now you can add a new ``Route`` to the tree using Doctrine::
         {
             return 20;
         }
-        
+
         public function load(ObjectManager $documentManager)
         {
             if (!$documentManager instanceof DocumentManager) {
                 $class = get_class($documentManager);
                 throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
             }
-            
+
             $session = $documentManager->getPhpcrSession();
             NodeHelper::createPath($session, '/cms/routes');
 
@@ -205,7 +205,7 @@ Now you can add a new ``Route`` to the tree using Doctrine::
             $documentManager->flush(); // save it
         }
     }
-    
+
 Above we implemented the ``OrderedFixtureInterface`` so that our routes were loaded in the correct sequence relative to other fixtures.
 
 Now execute the ``doctrine:phpcr:fixtures:load`` command again.

@@ -19,7 +19,7 @@ AcmeDemoBundle:
 
 .. code-block:: html+jinja
 
-    <!-- src/Acme/DemoBundle/Resources/views/layout.html.twig -->
+    <!-- app/Resources/views/layout.html.twig -->
 
     <!-- ... -->
     <nav class="navbar  navbar-inverse  page__nav" role="navigation">
@@ -46,32 +46,6 @@ contains all items implementing the ``NodeInterface`` inside the
     provides Admin classes. See the section about `Sonata Admin`_ to learn
     more about this.
 
-The CreateBundle
-----------------
-
-You've already seen this bundle in the first chapter. This bundle integrates
-the CreatePHP_ library (which uses the `Create.js`_ library) into Symfony2
-using the FOSRestBundle_.
-
-The Create.js library works using a REST layer. All elements on a page get
-`RDFa Mappings`_, which tells Create.js how to map the element to the document.
-When you save the page, the new content is passed to the REST api and saved in
-the database.
-
-Rendering content with RDFa mappings can be very easy, as you can see in the
-Standard Edition:
-
-.. code-block:: html+jinja
-
-    {% block main %}
-    {% createphp cmfMainContent as="rdf" %}
-    {{ rdf|raw }}
-    {% endcreatephp %}
-    {% endblock %}
-
-This will output the content object using `<div>` elements. You can also
-customize this completely by using the ``createphp_*`` functions.
-
 The BlockBundle
 ---------------
 
@@ -86,9 +60,9 @@ used blocks.
 
 The three blocks in the Standard Edition are custom blocks. A block is handled
 by a block service. You can find this service in the
-``Acme\DemoBundle\Block\UnitBlockService`` class. Since the blocks are
+``AppBundle\Block\UnitBlockService`` class. Since the blocks are
 persisted using PHPCR, it also needs a block document, which is located in
-``Acme\DemoBundle\Document\UnitBlock``.
+``AppBundle\Document\UnitBlock``.
 
 The SeoBundle
 -------------
@@ -106,11 +80,11 @@ both the CMF and the Sonata bundle in the ``AppKernel``::
     // ...
     public function registerBundles()
     {
-        $bundles = array(
+        $bundles = [
             // ...
             new Sonata\SeoBundle\SonataSeoBundle(),
             new Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle(),
-        );
+        ];
         // ...
     }
 
@@ -126,7 +100,7 @@ the CmfSeoBundle can extract the title from a content object:
 The ``%%content_title%%`` will be replaced by the title extracted from the
 content object. The last thing you need to do is using this title as the title
 element. To do this, replace the ``<title>`` tag line in the
-``src/Acme/DemoBundle/Resources/views/layout.html.twig`` template with this:
+``src/AppBundle/Resources/views/layout.html.twig`` template with this:
 
 .. code-block:: html+jinja
 
@@ -156,6 +130,8 @@ more SEO information.
 
 Sonata Admin
 ------------
+
+TODO: rewrite for sonata admin integration split out
 
 We have explained you that the CMF is based on a database, in order to make it
 editable by an admin without changing the code. But we haven't told you how
