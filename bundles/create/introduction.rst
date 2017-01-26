@@ -368,7 +368,7 @@ higher, the method reads:
 
     .. code-block:: jinja
 
-        {% render(controller("cmf_create.jsloader.controller:includeJSFilesAction")) %}
+        {{ render(controller("cmf_create.jsloader.controller:includeJSFilesAction")) }}
 
     .. code-block:: php
 
