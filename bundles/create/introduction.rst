@@ -9,6 +9,8 @@ CreateBundle
     applications. It integrates create.js and the CreatePHP library into
     Symfony2.
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 The JavaScript library `create.js`_ provides a comprehensive web editing
 interface for Content Management Systems. It is designed to provide a modern,
 fully browser-based HTML5 environment for managing content. Create.js can be

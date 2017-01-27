@@ -5,6 +5,8 @@ Other Editors
     your own template to load a different editor or customize one of the
     existing editors is configured.
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 .. _bundle-create-hallo:
 
 Using Hallo.js Editor

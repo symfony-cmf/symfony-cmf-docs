@@ -4,6 +4,8 @@
 Rendering
 ---------
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 You can configure a mapping of document class to template and/or controller
 by configuring the :ref:`RoutingBundle <reference-config-routing-dynamic>`.
 When you need specific settings for a single page, you can call

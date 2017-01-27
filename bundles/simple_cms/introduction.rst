@@ -8,6 +8,8 @@ SimpleCmsBundle
     The SimpleCmsBundle provides a simplistic CMS on top of the CMF components
     and bundles.
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 While the core CMF components focus on flexibility, the simple CMS trades away
 some of that flexibility in favor of simplicity.
 

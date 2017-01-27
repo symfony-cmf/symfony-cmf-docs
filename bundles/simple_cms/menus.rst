@@ -4,6 +4,8 @@
 Menus
 -----
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 You can use `Knp Menu Bundle`_ to render a menu of your SimpleCms pages. The default Page document
 (``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page``) implements the ``Knp\Menu\NodeInterface``
 which allows for rendering them as a menu.

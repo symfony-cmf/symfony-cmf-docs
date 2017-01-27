@@ -1,6 +1,8 @@
 Configuration Reference
 =======================
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 The MediaBundle can be configured under the ``cmf_media`` key in your
 application configuration. When using XML, you can use the
 ``http://cmf.symfony.com/schema/dic/media`` namespace.
