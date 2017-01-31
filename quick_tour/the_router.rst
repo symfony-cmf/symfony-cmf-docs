@@ -11,8 +11,8 @@ about the backbone of the CMF in this chapter: The Router.
 The Backbone of the CMF
 -----------------------
 
-As already said, the router is the backbone. To understand this, you have a
-good view of what a CMS tries to do. In a normal Symfony application, a route
+As already said, the router is central to the CMF. To understand this, let us
+look at what a CMS tries to do. In a normal Symfony application, a route
 refers to a controller which can handle a specific entity. Another route
 refers to another controller which can handle another entity. This way, a
 route is tied to a controller. In fact, using the Symfony core you are also
@@ -37,24 +37,26 @@ be loaded each request.
 
 Matching routes from a PHPCR is really simple. If you remember the previous
 chapter, you know that you can get the ``quick_tour`` page from PHPCR using
-``/cms/simple/quick_tour``. The URL to get this page is ``quick_tour``. Some
+``/cms/routes/en/quick-tour``. The URL to get this page is ``en/quick-tour``. Some
 other examples:
 
 .. code-block:: text
 
     /cms
-        /simple
-            /about       # /about Route
-            /contact     # /contact Route
-                /team    # /contact/team Route
-                /docs    # /contact/docs Route
+        /routes
+            /en            # /en Route
+                /company   # /en/company Route
+                    /team  # /en/company/team Route
+                /about     # /en/about Route
+            /de            # /de Route
+                /ueber     # /de/ueber Route
 
 OK, you got it? The only thing the Router has to do is prefix the route with a
-specific path prefix and load that document. In the case of the SimpleCmsBundle,
-all routes are prefixed with ``/cms/simple``.
+specific path prefix and load that document. In the case of the RoutingBundle,
+all routes are prefixed with ``/cms/routes``.
 
-You see that a route like ``/contact/team``, which consist of 2 "path units",
-has 2 documents in the PHPCR tree: ``contact`` and ``team``.
+You see that a route like ``/company/team``, which consist of 2 "path units",
+has 2 documents in the PHPCR tree: ``company`` and ``team``.
 
 Chaining multiple Routers
 -------------------------
@@ -67,9 +69,7 @@ and stops whenever a router matches.
 
 By default, the ``ChainRouter`` overrides the Symfony router and only has the
 core router in its chain. You can add more routers to the chain in the
-configuration or by tagging the router services. For instance, the router used
-by the SimpleCmsBundle is a service registered by that bundle and tagged with
-``cmf_routing.router``.
+configuration or by tagging the router services with ``cmf_routing.router``.
 
 Creating a new Route
 --------------------
@@ -160,7 +160,7 @@ new routes in ``/cms/routes``:
 
 Now you can add a new ``Route`` to the tree using Doctrine::
 
-    // src/AppBundle/DataFixtures/PHPCR/LoadRoutingData.php
+    // src/AppBundle/DataFixtures/PHPCR/LoadExtraRoutingData.php
     namespace AppBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\Persistence\ObjectManager;
@@ -172,11 +172,11 @@ Now you can add a new ``Route`` to the tree using Doctrine::
 
     use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
-    class LoadRoutingData implements FixtureInterface, OrderedFixtureInterface
+    class LoadExtraRoutingData implements FixtureInterface, OrderedFixtureInterface
     {
         public function getOrder()
         {
-            return 20;
+            return 21;
         }
 
         public function load(ObjectManager $documentManager)
@@ -185,9 +185,6 @@ Now you can add a new ``Route`` to the tree using Doctrine::
                 $class = get_class($documentManager);
                 throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
             }
-
-            $session = $documentManager->getPhpcrSession();
-            NodeHelper::createPath($session, '/cms/routes');
 
             $routesRoot = $documentManager->find(null, '/cms/routes');
 
@@ -198,7 +195,7 @@ Now you can add a new ``Route`` to the tree using Doctrine::
             // $route->setParentDocument($routesRoot);
             $route->setPosition($routesRoot, 'new-route');
 
-            $page = $documentManager->find(null, '/cms/simple/quick_tour');
+            $page = $documentManager->find(null, '/cms/content/quick');
             $route->setContent($page);
 
             $documentManager->persist($route); // put $route in the queue

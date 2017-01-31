@@ -23,7 +23,7 @@ data stored with PHPCR has a relationship with at least one other data: its
 parent. The inverse relation also exists, you can also get the children of a
 data element.
 
-Let's take a look at the dump of the tree of the Standard Edition you
+Let's take a look at the dump of the tree of the CMF Sandbox you
 downloaded in the previous chapter. Go to your directory and execute the
 following command:
 
@@ -36,30 +36,43 @@ The result will be the PHPCR tree:
 .. code-block:: text
 
     ROOT:
-      cms:
-        simple:
-          about:
-          contact:
-            map:
-            team:
-          quick_tour:
-          dynamic:
-          docs:
-          demo:
-          demo_redirect:
-          hardcoded_dynamic:
-          hardcoded_static:
+        cms:
+            menu:
+                main:
+                    admin-item:
+                    projects-item:
+                        cmf-item:
+                    company-item:
+                        team-item:
+                ...
+            content:
+                home:
+                    phpcr_locale:en:
+                    phpcr_locale:fr:
+                    phpcr_locale:de:
+                    seoMetadata:
+                    additionalInfoBlock:
+                        child1:
+                ...
+            routes:
+                en:
+                    company:
+                        team:
+                        more:
+                    about:
+                ...
 
-Each data is called a *node* in PHPCR. In this tree, there are 13 nodes and
-one ROOT node (created by PHPCR). You may have already seen the document you
-created in the previous section, it's called ``quick_tour`` (and it's path is
-``/cms/simple/quick_tour``). When using the SimpleCmsBundle, all nodes are
-stored in the ``/cms/simple`` path.
+Each data is called a *node* in PHPCR. Everything is attached under the ROOT
+node (created by PHPCR itself).
 
 Each node has properties, which contain the data. The content, title and label
-you set for your page are saved in such properties for the ``quick_tour``
+you set for your page are saved in such properties for the ``home``
 node. You can view these properties by adding the ``--props`` switch to the
-dump command.
+dump command:
+
+.. code-block:: bash
+
+    $ php bin/console doctrine:phpcr:node:dump --props /cms/content/home
 
 .. note::
 
@@ -74,20 +87,21 @@ Doctrine PHPCR-ODM
 The Symfony CMF uses the `Doctrine PHPCR-ODM`_ to interact with PHPCR.
 Doctrine allows a user to create objects (called *documents*) which are
 directly persisted into and retrieved from the PHPCR tree. This is similar to
-the Doctrine ORM used by the Symfony2 Framework, but then for PHPCR.
+the Doctrine ORM provided by default in the Symfony Standard Edition, but for
+PHPCR instead of SQL databases.
 
 Creating a Page with code
 -------------------------
 
 Now you know a little bit more about PHPCR and you know the tool to interact
-with it, you can start using it yourself. In the previous chapter, you created
-a page by using a yaml file which was parsed by the SimpleCmsBundle. This
-time, you'll create a page by doing it yourself.
+with it, you can start using it yourself. In the previous chapter, you edited
+a page by using a yaml file which was parsed by the fixture loader of the
+sandbox. This time, you'll create a page by doing it yourself.
 
 First, you have to create a new DataFixture to add your new page. You do this
 by creating a new class in the AppBundle::
 
-    // src/AppBundle/DataFixtures/PHPCR/LoadPageData.php
+    // src/AppBundle/DataFixtures/PHPCR/LoadQuickTourData.php
     namespace AppBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\Persistence\ObjectManager;
@@ -100,7 +114,7 @@ by creating a new class in the AppBundle::
         {
             // refers to the order in which the class' load function is called
             // (lower return values are called first)
-            return 10;
+            return 100;
         }
 
         public function load(ObjectManager $documentManager)
@@ -123,7 +137,10 @@ PHPCR. But first, you have to create a new Page document::
         }
 
         $page = new Page(); // create a new Page object (document)
-        $page->setName('new_page'); // the name of the node
+        $page->setName('quick-tour'); // the name of the node
+
+        vno sandbox übernehmen
+
         $page->setLabel('Another new Page');
         $page->setTitle('Another new Page');
         $page->setBody('I have added this page myself!');
@@ -133,16 +150,9 @@ Each document needs a parent. In this case, the parent should just be the root
 node. To do this, we first retrieve the root document from PHPCR and then set
 it as its parent::
 
-    // ...
     public function load(ObjectManager $documentManager)
     {
-        if (!$documentManager instanceof DocumentManager) {
-            $class = get_class($documentManager);
-            throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
-        }
-
         // ...
-
         // get root document (/cms/simple)
         $simpleCmsRoot = $documentManager->find(null, '/cms/simple');
 
@@ -152,21 +162,46 @@ it as its parent::
 And at last, we have to tell the Document Manager to persist our Page
 document using the Doctrine API::
 
-    // ...
     public function load(ObjectManager $documentManager)
     {
-        if (!$documentManager instanceof DocumentManager) {
-            $class = get_class($documentManager);
-            throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
-        }
-
         // ...
         $documentManager->persist($page); // add the Page in the queue
         $documentManager->flush(); // add the Page to PHPCR
     }
 
-Now you need to execute the ``doctrine:phpcr:fixtures:load`` command again and
-then you can visit your website again. You'll see your new page you added!
+Now you need to execute the ``doctrine:phpcr:fixtures:load`` command again.
+When dumping the nodes again, your new page should turn up under /cms/content.
+
+To actually see this page in the browser, we need a route::
+
+    public function load(ObjectManager $documentManager)
+    {
+        // ...
+        $route = new Route();
+        $routeRoot = $documentManager->find(null, '/cms/routes/en');
+        $route->setPosition($routeRoot, 'quick-tour');
+        $route->setContent($page);
+        $documentManager->persist($route);
+    }
+
+And we add a menu entry to link to this page, and flush the document manager
+at the end::
+
+    public function load(ObjectManager $documentManager)
+    {
+        $menu = new MenuNode();
+        $menu->setName('new_page');
+        $menu->setLabel('Quick Tour');
+        $menu->setContent($page);
+        $menuMain = $documentManager->find(null, '/cms/menu/main');
+        $menu->setParentDocument($menuMain);
+        $documentManager->persist($menu);
+
+        $documentManager->flush();
+    }
+
+Re-run the fixtures loading command and then refresh the web site. Your new
+page will be added, with a menu entry at the bottom of the menu!
 
 .. image:: ../_images/quick_tour/the-model-new-page.png
 

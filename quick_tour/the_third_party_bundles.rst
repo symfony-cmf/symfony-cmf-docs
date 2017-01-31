@@ -38,7 +38,7 @@ CmfMenuBundle is just a tiny layer on top of the KnpMenuBundle.
 Normally, the argument of ``knp_menu_render()`` is the menu name to render,
 but when using the CmfMenuBundle, it's a node id. In this case, the menu
 contains all items implementing the ``NodeInterface`` inside the
-``/cms/simple`` (since the basepath in the Standard Edition is ``/cms``).
+``/cms/simple`` (since the basepath in the CMF Sandbox is ``/cms``).
 
 .. note::
 
@@ -49,7 +49,7 @@ contains all items implementing the ``NodeInterface`` inside the
 The BlockBundle
 ---------------
 
-If you visit the homepage of the Standard Edition, you'll see three blocks:
+If you visit the homepage of the Sandbox, you'll see three blocks:
 
 .. image:: ../_images/quick_tour/3rd-party-bundles-homepage.png
 
@@ -58,7 +58,7 @@ the BlockBundle, which is a tiny layer on top of the SonataBlockBundle_. It
 provides the ability to store the blocks using PHPCR and it adds some commonly
 used blocks.
 
-The three blocks in the Standard Edition are custom blocks. A block is handled
+The three blocks in the Sandbox are custom blocks. A block is handled
 by a block service. You can find this service in the
 ``AppBundle\Block\UnitBlockService`` class. Since the blocks are
 persisted using PHPCR, it also needs a block document, which is located in
@@ -71,7 +71,7 @@ There is also a SeoBundle. This bundle is build on top of the
 SonataSeoBundle_. It provides a way to extract SEO information from a document
 and to make SEO information editable using an admin.
 
-To integrate the SeoBundle into the Standard Edition, you need to include it in
+To integrate the SeoBundle into the Sandbox, you need to include it in
 your project with ``composer require symfony-cmf/seo-bundle`` and then register
 both the CMF and the Sonata bundle in the ``AppKernel``::
 
@@ -95,7 +95,7 @@ the CmfSeoBundle can extract the title from a content object:
 
     # app/config/config.yml
     cmf_seo:
-        title: "%%content_title%% | Standard Edition"
+        title: "%%content_title%% | CMF Sandbox"
 
 The ``%%content_title%%`` will be replaced by the title extracted from the
 content object. The last thing you need to do is using this title as the title
@@ -116,7 +116,7 @@ you can configure a default title:
     # app/config/config.yml
     sonata_seo:
         page:
-            title: Standard Edition
+            title: CMF Sandbox
 
 .. caution::
 

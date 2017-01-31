@@ -32,20 +32,23 @@ The bundles provided by the Symfony CMF can work together, but they are also
 able to work standalone. This means that you don't need to add all bundles, you
 can decide to only use one of them (e.g. only the RoutingBundle or the SeoBundle).
 
-Downloading the Symfony CMF Standard Edition
---------------------------------------------
+Downloading the Symfony CMF Sandbox
+-----------------------------------
 
-When you want to start using the CMF for a new project, you can download the
+To explore the CMF, it is best to download the Symfony CMF Sandbox. The sandbox
+contains demonstrations for many of the CMF features and is a good playground
+to familiarize yourself with the CMF.
+
+When you want to start an actual project with the CMF, best download the
 Symfony CMF Standard Edition. The Symfony CMF Standard Edition is similar to
 the `Symfony Standard Edition`_, but contains and configures essential Symfony
-CMF bundles. It also adds a very simple bundle to show some of the basic
-Symfony CMF features.
+CMF bundles.
 
-The best way to download the Symfony CMF Standard Edition is using Composer_:
+The best way to download the Symfony CMF Sandbox is using Composer_:
 
 .. code-block:: bash
 
-    $ composer create-project symfony-cmf/standard-edition cmf
+    $ composer create-project symfony-cmf/sandbox cmf-sandbox
 
 Setting up the Database
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,11 +63,12 @@ extension. After that, run these commands:
 
 .. code-block:: bash
 
+    $ cd cmf-sandbox
+    $ cp app/config/phpcr_doctrine_dbal.yml.dist app/config/phpcr.yml
     $ php bin/console doctrine:database:create
     $ php bin/console doctrine:phpcr:init:dbal --force
     $ php bin/console doctrine:phpcr:repository:init
-    # TODO there are no fixtures in the standard edition anymore...
-    $ php bin/console doctrine:phpcr:fixtures:load
+    $ php bin/console doctrine:phpcr:fixtures:load -n
 
 .. tip::
 
@@ -87,8 +91,10 @@ The Request Flow
     inside the Symfony project, if that is not already the root folder of your
     server).
 
-Now, the Standard Edition is ready to use. Navigate to the homepage
+Now, the Sandbox is ready to use. Navigate to the homepage
 (``http://localhost:8000/``) to see the demo:
+
+redo image with current sandbox
 
 .. image:: ../_images/quick_tour/big-picture-home.png
 
@@ -165,33 +171,24 @@ this template.
 A view also uses a Menu, provided by the KnpMenuBundle_, and it can have
 integration with Create.js, for live editing.
 
-Adding a New Page
------------------
+The Fixtures
+------------
 
-Now you know the request flow, you can start adding a new page. In the Symfony
-CMF Standard Edition, the data is stored in data files, which are loaded when
-executing the ``doctrine:phpcr:fixtures:load`` command. To add a new page, edit
-one of the data files located in the
-``src/AppBundle/Resources/data`` directory:
+Now you know the request flow, you can start editing content. While the normal
+usage will be to edit content through a web interface, the CMF sandbox also
+supports  loading content from static files. This is mainly useful for testing
+purposes.
 
-TODO: replace example, simplecms bundle is not maintained anymore
+The fixtures are loaded with the ``doctrine:phpcr:fixtures:load`` command. To
+edit the home page, edit the first entry in
+``src/AppBundle/Resources/data/page.yml`` to say something different. Then, run
+the ``doctrine:phpcr:fixtures:load`` command to get the changes into the
+content repository. After refreshing the browser, you can see your
+modifications!
 
-.. code-block:: yaml
-
-    # src/AppBundle/Resources/data/pages.yml
-    Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page:
-        # ...
-
-        quick_tour:
-            id: /cms/simple/quick_tour
-            label: "Quick Tour"
-            title: "Reading the Quick Tour"
-            body: "I've added this page while reading the quick tour"
-
-After this, you need to run the ``doctrine:phpcr:fixtures:load`` to reflect
-the changes on the database and after refreshing, you can see your new page!
-
-.. image:: ../_images/quick_tour/big-picture-new-page.png
+Don't worry, editing fixture files is only done for developing and testing. The
+CMF comes with a Sonata admin integration for convenient online editing, or you
+can build your own editing systems.
 
 Final Thoughts
 --------------
