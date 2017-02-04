@@ -63,25 +63,25 @@ Configuration
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'backend' => [
                     'type' => 'X',
-                    'parameters' => array(
+                    'parameters' => [
                         'jackalope.factory'                => 'Jackalope\Factory',
                         'jackalope.check_login_on_server'  => false,
                         'jackalope.disable_stream_wrapper' => false,
                         'jackalope.auto_lastmodified'      => true,
-                    ),
-                ),
+                    ],
+                ],
                 'workspace' => 'default',
                 'username'  => 'admin',
                 'password'  => 'admin',
-                'options'   => array(
+                'options'   => [
                     'jackalope.fetch_depth' => 1,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``workspace``
 """""""""""""
@@ -233,18 +233,18 @@ PHPCR Session with Jackalope Jackrabbit
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'backend' => [
                     'type' => 'jackrabbit',
                     'url'  => 'http://localhost:8080/server/',
-                    'parameters' => array(
+                    'parameters' => [
                         'jackalope.default_header'    => 'X-ID: %serverid%',
                         'jackalope.jackrabbit_expect' => true,
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 ``url``
 """""""
@@ -327,24 +327,24 @@ supported by Doctrine.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'backend' => [
                     'type'       => 'doctrinedbal',
                     'connection' => 'default',
-                    'caches' => array(
+                    'caches' => [
                         'meta'  => 'doctrine_cache.providers.phpcr_meta'
                         'nodes' => 'doctrine_cache.providers.phpcr_nodes'
-                    ),
-                    'parameters' => array(
+                    ],
+                    'parameters' => [
                         // ... general parameters and options
 
                         // optional parameters specific to Jackalope Doctrine Dbal
                         'jackalope.disable_transactions' => false,
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 ``connection``
 """"""""""""""
@@ -408,15 +408,15 @@ debug toolbar:
     .. code-block:: php
 
         // app/config/config.yml
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'backend' => [
                     // ...
                     'logging'   => true,
                     'profiling' => true,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 Doctrine PHPCR-ODM Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -511,29 +511,29 @@ not configure anything here, the ODM services will not be loaded.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'odm' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'odm' => [
                 'configuration_id'            => null,
                 'auto_mapping'                => true,
                 'auto_generate_proxy_classes' => '%kernel.debug%',
                 'proxy-dir'                   => '%kernel.cache_dir%/doctrine/PHPCRProxies',
                 'proxy_namespace'             => 'PHPCRProxies',
-                'namespaces' => array(
-                    'translation' => array(
+                'namespaces' => [
+                    'translation' => [
                         'alias' => 'phpcr_locale',
-                    ),
-                ),
-                'mappings' => array(
-                    '<name>' => array(
+                    ],
+                ],
+                'mappings' => [
+                    '<name>' => [
                         'mapping'   => true,
                         'type'      => null,
                         'dir'       => null,
                         'alias'     => null,
                         'prefix'    => null,
                         'is-bundle' => null,
-                    ),
-                ),
-                'metadata_cache_driver' => array(
+                    ],
+                ],
+                'metadata_cache_driver' => [
                     'type'           => 'array',
                     'host'           => null,
                     'port'           => null,
@@ -541,9 +541,9 @@ not configure anything here, the ODM services will not be loaded.
                     'class'          => null,
                     'id'             => null,
                     'namespace'      => null,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``configuration_id``
 """"""""""""""""""""
@@ -639,10 +639,10 @@ General Settings
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
+        $container->loadFromExtension('doctrine_phpcr', [
             'jackrabbit_jar'       => '/path/to/jackrabbit.jar',
             'dump_max_line_length' => 120,
-        ));
+        ]);
 
 ``jackrabbit_jar``
 """"""""""""""""""

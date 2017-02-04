@@ -46,46 +46,47 @@ A service to use the generic Initializer looks like this:
 
     .. code-block:: yaml
 
-        # src/Acme/ContentBundle/Resources/config/services.yml
-        acme_content.phpcr.initializer:
+        # app/config/services.yml
+        app.phpcr_initializer:
             class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
             arguments:
-                - AcmeContentBundle Basepaths
-                - [ "/my/content", "/my/menu" ]
-                - "%acme.cnd%"
+                - App Basepaths
+                - ["/my/content", "/my/menu"]
+                - "%app.cnd%"
             tags:
                 - { name: "doctrine_phpcr.initializer" }
 
     .. code-block:: xml
 
-        <!-- src/Acme/ContentBundle/Resources/config/services.xml -->
-        <service id="acme_content.phpcr.initializer"
+        <!-- app/config/services.xml -->
+        <service id="app.phpcr_initializer"
                  class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
-            <argument>AcmeContentBundle Basepaths</argument>
+            <argument>App Basepaths</argument>
             <argument type="collection">
                 <argument>/my/content</argument>
                 <argument>/my/menu</argument>
             </argument>
-            <argument>%acme.cnd%</argument>
+            <argument>%app.cnd%</argument>
             <tag name="doctrine_phpcr.initializer"/>
         </service>
 
     .. code-block:: php
 
+        // app/config/services.php
+        use Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer;
         use Symfony\Component\DependencyInjection\Definition
 
         // ...
 
         $definition = new Definition(
-            'Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer',
-            array(
-                'AcmeContentBundle Basepaths',
-                array('/my/content', '/my/menu'),
-                '%acme.cnd%',
-            )
-        ));
+            GenericInitializer::class, [
+                'App Basepaths',
+                ['/my/content', '/my/menu'],
+                '%app.cnd%',
+            ]
+        );
         $definition->addTag('doctrine_phpcr.initializer');
-        $container->setDefinition('acme_content.phpcr.initializer', $definition);
+        $container->setDefinition('app.phpcr_initializer', $definition);
 
 You can execute your Initializers using the following command:
 
@@ -103,9 +104,10 @@ specific documents, you need your own Initializer. The interesting method
 to overwrite is the ``init`` method. It is passed the ``ManagerRegistry``,
 from which you can retrieve the PHPCR session but also the document manager::
 
-    // src/Acme/BasicCmsBundle/Initializer/SiteInitializer.php
-    namespace Acme\ContentBundle\Initializer;
+    // src/AppBundle/Initializer/SiteInitializer.php
+    namespace AppBundle\Initializer;
 
+    use AppBundle\Documents\Site;
     use Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface;
     use Doctrine\Bundle\PHPCRBundle\ManagerRegistry;
     use PHPCR\SessionInterface;
@@ -122,12 +124,12 @@ from which you can retrieve the PHPCR session but also the document manager::
 
         public function init(ManagerRegistry $registry)
         {
-            $dm = $registry->getManagerForClass('Acme\BasicCmsBundle\Document\Site');
+            $dm = $registry->getManagerForClass(Site::class);
             if ($dm->find(null, $this->basePath)) {
                 return;
             }
 
-            $site = new Acme\BasicCmsBundle\Document\Site();
+            $site = new Site();
             $site->setId($this->basePath);
             $dm->persist($site);
             $dm->flush();
@@ -159,17 +161,17 @@ Define a service for your Initializer as follows:
 
     .. code-block:: yaml
 
-        # src/Acme/BasicCmsBundle/Resources/config/config.yml
+        # app/config/config.yml
         services:
             # ...
-            acme_content.phpcr.initializer.site:
-                class: Acme\BasicCmsBundle\Initializer\SiteInitializer
+            app.phpcr_initializer_site:
+                class: AppBundle\Initializer\SiteInitializer
                 tags:
                     - { name: doctrine_phpcr.initializer }
 
     .. code-block:: xml
 
-        <!-- src/Acme/BasicCmsBUndle/Resources/config/config.php
+        <!-- app/config/config.php
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -180,8 +182,8 @@ Define a service for your Initializer as follows:
             <!-- ... -->
             <services>
                 <!-- ... -->
-                <service id="acme_content.phpcr.initializer.site"
-                    class="Acme\BasicCmsBundle\Initializer\SiteInitializer">
+                <service id="app.phpcr_initializer_site"
+                    class="AppBundle\Initializer\SiteInitializer">
                     <tag name="doctrine_phpcr.initializer"/>
                 </service>
             </services>
@@ -190,15 +192,15 @@ Define a service for your Initializer as follows:
 
     .. code-block:: php
 
-        // src/Acme/BasicCmsBundle/Resources/config/config.php
+        // app/config/config.php
 
         //  ...
         $container
             ->register(
-                'acme_content.phpcr.initializer.site',
-                'Acme\BasicCmsBundle\Initializer\SiteInitializer'
+                'app.phpcr_initializer_site',
+                'AppBundle\Initializer\SiteInitializer'
             )
-            ->addTag('doctrine_phpcr.initializer', array('name' => 'doctrine_phpcr.initializer')
+            ->addTag('doctrine_phpcr.initializer', ['name' => 'doctrine_phpcr.initializer']
         ;
 
 Migration Loading
@@ -216,44 +218,45 @@ basis.
 
     .. code-block:: yaml
 
-        # src/Acme/ContentBundle/Resources/config/services.yml
-        acme.demo.migration.foo:
-            class: Acme\DemoBundle\Migration\Foo
+        # app/config/services.yml
+        app.migration:
+            class: AppBundle\Migration\Migration
             arguments:
-                - { "%acme.content_basepath%", "%acme.menu_basepath%" }
+                - { "%app.content_basepath%", "%app.menu_basepath%" }
             tags:
-                - { name: "doctrine_phpcr.migrator", alias: "acme.demo.migration.foo" }
+                - { name: "doctrine_phpcr.migrator", alias: "app.migration" }
 
     .. code-block:: xml
 
-        <!-- src/Acme/ContentBundle/Resources/config/services.xml -->
+        <!-- app/config/services.xml -->
         <?xml version="1.0" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            <service id="acme.demo.migration.foo"
-                     class="Acme\DemoBundle\Migration\Foo">
+            <service id="app.migration"
+                     class="AppBundle\Migration\Migration">
                 <argument type="collection">
-                    <argument>%acme.content_basepath%</argument>
-                    <argument>%acme.menu_basepath%</argument>
+                    <argument>%app.content_basepath%</argument>
+                    <argument>%app.menu_basepath%</argument>
                 </argument>
 
-                <tag name="doctrine_phpcr.migrator" alias="acme.demo.migration.foo"/>
+                <tag name="doctrine_phpcr.migrator" alias="app.migration"/>
             </service>
         </container>
 
     .. code-block:: php
 
-        use Symfony\Component\DependencyInjection\Definition
+        use AppBundle\Migration\Migration;
+        use Symfony\Component\DependencyInjection\Definition;
 
         // ...
-        $definition = new Definition('Acme\DemoBundle\Migration\Foo', array(
-            array(
-                '%acme.content_basepath%',
-                '%acme.menu_basepath%',
-            ),
-        )));
-        $definition->addTag('doctrine_phpcr.migrator', array('alias' => 'acme.demo.migration.foo'));
+        $definition = new Definition(Migration::class, [
+            [
+                '%app.content_basepath%',
+                '%app.menu_basepath%',
+            ],
+        ]);
+        $definition->addTag('doctrine_phpcr.migrator', ['alias' => 'app.migration']);
 
-        $container->setDefinition('acme.demo.migration.foo', $definition);
+        $container->setDefinition('app.migration', $definition);
 
 To find out available migrations run:
 
@@ -289,8 +292,8 @@ don't specify a path in the command.
 
 A simple example fixture class looks like this::
 
-    // src/Acme/MainBundle/DataFixtures/PHPCR/LoadPageData.php
-    namespace Acme\MainBundle\DataFixtures\PHPCR;
+    // src/AppBundle/DataFixtures/PHPCR/LoadPageData.php
+    namespace AppBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
