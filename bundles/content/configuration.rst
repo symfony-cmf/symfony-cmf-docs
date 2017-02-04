@@ -30,6 +30,7 @@ is the following configuration:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_content:
             persistence:
                 phpcr:
@@ -41,6 +42,7 @@ is the following configuration:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -60,15 +62,18 @@ is the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_content', array(
-            'persistence' => array(
-                'phpcr' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_content', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled'          => false,
                     'admin_class'      => null,
                     'document_class'   => null,
                     'content_basepath' => '/cms/content',
                     'use_sonata_admin' => 'auto',
-        ));
+                ],
+            ],
+        ]);
 
 ``enabled``
 ...........
