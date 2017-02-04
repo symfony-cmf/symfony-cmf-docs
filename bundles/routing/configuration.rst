@@ -306,7 +306,7 @@ setting is set as controller.
 
 **type**: ``scalar``, **default**: ``0``
 
-If this value is set to a number bigger than 0, the ``getRouteCollection``
+If this value is set to a number bigger than 0, the ``getRouteCollection()``
 method returns a collection of routes read from the database. The limit serves
 to prevent huge route lists if you have a large database. Setting the limit to
 ``false`` disables the limit entirely and attempts to return all routes.

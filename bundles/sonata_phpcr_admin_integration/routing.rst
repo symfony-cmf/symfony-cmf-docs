@@ -1,20 +1,19 @@
 RoutingBundle
 =============
 
-Both content routes and redirect routes can be administrated. The content admin
-shows a tree of the content documents to select which content to use for this
-route. Set the root of the content with the ``content_basepath`` setting.
+Both content routes and redirect routes can be administrated. When creating
+content routes, a tree of content documents is shown. The administrator can
+select a content document to bind to the route. This tree is configured with
+the ``content_basepath`` setting.
 
-The root path to add Routes defaults to the first entry in ``route_basepaths``,
-but you can overwrite this with the ``basepath`` if you need a different
-base path.
+The root path to add routes defaults to the first entry in ``route_basepaths``
+configuration of the RoutingBundle. You can overwrite this with the
+``basepath`` option if you need a different base path.
 
-Routing can also be handled on a content that has a back link to its routes.
-The admin integration provides an admin extension to add route editing to any
-route aware content.
-
-Another extension provides a frontend link on all admin pages that are about
-content that has a URL.
+Routes can also be handled in the content admin page. The admin integration
+provides an admin extension that allows adding routes to any route aware
+objects. Another extension provides a frontend link on all admin pages that
+objects that refer to routes.
 
 Configuration
 -------------
@@ -28,8 +27,8 @@ Configuration
             bundles:
                 routing:
                     enabled: false
-                    basepath: null
-                    content_basepath: null
+                    basepath: ~
+                    content_basepath: ~
 
     .. code-block:: xml
 
@@ -196,7 +195,9 @@ See the `Sonata Admin extension documentation`_ for more information.
 Styling the Frontend Link
 *************************
 
-The frontend link button can be customized using the following CSS selectors:
+The frontend link button can be customized using the
+``.sonata-admin-frontend-link`` selector. For instance, to show a link icon and
+make the label bold, use the following CSS:
 
 .. code-block:: css
 

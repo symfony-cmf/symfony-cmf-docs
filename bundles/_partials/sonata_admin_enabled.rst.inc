@@ -1,14 +1,15 @@
 ``enabled``
 ***********
 
-... true false only
+**type**: ``bool`` **default**: ``false``
 
-**type**: ``bool`` **valid values**: ``true|false`` **default**: ``false``
+If ``true``, the admin classes and extensions of this package are loaded and
+available for Sonata Admin.
 
-If ``true``, the admin classes for the routing are loaded and available for
-Sonata.
+.. tip::
 
-.. note::
+    If you do not see this admin on the Sonata dashboard, you need to configure
+    the dashboard to show the admin service in question. Read more about this
+    in `the Sonata Admin documentation`_.
 
-    To see an admin on the sonata dashboard, you still need to configure the
-    dashboard to show the admin service in question.
+.. _the Sonata Admin documentation: https://sonata-project.org/bundles/admin/3-x/doc/reference/dashboard.html
