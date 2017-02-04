@@ -23,6 +23,7 @@ is the following configuration:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_core:
             persistence:
                 phpcr:
@@ -35,6 +36,7 @@ is the following configuration:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -55,18 +57,19 @@ is the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'persistence' => array(
-                'phpcr' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled'              => false,
                     'basepath'             => '/cms/simple',
                     'manager_registry'     => 'doctrine_phpcr',
                     'manager_name'         => null,
                     'use_sonata_admin'     => 'auto',
                     'translation_strategy' => null,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``orm``
 .......
@@ -78,6 +81,7 @@ is the following configuration:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_core:
             persistence:
                 orm:
@@ -87,6 +91,7 @@ is the following configuration:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -104,15 +109,16 @@ is the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'persistence' => array(
-                'phpcr' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled'          => false,
                     'manager_name'     => null,
                     'use_sonata_admin' => 'auto',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``enabled``
 """""""""""
@@ -221,12 +227,14 @@ bundles that use this configuration:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_core:
             multilang:
                 locales: [en, fr]
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -240,14 +248,15 @@ bundles that use this configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'multilang' => array(
-                'locales' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'multilang' => [
+                'locales' => [
                     'en',
                     'fr',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``locales``
 ...........
@@ -267,6 +276,7 @@ only published routes and content can be accessed.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_core:
             publish_workflow:
                 enabled:                 true
@@ -276,6 +286,7 @@ only published routes and content can be accessed.
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -291,14 +302,15 @@ only published routes and content can be accessed.
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'publish_workflow' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'publish_workflow' => [
                 'enabled'                 => true,
                 'checker_service'         => 'cmf_core.publish_workflow.checker.default',
                 'view_non_published_role' => 'ROLE_CAN_VIEW_NON_PUBLISHED',
                 'request_listener'        => true,
-            ),
-        ));
+            ],
+        ]);
 
 Sonata Admin
 ------------
@@ -313,6 +325,7 @@ This section configures the Sonata Admin Extensions, see:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_core:
             sonata_admin:
                 extensions:
@@ -325,6 +338,7 @@ This section configures the Sonata Admin Extensions, see:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -341,21 +355,22 @@ This section configures the Sonata Admin Extensions, see:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'sonata_admin' => array(
-                'extensions' => array(
-                    'publishable' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'sonata_admin' => [
+                'extensions' => [
+                    'publishable' => [
                         'form_group' => 'form.group_publish_workflow',
-                    ),
-                    'publish_time' => array(
+                    ],
+                    'publish_time' => [
                         'form_group' => 'form.group_general',
-                    ),
-                    'translatable' => array(
+                    ],
+                    'translatable' => [
                         'form_group' => 'form.group_general',
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 ``form_group``
 ~~~~~~~~~~~~~~

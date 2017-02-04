@@ -78,11 +78,11 @@ given to editors. The default name of the role is ``ROLE_CAN_VIEW_NON_PUBLISHED`
     .. code-block:: php
 
         // app/config/security.php
-        $container->loadFromExtension('security', array(
-            'role_hierarchy' => array(
+        $container->loadFromExtension('security', [
+            'role_hierarchy' => [
                 'ROLE_EDITOR' => 'ROLE_CAN_VIEW_NON_PUBLISHED',
-            ),
-        ));
+            ],
+        ]);
 
 Once a user with ``ROLE_EDITOR`` is logged in - meaning there is a firewall in place for
 the path in question - they will have the permission to view unpublished content as well::
@@ -304,17 +304,19 @@ you can lower the priority of those voters:
 
     .. code-block:: yaml
 
+        # app/config/services.yml
         services:
-            security.publishable_voter:
+            app.publishable_voter:
                 class: "AppBundle\Security\PublishableVoter"
                 tags:
                     - { name: cmf_published_voter, priority: 30 }
 
     .. code-block:: xml
 
+        <!-- app/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            <service id="security.publishable_voter"
+            <service id="app.publishable_voter"
                 class="AppBundle\Security\PublishableVoter">
 
                 <tag name="cmf_published_voter" priority="30"/>
@@ -323,14 +325,16 @@ you can lower the priority of those voters:
 
     .. code-block:: php
 
+        // app/config/config.php
         use Symfony\Component\DependencyInjection\Definition;
+        use AppBundle\Security\PublishableVoter;
 
         $container
             ->register(
-                'security.publishable_voter',
-                'AppBundle\Security\PublishableVoter'
+                'app.publishable_voter',
+                PublishableVoter::class
             )
-            ->addTag('cmf_published_voter', array('priority' => 30))
+            ->addTag('cmf_published_voter', ['priority' => 30])
         ;
 
 The workflow checker will create an
@@ -413,21 +417,24 @@ configuration in the ``sonata_admin`` section of your project configuration:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
+        use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface;
+        use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface;
+
+        $container->loadFromExtension('sonata_admin', [
             // ...
-            'extensions' => array(
-                'cmf_core.admin_extension.publish_workflow.publishable' => array(
-                    'implements' => array(
-                        'Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface',
-                    ),
-                ),
-                'cmf_core.admin_extension.publish_workflow.time_period' => array(
-                    'implements' => array(
-                        'Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface',
-                    ),
-                ),
-            ),
-        ));
+            'extensions' => [
+                'cmf_core.admin_extension.publish_workflow.publishable' => [
+                    'implements' => [
+                        PublishableInterface::class,
+                    ],
+                ],
+                'cmf_core.admin_extension.publish_workflow.time_period' => [
+                    'implements' => [
+                        PublishTimePeriodInterface::class,
+                    ],
+                ],
+            ],
+        ]);
 
 See the `Sonata Admin extension documentation`_ for more information.
 

@@ -14,13 +14,13 @@ typically a "terms and conditions" document. When using this type, you
 additionally specify ``content_ids``, which are understood by the
 :doc:`DynamicRouter <../routing/dynamic>`, along with replacement tokens::
 
-    $form->add('terms', 'cmf_core_checkbox_url_label', array(
+    $form->add('terms', 'cmf_core_checkbox_url_label', [
         'label' => 'I have seen the <a href="%team%">Team</a> and <a href="%more%">More</a> pages ...',
-        'content_ids' => array(
+        'content_ids' => [
             '%team%' => '/cms/content/static/team',
             '%more%' => '/cms/content/static/more',
-        ),
-    ));
+        ],
+    ]);
 
 The form type automatically generates the routes for the specified content and
 passes the routes to the ``trans`` Twig helper for replacement in the label.
