@@ -46,9 +46,10 @@ Enable alternate locale support:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_seo', array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_seo', [
             'alternate_locale' => true,
-        ));
+        ]);
 
 If you are using PHPCR-ODM, enabling ``phpcr: ~`` in the seo bundle
 configuration will activate a listener that extracts the alternate locales
@@ -96,11 +97,12 @@ use your custom alternate locale provider instead of the default one. Set the
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_seo', array(
-            'alternate_locale' => array (
+        // app/config/config.php
+        $container->loadFromExtension('cmf_seo', [
+            'alternate_locale' => [
                 'provider_id' => 'alternate_locale.provider',
-            ),
-        ));
+            ],
+        ]);
 
 .. versionadded:: 1.2
     When :doc:`Sitemaps <sitemap>` are enabled, alternate locales are also

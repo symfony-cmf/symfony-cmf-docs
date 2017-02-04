@@ -18,11 +18,11 @@ kernel as well::
     // ...
     public function registerBundles()
     {
-        $bundles = array(
+        $bundles = [
             // ...
             new Sonata\SeoBundle\SonataSeoBundle(),
             new Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle(),
-        );
+        )];
 
         // ...
 
@@ -60,17 +60,17 @@ The simplest use of this bundle would be to just set some configuration to the
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('sonata_seo', array(
-            'page' => array(
+        $container->loadFromExtension('sonata_seo', [
+            'page' => [
                 'title' => 'Page's default title',
-                'metas' => array(
-                    'name' => array(
+                'metas' => [
+                    'name' => [
                         'description' => 'default description',
                         'keywords' => 'default, key, other',
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 This sets default values for the ``SeoPage`` value object. You can later update
 that object with more precise information. It is available as service
@@ -207,6 +207,7 @@ you want to change that to redirect instead, you can set the
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="utf-8"?>
         <config xmlns="http://cmf.symfony.com/schema/dic/seo"
             original-route-pattern="redirect"
         />
@@ -215,9 +216,9 @@ you want to change that to redirect instead, you can set the
 
         // app/config/config.php
         $container->loadFromExtension(
-            'cmf_seo' => array(
+            'cmf_seo' => [
                 'original_route_pattern' => 'redirect',
-            ),
+            ],
         );
 
 .. _bundles-seo-title-description-template:
@@ -256,6 +257,7 @@ For instance, to configure the titles of the symfony.com pages, you would do:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="utf-8"?>
         <config xmlns="http://cmf.symfony.com/schema/dic/seo"
             title="%%content_title%% - Symfony"
         />
@@ -263,9 +265,9 @@ For instance, to configure the titles of the symfony.com pages, you would do:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_seo', array(
+        $container->loadFromExtension('cmf_seo', [
             'title' => '%%content_title%% - Symfony',
-        ));
+        ]);
 
 .. caution::
 
@@ -292,6 +294,7 @@ For instance, you can do:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="utf-8"?>
         <config xmlns="http://cmf.symfony.com/schema/dic/seo"
             title="seo.title"
             description="seo.description"
@@ -300,10 +303,10 @@ For instance, you can do:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_seo', array(
+        $container->loadFromExtension('cmf_seo', [
             'title' => 'seo.title',
             'description' => 'seo.description',
-        ));
+        ]);
 
 And then configure the translation messages:
 
@@ -331,12 +334,12 @@ And then configure the translation messages:
     .. code-block:: php
 
         // app/Resources/translations/messages.en.php
-        return array(
-            'seo' => array(
+        return [
+            'seo' => [
                 'title'       => '%content_title% | Default title',
                 'description' => 'Default description. %content_description',
-            ),
-        );
+            ],
+        ];
 
     .. code-block:: yaml
 
@@ -359,14 +362,15 @@ For changing the default translation domain (messages), you should use the
 
         # app/config/config.yml
         cmf_seo:
-            translation_domain: AcmeDemoBundle
+            translation_domain: seo
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="utf-8"?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/seo"
-                translation-domain="AcmeDemoBundle"
+                translation-domain="seo"
             />
         </container>
 
@@ -374,9 +378,9 @@ For changing the default translation domain (messages), you should use the
 
         // app/config/config.php
         $container->loadFromExtension(
-            'cmf_seo' => array(
-                'translation_domain' => 'AcmeDemoBundle',
-            ),
+            'cmf_seo' => [
+                'translation_domain' => 'seo',
+            ],
         );
 
 .. _bundles-seo-alternate-locale:

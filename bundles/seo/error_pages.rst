@@ -46,9 +46,9 @@ controller:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('twig', array(
+        $container->loadFromExtension('twig', [
             'exception_controller' => 'cmf_seo.error.suggestion_provider.controller:showAction',
-        ));
+        ]);
 
 .. seealso::
 
@@ -99,12 +99,12 @@ You can enable these in your config:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_seo', array(
-            'error' => array(
+        $container->loadFromExtension('cmf_seo', [
+            'error' => [
                 'enable_parent_provider'  => true,
                 'enable_sibling_provider' => true,
-            ),
-        ));
+            ],
+        ]);
 
 .. tip::
 
@@ -137,7 +137,7 @@ assume you always want to suggest the homepage, the provider looks like::
             // somehow get the Route instance of the homepage route (e.g. by quering the database)
             $homepageRoute = ...;
 
-            return array($homepageRoute);
+            return [$homepageRoute];
         }
     }
 
@@ -150,7 +150,7 @@ Now, register this new class as a service and tag it as
 
         # app/config/services.yml
         services:
-            app.suggestions.hompage:
+            app.hompage_suggestions:
                 class: AppBundle\Seo\HomepageSuggestionProvider
                 tags:
                     - { name: cmf_seo.suggestion_provider }
@@ -165,7 +165,7 @@ Now, register this new class as a service and tag it as
         >
 
             <services>
-                <service id="app.suggestions.homepage"
+                <service id="app.hompage_suggestions"
                     class="AppBundle\Seo\HomepageSuggestionProvider"
                 >
                     <tag name="cmf_seo.suggestion_provider"/>
@@ -177,11 +177,12 @@ Now, register this new class as a service and tag it as
     .. code-block:: php
 
         // app/config/services.php
+        use AppBundle\Seo\HomepageSuggestionProvider;
         use Symfony\Component\DependencyInjection\Definition;
 
-        $definition = new Definition('AppBundle\Seo\HomepageSuggestionProvider');
+        $definition = new Definition(HomepageSuggestionProvider::class);
         $definition->addTag('cmf_seo.suggestion_provider');
-        $container->setDefinition('app.suggestions.homepage', $definition);
+        $container->setDefinition('app.hompage_suggestions', $definition);
 
 The tag allows a ``group`` attribute, in order to group suggested links.
 
