@@ -305,7 +305,7 @@ omit setting a content document on the route document.
     per locale, all referencing the same multilingual content instance. The
     ``ContentAwareGenerator`` respects the ``_locale`` when generating routes
     from content instances. When resolving the route, the ``_locale`` gets
-    into the request and is picked up by the Symfony2 locale system.
+    into the request and is picked up by the Symfony locale system.
 
     Make sure you configure the valid locales in the configuration so that the
     bundle can optimally handle locales. The
@@ -321,79 +321,6 @@ omit setting a content document on the route document.
     If you need translated URLs, make the ``locale`` part of the route name and
     create one route per language for the same content. The route generator will
     pick the correct route if available.
-
-Sonata Doctrine PHPCR-ODM Admin classes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If the SonataDoctrinePHPCRAdminBundle_ is loaded in the application kernel,
-route and redirect route documents can be administrated in sonata admin. For
-instructions on how to configure Sonata, see `configuring sonata admin`_.
-
-By default, ``use_sonata_admin`` is automatically set based on whether
-SonataDoctrinePHPCRAdminBundle is available, but you can explicitly
-disable it to not have it even if sonata is enabled, or explicitly enable to
-get an error if Sonata becomes unavailable.
-
-Sonata admin is using the ``content_basepath`` to show the tree of content to
-select the route target.
-
-The root path to add Routes defaults to the first entry in ``route_basepaths``,
-but you can overwrite this with the ``admin_basepath`` if you need a different
-base path.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_routing:
-            dynamic:
-                persistence:
-                    phpcr:
-                        # use true/false to force using / not using sonata admin
-                        use_sonata_admin: auto
-
-                        # used with Sonata Admin to manage content; defaults to %cmf_core.basepath%/content
-                        content_basepath: ~
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-                <dynamic>
-                    <persistence>
-                        <!-- use-sonata-admin: use true/false to force using / not using sonata admin -->
-                        <!-- content-basepath: used with Sonata Admin to manage content;
-                                               defaults to %cmf_core.basepath%/content -->
-                        <phpcr
-                            use-sonata-admin="auto"
-                            content-basepath="null"
-                        />
-                    </persistence>
-                </dynamic>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('cmf_routing', [
-            'dynamic' => [
-                'persistence' => [
-                    'phpcr' => [
-                        // use true/false to force using / not using sonata admin
-                        'use_sonata_admin' => 'auto',
-
-                        // used with Sonata Admin to manage content; defaults to %cmf_core.basepath%/content
-                        'content_basepath' => null,
-                    ],
-                ],
-            ],
-        ]);
 
 .. _bundle-routing-entity:
 
@@ -417,7 +344,7 @@ URL generation with the DynamicRouter
 Apart from matching an incoming request to a set of parameters, a Router is
 also responsible for generating an URL from a route and its parameters. The
 ``DynamicRouter`` adds more power to the
-`URL generating capabilities of Symfony2`_.
+`URL generating capabilities of Symfony`_.
 
 .. tip::
 
@@ -585,130 +512,6 @@ documents. You need to configure the route enhancer for this interface:
             ],
         ]);
 
-RouteReferrersInterface Sonata Admin Extension
-----------------------------------------------
-
-This bundle provides an extension to edit referring routes for content that
-implements the ``RouteReferrersInterface``.
-
-To enable the extensions in your admin classes, simply define the extension
-configuration in the ``sonata_admin`` section of your project configuration:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        sonata_admin:
-            # ...
-            extensions:
-                cmf_routing.admin_extension.route_referrers:
-                    implements:
-                        - Symfony\Cmf\Component\Routing\RouteReferrersInterface
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://sonata-project.org/schema/dic/admin">
-                <extension id="cmf_routing.admin_extension.route_referrers">
-                    <implement>Symfony\Cmf\Component\Routing\RouteReferrersInterface</implement>
-                </extension>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        use Symfony\Cmf\Bundle\Routing\RedirectRouteInterface;
-
-        $container->loadFromExtension('sonata_admin', [
-            'extensions' => [
-                'cmf_routing.admin_extension.route_referrers' => [
-                    'implements' => [
-                        RouteReferrersInterface::class,
-                    ],
-                ],
-            ],
-        ]);
-
-See the `Sonata Admin extension documentation`_ for more information.
-
-FrontendLink Sonata Admin Extension
------------------------------------
-
-This bundle provides an extension to show a button in Sonata Admin, which links on the actual
-frontend representation of a document. Documents which implement the ``RouteReferrersReadInterface``
-and Routes itself (``Symfony\Component\Routing\Route``) are supported.
-
-To enable the extension in your admin classes, simply define the extension
-configuration in the ``sonata_admin`` section of your project configuration:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        sonata_admin:
-            # ...
-            extensions:
-                cmf_routing.admin_extension.frontend_link:
-                    implements:
-                        - Symfony\Cmf\Component\Routing\RouteReferrersReadInterface
-                    extends:
-                        - Symfony\Component\Routing\Route
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <config xmlns="http://sonata-project.org/schema/dic/admin">
-            <!-- ... -->
-            <extension id="cmf_routing.admin_extension.frontend_link">
-                <implement>Symfony\Cmf\Component\Routing\RouteReferrersReadInterface</implement>
-                <extend>Symfony\Component\Routing\Route</extend>
-            </extension>
-        </config>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
-        use Symfony\Component\Routing\Route;
-
-        $container->loadFromExtension('sonata_admin', [
-            'extensions' => [
-                'cmf_routing.admin_extension.frontend_link' => [
-                    'implements' => [
-                        RouteReferrersReadInterface::class,
-                    ],
-                    'extends' => [
-                        Route::class,
-                    ],
-                ],
-            ],
-        ]);
-
-See the `Sonata Admin extension documentation`_ for more information.
-
-Styling
-~~~~~~~
-
-Feel free to use your own styles. The frontend link button can be customized
-using the following example CSS rules:
-
-.. code-block:: css
-
-    .sonata-admin-menu-item a.sonata-admin-frontend-link {
-        font-weight: bold;
-    }
-
-    .sonata-admin-menu-item a.sonata-admin-frontend-link:before {
-        font-family: FontAwesome;
-        content: "\f08e";
-    }
-
 Customize the DynamicRouter
 ---------------------------
 
@@ -718,8 +521,5 @@ Read on in the chapter :doc:`customizing the dynamic router <dynamic_customize>`
 .. _`CMF Routing component`: https://github.com/symfony-cmf/Routing
 .. _`Doctrine ORM`: http://www.doctrine-project.org/projects/orm.html
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
-.. _`Sonata Admin extension documentation`: https://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
-.. _`URL generating capabilities of Symfony2`: https://symfony.com/doc/current/book/routing.html#generating-urls
-.. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
-.. _`configuring sonata admin`: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/reference/configuration.html
+.. _`URL generating capabilities of Symfony`: https://symfony.com/doc/current/book/routing.html#generating-urls
 .. _`FOSJsRoutingBundle`: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle

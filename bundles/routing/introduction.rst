@@ -14,11 +14,11 @@ RoutingBundle
 The ``ChainRouter`` is meant to replace the default Symfony Router. All it
 does is manage a prioritized list of routers and try to match requests and
 generate URLs with all of them. One of the routers in that chain can of course
-be the default router so you can still use the Symfony2 standard way of
+be the default router so you can still use the Symfony standard way of
 specifying routes where it makes sense.
 
 Additionally, this bundle delivers useful router implementations. It provides
-the ``DynamicRouter`` that routes based on a custom loader logic for Symfony2
+the ``DynamicRouter`` that routes based on a custom loader logic for Symfony
 Route objects. The provider can be implemented using a database. This bundle
 provides default implementations for Doctrine PHPCR-ODM and Doctrine ORM.
 
@@ -88,7 +88,7 @@ will look like this
             ->addTag('router', ['priority' => 300])
         ;
 
-See also official Symfony2 `documentation for DependencyInjection tags`_
+See also official Symfony `documentation for DependencyInjection tags`_
 
 Sections
 --------
@@ -106,7 +106,7 @@ For more information on Routing in the Symfony CMF, please refer to:
 * The :doc:`routing introduction chapter <../../book/routing>` of the book;
 * The :doc:`routing component documentation <../../components/routing/introduction>`
   for implementation details of the routers;
-* Symfony2's `Routing`_ component documentation.
+* Symfony's `Routing`_ component documentation.
 
 .. _`with composer`: https://getcomposer.org
 .. _`symfony-cmf/routing-bundle`: https://packagist.org/packages/symfony-cmf/routing-bundle
