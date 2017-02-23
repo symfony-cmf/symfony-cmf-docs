@@ -5,73 +5,64 @@ The TreeBrowserBundle can be configured under the ``cmf_tree_browser`` key in
 your application configuration. When using XML, you can use the
 ``http://cmf.symfony.com/schema/dic/treebrowser`` namespace.
 
-.. note::
-
-    To use this bundle with the tree provided by SonataDoctrinePHPCRAdminBundle_,
-    you do not need to provide any configuration here.
-
 Configuration
 -------------
 
-.. _config-tree_browser-persistence:
+.. _config-tree_browser-icons:
 
-``persistence``
-~~~~~~~~~~~~~~~
+``icons``
+~~~~~~~~~
 
-``phpcr``
-.........
+**prototype**: ``scalar``
 
-This defines the persistence driver. The default configuration of persistence
-is the following configuration:
+A mapping of interfaces/classes to icons. These icons will be shown in the tree
+whenever an instance of this interface/class is shown.
+
+The icon can be either a CSS class (e.g. to use an icon font) or a URI to an
+image. The value is considered to be an URI when it contains a ``.`` or ``/``
+character.
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         cmf_tree_browser:
-            persistence:
-                phpcr:
-                    enabled:      false
-                    session_name: default
+            icons:
+                # URI to an image
+                Symfony\Cmf\Component\Routing\RouteObjectInterface: '/img/route-icon.png'
+
+                # CSS classes
+                Symfony\Cmf\Bundle\SeoBundle\Model\SeoMetadata: 'fa fa-search'
 
     .. code-block:: xml
 
-        <?xml version="1.0" charset="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
+        <?xml version="2.0" encoding="UTF-8"?>
+        <container xmlns="http://symfony.com/dic/schema/services"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
+            xsd:schemaLocation="http://symfony.com/dic/schema/services http://symfony.com/dic/schema/services/services-1.0.xsd
+                http://cmf.symfony.com/dic/schema/tree_browser http://cmf.symfony.com/dic/schema/tree_browser/tree_browser-1.0.xsd"
+        >
 
-            <config xmlns="http://cmf.symfony.com/schema/dic/treebrowser">
-                <persistence>
-                    <phpcr
-                        enabled="false"
-                        session-name="default"
-                    />
-                </persistence>
+            <config xmlns="http://cmf.symfony.com/dic/schema/tree_browser">
+
+                <!-- URI to an image -->
+                <icon class="Symfony\Cmf\Component\Routing\RouteObjectInterface">/img/route-icon.png</icon>
+
+                <!-- CSS classes -->
+                <icon class="Symfony\Cmf\Bundle\SeoBundle\Model\SeoMetadata">fa fa-search</icon>
             </config>
-
         </container>
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_tree_browser', array(
-            'persistence' => array(
-                'phpcr' => array(
-                    'enabled'      => false,
-                    'session_name' => 'default',
-                ),
-            ),
-        ));
+        $container->loadFromExtension('cmf_tree_browser', [
+            'icons' => [
+                // URI to an image
+                'Symfony\Cmf\Component\Routing\RouteObjectInterface' => '/img/route-icon.png',
 
-
-``enabled``
-"""""""""""
-
-.. include:: ../_partials/persistence_phpcr_enabled.rst.inc
-
-``session_name``
-""""""""""""""""
-
-**type**: ``string`` **default**: ``default``
-
-The name of the PHPCR connection to use.
+                // CSS classes
+                'Symfony\Cmf\Bundle\SeoBundle\Model\SeoMetadata' => 'fa fa-search',
+            ],
+        ]);
 
 .. _SonataDoctrinePHPCRAdminBundle: http://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
