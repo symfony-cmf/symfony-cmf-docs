@@ -23,14 +23,14 @@ other hand, when choosing to use a CMS, it's more difficult to build custom
 application functionality. It is impossible or at least very hard to customize
 the core parts of the CMS.
 
-The CMF is created to solve this framework versus CMS dilemma. It provides
-bundles, so you can easily add CMS features to your project. But it also
-provides flexibility and you can use the underlying Symfony framework to
-build custom functionality the way you want. This is called a `decoupled CMS`_.
+The Symfony CMF is created to solve this framework versus CMS dilemma. It
+provides Symfony bundles to easily add CMS features to your project. Yet, as
+you're still using the Symfony framework, you can build any custom functionality
+you can think of. This flexibility is called a `decoupled CMS`_.
 
 The bundles provided by the Symfony CMF can work together, but they are also
 able to work standalone. This means that you don't need to add all bundles, you
-can decide to only use one of them (e.g. only the RoutingBundle or the SeoBundle).
+can decide to only use one of them (e.g. only the RoutingBundle).
 
 Downloading the Symfony CMF Sandbox
 -----------------------------------
@@ -65,6 +65,9 @@ extension. After that, run these commands:
 
     $ cd cmf-sandbox
     $ cp app/config/phpcr_doctrine_dbal.yml.dist app/config/phpcr.yml
+    # Or when you're on a Windows PC:
+    # $ copy app\config\phpcr_doctrine_dbal.yml.dist app\config\phpcr.yml
+
     $ php bin/console doctrine:database:create
     $ php bin/console doctrine:phpcr:init:dbal --force
     $ php bin/console doctrine:phpcr:repository:init
@@ -93,8 +96,6 @@ The Request Flow
 
 Now, the Sandbox is ready to use. Navigate to the homepage
 (``http://localhost:8000/``) to see the demo:
-
-redo image with current sandbox
 
 .. image:: ../_images/quick_tour/big-picture-home.png
 
@@ -176,7 +177,7 @@ The Fixtures
 
 Now you know the request flow, you can start editing content. While the normal
 usage will be to edit content through a web interface, the CMF sandbox also
-supports  loading content from static files. This is mainly useful for testing
+supports loading content from static files. This is mainly useful for testing
 purposes.
 
 The fixtures are loaded with the ``doctrine:phpcr:fixtures:load`` command. To

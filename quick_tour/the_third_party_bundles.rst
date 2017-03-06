@@ -5,51 +5,81 @@ The Third Party Bundles
 =======================
 
 You're still here? You already learned the basics of the Symfony CMF and you
-just wanted to learn more and more? Then you can read this chapter! This
+want to learn more and more? Then you can read this chapter! This
 chapter will walk you quickly through some other CMF bundles. Most of the
-other bundles are based on the shoulders of some giants, like the KnpMenuBundle_
+other bundles are integrations of great existing bundles like the KnpMenuBundle_
 or SonataAdminBundle_.
 
 The MenuBundle
 --------------
 
 Let's start with the MenuBundle. If you visit the page, you can see a nice
-menu. You can find the rendering of this menu in the layout view in the
-AcmeDemoBundle:
+menu. You can find the rendering of this menu in the base view:
 
 .. code-block:: html+jinja
 
-    <!-- app/Resources/views/layout.html.twig -->
+    <!-- app/Resources/views/base.html.twig -->
 
     <!-- ... -->
-    <nav class="navbar  navbar-inverse  page__nav" role="navigation">
-        <div class="container-fluid">
-            {{ knp_menu_render('simple', {'template': 'AcmeDemoBundle:Menu:bootstrap.html.twig', 'currentClass': 'active'}) }}
+    <div class="panel  panel-default  panel-nav">
+        <div class="panel-heading">Navigation</div>
 
-            <!-- ... -->
-        </div>
-    </nav>
+        {{ knp_menu_render('main', { template: 'includes/main_menu.html.twig' }) }}
+    </div>
 
-As you can see, the menu is rendered by the ``knp_menu_render`` tag. This
+As you can see, the menu is rendered by the ``knp_menu_render`` function. This
 seems a bit a strange, we are talking about the CmfMenuBundle and not the
-KnpMenuBundle, aren't we? That's correct, but as a matter of facts the
-CmfMenuBundle is just a tiny layer on top of the KnpMenuBundle.
+KnpMenuBundle, aren't we? That's correct, but the CmfMenuBundle is just a tiny
+layer on top of the KnpMenuBundle.
 
-Normally, the argument of ``knp_menu_render()`` is the menu name to render,
-but when using the CmfMenuBundle, it's a node id. In this case, the menu
-contains all items implementing the ``NodeInterface`` inside the
-``/cms/simple`` (since the basepath in the CMF Sandbox is ``/cms``).
+Normally, the argument of ``knp_menu_render()`` is the menu name to render, but
+when using the CmfMenuBundle, it's a node name. In this case, the menu contains
+all items implementing the ``NodeInterface`` inside the ``/cms/menu/main`` path
+(since the basepath in the CMF Sandbox is ``/cms/menu``).
 
-.. note::
+Creating a new Menu Entry
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    Apart from including a PHPCR menu provider, the CmfMenuBundle also
-    provides Admin classes. See the section about `Sonata Admin`_ to learn
-    more about this.
+To add our quick tour page to the menu, we need to add a menu entry.
+The menu object references the content, which in turn is referenced
+by the route so that the URL can be created::
+
+    // src/AppBundle/DataFixtures/PHPCR/LoadQuickTourData.php
+    namespace AppBundle\DataFixtures\PHPCR;
+
+    use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+    use Doctrine\ODM\PHPCR\DocumentManager;
+    use PHPCR\Util\NodeHelper;
+    use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+
+    class LoadQuickTourData implements FixtureInterface, OrderedFixtureInterface
+    {
+        public function load(ObjectManager $documentManager)
+        {
+            // static content from model chapter, resulting in $content being defined
+            // ...
+
+            $menuMain = $documentManager->find(null, '/cms/menu/main');
+            $menu = new MenuNode();
+            $menu->setParentDocument($menuMain);
+            $menu->setName('quick-tour');
+            $menu->setLabel('Quick Tour');
+            $menu->setContent($content);
+
+            $documentManager->persist($menu);
+            $documentManager->flush();
+        }
+    }
+
+Re-run the fixtures loading command and then refresh the web site. The
+menu entry is added at the bottom of the menu!
 
 The BlockBundle
 ---------------
 
-If you visit the homepage of the Sandbox, you'll see three blocks:
+If you visit the homepage of the Sandbox, you'll see five blocks:
 
 .. image:: ../_images/quick_tour/3rd-party-bundles-homepage.png
 
@@ -57,12 +87,6 @@ These blocks can be edited and used on their own. These blocks are provided by
 the BlockBundle, which is a tiny layer on top of the SonataBlockBundle_. It
 provides the ability to store the blocks using PHPCR and it adds some commonly
 used blocks.
-
-The three blocks in the Sandbox are custom blocks. A block is handled
-by a block service. You can find this service in the
-``AppBundle\Block\UnitBlockService`` class. Since the blocks are
-persisted using PHPCR, it also needs a block document, which is located in
-``AppBundle\Document\UnitBlock``.
 
 The SeoBundle
 -------------
@@ -131,38 +155,23 @@ more SEO information.
 Sonata Admin
 ------------
 
-TODO: rewrite for sonata admin integration split out
-
 We have explained you that the CMF is based on a database, in order to make it
-editable by an admin without changing the code. But we haven't told you how
-that admin will be able to maintain the website. Now it's time to reveal how
-to do that: Using the SonataAdminBundle_. All the CMF bundles that define
-editable elements also provide integration to make those elements editable in
-Sonata Admin.
+editable by editor users without changing the code. But we haven't told you yet
+how an editor is able to maintain the website. Now it's time to reveal how
+to do that: Using the SonataAdminBundle_. The CmfSonataPhpcrAdminIntegrationBundle
+provides admin classes for all documents provided by the core CMF bundles.
 
-By default, all Admin classes in the CMF bundles will be activated when the
-SonataDoctrinePHPCRAdminBundle_ is installed. You can switch off the Admin
-class in the configuration. For instance, to disable the MenuBundle Admin
-classes, you would do:
+By default, the Admin classes are all deactivated. Activate them for the bundles
+that you need admins for. For instance, to enable the MenuBundle Admin classes,
+you would do:
 
 .. code-block:: yaml
 
     # app/config/config.yml
-    cmf_menu:
-        persistence:
-            phpcr:
-                use_sonata_admin: false
-
-You can also disable/enable all CMF Admin classes by configuring this on the
-``cmf_core`` bundle:
-
-.. code-block:: yaml
-
-    # app/config/config.yml
-    cmf_core:
-        persistence:
-            phpcr:
-                use_sonata_admin: false
+    cmf_sonata_phpcr_admin_integration:
+        bundles:
+            menu:
+                enabled: true
 
 When the Admin classes are activated, the admin can go to ``/admin`` (if you
 installed the SonataAdminBundle correctly) and find the well-known admin
@@ -174,6 +183,9 @@ As you can see on the left, the admin uses the
 :doc:`TreeBrowserBundle <../bundles/tree_browser/introduction>` to display a
 live admin tree, where the admin can click on the nodes to edit, remove or
 move them.
+
+See the :doc:`Sonata Admin Integration Documentation <../bundles/sonata_phpcr_admin_integration/introduction>`
+to learn about the configuration options for each admin.
 
 Final Thoughts
 --------------

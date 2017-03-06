@@ -77,8 +77,8 @@ dump command:
 .. note::
 
     Previously, the PHPCR tree was compared with a Filesystem. While this
-    gives you a good image of what happens, it's not the truth. You can
-    better compare it to an XML file, where each node is an element and its
+    gives you a good image of what happens, it's not the only truth. You can
+    compare it to an XML file, where each node is an element and its
     properties are attributes.
 
 Doctrine PHPCR-ODM
@@ -90,13 +90,13 @@ directly persisted into and retrieved from the PHPCR tree. This is similar to
 the Doctrine ORM provided by default in the Symfony Standard Edition, but for
 PHPCR instead of SQL databases.
 
-Creating a Page with code
--------------------------
+Creating Content from Code
+--------------------------
 
-Now you know a little bit more about PHPCR and you know the tool to interact
+Now that you know a little bit more about PHPCR and you know the tool to interact
 with it, you can start using it yourself. In the previous chapter, you edited
-a page by using a yaml file which was parsed by the fixture loader of the
-sandbox. This time, you'll create a page by doing it yourself.
+a page by using a Yaml file which was parsed by the fixture loader of the
+sandbox. This time, you'll create a page with PHP code.
 
 First, you have to create a new DataFixture to add your new page. You do this
 by creating a new class in the AppBundle::
@@ -108,7 +108,7 @@ by creating a new class in the AppBundle::
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-    class LoadPageData implements FixtureInterface, OrderedFixtureInterface
+    class LoadQuickTourData implements FixtureInterface, OrderedFixtureInterface
     {
         public function getOrder()
         {
@@ -119,6 +119,7 @@ by creating a new class in the AppBundle::
 
         public function load(ObjectManager $documentManager)
         {
+            // you will add code to this method in the next steps
         }
     }
 
@@ -126,84 +127,48 @@ The ``$documentManager`` is the object which will persist the document to
 PHPCR. But first, you have to create a new Page document::
 
     use Doctrine\ODM\PHPCR\DocumentManager;
-    use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
+    use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
 
     // ...
     public function load(ObjectManager $documentManager)
     {
         if (!$documentManager instanceof DocumentManager) {
-            $class = get_class($documentManager);
-            throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+            throw new \RuntimeException(sprintf(
+                'Fixture requires a PHPCR ODM DocumentManager instance, instance of "%s" given.',
+                get_class($documentManager)
+            ));
         }
 
-        $page = new Page(); // create a new Page object (document)
-        $page->setName('quick-tour'); // the name of the node
-
-        vno sandbox übernehmen
-
-        $page->setLabel('Another new Page');
-        $page->setTitle('Another new Page');
-        $page->setBody('I have added this page myself!');
+        $content = new StaticContent();
+        $content->setName('quick-tour'); // the name of the node
+        $content->setTitle('Quick tour new Page');
+        $content->setBody('I have added this page myself!');
     }
 
-Each document needs a parent. In this case, the parent should just be the root
+Each document needs a parent. In this case, the parent should be the content root
 node. To do this, we first retrieve the root document from PHPCR and then set
 it as its parent::
 
     public function load(ObjectManager $documentManager)
     {
         // ...
-        // get root document (/cms/simple)
-        $simpleCmsRoot = $documentManager->find(null, '/cms/simple');
-
-        $page->setParentDocument($simpleCmsRoot); // set the parent to the root
+        // get the root document
+        $contentRoot = $documentManager->find(null, '/cms/content');
+        $content->setParentDocument($contentRoot); // set the parent to the root
     }
 
-And at last, we have to tell the Document Manager to persist our Page
+And finally, we have to tell the Document Manager to persist our content
 document using the Doctrine API::
 
     public function load(ObjectManager $documentManager)
     {
         // ...
-        $documentManager->persist($page); // add the Page in the queue
-        $documentManager->flush(); // add the Page to PHPCR
+        $documentManager->persist($content); // tell the document manager to track the content
+        $documentManager->flush(); // doctrine is like a toilet: never forget to flush
     }
 
 Now you need to execute the ``doctrine:phpcr:fixtures:load`` command again.
-When dumping the nodes again, your new page should turn up under /cms/content.
-
-To actually see this page in the browser, we need a route::
-
-    public function load(ObjectManager $documentManager)
-    {
-        // ...
-        $route = new Route();
-        $routeRoot = $documentManager->find(null, '/cms/routes/en');
-        $route->setPosition($routeRoot, 'quick-tour');
-        $route->setContent($page);
-        $documentManager->persist($route);
-    }
-
-And we add a menu entry to link to this page, and flush the document manager
-at the end::
-
-    public function load(ObjectManager $documentManager)
-    {
-        $menu = new MenuNode();
-        $menu->setName('new_page');
-        $menu->setLabel('Quick Tour');
-        $menu->setContent($page);
-        $menuMain = $documentManager->find(null, '/cms/menu/main');
-        $menu->setParentDocument($menuMain);
-        $documentManager->persist($menu);
-
-        $documentManager->flush();
-    }
-
-Re-run the fixtures loading command and then refresh the web site. Your new
-page will be added, with a menu entry at the bottom of the menu!
-
-.. image:: ../_images/quick_tour/the-model-new-page.png
+When dumping the nodes again, your new page should show up under ``/cms/content/quick-tour``!
 
 .. seealso::
 
