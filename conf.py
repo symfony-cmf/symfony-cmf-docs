@@ -35,10 +35,6 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
     'sphinx.ext.todo',
-    'sensio.sphinx.refinclude',
-    'sensio.sphinx.configurationblock',
-    'sensio.sphinx.phpcode',
-    'sphinxcontrib.spelling'
 ]
 
 spelling_show_sugestions=True
