@@ -521,6 +521,145 @@ The PHPCR-ODM routes support more things, for example route parameters,
 requirements and defaults. This is explained in the
 :ref:`route document section in the RoutingBundle documentation <bundle-routing-document>`.
 
+The ORM Route Entity
+--------------------
+
+The example in this section applies if you use the ORM route provider
+(``Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider``). It uses the
+``staticPrefix`` field of the
+``Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route`` to match routes.
+
+Symfony-Cmf routing system allows us loading whatever content from a route.
+That means an entity route can reference to several entities. But Doctrine ORM
+is not able to establish that kind of mapping associations. To do that,
+the OrmProvider follows the pattern of FQN:id. That is, the full model class
+name, then a colon, then the id. You only need to add it to the defaults
+parameters of the route with the ``RouteObjectInterface::CONTENT_ID`` key.
+``cmf_routing.content_repository`` service can help you to do it easily. A new
+route can be created in PHP code as follows::
+
+    // src/AppBundle/DataFixtures/ORM/LoadPostData.php
+    <?php
+    namespace AppBundle\DataFixtures\ORM;
+
+    use AppBundle\Entity\Post;
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\Persistence\ObjectManager;
+    use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route;
+    use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+    use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+    use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+
+    class LoadPostData implements FixtureInterface, ContainerAwareInterface
+    {
+        use ContainerAwareTrait;
+
+        /**
+         * @param ObjectManager $manager
+         */
+        public function load(ObjectManager $manager)
+        {
+            $post = new Post();
+            $post->setTitle('Symfony is awesome');
+            $manager->persist($post);
+            $manager->flush(); //Flush to be able to use the generated id
+
+            $contentRepository = $this->container->get('cmf_routing.content_repository');
+
+            $route = new Route();
+            $route->setName('symfony-is-awesome');
+            $route->setStaticPrefix('/symfony-is-awesome');
+            $route->setDefault(RouteObjectInterface::CONTENT_ID, $contentRepository->getContentId($post));
+            $route->setContent($post);
+            $post->addRoute($route); //You could and you should reference the content with its routes
+
+            $manager->persist($post);
+            $manager->flush();
+        }
+    }
+
+Now the CMF will be able to handle requests for the URL ``/symfony-is-awesome``.
+
+.. caution::
+
+    You have to be insured that the content already have an id before set it. This will
+    only work with single column ids.
+
+The Post entity content in this example could be like this::
+
+    // src/AppBundle/Entity/Post.php
+    <?php
+    namespace AppBundle\Entity;
+
+    use Doctrine\Common\Collections\ArrayCollection;
+    use Doctrine\ORM\Mapping as ORM;
+    use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+    use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
+    use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
+
+    /**
+     * @ORM\Table(name="post")
+     * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
+     */
+    class Post implements RouteReferrersInterface
+    {
+        /** .. fields like title and body */
+
+        /**
+         * @var RouteObjectInterface[]|ArrayCollection
+         *
+         * @ORM\ManyToMany(targetEntity="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route", cascade={"persist", "remove"})
+         */
+        private $routes;
+
+        public function __construct()
+        {
+            $this->routes = new ArrayCollection();
+        }
+
+        /** @return RouteObjectInterface[]|ArrayCollection */
+        public function getRoutes()
+        {
+            return $this->routes;
+        }
+
+        /** @param RouteObjectInterface[]|ArrayCollection $routes  */
+        public function setRoutes($routes)
+        {
+            $this->routes = $routes;
+        }
+
+        /**
+         * @param RouteObjectInterface $route
+         * @return $this
+         */
+        public function addRoute($route)
+        {
+            $this->routes[] = $route;
+
+            return $this;
+        }
+
+        /**
+         * @param RouteObjectInterface $route
+         * @return $this
+         */
+        public function removeRoute($route)
+        {
+            $this->routes->removeElement($route);
+
+            return $this;
+        }
+    }
+
+Because you set ``content_id`` default value on the route, the controller can expect the
+``$contentDocument`` parameter. You can now configure which controller should
+handle ``Post`` as :ref:`explained above <start-routing-getting-controller-template>`.
+
+The ORM routes support more things, for example route parameters,
+requirements and defaults. This is explained in the
+:ref:`route document section in the RoutingBundle documentation <bundle-routing-document>`.
+
 Further Notes
 -------------
 
