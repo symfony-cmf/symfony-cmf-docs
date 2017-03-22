@@ -4,9 +4,9 @@
 Adapter
 =======
 
-Adapters will abstract all persistence operations. PhpcrOdmAdapter is available
-to be use it with Doctrine PHPCR-ODM persistence layer by default. If you want
-to use another persistence layer, you should implement your own adapter.
+Adapters abstract persistence operations. The PhpcrOdmAdapter is available for
+the Doctrine PHPCR-ODM persistence layer. If you want to use a different
+persistence layer, you need to implement your own adapter.
 
 Implementing a custom adapter
 -----------------------------
@@ -52,8 +52,9 @@ with ``cmf_routing_auto.adapter`` and an ``alias`` that you have to set into
     .. code-block:: php
 
         use Symfony\Component\DependencyInjection\Definition;
+        use AppBundle\RoutingAuto\CustomAdapter;
 
-        $definition = new Definition('AppBundle\RoutingAuto\CustomAdapter');
+        $definition = new Definition(CustomAdapter::class);
         $definition->addTag('cmf_routing_auto.adapter', array('alias' => 'custom_adapter'));
 
         $container->setDefinition('app.custom_adapter', $definition);
@@ -70,7 +71,13 @@ Using the new adapter:
 
     .. code-block:: xml
 
-        .. todo
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://cmf.symfony.com/schema/dic/routingauto"
+                adapter="custom_adapter"
+            />
+        </container>
 
     .. code-block:: php
 
