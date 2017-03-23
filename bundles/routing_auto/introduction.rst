@@ -191,6 +191,8 @@ Read more
 * :doc:`conflict_resolvers`
 * :doc:`defunct_route_handlers`
 * :doc:`definitions`
+* :doc:`adapter`
+* :doc:`configuration`
 
 .. _`with composer`: https://getcomposer.org/
 .. _`symfony-cmf/routing-auto-bundle`: https:/packagist.org/packages/symfony-cmf/routing-auto-bundle
