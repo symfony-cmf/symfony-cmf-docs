@@ -294,7 +294,7 @@ them manually using the following command:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:repository:init
+    $ php bin\console doctrine:phpcr:repository:init
 
 .. note::
 
@@ -308,7 +308,7 @@ content repository:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:dump
+    $ php bin\console doctrine:phpcr:node:dump
 
 Create Data Fixtures
 ~~~~~~~~~~~~~~~~~~~~
@@ -404,7 +404,7 @@ Then load the fixtures:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:fixtures:load
+    $ php bin\console doctrine:phpcr:fixtures:load
 
 You should now have some data in your content repository.
 
