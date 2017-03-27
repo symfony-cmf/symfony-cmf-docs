@@ -346,14 +346,14 @@ The example in this section applies if you use the ORM route provider
 ``staticPrefix`` field of the
 ``Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route`` to find route candidates.
 
-Symfony Cmf routing system allows us loading whatever content from a route.
-That means an entity route can reference to different types of entities.
-But Doctrine ORM is not able to establish that kind of mapping associations.
-To do that, the ORM RouteProvider follows the pattern of FQN:id. That is, the full
-model class name, then a colon, then the id. You only need to add it to the
-defaults parameters of the route with the ``RouteObjectInterface::CONTENT_ID``
-key. ``cmf_routing.content_repository`` service can help you to do it easily.
-A new route can be created in PHP code as follows::
+Symfony Cmf routing system allows us loading whatever content from a route. That
+means an entity route can reference to different types of entities. But Doctrine
+ORM is not able to establish that kind of mapping associations. To do that, the
+ORM RouteProvider follows the pattern of ``FQN:id``. That is, the full model
+class name, then a colon, then the id. You only need to add it to the defaults
+parameters of the route with the ``RouteObjectInterface::CONTENT_ID`` key.
+``cmf_routing.content_repository`` service can help you to do it easily. A new
+route can be created in PHP code as follows::
 
     // src/AppBundle/DataFixtures/ORM/LoadPostData.php
     namespace AppBundle\DataFixtures\ORM;
