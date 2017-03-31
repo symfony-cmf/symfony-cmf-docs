@@ -197,6 +197,7 @@ Now:
 Now empty your repository, reinitialize it and reload your fixtures:
 
 .. code-block:: bash
+
     $ php bin/console doctrine:phpcr:node:remove /cms
     $ php bin/console doctrine:phpcr:repository:init
     $ php bin/console doctrine:phpcr:fixtures:load
