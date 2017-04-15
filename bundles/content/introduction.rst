@@ -201,6 +201,16 @@ Lets assume that you want to handle ``StaticContent`` with the default
 Now everything is configured correctly, navigating to ``/hello`` results in a
 page displaying your content.
 
+.. note::
+
+    You use ``controllers_by_class`` when you have a specific controller doing
+    something extra. Otherwise you can simply configure ``templates_by_class``
+    and the ``ContentController`` will automatically be added to the routing
+    information to render your content with your configured template.
+
+    Read more about configuration of the routing in
+    :ref:`bundles-routing-dynamic_router-enhancer`.
+
 Using templates_by_class
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
