@@ -128,6 +128,7 @@ First you need to configure the auto routing bundle:
             persistence:
                 phpcr:
                     enabled: true
+                    route_basepath: /cms/routes
 
     .. code-block:: xml
 
@@ -135,7 +136,7 @@ First you need to configure the auto routing bundle:
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/routing_auto">
                 <persistence>
-                    <phpcr />
+                    <phpcr route-basepath="/cms/routes" />
                 </persistence>
             </config>
        </container>
@@ -147,6 +148,7 @@ First you need to configure the auto routing bundle:
             'persistence' => array(
                 'phpcr' => array(
                     'enabled' => true,
+                    'route_basepath' => '/cms/routes',
                 ),
             ),
         ));
