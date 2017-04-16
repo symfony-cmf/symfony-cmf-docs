@@ -93,6 +93,9 @@ by creating a new class in the AcmeDemoBundle::
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+    
+    use Doctrine\ODM\PHPCR\DocumentManager;
+    use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
 
     class LoadPageData implements FixtureInterface, OrderedFixtureInterface
     {
