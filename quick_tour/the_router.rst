@@ -181,9 +181,9 @@ Now you can add a new ``Route`` to the tree using Doctrine::
         
         public function load(ObjectManager $documentManager)
         {
-            if (!$documentManager instanceof DocumentManager) {
+            if (!$documentManager instanceof ObjectManager) {
                 $class = get_class($documentManager);
-                throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+                throw new \RuntimeException("Fixture requires a PHPCR ODM ObjectManager instance, instance of '$class' given.");
             }
             
             $session = $documentManager->getPhpcrSession();
