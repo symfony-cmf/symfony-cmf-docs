@@ -4,6 +4,10 @@ Contributing
 The Symfony2 CMF team follows all the rules and guidelines of the core
 Symfony2 `development process`_.
 
+Consider also using the :doc:`Testing component </components/testing>`, 
+which is an internal tool for testing Symfony CMF bundles. It provides 
+a way to easily bootstrap a consistent functional test environment.
+
 When creating Pull Requests, please follow the Symfony `Submitting a Patch`_
 guidelines.
 
