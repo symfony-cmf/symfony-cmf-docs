@@ -274,11 +274,11 @@ Here's an example of how to configure the above mentioned options:
         # app/config/config.yml
         cmf_routing:
             dynamic:
-                generic_controller: cmf_content.controller:indexAction
+                generic_controller: cmf_content.controller:index
                 controllers_by_type:
-                    editable_static: sandbox_main.controller:indexAction
+                    editable_static: sandbox_main.controller:index
                 controllers_by_class:
-                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: cmf_content.controller::indexAction
+                    Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: cmf_content.controller::index
                 templates_by_class:
                     Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent: CmfContentBundle:StaticContent:index.html.twig
 
