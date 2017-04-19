@@ -31,26 +31,26 @@ the KnpMenu component documentation for more information.
     // Attributes are the HTML attributes of the DOM element representing the
     // menu node (e.g. <li/>)
     $node->setAttribute('attr_name', 'attr_value');
-    $node->setAttributes(array('attr_name', 'attr_value'));
-    $node->setChildrenAttributes(array('attr_name', 'attr_value'));
+    $node->setAttributes(['attr_name', 'attr_value']);
+    $node->setChildrenAttributes(['attr_name', 'attr_value']);
 
     // Display the node or not
     $node->setDisplay(true);
     $node->setDisplayChildren(true);
 
     // Any extra attributes you wish to associate with the menu node
-    $node->setExtras(array('extra_param_1' => 'value'));
+    $node->setExtras(['extra_param_1' => 'value']);
 
     // The label and the HTML attributes of the label
     $node->setLabel('Menu Node');
-    $node->setLabelAttributes(array('style' => 'color: red;'));
+    $node->setLabelAttributes(['style' => 'color: red;']);
 
     // The HTML attributes of the link (i.e. <a href=.../>
-    $node->setLinkAttributes(array('style' => 'color: yellow;'));
+    $node->setLinkAttributes(['style' => 'color: yellow;']);
 
     // Specify a route name to use and the parameters to use with it
     $node->setRoute('my_hard_coded_route_name');
-    $node->setRouteParameters(array());
+    $node->setRouteParameters([]);
 
     // Specify if the route should be rendered absolute (otherwise relative)
     $node->setRouteAbsolute(true);

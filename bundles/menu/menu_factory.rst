@@ -183,7 +183,7 @@ The service needs to be tagged as event listener:
         <container xmlns="http://symfony.com/schema/dic/services">
 
             <services>
-                <service id="acme_demo.listener.menu_referrer_listener"
+                <service id="app.menu_referrer_listener"
                     class="AppBundle\EventListener\CreateMenuItemFromMenuListener"
                 >
                     <argument type="service" id="knp_menu.menu_provider" />
@@ -202,12 +202,12 @@ The service needs to be tagged as event listener:
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
-        $definition = new Definition('AppBundle\EventListener\CreateMenuItemFromMenuListener', array(
+        $definition = new Definition('AppBundle\EventListener\CreateMenuItemFromMenuListener', [
             new Reference('knp_menu.menu_provider'),
-        ));
-        $definition->addTag('kernel.event_listener', array(
+        ]);
+        $definition->addTag('kernel.event_listener', [
             'event' => 'cmf_menu.create_menu_item_from_node',
             'method' => 'onCreateMenuItemFromNode',
-        ));
+        ]);
 
-        $container->setDefinition('acme_demo.listener.menu_referrer_listener', $definition);
+        $container->setDefinition('app.listener.menu_referrer_listener', $definition);

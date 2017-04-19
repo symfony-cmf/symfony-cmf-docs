@@ -36,11 +36,11 @@ bundles in addition to the CmfMenuBundle::
     {
         public function registerBundles()
         {
-            $bundles = array(
+            $bundles = [
                 // ...
                 new Knp\Bundle\MenuBundle\KnpMenuBundle(),
                 new Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
-            );
+            ];
 
             // ...
         }
