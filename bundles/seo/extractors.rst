@@ -69,12 +69,12 @@ description, you can implement both interfaces and your result will be::
 
         public function getSeoExtras()
         {
-            return array(
-                'property' => array(
+            return [
+                'property' => [
                     'og:title'       => $this->title,
                     'og:description' => $this->description,
-                ),
-            );
+                ],
+            ];
         }
     }
 
@@ -89,6 +89,7 @@ create a class which implements the ``SeoExtractorInterface`` and tag it with
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         services:
             extractor.custom:
                 class: "AppBundle\Extractor\MyCustomExtractor"
@@ -98,6 +99,7 @@ create a class which implements the ``SeoExtractorInterface`` and tag it with
     .. code-block:: xml
 
         <?xml version="1.0" ?>
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
@@ -110,6 +112,9 @@ create a class which implements the ``SeoExtractorInterface`` and tag it with
 
     .. code-block:: php
 
-        $container->register('extractor.custom', 'AppBundle\Extractor\MyCustomExtractor')
+        // app/config/config.php
+        use AppBundle\Extractor\MyCustomExtractor;
+
+        $container->register('extractor.custom', MyCustomExtractor::class)
             ->addTag('cmf_seo.extractor')
         ;

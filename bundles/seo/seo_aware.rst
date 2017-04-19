@@ -9,8 +9,8 @@ In order to save the ``SeoMetadata`` in the object, the object should
 implement the ``SeoAwareInterface``. This requires a getter and a setter for
 the ``SeoMetadata``::
 
-    // src/Acme/SiteBundle/Document/Page.php
-    namespace Acme\SiteBundle\Document;
+    // src/AppBundle/Document/Page.php
+    namespace AppBundle\Document;
 
     use Symfony\Cmf\Bundle\SeoBundle\SeoAwareInterface;
 
@@ -37,7 +37,7 @@ the ``SeoMetadata``::
 
 Now you can set some SEO data for this ``Page`` using the metadata::
 
-    use Acme\SiteBundle\Document\Page;
+    use AppBundle\Document\Page;
     use Symfony\Cmf\Bundle\SeoBundle\SeoMetadata;
 
     $page = new Page();
@@ -79,11 +79,11 @@ To be able to use this document, you have to enable the PHPCR persistence:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_seo', array(
-            'persistence' => array(
+        $container->loadFromExtension('cmf_seo', [
+            'persistence' => [
                 'phpcr' => true,
-            ),
-        ));
+            ],
+        ]);
 
 .. tip::
 
@@ -97,8 +97,8 @@ After you've enabled PHPCR, map ``$seoMetadata`` as a child:
 
     .. code-block:: php-annotations
 
-        // src/Acme/SiteBundle/Document/Page.php
-        namespace Acme\SiteBundle\Document;
+        // src/AppBundle/Document/Page.php
+        namespace AppBundle\Document;
 
         use Symfony\Cmf\Bundle\SeoBundle\SeoAwareInterface;
         use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
@@ -118,8 +118,8 @@ After you've enabled PHPCR, map ``$seoMetadata`` as a child:
 
     .. code-block:: yaml
 
-        # src/Acme/SiteBundle/Resources/config/doctrine/Page.odm.yml
-        Acme\SiteBundle\Document\Page:
+        # src/AppBundle/Resources/config/doctrine/Page.odm.yml
+        AppBundle\Document\Page:
             # ...
             child:
                 # ...
@@ -127,15 +127,15 @@ After you've enabled PHPCR, map ``$seoMetadata`` as a child:
 
     .. code-block:: xml
 
-        <!-- src/Acme/SiteBundle/Resources/config/doctrine/Page.odm.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- src/AppBundle/Resources/config/doctrine/Page.odm.xml -->
+        <?xml ver<sion="1.0" encoding="UTF-8" ?>
         <doctrine-mapping
             xmlns="http://doctrine-project.org/schemas/phpcr-odm/phpcr-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://doctrine-project.org/schemas/phpcr-odm/phpcr-mapping
             https://github.com/doctrine/phpcr-odm/raw/master/doctrine-phpcr-odm-mapping.xsd"
         >
-            <document name="Acme\SiteBundle\Document\Page">
+            <document name="AppBundle\Document\Page">
                 <!-- ... -->
                 <child name="seoMetadata" />
             </document>
@@ -144,10 +144,10 @@ After you've enabled PHPCR, map ``$seoMetadata`` as a child:
 And after that, you can use the
 ``Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoMetadata`` document::
 
-    // src/Acme/SiteBundle/DataFixture/PHPCR/LoadPageData.php
-    namespace Acme\SiteBundle\DataFixtures\PHPCR;
+    // src/AppBundle/DataFixture/PHPCR/LoadPageData.php
+    namespace AppBundle\DataFixtures\PHPCR;
 
-    use Acme\SiteBundle\Document\Page;
+    use AppBundle\Document\Page;
     use Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoMetadata;
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -186,8 +186,8 @@ object:
 
     .. code-block:: php-annotations
 
-        // src/Acme/SiteBundle/Entity/Page.php
-        namespace Acme\SiteBundle\Entity;
+        // src/AppBundle/Entity/Page.php
+        namespace AppBundle\Entity;
 
         use Symfony\Cmf\Bundle\SeoBundle\SeoAwareInterface;
         use Doctrine\ORM\Mapping as ORM;
@@ -207,8 +207,8 @@ object:
 
     .. code-block:: yaml
 
-        # src/Acme/SiteBundle/Resources/config/doctrine/Page.orm.yml
-        Acme\SiteBundle\Entity\Page:
+        # src/AppBundle/Resources/config/doctrine/Page.orm.yml
+        AppBundle\Entity\Page:
             # ...
             fields:
                 # ...
@@ -217,14 +217,14 @@ object:
 
     .. code-block:: xml
 
-        <!-- src/Acme/SiteBundle/Resources/config/doctrine/Page.orm.xml -->
+        <!-- src/AppBundle/Resources/config/doctrine/Page.orm.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
             http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-            <entity name="Acme\SiteBundle\Entity\Page">
+            <entity name="AppBundle\Entity\Page">
                 <!-- ... -->
                 <field name="seoMetadata" type="object" />
             </entity>

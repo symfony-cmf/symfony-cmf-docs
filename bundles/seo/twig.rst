@@ -31,7 +31,7 @@ base twig template and override it in a sub template, calling
         </body>
     </html>
 
-    <!-- app/Resources/views/Blog/post.html.twig -->
+    <!-- app/Resources/views/blog/post.html.twig -->
     {% extends 'base.html.twig' %}
 
     {% block metadata %}
