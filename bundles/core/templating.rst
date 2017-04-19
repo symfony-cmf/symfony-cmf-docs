@@ -132,7 +132,7 @@ Code examples
                 <span style="float: right; padding-right: 40px;"><a href="{{ path(next) }}">next</a></span>
             {%  endif %}
 
-            {% for news in cmf_children(parent=cmfMainContent, class='Acme\\DemoBundle\\Document\\NewsItem')|reverse %}
+            {% for news in cmf_children(parent=cmfMainContent, class='AppBundle\\Document\\NewsItem')|reverse %}
                 <li><a href="{{ path(news) }}">{{ news.title }}</a> ({{ news.publishStartDate | date('Y-m-d')  }})</li>
             {% endfor %}
 
@@ -185,7 +185,7 @@ Code examples
                         $app->getRequest()->attributes->get('_route_params'),
                         array_merge(
                             $app->getRequest()->query->all(),
-                            array('_locale' => 'de')
+                            ['_locale' => 'de']
                         )
                     )
                 ?>">DE</a>
@@ -197,7 +197,7 @@ Code examples
                         $app->getRequest()->attributes->get('_route_params'),
                         array_merge(
                             $app->getRequest()->query->all(),
-                            array('_locale' => 'fr')
+                            ['_locale' => 'fr']
                         )
                     )
                 ?>">FR</a>
@@ -208,7 +208,7 @@ Code examples
 
     When you use the ``class`` argument, do not forget that Twig will
     simply *ignore* single backslashes. If you would write
-    ``Acme\DemoBundle\Document\NewsItem``, this will make the cmf look
-    for the class AcmeDemoBundleDocumentNewsItem which will result in an
+    ``AppBundle\Document\NewsItem``, this will make the cmf look
+    for the class ``AppBundleDocumentNewsItem`` which will result in an
     empty list. What you need to write in the template is
-    ``Acme\\DemoBundle\\Document\\NewsItem``.
+    ``AppBundle\\Document\\NewsItem``.
