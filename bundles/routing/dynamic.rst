@@ -68,21 +68,21 @@ routers.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_routing', array(
-            'chain' => array(
-                'routers_by_id' => array(
+        $container->loadFromExtension('cmf_routing', [
+            'chain' => [
+                'routers_by_id' => [
                     'router.default' => 200,
                     'cmf_routing.dynamic_router' => 100,
-                ),
-            ),
-            'dynamic' => array(
-                'persistence' => array(
-                    'phpcr' => array(
+                ],
+            ],
+            'dynamic' => [
+                'persistence' => [
+                    'phpcr' => [
                         'enabled' => true,
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 When there is no configuration or ``cmf_routing.dynamic.enabled`` is set to
 ``false``, the dynamic router services will not be loaded at all, allowing
@@ -106,7 +106,8 @@ not need any logic.
 
 A custom controller action can look like this::
 
-    namespace Acme\DemoBundle\Controller;
+    // src/AppBundle/Controller/ContentController.php
+    namespace AppBundle\Controller;
 
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -128,10 +129,10 @@ A custom controller action can look like this::
             // ... do things with $contentDocument and gather other information
             $customValue = 42;
 
-            return $this->render('AcmeDemoBundle:Content:demo.html.twig', array(
+            return $this->render('content/demo.html.twig', [
                 'cmfMainContent' => $contentDocument,
                 'custom_parameter' => $customValue,
-            ));
+            ]);
         }
     }
 
@@ -240,7 +241,7 @@ All routes are located under a configured root path, for example
     $route->setName('projects');
 
     // set explicit controller (both service and Bundle:Name:action syntax work)
-    $route->setDefault('_controller', 'sandbox_main.controller:specialAction');
+    $route->setDefault('_controller', 'app.controller:specialAction');
 
 The above example should probably be done as a route configured in a Symfony
 configuration file, unless the end user is supposed to change the URL
@@ -357,8 +358,8 @@ base path.
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- app/config/config.xml -->
         <container xmlns="http://cmf.symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
@@ -380,19 +381,19 @@ base path.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'persistence' => array(
-                    'phpcr' => array(
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'persistence' => [
+                    'phpcr' => [
                         // use true/false to force using / not using sonata admin
                         'use_sonata_admin' => 'auto',
 
                         // used with Sonata Admin to manage content; defaults to %cmf_core.basepath%/content
                         'content_basepath' => null,
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 .. _bundle-routing-entity:
 
@@ -653,9 +654,9 @@ an empty route name and tries to find a content implementing the
     .. code-block:: html+php
 
         <!-- $myContent implements RouteReferrersInterface -->
-        <a href="<?php echo $view['router']->generate(null, array(
+        <a href="<?php echo $view['router']->generate(null, [
             'content_id' => '/cms/content/my-content',
-        )) ?>">
+        ]) ?>">
             Home
         </a>
 
@@ -704,8 +705,8 @@ documents. You need to configure the route enhancer for this interface:
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic>
@@ -718,13 +719,16 @@ documents. You need to configure the route enhancer for this interface:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'controllers_by_class' => array(
-                    'Symfony\Cmf\Bundle\Routing\RedirectRouteInterface' => 'cmf_routing.redirect_controller:redirectAction',
-                ),
-            ),
-        ));
+        // app/config/config.php
+        use Symfony\Cmf\Bundle\Routing\RedirectRouteInterface;
+
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'controllers_by_class' => [
+                    RedirectRouteInterface::class => 'cmf_routing.redirect_controller:redirectAction',
+                ],
+            ],
+        ]);
 
 RouteReferrersInterface Sonata Admin Extension
 ----------------------------------------------
@@ -749,26 +753,30 @@ configuration in the ``sonata_admin`` section of your project configuration:
 
     .. code-block:: xml
 
+        <?xml version="1.0" encoding="UTF-8" ?>
         <!-- app/config/config.xml -->
-        <config xmlns="http://sonata-project.org/schema/dic/admin">
-            <!-- ... -->
-            <extension id="cmf_routing.admin_extension.route_referrers">
-                <implement>Symfony\Cmf\Component\Routing\RouteReferrersInterface</implement>
-            </extension>
-        </config>
+        <container xmlns="http://symfony.com/schema/dic/services">
+            <config xmlns="http://sonata-project.org/schema/dic/admin">
+                <extension id="cmf_routing.admin_extension.route_referrers">
+                    <implement>Symfony\Cmf\Component\Routing\RouteReferrersInterface</implement>
+                </extension>
+            </config>
+        </container>
 
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
-            'extensions' => array(
-                'cmf_routing.admin_extension.route_referrers' => array(
-                    'implements' => array(
-                        'Symfony\Cmf\Component\Routing\RouteReferrersInterface',
-                    ),
-                ),
-            ),
-        ));
+        use Symfony\Cmf\Bundle\Routing\RedirectRouteInterface;
+
+        $container->loadFromExtension('sonata_admin', [
+            'extensions' => [
+                'cmf_routing.admin_extension.route_referrers' => [
+                    'implements' => [
+                        RouteReferrersInterface::class,
+                    ],
+                ],
+            ],
+        ]);
 
 See the `Sonata Admin extension documentation`_ for more information.
 
@@ -810,18 +818,21 @@ configuration in the ``sonata_admin`` section of your project configuration:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
-            'extensions' => array(
-                'cmf_routing.admin_extension.frontend_link' => array(
-                    'implements' => array(
-                        'Symfony\Cmf\Component\Routing\RouteReferrersReadInterface',
-                    ),
-                    'extends' => array(
-                        'Symfony\Component\Routing\Route',
-                    ),
-                ),
-            ),
-        ));
+        use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
+        use Symfony\Component\Routing\Route;
+
+        $container->loadFromExtension('sonata_admin', [
+            'extensions' => [
+                'cmf_routing.admin_extension.frontend_link' => [
+                    'implements' => [
+                        RouteReferrersReadInterface::class,
+                    ],
+                    'extends' => [
+                        Route::class,
+                    ],
+                ],
+            ],
+        ]);
 
 See the `Sonata Admin extension documentation`_ for more information.
 
