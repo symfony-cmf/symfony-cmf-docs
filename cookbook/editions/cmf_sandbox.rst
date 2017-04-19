@@ -148,6 +148,15 @@ This command loads fixtures from all bundles that provide them in the
 MainBundle. Note that loading fixtures from non-default locations is
 possible as well, just not needed in this case.
 
+Install Assets from Bundles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ php bin/console assets:install
+
+This command copies static content (js, css, etc.) from bundles to the web directory
+
 Accessing your Sandbox
 ~~~~~~~~~~~~~~~~~~~~~~
 
