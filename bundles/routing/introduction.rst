@@ -64,24 +64,28 @@ will look like this
 
     .. code-block:: yaml
 
+        # app/config/services.yml
         services:
-            acme_core.my_router:
-                class: "%my_namespace.my_router_class%"
+            app.my_router:
+                class: AppBundle\Routing\MyRouter
                 tags:
                     - { name: router, priority: 300 }
 
     .. code-block:: xml
 
-        <service id="acme_core.my_router" class="%my_namespace.my_router_class%">
+        <!-- app/config/services.xml -->
+        <service id="app.my_router" class="AppBundle\Routing\MyRouter">
             <tag name="router" priority="300" />
-            <!-- ... -->
         </service>
 
     .. code-block:: php
 
+        # app/config/services.php
+        use AppBundle\Routing\MyRouter;
+
         $container
-            ->register('acme_core.my_router', '%acme_core.my_router')
-            ->addTag('router', array('priority' => 300))
+            ->register('app.my_router', MyRouter::class)
+            ->addTag('router', ['priority' => 300])
         ;
 
 See also official Symfony2 `documentation for DependencyInjection tags`_
