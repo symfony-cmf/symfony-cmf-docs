@@ -52,14 +52,14 @@ is the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_tree_browser', array(
-            'persistence' => array(
-                'phpcr' => array(
+        $container->loadFromExtension('cmf_tree_browser', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled'      => false,
                     'session_name' => 'default',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 
 ``enabled``
