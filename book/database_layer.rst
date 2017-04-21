@@ -185,7 +185,7 @@ After this, you have to create getters and setters for the properties.
 
     You may want to implement ``Doctrine\ODM\PHPCR\HierarchyInterface``
     which makes it for example possible to leverage the
-    :ref:`Sonata Admin Child Extension <bundle-core-child-admin-extension>`.
+    :doc:`Sonata Admin Child Extension <../bundles/sonata_phpcr_admin_integration/core>`.
 
 .. seealso::
 
