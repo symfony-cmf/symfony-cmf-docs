@@ -308,7 +308,7 @@ content repository:
 
 .. code-block:: bash
 
-    $ php bin\console doctrine:phpcr:node:dump
+    $ php bin/console doctrine:phpcr:node:dump
 
 Create Data Fixtures
 ~~~~~~~~~~~~~~~~~~~~
