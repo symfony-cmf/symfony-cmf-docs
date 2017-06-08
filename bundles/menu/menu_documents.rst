@@ -19,10 +19,11 @@ the KnpMenu component documentation for more information.
 
 .. code-block:: php
 
+    use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
     use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNodeBase;
 
     // find the menu tree root
-    $mainMenu = $dm->find('Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu', '/cms/menu/main');
+    $mainMenu = $dm->find(Menu::class, '/cms/menu/main');
 
     $node = new MenuNodeBase();
     $mainMenu->addChild($node);
@@ -83,7 +84,7 @@ content document from which the URL can be generated::
 The content document can be any document which implements the
 ``RouteReferrersInterface``. See :ref:`bundles-routing-dynamic-generator`.
 
-This content document will then be passed to the ``ContentAwareFactory`` see
+This content document will then be handled by the ``ContentExtension``, see
 :ref:`URL Generation <bundles_menu_menu_factory_url_generation>` for more details.
 
 Link Type Specification
@@ -101,8 +102,8 @@ more information.
 Translation
 ~~~~~~~~~~~
 
-The standard menu node supports translation when it is enabled, allowing the
-locale to be set via. the ``setLocale`` method::
+The standard menu node supports translation if enabled, allowing the
+locale to be set via the ``setLocale`` method::
 
     $menuItem = ...;
     $menuItem->setLocale('fr');

@@ -5,19 +5,20 @@ Menu Provider
 =============
 
 A menu provider is responsible for loading a menu when it is requested. KnpMenu
-supports having several providers. The MenuBundle provides the ``PhpcrMenuProvider``
-to load menu items using the PHPCR-ODM.
+supports having several providers. The CmfMenuBundle provides the
+``PhpcrMenuProvider`` to load menu items using Doctrine PHPCR-ODM.
 
-Every menu is identified by the name of the node. These paths are relative to
-the path configured by the ``cmf_menu.persistence.phpcr.menu_basepath``
-setting. This defaults to ``/cmf/menu``. In order to get a menu located in
-``/cms/menu/main-menu``, you can use the identifier ``main-menu``. You can also
-use an absolute path to get menus that are not located in the menu basepath.
+Every menu is identified by the name of the root node. The provider looks for
+the root node under the the path configured in
+``cmf_menu.persistence.phpcr.menu_basepath``. This defaults to ``/cmf/menu``.
+In order to get a menu located at ``/cms/menu/main-menu``, you use the
+identifier ``main-menu``. You can also use an absolute path to load menus that
+are not located under the menu basepath.
 
 .. tip::
 
-    You can use custom document classes for menu nodes if needed. But KnpMenu
-    requires all nodes to implement ``Knp\Menu\NodeInterface``.
+    You can use custom document classes for menu nodes if needed, as long as
+    they implement ``Knp\Menu\NodeInterface``.
 
 .. note::
 

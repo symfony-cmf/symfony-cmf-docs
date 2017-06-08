@@ -5,8 +5,8 @@ Current Menu Item Voters
 ========================
 
 One of the aims of any menu system is to inform the user about where they are
-in relation to the rest of the site. To do this the system needs to know which of
-its menu items correspond to the page the user is currently viewing.
+in relation to the rest of the site. To do this, the system needs to know which
+of its menu items correspond to the page the user is currently viewing.
 
 To determine which menu item should be marked as the current item, KnpMenu
 includes voters. By default, KnpMenu comes with a voter that uses the Symfony
@@ -15,19 +15,15 @@ item.
 
 This works well for static pages, highlighting the "About" item when viewing
 the about page. However, in a dynamic CMS website, you want more flexibility.
-For instance, each blog post does not have its own menu item, instead only the
-index page listing the posts has an item. When viewing a blog post, you want
-the listings page to be highlighted.
+In a blog for instance, individual posts do not have their own menu entry.
+Instead, the menu entry for the index page with the listing of all posts should
+be highlighted to indicate that the user is inside the blog section of the
+page.
 
 .. note::
 
     The voting process isn't using a democratic approach. Instead, the first
-    voter to return either ``true`` or ``false`` is used to make the decision.
-
-.. versionadded:: 2.0
-    Voters were introduced in KnpMenu 2.0, which is first supported by
-    CmfMenuBundle 2.0. Prior to version 2.0, the CmfMenuBundle provided voter
-    support.
+    voter to return either ``true`` or ``false`` determines the decision.
 
 Provided Voters
 ---------------
@@ -41,7 +37,8 @@ This voter looks at the ``content`` field of the menu item extras and compares
 it with the main content attribute of the request. The name for the main
 content attribute in the request is configurable with the ``content_key``
 option - if not set it defaults to the constant
-``Symfony\Cmf\Bundle\RoutingBundle\Routing\DynamicRouter::CONTENT_KEY`` (which resolves to ``contentDocument``).
+``Symfony\Cmf\Bundle\RoutingBundle\Routing\DynamicRouter::CONTENT_KEY``
+(which is ``contentDocument``).
 
 You can enable this voter by adding the ``cmf_menu.voters.content_identity``
 setting to your configuration. Example config:
@@ -175,9 +172,10 @@ RequestParentContentIdentityVoter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This voter is similar in concept to the
-:ref:`bundles_menu_voters_request_identity_voter` but instead of comparing
+:ref:`bundles_menu_voters_request_identity_voter`, but instead of comparing
 request content with the menu item content, it compares the *parent* of the
-request content with the menu item content.
+request content with the menu item content. This voter can not be configured
+but you instead need to configure custom services with it.
 
 Imagine you are creating a blogging platform. Each blog is represented by a
 document in the PHPCR-ODM tree. The posts of the blog are the children of this
@@ -247,13 +245,6 @@ voters (see below), except you do not need to write your own PHP code:
             RequestParentContentIdentityVoter,
             ['contentDocument', Article::class]
         ));
-        $definition->addMethodCall('setRequest', [
-            new Reference(
-                'request',
-                ContainerInterface::NULL_ON_INVALID_REFERENCE,
-                false
-            )
-        ]);
         $definition->addTag('knp_menu.voter', ['request' => true]);
 
         $container->setDefinition('app.menu_voter_parent', $definition);
