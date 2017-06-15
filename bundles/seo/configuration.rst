@@ -1,8 +1,8 @@
 Configuration Reference
 =======================
 
-The SeoBundle can be configured under the ``cmf_seo`` key in your application
-configuration. When using XML, you can use the
+The SeoBundle is configured under the ``cmf_seo`` key in your application
+configuration. When using XML, use the
 ``http://cmf.symfony.com/schema/dic/seo`` namespace.
 
 Configuration
@@ -90,7 +90,7 @@ about the usage.
 ``original_route_pattern``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**type**: ``string`` **default**: ``canonical``
+**type**: ``string`` **default**: ``canonical`` **allowed values**: ``canonical`` | ``redirect``
 
 The original route strategy to use when multiple routes have the same content.
 Can be one of ``canonical`` or ``redirect``.
@@ -129,6 +129,9 @@ manually or disable the content listener.
 .. versionadded:: 1.2
     Support for sitemaps was introduced in version 1.2 of the SeoBundle.
 
+For details on the meaning of the sitemap configuration, see the
+:doc:`sitemap section <sitemap>`.
+
 .. configuration-block::
 
     .. code-block:: yaml
@@ -142,6 +145,12 @@ manually or disable the content listener.
                     templates:
                         html: :sitemap/index.html.twig
                         xml: ::sitemap:index.xml.twig
+                    loaders:
+                        - _all
+                    guessers:
+                        - _all
+                    voters:
+                        - _all
                 configurations:
                     sitemap: ~
 
@@ -156,6 +165,9 @@ manually or disable the content listener.
                     <defaults>
                         <template format="html">CmfSeoBundle:Sitemap:index.html.twig</template>
                         <template format="xml">CmfSeoBundle:Sitemap:index.xml.twig</template>
+                        <loader>_all</loader>
+                        <guesser>_all</guesser>
+                        <voter>_all</voter>
                     </defaults>
                     <configuration name="sitemap"/>
                 </sitemap>
@@ -173,6 +185,9 @@ manually or disable the content listener.
                         'html' => 'CmfSeoBundle:Sitemap:index.html.twig',
                         'xml' => 'CmfSeoBundle:Sitemap:index.xml.twig',
                     ],
+                    'loaders' => ['_all'],
+                    'guessers' => ['_all'],
+                    'voters' => ['_all'],
                 ],
                 'configurations' => [
                     'sitemap' => null,
@@ -218,30 +233,22 @@ By default, you have:
 * html: CmfSeoBundle:Sitemap:index.html.twig
 * xml: CmfSeoBundle:Sitemap:index.xml.twig
 
-``sonata_admin_extension``
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+``loaders``
+***********
 
-If set to ``true``, the Sonata Admin Extension provided by the SeoBundle is
-activated.
+**type**: ``array`` **default**: [_all]
 
-``enabled``
-"""""""""""
+Limit which of the loaders should be used for this sitemap.
 
-**type**: ``enum`` **valid values** ``true|false|auto`` **default**: ``auto``
+``guessers``
+************
 
-If ``true``, the Sonata Admin Extension will be activated. If set to ``auto``,
-it is activated only if the SonataPhpcrAdminBundle is present.
+**type**: ``array`` **default**: [_all]
 
-If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to the value
-of ``cmf_core.persistence.phpcr.use_sonata_admin``.
+``voters``
+**********
 
-``form_group``
-""""""""""""""
-
-**type**: ``string`` **default**: ``form.group_seo``
-
-The name of the form group of the group provided by the Sonata Admin
-Extension.
+**type**: ``array`` **default**: [_all]
 
 ``form``
 ~~~~~~~~

@@ -135,8 +135,8 @@ key in ``cmf_seo.content_key``.
 
 If you need different behavior, build your own mechanism to extract the SEO
 information and disable this listener at ``cmf_seo.content_listener.enabled``
-to avoid duplicated work. Things that happen on every request are expensive in
-terms of application performance.
+to avoid unnecessary code execution. Things that happen on every request are
+critical for your application performance.
 
 The Twig Extension
 ~~~~~~~~~~~~~~~~~~
@@ -351,9 +351,9 @@ And then configure the translation messages:
 .. tip::
 
     You don't have to escape the percent characters here, since the
-    Translation loaders know how to deal with them.
+    Translation loaders do not try to evaluate container variables.
 
-For changing the default translation domain (messages), you should use the
+For changing the default translation domain, use the
 ``cmf_seo.translation_domain`` setting:
 
 .. configuration-block::

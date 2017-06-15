@@ -20,10 +20,10 @@ Available Extractors
 | -                              | ``getTitle()``            | If the document has a ``getTitle()`` method, |
 |                                |                           | it'll be used as the page title              |
 +--------------------------------+---------------------------+----------------------------------------------+
-| ``OriginalUrlReadInterface``   | ``getSeoOriginalUrl()``   | Returns a absolute url object to redirect to |
+| ``OriginalUrlReadInterface``   | ``getSeoOriginalUrl()``   | Returns an absolute url to redirect to or    |
 |                                |                           | or create a canonical link from              |
 +--------------------------------+---------------------------+----------------------------------------------+
-| ``OriginalRouteReadInterface`` | ``getSeoOriginalRoute()`` | Return a ``Route`` object to redirect to     |
+| ``OriginalRouteReadInterface`` | ``getSeoOriginalRoute()`` | Returns a ``Route`` object to redirect to    |
 |                                |                           | or create a canonical link from              |
 +--------------------------------+---------------------------+----------------------------------------------+
 | ``ExtrasReadInterface``        | ``getSeoExtras()``        | Returns an associative array using           |
