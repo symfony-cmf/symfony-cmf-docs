@@ -90,22 +90,18 @@ will look like this
 
 See also official Symfony `documentation for DependencyInjection tags`_
 
-Sections
---------
-
-* :doc:`dynamic`
-* :doc:`dynamic_customize`
-
 Further reading
 ---------------
 
 For more information on Routing in the Symfony CMF, please refer to:
 
-* The documentation of the :doc:`dynamic`;
 * The :doc:`configuration reference <configuration>`;
+* The documentation of the :doc:`dynamic`;
+* :doc:`dynamic_customize`;
 * The :doc:`routing introduction chapter <../../book/routing>` of the book;
 * The :doc:`routing component documentation <../../components/routing/introduction>`
   for implementation details of the routers;
+* :doc:`Sonata Admin integration <../sonata_phpcr_admin_integration/routing>`;
 * Symfony's `Routing`_ component documentation.
 
 .. _`with composer`: https://getcomposer.org

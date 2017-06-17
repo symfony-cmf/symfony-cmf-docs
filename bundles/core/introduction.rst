@@ -21,14 +21,15 @@ Installation
 You can install this bundle `with composer`_ using the
 `symfony-cmf/core-bundle`_ package.
 
-Sections
---------
+Read On
+-------
 
 * :doc:`publish_workflow`
 * :doc:`templating`
 * :doc:`forms`
 * :doc:`persistence`
 * :doc:`configuration`
+* :doc:`Sonata Admin integration <../sonata_phpcr_admin_integration/core>`
 
 .. _`symfony-cmf/core-bundle`: https://packagist.org/packages/symfony-cmf/core-bundle
 .. _`with composer`: https://getcomposer.org

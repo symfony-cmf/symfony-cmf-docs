@@ -175,6 +175,7 @@ Read On
 * :doc:`menu_provider`
 * :doc:`voters`
 * :doc:`configuration`
+* :doc:`Sonata Admin integration <../sonata_phpcr_admin_integration/menu>`
 
 .. _`KnpMenu`: https://github.com/knplabs/KnpMenu
 .. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle
