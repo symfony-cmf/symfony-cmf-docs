@@ -82,22 +82,14 @@ admins as needed - see below for details.
 
 **type**: ``string`` **default**: as in above example.
 
-Defines which form group the fields from this extension will appear in within
-the Sonata Admin edit interface.
-
-The caption for the group is determined by translating the group name. If you
-change the group, be sure to also define a translation for it.
+.. include:: ../_partials/sonata_admin_form_group.rst.inc
 
 ``form_tab``
 ~~~~~~~~~~~~
 
 **type**: ``string`` **default**: as in above example.
 
-Defines which form tab the fields from this extension will appear in within
-the Sonata Admin edit interface.
-
-The caption for the tab is determined by translating the tab name. If you
-change the tab name, be sure to also define a translation for it.
+.. include:: ../_partials/sonata_admin_form_tab.rst.inc
 
 Using Child Models: The Child Sonata Admin Extension
 ----------------------------------------------------
@@ -108,7 +100,7 @@ for example when adding documents in an overlay with the
 ``doctrine_phpcr_odm_tree_manager`` or when adding a document in the tree of
 the dashboard.
 
-To enable the extension in your admin classes, simply define the extension
+To activate the extension in your admin classes, define the extension
 configuration in the ``sonata_admin`` section of your project configuration:
 
 .. configuration-block::
@@ -132,8 +124,8 @@ configuration in the ``sonata_admin`` section of your project configuration:
             <config xmlns="http://sonata-project.org/schema/dic/admin">
                 <!-- ... -->
                 <extension id="cmf_sonata_phpcr_admin_integration.core.extension.child">
-                    <implement>Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface</implement>
-                    <implement>Doctrine\ODM\PHPCR\HierarchyInterface</implement>
+                    <implements>Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface</implements>
+                    <implements>Doctrine\ODM\PHPCR\HierarchyInterface</implements>
                 </extension>
             </config>
 
@@ -163,7 +155,7 @@ Editing publication information: Publish Workflow Sonata Admin Extension
 When using the :doc:`write interface of the publish workflow <../core/publish_workflow>`,
 this admin extension can be used to edit publication information.
 
-To enable the extensions in your admin classes, define the extension
+To activate the extensions in your admin classes, define the extension
 configuration in the ``sonata_admin`` section of your project configuration:
 
 .. configuration-block::
@@ -189,15 +181,15 @@ configuration in the ``sonata_admin`` section of your project configuration:
             <config xmlns="http://sonata-project.org/schema/dic/admin">
                 <!-- ... -->
                 <extension id="cmf_sonata_phpcr_admin_integration.core.extension.publish_workflow.publishable">
-                    <implement>
+                    <implements>
                         Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface
-                    </implement>
+                    </implements>
                 </extension>
 
                 <extension id="cmf_sonata_phpcr_admin_integration.core.extension.publish_workflow.time_period">
-                    <implement>
+                    <implements>
                         Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface
-                    </implement>
+                    </implements>
                 </extension>
             </config>
         </container>

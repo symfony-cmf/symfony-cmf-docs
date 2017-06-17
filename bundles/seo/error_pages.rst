@@ -4,14 +4,12 @@ Displaying Relevant Pages in Error Pages
 .. versionadded:: 1.2
     The ``SuggestionProviderController`` was introduced in SeoBundle 1.2.
 
-You don't want to loose visitors when they hit a 404 error page. A good way to
-do this is by showing relevant links on the site, so they can quickly navigate
-to another page (or maybe even the page they were looking for in the
-beginning).
+You don't want to lose visitors when no content is found. Instead of showing a
+generic 404 error page, the SEO bundle provides the means to show potentially
+relevant links to help the user find something useful.
 
-The CmfSeoBundle provides an error controller that does exactly this. By using
-suggestion providers, the controller finds the most relevant pages and shows
-this on the error page.
+This is implemented in the error controller. That controller uses suggestion
+providers to find the most relevant pages and shows them on the error page.
 
 Using the Exception Controller
 ------------------------------
@@ -60,10 +58,10 @@ comes with two built-in providers:
 
 ``ParentSuggestionProvider``
     This provides the parent page of the not found page (e.g. ``/blog`` when
-    ``/blog/foo`` resulted in a 404 page).
+    ``/blog/foo`` was not found).
 ``SiblingSuggestionProvider``
     This provides the siblings of the current page (e.g. ``/blog/something``
-    when ``/blog/foo`` resulted in a 404 page).
+    when ``/blog/foo`` was not found).
 
 .. note::
 

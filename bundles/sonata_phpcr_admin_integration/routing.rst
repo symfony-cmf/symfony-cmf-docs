@@ -91,7 +91,80 @@ RouteReferrersInterface Admin Extension
 This bundle provides an extension to edit referring routes for content that
 implements the ``RouteReferrersInterface``.
 
-To enable the extensions in your admin classes, define the extension
+
+You can define the form group and tab to be used by the field this extension
+adds:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        cmf_sonata_phpcr_admin_integration:
+            bundles:
+                routing:
+                    extensions:
+                        referrers:
+                            form_group: form.group_routing
+                            form_tab: form.tab_routing
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="2.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
+            xsd:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://cmf.symfony.com/schema/dic/sonata_admin_integration http://cmf.symfony.com/schema/dic/sonata_admin_integration/sonata_admin_integration.xsd"
+        >
+
+            <config xmlns="http://cmf.symfony.com/schema/dic/sonata_admin_integration">
+                <bundles>
+                    <routing>
+                        <extensions>
+                            <referrers
+                                form-group="form.group_routing"
+                                form-tab="form.tab_routing"
+                             />
+                        </extensions>
+                </bundles>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('cmf_sonata_phpcr_admin_integration', [
+            'bundles' => [
+                'routing' => [
+                    'extensions' => [
+                        'referrers' => [
+                            'form_group' => 'form.group_routing',
+                            'form_tag' => 'form.tab_routing',
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+``form_group``
+**************
+
+**type**: ``string`` **default**: ``form.group_routing``
+
+.. include:: ../_partials/sonata_admin_form_group.rst.inc
+
+``form_tab``
+************
+
+**type**: ``string`` **default**: ``form.tab_routing``
+
+.. include:: ../_partials/sonata_admin_form_tab.rst.inc
+
+Using the extension
+~~~~~~~~~~~~~~~~~~~
+
+To activate the extension in your admin classes, define the extension
 configuration in the ``sonata_admin`` section of your project configuration:
 
 .. configuration-block::
@@ -113,7 +186,7 @@ configuration in the ``sonata_admin`` section of your project configuration:
         <container xmlns="http://symfony.com/schema/dic/services">
             <config xmlns="http://sonata-project.org/schema/dic/admin">
                 <extension id="cmf_sonata_phpcr_admin_integration.routing.extension.route_referrers">
-                    <implement>Symfony\Cmf\Component\Routing\RouteReferrersInterface</implement>
+                    <implements>Symfony\Cmf\Component\Routing\RouteReferrersInterface</implements>
                 </extension>
             </config>
         </container>
@@ -142,7 +215,7 @@ This bundle provides an extension to show a button in Sonata Admin, which links
 to the frontend representation of a document. Documents which implement the
 ``RouteReferrersReadInterface`` and Routes themselves are supported.
 
-To enable the extension in your admin classes, define the extension
+To activate the extension in your admin classes, define the extension
 configuration in the ``sonata_admin`` section of your project configuration:
 
 .. configuration-block::
@@ -166,8 +239,8 @@ configuration in the ``sonata_admin`` section of your project configuration:
         <config xmlns="http://sonata-project.org/schema/dic/admin">
             <!-- ... -->
             <extension id="cmf_sonata_phpcr_admin_integration.routing.extension.frontend_link">
-                <implement>Symfony\Cmf\Component\Routing\RouteReferrersReadInterface</implement>
-                <extend>Symfony\Component\Routing\Route</extend>
+                <implements>Symfony\Cmf\Component\Routing\RouteReferrersReadInterface</implements>
+                <extends>Symfony\Component\Routing\Route</extends>
             </extension>
         </config>
 

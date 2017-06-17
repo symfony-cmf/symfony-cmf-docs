@@ -1,11 +1,11 @@
 Saving the SeoMetadata in the Object
 ====================================
 
-The ``SeoMetadata`` can be saved in the object, so you can persist it into the
-database. This option gives admins the possibility of changing the SEO data for
-the document.
+The ``SeoMetadata`` can be set on your model classes, so that you can persist
+it into the database. This option gives admins the possibility to change the SEO
+data for the object.
 
-In order to save the ``SeoMetadata`` in the object, the object should
+In order to save the ``SeoMetadata`` in the model, the object should
 implement the ``SeoAwareInterface``. This requires a getter and a setter for
 the ``SeoMetadata``::
 
@@ -32,8 +32,8 @@ the ``SeoMetadata``::
 
 .. tip::
 
-    If you are using PHP5.4+ you may also benefit from using the trait ``SeoAwareTrait``
-    to plug these behavior into your model.
+    Instead of implementing these methods yourself, you can also use the trait
+    ``SeoAwareTrait`` to enable this behavior in your model.
 
 Now you can set some SEO data for this ``Page`` using the metadata::
 
@@ -91,7 +91,7 @@ To be able to use this document, you have to enable the PHPCR persistence:
     bundle. See :doc:`the CoreBundle docs <../core/persistence>` for more
     information.
 
-After you've enabled PHPCR, map ``$seoMetadata`` as a child:
+After you have enabled PHPCR, map ``$seoMetadata`` as a child:
 
 .. configuration-block::
 
@@ -178,7 +178,7 @@ And after that, you can use the
 Doctrine ORM
 ------------
 
-You can also use the Doctrine ORM with the CmfSeoBundle. You can just use the
+You can also use the Doctrine ORM with the CmfSeoBundle. Use the
 ``Symfony\Cmf\Bundle\SeoBundle\SeoMetadata`` class and map it as an
 object:
 
@@ -240,9 +240,9 @@ the ``SeoMetadata`` entity.
 Form Type
 ---------
 
-The bundle also provides a special form type called ``Symfony\Cmf\Bundle\SeoBundle\Form\Type\SeoMetadataType``
-(use ``seo_metadata`` for Symfony versions older than 2.8). This form type can be
-used in forms to edit the ``SeoMetadata`` object::
+The bundle also provides a special form type called
+``Symfony\Cmf\Bundle\SeoBundle\Form\Type\SeoMetadataType``. This form type can
+be used in forms to edit the ``SeoMetadata`` object::
 
     use Sonata\AdminBundle\Form\FormMapper;
     use Symfony\Cmf\Bundle\SeoBundle\Form\Type\SeoMetadataType;
@@ -264,17 +264,9 @@ used in forms to edit the ``SeoMetadata`` object::
     option is set by default, otherwise you need to explicitly specify it in
     your ORM forms.
 
-Sonata Admin Integration
-------------------------
+.. tip::
 
-Besides providing a form type, the bundle also provides a Sonata Admin
-Extension. This extension adds a field for the ``SeoMetadata`` when an admin
-edits an object that implements the ``SeoAwareInterface`` in the Sonata Admin
-panel.
-
-.. caution::
-
-    The Sonata Admin uses the Form Type provided by the CmfSeoBundle, make
-    sure you have the `BurgovKeyValueFormBundle`_ installed.
+    The :doc:`SonataPhpcrAdminIntegrationBundle <../sonata_phpcr_admin_integration/seo>`
+    provides an admin extension for the ``SeoAwareInterface``.
 
 .. _`BurgovKeyValueFormBundle`: https://github.com/Burgov/KeyValueFormBundle

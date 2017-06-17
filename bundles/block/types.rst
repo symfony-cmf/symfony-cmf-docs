@@ -28,7 +28,7 @@ information.
 Sonata Admin
 ~~~~~~~~~~~~
 
-All block types provided by the Symfony2 CMF BlockBundle come with a admin
+All block types provided by the Symfony2 CMF BlockBundle come with an admin
 classes for SonataDoctrinePHPCRAdminBundle_. To activate the admin services,
 it is enough to load the SonataDoctrinePHPCRAdminBundle in your application
 kernel and configure the sonata dashboard as desired.

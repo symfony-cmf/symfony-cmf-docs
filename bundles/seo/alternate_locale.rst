@@ -17,7 +17,7 @@ find links like the following in the ``<head>`` part of your HTML pages:
     <link rel="alternate" href="/de/der-titel" hreflang="de">
 
 When using PHPCR-ODM, there is almost no work to do, as the bundle can use the
-Doctrine meta data to figure out which translations exists for a content. More
+Doctrine meta data to figure out which translations exist for a content. More
 information on translating content with the PHPCR-ODM is in the chapter
 :doc:`Doctrine PHPCR-ODM Multilanguage Support <../phpcr_odm/multilang>`.
 
