@@ -193,6 +193,7 @@ Read more
 * :doc:`definitions`
 * :doc:`adapter`
 * :doc:`configuration`
+* :doc:`Sonata Admin integration <../sonata_phpcr_admin_integration/routing_auto>`
 
 .. _`with composer`: https://getcomposer.org/
 .. _`symfony-cmf/routing-auto-bundle`: https:/packagist.org/packages/symfony-cmf/routing-auto-bundle

@@ -6,10 +6,10 @@ Exposing Content via REST
 
 Many applications need to expose content via REST APIs to partners or to
 enable integration into other applications. As the CMF is build on top
-of Symfony2, it's possible to leverage many of the available bundles to
+of Symfony, it's possible to leverage many of the available bundles to
 provide a REST API for content stored in the CMF. This guide will
-detail how to provide a read API for your content using the following bundles
-`FOSRestBundle`_ and `JMSSerializerBundle`_.
+detail how to provide a read API for your content using the
+`FOSRestBundle`_ and the `JMSSerializerBundle`_.
 
 Installation
 ------------
@@ -25,19 +25,12 @@ to generate the REST output. The best choice is the JMSSerializerBundle:
         ...
         "require": {
             ...
-            "friendsofsymfony/rest-bundle": "1.*",
-            "jms/serializer-bundle": "0.13.*"
+            "friendsofsymfony/rest-bundle": "^1.7",
+            "jms/serializer-bundle": "^1.1"
         }
     }
 
-.. note::
-
-    Both bundles are already required by the CreateBundle.
-
-.. caution::
-
-    When using PHPCR-ODM it is necessary to require at least version 1.0.1
-    of ``doctrine\phpcr-odm``.
+And instantiate the two bundles in your application kernel.
 
 Then use Composer_ to update your projects vendors:
 
