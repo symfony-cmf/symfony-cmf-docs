@@ -120,7 +120,7 @@ A custom controller action can look like this::
         /**
          * @param object $contentDocument the name of this parameter is defined
          *      by the RoutingBundle. You can also expect any route parameters
-         *      or $contentTemplate if you configured templates_by_class (see below).
+         *      or $template if you configured templates_by_class (see below).
          *
          * @return Response
          */
