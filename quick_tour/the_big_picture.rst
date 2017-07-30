@@ -69,7 +69,7 @@ extension. After that, run these commands:
 .. code-block:: bash
 
     $ php bin/console doctrine:database:create
-    $ php bin/console doctrine:phpcr:init:dbal
+    $ php bin/console doctrine:phpcr:init:dbal --force
     $ php bin/console doctrine:phpcr:repository:init
     $ php bin/console doctrine:phpcr:fixtures:load
 
