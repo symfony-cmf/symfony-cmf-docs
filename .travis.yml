@@ -1,4 +1,6 @@
 language: python
+# different spelling rules on trusty, stick with precise for now
+dist: precise
 
 python: 2.7
 
