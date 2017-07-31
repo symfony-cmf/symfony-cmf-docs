@@ -91,7 +91,6 @@ RouteReferrersInterface Admin Extension
 This bundle provides an extension to edit referring routes for content that
 implements the ``RouteReferrersInterface``.
 
-
 You can define the form group and tab to be used by the field this extension
 adds:
 

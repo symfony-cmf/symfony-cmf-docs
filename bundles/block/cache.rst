@@ -1,11 +1,11 @@
 Cache
 =====
 
-The Symfony2 CMF BlockBundle integrates with the `SonataCacheBundle`_ to
+The CmfBlockBundle integrates with the `SonataCacheBundle`_ to
 provide several caching solutions. Have a look at the available adapters in the
 `SonataCacheBundle`_ to see all options.
 
-The Symfony2 CMF BlockBundle additionally provides its own adapters for:
+The CmfBlockBundle additionally provides its own adapters for:
 
 * `ESI`_ (service: ``cmf.block.cache.varnish``)
 * `SSI`_ (service: ``cmf.block.cache.ssi``)
@@ -119,7 +119,7 @@ CmfBlockBundle and the SonataBlockBundle:
                     ),
                 ),
                 'blocks_by_class' => array(
-                    'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock' => array(
+                    Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock::class => array(
                             'cache' => 'symfony_cmf.block.cache.js_async',
                         ),
                     ),
@@ -133,8 +133,7 @@ When a block having a cache configured is rendered, the following process
 is triggered:
 
 * The document is loaded based on the name;
-* If caching is configured, the cache is checked and content is returned if
-  found.
+* The cache is checked and content is returned if found.
 
   * Cache keys are computed using:
 
