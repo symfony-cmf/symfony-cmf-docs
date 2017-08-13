@@ -21,13 +21,13 @@ duplication, so instead you decide to create your own block, the ``RssBlock``.
     the CmfBlockBundle, but this one is more powerful as it allows to define a
     specific feed URL per block instance.
 
-Create a block document
+Create a Block Document
 -----------------------
 
 The first thing you need is a document that contains the options and indicates
 the location where the RSS feed should be shown. The easiest way is to extend
 ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock``, but you are
-free to do create your own document. At least, you have to implement
+free to do create your own document as long as it implements
 ``Sonata\BlockBundle\Model\BlockInterface``. In your document, you
 need to define the ``getType`` method which returns the type name of your block,
 for instance ``rss_block``::
@@ -292,9 +292,8 @@ on the current page:
 
     This mechanism is not recommended. For optimal load times, it is better
     to have a central assets definition for your project and aggregate them
-    into a single Stylesheet and a single JavaScript file, e.g. with Assetic_,
-    rather than having individual ``<link>`` and ``<script>`` tags for each
-    single file.
+    into a single Stylesheet and a single JavaScript file, rather than having
+    individual ``<link>`` and ``<script>`` tags for each single file.
 
 Register the Block Service
 --------------------------
@@ -345,5 +344,3 @@ handles, as per the ``getType`` method of the block. The second argument is the
             ))
             ->addTag('sonata.block')
         ;
-
-.. _Assetic: https://symfony.com/doc/current/cookbook/assetic/asset_management.html
