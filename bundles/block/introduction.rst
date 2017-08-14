@@ -297,7 +297,7 @@ Embedding Blocks in WYSIWYG Content
 The CmfBlockBundle provides a Twig filter ``cmf_embed_blocks`` that
 scans through a content and looks for special tags to render blocks. To use
 the tag, you need to apply the ``cmf_embed_blocks`` filter to your output. This
-feature is a rather hacky solution for web editors to place blocks anywhere in
+feature is a hack to allow web editors to place blocks anywhere in
 their HTML content. If you can, render your blocks directly in the template.
 A better solution would be to build composed pages is to build it from blocks.
 
