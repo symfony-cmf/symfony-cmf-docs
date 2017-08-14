@@ -82,7 +82,7 @@ bundles in your kernel and properly configure Assetic as described below.
 To upload and display images the :doc:`MediaBundle <../media/introduction>` is
 used. CKEditor uses the :doc:`elfinder adapter <../media/adapters/elfinder>`.
 
-.. _bundle-create-ckeditor:
+.. _bundles-create-ckeditor:
 
 Installation
 ------------
@@ -390,9 +390,9 @@ higher, the method reads:
     use the hallo editor, a plugin is enabled to use the tag editor to edit
     ``skos:related`` collections of attributes. For customization of the editor
     configuration further, you will need to use a
-    :ref:`custom template to load the editor<bundle-create-custom>`.
+    :ref:`custom template to load the editor<bundles-create-custom>`.
 
-.. _bundle-create-usage-embed:
+.. _bundles-create-usage-embed:
 
 Rendering Content
 -----------------

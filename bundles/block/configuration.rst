@@ -7,7 +7,7 @@ application configuration. When using XML, you can use the
 
 The BlockBundle *automatically* changes some defaults and adds configuration
 to the SonataBlockBundle to make the integration work seamlessly. See the
-:ref:`updated SonataBlockBundle defaults <bundle-block-updated-sonata-defaults>`
+:ref:`updated SonataBlockBundle defaults <bundles-block-updated-sonata-defaults>`
 for more information.
 
 Configuration
@@ -96,7 +96,7 @@ the value of ``%cmf_core.persistence.phpcr.basepath%/content``.
 The BlockBundle provides a Twig filter ``cmf_embed_blocks`` that
 looks through the content and looks for special tags to render blocks.
 
-See :ref:`embed blocks in content <bundle-block-embed>` for using the
+See :ref:`embed blocks in content <bundles-block-embed>` for using the
 ``cmf_embed_blocks`` filter.
 
 ``prefix``

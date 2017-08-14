@@ -519,8 +519,8 @@ handle ``StaticContent`` as :ref:`explained above <start-routing-getting-control
 
 The PHPCR-ODM routes support more things, for example route parameters,
 requirements and defaults. This is explained in the
-:ref:`route document section in the RoutingBundle documentation <bundle-routing-document>`.
-You can also find :ref:`route entity documentation and Doctrine ORM integration <bundle-routing-entity>`.
+:ref:`route document section in the RoutingBundle documentation <bundles-routing-document>`.
+You can also find :ref:`route entity documentation and Doctrine ORM integration <bundles-routing-entity>`.
 
 Further Notes
 -------------

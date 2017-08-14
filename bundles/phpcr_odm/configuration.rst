@@ -95,7 +95,7 @@ Defines the PHPCR workspace to use for this PHPCR session.
     Every PHPCR implementation should provide the workspace called *default*,
     but you can choose a different one. There is the
     ``doctrine:phpcr:workspace:create`` command to initialize a new workspace.
-    See also :ref:`bundle-phpcr-odm-commands`.
+    See also :ref:`bundles-phpcr-odm-commands`.
 
 ``username and password``
 """""""""""""""""""""""""

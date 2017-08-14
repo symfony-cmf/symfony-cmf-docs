@@ -6,8 +6,8 @@ Follow these steps to create a block:
 * define a block document class;
 * if needed, create a block service and declare it (optional);
 * instantiate a data object representing your block in the repository, see
-  :ref:`bundle-block-document`;
-* render the block, see :ref:`bundle-block-rendering`;
+  :ref:`bundles-block-document`;
+* render the block, see :ref:`bundles-block-rendering`;
 
 Lets say you are working on a project where you have to integrate data
 received from several RSS feeds. You could create an ActionBlock for each of
@@ -193,7 +193,7 @@ that knows how to fetch the feed data of an ``RssBlock``::
         }
     }
 
-.. _bundle-block-execute:
+.. _bundles-block-execute:
 
 The Execute Method
 ~~~~~~~~~~~~~~~~~~
@@ -223,7 +223,7 @@ places afterwards, cascading as follows:
 
 * Default settings from the block service;
 * If you use a 3rd party bundle you might want to change them in the bundle
-  configuration for your application see :ref:`bundle-block-configuration`;
+  configuration for your application see :ref:`bundles-block-configuration`;
 * Settings can be altered through template helpers (see example below);
 * And settings can also be altered in a block document. Do this only for
   settings that are individual to the specific block instance rather than

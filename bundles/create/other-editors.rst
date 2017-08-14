@@ -7,7 +7,7 @@ Other Editors
 
 .. include:: ../_partials/unmaintained.rst.inc
 
-.. _bundle-create-hallo:
+.. _bundles-create-hallo:
 
 Using Hallo.js Editor
 ---------------------
@@ -78,7 +78,7 @@ the additional image controller routing file in your main routing configuration:
 
         return $collection;
 
-.. _bundle-create-custom:
+.. _bundles-create-custom:
 
 Custom Editors
 --------------
