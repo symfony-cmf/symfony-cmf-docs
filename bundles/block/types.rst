@@ -129,7 +129,7 @@ Create a document::
 
     $documentManager->persist($myRssBlock);
 
-.. _bundle-block-rss-settings:
+.. _bundles-block-rss-settings:
 
 The available settings are:
 

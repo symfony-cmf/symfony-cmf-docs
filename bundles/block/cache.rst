@@ -15,7 +15,7 @@ The CmfBlockBundle additionally provides its own adapters for:
 .. note::
 
   It is advised to store all settings in the block document when using cache.
-  See also :ref:`bundle-block-cache-rendering`.
+  See also :ref:`bundles-block-cache-rendering`.
 
 Dependencies
 ------------
@@ -164,7 +164,7 @@ If the cache is checked and the cache adapter returned that no cache was found,
 the workflow proceeds like this:
 
 * The block service is asked to render the block
-  :ref:`as usual <bundle-block-execute>`;
+  :ref:`as usual <bundles-block-execute>`;
 * If the ``Response`` is cacheable, the configured adapter creates a cache
   element containing:
 
@@ -178,7 +178,7 @@ the workflow proceeds like this:
 Cache Keys
 ----------
 
-It is the responsibility of the :ref:`block service <bundle-block-service>` to generate the cache keys in
+It is the responsibility of the :ref:`block service <bundles-block-service>` to generate the cache keys in
 the method ``getCacheKeys``.
 
 The block services shipped with the Symfony CMF BlockBunde use the
@@ -219,7 +219,7 @@ The BlockBundle also has a cache invalidation listener that calls the
 ``flush`` method of a cache adapter automatically when a cached block document
 is updated or removed.
 
-.. _bundle-block-cache-rendering:
+.. _bundles-block-cache-rendering:
 
 Block Rendering
 ---------------

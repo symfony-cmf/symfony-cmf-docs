@@ -111,7 +111,7 @@ to view unpublished content as well::
         // ...
     }
 
-.. _bundle-core-publish-workflow-twig_function:
+.. _bundles-core-publish-workflow-twig_function:
 
 To check publication in a template, use the Twig function ``cmf_is_published``,
 in PHP templating the ``$view['cmf']->isPublished`` method:
@@ -156,7 +156,7 @@ in PHP templating the ``$view['cmf']->isPublished`` method:
     CMF. Those helpers already use the publish workflow where applicable.
 
 Code that loads content should do the publish checks. Thanks to a
-:ref:`request listener <bundle-core-workflow-request_listener>`, routes and
+:ref:`request listener <bundles-core-workflow-request_listener>`, routes and
 the main content provided by the
 :doc:`DynamicRouter <../routing/dynamic>` are checked automatically already.
 
@@ -264,7 +264,7 @@ As voting is unanimous, each voter returns ``ACCESS_GRANTED`` if its criteria
 is met, but if a single voter returns ``ACCESS_DENIED``, the content is
 considered not published.
 
-You can also implement your :ref:`own voters <bundle-core-workflow-custom-voters>`
+You can also implement your :ref:`own voters <bundles-core-workflow-custom-voters>`
 for additional publication behavior.
 
 PublishableVoter
@@ -287,7 +287,7 @@ and end date. A date may be null to indicate "always started" resp.
 * **getPublishEndDate**: If non-null, the date from which the document
   should stop being published.
 
-.. _bundle-core-workflow-custom-voters:
+.. _bundles-core-workflow-custom-voters:
 
 Custom Voters
 .............
@@ -346,7 +346,7 @@ should not call it to avoid triggering an exception. If a voter only gives
 access if the current user fulfills some requirement, it simply has to return
 ``ACCESS_DENIED`` if there is no current user.
 
-.. _bundle-core-workflow-request_listener:
+.. _bundles-core-workflow-request_listener:
 
 Publication Request Listener
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

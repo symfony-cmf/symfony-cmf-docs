@@ -1,4 +1,4 @@
-.. _bundle-routing-customize:
+.. _bundles-routing-customize:
 
 Customizing the Dynamic Router
 ==============================
@@ -89,7 +89,7 @@ is executed.
 
 .. index:: Route Provider
 
-.. _bundle-routing-custom_provider:
+.. _bundles-routing-custom_provider:
 
 Using a Custom Route Provider
 -----------------------------
@@ -251,7 +251,7 @@ yourself and configure that service:
            ],
        ]);
 
-.. _bundle-routing-route-defaults-validator:
+.. _bundles-routing-route-defaults-validator:
 
 The RouteDefaultsValidator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

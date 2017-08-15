@@ -41,7 +41,7 @@ sonata bundles in addition to the CmfBlockBundle::
         // ...
     }
 
-.. _bundle-block-configuration:
+.. _bundles-block-configuration:
 
 Usage
 -----
@@ -151,7 +151,7 @@ specific settings for one of the block classes.
     :ref:`Block Sonata Admin Extension <bundles-block-types-admin_extension>`
     that adds editing of the ``BaseBlock`` general block options.
 
-.. _bundle-block-updated-sonata-defaults:
+.. _bundles-block-updated-sonata-defaults:
 
 Updated SonataBlockBundle Defaults
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -165,7 +165,7 @@ updated:
   a ``div`` and slugifies the PHPCR path as id; The base template is
   kept compatible with the Sonata base template for non-cmf blocks;
 * **RssBlock configuration** adds the
-  :ref:`default RssBlock settings <bundle-block-rss-settings>`.
+  :ref:`default RssBlock settings <bundles-block-rss-settings>`.
 
 .. note::
 
@@ -173,7 +173,7 @@ updated:
     still change the values by setting the configuration values in your
     application configuration file.
 
-.. _bundle-block-document:
+.. _bundles-block-document:
 
 Block Document
 --------------
@@ -201,7 +201,7 @@ the block. The other properties (title and body) are specific to the
 ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock``.
 
 The simple block is now ready to be rendered, see
-:ref:`bundle-block-rendering`.
+:ref:`bundles-block-rendering`.
 
 .. note::
 
@@ -217,7 +217,7 @@ render the block. It aggregates and merges all settings from configuration,
 the block service, the block document and settings passed to the Twig template
 helper. Therefore, use the BlockContext to get or alter a setting if needed.
 
-.. _bundle-block-service:
+.. _bundles-block-service:
 
 Block Service
 -------------
@@ -230,7 +230,7 @@ When using the provided blocks, you do not need to worry about the block
 service. It is only relevant when
 :doc:`creating your own blocks <create_your_own_blocks>`.
 
-.. _bundle-block-rendering:
+.. _bundles-block-rendering:
 
 Block rendering
 ---------------
@@ -239,7 +239,7 @@ Rendering is handled by the SonataBlockBundle ``sonata_block_render`` Twig
 function. The block name is either an absolute PHPCR path or the name of the
 block relative to the ``cmfMainContent`` document.
 
-To render the example from the :ref:`bundle-block-document` section, just add
+To render the example from the :ref:`bundles-block-document` section, just add
 the following code to your Twig template:
 
 .. configuration-block::
@@ -271,7 +271,7 @@ block as follows:
         )) ?>
 
 This will make the BlockBundle render the specified block if the main content
-(as per the :ref:`routing <bundle-routing-dynamic-match>`) maps a field named
+(as per the :ref:`routing <bundles-routing-dynamic-match>`) maps a field named
 ``sidebarBlock``. If different main contents are rendered using different
 templates, make sure all that should support this block actually include the
 snippet above.
@@ -289,7 +289,7 @@ receives the block object (equivalent to a Request object) and a ``Response``
 object. The purpose of the ``execute`` method to set the content of the
 response object - typically by rendering a Twig template.
 
-.. _bundle-block-embed:
+.. _bundles-block-embed:
 
 Embedding Blocks in WYSIWYG Content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -297,7 +297,7 @@ Embedding Blocks in WYSIWYG Content
 The CmfBlockBundle provides a Twig filter ``cmf_embed_blocks`` that
 scans through a content and looks for special tags to render blocks. To use
 the tag, you need to apply the ``cmf_embed_blocks`` filter to your output. This
-feature is a rather hacky solution for web editors to place blocks anywhere in
+feature is a hack to allow web editors to place blocks anywhere in
 their HTML content. If you can, render your blocks directly in the template.
 A better solution would be to build composed pages is to build it from blocks.
 

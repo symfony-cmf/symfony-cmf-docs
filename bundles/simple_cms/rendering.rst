@@ -57,4 +57,4 @@ front-end. The most simple form is the following Twig block:
     {% endblock %}
 
 If you want to control more detailed what should be shown with RDFa, see
-chapter :ref:`bundle-create-usage-embed`.
+chapter :ref:`bundles-create-usage-embed`.

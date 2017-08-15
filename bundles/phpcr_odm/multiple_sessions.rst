@@ -9,7 +9,7 @@ of the ``session`` information. Each session has a name and the configuration
 following the same schema as what is directly in ``session``. You can also
 overwrite which session to use as ``default_session``.
 
-.. _bundle-phpcr-odm-multiple-phpcr-sessions:
+.. _bundles-phpcr-odm-multiple-phpcr-sessions:
 
 Multiple PHPCR Sessions
 -----------------------

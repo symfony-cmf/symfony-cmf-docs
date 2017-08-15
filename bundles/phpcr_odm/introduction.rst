@@ -410,7 +410,7 @@ There are 3 main services provided by this bundle:
 * ``doctrine_phpcr.odm.default_document_manager`` - The PHPCR-ODM document
   manager instance.
 
-.. _bundle-phpcr-odm-commands:
+.. _bundles-phpcr-odm-commands:
 
 Doctrine PHPCR Commands
 -----------------------

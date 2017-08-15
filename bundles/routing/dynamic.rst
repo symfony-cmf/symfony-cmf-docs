@@ -6,11 +6,11 @@ Dynamic Router
 
 This implementation of a router is configured to load routes from a
 ``RouteProviderInterface``. This interface can be easily implemented with
-Doctrine for example. See the :ref:`following section <bundle-routing-document>`
+Doctrine for example. See the :ref:`following section <bundles-routing-document>`
 for more details about the default `PHPCR-ODM`_ provider and
-:ref:`further below <bundle-routing-entity>` for the Doctrine ORM
+:ref:`further below <bundles-routing-entity>` for the Doctrine ORM
 based implementation. If those do not match your needs, you can
-:ref:`build your own route provider <bundle-routing-custom_provider>`.
+:ref:`build your own route provider <bundles-routing-custom_provider>`.
 
 You can configure the route enhancers that decide what controller is used to
 handle the request, to avoid hard coding controller names into your route
@@ -88,7 +88,7 @@ When there is no configuration or ``cmf_routing.dynamic.enabled`` is set to
 ``false``, the dynamic router services will not be loaded at all, allowing
 you to use the ``ChainRouter`` with your own routers.
 
-.. _bundle-routing-dynamic-match:
+.. _bundles-routing-dynamic-match:
 
 Match Process
 -------------
@@ -195,10 +195,10 @@ controllers default to the ``ContentController`` provided by that bundle.
 .. tip::
 
     You can also define your own ``RouteEnhancer`` classes for specific use
-    cases. See :ref:`bundle-routing-customize`. Use the priority to insert your
+    cases. See :ref:`bundles-routing-customize`. Use the priority to insert your
     enhancers in the correct order.
 
-.. _bundle-routing-document:
+.. _bundles-routing-document:
 
 Doctrine PHPCR-ODM Integration
 ------------------------------
@@ -289,7 +289,7 @@ a parameter, make them part of the variable pattern::
 .. note::
 
     The ``RouteDefaultsValidator`` validates the route defaults parameters.
-    For more information, see :ref:`bundle-routing-route-defaults-validator`.
+    For more information, see :ref:`bundles-routing-route-defaults-validator`.
 
 With the above example, your controller can expect both the ``$id`` parameter
 as well as the ``$contentDocument`` if you set a content on the route and have
@@ -322,7 +322,7 @@ omit setting a content document on the route document.
     create one route per language for the same content. The route generator will
     pick the correct route if available.
 
-.. _bundle-routing-entity:
+.. _bundles-routing-entity:
 
 Doctrine ORM integration
 ------------------------
@@ -336,7 +336,7 @@ the name indicates, loads ``Route`` entities from an ORM database.
     You must install the CoreBundle to use this feature if your application
     does not have at least DoctrineBundle 1.3.0.
 
-.. _bundle-routing-route-entity:
+.. _bundles-routing-route-entity:
 
 The ORM Route entity
 --------------------
@@ -479,7 +479,7 @@ controller should handle ``Post`` entities as explained in the
 
 The ORM routes support more things, for example route parameters, requirements
 and defaults. This is explained in the
-:ref:`route document section <bundle-routing-document>`.
+:ref:`route document section <bundles-routing-document>`.
 
 .. _bundles-routing-dynamic-generator:
 
