@@ -30,29 +30,30 @@ use this configuration:
 
     .. code-block:: yaml
 
+        # app/config/services.yml
         services:
-            acme_search.listener.search:
-                class: Acme\SearchBundle\EventListener\SearchIndexer
+            app.phpcr_search_indexer:
+                class: AppBundle\EventListener\SearchIndexer
                     tags:
                         - { name: doctrine_phpcr.event_listener, event: postPersist }
 
-            acme_search.subscriber.fancy:
-                class: Acme\SearchBundle\EventSubscriber\MySubscriber
+            app.phpcr_listener:
+                class: AppBundle\EventListener\MyListener
                     tags:
                         - { name: doctrine_phpcr.event_subscriber }
 
     .. code-block:: xml
 
-        <!-- src/Acme/SearchBundle/Resources/config/services.xml -->
         <?xml version="1.0" ?>
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services">
             <services>
-                <service id="acme_search.listener.search"
-                         class="Acme\SearchBundle\EventListener\SearchIndexer">
+                <service id="app.phpcr_search_indexer"
+                         class="AppBundle\EventListener\SearchIndexer">
                     <tag name="doctrine_phpcr.event_listener" event="postPersist" />
                 </service>
-                <service id="acme_search.subscriber.fancy"
-                         class="Acme\SearchBundle\EventSubscriber\MySubscriber">
+                <service id="app.phpcr_listener"
+                         class="AppBundle\EventListener\MyListener">
                     <tag name="doctrine_phpcr.event_subscriber" />
                 </service>
             </services>
@@ -60,31 +61,33 @@ use this configuration:
 
     .. code-block:: php
 
+        // app/config/config.php
+        use AppBundle\EventListener\SearchIndexer;
+        use AppBundle\EventListener\MyListener;
+
         $container
             ->register(
-                'acme_search.listener.search',
-                'Acme\SearchBundle\EventListener\SearchIndexer'
+                'app.phpcr_search_indexer',
+                SearchIndexer::class
             )
-            ->addTag('doctrine_phpcr.event_listener', array(
+            ->addTag('doctrine_phpcr.event_listener', [
                 'event' => 'postPersist',
-            ))
+            ])
         ;
 
         $container
             ->register(
-                'acme_search.subscriber.fancy',
-                'Acme\SearchBundle\EventSubscriber\FancySubscriber'
+                'app.phpcr_listener',
+                MySubscriber::class
             )
-            ->addTag('doctrine_phpcr.event_subscriber', array(
-                'event' => 'postPersist',
-            ))
+            ->addTag('doctrine_phpcr.event_subscriber')
         ;
 
 .. tip::
 
-    Doctrine event subscribers (both ORM and PHPCR-ODM) can not return a
-    flexible array of methods to call like the `Symfony event subscriber`_ can
-    do. Doctrine event subscribers must return a simple array of the event
+    Doctrine event subscribers (both ORM and PHPCR-ODM) can **not** return a
+    flexible array of methods to call like the `Symfony event subscriber`_.
+    Doctrine event subscribers must return a simple array of the event
     names they subscribe to. Doctrine will then expect methods on the
     subscriber with the names of the subscribed events, just as when using an
     event listener.

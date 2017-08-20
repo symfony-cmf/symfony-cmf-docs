@@ -9,7 +9,7 @@ of the ``session`` information. Each session has a name and the configuration
 following the same schema as what is directly in ``session``. You can also
 overwrite which session to use as ``default_session``.
 
-.. _bundle-phpcr-odm-multiple-phpcr-sessions:
+.. _bundles-phpcr-odm-multiple-phpcr-sessions:
 
 Multiple PHPCR Sessions
 -----------------------
@@ -59,24 +59,24 @@ Multiple PHPCR Sessions
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
                 'default_session' => null,
-                'sessions' => array(
-                    '<name>' => array(
+                'sessions' => [
+                    '<name>' => [
                         'workspace' => '...', // Required
                         'username'  => null,
                         'password'  => null,
-                        'backend'   => array(
+                        'backend'   => [
                             // ...
-                        ),
-                        'options'   => array(
+                        ],
+                        'options'   => [
                             // ...
-                        ),
-                    ),
-                ),
-            ),
-        ));
+                        ],
+                    ],
+                ],
+            ],
+        ]);
 
 Multiple Document Managers
 --------------------------
@@ -120,22 +120,25 @@ attribute.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'odm' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'odm' => [
                 'default_document_manager' => null,
-                'document_managers' => array(
-                    '<name>' => array(
+                'document_managers' => [
+                    '<name>' => [
                         'session' => '<sessionname>',
                         // ... configuration as above
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 Bringing it all together
 ------------------------
 
-A full example looks as follows:
+The following full example uses the default manager for ``AppBundle``
+and the documents provided by the CMF. Additionally, it has a website
+and DMS manager that connects to the Jackrabbit of Magnolia CMS. That
+manager looks for models in the MagnoliaBundle.
 
 .. configuration-block::
 
@@ -174,22 +177,22 @@ A full example looks as follows:
                     default:
                         session: default
                         mappings:
-                            SandboxMainBundle: ~
+                            AppBundle: ~
                             CmfContentBundle: ~
                             CmfMenuBundle: ~
                             CmfRoutingBundle: ~
 
                     website:
                         session: website
-                        configuration_id: sandbox_magnolia.odm_configuration
+                        configuration_id: magnolia.odm_configuration
                         mappings:
-                            SandboxMagnoliaBundle: ~
+                            MagnoliaBundle: ~
 
                     dms:
                         session: dms
-                        configuration_id: sandbox_magnolia.odm_configuration
+                        configuration_id: magnolia.odm_configuration
                         mappings:
-                            SandboxMagnoliaBundle: ~
+                            MagnoliaBundle: ~
 
     .. code-block:: xml
 
@@ -226,7 +229,7 @@ A full example looks as follows:
                         name="default"
                         session="default"
                     >
-                        <mapping name="SandboxMainBundle" />
+                        <mapping name="AppBundle" />
                         <mapping name="CmfContentBundle" />
                         <mapping name="CmfMenuBundle" />
                         <mapping name="CmfRoutingBundle" />
@@ -235,17 +238,17 @@ A full example looks as follows:
                     <document-manager
                         name="website"
                         session="website"
-                        configuration-id="sandbox_magnolia.odm_configuration"
+                        configuration-id="magnolia.odm_configuration"
                     >
-                        <mapping name="SandboxMagnoliaBundle" />
+                        <mapping name="MagnoliaBundle" />
                     </document-manager>
 
                     <document-manager
                         name="dms"
                         session="dms"
-                        configuration-id="sandbox_magnolia.odm_configuration"
+                        configuration-id="magnolia.odm_configuration"
                     >
-                        <mapping name="SandboxMagnoliaBundle" />
+                        <mapping name="MagnoliaBundle" />
                     </document-manager>
 
                 </odm>
@@ -255,66 +258,66 @@ A full example looks as follows:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'sessions' => array(
-                    'default' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'sessions' => [
+                    'default' => [
                         'backend'   => '%phpcr_backend%',
                         'workspace' => '%phpcr_workspace%',
                         'username'  => '%phpcr_user%',
                         'password'  => '%phpcr_pass%',
-                    ),
-                    'website' => array(
-                        'backend' => array(
+                    ],
+                    'website' => [
+                        'backend' => [
                             'type' => 'jackrabbit',
                             'url'  => '%magnolia_url%',
-                        ),
+                        ],
                         'workspace' => 'website',
                         'username'  => '%magnolia_user%',
                         'password'  => '%magnolia_pass%',
-                    ),
-                    'dms' => array(
-                        'backend' => array(
+                    ],
+                    'dms' => [
+                        'backend' => [
                             'type' => 'jackrabbit',
                             'url'  => '%magnolia_url%',
-                        ),
+                        ],
                         'workspace' => 'dms',
                         'username'  => '%magnolia_user%',
                         'password'  => '%magnolia_pass%',
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
 
             // enable the ODM layer
-            'odm' => array(
+            'odm' => [
                 'auto_generate_proxy_classes' => '%kernel.debug%',
-                'document_managers' => array(
-                    'default' => array(
+                'document_managers' => [
+                    'default' => [
                         'session'  => 'default',
-                        'mappings' => array(
-                            'SandboxMainBundle' => null,
+                        'mappings' => [
+                            'AppBundle' => null,
                             'CmfContentBundle'  => null,
                             'CmfMenuBundle'     => null,
                             'CmfRoutingBundle'  => null,
-                        ),
-                    ),
-                    'website' => array(
+                        ],
+                    ],
+                    'website' => [
                         'session'          => 'website',
-                        'configuration_id' => 'sandbox_magnolia.odm_configuration',
-                        'mappings'         => array(
-                            'SandboxMagnoliaBundle' => null,
-                        ),
-                    ),
-                    'dms' => array(
+                        'configuration_id' => 'magnolia.odm_configuration',
+                        'mappings'         => [
+                            'MagnoliaBundle' => null,
+                        ],
+                    ],
+                    'dms' => [
                         'session'          => 'dms',
-                        'configuration_id' => 'sandbox_magnolia.odm_configuration',
-                        'mappings'         => array(
-                            'SandboxMagnoliaBundle' => null,
-                        ),
-                    ),
-                ),
-            ),
-        ));
+                        'configuration_id' => 'magnolia.odm_configuration',
+                        'mappings'         => [
+                            'MagnoliaBundle' => null,
+                        ],
+                    ],
+                ],
+            ],
+        ]);
 
 
 You can access the managers through the manager registry available in

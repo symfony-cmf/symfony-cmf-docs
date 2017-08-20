@@ -16,12 +16,15 @@ the following to your main configuration file:
 
     .. code-block:: yaml
 
-        cmf_core:
-            persistence:
-                phpcr: ~
+        # app/config/config.yml
+        services:
+            cmf_core:
+                persistence:
+                    phpcr: ~
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -35,11 +38,12 @@ the following to your main configuration file:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'persistence' => array(
-                'phpcr' => array(),
-            ),
-        ));
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'persistence' => [
+                'phpcr' => [],
+            ],
+        ]);
 
 .. _bundles-core-multilang-persisting_multilang_documents:
 
@@ -47,6 +51,8 @@ Persisting Documents in Different Languages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Refer to the `PHPCR-ODM documentation`_ for details on persisting documents in different languages.
+
+.. _bundles-core-multilang-global_translation_strategy:
 
 Choosing a Global Translation Strategy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -64,6 +70,7 @@ enforce a single translation strategy for all documents:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_core:
             persistence:
                 phpcr:
@@ -71,14 +78,13 @@ enforce a single translation strategy for all documents:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
             <config xmlns="http://cmf.symfony.com/schema/dic/core">
                 <persistence>
-                    <phpcr
-                        translation-strategy="attribute"
-                    />
+                    <phpcr translation-strategy="attribute"/>
                 </persistence>
             </config>
 
@@ -86,13 +92,14 @@ enforce a single translation strategy for all documents:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'persistence' => array(
-                'phpcr' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'persistence' => [
+                'phpcr' => [
                     'translation_strategy' => 'attribute',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 .. caution::
 
@@ -102,125 +109,4 @@ enforce a single translation strategy for all documents:
 
 See the `PHPCR-ODM documentation`_ for more information.
 
-.. _bundle-core-child-admin-extension:
-
-Using Child Models: The Child Sonata Admin Extension
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This extension sets a default parent to every new
-object instance if a ``parent`` parameter is present in the URL.
-The parent parameter is present for example when adding documents
-in an overlay with the ``doctrine_phpcr_odm_tree_manager``
-or when adding a document in the tree of the dashboard.
-
-.. note::
-
-    This extension is only available if ``cmf_core.persistence.phpcr`` is enabled
-    and SonataPHPCRAdminBundle is active.
-
-To enable the extension in your admin classes, simply define the extension
-configuration in the ``sonata_admin`` section of your project configuration:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        sonata_admin:
-            # ...
-            extensions:
-                cmf_core.admin_extension.child:
-                    implements:
-                        - Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface
-                        - Doctrine\ODM\PHPCR\HierarchyInterface
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" charset="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://sonata-project.org/schema/dic/admin">
-                <!-- ... -->
-                <extension id="cmf_core.admin_extension.child">
-                    <implement>Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface</implement>
-                    <implement>Doctrine\ODM\PHPCR\HierarchyInterface</implement>
-                </extension>
-            </config>
-
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
-            // ...
-            'extensions' => array(
-                'cmf_core.admin_extension.child' => array(
-                    'implements' => array(
-                        'Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface',
-                        'Doctrine\ODM\PHPCR\HierarchyInterface',
-                    ),
-                ),
-            ),
-        ));
-
-See the `Sonata Admin extension documentation`_ for more information.
-
-.. _bundle-core-translatable-admin-extension:
-
-Editing Locale Information: Translatable Sonata Admin Extension
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Several bundles provide translatable model classes that implement
-``TranslatableInterface``. This extension adds a locale field
-to the given SonataAdminBundle forms.
-
-To enable the extensions in your admin classes, simply define the extension
-configuration in the ``sonata_admin`` section of your project configuration:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        sonata_admin:
-            # ...
-            extensions:
-                cmf_core.admin_extension.translatable:
-                    implements:
-                        - Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" charset="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://sonata-project.org/schema/dic/admin">
-                <!-- ... -->
-                <extension id="cmf_core.admin_extension.translatable">
-                    <implement>
-                        Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface
-                    </implement>
-                </extension>
-            </config>
-
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
-            // ...
-            'extensions' => array(
-                'cmf_core.admin_extension.translatable' => array(
-                    'implements' => array(
-                        'Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface',
-                    ),
-                ),
-            ),
-        ));
-
-See the `Sonata Admin extension documentation`_ for more information.
-
-.. _`Sonata Admin extension documentation`: https://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _`PHPCR-ODM documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html#full-example

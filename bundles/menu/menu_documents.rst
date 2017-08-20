@@ -19,10 +19,11 @@ the KnpMenu component documentation for more information.
 
 .. code-block:: php
 
+    use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
     use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNodeBase;
 
     // find the menu tree root
-    $mainMenu = $dm->find('Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu', '/cms/menu/main');
+    $mainMenu = $dm->find(Menu::class, '/cms/menu/main');
 
     $node = new MenuNodeBase();
     $mainMenu->addChild($node);
@@ -31,26 +32,26 @@ the KnpMenu component documentation for more information.
     // Attributes are the HTML attributes of the DOM element representing the
     // menu node (e.g. <li/>)
     $node->setAttribute('attr_name', 'attr_value');
-    $node->setAttributes(array('attr_name', 'attr_value'));
-    $node->setChildrenAttributes(array('attr_name', 'attr_value'));
+    $node->setAttributes(['attr_name', 'attr_value']);
+    $node->setChildrenAttributes(['attr_name', 'attr_value']);
 
     // Display the node or not
     $node->setDisplay(true);
     $node->setDisplayChildren(true);
 
     // Any extra attributes you wish to associate with the menu node
-    $node->setExtras(array('extra_param_1' => 'value'));
+    $node->setExtras(['extra_param_1' => 'value']);
 
     // The label and the HTML attributes of the label
     $node->setLabel('Menu Node');
-    $node->setLabelAttributes(array('style' => 'color: red;'));
+    $node->setLabelAttributes(['style' => 'color: red;']);
 
     // The HTML attributes of the link (i.e. <a href=.../>
-    $node->setLinkAttributes(array('style' => 'color: yellow;'));
+    $node->setLinkAttributes(['style' => 'color: yellow;']);
 
     // Specify a route name to use and the parameters to use with it
     $node->setRoute('my_hard_coded_route_name');
-    $node->setRouteParameters(array());
+    $node->setRouteParameters([]);
 
     // Specify if the route should be rendered absolute (otherwise relative)
     $node->setRouteAbsolute(true);
@@ -83,7 +84,7 @@ content document from which the URL can be generated::
 The content document can be any document which implements the
 ``RouteReferrersInterface``. See :ref:`bundles-routing-dynamic-generator`.
 
-This content document will then be passed to the ``ContentAwareFactory`` see
+This content document will then be handled by the ``ContentExtension``, see
 :ref:`URL Generation <bundles_menu_menu_factory_url_generation>` for more details.
 
 Link Type Specification
@@ -101,8 +102,8 @@ more information.
 Translation
 ~~~~~~~~~~~
 
-The standard menu node supports translation when it is enabled, allowing the
-locale to be set via. the ``setLocale`` method::
+The standard menu node supports translation if enabled, allowing the
+locale to be set via the ``setLocale`` method::
 
     $menuItem = ...;
     $menuItem->setLocale('fr');

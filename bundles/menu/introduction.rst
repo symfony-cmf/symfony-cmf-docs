@@ -11,14 +11,15 @@ features:
 * Render menus stored in the persistence layer;
 * Generate menu node URLs from linked Content or Route.
 
-Note that only the Doctrine PHPCR-ODM persistence layer is currently supported.
+Note that this bundle currently only provides models for the Doctrine PHPCR-ODM
+persistence layer.
 
 .. caution::
 
     Make sure you understand how the `KnpMenuBundle`_ works when you want to
     customize the CmfMenuBundle. The CMF menu bundle is just adding
-    functionality on top of the Knp menu bundle and this documentation is
-    focused on the additional functionality.
+    functionality on top of KnpMenuBundle and this documentation is focused on
+    the additional functionality.
 
 Installation
 ------------
@@ -27,7 +28,7 @@ You can install this bundle `with composer`_ using the
 `symfony-cmf/menu-bundle`_ package.
 
 As the bundle is using the `KnpMenuBundle`_, you need to instantiate that
-bundles in addition to the CmfMenuBundle::
+bundle in addition to the CmfMenuBundle::
 
     // app/AppKernel.php
 
@@ -36,11 +37,11 @@ bundles in addition to the CmfMenuBundle::
     {
         public function registerBundles()
         {
-            $bundles = array(
+            $bundles = [
                 // ...
                 new Knp\Bundle\MenuBundle\KnpMenuBundle(),
                 new Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
-            );
+            ];
 
             // ...
         }
@@ -51,19 +52,17 @@ bundles in addition to the CmfMenuBundle::
 Creating a Simple Persistent Menu
 ---------------------------------
 
-A menu created using the KnpMenuBundle is made up of a hierarchy of class
-instances implementing ``NodeInterface``. This is also true of a menu created
-using MenuBundle documents.
+For KnpMenu_, a menu is made up of a hierarchy of objects implementing
+``ItemInterface``. KnpMenu provides the concept of factories to create menus
+from ``NodeInterface``. This bundle contains a provider to load menu nodes from
+PHPCR.
 
-It is recommended that the root document of the menu tree is a ``Menu``
-document, all descendant documents should be ``MenuNode`` instances.
+The root document of each menu tree is a ``Menu`` document, all descendant
+documents should be ``MenuNode`` instances. The menu roots are placed under the
+``cmf_menu.persistence.phpcr.menu_basepath``, which defaults to ``/cms/menu``.
 
-The root document should be a child of the document specified in the configuration
-by the parameter ``persistence.phpcr.menu_basepath``, which defaults to ``/cms/menu``. Note
-that if this document does not exist it must be created.
-
-The example below creates a new menu with two items, "Home" and "Contact",
-each of which specifies a URI::
+The example below creates a new menu called "Main Menu" with two nodes, "Home"
+and "Contact", each of which specifies a URI::
 
     use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
     use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
@@ -99,8 +98,8 @@ each of which specifies a URI::
 
 .. note::
 
-    When the bundle is registered, it will create the ``/cms/menu`` path
-    when executing ``doctrine:phpcr:repository:init``. For more information,
+    When the bundle is registered, it will create the ``menu_basepath`` as part
+    of the ``doctrine:phpcr:repository:init`` command. For more information,
     see :ref:`Repository Initializers <phpcr-odm-repository-initializers>`
 
 Rendering Menus
@@ -136,9 +135,8 @@ will render an unordered list as follows:
 
 .. tip::
 
-    Sometimes, the menu is not located within the ``persistence.phpcr.menu_basepath``.
-    In this case, you can use an absolute path (starting with a forward slash) to render
-    the menu:
+    To render a menu that is not a child of the ``menu_basepath``, you can use
+    an absolute path (starting with a forward slash):
 
     .. configuration-block::
 
@@ -165,9 +163,9 @@ will render an unordered list as follows:
 .. caution::
 
     If you want to render the menu from Twig, make sure you have not disabled
-    Twig in the ``knp_menu`` configuration section.
+    the Twig integration in the ``knp_menu`` configuration section.
 
-For more information see the `rendering menus`_ section of the KnpMenuBundle documentation.
+For more information, see the `rendering menus`_ section of the KnpMenuBundle documentation.
 
 Read On
 -------
@@ -176,8 +174,8 @@ Read On
 * :doc:`menu_factory`
 * :doc:`menu_provider`
 * :doc:`voters`
-* :doc:`sonata_admin`
 * :doc:`configuration`
+* :doc:`Sonata Admin integration <../sonata_phpcr_admin_integration/menu>`
 
 .. _`KnpMenu`: https://github.com/knplabs/KnpMenu
 .. _`KnpMenuBundle`: https://github.com/knplabs/KnpMenuBundle

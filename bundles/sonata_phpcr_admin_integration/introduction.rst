@@ -9,6 +9,11 @@ SonataPhpcrAdminIntegrationBundle
     Admin tool. Additionally, it provides admin extensions to improve your
     custom admin services.
 
+.. note::
+
+    The admin integration bundle is not yet released as stable. It is still
+    possible that there will be minor BC breaks until it is released.
+
 Installation
 ------------
 
@@ -92,6 +97,59 @@ config:
             ],
         ]);
 
+Adding Admins to the Dashboard
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To see an admin on the dashboard, configure the Sonata Admin accordingly. For
+example, to add the routing admin, you would add the following configuration:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        sonata_admin:
+            dashboard:
+                groups:
+                    blocks:
+                        label: URLs
+                        items:
+                            - cmf_sonata_phpcr_admin_integration.routing.route_admin
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://example.org/schema/dic/sonata_admin">
+                <dashboard>
+                    <group id="blocks"
+                        label="URLs">
+                        <item>cmf_sonata_phpcr_admin_integration.routing.route_admin</item>
+                    </group>
+                </dashboard>
+            </config>
+
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('sonata_admin', array(
+            'dashboard' => array(
+                'groups' => array(
+                    'blocks' => array(
+                        'label' => 'URLs',
+                        'items' => array(
+                            'cmf_sonata_phpcr_admin_integration.routing.route_admin',
+                        ),
+                    ),
+                ),
+            ),
+        ));
+
+You can also embed an admin directly into other admin classes using the
+``sonata_type_admin`` form type. Please refer to the `Sonata Admin documentation`_
+for further information.
+
 Configuration
 -------------
 
@@ -120,3 +178,4 @@ Learn More
 .. _SonataDoctrinePhpcrAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/1-x/doc/index.html
 .. _its official installation guide: https://sonata-project.org/bundles/doctrine-phpcr-admin/1-x/doc/reference/installation.html
 .. _SonataAdminBundle: https://sonata-project.org/bundles/admin/3-x/doc/index.html
+.. _`Sonata Admin documentation`: https://sonata-project.org/bundles/admin/master/doc/reference/form_types.html

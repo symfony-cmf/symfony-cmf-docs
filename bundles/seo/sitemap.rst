@@ -77,11 +77,11 @@ settings:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_seo', array(
-            'sitemap' => array(
+        $container->loadFromExtension('cmf_seo', [
+            'sitemap' => [
                 'enabled' => true,
-            ),
-        ));
+            ],
+        ]);
 
 Rendering Sitemaps
 ------------------
@@ -107,7 +107,7 @@ The templates are specified for a specific sitemap (see below) or in the
             sitemap:
                 defaults:
                     templates:
-                        html: AppBundle:Sitemap:default.html.twig
+                        html: sitemap/default.html.twig
 
     .. code-block:: xml
 
@@ -118,7 +118,7 @@ The templates are specified for a specific sitemap (see below) or in the
             <config xmlns="http://example.org/schema/dic/cmf_seo">
                 <sitemap>
                     <defaults>
-                        <template format="html">AppBundle:Sitemap:default.html.twig</template>
+                        <template format="html">sitemap/default.html.twig</template>
                     </defaults>
                 </sitemap>
             </config>
@@ -127,15 +127,15 @@ The templates are specified for a specific sitemap (see below) or in the
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_seo', array(
-            'sitemap' => array(
-                'defaults' => array(
-                    'templates' => array(
-                        'html' => 'AppBundle:Sitemap:default.html.twig',
-                    ),
-                ),
-            ),
-        ));
+        $container->loadFromExtension('cmf_seo', [
+            'sitemap' => [
+                'defaults' => [
+                    'templates' => [
+                        'html' => 'sitemap/default.html.twig',
+                    ],
+                ],
+            ],
+        ]);
 
 The formats for the templates are not limited, you can add any format you like.
 
@@ -200,21 +200,23 @@ The service definition looks as follows:
 
     .. code-block:: yaml
 
+        # app/config/services.yml
         services:
-            seo.sitemap.guesser.last_modified:
+            app.seo.sitemap.guesser.last_modified:
                 class: AppBundle\Seo\Sitemap\LastModifiedGuesser
                 tags:
                     - { name: cmf_seo.sitemap.guesser, priority: 10 }
 
     .. code-block:: xml
 
-        <?xml version="1.0" ?>
+        <!-- app/config/services.xml -->
+        <?xml version="1.0" encoding="utf-8"?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="seo.sitemap.guesser.last_modified" class="AppBundle\Seo\Sitemap\LastModifiedGuesser">
+                <service id="app.seo.sitemap.guesser.last_modified" class="AppBundle\Seo\Sitemap\LastModifiedGuesser">
                     <tag name="cmf_seo.sitemap.guesser" priority="10"/>
                 </service>
             </services>
@@ -222,8 +224,11 @@ The service definition looks as follows:
 
     .. code-block:: php
 
-        $container->register('seo.sitemap.guesser.last_modified', 'AppBundle\Seo\Sitemap\LastModifiedGuesser')
-            ->addTag('cmf_seo.sitemap.guesser', array('priority' => 10)
+        // app/config/config.php
+        use AppBundle\Seo\Sitemap\LastModifiedGuesser;
+
+        $container->register('app.seo.sitemap.guesser.last_modified', LastModifiedGuesser::class)
+            ->addTag('cmf_seo.sitemap.guesser', [priority' => 10]
         ;
 
 Loaders and voters work exactly the same, with the tags ``cmf_seo.sitemap.loader``
@@ -253,7 +258,7 @@ sitemaps, you need to explicitly specify ``sitemap`` as well:
                     categories:
                         default_change_frequency: hourly
                         templates:
-                            html: AppBundle:Sitemap:categories.html.twig
+                            html: sitemap/categories.html.twig
 
     .. code-block:: xml
 
@@ -265,7 +270,7 @@ sitemaps, you need to explicitly specify ``sitemap`` as well:
                 <sitemap>
                     <configuration name="sitemap"/>
                     <configuration name="categories" default-change-frequency="hourly">
-                        <template format="html">AppBundle:Sitemap:categories.html.twig</template>
+                        <template format="html">sitemap/categories.html.twig</template>
                     </configuration>
                 </sitemap>
             </config>
@@ -274,19 +279,19 @@ sitemaps, you need to explicitly specify ``sitemap`` as well:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_seo', array(
-            'sitemap' => array(
-                'configurations' => array(
+        $container->loadFromExtension('cmf_seo', [
+            'sitemap' => [
+                'configurations' => [
                     'sitemap' => null,
-                    'categories' => array(
+                    'categories' => [
                         'default_change_frequency' => 'hourly',
-                        'templates' => array(
-                            'html' => 'AppBundle:Sitemap:categories.html.twig',
-                        ),
-                    ),
-                ),
-            ),
-        ));
+                        'templates' => [
+                            'html' => 'sitemap/categories.html.twig',
+                        ],
+                    ],
+                ],
+            ],
+        ]);
 
 You will now be able to serve a categories sitemap at
 ``<prefix>/categories.html``.

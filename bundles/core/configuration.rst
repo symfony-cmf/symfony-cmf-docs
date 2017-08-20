@@ -8,6 +8,10 @@ configuration. When using XML, you can use the
 Configuration
 -------------
 
+Some configuration settings set on the CoreBundle are forwarded as default
+configuration to all CMF bundles that are installed in your application. This
+is explicitly listed below for each configuration option that is forwarded.
+
 .. _config-core-persistence:
 
 ``persistence``
@@ -16,13 +20,14 @@ Configuration
 ``phpcr``
 .........
 
-This defines the persistence driver. The default configuration of persistence
-is the following configuration:
+This enables the persistence driver for the PHP content repository. The default
+configuration is the following:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_core:
             persistence:
                 phpcr:
@@ -30,11 +35,11 @@ is the following configuration:
                     basepath:             /cms
                     manager_registry:     doctrine_phpcr
                     manager_name:         ~
-                    use_sonata_admin:     auto
                     translation_strategy: ~
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -45,7 +50,6 @@ is the following configuration:
                         basepath="/cms"
                         manager-registery="doctrine_phpcr"
                         manager-name="null"
-                        use-sonata-admin="auto"
                         translation-strategy="null"
                     />
                 </persistence>
@@ -55,38 +59,39 @@ is the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'persistence' => array(
-                'phpcr' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled'              => false,
                     'basepath'             => '/cms/simple',
                     'manager_registry'     => 'doctrine_phpcr',
                     'manager_name'         => null,
-                    'use_sonata_admin'     => 'auto',
                     'translation_strategy' => null,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``orm``
 .......
 
-This defines the persistence driver. The default configuration of persistence
-is the following configuration:
+This enables the persistence driver for relational databases. The default
+configuration is the following:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_core:
             persistence:
                 orm:
                     enabled:          false
                     manager_name:     ~
-                    use_sonata_admin: auto
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -95,7 +100,6 @@ is the following configuration:
                     <phpcr
                         enabled="false"
                         manager-name="null"
-                        use-sonata-admin="auto"
                     />
                 </persistence>
             </config>
@@ -104,22 +108,23 @@ is the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'persistence' => array(
-                'phpcr' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled'          => false,
                     'manager_name'     => null,
-                    'use_sonata_admin' => 'auto',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``enabled``
 """""""""""
 
 .. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
-Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
+This setting is propagated as default value to all installed CMF bundles that support
+this setting:
 
 * :doc:`BlockBundle <../block/introduction>`
 * :doc:`ContentBundle <../content/introduction>`
@@ -129,7 +134,6 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`RoutingBundle <../routing/introduction>`
 * :doc:`SearchBundle <../search/introduction>`
 * :doc:`SimpleCmsBundle <../simple_cms/introduction>`
-* :doc:`TreeBrowserCmsBundle <../tree_browser/introduction>`
 
 ``basepath``
 """"""""""""
@@ -138,7 +142,8 @@ Enabling this setting will also automatically enable the equivalent setting in t
 
 The basepath for CMS documents in the PHPCR tree.
 
-Enabling this setting will also automatically enable the equivalent settings in the following Bundles:
+This setting is propagated as default value to all installed CMF bundles that support
+this setting:
 
 * :doc:`BlockBundle <../block/introduction>`
 * :doc:`ContentBundle <../content/introduction>`
@@ -146,6 +151,7 @@ Enabling this setting will also automatically enable the equivalent settings in 
 * :doc:`MenuBundle <../menu/introduction>`
 * :doc:`RoutingBundle <../routing/introduction>`
 * :doc:`SearchBundle <../search/introduction>`
+* :doc:`SeoBundle <../seo/introduction>`
 * :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 
 ``manager_registry``
@@ -153,7 +159,11 @@ Enabling this setting will also automatically enable the equivalent settings in 
 
 **type**: ``string`` **default**: ``doctrine_phpcr``
 
-Enabling this setting will also automatically enable the equivalent settings in the following Bundles:
+The doctrine registry from which to get the document manager. This setting
+only needs to be changed when configuring multiple manager registries.
+
+This setting is propagated as default value to all installed CMF bundles that support
+this setting:
 
 * :doc:`SearchBundle <../search/introduction>`
 * :doc:`SimpleCmsBundle <../simple_cms/introduction>`
@@ -164,9 +174,10 @@ Enabling this setting will also automatically enable the equivalent settings in 
 **type**: ``string`` **default**: ``null``
 
 The name of the Doctrine Manager to use. ``null`` tells the manager registry to
-retrieve the default manager.<persistence>
+retrieve the default manager.
 
-Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
+This setting is propagated as default value to all installed CMF bundles that support
+this setting:
 
 * :doc:`BlockBundle <../block/introduction>`
 * :doc:`MediaBundle <../media/introduction>`
@@ -175,44 +186,27 @@ Enabling this setting will also automatically enable the equivalent setting in t
 * :doc:`SearchBundle <../search/introduction>`
 * :doc:`SimpleCmsBundle <../simple_cms/introduction>`
 
-``use_sonata_admin``
-""""""""""""""""""""
-
-**type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
-
-If ``true``, the admin classes for SimpleCmsBundle pages are activated. If set
-to ``auto``, the admin services are activated only if the
-SonataPhpcrAdminBundle is present.
-
-Enabling this setting will also automatically enable the equivalent setting in the following Bundles:
-
-* :doc:`BlockBundle <../block/introduction>`
-* :doc:`ContentBundle <../content/introduction>`
-* :doc:`MenuBundle <../menu/introduction>`
-* :doc:`RoutingBundle <../routing/introduction>`
-* :doc:`SimpleCmsBundle <../simple_cms/introduction>`
-
 ``translation_strategy``
 """"""""""""""""""""""""
 
 **type**: ``string`` **default**: ``null``
 
-This setting can be used to force a specific translation strategy for all documents.
+This setting can be used to :ref:`force a specific translation strategy <bundles-core-multilang-global_translation_strategy>`
+for all documents.
 
 .. _config-core-multilang:
 
 ``multilang``
 ~~~~~~~~~~~~~
 
-This configures whether multiple languages mode should be activated.
+This configures the locales to use in multiple languages mode.
 
 If the ``multilang`` option is *not* defined at all, the CoreBundle registers a
 listener for Doctrine PHPCR-ODM that modifies PHPCR-ODM metadata to remove the
 translatable attribute from all fields.
 
-If multi-language is enabled, the ``TranslatableExtension`` for
-``SonataAdminBundle`` is enabled and the locales will be configured on all CMF
-bundles that use this configuration:
+If multi-language is enabled, the locales will be configured as default on all
+installed CMF bundles that use this configuration:
 
 * :doc:`RoutingBundle <../routing/introduction>`
 * :doc:`SimpleCmsBundle <../simple_cms/introduction>`
@@ -221,12 +215,14 @@ bundles that use this configuration:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_core:
             multilang:
                 locales: [en, fr]
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -240,21 +236,22 @@ bundles that use this configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'multilang' => array(
-                'locales' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'multilang' => [
+                'locales' => [
                     'en',
                     'fr',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``locales``
 ...........
 
 **type**: ``array`` **default**: ``null``
 
-This define languages that can be used.
+List of the languages that can be used with the storage.
 
 ``publish_workflow``
 ~~~~~~~~~~~~~~~~~~~~
@@ -267,6 +264,7 @@ only published routes and content can be accessed.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_core:
             publish_workflow:
                 enabled:                 true
@@ -276,6 +274,7 @@ only published routes and content can be accessed.
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -291,76 +290,12 @@ only published routes and content can be accessed.
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_core', array(
-            'publish_workflow' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_core', [
+            'publish_workflow' => [
                 'enabled'                 => true,
                 'checker_service'         => 'cmf_core.publish_workflow.checker.default',
                 'view_non_published_role' => 'ROLE_CAN_VIEW_NON_PUBLISHED',
                 'request_listener'        => true,
-            ),
-        ));
-
-Sonata Admin
-------------
-
-This section configures the Sonata Admin Extensions, see:
-
-* :ref:`Publish Workflow Admin Extensions <bundle-core-workflow-admin-extensions>`;
-* :ref:`Translatable Admin Extension <bundle-core-translatable-admin-extension>`.
-* :ref:`Child Admin Extension <bundle-core-child-admin-extension>`.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        cmf_core:
-            sonata_admin:
-                extensions:
-                    publishable:
-                        form_group: form.group_publish_workflow
-                    publish_time:
-                        form_group: form.group_general
-                    translatable:
-                        form_group: form.group_general
-
-    .. code-block:: xml
-
-        <?xml version="1.0" charset="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-
-            <config xmlns="http://cmf.symfony.com/schema/dic/core">
-                <sonata-admin>
-                    <extension>
-                        <publishable form-group="form.group_publish_workflow" />
-                        <publish-time form-group="form.group_general" />
-                        <translatable form-group="form.group_general" />
-                    </extension>
-                </sonata-admin>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        $container->loadFromExtension('cmf_core', array(
-            'sonata_admin' => array(
-                'extensions' => array(
-                    'publishable' => array(
-                        'form_group' => 'form.group_publish_workflow',
-                    ),
-                    'publish_time' => array(
-                        'form_group' => 'form.group_general',
-                    ),
-                    'translatable' => array(
-                        'form_group' => 'form.group_general',
-                    ),
-                ),
-            ),
-        ));
-
-``form_group``
-~~~~~~~~~~~~~~
-
-**type**: ``string`` **default**: as in above example.
-
-Defines which form group the fields from this extension will appear in within
-the Sonata Admin edit interface.
+            ],
+        ]);

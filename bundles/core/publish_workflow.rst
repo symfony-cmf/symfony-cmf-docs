@@ -20,7 +20,6 @@ publication.
     A good introduction to the Symfony core security can be found in the
     `Security Chapter`_ of the Symfony2 book.
 
-
 The default publish workflow corresponds to the following diagram:
 
 .. image:: ../../_images/bundles/core_pwf_workflow.png
@@ -46,8 +45,9 @@ Currently the only actions supported by the default voters are ``VIEW`` and
 ``VIEW_ANONYMOUS``. Having the right to view means that the current user is
 allowed to see this content either because it is published or because of their
 specific permissions. In some contexts, your application might not want to
-show unpublished content even to a privileged user so as not to confuse them.
-For this, the "view anonymous" permission is used.
+show unpublished content even to privileged users so as not to confuse them.
+For this, the "view anonymous" permission is used to check if a content is
+published.
 
 The workflow checker is configured with a role that is allowed to bypass
 publication checks so that it can see unpublished content. This role should be
@@ -78,14 +78,15 @@ given to editors. The default name of the role is ``ROLE_CAN_VIEW_NON_PUBLISHED`
     .. code-block:: php
 
         // app/config/security.php
-        $container->loadFromExtension('security', array(
-            'role_hierarchy' => array(
+        $container->loadFromExtension('security', [
+            'role_hierarchy' => [
                 'ROLE_EDITOR' => 'ROLE_CAN_VIEW_NON_PUBLISHED',
-            ),
-        ));
+            ],
+        ]);
 
-Once a user with ``ROLE_EDITOR`` is logged in - meaning there is a firewall in place for
-the path in question - they will have the permission to view unpublished content as well::
+Once a user with ``ROLE_CAN_VIEW_NON_PUBLISHED`` is logged in - meaning there
+is a firewall in place for the path in question - they will have the permission
+to view unpublished content as well::
 
     use Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishWorkflowChecker;
 
@@ -110,10 +111,10 @@ the path in question - they will have the permission to view unpublished content
         // ...
     }
 
-.. _bundle-core-publish-workflow-twig_function:
+.. _bundles-core-publish-workflow-twig_function:
 
-To check publication in a template, use the Twig function ``cmf_is_published``
-or the ``$view['cmf']->isPublished`` method:
+To check publication in a template, use the Twig function ``cmf_is_published``,
+in PHP templating the ``$view['cmf']->isPublished`` method:
 
 .. configuration-block::
 
@@ -155,12 +156,11 @@ or the ``$view['cmf']->isPublished`` method:
     CMF. Those helpers already use the publish workflow where applicable.
 
 Code that loads content should do the publish checks. Thanks to a
-:ref:`request listener <bundle-core-workflow-request_listener>`, routes and
+:ref:`request listener <bundles-core-workflow-request_listener>`, routes and
 the main content provided by the
-:doc:`DynamicRouter <../routing/dynamic>` are checked automatically
-as well.
+:doc:`DynamicRouter <../routing/dynamic>` are checked automatically already.
 
-It is possible to set the security token explicitly on the workflow checker.
+It is possible to explicitly set the security token on the workflow checker.
 But by default, the checker will acquire the token from the default security
 context, and if there is none (typically when there is no firewall in place for
 that URL), an
@@ -264,7 +264,7 @@ As voting is unanimous, each voter returns ``ACCESS_GRANTED`` if its criteria
 is met, but if a single voter returns ``ACCESS_DENIED``, the content is
 considered not published.
 
-You can also implement your :ref:`own voters <bundle-core-workflow-custom-voters>`
+You can also implement your :ref:`own voters <bundles-core-workflow-custom-voters>`
 for additional publication behavior.
 
 PublishableVoter
@@ -287,7 +287,7 @@ and end date. A date may be null to indicate "always started" resp.
 * **getPublishEndDate**: If non-null, the date from which the document
   should stop being published.
 
-.. _bundle-core-workflow-custom-voters:
+.. _bundles-core-workflow-custom-voters:
 
 Custom Voters
 .............
@@ -304,17 +304,19 @@ you can lower the priority of those voters:
 
     .. code-block:: yaml
 
+        # app/config/services.yml
         services:
-            security.publishable_voter:
+            app.publishable_voter:
                 class: "AppBundle\Security\PublishableVoter"
                 tags:
                     - { name: cmf_published_voter, priority: 30 }
 
     .. code-block:: xml
 
+        <!-- app/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-            <service id="security.publishable_voter"
+            <service id="app.publishable_voter"
                 class="AppBundle\Security\PublishableVoter">
 
                 <tag name="cmf_published_voter" priority="30"/>
@@ -323,14 +325,16 @@ you can lower the priority of those voters:
 
     .. code-block:: php
 
+        // app/config/config.php
         use Symfony\Component\DependencyInjection\Definition;
+        use AppBundle\Security\PublishableVoter;
 
         $container
             ->register(
-                'security.publishable_voter',
-                'AppBundle\Security\PublishableVoter'
+                'app.publishable_voter',
+                PublishableVoter::class
             )
-            ->addTag('cmf_published_voter', array('priority' => 30))
+            ->addTag('cmf_published_voter', ['priority' => 30])
         ;
 
 The workflow checker will create an
@@ -342,7 +346,7 @@ should not call it to avoid triggering an exception. If a voter only gives
 access if the current user fulfills some requirement, it simply has to return
 ``ACCESS_DENIED`` if there is no current user.
 
-.. _bundle-core-workflow-request_listener:
+.. _bundles-core-workflow-request_listener:
 
 Publication Request Listener
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -358,81 +362,21 @@ This means that custom templates for ``templates_by_class`` and the controllers
 of ``controllers_by_class`` need not check for publication explicitly as its
 already done.
 
-.. _bundle-core-workflow-admin-extensions:
-
-Editing publication information: Publish Workflow Sonata Admin Extension
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Editing Publish Workflow Information
+------------------------------------
 
 There is a write interface for each publish workflow too, defining setter
-methods. The core bundle provides extensions for SonataAdminBundle to easily
-add editing of the publish workflow fields to all or selected admins.
+methods. You can implement the write interfaces in your models to make
+publication information editable. Instead of implementing
+``PublishableReadInterface`` resp. ``PublishTimePeriodReadInterface``,
+implement the interfaces ``PublishableInterface`` and / or
+``PublishTimePeriodInterface`` in your models.
 
-Instead of implementing ``PublishableReadInterface`` resp.
-``PublishTimePeriodReadInterface`` you models instead need to implement the
-``PublishableInterface`` and / or ``PublishTimePeriodInterface``.
-
-To enable the extensions in your admin classes, simply define the extension
-configuration in the ``sonata_admin`` section of your project configuration:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        sonata_admin:
-            # ...
-            extensions:
-                cmf_core.admin_extension.publish_workflow.publishable:
-                    implements:
-                        - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface
-                cmf_core.admin_extension.publish_workflow.time_period:
-                    implements:
-                        - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://sonata-project.org/schema/dic/admin">
-                <!-- ... -->
-                <extension id="cmf_core.admin_extension.publish_workflow.publishable">
-                    <implement>
-                        Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface
-                    </implement>
-                </extension>
-
-                <extension id="cmf_core.admin_extension.publish_workflow.time_period">
-                    <implement>
-                        Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface
-                    </implement>
-                </extension>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
-            // ...
-            'extensions' => array(
-                'cmf_core.admin_extension.publish_workflow.publishable' => array(
-                    'implements' => array(
-                        'Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface',
-                    ),
-                ),
-                'cmf_core.admin_extension.publish_workflow.time_period' => array(
-                    'implements' => array(
-                        'Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface',
-                    ),
-                ),
-            ),
-        ));
-
-See the `Sonata Admin extension documentation`_ for more information.
+There is a :doc:`Sonata admin extension <../sonata_phpcr_admin_integration/core>`
+available to edit workflow information on any document implementing the
+interface.
 
 .. _`Symfony2 security component`: https://symfony.com/doc/current/components/security/index.html
 .. _`Symfony2 Authorization`: https://symfony.com/doc/current/components/security/authorization.html
 .. _`Security Chapter`: https://symfony.com/doc/current/book/security.html
 .. _`ACL checks`: https://symfony.com/doc/current/cookbook/security/acl.html
-.. _`Sonata Admin extension documentation`: https://sonata-project.org/bundles/admin/master/doc/reference/extensions.html

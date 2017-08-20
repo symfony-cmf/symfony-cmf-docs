@@ -11,8 +11,8 @@ of the CMF.
 .. note::
 
     Again, this chapter is talking about the PHPCR storage layer. But the CMF
-    is storage agnostically created, meaning it is not tied to specific storage
-    system.
+    is written in a storage agnostic way, meaning it is not tied to specific
+    storage system.
 
 Getting Familiar with PHPCR
 ---------------------------
@@ -23,7 +23,7 @@ data stored with PHPCR has a relationship with at least one other data: its
 parent. The inverse relation also exists, you can also get the children of a
 data element.
 
-Let's take a look at the dump of the tree of the Standard Edition you
+Let's take a look at the dump of the tree of the CMF Sandbox you
 downloaded in the previous chapter. Go to your directory and execute the
 following command:
 
@@ -36,36 +36,49 @@ The result will be the PHPCR tree:
 .. code-block:: text
 
     ROOT:
-      cms:
-        simple:
-          about:
-          contact:
-            map:
-            team:
-          quick_tour:
-          dynamic:
-          docs:
-          demo:
-          demo_redirect:
-          hardcoded_dynamic:
-          hardcoded_static:
+        cms:
+            menu:
+                main:
+                    admin-item:
+                    projects-item:
+                        cmf-item:
+                    company-item:
+                        team-item:
+                ...
+            content:
+                home:
+                    phpcr_locale:en:
+                    phpcr_locale:fr:
+                    phpcr_locale:de:
+                    seoMetadata:
+                    additionalInfoBlock:
+                        child1:
+                ...
+            routes:
+                en:
+                    company:
+                        team:
+                        more:
+                    about:
+                ...
 
-Each data is called a *node* in PHPCR. In this tree, there are 13 nodes and
-one ROOT node (created by PHPCR). You may have already seen the document you
-created in the previous section, it's called ``quick_tour`` (and it's path is
-``/cms/simple/quick_tour``). When using the SimpleCmsBundle, all nodes are
-stored in the ``/cms/simple`` path.
+Each data is called a *node* in PHPCR. Everything is attached under the ROOT
+node (created by PHPCR itself).
 
 Each node has properties, which contain the data. The content, title and label
-you set for your page are saved in such properties for the ``quick_tour``
+you set for your page are saved in such properties for the ``home``
 node. You can view these properties by adding the ``--props`` switch to the
-dump command.
+dump command:
+
+.. code-block:: bash
+
+    $ php bin/console doctrine:phpcr:node:dump --props /cms/content/home
 
 .. note::
 
     Previously, the PHPCR tree was compared with a Filesystem. While this
-    gives you a good image of what happens, it's not the truth. You can
-    better compare it to an XML file, where each node is an element and its
+    gives you a good image of what happens, it's not the only truth. You can
+    compare it to an XML file, where each node is an element and its
     properties are attributes.
 
 Doctrine PHPCR-ODM
@@ -74,37 +87,39 @@ Doctrine PHPCR-ODM
 The Symfony CMF uses the `Doctrine PHPCR-ODM`_ to interact with PHPCR.
 Doctrine allows a user to create objects (called *documents*) which are
 directly persisted into and retrieved from the PHPCR tree. This is similar to
-the Doctrine ORM used by the Symfony2 Framework, but then for PHPCR.
+the Doctrine ORM provided by default in the Symfony Standard Edition, but for
+PHPCR instead of SQL databases.
 
-Creating a Page with code
--------------------------
+Creating Content from Code
+--------------------------
 
-Now you know a little bit more about PHPCR and you know the tool to interact
-with it, you can start using it yourself. In the previous chapter, you created
-a page by using a yaml file which was parsed by the SimpleCmsBundle. This
-time, you'll create a page by doing it yourself.
+Now that you know a little bit more about PHPCR and you know the tool to interact
+with it, you can start using it yourself. In the previous chapter, you edited
+a page by using a Yaml file which was parsed by the fixture loader of the
+sandbox. This time, you'll create a page with PHP code.
 
 First, you have to create a new DataFixture to add your new page. You do this
-by creating a new class in the AcmeDemoBundle::
+by creating a new class in the AppBundle::
 
-    // src/Acme/DemoBundle/DataFixtures/PHPCR/LoadPageData.php
-    namespace Acme\DemoBundle\DataFixtures\PHPCR;
+    // src/AppBundle/DataFixtures/PHPCR/LoadQuickTourData.php
+    namespace AppBundle\DataFixtures\PHPCR;
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;
     use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-    class LoadPageData implements FixtureInterface, OrderedFixtureInterface
+    class LoadQuickTourData implements FixtureInterface, OrderedFixtureInterface
     {
         public function getOrder()
         {
             // refers to the order in which the class' load function is called
             // (lower return values are called first)
-            return 10;
+            return 100;
         }
 
         public function load(ObjectManager $documentManager)
         {
+            // you will add code to this method in the next steps
         }
     }
 
@@ -112,63 +127,48 @@ The ``$documentManager`` is the object which will persist the document to
 PHPCR. But first, you have to create a new Page document::
 
     use Doctrine\ODM\PHPCR\DocumentManager;
-    use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page;
+    use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
 
     // ...
     public function load(ObjectManager $documentManager)
     {
         if (!$documentManager instanceof DocumentManager) {
-            $class = get_class($documentManager);
-            throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
+            throw new \RuntimeException(sprintf(
+                'Fixture requires a PHPCR ODM DocumentManager instance, instance of "%s" given.',
+                get_class($documentManager)
+            ));
         }
 
-        $page = new Page(); // create a new Page object (document)
-        $page->setName('new_page'); // the name of the node
-        $page->setLabel('Another new Page');
-        $page->setTitle('Another new Page');
-        $page->setBody('I have added this page myself!');
+        $content = new StaticContent();
+        $content->setName('quick-tour'); // the name of the node
+        $content->setTitle('Quick tour new Page');
+        $content->setBody('I have added this page myself!');
     }
 
-Each document needs a parent. In this case, the parent should just be the root
+Each document needs a parent. In this case, the parent should be the content root
 node. To do this, we first retrieve the root document from PHPCR and then set
 it as its parent::
 
-    // ...
     public function load(ObjectManager $documentManager)
     {
-        if (!$documentManager instanceof DocumentManager) {
-            $class = get_class($documentManager);
-            throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
-        }
-
         // ...
-
-        // get root document (/cms/simple)
-        $simpleCmsRoot = $documentManager->find(null, '/cms/simple');
-
-        $page->setParentDocument($simpleCmsRoot); // set the parent to the root
+        // get the root document
+        $contentRoot = $documentManager->find(null, '/cms/content');
+        $content->setParentDocument($contentRoot); // set the parent to the root
     }
 
-And at last, we have to tell the Document Manager to persist our Page
+And finally, we have to tell the Document Manager to persist our content
 document using the Doctrine API::
 
-    // ...
     public function load(ObjectManager $documentManager)
     {
-        if (!$documentManager instanceof DocumentManager) {
-            $class = get_class($documentManager);
-            throw new \RuntimeException("Fixture requires a PHPCR ODM DocumentManager instance, instance of '$class' given.");
-        }
-
         // ...
-        $documentManager->persist($page); // add the Page in the queue
-        $documentManager->flush(); // add the Page to PHPCR
+        $documentManager->persist($content); // tell the document manager to track the content
+        $documentManager->flush(); // doctrine is like a toilet: never forget to flush
     }
 
-Now you need to execute the ``doctrine:phpcr:fixtures:load`` command again and
-then you can visit your website again. You'll see your new page you added!
-
-.. image:: ../_images/quick_tour/the-model-new-page.png
+Now you need to execute the ``doctrine:phpcr:fixtures:load`` command again.
+When dumping the nodes again, your new page should show up under ``/cms/content/quick-tour``!
 
 .. seealso::
 

@@ -4,7 +4,7 @@
 The Big Picture
 ===============
 
-Start using the Symfony CMF in 10 minutes! This chapter will walk you through
+Start using the Symfony CMF in 10 minutes! This quick tour will walk you through
 the base concepts of the Symfony CMF and get you started with it.
 
 It's important to know that the Symfony CMF is a collection of bundles which
@@ -13,7 +13,7 @@ Framework. Before you read further, you should at least have a basic knowledge
 of the Symfony Framework. If you don't know Symfony, start by reading the
 `Symfony Framework Quick Tour`_.
 
-Solving the framework versus CMS dilemma
+Solving the Framework versus CMS Dilemma
 ----------------------------------------
 
 Before starting a new project, there is a difficult decision on whether it
@@ -23,38 +23,33 @@ other hand, when choosing to use a CMS, it's more difficult to build custom
 application functionality. It is impossible or at least very hard to customize
 the core parts of the CMS.
 
-The CMF is created to solve this framework versus CMS dilemma. It provides
-bundles, so you can easily add CMS features to your project. But it also
-provides flexibility and in all cases you are using the framework, so you can
-build custom functionality the way you want. This is called a `decoupled CMS`_.
+The Symfony CMF is created to solve this framework versus CMS dilemma. It
+provides Symfony bundles to easily add CMS features to your project. Yet, as
+you're still using the Symfony framework, you can build any custom functionality
+you can think of. This flexibility is called a `decoupled CMS`_.
 
 The bundles provided by the Symfony CMF can work together, but they are also
 able to work standalone. This means that you don't need to add all bundles, you
-can decide to only use one of them (e.g. only the RoutingBundle or the MediaBundle).
+can decide to only use one of them (e.g. only the RoutingBundle).
 
-Downloading the Symfony CMF Standard Edition
---------------------------------------------
+Downloading the Symfony CMF Sandbox
+-----------------------------------
 
-When you want to start using the CMF for a new project, you can download the
+To explore the CMF, it is best to download the Symfony CMF Sandbox. The sandbox
+contains demonstrations for many of the CMF features and is a good playground
+to familiarize yourself with the CMF.
+
+When you want to start an actual project with the CMF, best download the
 Symfony CMF Standard Edition. The Symfony CMF Standard Edition is similar to
 the `Symfony Standard Edition`_, but contains and configures essential Symfony
-CMF bundles. It also adds a very simple bundle to show some of the basic
-Symfony CMF features.
+CMF bundles.
 
-The best way to download the Symfony CMF Standard Edition is using Composer_:
+The best way to download the Symfony CMF Sandbox is using Composer_:
 
 .. code-block:: bash
 
-    $ composer create-project symfony-cmf/standard-edition cmf '1.2.1'
+    $ composer create-project symfony-cmf/sandbox cmf-sandbox
 
-.. note::
-
-   The `AcmeDemoBundle` that is used in this tour was removed in
-   version 1.3 of the Symfony CMF Standard Edition.  Since then it has
-   become the skeleton for a simple CMS application.  This is why we
-   install version 1.2.1.  If you insist on checking out the most
-   recent versions of the CMF, check out `symfony-cmf/cmf-sandbox`.
-    
 Setting up the Database
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -63,15 +58,20 @@ something you are used to doing when creating Symfony applications, but the
 Symfony CMF needs a database in order to make a lot of things configurable
 using an admin interface.
 
-To quickly get started, it is expected that you have enabled the sqlite
+To quickly get started, it is expected that you have enabled the sqlite PHP
 extension. After that, run these commands:
 
 .. code-block:: bash
 
+    $ cd cmf-sandbox
+    $ cp app/config/phpcr_doctrine_dbal.yml.dist app/config/phpcr.yml
+    # Or when you're on a Windows PC:
+    # $ copy app\config\phpcr_doctrine_dbal.yml.dist app\config\phpcr.yml
+
     $ php bin/console doctrine:database:create
     $ php bin/console doctrine:phpcr:init:dbal --force
     $ php bin/console doctrine:phpcr:repository:init
-    $ php bin/console doctrine:phpcr:fixtures:load
+    $ php bin/console doctrine:phpcr:fixtures:load -n
 
 .. tip::
 
@@ -88,11 +88,13 @@ The Request Flow
 
 .. tip::
 
-    When you have at least PHP 5.4, use the ``server:run`` command to run a
-    local server for the demo. Otherwise, use a ``localhost`` and prefix the URLs
-    in this document with ``/path-to-project/web/app_dev.php/``.
+    Use the ``server:run`` command to run a local server for the demo. If you
+    use a web server like Nginx or Apache, you need to prefix the URLs
+    in this document with ``app_dev.php/`` (and the path to the ``web`` folder
+    inside the Symfony project, if that is not already the root folder of your
+    server).
 
-Now, the Standard Edition is ready to use. Navigate to the homepage
+Now, the Sandbox is ready to use. Navigate to the homepage
 (``http://localhost:8000/``) to see the demo:
 
 .. image:: ../_images/quick_tour/big-picture-home.png
@@ -170,53 +172,24 @@ this template.
 A view also uses a Menu, provided by the KnpMenuBundle_, and it can have
 integration with Create.js, for live editing.
 
-Adding a New Page
------------------
-
-Now you know the request flow, you can start adding a new page. In the Symfony
-CMF Standard Edition, the data is stored in data files, which are loaded when
-executing the ``doctrine:phpcr:fixtures:load`` command. To add a new page, you
-just need to edit such a data file, which is located in the
-``src/Acme/DemoBundle/Resources/data`` directory:
-
-.. code-block:: yaml
-
-    # src/Acme/DemoBundle/Resources/data/pages.yml
-    Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page:
-        # ...
-
-        quick_tour:
-            id: /cms/simple/quick_tour
-            label: "Quick Tour"
-            title: "Reading the Quick Tour"
-            body: "I've added this page while reading the quick tour"
-
-After this, you need to run the ``doctrine:phpcr:fixtures:load`` to reflect
-the changes on the database and after refreshing, you can see your new page!
-
-.. image:: ../_images/quick_tour/big-picture-new-page.png
-
-Live Editing
+The Fixtures
 ------------
 
-Now is the time you become an admin of this site and editing the content using
-the Web Interface. To do this click on "Admin Login" and use the provided
-credentials.
+Now you know the request flow, you can start editing content. While the normal
+usage will be to edit content through a web interface, the CMF sandbox also
+supports loading content from static files. This is mainly useful for testing
+purposes.
 
-You'll see that you have a new bar at the top of the page:
+The fixtures are loaded with the ``doctrine:phpcr:fixtures:load`` command. To
+edit the home page, edit the first entry in
+``src/AppBundle/Resources/data/page.yml`` to say something different. Then, run
+the ``doctrine:phpcr:fixtures:load`` command to get the changes into the
+content repository. After refreshing the browser, you can see your
+modifications!
 
-.. image:: ../_images/quick_tour/big-picture-createjs-bar.png
-
-This bar is generated by the `Create.js`_ library. The Symfony CMF integrates
-the CreatePHP_ and `Create.js`_ libraries using a CreateBundle. This enables
-you to edit a page using a full WYSIWYG editor when you are reading the page.
-
-Now you can change the content of our new page using Create.js:
-
-.. image:: ../_images/quick_tour/big-picture-edit-page.png
-
-After clicking "save", the changes are saved using the CreateBundle and the
-content is updated.
+Don't worry, editing fixture files is only done for developing and testing. The
+CMF comes with a Sonata admin integration for convenient online editing, or you
+can build your own editing systems.
 
 Final Thoughts
 --------------

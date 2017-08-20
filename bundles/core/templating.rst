@@ -96,21 +96,21 @@ Walking the PHPCR tree
 Helper methods
 ..............
 
-+---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
-| ``cmf_document_locales``  | ``getLocalesFor``   | ``$document``,         | Get the locales of the provided document. If ``$includeFallbacks`` is    |
-|                           |                     | ``$includeFallbacks``, | ``true``, all fallback locales are provided as well, even if no          |
-|                           |                     | ``false``              | translation in that language exists.                                     |
-+---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
-| ``cmf_is_linkable``       | ``isLinkable``      | ``$document``          | Check if the provided object can be used to generate a URL. If this      |
-|                           |                     |                        | check returns true, it should be save to pass it to ``path`` or ``url``. |
-|                           |                     |                        | An object is considered linkable if it either *is* an instance of        |
-|                           |                     |                        | ``Route`` or implements the ``RouteReferrersReadInterface`` *and*        |
-|                           |                     |                        | actually returns a route.                                                |
-+---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
-| ``cmf_is_published``      | ``isPublished``     | ``$document``          | Check with the publish workflow if the provided object is published. See |
-|                           |                     |                        | also :ref:`cmf_is_published <bundle-core-publish-workflow-twig_function>`|
-|                           |                     |                        | for an example.                                                          |
-+---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
++---------------------------+---------------------+------------------------+---------------------------------------------------------------------------+
+| ``cmf_document_locales``  | ``getLocalesFor``   | ``$document``,         | Get the locales of the provided document. If ``$includeFallbacks`` is     |
+|                           |                     | ``$includeFallbacks``, | ``true``, all fallback locales are provided as well, even if no           |
+|                           |                     | ``false``              | translation in that language exists.                                      |
++---------------------------+---------------------+------------------------+---------------------------------------------------------------------------+
+| ``cmf_is_linkable``       | ``isLinkable``      | ``$document``          | Check if the provided object can be used to generate a URL. If this       |
+|                           |                     |                        | check returns true, it should be save to pass it to ``path`` or ``url``.  |
+|                           |                     |                        | An object is considered linkable if it either *is* an instance of         |
+|                           |                     |                        | ``Route`` or implements the ``RouteReferrersReadInterface`` *and*         |
+|                           |                     |                        | actually returns a route.                                                 |
++---------------------------+---------------------+------------------------+---------------------------------------------------------------------------+
+| ``cmf_is_published``      | ``isPublished``     | ``$document``          | Check with the publish workflow if the provided object is published. See  |
+|                           |                     |                        | also :ref:`cmf_is_published <bundles-core-publish-workflow-twig_function>`|
+|                           |                     |                        | for an example.                                                           |
++---------------------------+---------------------+------------------------+---------------------------------------------------------------------------+
 
 Code examples
 .............
@@ -132,7 +132,7 @@ Code examples
                 <span style="float: right; padding-right: 40px;"><a href="{{ path(next) }}">next</a></span>
             {%  endif %}
 
-            {% for news in cmf_children(parent=cmfMainContent, class='Acme\\DemoBundle\\Document\\NewsItem')|reverse %}
+            {% for news in cmf_children(parent=cmfMainContent, class='AppBundle\\Document\\NewsItem')|reverse %}
                 <li><a href="{{ path(news) }}">{{ news.title }}</a> ({{ news.publishStartDate | date('Y-m-d')  }})</li>
             {% endfor %}
 
@@ -185,7 +185,7 @@ Code examples
                         $app->getRequest()->attributes->get('_route_params'),
                         array_merge(
                             $app->getRequest()->query->all(),
-                            array('_locale' => 'de')
+                            ['_locale' => 'de']
                         )
                     )
                 ?>">DE</a>
@@ -197,7 +197,7 @@ Code examples
                         $app->getRequest()->attributes->get('_route_params'),
                         array_merge(
                             $app->getRequest()->query->all(),
-                            array('_locale' => 'fr')
+                            ['_locale' => 'fr']
                         )
                     )
                 ?>">FR</a>
@@ -208,7 +208,7 @@ Code examples
 
     When you use the ``class`` argument, do not forget that Twig will
     simply *ignore* single backslashes. If you would write
-    ``Acme\DemoBundle\Document\NewsItem``, this will make the cmf look
-    for the class AcmeDemoBundleDocumentNewsItem which will result in an
+    ``AppBundle\Document\NewsItem``, this will make the cmf look
+    for the class ``AppBundleDocumentNewsItem`` which will result in an
     empty list. What you need to write in the template is
-    ``Acme\\DemoBundle\\Document\\NewsItem``.
+    ``AppBundle\\Document\\NewsItem``.

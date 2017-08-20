@@ -18,7 +18,7 @@ Configuration
 
 **prototype**: ``array`` **default**: ``{ router.default: 100 }``
 
-This defines the routers to use in the chain. By default, only the Symfony2
+This defines the routers to use in the chain. By default, only the Symfony
 router is used. The key is the name of the service and the value is the
 priority. The chain is sorted from the highest to the lowest priority.
 
@@ -28,6 +28,7 @@ To add the ``DynamicRouter``, use the following configuration:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_routing:
             chain:
                 routers_by_id:
@@ -36,6 +37,7 @@ To add the ``DynamicRouter``, use the following configuration:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -50,14 +52,15 @@ To add the ``DynamicRouter``, use the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'chain' => array(
-                'routers_by_id' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_routing', [
+            'chain' => [
+                'routers_by_id' => [
                     'cmf_routing.dynamic_router' => 200,
                     'router.default'             => 100,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 .. tip::
 
@@ -69,9 +72,9 @@ To add the ``DynamicRouter``, use the following configuration:
 
 **type**: ``Boolean`` **default**: ``true``
 
-If this option is set to ``false``, the default Symfony2 router will *not* be
+If this option is set to ``false``, the default Symfony router will *not* be
 overridden by the ``ChainRouter``. By default, the ``ChainRouter`` will
-override the default Symfony2 router, but it will pass all requests to the
+override the default Symfony router, but it will pass all requests to the
 default router, because :ref:`no other routers were set <reference-config-routing-chain_routers>`.
 
 
@@ -79,12 +82,14 @@ default router, because :ref:`no other routers were set <reference-config-routin
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_routing:
             chain:
                 replace_symfony_router: true
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -98,11 +103,12 @@ default router, because :ref:`no other routers were set <reference-config-routin
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'chain' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_routing', [
+            'chain' => [
                 'replace_symfony_router' => true,
-            ),
-        ));
+            ],
+        ]);
 
 
 .. _reference-config-routing-dynamic:
@@ -123,10 +129,9 @@ generic_controller
 
 **type**: ``string`` **default**: ``null``
 
-The controller to use when the route enhancers only determined the template but
-no explicit controller. The value is the name of a controller using either the
-``AcmeDemoBundle::Page::index`` or ``acme_demo.controller.page:indexAction``
-notation.
+This configuration specifies the controller that is used when the route
+enhancers define a template but no explicit controller. It accepts any valid
+Symfony controller reference.
 
 If the :doc:`CoreBundle <../core/introduction>` and
 :doc:`ContentBundle <../content/introduction>` are registered, this
@@ -137,10 +142,9 @@ defaults to ``cmf_content.controller:indexAction``.
 
 **type**: ``string`` **default**: value of ``generic_controller``
 
-The default controller to use if none of the enhancers found a controller. The
-value is the name of a controller using either the
-``AcmeDemoBundle::Page::index`` or ``acme_demo.controller.page:indexAction``
-notation.
+The default controller to use if none of the enhancers found a controller.
+Accepts any valid Symfony controller reference.
+
 
 ``controllers_by_type``
 .......................
@@ -155,20 +159,21 @@ type:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_routing:
             dynamic:
                 controllers_by_type:
-                    editable: acme_main.controller:editableAction
+                    editable:   AppBundle:Cms:editable
 
     .. code-block:: xml
 
-
+        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic>
-                    <controller-by-type type="editable">acme_main.controller:editableAction</controller-by-type>
+                    <controller-by-type type="editable">AppBundle:Cms:editable</controller-by-type>
                 </dynamic>
             </config>
 
@@ -176,13 +181,14 @@ type:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'controllers_by_type' => array(
-                    'editable' => 'acme_main.controller:editableAction',
-                ),
-            ),
-        ));
+        // app/config/config.php
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'controllers_by_type' => [
+                    'editable' => 'AppBundle:Cms:editable',
+                ],
+            ],
+        ]);
 
 controllers_by_class
 ....................
@@ -196,13 +202,14 @@ This object is checked for being ``instanceof`` the class names in this map.
 other extending classes. The order in which the classes are specified, matters.
 The first match is taken.
 
-If matched, the controller will be set as ``_controller``, making Symfony2
+If matched, the controller will be set as ``_controller``, making Symfony
 choose this controller to handle the request.
 
 .. configuration-block::
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_routing:
             dynamic:
                 controllers_by_class:
@@ -210,6 +217,7 @@ choose this controller to handle the request.
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -226,10 +234,13 @@ choose this controller to handle the request.
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'controllers_by_class' => array(
-                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'cmf_content.controller:indexAction',
+        // app/config/config.php
+        use Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent;
+
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'controllers_by_class' => [
+                    StaticContent::class => 'cmf_content.controller:indexAction',
                 ),
             ),
         ));
@@ -255,6 +266,7 @@ setting is set as controller.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_routing:
             dynamic:
                 templates_by_class:
@@ -262,9 +274,9 @@ setting is set as controller.
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
-
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic>
                     <template-by-class
@@ -278,10 +290,13 @@ setting is set as controller.
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'templates_by_class' => array(
-                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'CmfContentBundle:StaticContent:index.html.twig',
+        // app/config/config.php
+        use Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent;
+
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'templates_by_class' => [
+                    StaticContent::class => 'CmfContentBundle:StaticContent:index.html.twig',
                 ),
             ),
         ));
@@ -291,10 +306,10 @@ setting is set as controller.
 
 **type**: ``scalar``, **default**: ``0``
 
-If this value is set to a number bigger than 0, the routes from the database
-are returned in the ``getRouteCollection``. The limit serves to prevent huge
-route lists if you have a large database. Setting the limit to ``false``
-disables the limit entirely.
+If this value is set to a number bigger than 0, the ``getRouteCollection()``
+method returns a collection of routes read from the database. The limit serves
+to prevent huge route lists if you have a large database. Setting the limit to
+``false`` disables the limit entirely and attempts to return all routes.
 
 ``persistence``
 ...............
@@ -318,9 +333,6 @@ disables the limit entirely.
                         route_basepaths:
                             - /cms/routes
                             - /cms/simple
-                        content_basepath: /cms/content
-                        admin_basepath:   /cms/routes
-                        use_sonata_admin: auto
                         enable_initializer: true
 
     .. code-block:: xml
@@ -334,9 +346,6 @@ disables the limit entirely.
                         <phpcr
                             enabled="false"
                             manager-name="null"
-                            content-basepath="/cms/content"
-                            admin-basepath="/cms/routes"
-                            use-sonata-admin="auto"
                             enable_initializer="true"
                         >
                             <route-basepath>/cms/routes</route-basepath>
@@ -349,24 +358,22 @@ disables the limit entirely.
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'persistence' => array(
-                    'phpcr' => array(
+        # app/config/config.php
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'persistence' => [
+                    'phpcr' => [
                         'enabled'            => false,
                         'manager_name'       => null,
-                        'route_basepaths'    => array(
+                        'route_basepaths'    => [
                             '/cms/routes',
                             '/cms/simple',
-                        )
-                        'content_basepath'   => '/cms/content',
-                        'admin_basepath'     => '/cms/routes',
-                        'use_sonata_admin'   => 'auto',
+                        ],
                         'enable_initializer' => true,
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 enabled
 *******
@@ -390,46 +397,7 @@ manager_name
 A set of paths where routes are located in the PHPCR tree.
 
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will
-default to ``%cmf_core.persistence.phpcr.basepath%/routes``. If the
-:doc:`SimpleCmsBundle <../simple_cms/introduction>` is registered as well,
-the SimpleCmsBundle basepath will be added as an additional route basepath.
-
-``content_basepath``
-********************
-
-**type**: ``string`` **default**: ``/cms/content``
-
-The basepath for content objects in the PHPCR tree. This information is used
-with the sonata admin to offer the correct subtree to select content documents.
-
-If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
-``%cmf_core.persistence.phpcr.basepath%/content``.
-
-``admin_basepath``
-******************
-
-**type**: ``string`` **default**: first value of ``route_basepaths``
-
-The path at which to create routes with Sonata admin. There can be additional
-route basepaths, but you will need your own tools to edit those.
-
-``use_sonata_admin``
-********************
-
-**type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
-
-If ``true``, the admin classes for the routing are loaded and available for
-sonata. If set to ``auto``, the admin services are activated only if the
-SonataPhpcrAdminBundle is present.
-
-.. note::
-
-    To see the route administration on the sonata dashboard, you still need to
-    configure it to show the items ``cmf_routing.route_admin`` and
-    ``cmf_routing.redirect_route_admin``.
-
-If the :doc:`CoreBundle <../core/introduction>` is registered, this will
-default to the value of ``cmf_core.persistence.phpcr.use_sonata_admin``.
+default to ``%cmf_core.persistence.phpcr.basepath%/routes``.
 
 ``enable_initializer``
 **********************
@@ -439,18 +407,12 @@ default to the value of ``cmf_core.persistence.phpcr.use_sonata_admin``.
 .. versionadded:: 1.3
     This configuration option was introduced in RoutingBundle 1.3.
 
-The bundle comes with an initializer that creates the nodes for the ``admin_basepath``
-automatically when initializing the repository or loading fixtures. Sometimes this
-is not what you want, as the created node is of type 'Generic' and sometimes this
-already needs to be a route (for the homepage). Set this to false to disable the
-initializer when you create your nodes your self (e.g. using Alice_).
-
-.. caution::
-
-    Initializers are forced to be disabled when Sonata Admin is not enabled.
-    In such cases, you might have multiple route basepaths which are created
-    by other sources. If the route basepath isn't created by another source,
-    you have to configure an :ref:`initializer <phpcr-odm-repository-initializers>`.
+The bundle comes with an initializer that creates the necessary nodes for all
+``route_basepaths`` roots to exist automatically when initializing the
+repository or loading fixtures. Sometimes this is not what you want, as the
+created node is of type 'Generic' and you might want the document to be a route
+(for the homepage). Set this to false to disable the initializer when you
+create your nodes yourself in your own :ref:`initializer <phpcr-odm-repository-initializers>`.
 
 ``orm``
 """""""
@@ -470,7 +432,7 @@ If ``true``, the ORM is included in the service container.
 The name of the Doctrine Manager to use.
 
 ``route_class``
-****************
+***************
 
 **type**: ``string`` **default**: ``'Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route'``
 
@@ -511,20 +473,21 @@ priority.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_routing:
             dynamic:
                 route_filters_by_id:
-                    acme_main.routing.foo_filter: 100
+                    app.routing_filter: 100
 
     .. code-block:: xml
 
-
+        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
             <config xmlns="http://cmf.symfony.com/schema/dic/routing">
                 <dynamic>
-                    <route-filter-by-id id="acme_main.routing.foo_filter">100</route-filter-by-id>
+                    <route-filter-by-id id="app.routing_filter">100</route-filter-by-id>
                 </dynamic>
             </config>
 
@@ -532,27 +495,29 @@ priority.
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'route_filters_by_id' => array(
-                    'acme_main.routing.foo_filter' => 100,
-                ),
-            ),
-        ));
+        // app/config/config.php
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'route_filters_by_id' => [
+                    'app.routing_filter' => 100,
+                ],
+            ],
+        ]);
 
 ``content_repository_service_id``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **type**: ``scalar`` **default**: ``null``
 
-To use a content repository when creating URLs, this option can be set to the
-content repository service.
+One way for routes to specify content is by specifying the content ID. The
+responsible route enhancer asks the content repository specified here for the
+content. The repository has to implement ``Symfony\Cmf\Component\Routing\ContentRepositoryInterface``.
 
 .. note::
 
-    If PHPCR is enabled, it'll automatically use the phpcr content repository.
-    This can be overridden by this option. ORM doesn't have a content
-    repository at the moment.
+    If PHPCR is enabled, this setting will default to a generic PHPCR content
+    repository that tries to use the content ID as PHPCR path. ORM doesn't have
+    a content repository at the moment.
 
 .. _reference-config-routing-locales:
 
@@ -568,7 +533,7 @@ service.
 ``locales``
 ~~~~~~~~~~~
 
-**type**: ``array`` **default**: ``array()``
+**type**: ``array`` **default**: ``[]``
 
 To enable multi-language, set the valid locales in this option.
 
@@ -622,5 +587,3 @@ no locale in their static pattern get the ``auto_locale_pattern`` option set.
 
 This is ignored if there are no ``locales`` configured. It makes no sense to
 enable this option when ``match_implicit_locale`` is disabled.
-
-.. _Alice: https://github.com/nelmio/alice

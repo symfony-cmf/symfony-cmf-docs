@@ -6,10 +6,10 @@ Exposing Content via REST
 
 Many applications need to expose content via REST APIs to partners or to
 enable integration into other applications. As the CMF is build on top
-of Symfony2, it's possible to leverage many of the available bundles to
+of Symfony, it's possible to leverage many of the available bundles to
 provide a REST API for content stored in the CMF. This guide will
-detail how to provide a read API for your content using the following bundles
-`FOSRestBundle`_ and `JMSSerializerBundle`_.
+detail how to provide a read API for your content using the
+`FOSRestBundle`_ and the `JMSSerializerBundle`_.
 
 Installation
 ------------
@@ -25,19 +25,12 @@ to generate the REST output. The best choice is the JMSSerializerBundle:
         ...
         "require": {
             ...
-            "friendsofsymfony/rest-bundle": "1.*",
-            "jms/serializer-bundle": "0.13.*"
+            "friendsofsymfony/rest-bundle": "^1.7",
+            "jms/serializer-bundle": "^1.1"
         }
     }
 
-.. note::
-
-    Both bundles are already required by the CreateBundle.
-
-.. caution::
-
-    When using PHPCR-ODM it is necessary to require at least version 1.0.1
-    of ``doctrine\phpcr-odm``.
+And instantiate the two bundles in your application kernel.
 
 Then use Composer_ to update your projects vendors:
 
@@ -54,6 +47,7 @@ Here is an example configuration for the FOSRestBundle.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         fos_rest:
             # configure the view handler
             view:
@@ -71,6 +65,7 @@ Here is an example configuration for the FOSRestBundle.
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -98,38 +93,39 @@ Here is an example configuration for the FOSRestBundle.
 
     .. code-block:: php
 
-        $container->loadFromExtension('fos_rest', array(
+        // app/config/config.php
+        $container->loadFromExtension('fos_rest', [
             // configure the view handler
-            'view' => array(
-                'force_redirects' => array(
+            'view' => [
+                'force_redirects' => [
                     'html' => true,
-                ),
-                'formats' => array(
+                ],
+                'formats' => [
                     'json' => true,
                     'xml' => true,
-                ),
-                'templating_formats' => array(
+                ],
+                'templating_formats' => [
                     'html' => true,
-                ),
-            ),
+                ],
+            ],
             // add a content negotiation rule, enabling support for json/xml for the entire website
-            'format_listener' => array(
-                'rules' => array(
-                    array(
+            'format_listener' => [
+                'rules' => [
+                    [
                         'path' => '^/',
-                        'priorities' => array('html', 'json', 'xml'),
+                        'priorities' => ['html', 'json', 'xml'],
                         'fallback_format' => 'html',
                         'prefer_extension' => false,
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 Using the REST API
 ------------------
 
-After you configured the FOSRestBundle, you need to execute the following
-commands:
+This is all it takes to enable read support via JSON or XML!
+Test if the setup works as expected with curl:
 
 .. code-block:: bash
 
@@ -137,7 +133,6 @@ commands:
     curl http://my-cmf.org/app_dev.php -H Accept:application/xml
     curl http://my-cmf.org/app_dev.php -H Accept:text/html
 
-This is all it takes to enable read support via JSON or XML!
 
 The JMS serializer comes with sensible defaults for Doctrine object mappers.
 However it might be necessary to add additional mapping to more tightly

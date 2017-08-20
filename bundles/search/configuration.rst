@@ -1,6 +1,8 @@
 Configuration Reference
 =======================
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 The SearchBundle can be configured under the ``cmf_search`` key in your
 application configuration. When using XML, you can use the
 ``http://cmf.symfony.com/schema/dic/search`` namespace.

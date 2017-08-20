@@ -9,8 +9,8 @@ BlockBundle
     manage fragments of content, so-called blocks, that are persisted in a
     database and can be incorporated into any page layout.
 
-The CmfBlockBundle also provides a few commonly used standard blocks,
-including the ability to edit them. See :doc:`types`.
+The CmfBlockBundle also provides a few commonly used standard blocks.
+See :doc:`types`.
 
 Installation
 ------------
@@ -41,7 +41,7 @@ sonata bundles in addition to the CmfBlockBundle::
         // ...
     }
 
-.. _bundle-block-configuration:
+.. _bundles-block-configuration:
 
 Usage
 -----
@@ -151,6 +151,8 @@ specific settings for one of the block classes.
     :ref:`Block Sonata Admin Extension <bundles-block-types-admin_extension>`
     that adds editing of the ``BaseBlock`` general block options.
 
+.. _bundles-block-updated-sonata-defaults:
+
 Updated SonataBlockBundle Defaults
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -163,7 +165,7 @@ updated:
   a ``div`` and slugifies the PHPCR path as id; The base template is
   kept compatible with the Sonata base template for non-cmf blocks;
 * **RssBlock configuration** adds the
-  :ref:`default RssBlock settings <bundle-block-rss-settings>`.
+  :ref:`default RssBlock settings <bundles-block-rss-settings>`.
 
 .. note::
 
@@ -171,7 +173,7 @@ updated:
     still change the values by setting the configuration values in your
     application configuration file.
 
-.. _bundle-block-document:
+.. _bundles-block-document:
 
 Block Document
 --------------
@@ -193,13 +195,13 @@ your block in the repository. You can do so with the following code snippet::
 
     $dm->persist($myBlock);
 
-Note the ``sidebarBlock`` is the identifier we chose for the block. Together
+The name ``sidebarBlock`` is the identifier we chose for the block. Together
 with the parent document of the block, this defines the unique identifier of
 the block. The other properties (title and body) are specific to the
 ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock``.
 
 The simple block is now ready to be rendered, see
-:ref:`bundle-block-rendering`.
+:ref:`bundles-block-rendering`.
 
 .. note::
 
@@ -215,7 +217,7 @@ render the block. It aggregates and merges all settings from configuration,
 the block service, the block document and settings passed to the Twig template
 helper. Therefore, use the BlockContext to get or alter a setting if needed.
 
-.. _bundle-block-service:
+.. _bundles-block-service:
 
 Block Service
 -------------
@@ -228,7 +230,7 @@ When using the provided blocks, you do not need to worry about the block
 service. It is only relevant when
 :doc:`creating your own blocks <create_your_own_blocks>`.
 
-.. _bundle-block-rendering:
+.. _bundles-block-rendering:
 
 Block rendering
 ---------------
@@ -237,7 +239,7 @@ Rendering is handled by the SonataBlockBundle ``sonata_block_render`` Twig
 function. The block name is either an absolute PHPCR path or the name of the
 block relative to the ``cmfMainContent`` document.
 
-To render the example from the :ref:`bundle-block-document` section, just add
+To render the example from the :ref:`bundles-block-document` section, just add
 the following code to your Twig template:
 
 .. configuration-block::
@@ -269,7 +271,7 @@ block as follows:
         )) ?>
 
 This will make the BlockBundle render the specified block if the main content
-(as per the :ref:`routing <bundle-routing-dynamic-match>`) maps a field named
+(as per the :ref:`routing <bundles-routing-dynamic-match>`) maps a field named
 ``sidebarBlock``. If different main contents are rendered using different
 templates, make sure all that should support this block actually include the
 snippet above.
@@ -287,18 +289,17 @@ receives the block object (equivalent to a Request object) and a ``Response``
 object. The purpose of the ``execute`` method to set the content of the
 response object - typically by rendering a Twig template.
 
-.. _bundle-block-embed:
+.. _bundles-block-embed:
 
 Embedding Blocks in WYSIWYG Content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The CmfBlockBundle provides a Twig filter ``cmf_embed_blocks`` that
-looks through the content and looks for special tags to render blocks. To use
-the tag, you need to apply the ``cmf_embed_blocks`` filter to your output. If
-you can, render your blocks directly in the template. This feature is only a
-cheap solution for web editors to place blocks anywhere in their HTML content.
-A better solution to build composed pages is to build it from blocks (there
-might be a CMF bundle at some point for this).
+scans through a content and looks for special tags to render blocks. To use
+the tag, you need to apply the ``cmf_embed_blocks`` filter to your output. This
+feature is a hack to allow web editors to place blocks anywhere in
+their HTML content. If you can, render your blocks directly in the template.
+A better solution would be to build composed pages is to build it from blocks.
 
 .. configuration-block::
 
@@ -317,9 +318,6 @@ might be a CMF bundle at some point for this).
     Make sure to only place this filter where you display the content and not
     where editing it, as otherwise your users would start to edit the rendered
     output of their blocks.
-    This feature conflicts with the front-end editing provided by CreateBundle,
-    as create.js operates on the rendered content as displayed to the user.
-    There is an ongoing `discussion how to fix this`_.
 
 When you apply the filter, your users can use this tag to embed a block in
 their content:
@@ -389,22 +387,10 @@ See also the :ref:`the configuration reference <reference-config-block-twig-cmf-
     block and returns an empty string for each failed block instead. The errors
     are logged at level WARNING.
 
-SonataAdminBundle Integration
------------------------------
-
-The BlockBundle also provides Admin classes to enable creating, editing and
-removing blocks from the admin panel. To enable the admin, use the
-``cmf_block.persistence.phpcr.use_sonata_admin`` setting. Both the
-:ref:`BlockBundle <bundles-block-types-admin_extension>` and
-:ref:`CoreBundle <bundles-core-persistence>` provide several extensions for
-SonataAdminBundle.
-
 Examples
 --------
 
 You can find example usages of this bundle in the `Symfony CMF Sandbox`_
-(have a look at the BlockBundle). It also shows you how to make blocks
-editable using the :doc:`CreateBundle <../create/introduction>`.
 
 Read on
 -------
@@ -420,4 +406,3 @@ Read on
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`prepended configuration`: https://symfony.com/doc/current/components/dependency_injection/compilation.html#prepending-configuration-passed-to-the-extension
 .. _`SonataBlockBundle`: https://github.com/sonata-project/SonataBlockBundle
-.. _`discussion how to fix this`: https://github.com/symfony-cmf/block-bundle/issues/143

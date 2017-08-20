@@ -8,6 +8,7 @@ SonataPhpcrAdminIntegrationBundle
     core
     content
     menu
+    block
     routing
     routing_auto
     seo

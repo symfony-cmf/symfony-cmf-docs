@@ -8,10 +8,6 @@ RoutingAutoBundle
 The RoutingAutoBundle allows you to automatically persist routes when
 documents are persisted based on URI schemas and contextual information.
 
-This implies a separation of the ``Route`` and ``Content`` documents. If your
-needs are simple this bundle may not be for you and you should have a look at
-:doc:`the SimpleCmsBundle <../simple_cms/introduction>`.
-
 Installation
 ------------
 
@@ -44,20 +40,22 @@ Features
 --------
 
 Imagine you are going to create a forum application that has two routeable
-content documents - a category and the topics. These documents are called
-``Category`` and ``Topic``, and they are called *content documents*.
+content documents - the categories and the topics. They are defined in the
+document classes ``Category`` and ``Topic``. In general, we speak of them as
+*content documents*.
 
-If you create a new category with the title "My New Category", the
-RoutingAutoBundle will automatically create the route
-``/forum/my-new-cateogry``. For each new ``Topic`` it could create a route
-like ``/forum/my-new-category/my-new-topic``. This URI resolves to a special
-type of route that is called an *auto route*.
+With the proper setup, routing auto automatically creates the route
+``/forum/my-new-cateogry`` when you create a new category with the title
+"My New Category". For each new ``Topic``, it creates a route like
+``/forum/my-new-category/my-new-topic``.
 
-By default, when you update a content document that has an auto route, the
-corresponding auto route will also be updated. When deleting a content
-document, the corresponding auto route will also be deleted.
+The routes created by this bundle are documents of a special class
+``AutoRoute`` so that they can be recognized by the application as having been
+auto created. By default, when you update a content document that has an auto
+route, the corresponding auto route will also be updated. When deleting such a
+content document, the corresponding auto route will also be deleted.
 
-If required, the bundle can also be configured to do extra stuff, like, for
+If required, the bundle can also be configured to do extra things, like, for
 example, leaving a ``RedirectRoute`` when the location of a content document
 changes or automatically displaying an index page when an unconfigured
 intermediate path is accessed (for example, listing all the children when requesting
@@ -89,7 +87,7 @@ Usage
 -----
 
 Imagine you have a fictional forum application and that you want to access the
-forum topic with the following fictional URI:
+forum topic with the following URI:
 
 - ``https://mywebsite.com/my-forum/drinks/coffee``
 
@@ -168,8 +166,8 @@ follows::
         }
     }
 
-After persisting this object, the route will be created. You will of course
-be wanting to return property values and not static strings, but you get the
+After persisting this object, the route will be created. Your classes will of
+course be returning property values and not static strings, but you get the
 idea.
 
 .. note::
@@ -178,7 +176,8 @@ idea.
     object. Imagine you have 2 documents, ``ContactPage`` and ``Page``, which
     both extend ``AbstractPage``. When you map the ``AbstractPage`` class, it
     will be applied to both documents. You can also use the ``extend`` keyword
-    to achieve the same thing with objects which are not related.
+    in the auto routing configuration file to achieve the same thing with
+    objects which are not related.
 
 This is just a basic example. You can also configure what should happen when
 a route already exists (conflict resolution) and what to do with old routes
@@ -193,6 +192,7 @@ Read more
 * :doc:`definitions`
 * :doc:`adapter`
 * :doc:`configuration`
+* :doc:`Sonata Admin integration <../sonata_phpcr_admin_integration/routing_auto>`
 
 .. _`with composer`: https://getcomposer.org/
 .. _`symfony-cmf/routing-auto-bundle`: https:/packagist.org/packages/symfony-cmf/routing-auto-bundle

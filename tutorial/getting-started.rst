@@ -54,7 +54,7 @@ node content of the PHPCR content repository:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:init:dbal
+    $ php bin/console doctrine:phpcr:init:dbal
 
 .. note::
 
@@ -69,7 +69,7 @@ Now you can generate the bundle in which you will write most of your code:
 
 .. code-block:: bash
 
-    $ php app/console generate:bundle --namespace=AppBundle --dir=src --format=yml --no-interaction
+    $ php bin/console generate:bundle --namespace=AppBundle --dir=src --format=yml --no-interaction
 
 The Documents
 .............
@@ -294,7 +294,7 @@ them manually using the following command:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:repository:init
+    $ php bin/console doctrine:phpcr:repository:init
 
 .. note::
 
@@ -308,7 +308,7 @@ content repository:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:dump
+    $ php bin/console doctrine:phpcr:node:dump
 
 Create Data Fixtures
 ~~~~~~~~~~~~~~~~~~~~
@@ -404,7 +404,7 @@ Then load the fixtures:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:fixtures:load
+    $ php bin/console doctrine:phpcr:fixtures:load
 
 You should now have some data in your content repository.
 

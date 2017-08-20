@@ -38,15 +38,17 @@ that the option for the document manager is called ``em``.
 
 A simple example of using the ``phpcr_document`` form type looks as follows::
 
+    use AppBundle\Document\TargetClass;
+
     $form
         ->add(
             'speakers',
             'phpcr_document',
-            array(
+            [
                 'property' => 'title',
-                'class'    => 'AppBundle\Document\TargetClass',
+                'class'    => TargetClass::class,
                 'multiple' => true,
-            )
+            ]
         )
     ;
 
@@ -80,17 +82,19 @@ targets as an array of PHPCR-ODM ids or PHPCR paths.
 
 The minimal code required to use this type looks as follows::
 
-    $dataArr = array(
+    use AppBundle\Document\Article;
+
+    $dataArr = [
         '/some/phpcr/path/item_1' => 'first item',
         '/some/phpcr/path/item_2' => 'second item',
-    );
+    ];
 
     $formMapper
         ->with('form.group_general')
-            ->add('myCollection', 'phpcr_odm_reference_collection', array(
+            ->add('myCollection', 'phpcr_odm_reference_collection', [
                 'choices'   => $dataArr,
-                'referenced_class'  => 'Class\Of\My\Referenced\Documents',
-            ))
+                'referenced_class'  => Article::class,
+            ])
         ->end();
 
 .. tip::

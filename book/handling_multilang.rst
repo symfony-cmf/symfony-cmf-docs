@@ -320,10 +320,8 @@ default locale, for example ``/de/admin/dashboard``. When clicking on the
 language switcher, the page reloads and displays the correct content for the
 requested language.
 
-If your documents implement the TranslatableInterface, you can
-:ref:`configure the translatable admin extension <bundle-core-translatable-admin-extension>`
-to get a language choice field to let the administrator
-choose in which language to store the content.
+If your documents implement the TranslatableInterface, use the
+SonataTranslationBundle_ to enable multi-language editing in the admin backend.
 
 Frontend Editing and multi-language
 -----------------------------------
@@ -348,3 +346,4 @@ save the edited document in the same language as it was loaded.
 .. _`cmf-sandbox config.yml file`: https://github.com/symfony-cmf/cmf-sandbox/blob/master/app/config/config.yml
 .. _`PHPCR-ODM documentation on multi-language`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
 .. _`issue`: https://github.com/symfony-cmf/create-bundle/issues/39
+.. _SonataTranslationBundle: https://packagist.org/packages/sonata-project/translation-bundle

@@ -26,16 +26,11 @@ persistence configuration has the following configuration:
                 phpcr:
                     enabled:                     false
                     menu_basepath:               /cms/menu
-                    content_basepath:            ~
-                    prefetch:                    10
+                    content_basepath:            /cms/content
                     manager_name:                ~
+                    prefetch:                    10
                     menu_document_class:         Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu
                     node_document_class:         Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode
-                    use_sonata_admin:            ~
-                    menu_admin_class:            Symfony\Cmf\Bundle\MenuBundle\Admin\MenuAdmin
-                    node_admin_class:            Symfony\Cmf\Bundle\MenuBundle\Admin\MenuNodeAdmin
-                    admin_recursive_breadcrumbs: true
-
 
     .. code-block:: xml
 
@@ -47,15 +42,11 @@ persistence configuration has the following configuration:
                     <phpcr
                         enabled="false"
                         menu-basepath="/cms/menu"
-                        content-basepath="null"
-                        prefetch="10"
+                        content-basepath="/cms/content"
                         manager-name="null"
-                        menu-document-class="null"
-                        node-document-class="null"
-                        use-sonata-admin="auto"
-                        menu-admin-class="null"
-                        node-admin-class="null"
-                        admin-recursive-breadcrumbs="true"
+                        prefetch="10"
+                        menu-document-class="Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu"
+                        node-document-class="Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode"
                     />
                 </persistence>
             </config>
@@ -64,23 +55,19 @@ persistence configuration has the following configuration:
     .. code-block:: php
 
         //  app/config/config.php
-        $container->loadFromExtension('cmf_menu', array(
-            'persistence' => array(
-                'phpcr' => array(
+        $container->loadFromExtension('cmf_menu', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled'                     => false,
                     'menu_basepath'               => '/cms/menu',
-                    'content_basepath'            => null,
-                    'prefetch'                    => 10,
+                    'content_basepath'            => '/cms/content',
                     'manager_name'                => null,
-                    'menu_document_class'         => null,
-                    'node_document_class'         => null,
-                    'use_sonata_admin'            => 'auto',
-                    'menu_admin_class'            => null,
-                    'node_admin_class'            => null,
-                    'admin_recursive_breadcrumbs' => true,
-                ),
-            ),
-        ));
+                    'prefetch'                    => 10,
+                    'menu_document_class'         => \Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu::class,
+                    'node_document_class'         => \Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode::class,
+                ],
+            ],
+        ]);
 
 ``enabled``
 """""""""""
@@ -109,8 +96,8 @@ the value of ``%cmf_core.persistence.phpcr.basepath%/menu``
 **type**: ``string`` **default**: ``/cms/content``
 
 Specifies the path in the PHPCR-ODM document hierarchy under which the
-content documents can be found. This is used by the admin class to pre-select
-the content branch of the document hierarchy in forms.
+content documents can be found. This is used by the sonata admin integration to
+know which subtree to show when selecting content for menu nodes.
 
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/content``
@@ -156,33 +143,6 @@ Specifies the document class which should represent a single menu node.
 
 This setting is used by the admin class.
 
-``use_sonata_admin``
-""""""""""""""""""""
-
-.. include:: ../_partials/persistence_phpcr_sonata_admin_enabled.rst.inc
-
-``menu_admin_class``
-""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\MenuBundle\Admin\MenuAdmin``
-
-The Sonata admin class to use for the menu.
-
-``node_admin_class``
-""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\MenuBundle\Admin\MenuNodeAdmin``
-
-The Sonata admin class to use for the menu node.
-
-``admin_recursive_breadcrumbs``
-"""""""""""""""""""""""""""""""
-
-**type**: ``boolean`` **default**: ``true``
-
-When editing a node, this setting will cause the Sonata admin breadcrumb to
-include ancestors of the node being edited.
-
 content_url_generator
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -202,71 +162,6 @@ allow_empty_items
 
 Whether menu nodes without URL should be hidden or rendered as text without a
 link.
-
-Admin Extensions
-----------------
-
-The ``admin_extensions`` section contains the configurations of the admin extensions that comes with the menu bundle.
-
-``menu_options``
-~~~~~~~~~~~~~~~~
-
-You can configure the menu options extension in this sections.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_menu:
-            # ...
-            cmf_menu:
-                admin_extensions:
-                    menu_options:
-                        enabled:              auto
-                        advanced:             false
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" charset="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-            <config xmlns="http://cmf.symfony.com/schema/dic/menu">
-                <admin_extensions>
-                    <menu_options
-                        enabled="auto"
-                        advanced="false"
-                    />
-                </admin_extensions>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('cmf_menu', array(
-            'admin_extensions' => array(
-                'menu_options' => array(
-                        'enabled'  => 'auto',
-                        'advanced' =>  false,
-                    ),
-                ),
-            ),
-        ));
-
-``enabled``
-"""""""""""
-**type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
-
-If ``true``, the admin extension is activated. If set to ``auto``, it will be
-activated only if the SonataAdminBundle is present.
-
-``advanced``
-""""""""""""
-**type**: ``boolean`` **default**: ``false``
-
-if set to ``true`` it will expose the advanced options in the admin.
-To enable this options you need ``BurgovKeyValueFormBundle``
 
 Voter
 -----
@@ -303,16 +198,16 @@ The ``voters`` section enables you to enable and configure *pre-defined*
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_menu', array(
-            'persistence' => array(
-                'voters' => array(
-                    'content_identity' => array(
+        $container->loadFromExtension('cmf_menu', [
+            'persistence' => [
+                'voters' => [
+                    'content_identity' => [
                         'content_key' => null,
-                    ),
+                    ],
                     'uri_prefix' => false,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``content_identity``
 ~~~~~~~~~~~~~~~~~~~~
@@ -382,8 +277,8 @@ To disable the menu content voter, use:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_core', array(
-            'publish_workflow' => array(
+        $container->loadFromExtension('cmf_core', [
+            'publish_workflow' => [
                 'enabled' => false,
-            ),
-        ));
+            ],
+        ]);

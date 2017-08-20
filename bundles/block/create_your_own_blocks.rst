@@ -6,8 +6,8 @@ Follow these steps to create a block:
 * define a block document class;
 * if needed, create a block service and declare it (optional);
 * instantiate a data object representing your block in the repository, see
-  :ref:`bundle-block-document`;
-* render the block, see :ref:`bundle-block-rendering`;
+  :ref:`bundles-block-document`;
+* render the block, see :ref:`bundles-block-rendering`;
 
 Lets say you are working on a project where you have to integrate data
 received from several RSS feeds. You could create an ActionBlock for each of
@@ -21,13 +21,13 @@ duplication, so instead you decide to create your own block, the ``RssBlock``.
     the CmfBlockBundle, but this one is more powerful as it allows to define a
     specific feed URL per block instance.
 
-Create a block document
+Create a Block Document
 -----------------------
 
 The first thing you need is a document that contains the options and indicates
 the location where the RSS feed should be shown. The easiest way is to extend
 ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock``, but you are
-free to do create your own document. At least, you have to implement
+free to do create your own document as long as it implements
 ``Sonata\BlockBundle\Model\BlockInterface``. In your document, you
 need to define the ``getType`` method which returns the type name of your block,
 for instance ``rss_block``::
@@ -193,7 +193,7 @@ that knows how to fetch the feed data of an ``RssBlock``::
         }
     }
 
-.. _bundle-block-execute:
+.. _bundles-block-execute:
 
 The Execute Method
 ~~~~~~~~~~~~~~~~~~
@@ -223,7 +223,7 @@ places afterwards, cascading as follows:
 
 * Default settings from the block service;
 * If you use a 3rd party bundle you might want to change them in the bundle
-  configuration for your application see :ref:`bundle-block-configuration`;
+  configuration for your application see :ref:`bundles-block-configuration`;
 * Settings can be altered through template helpers (see example below);
 * And settings can also be altered in a block document. Do this only for
   settings that are individual to the specific block instance rather than
@@ -292,9 +292,8 @@ on the current page:
 
     This mechanism is not recommended. For optimal load times, it is better
     to have a central assets definition for your project and aggregate them
-    into a single Stylesheet and a single JavaScript file, e.g. with Assetic_,
-    rather than having individual ``<link>`` and ``<script>`` tags for each
-    single file.
+    into a single Stylesheet and a single JavaScript file, rather than having
+    individual ``<link>`` and ``<script>`` tags for each single file.
 
 Register the Block Service
 --------------------------
@@ -345,5 +344,3 @@ handles, as per the ``getType`` method of the block. The second argument is the
             ))
             ->addTag('sonata.block')
         ;
-
-.. _Assetic: https://symfony.com/doc/current/cookbook/assetic/asset_management.html
