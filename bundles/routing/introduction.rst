@@ -40,10 +40,11 @@ You can install this bundle `with composer`_ using the
 ChainRouter
 -----------
 
-The ChainRouter can replace the default symfony routing system with a chain-
+The ChainRouter can replace the default Symfony routing system with a chain-
 enabled implementation. It does not route anything on its own, but only loops
-through all chained routers. To handle standard configured symfony routes, the
-symfony default router can be put into the chain.
+through all chained routers. To handle standard configured Symfony routes, the
+Symfony default router with service name ``router.default`` can be put into
+the chain.
 
 You can configure the routing services to use in the chain, see
 :ref:`reference-config-routing-chain_routers`.
@@ -98,7 +99,6 @@ For more information on Routing in the Symfony CMF, please refer to:
 * The :doc:`configuration reference <configuration>`;
 * The documentation of the :doc:`dynamic`;
 * :doc:`dynamic_customize`;
-* The :doc:`routing introduction chapter <../../book/routing>` of the book;
 * The :doc:`routing component documentation <../../components/routing/introduction>`
   for implementation details of the routers;
 * :doc:`Sonata Admin integration <../sonata_phpcr_admin_integration/routing>`;

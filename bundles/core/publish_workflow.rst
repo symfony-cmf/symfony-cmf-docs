@@ -15,11 +15,6 @@ workflow. This means that if you always have a firewall, you can just use
 the normal security context and the Twig function ``is_granted`` to check for
 publication.
 
-.. tip::
-
-    A good introduction to the Symfony core security can be found in the
-    `Security Chapter`_ of the Symfony2 book.
-
 The default publish workflow corresponds to the following diagram:
 
 .. image:: ../../_images/bundles/core_pwf_workflow.png
@@ -376,7 +371,6 @@ There is a :doc:`Sonata admin extension <../sonata_phpcr_admin_integration/core>
 available to edit workflow information on any document implementing the
 interface.
 
-.. _`Symfony2 security component`: https://symfony.com/doc/current/components/security/index.html
-.. _`Symfony2 Authorization`: https://symfony.com/doc/current/components/security/authorization.html
-.. _`Security Chapter`: https://symfony.com/doc/current/book/security.html
-.. _`ACL checks`: https://symfony.com/doc/current/cookbook/security/acl.html
+.. _`Symfony2 security component`: http://symfony.com/doc/current/components/security.html
+.. _`Symfony2 Authorization`: http://symfony.com/doc/current/components/security/authorization.html
+.. _`ACL checks`: http://symfony.com/doc/current/security/acl.html

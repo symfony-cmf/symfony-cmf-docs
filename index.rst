@@ -9,7 +9,6 @@ implementing the philosophy of the `decoupled CMS`_.
     :hidden:
 
     quick_tour/index
-    book/index
     bundles/index
     components/index
     contributing/index
@@ -30,22 +29,6 @@ Symfony CMF project.
     quick_tour/the_model
     quick_tour/the_router
     quick_tour/the_third_party_bundles
-
-Book
-----
-
-This is the Symfony CMF bible. It's the reference for any user of the CMF, who
-will typically want to keep this close at hand.
-
-.. toctree::
-    :maxdepth: 1
-
-    book/installation
-    book/simplecms
-    book/routing
-    book/database_layer
-    book/static_content
-    book/structuring_content
 
 Tutorial
 --------

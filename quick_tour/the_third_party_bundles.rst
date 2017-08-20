@@ -10,6 +10,40 @@ chapter will walk you quickly through some other CMF bundles. Most of the
 other bundles are integrations of great existing bundles like the KnpMenuBundle_
 or SonataAdminBundle_.
 
+Initial Language Choice: Lunetics LocaleBundle
+----------------------------------------------
+
+The CMF recommends to rely on the `LuneticsLocaleBundle`_
+to handle requests to ``/`` on your website. This bundle provides the tools
+to select the best locale for the user based on various criteria.
+
+When you configure ``lunetics_locale``, it is recommended to use a parameter
+for the locales, as you need to configure the locales for other bundles
+(e.g. the CoreBundle) too.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        lunetics_locale:
+            allowed_locales: "%locales%"
+
+    .. code-block:: xml
+
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services">
+
+            <config xmlns="http://example.org/schema/dic/lunetics_locale">
+                <allowed-locales>%locales%</allowed-locales>
+            </config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('lunetics_locale', array(
+            'allowed_locales' => '%locales%',
+        ));
+
 The MenuBundle
 --------------
 
@@ -207,9 +241,10 @@ You made it! Let's summarize what you've learned in the Quick Tour:
 
 I can't tell you more about the architecture and bundles of the Symfony CMF,
 but there is much much more to explore. Take a look at
-:doc:`the book <../book/index>` and get started with your first project using
+:doc:`the bundles <../bundles/index>` and get started with your first project using
 the Symfony CMF!
 
+.. _`LuneticsLocaleBundle`: https://github.com/lunetics/LocaleBundle/
 .. _KnpMenuBundle: https://github.com/KnpLabs/KnpMenuBundle
 .. _SonataBlockBundle: https://sonata-project.org/bundles/block/master/doc/index.html
 .. _SonataSeoBundle: https://sonata-project.org/bundles/seo/master/doc/index.html

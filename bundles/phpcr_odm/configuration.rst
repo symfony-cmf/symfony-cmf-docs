@@ -15,7 +15,7 @@ Configuration
 .. tip::
 
     You can also configure multiple session. See
-    :doc:`../phpcr_odm/multiple_sessions` for details.
+    :doc:`multiple_sessions` for details.
 
 .. configuration-block::
 
@@ -434,7 +434,7 @@ not configure anything here, the ODM services will not be loaded.
 .. tip::
 
     You can also configure multiple document managers. See
-    :doc:`../phpcr_odm/multiple_sessions` for details.
+    :doc:`multiple_sessions` for details.
 
 .. configuration-block::
 

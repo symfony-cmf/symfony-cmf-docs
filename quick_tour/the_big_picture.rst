@@ -78,21 +78,17 @@ extension. After that, run these commands:
     You are going to learn more about the Database layer of the Symfony CMF
     :doc:`in the next chapter of the Quick Tour <the_model>`.
 
-.. seealso::
 
-    For a complete installation guide, see the ":doc:`../book/installation`"
-    chapter of the Book.
+Running the Symfony Application
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the ``server:run`` command to run a local server for the demo.
+
+Running a CMF application is the same as running any Symfony application, see
+`Configuring a Web Server`_ in the Symfony documentation.
 
 The Request Flow
 ----------------
-
-.. tip::
-
-    Use the ``server:run`` command to run a local server for the demo. If you
-    use a web server like Nginx or Apache, you need to prefix the URLs
-    in this document with ``app_dev.php/`` (and the path to the ``web`` folder
-    inside the Symfony project, if that is not already the root folder of your
-    server).
 
 Now, the Sandbox is ready to use. Navigate to the homepage
 (``http://localhost:8000/``) to see the demo:
@@ -203,6 +199,7 @@ section: ":doc:`the_model`".
 .. _`decoupled CMS`: http://decoupledcms.org
 .. _`Symfony Framework Quick Tour`: https://symfony.com/doc/current/quick_tour/the_big_picture.html
 .. _`Symfony Standard Edition`: https://github.com/symfony/symfony-standard
+.. _`Configuring a Web Server`: http://symfony.com/doc/current/setup/web_server_configuration.html
 .. _JCR: https://en.wikipedia.org/wiki/Content_repository_API_for_Java
 .. _PHPCR: http://phpcr.github.io/
 .. _KnpMenuBundle: http://knpbundles.com/KnpLabs/KnpMenuBundle

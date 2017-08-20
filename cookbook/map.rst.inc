@@ -8,6 +8,5 @@
 
 * **Editions**
 
-  * :doc:`Installing the CMF Standard Edition <../book/installation>` (in the book)
   * :doc:`editions/cmf_sandbox`
   * :doc:`editions/cmf_core`
