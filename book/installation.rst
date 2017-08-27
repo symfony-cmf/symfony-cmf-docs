@@ -115,15 +115,13 @@ database backend just go ahead and run the following:
 
 .. code-block:: bash
 
-    $ php bin/console doctrine:database:create
-    $ php bin/console doctrine:phpcr:init:dbal --force
-    $ php bin/console doctrine:phpcr:repository:init
-    $ php bin/console doctrine:phpcr:fixtures:load
+    $ php app/console doctrine:database:create
+    $ php app/console doctrine:phpcr:init:dbal --force
+    $ php app/console doctrine:phpcr:repository:init
 
 The first command will create a file called ``app.sqlite`` inside your app
 folder, containing the database content. The two commands after it will setup
-PHPCR and the final command will load some fixtures, so you can access the
-Standard Edition using a web server.
+PHPCR, so you can access the Standard Edition using a web server.
 
 Preparing Assetic
 ~~~~~~~~~~~~~~~~~
@@ -133,7 +131,7 @@ to dump the assets to the filesystem:
 
 .. code-block:: bash
 
-    $ php bin/console --env=prod assetic:dump
+    $ php app/console --env=prod assetic:dump
 
 Configure a Webserver
 ~~~~~~~~~~~~~~~~~~~~~
@@ -143,7 +141,7 @@ installed you can alternatively use the PHP internal web server:
 
 .. code-block:: bash
 
-    $ php bin/console server:run
+    $ php app/console server:run
 
 And then access the CMF via:
 
@@ -234,9 +232,9 @@ following commands:
 
 .. code-block:: bash
 
-    $ php bin/console doctrine:phpcr:node:dump
-    $ php bin/console doctrine:phpcr:node:dump --props
-    $ php bin/console doctrine:phpcr:node:dump /path/to/node
+    $ php app/console doctrine:phpcr:node:dump
+    $ php app/console doctrine:phpcr:node:dump --props
+    $ php app/console doctrine:phpcr:node:dump /path/to/node
 
 The above examples respectively show a summary, a detailed view, and a summary
 of a node and all its children (instead of starting at the root node).
@@ -245,7 +243,7 @@ Don't forget to look at the ``--help`` output for more possibilities:
 
 .. code-block:: bash
 
-    $ php bin/console doctrine:phpcr:node:dump --help
+    $ php app/console doctrine:phpcr:node:dump --help
 
 Adding new pages
 ~~~~~~~~~~~~~~~~
@@ -270,7 +268,7 @@ The contents of this file can be loaded into the PHPCR database by calling:
 
 .. code-block:: bash
 
-    $ php bin/console doctrine:phpcr:migrator:migrate page --identifier=/cms/simple/test
+    $ php app/console doctrine:phpcr:migrator:migrate page --identifier=/cms/simple/test
 
 Note that the above identifier is mapped to
 ``app/Resources/data/pages/test.yml`` by stripping off the ``basepath``
@@ -282,7 +280,7 @@ and then run the following command:
 
 .. code-block:: bash
 
-    $ php bin/console doctrine:phpcr:migrator:migrate page --identifier=/cms/simple/test/foo
+    $ php app/console doctrine:phpcr:migrator:migrate page --identifier=/cms/simple/test/foo
 
 .. _`cmf.liip.ch`: http://cmf.liip.ch
 .. _`Requirements for running Symfony2`: https://symfony.com/doc/current/reference/requirements.html
