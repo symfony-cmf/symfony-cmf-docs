@@ -474,8 +474,9 @@ The ``Post`` entity content in this example could be like this::
 
 Because you set the ``content_id`` default value on the route, the controller
 can expect the ``$contentDocument`` parameter. You can now configure which
-controller should handle ``Post`` entities as explained in the
-:ref:`Routing documentation <start-routing-getting-controller-template>`.
+template or which special controller should handle ``Post`` entities with the
+``templates_by_type`` resp. ``controllers_by_type`` configuration as explained
+in :doc:`configuration`.
 
 The ORM routes support more things, for example route parameters, requirements
 and defaults. This is explained in the

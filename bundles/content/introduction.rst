@@ -8,9 +8,6 @@ ContentBundle
     The ContentBundle provides a document for static content and the controller
     to render any content that needs no special handling in the controller.
 
-For an introduction see the ":doc:`../../book/static_content`" article of the
-"Book" section.
-
 Installation
 ------------
 

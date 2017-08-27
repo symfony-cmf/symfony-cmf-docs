@@ -4,6 +4,13 @@
 Doctrine PHPCR-ODM Multi-Language Support
 =========================================
 
+PHPCR-ODM can handle translated documents. All translations of the same
+document are considered the same document. Only one language version can be
+loaded at the same time.
+
+Node that the CMF routing component does not use translated routes but has a
+:doc:`separate route per language <../routing/dynamic>`.
+
 To use the multi-language features of PHPCR-ODM you need to enable locales in
 the configuration.
 

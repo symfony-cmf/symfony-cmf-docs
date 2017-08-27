@@ -172,7 +172,7 @@ When dumping the nodes again, your new page should show up under ``/cms/content/
 
 .. seealso::
 
-    See ":doc:`../book/database_layer`" if you want to know more about using
+    See ":doc:`../bundles/phpcr_odm/introduction`" if you want to know more about using
     PHPCR in a Symfony application.
 
 Final Thoughts

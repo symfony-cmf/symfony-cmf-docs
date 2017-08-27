@@ -5,6 +5,15 @@
 DoctrinePHPCRBundle
 ===================
 
+The Symfony CMF is storage layer agnostic, meaning that it can work with many
+storage layers. But by default, the Symfony CMF works with the
+`Doctrine PHPCR-ODM`_.
+
+.. tip::
+
+    Read more about choosing the correct storage layer in
+    :doc:`../../cookbook/database/choosing_storage_layer`
+
 The `DoctrinePHPCRBundle`_ provides integration with the PHP content
 repository and optionally with Doctrine PHPCR-ODM to provide the ODM document
 manager in symfony.
@@ -507,6 +516,7 @@ remove the target node first:
 Read On
 -------
 
+* :doc:`models`
 * :doc:`events`
 * :doc:`forms`
 * :doc:`fixtures_initializers`
@@ -514,6 +524,7 @@ Read On
 * :doc:`multiple_sessions`
 * :doc:`configuration`
 
+.. _`Doctrine PHPCR-ODM`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/index.html
 .. _`DoctrinePHPCRBundle`: https://github.com/doctrine/DoctrinePHPCRBundle
 .. _`Symfony2 Doctrine documentation`: https://symfony.com/doc/current/book/doctrine.html
 .. _`Jackalope`: http://jackalope.github.io/

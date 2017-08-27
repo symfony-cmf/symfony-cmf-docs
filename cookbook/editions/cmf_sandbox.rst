@@ -15,13 +15,10 @@ This can be used to evaluate the platform or to see actual code in action,
 helping you understand the tool's internals.
 
 While it can be used as such, this sandbox does not intend to be a development
-platform. If you are looking for installation instructions for a development
-setup, please refer to:
-
-* :doc:`../../book/installation` page for instructions on
-  how to quickly install the CMF (recommended for development)
-* :doc:`cmf_core` for step-by-step installation and
-  configuration details (if you want to know all the details)
+platform. For a development setup, better set up a Symfony project starting
+from the `Symfony CMF Standard Edition`_ and then see `cmf_core` for
+step-by-step installation and configuration details (if you want to know all
+the details).
 
 .. index:: sandbox, install
 
@@ -165,6 +162,7 @@ doctrine proxies and dump the Assetic assets:
     $ php bin/console cache:clear --env=prod --no-debug
     $ php bin/console assetic:dump --env=prod --no-debug
 
+.. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/standard-edition/
 .. _`Composer`: https://getcomposer.org
 .. _`CMF sandbox github repository`: https://github.com/symfony-cmf/cmf-sandbox
 .. _`Requirements for running Symfony2`: https://symfony.com/doc/current/reference/requirements.html
