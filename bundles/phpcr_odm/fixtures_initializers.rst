@@ -283,7 +283,7 @@ Fixture Loading
 
 To use the ``doctrine:phpcr:fixtures:load`` command, you additionally need to
 install the `DoctrineFixturesBundle`_ which brings the
-`Doctrine data-fixtures`_ into Symfony2.
+`Doctrine data-fixtures`_ into Symfony.
 
 Fixtures work the same way they work for Doctrine ORM. You write fixture
 classes implementing ``Doctrine\Common\DataFixtures\FixtureInterface``. If you

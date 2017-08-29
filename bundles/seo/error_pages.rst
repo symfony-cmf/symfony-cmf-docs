@@ -184,4 +184,4 @@ Now, register this new class as a service and tag it as
 
 The tag allows a ``group`` attribute, in order to group suggested links.
 
-.. _Symfony Documentation: https://symfony.com/doc/current/cookbook/controller/error_pages.html#overriding-the-default-exceptioncontroller
+.. _Symfony Documentation: https://symfony.com/doc/current/controller/error_pages.html#overriding-the-default-exceptioncontroller

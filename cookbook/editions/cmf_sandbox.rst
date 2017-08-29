@@ -25,8 +25,8 @@ the details).
 Requirements
 ------------
 
-As Symfony CMF Sandbox is based on Symfony2, you should make sure you meet the
-`Requirements for running Symfony2`_. `Git 1.6+`_. The ``php-intl`` extension is
+As Symfony CMF Sandbox is based on Symfony, you should make sure you meet the
+`Requirements for running Symfony`_. `Git 1.6+`_. The ``php-intl`` extension is
 also needed to follow the installation steps listed below.
 
 Installation
@@ -165,6 +165,6 @@ doctrine proxies and dump the Assetic assets:
 .. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/standard-edition/
 .. _`Composer`: https://getcomposer.org
 .. _`CMF sandbox github repository`: https://github.com/symfony-cmf/cmf-sandbox
-.. _`Requirements for running Symfony2`: https://symfony.com/doc/current/reference/requirements.html
+.. _`Requirements for running Symfony`: https://symfony.com/doc/current/reference/requirements.html
 .. _`Git 1.6+`: https://git-scm.com/
 .. _`register the node types`: https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged

@@ -264,5 +264,5 @@ will check that they exist.
 You can override the validator by setting the
 ``cmf_routing.validator.route_defaults.class`` parameter.
 
-.. _`Creating and configuring services in the container`: https://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container
+.. _`Creating and configuring services in the container`: https://symfony.com/doc/current/service_container.html#creating-configuring-services-in-the-container
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html

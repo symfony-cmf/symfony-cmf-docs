@@ -108,5 +108,5 @@ For more information on Routing in the Symfony CMF, please refer to:
 .. _`symfony-cmf/routing-bundle`: https://packagist.org/packages/symfony-cmf/routing-bundle
 .. _`RoutingBundle`: https://github.com/symfony-cmf/routing-bundle#readme
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
-.. _`documentation for DependencyInjection tags`: https://symfony.com/doc/2.1/reference/dic_tags.html
+.. _`documentation for DependencyInjection tags`: https://symfony.com/doc/current/reference/dic_tags.html
 .. _`Routing`: https://symfony.com/doc/current/components/routing/introduction.html

@@ -66,7 +66,7 @@ For example::
 
     // set extras
     $extras = array(
-        'subtext' => 'Add CMS functionality to applications built with the Symfony2 PHP framework.',
+        'subtext' => 'Add CMS functionality to applications built with the Symfony PHP framework.',
         'headline-icon' => 'exclamation.png',
     );
 

@@ -257,7 +257,7 @@ When using the Esi, Ssi or Js cache adapters, the settings passed here are remem
     .. code-block:: jinja
 
         {{ sonata_block_render({ 'name': 'rssBlock' }, {
-            'title': 'Symfony2 CMF news',
+            'title': 'Symfony CMF news',
             'url': 'http://cmf.symfony.com/news.rss',
             'maxItems': 2
         }) }}
@@ -267,7 +267,7 @@ When using the Esi, Ssi or Js cache adapters, the settings passed here are remem
         <?php echo $view['blocks']->render(array(
             'name' => 'rssBlock',
         ), array(
-            'title'    => 'Symfony2 CMF news',
+            'title'    => 'Symfony CMF news',
             'url'      => 'http://cmf.symfony.com/news.rss',
             'maxItems' => 2,
         )) ?>

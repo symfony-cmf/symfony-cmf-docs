@@ -236,14 +236,14 @@ Example of how settings can be overwritten through a template helper:
     .. code-block:: jinja
 
         {{ sonata_block_render({'name': 'rssBlock'}, {
-            'title': 'Symfony2 CMF news',
+            'title': 'Symfony CMF news',
             'url': 'http://cmf.symfony.com/news.rss'
         }) }}
 
     .. code-block:: html+php
 
         <?php $view['blocks']->render(array('name' => 'rssBlock'), array(
-            'title' => 'Symfony2 CMF news',
+            'title' => 'Symfony CMF news',
             'url'   => 'http://cmf.symfony.com/news.rss',
         )) ?>
 

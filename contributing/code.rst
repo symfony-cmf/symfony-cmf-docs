@@ -1,8 +1,8 @@
 Contributing
 ============
 
-The Symfony2 CMF team follows all the rules and guidelines of the core
-Symfony2 `development process`_.
+The Symfony CMF team follows all the rules and guidelines of the core
+Symfony `development process`_.
 
 When creating Pull Requests, please follow the Symfony `Submitting a Patch`_
 guidelines.
@@ -19,7 +19,7 @@ Resources / Links
 * `Website`_
 * `Wiki`_
 * `Issue Tracker`_
-* `IRC channel`_
+* `Slack #symfony-cmf channel`_
 * `Users mailing list`_
 * `Devs mailing list`_
 
@@ -28,7 +28,7 @@ Resources / Links
 .. _`Website`: http://cmf.symfony.com/
 .. _`Wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki
 .. _`Issue Tracker`: https://github.com/symfony-cmf/symfony-cmf/issues
-.. _`IRC channel`: http://webchat.freenode.net/?channels=%23symfony-cmf
+.. _`Slack #symfony-cmf channel`: https://slackinvite.me/to/symfony-devs
 .. _`Users mailing list`: https://groups.google.com/forum/#!forum/symfony-cmf-users
 .. _`Devs mailing list`: https://groups.google.com/forum/#!forum/symfony-cmf-devs
 .. _`Submitting a Patch`: https://symfony.com/doc/current/contributing/code/patches.html

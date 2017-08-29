@@ -7,7 +7,7 @@ CreateBundle
 
     The CreateBundle provides modern front-end in-place editing for web
     applications. It integrates create.js and the CreatePHP library into
-    Symfony2.
+    Symfony.
 
 .. include:: ../_partials/unmaintained.rst.inc
 
@@ -307,7 +307,7 @@ JavaScript loader check if the current user is granted the configured
 .. tip::
 
     In order to have security in place, you need to configure a
-    "Symfony2 firewall". Read more in the `Symfony2 security chapter`_.
+    "Symfony firewall". Read more in the `Symfony security chapter`_.
     If you do not do that, create.js will not be loaded and editing
     will be disabled.
 
@@ -363,8 +363,7 @@ after those to be able to customize as needed) with:
     Make sure Assetic is rewriting the paths in your CSS files properly or you
     might not see icon images.
 
-In your page bottom area, load the JavaScript files. If you are using Symfony 2.2 or
-higher, the method reads:
+In your page bottom area, load the JavaScript files:
 
 .. configuration-block::
 
@@ -666,4 +665,4 @@ Read On
 .. _`symfony-cmf/create-bundle`: https://packagist.org/packages/symfony-cmf/create-bundle
 .. _`RDF`: https://en.wikipedia.org/wiki/Resource_Description_Framework
 .. _`RDFa`: https://en.wikipedia.org/wiki/RDFa
-.. _`Symfony2 security chapter`: https://symfony.com/doc/current/book/security.html
+.. _`Symfony security chapter`: https://symfony.com/doc/current/security.html

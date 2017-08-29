@@ -101,8 +101,7 @@ The minimal code required to use this type looks as follows::
 
     When building an admin interface with the SonataDoctrinePHPCRAdminBundle_
     there is also the ``sonata_type_model``, which is more powerful, allowing to
-    add to the referenced documents on the fly. Unfortunately it is
-    `currently broken`_.
+    add to the referenced documents on the fly.
 
 phpcr_reference
 ~~~~~~~~~~~~~~~
@@ -186,4 +185,3 @@ correct.
 .. _BurgovKeyValueFormBundle: https://github.com/Burgov/KeyValueFormBundle
 .. _`Symfony documentation on the entity form type`: https://symfony.com/doc/current/reference/forms/types/entity.html
 .. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
-.. _`currently broken`: https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145

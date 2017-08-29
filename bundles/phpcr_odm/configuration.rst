@@ -353,7 +353,7 @@ supported by Doctrine.
 
 Specify the Doctrine DBAL connection name to use if you don't want to use the
 default connection. The name must be one of the names of the ``doctrine.dbal``
-section of your Doctrine configuration, see the `Symfony2 Doctrine documentation`_.
+section of your Doctrine configuration, see the `Symfony Doctrine documentation`_.
 
 ``jackalope.disable_transactions``
 """"""""""""""""""""""""""""""""""
@@ -372,7 +372,7 @@ Logging and Profiling
 ~~~~~~~~~~~~~~~~~~~~~
 
 When using any of the Jackalope PHPCR implementations, you can activate logging
-to log to the symfony log, or profiling to show information in the Symfony2
+to log to the symfony log, or profiling to show information in the Symfony
 debug toolbar:
 
 .. configuration-block::
@@ -659,7 +659,7 @@ Absolute path to the jackrabbit jar file. If this is set, you can use the
 
 For tuning the output of the ``doctrine:phpcr:dump`` command.
 
-.. _`Symfony2 Doctrine documentation`: https://symfony.com/doc/current/book/doctrine.html
+.. _`Symfony Doctrine documentation`: https://symfony.com/doc/current/doctrine.html
 .. _`last modified listener cookbook entry`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/cookbook/last-modified.html
 .. _`Doctrine ORM`: https://symfony.com/doc/current/reference/configuration/doctrine.html#caching-drivers
 .. _`curl-setopt`: http://php.net/manual/de/function.curl-setopt.php
