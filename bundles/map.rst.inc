@@ -31,6 +31,12 @@ library or they introduce a complete new concept.
   * :doc:`menu/voters`
   * :doc:`menu/configuration`
 
+* :doc:`resource/index`
+
+  * :doc:`resource/introduction`
+  * :doc:`resource/repositories`
+  * :doc:`resource/description_enhancers`
+
 * :doc:`routing/index`
 
   * :doc:`routing/introduction`
