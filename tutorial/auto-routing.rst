@@ -55,7 +55,7 @@ Enable the Dynamic Router
 
 The RoutingAutoBundle uses the CMF `RoutingBundle`_ which enables routes to
 be provided from a database (in addition to being provided from
-the routing configuration files as in core Symfony 2).
+the routing configuration files as in core Symfony).
 
 Add the following to your application configuration:
 
@@ -246,6 +246,6 @@ Have a look at what you have:
 
 The routes have been automatically created!
 
-.. _`routingautobundle documentation`: https://symfony.com/doc/current/cmf/bundles/routing_auto.html
+.. _`routingautobundle documentation`: https://symfony.com/doc/master/cmf/bundles/routing_auto.html
 .. _`SonataDoctrinePhpcrAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle
 .. _`routingbundle`: https://symfony.com/doc/master/cmf/bundles/routing/index.html

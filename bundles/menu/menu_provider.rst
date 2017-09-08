@@ -33,4 +33,4 @@ are not located under the menu basepath.
     You can also write your completely custom provider and register it with the
     KnpMenu as explained in the `KnpMenuBundle custom provider documentation`_.
 
-.. _`KnpMenuBundle custom provider documentation`: https://symfony.com/doc/master/bundles/KnpMenuBundle/custom_provider.html
+.. _`KnpMenuBundle custom provider documentation`: https://symfony.com/doc/current/bundles/KnpMenuBundle/custom_provider.html

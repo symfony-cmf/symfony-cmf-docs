@@ -5,9 +5,9 @@ Publish Workflow
 ----------------
 
 The publish workflow system allows to control what content is available on the
-site. This is similar to the `Symfony2 Security component`_. But contrary to the
+site. This is similar to the `Symfony Security component`_. But contrary to the
 security context, the publish check can be executed even when no firewall is in
-place and the security context thus has no token (see `Symfony2 Authorization`_).
+place and the security context thus has no token (see `Symfony Authorization`_).
 
 The publish workflow is also tied into the security workflow: The CoreBundle
 registers a security voter that forwards security checks to the publish
@@ -371,6 +371,6 @@ There is a :doc:`Sonata admin extension <../sonata_phpcr_admin_integration/core>
 available to edit workflow information on any document implementing the
 interface.
 
-.. _`Symfony2 security component`: http://symfony.com/doc/current/components/security.html
-.. _`Symfony2 Authorization`: http://symfony.com/doc/current/components/security/authorization.html
+.. _`Symfony security component`: http://symfony.com/doc/current/components/security.html
+.. _`Symfony Authorization`: http://symfony.com/doc/current/components/security/authorization.html
 .. _`ACL checks`: http://symfony.com/doc/current/security/acl.html

@@ -15,7 +15,7 @@ using the following bundles:
 
 It is assumed that you have:
 
-* A working knowledge of the Symfony 2 framework;
+* A working knowledge of the Symfony framework;
 * Basic knowledge of PHPCR-ODM.
 
 The CMS will have two types of content:

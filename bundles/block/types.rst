@@ -123,7 +123,7 @@ Create a document::
     $myRssBlock = new RssBlock();
     $myRssBlock->setParentDocument($parentPage);
     $myRssBlock->setName('rssBlock');
-    $myRssBlock->setSetting('title', 'Symfony2 CMF news');
+    $myRssBlock->setSetting('title', 'Symfony CMF news');
     $myRssBlock->setSetting('url', 'http://cmf.symfony.com/news.rss');
     $myRssBlock->setSetting('maxItems', 3);
 

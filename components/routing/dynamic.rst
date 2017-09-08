@@ -4,7 +4,7 @@
 Dynamic Router
 ==============
 
-The Symfony2 default Router was developed to handle static Route definitions,
+The Symfony default Router was developed to handle static Route definitions,
 as they are usually declared in configuration files, prior to execution.
 The complete routing configuration is injected in the constructor. It then
 creates a :class:`Symfony\\Component\\Routing\\Matcher\\UrlMatcher` with this
@@ -43,7 +43,7 @@ a URL:
 * **cmf_routing.pre_dynamic_match** (Dispatched at the beginning of the
   ``match`` method)
 * **cmf_routing.pre_dynamic_match_request** (Dispatched at the beginning of the
-  ``matchRequest`` method. In the context of the Symfony2 full stack framework,
+  ``matchRequest`` method. In the context of the Symfony full stack framework,
   only this event will be triggered.)
 * **cmf_routing.pre_dynamic_generate** (Dispatched at the beginning of the
   ``generate`` method)
@@ -118,7 +118,7 @@ Route Enhancer Compiler Pass
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This component provides a ``RegisterRouteEnhancersPass``. If you use the
-`Symfony2 Dependency Injection Component`_, you can use this compiler pass to
+`Symfony Dependency Injection Component`_, you can use this compiler pass to
 register all enhancers having a specific tag with the dynamic router::
 
     use Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRouterEnhancersPass;
@@ -132,7 +132,7 @@ register all enhancers having a specific tag with the dynamic router::
 
 After adding the passes and configuring the container builder, you continue
 with compiling the container as explained in the
-`Symfony2 DI Component compilation section`_.
+`Symfony DI Component compilation section`_.
 
 You can optionally configure the dynamic router service name. The compiler pass
 will modify this service definition to register the enhancers when the dynamic
@@ -142,7 +142,7 @@ default service name is ``cmf_routing.dynamic_router``.
 You can also configure the tag name you want to use with the second argument to
 the compiler pass constructor. If you don't, the default tag is
 ``dynamic_router_route_enhancer``. If you are using the
-:doc:`Symfony2 CMF RoutingBundle <../../bundles/routing/introduction>`, this tag is
+:doc:`Symfony CMF RoutingBundle <../../bundles/routing/introduction>`, this tag is
 already active with the default name.
 
 Linking a Route with a Content
@@ -165,7 +165,7 @@ with the route instance and put the provided name into ``_route_name``.
 
 All routes still need to extend the base class
 :class:`Symfony\\Component\\Routing\\Route <Symfony\\Component\\Routing\\Route>`
-from the Symfony2 component.
+from the Symfony component.
 
 Redirections
 ------------
@@ -176,7 +176,7 @@ Router in the chain or to another ``Route`` object.
 
 Notice that the actual redirection logic is not handled by the bundle. You
 should implement your own logic to handle the redirection. For an example of
-implementing that redirection under the full Symfony2 stack, refer to
+implementing that redirection under the full Symfony stack, refer to
 :doc:`the RoutingBundle <../../bundles/routing/introduction>`.
 
 .. _component-routing-generator:
@@ -198,11 +198,11 @@ The generator method looks like this::
 
     public function generate($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH);
 
-In Symfony2 core, the ``$name`` has to be a string with the configured name
+In Symfony core, the ``$name`` has to be a string with the configured name
 of the route to generate. The CMF routing component adds generators that handle
 alternative semantics of ``$name``.
 
-The ``ProviderBasedGenerator`` extends Symfony2's default
+The ``ProviderBasedGenerator`` extends Symfony's default
 :class:`Symfony\\Component\\Routing\\Generator\\UrlGenerator` (which, in turn,
 implements :class:`Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface`)
 and - if the name is not already a ``Route`` object - loads the Route from the
@@ -232,5 +232,5 @@ call  with any object they can handle.
 .. _`Event Dispatcher`: https://symfony.com/doc/current/components/event_dispatcher/index.html
 .. _`How to create an Event Listener`: https://symfony.com/doc/current/cookbook/event_dispatcher/event_listener.html
 .. _instanceof: http://php.net/operators.type
-.. _`Symfony2 Dependency Injection Component`: https://symfony.com/doc/master/components/dependency_injection/index.html
-.. _`Symfony2 DI Component compilation section`: https://symfony.com/doc/current/components/dependency_injection/compilation.html
+.. _`Symfony Dependency Injection Component`: https://symfony.com/doc/current/components/dependency_injection/index.html
+.. _`Symfony DI Component compilation section`: https://symfony.com/doc/current/components/dependency_injection/compilation.html

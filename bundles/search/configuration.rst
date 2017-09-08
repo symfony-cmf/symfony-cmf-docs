@@ -146,11 +146,11 @@ template.
             ),
         ));
 
-.. _`LiipSearchBundle`: https://github.com/liip/LiipSearchBundle
-
 ``max_results``
 """""""""""""""
 
 **type**: ``integer`` **default**: ``null``
 
 Defines a limit for number of results returned.
+
+.. _`LiipSearchBundle`: https://github.com/liip/LiipSearchBundle

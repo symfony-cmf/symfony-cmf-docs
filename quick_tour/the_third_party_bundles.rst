@@ -237,7 +237,7 @@ You made it! Let's summarize what you've learned in the Quick Tour:
 * Instead of binding controllers to routes, the routes are bound to content
   objects.
 * The Symfony CMF took care not to reinvent the wheel. That resulted in a lot
-  of bundles integrating commonly known Symfony2 bundles.
+  of bundles integrating commonly known Symfony bundles.
 
 I can't tell you more about the architecture and bundles of the Symfony CMF,
 but there is much much more to explore. Take a look at

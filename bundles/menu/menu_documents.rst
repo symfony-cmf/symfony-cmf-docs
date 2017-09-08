@@ -123,4 +123,4 @@ The standard menu node implements ``PublishTimePeriodInterface`` and
 The ``MenuContentVoter`` decides that a menu node is not published if the
 content it is pointing to is not published.
 
-.. _`Creating Menus: The Basics`: https://github.com/KnpLabs/KnpMenu/blob/1.1.x/doc/01-Basic-Menus.markdown
+.. _`Creating Menus: The Basics`: https://github.com/KnpLabs/KnpMenu/blob/master/doc/01-Basic-Menus.markdown

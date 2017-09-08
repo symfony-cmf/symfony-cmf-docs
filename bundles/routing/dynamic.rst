@@ -667,5 +667,5 @@ Read on in the chapter :doc:`customizing the dynamic router <dynamic_customize>`
 .. _`CMF Routing component`: https://github.com/symfony-cmf/Routing
 .. _`Doctrine ORM`: http://www.doctrine-project.org/projects/orm.html
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
-.. _`URL generating capabilities of Symfony`: https://symfony.com/doc/current/book/routing.html#generating-urls
+.. _`URL generating capabilities of Symfony`: https://symfony.com/doc/current/routing.html#generating-urls
 .. _`FOSJsRoutingBundle`: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle
