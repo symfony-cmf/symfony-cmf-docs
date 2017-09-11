@@ -1,9 +1,6 @@
 ``ivory_ckeditor``
 ~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 1.3
-    IvoryCKEditorBundle integration was introduced in version 1.3.
-
 This configures integration of the IvoryCKEditorBundle_, so an admin can edit
 content using CKeditor.
 

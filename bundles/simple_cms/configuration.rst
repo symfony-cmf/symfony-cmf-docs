@@ -181,18 +181,4 @@ Configure integration with CmfMenuBundle.
             'use_menu' => 'auto',
         ));
 
-``routing``
-~~~~~~~~~~~
-
-.. versionadded:: 1.1
-    Since SimpleCmsBundle 1.1, this configuration is done directly on the
-    :ref:`RoutingBundle <reference-config-routing-dynamic>`.
-
-``multilang``
-~~~~~~~~~~~~~
-
-.. versionadded:: 1.1
-    Since SimpleCmsBundle 1.1, this configuration is done directly on the
-    :ref:`RoutingBundle <reference-config-routing-locales>`.
-
 .. include:: ../_partials/ivory_ckeditor.rst.inc

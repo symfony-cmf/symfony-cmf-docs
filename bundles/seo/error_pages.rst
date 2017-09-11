@@ -1,9 +1,6 @@
 Displaying Relevant Pages in Error Pages
 ========================================
 
-.. versionadded:: 1.2
-    The ``SuggestionProviderController`` was introduced in SeoBundle 1.2.
-
 You don't want to lose visitors when no content is found. Instead of showing a
 generic 404 error page, the SEO bundle provides the means to show potentially
 relevant links to help the user find something useful.

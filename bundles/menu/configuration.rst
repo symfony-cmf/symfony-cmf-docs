@@ -102,10 +102,6 @@ know which subtree to show when selecting content for menu nodes.
 If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to
 the value of ``%cmf_core.persistence.phpcr.basepath%/content``
 
-.. versionadded:: 1.1
-
-    The pre-fetch functionality was added in MenuBundle 1.1.
-
 ``prefetch``
 """"""""""""
 
@@ -145,10 +141,6 @@ This setting is used by the admin class.
 
 content_url_generator
 ~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 1.2
-    This option was introduced in version 1.2.0. Prior to 1.2, this option is
-    not available and the default service ``router`` is hardcoded.
 
 **type**: ``string`` **default**: ``router``
 
@@ -239,9 +231,6 @@ Enable the :ref:`bundles_menu_voters_uri_prefix_voter`.
 
 ``publish_workflow``
 ~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 1.1
-    The ``publish_workflow`` option was introduced in CmfMenuBundle 1.1.
 
 This configures if the menu content voter for the publish workflow should be
 disabled, by default it is enabled if the :doc:`CoreBundle <../core/introduction>`

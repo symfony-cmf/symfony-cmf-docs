@@ -1,9 +1,6 @@
 Setting Seo Metadata from Twig
 ==============================
 
-.. versionadded:: 1.2
-    The twig extension was added in SeoBundle 1.2.
-
 This bundle provides a twig function ``cmf_seo_update_metadata``
 which lets you populate the SEO data from an object.
 For details on how populating the SEO data works, read :doc:`introduction`.

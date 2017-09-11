@@ -15,11 +15,6 @@ extensions for additional functionality.
 URL Generation
 --------------
 
-.. versionadded:: 2.0
-    Adding content support to the ``knp_menu.factory`` service was introduced
-    in CmfMenuBundle 2.0. Prior to 2.0, you had to use the
-    ``ContentAwareFactory`` class and ``cmf_menu.factory`` service.
-
 Most menu items will need a URL. By default, KnpMenu allows generating this URL
 by specifying a URI or a Symfony route name.
 
@@ -37,9 +32,6 @@ content URL generator can work with. When using the :ref:`dynamic router
     When you don't use the dynamic router, you can create a custom url
     generator by implementing ``UrlGeneratorInterface`` and configure it using
     the ``content_url_generator`` option in ``config.yml``.
-
-    .. versionadded:: 1.2
-        The ``content_url_generator`` option was introduced in CmfMenuBundle 1.2.
 
 How to handle Items without an URL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

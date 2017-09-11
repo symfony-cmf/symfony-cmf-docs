@@ -153,9 +153,6 @@ To delete an image, you need to delete the document containing the image.
 cmf_media_file
 ~~~~~~~~~~~~~~
 
-.. versionadded: 1.3
-    The ``cmf_media_file`` form type was introduced in MediaBundle 1.3.
-
 The ``cmf_media_file`` form maps to an object that implements the
 ``Symfony\Cmf\Bundle\MediaBundle\FileInterface``.
 It renders as a file upload button with a link for downloading the existing

@@ -48,9 +48,6 @@ a URL:
 * **cmf_routing.pre_dynamic_generate** (Dispatched at the beginning of the
   ``generate`` method)
 
-.. versionadded:: 1.4
-    The route generate event was added in version 1.4 of the routing component.
-
 Pre-match events are of class ``Symfony\Cmf\Component\Routing\Event\RouterMatchEvent``,
 the generate event is of class ``Symfony\Cmf\Component\Routing\Event\RouterGenerateEvent``.
 The generate event also allows you to manipulate the route name, parameters and

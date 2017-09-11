@@ -214,9 +214,6 @@ information on creating custom services.
 Using a Custom URL Generator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 1.4
-    The configuration option to specify a custom URL generator was introduced in CmfRoutingBundle 1.4.
-
 The dynamic router can also generate URLs from route objects. If you need to
 customize this behavior beyond what the
 :ref:`route generate event <components-routing-events>` allows, you can

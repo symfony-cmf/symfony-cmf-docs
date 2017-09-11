@@ -1,6 +1,6 @@
 .. index::
     single: Path Providers; RoutingAutoBundle
-    
+
 Token Providers
 ===============
 
@@ -128,9 +128,6 @@ feature.
 
 ``container``
 -------------
-
-.. versionadded:: 1.1
-    The container provider was introduced in RoutingAutoBundle 1.1
 
 The ``container`` provider allows you to use parameters which have
 been defined in the Symfony DI container.

@@ -84,11 +84,6 @@ Installation
                 ),
            ));
 
-.. versionadded:: 2.0
-    The above configuration is intended for the FMElfinderBundle version 2.0
-    and above. Version 1 used a different format without the possibility to
-    configure more than one editor.
-
 .. note::
 
     The driver service depends on your storage layer. For now, the MediaBundle

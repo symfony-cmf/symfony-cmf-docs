@@ -98,9 +98,6 @@ Can be one of ``canonical`` or ``redirect``.
 ``content_listener``
 ~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 1.2
-    The ``content_listener`` configuration key was introduced in SeoBundle 1.2.
-
 ``enabled``
 """""""""""
 
@@ -119,15 +116,8 @@ RoutingBundle is present, this defaults to ``DynamicRouter::CONTENT_KEY``
 (which evaluates to ``contentDocument``), otherwise you must define this
 manually or disable the content listener.
 
-.. versionadded:: 1.2
-    In versions of the SeoBundle prior to 1.2, the ``content_key`` was
-    configured directly in the ``cmf_seo`` root.
-
 ``sitemap``
 ~~~~~~~~~~~
-
-.. versionadded:: 1.2
-    Support for sitemaps was introduced in version 1.2 of the SeoBundle.
 
 For details on the meaning of the sitemap configuration, see the
 :doc:`sitemap section <sitemap>`.
@@ -259,9 +249,6 @@ Limit which of the loaders should be used for this sitemap.
 ``seo_metadata``
 ****************
 
-.. versionadded:: 1.2
-    The ``seo_metadata`` setting was introduced in version 1.2.
-
 **type**: ``string`` **default**: ``Symfony\Cmf\Bundle\SeoBundle\Model\SeoMetadata``
 
 Configures the class to use when creating new ``SeoMetadata`` objects using the
@@ -274,9 +261,6 @@ this defaults to ``Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoMetadata``.
 
 error
 ~~~~~
-
-.. versionadded:: 1.2
-    The ``error`` settings were introduced in SeoBundle 1.2.
 
 .. seealso::
 
@@ -364,9 +348,6 @@ routes, use:
 
 ``alternate_locale``
 ~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 1.1
-    Support for alternate locales was added in version 1.1 of the SeoBundle.
 
 .. configuration-block::
 
