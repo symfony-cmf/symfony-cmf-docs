@@ -229,9 +229,6 @@ The media bundle contains a Twig extension, it contains the following functions:
            }
         }) }}" title="Download">Download</a>
 
-.. versionadded:: 1.3
-    Option `imagine_runtime_config` was introduced in MediaBundle 1.3
-
 SonataMediaBundle Integration
 -----------------------------
 

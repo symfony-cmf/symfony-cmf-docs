@@ -141,9 +141,6 @@ critical for your application performance.
 The Twig Extension
 ~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 1.2
-    The twig extension was added in SeoBundle 1.2.
-
 This bundle provides a twig function ``cmf_seo_update_metadata``
 which lets you populate the seo page from an object.
 For details on using the twig extension, read :doc:`twig`.

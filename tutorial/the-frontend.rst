@@ -235,10 +235,6 @@ configuration:
             ->addTag('knp_menu.provider')
         ;
 
-.. versionadded:: 2.0
-    The first argument of the ``PhpcrMenuProvider`` class was changed in CmfMenuBundle 2.0.
-    You had to inject the ``cmf_menu.factory`` service prior to version 2.0.
-
 and enable the Twig rendering functionality of the KnpMenuBundle:
 
 .. configuration-block::

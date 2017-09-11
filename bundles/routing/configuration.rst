@@ -388,10 +388,6 @@ manager_name
 ``route_basepaths``
 *******************
 
-.. versionadded:: 1.3
-    The ``route_basepaths`` setting was introduced in version 1.3. Prior to
-    1.3, you could only configure one basepath using ``route_basepath``.
-
 **type**: ``string`` | ``array`` **default**: ``/cms/routes``
 
 A set of paths where routes are located in the PHPCR tree.
@@ -403,9 +399,6 @@ default to ``%cmf_core.persistence.phpcr.basepath%/routes``.
 **********************
 
 **type**: ``boolean`` **default**: ``true``
-
-.. versionadded:: 1.3
-    This configuration option was introduced in RoutingBundle 1.3.
 
 The bundle comes with an initializer that creates the necessary nodes for all
 ``route_basepaths`` roots to exist automatically when initializing the
@@ -437,9 +430,6 @@ The name of the Doctrine Manager to use.
 **type**: ``string`` **default**: ``'Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route'``
 
 The route class to use in your application.
-
-.. versionadded:: 2.0
-    The ``route_class`` parameter has been added in version 2.0.
 
 ``uri_filter_regexp``
 ~~~~~~~~~~~~~~~~~~~~~

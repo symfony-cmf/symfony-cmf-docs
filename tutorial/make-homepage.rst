@@ -129,12 +129,6 @@ node::
         }
     }
 
-.. versionadded:: 1.1
-    Since version 1.1, the ``init`` method receives the ``ManagerRegistry``
-    rather than the PHPCR ``SessionInterface``. This allows the creation of
-    documents in initializers. With 1.0, you would need to manually set the
-    ``phpcr:class`` property to the right value.
-
 Now:
 
 1. *Remove* the initializer service that you created in the

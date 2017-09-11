@@ -129,12 +129,6 @@ overwrite them) are:
         }
     }
 
-.. versionadded:: 1.2
-    The Symfony CMF bundles updated to PSR-4 autoloading with Symfony CMF
-    1.2. Before, the target directories were located in the
-    ``vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor``
-    directory.
-
 Add this bundle (and its dependencies, if they are not already added) to your
 application's kernel::
 
@@ -546,10 +540,6 @@ Mapping Requests to Domain Objects
 One last piece is the mapping between CreatePHP data and the application
 domain objects. Data needs to be stored back into the database.
 
-.. versionadded:: 1.3
-    The chain mapper and ORM configuration was introduced in CreateBundle
-    1.3. Prior, only the PHPCR-ODM mapper was available.
-
 Adding Custom Mappers to the Chain
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -592,9 +582,6 @@ your own mapper in place of the chain mapper.
 
 Workflows
 ---------
-
-.. versionadded:: 1.1
-    Support for workflows was introduced in CreateBundle 1.1.
 
 CreateJS uses a REST api for creating, loading and changing content. To delete content
 the HTTP method DELETE is used. Since deleting might be a more complex operation

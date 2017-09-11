@@ -39,9 +39,6 @@ Basic repository operations
 * **cmf_path|getPath($document)**: Get the path of the provided document.
 * **cmf_parent_path|getParentPath($document)**: Get the path of the parent of the provided document.
 
-.. versionadded:: 1.3.1
-    The cmf_find_translation twig function has been added in version 1.3.1 of the CMF CoreBundle.
-
 Walking the PHPCR tree
 ......................
 
