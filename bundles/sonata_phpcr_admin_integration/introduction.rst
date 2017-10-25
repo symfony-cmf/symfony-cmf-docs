@@ -9,11 +9,6 @@ SonataPhpcrAdminIntegrationBundle
     Admin tool. Additionally, it provides admin extensions to improve your
     custom admin services.
 
-.. note::
-
-    The admin integration bundle is not yet released as stable. It is still
-    possible that there will be minor BC breaks until it is released.
-
 Installation
 ------------
 
