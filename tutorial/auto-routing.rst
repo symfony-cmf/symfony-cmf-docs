@@ -163,12 +163,16 @@ You can now proceed to mapping your documents, create the following in your
 
         # src/AppBundle/Resources/config/cmf_routing_auto.yml
         AppBundle\Document\Page:
-            uri_schema: /page/{title}
+            definitions:
+                main:
+                    uri_schema: /page/{title}
             token_providers:
                 title: [content_method, { method: getTitle }]
 
         AppBundle\Document\Post:
-            uri_schema: /post/{date}/{title}
+            definitions:
+                main:
+                    uri_schema: /post/{date}/{title}
             token_providers:
                 date: [content_datetime, { method: getDate }]
                 title: [content_method, { method: getTitle }]
