@@ -212,8 +212,9 @@ voters (see below), except you do not need to write your own PHP code:
                 arguments:
                     - contentDocument
                     - AppBundle\Document\Article
+                    - "@request_stack"
                 tags:
-                    - { name: "knp_menu.voter", request: true }
+                    - { name: "knp_menu.voter" }
 
     .. code-block:: xml
 
@@ -228,8 +229,8 @@ voters (see below), except you do not need to write your own PHP code:
                          class="Symfony\Cmf\Bundle\MenuBundle\Voter\RequestParentContentIdentityVoter">
                     <argument>contentDocument</argument>
                     <argument>AppBundle\Document\Article</argument>
-
-                    <tag name="knp_menu.voter" request="true"/>
+                    <argument type="service" id="request_stack"/>
+                    <tag name="knp_menu.voter"/>
                 </service>
             </services>
         </container>
@@ -243,11 +244,16 @@ voters (see below), except you do not need to write your own PHP code:
 
         $definition = new Definition(
             RequestParentContentIdentityVoter,
-            ['contentDocument', Article::class]
+            ['contentDocument', Article::class, '@request_stack']
         ));
-        $definition->addTag('knp_menu.voter', ['request' => true]);
+        $definition->addTag('knp_menu.voter');
 
         $container->setDefinition('app.menu_voter_parent', $definition);
+
+.. versionadded::2.2
+    Since MenuBundle 2.2, the voters expect the RequestStack as constructor
+    argument. For older versions, you need to set the deprecated ``request=true``
+    flag on the ``knp_menu.voter`` tag.
 
 .. _bundles_menu_voters_custom_voter:
 
