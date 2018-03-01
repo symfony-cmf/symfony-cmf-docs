@@ -17,10 +17,9 @@ the following to your main configuration file:
     .. code-block:: yaml
 
         # app/config/config.yml
-        services:
-            cmf_core:
-                persistence:
-                    phpcr: ~
+        cmf_core:
+            persistence:
+                phpcr: ~
 
     .. code-block:: xml
 
