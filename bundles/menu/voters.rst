@@ -265,7 +265,7 @@ A voter will look something like this::
     namespace AppBundle\Voter;
 
     use Knp\Menu\ItemInterface;
-    use Knp\MenuBundle\Matcher\Voter\VoterInterface;
+    use Knp\Menu\Matcher\Voter\VoterInterface;
 
     class MyVoter implements VoterInterface
     {
