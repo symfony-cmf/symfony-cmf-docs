@@ -538,8 +538,8 @@ The service to use as base for building the PHPCR-ODM configuration.
 **type**: ``boolean``, **default**: ``true``
 
 When enabled, you can place your mappings in
-``<Bundle>/Resources/config/doctrine/<Document>.phpcr.xml`` resp. ``*.phpcr.yml``
-to configure mappings for documents you provide in the ``<Bundle>/Document``
+``<App|Bundle>/Resources/config/doctrine/<Document>.phpcr.xml`` resp. ``*.phpcr.yml``
+to configure mappings for documents you provide in the ``<App|Bundle>/Document``
 folder. Otherwise you need to manually configure the mappings section.
 
 ``auto_generate_proxy_classes``

@@ -38,7 +38,7 @@ that the option for the document manager is called ``em``.
 
 A simple example of using the ``phpcr_document`` form type looks as follows::
 
-    use AppBundle\Document\TargetClass;
+    use App\Document\TargetClass;
 
     $form
         ->add(
@@ -82,7 +82,7 @@ targets as an array of PHPCR-ODM ids or PHPCR paths.
 
 The minimal code required to use this type looks as follows::
 
-    use AppBundle\Document\Article;
+    use App\Document\Article;
 
     $dataArr = [
         '/some/phpcr/path/item_1' => 'first item',
@@ -126,14 +126,14 @@ correct.
 
     .. code-block:: yaml
 
-        # src/AppBundle/Resources/config/validation.yml
-        AppBundle\Entity\Author:
+        # src/App/Resources/config/validation.yml
+        App\Document\Author:
             constraints:
                 - Doctrine\Bundle\PHPCRBundle\Validator\Constraints\ValidPhpcrOdm
 
     .. code-block:: php-annotations
 
-        // src/AppBundle/Entity/Author.php
+        // src/App/Document/Author.php
 
         // ...
         use Doctrine\Bundle\PHPCRBundle\Validator\Constraints as OdmAssert;
@@ -155,7 +155,7 @@ correct.
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
                 http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-            <class name="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route">
+            <class name="App\Document\Author">
                 <constraint name="Doctrine\Bundle\PHPCRBundle\Validator\Constraints\ValidPhpcrOdm" />
             </class>
 
@@ -163,7 +163,7 @@ correct.
 
     .. code-block:: php
 
-        // src/AppBundle/Entity/Author.php
+        // src/App/Document/Author.php
 
         // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;

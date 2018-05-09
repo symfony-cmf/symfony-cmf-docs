@@ -33,12 +33,12 @@ use this configuration:
         # app/config/services.yml
         services:
             app.phpcr_search_indexer:
-                class: AppBundle\EventListener\SearchIndexer
+                class: App\EventListener\SearchIndexer
                     tags:
                         - { name: doctrine_phpcr.event_listener, event: postPersist }
 
             app.phpcr_listener:
-                class: AppBundle\EventListener\MyListener
+                class: App\EventListener\MyListener
                     tags:
                         - { name: doctrine_phpcr.event_subscriber }
 
@@ -49,11 +49,11 @@ use this configuration:
         <container xmlns="http://symfony.com/schema/dic/services">
             <services>
                 <service id="app.phpcr_search_indexer"
-                         class="AppBundle\EventListener\SearchIndexer">
+                         class="App\EventListener\SearchIndexer">
                     <tag name="doctrine_phpcr.event_listener" event="postPersist" />
                 </service>
                 <service id="app.phpcr_listener"
-                         class="AppBundle\EventListener\MyListener">
+                         class="App\EventListener\MyListener">
                     <tag name="doctrine_phpcr.event_subscriber" />
                 </service>
             </services>
@@ -62,8 +62,8 @@ use this configuration:
     .. code-block:: php
 
         // app/config/config.php
-        use AppBundle\EventListener\SearchIndexer;
-        use AppBundle\EventListener\MyListener;
+        use App\EventListener\SearchIndexer;
+        use App\EventListener\MyListener;
 
         $container
             ->register(

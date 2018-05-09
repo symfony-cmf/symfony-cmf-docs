@@ -320,7 +320,7 @@ here, the ODM services will not be loaded.
 Unless you disable ``auto_mapping``, you can place your documents in the
 ``Document`` folder inside your bundles and use annotations or name the
 mapping files following this schema:
-``<Bundle>/Resources/config/doctrine/<DocumentClass>.phpcr.xml`` or ``*.phpcr.yml``.
+``<App|Bundle>/Resources/config/doctrine/<DocumentClass>.phpcr.xml`` or ``*.phpcr.yml``.
 
 If ``auto_generate_proxy_classes`` is false, you need to run the
 ``cache:warmup`` command in order to have the proxy classes generated after
@@ -413,11 +413,13 @@ Services
 
 There are 3 main services provided by this bundle:
 
-* ``doctrine_phpcr``- The ``ManagerRegistry`` instance with references to all
-  sessions and document manager instances;
-* ``doctrine_phpcr.default_session`` - The PHPCR session instance;
-* ``doctrine_phpcr.odm.default_document_manager`` - The PHPCR-ODM document
-  manager instance.
+* ``Doctrine\Bundle\PHPCRBundle\ManagerRegistry``- The ``ManagerRegistry``
+  instance with references to all sessions and document manager instances;
+* ``PHPCR\SessionInterface`` - the PHPCR session. If you configured
+  multiple sessions, this will be the default session;
+* ``Doctrine\ODM\PHPCR\DocumentManagerInterface`` - the PHPCR-ODM document
+  manager. If you configured multiple managers, this will be the default
+  manager.
 
 .. _bundles-phpcr-odm-commands:
 

@@ -123,8 +123,8 @@ depending on the locale.
 
     .. code-block:: php
 
-        // src/AppBundle/Documents/Article.php
-        namespace AppBundle\Documents\Article;
+        // src/App/Documents/Article.php
+        namespace App\Documents\Article;
 
         use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
@@ -161,7 +161,7 @@ depending on the locale.
     .. code-block:: xml
 
         <doctrine-mapping>
-            <document class="AppBundle\Documents\Article"
+            <document class="App\Documents\Article"
                       translator="attribute">
                 <locale fieldName="locale" />
                 <field fieldName="publishDate" type="date" />
@@ -172,7 +172,7 @@ depending on the locale.
 
     .. code-block:: yaml
 
-        AppBundle\Documents\Article:
+        App\Documents\Article:
             translator: attribute
             locale: locale
             fields:
