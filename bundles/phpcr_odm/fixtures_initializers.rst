@@ -35,11 +35,6 @@ paths it will create if they do not exist and an optional string defining
 namespaces and primary / mixin node types in the CND language that should be
 registered with the repository.
 
-.. versionadded:: 1.1
-    Since version 1.1, the ``GenericInitializer`` expects a name parameter
-    as first argument. With 1.0 there is no way to specify a custom name
-    for the generic Initializer.
-
 A service to use the generic Initializer looks like this:
 
 .. configuration-block::
@@ -94,10 +89,9 @@ You can execute your Initializers using the following command:
 
     $ php bin/console doctrine:phpcr:repository:init
 
-.. versionadded:: 1.1
-    Since DoctrinePHPCRBundle 1.1 the load data fixtures command will
-    automatically execute the Initializers after purging the database,
-    before executing the fixtures.
+.. note::
+    The load data fixtures command automatically executes the Initializers
+    after purging the database, before executing the fixtures.
 
 The generic Initializer only creates PHPCR nodes. If you want to create
 specific documents, you need your own Initializer. The interesting method
@@ -148,12 +142,6 @@ from which you can retrieve the PHPCR session but also the document manager::
             return 'Site Initializer';
         }
     }
-
-.. versionadded:: 1.1
-    Since version 1.1, the ``init`` method is passed the ``ManagerRegistry`` rather
-    than the PHPCR ``SessionInterface`` to allow the creation of documents in
-    Initializers. With 1.0, you would need to manually set the ``phpcr:class``
-    property to the right value.
 
 Define a service for your Initializer as follows:
 

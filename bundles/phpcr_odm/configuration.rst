@@ -128,18 +128,6 @@ parameters. This section explains the general parameters that are
 available with all Jackalope backends. You can also
 :ref:`activate logging and profiling <reference-configuration-phpcr-odm-logging>`.
 
-.. versionadded:: 1.1
-    Since DoctrinePhpcrBundle 1.1, backend configuration flags are configured
-    in the ``parameters`` section. They are passed as-is to Jackalope. See the
-    ``RepositoryFactory`` for some more documentation on the meaning of those
-    parameters.
-
-    For backwards compatibility reason, the options on ``backend`` for
-    ``check_login_on_server``, ``disable_stream_wrapper`` and
-    ``disable_transactions`` still work, but it is recommended to move them
-    into the parameters section with the ``jackalope.`` part in front of them.
-    Note that only Jackalope Doctrine Dbal supports transactions.
-
 ``jackalope.factory``
 .....................
 
@@ -154,11 +142,6 @@ Use a custom factory class for Jackalope objects.
 
 If set to ``false``, skip initial check whether repository exists. You will
 only notice connectivity problems on the first attempt to use the repository.
-
-.. versionadded:: 1.3.1
-   In version 1.2 and 1.3.0 of the DoctrinePhpcrBundle, the default value depends
-   on ``%kernel.debug%``. We recommend setting the value to false to avoid
-   bootstrapping issues.
 
 ``jackalope.disable_stream_wrapper``
 ....................................
@@ -185,9 +168,6 @@ See `last modified listener cookbook entry`_.
 If you are using one of the Jackalope Jackrabbit backend, you can set
 the curl options which are described in the php-documentation
 `curl-setopt`_.
-
-.. versionadded:: 1.3
-    Since jackalope-jackrabbit 1.3, curl-options can be configured.
 
 PHPCR Session with Jackalope Jackrabbit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

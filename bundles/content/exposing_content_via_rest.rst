@@ -139,11 +139,6 @@ However it might be necessary to add additional mapping to more tightly
 control what gets exposed. See the `documentation of the JMS serializer`_
 for details.
 
-.. versionadded:: 1.1
-    The `default response format changed between 1.0 and 1.1 of the ContentBundle`_.
-    In 1.0 the response is wrapped inside an array/tag. This is no longer the
-    case in 1.1
-
 .. _`FOSRestBundle`: https://github.com/FriendsOfSymfony/FOSRestBundle
 .. _`JMSSerializerBundle`: https://github.com/schmittjoh/JMSSerializerBundle
 .. _`FOSRestBundle view layer`: https://symfony.com/doc/current/bundles/FOSRestBundle/2-the-view-layer.html

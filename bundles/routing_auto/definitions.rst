@@ -4,11 +4,6 @@
 Multiple Auto Routes
 ====================
 
-.. versionadded: 2.0
-
-    The capability to add multiple routes for a managed object has been
-    introduced in RoutingAutoBundle 2.0.
-
 In the introduction you were shown an example using a single auto route schema
 definition. It is possible to have multiple auto-route definitions for each of your
 managed objects, and therefore multiple routes.

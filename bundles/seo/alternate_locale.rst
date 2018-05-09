@@ -1,9 +1,6 @@
 Alternate Locale Handling
 =========================
 
-.. versionadded:: 1.1
-    Support for handling alternate locales was added in SeoBundle version 1.1.0.
-
 Alternate locales are a way of telling search engines how to find translations
 of the current page. The SeoBundle provides a way to manage alternate locales
 and render them together with the other SEO information.
@@ -104,6 +101,5 @@ use your custom alternate locale provider instead of the default one. Set the
             ],
         ]);
 
-.. versionadded:: 1.2
-    When :doc:`Sitemaps <sitemap>` are enabled, alternate locales are also
-    added to the Sitemap.
+When :doc:`Sitemaps <sitemap>` are enabled, alternate locales are also
+added to the Sitemap.
