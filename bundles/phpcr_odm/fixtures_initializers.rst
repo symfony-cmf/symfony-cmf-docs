@@ -16,7 +16,7 @@ Repository Initializers
 -----------------------
 
 The Initializer is the PHPCR equivalent of the ORM schema tools. It is used to
-let bundles register PHPCR node types and to create required base paths in the
+let your application PHPCR node types and to create required base paths in the
 repository.
 
 .. note::
@@ -98,10 +98,10 @@ specific documents, you need your own Initializer. The interesting method
 to overwrite is the ``init`` method. It is passed the ``ManagerRegistry``,
 from which you can retrieve the PHPCR session but also the document manager::
 
-    // src/AppBundle/Initializer/SiteInitializer.php
-    namespace AppBundle\Initializer;
+    // src/App/Initializer/SiteInitializer.php
+    namespace App\Initializer;
 
-    use AppBundle\Documents\Site;
+    use App\Documents\Site;
     use Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface;
     use Doctrine\Bundle\PHPCRBundle\ManagerRegistry;
     use PHPCR\SessionInterface;
@@ -153,7 +153,7 @@ Define a service for your Initializer as follows:
         services:
             # ...
             app.phpcr_initializer_site:
-                class: AppBundle\Initializer\SiteInitializer
+                class: App\Initializer\SiteInitializer
                 tags:
                     - { name: doctrine_phpcr.initializer }
 
@@ -171,7 +171,7 @@ Define a service for your Initializer as follows:
             <services>
                 <!-- ... -->
                 <service id="app.phpcr_initializer_site"
-                    class="AppBundle\Initializer\SiteInitializer">
+                    class="App\Initializer\SiteInitializer">
                     <tag name="doctrine_phpcr.initializer"/>
                 </service>
             </services>
@@ -186,7 +186,7 @@ Define a service for your Initializer as follows:
         $container
             ->register(
                 'app.phpcr_initializer_site',
-                'AppBundle\Initializer\SiteInitializer'
+                'App\Initializer\SiteInitializer'
             )
             ->addTag('doctrine_phpcr.initializer', ['name' => 'doctrine_phpcr.initializer']
         ;
@@ -208,7 +208,7 @@ basis.
 
         # app/config/services.yml
         app.migration:
-            class: AppBundle\Migration\Migration
+            class: App\Migration\Migration
             arguments:
                 - { "%app.content_basepath%", "%app.menu_basepath%" }
             tags:
@@ -220,7 +220,7 @@ basis.
         <?xml version="1.0" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
             <service id="app.migration"
-                     class="AppBundle\Migration\Migration">
+                     class="App\Migration\Migration">
                 <argument type="collection">
                     <argument>%app.content_basepath%</argument>
                     <argument>%app.menu_basepath%</argument>
@@ -232,7 +232,7 @@ basis.
 
     .. code-block:: php
 
-        use AppBundle\Migration\Migration;
+        use App\Migration\Migration;
         use Symfony\Component\DependencyInjection\Definition;
 
         // ...
@@ -275,13 +275,13 @@ install the `DoctrineFixturesBundle`_ which brings the
 
 Fixtures work the same way they work for Doctrine ORM. You write fixture
 classes implementing ``Doctrine\Common\DataFixtures\FixtureInterface``. If you
-place them in ``<Bundle>\DataFixtures\PHPCR``, they will be auto detected if you
+place them in ``<App|Bundle>\DataFixtures\PHPCR``, they will be auto detected if you
 don't specify a path in the command.
 
 A simple example fixture class looks like this::
 
-    // src/AppBundle/DataFixtures/PHPCR/LoadPageData.php
-    namespace AppBundle\DataFixtures\PHPCR;
+    // src/App/DataFixtures/PHPCR/LoadPageData.php
+    namespace App\DataFixtures\PHPCR;
 
     use Doctrine\Common\Persistence\ObjectManager;
     use Doctrine\Common\DataFixtures\FixtureInterface;

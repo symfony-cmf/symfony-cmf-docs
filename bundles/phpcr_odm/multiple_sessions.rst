@@ -7,7 +7,16 @@ Configuring multiple sessions for PHPCR-ODM
 If you need more than one PHPCR backend, you can define ``sessions`` as child
 of the ``session`` information. Each session has a name and the configuration
 following the same schema as what is directly in ``session``. You can also
-overwrite which session to use as ``default_session``.
+overwrite which session to use as ``default_session``. Once you have multiple
+sessions, you can also configure multiple document managers with those
+sessions.
+
+.. tip::
+
+    Autowiring always gives you the default session and the default document
+    manager. When working with multiple sessions and managers, you need to
+    explicitly specify the services. For the document managers, you can also
+    go through the manager registry (see at the end of this page).
 
 .. _bundles-phpcr-odm-multiple-phpcr-sessions:
 
@@ -320,18 +329,20 @@ manager looks for models in the MagnoliaBundle.
         ]);
 
 
-You can access the managers through the manager registry available in
-``doctrine_phpcr``::
+You can access the managers through the manager registry available in the
+service ``Doctrine\Bundle\PHPCRBundle\ManagerRegistry``::
+
+    use Doctrine\Bundle\PHPCRBundle\ManagerRegistry;
 
     /** @var $container \Symfony\Component\DependencyInjection\ContainerInterface */
 
     // get the named manager from the registry
-    $dm = $container->get('doctrine_phpcr')->getManager('website');
+    $dm = $container->get(ManagerRegistry::class)->getManager('website');
 
     // get the manager for a specific document class
-    $dm = $container->get('doctrine_phpcr')->getManagerForClass('CmfContentBundle:StaticContent');
+    $dm = $container->get(ManagerRegistry::class)->getManagerForClass('CmfContentBundle:StaticContent');
 
 Additionally, each manager is available as a service in the DI container.
-The service name is ``doctrine_phpcr.odm.<name>_document_manager`` so for
+The service name pattern is ``doctrine_phpcr.odm.<name>_document_manager`` so for
 example the website manager is called
 ``doctrine_phpcr.odm.website_document_manager``.
