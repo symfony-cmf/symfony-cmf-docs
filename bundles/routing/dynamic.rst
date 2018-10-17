@@ -484,6 +484,45 @@ and defaults. This is explained in the
 
 .. _bundles-routing-dynamic-generator:
 
+Redirection support for the ORM provider
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To be able to create redirects with the ORM integration a RedirectRoute model 
+is supported. It is implemented as a document for the Route entity and holds 
+the most important information:
+
+* to which Route it redirects
+* is the redirection permanent
+
+An example of creating a redirection presuming you have a ``$route`` to which 
+you want to redirect and the ``$em`` as Doctrine entity manager::
+
+    use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route;
+    use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RedirectRoute;
+    use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+
+    // creating a redirection document
+    $redirectRouteDoc = new RedirectRoute();
+    $redirectRouteDoc->setRouteName('redirection_to_' . $route->getId());
+    $redirectRouteDoc->setRouteTarget($route);
+    $redirectRouteDoc->setPermanent($permanent);
+
+    $em->persist($redirectRouteDoc);
+    $em->flush();
+
+    // creating a route for the redirection
+    $redirectRoute = new Route();
+    $redirectRoute->setName('redirection_to_' . $route->getId());
+    $redirectRoute->setDefault(RouteObjectInterface::CONTENT_ID, RedirectRoute::class . ':' . $redirectRouteDoc->getId());
+    $redirectRoute->setStaticPrefix('redirect-slug');
+    $redirectRoute->setContent($redirectRouteDoc);
+
+    $em->persist($redirect);
+    $em->flush();
+            
+Handling redirect routes is done by specific controller which needs to be 
+enabled as described :ref:`later in this document <handling-redirectroutes>`.
+
 URL generation with the DynamicRouter
 -------------------------------------
 
