@@ -282,6 +282,14 @@ here, the ODM services will not be loaded.
             odm:
                 auto_mapping: true
                 auto_generate_proxy_classes: "%kernel.debug%"
+                mappings:
+                    App:
+                        mapping: true
+                        type: annotation
+                        dir: '%kernel.root_dir%/Document'
+                        alias: App
+                        prefix: App\Document\
+                        is_bundle: false
 
     .. code-block:: xml
 
@@ -294,7 +302,16 @@ here, the ODM services will not be loaded.
                 <odm
                     auto-mapping="true"
                     auto-generate-proxy-classes="%kernel.debug%"
-                />
+                >
+                    <mapping name="App"
+                        mapping="true"
+                        type="annotation"
+                        dir="%kernel.root_dir%/Document"
+                        alias="App"
+                        prefix="App\Document\"
+                        is_bundle="false"
+                    />
+                </odm>
             </config>
         </container>
 
@@ -305,17 +322,40 @@ here, the ODM services will not be loaded.
             'odm' => array(
                 'auto_mapping' => true,
                 'auto_generate_proxy_classes' => '%kernel.debug%',
+                'mappings' => array(
+                    # Configure document mappings 
+                    'App' => array(
+                        'mapping' => true,
+                        'type' => 'annotation',
+                        'dir' => '%kernel.root_dir%/Document',
+                        'alias' => 'App',
+                        'prefix' => 'App\Document\',
+                        'is-bundle' => false,
+                    ),
+                ),
             ),
         ));
 
-Unless you disable ``auto_mapping``, you can place your documents in the
-``Document`` folder inside your bundles and use annotations or name the
-mapping files following this schema:
-``<Bundle>/Resources/config/doctrine/<DocumentClass>.phpcr.xml`` or ``*.phpcr.yml``.
+When ``auto_mapping`` is enabled, bundles will be automatically loaded and
+attempted to resolve mappings
+
+.. tip::
+
+    For bundles, unless you disable ``auto_mapping``, you can place your
+    documents in the ``Document`` folder inside your bundles and use
+    annotations or name the mapping files following this convention:
+    ``<Bundle>/Resources/config/doctrine/<DocumentClass>.phpcr.xml`` or
+    ``*.phpcr.yml``.
 
 If ``auto_generate_proxy_classes`` is false, you need to run the
 ``cache:warmup`` command in order to have the proxy classes generated after
 you modified a document. This is usually done in production to gain some performance.
+
+For application, it is usually required to define ``mappings``. In a standard
+minimal setup, an ``App`` definition as shown in above example is required
+, which map ``App\Document\`` documents in ``src/Document`` directory.
+
+See :doc:`configuration`, for complete details.
 
 
 Registering System Node Types
