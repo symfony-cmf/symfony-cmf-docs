@@ -9,6 +9,8 @@ MediaBundle
     a generic base of common interfaces and models that allow the user to build
     media management solutions for a CMS.
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 Media can be images, binary documents (like pdf files), embedded movies,
 uploaded movies, MP3s, etc. The implementation of this bundle is **very**
 minimalistic and is focused on images and download files. If you need more
@@ -226,9 +228,6 @@ The media bundle contains a Twig extension, it contains the following functions:
               'thumbnail': {'size': [120, 60]}
            }
         }) }}" title="Download">Download</a>
-
-.. versionadded:: 1.3
-    Option `imagine_runtime_config` was introduced in MediaBundle 1.3
 
 SonataMediaBundle Integration
 -----------------------------

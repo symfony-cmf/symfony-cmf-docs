@@ -8,14 +8,13 @@ SimpleCmsBundle
     The SimpleCmsBundle provides a simplistic CMS on top of the CMF components
     and bundles.
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 While the core CMF components focus on flexibility, the simple CMS trades away
 some of that flexibility in favor of simplicity.
 
 The SimpleCmsBundle provides a solution to easily map content, routes and menu
 items based on a single tree structure in the content repository.
-
-You can find an introduction to the bundle in the
-:doc:`Getting started <../../book/simplecms>` section.
 
 The `CMF website`_ is an application using the SimpleCmsBundle.
 

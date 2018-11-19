@@ -8,9 +8,6 @@ ContentBundle
     The ContentBundle provides a document for static content and the controller
     to render any content that needs no special handling in the controller.
 
-For an introduction see the ":doc:`../../book/static_content`" article of the
-"Book" section.
-
 Installation
 ------------
 
@@ -58,16 +55,12 @@ The ContentController
 ~~~~~~~~~~~~~~~~~~~~~
 
 The ContentBundle provides a ``ContentController``. This controller can
-generically handle incoming requests and forward them to a template. This is
-usually used together with the
+generically handle incoming requests and render a content document with a
+template. This is usually used together with the
 :ref:`dynamic router <bundles-routing-dynamic_router-enhancer>`.
 
 Create the Template
 ...................
-
-In order to render the content, you need to create and configure a template.
-This can be done either by using the ``templates_by_class`` setting (see
-below) or by configuring the default template.
 
 Any template rendered by the ``ContentController`` will be passed the
 ``cmfMainContent`` variable, which contains the current ``StaticContent``
@@ -105,6 +98,10 @@ For instance, a very simple template looks like:
         <?php echo $cmfMainContent->getBody() ?>
         <?php $view['slots']->stop() ?>
 
+In order to render the content, you need to create and configure a template.
+Selecting the template can be done either by using the ``templates_by_class``
+setting or by configuring the default template.
+
 .. _bundles-content-introduction_default-template:
 
 Configuring a default template
@@ -140,9 +137,9 @@ To configure a default template, use the ``default_template`` option:
         // app/config/config.yml
 
         // ...
-        $container->loadFromExtension('cmf_content', array(
+        $container->loadFromExtension('cmf_content', [
             'default_template' => 'AppBundle:Content:static.html.twig',
-        ));
+        ]);
 
 Whenever the content controller gets called without a specified template, it
 will now use this template.
@@ -187,16 +184,16 @@ Lets assume that you want to handle ``StaticContent`` with the default
 
     .. code-block:: php
 
-        // app/config/config.yml
-
+        // app/config/config.php
+        use Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent;
         // ...
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'controller_by_class' => array(
-                    'Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent' => 'cmf_content.controller:indexAction',
-                ),
-            ),
-        ));
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'controller_by_class' => [
+                    StaticContent::class => 'cmf_content.controller:indexAction',
+                ],
+            ],
+        ]);
 
 Now everything is configured correctly, navigating to ``/hello`` results in a
 page displaying your content.
@@ -217,32 +214,12 @@ default is the ``ContentController``.
     to controllers and templates. Read more about this topic in the
     :ref:`routing configuration reference <reference-config-routing-template_by_class>`.
 
-SonataAdminBundle Integration
------------------------------
-
-The ContentBundle also provides an Admin class to enable creating, editing and
-removing static content from the admin panel. To enable the admin, use the
-``cmf_content.persistence.phpcr.use_sonata_admin`` setting. The CMF CoreBundle
-also provides :ref:`several useful extensions <bundles-core-persistence>` for
-SonataAdminBundle.
-
-.. tip::
-
-    Install the IvoryCKEditorBundle_ to enable a CKEditor to edit the content
-    body:
-
-    .. code-block:: bash
-
-        $ composer require egeloen/ckeditor-bundle
-
-    .. versionadded:: 1.3
-        IvoryCKEditorBundle integration was introduced in CmfContentBundle 1.3.
-
 Read On
 -------
 
 * :doc:`configuration`
 * :doc:`exposing_content_via_rest`
+* :doc:`Sonata Admin integration <../sonata_phpcr_admin_integration/content>`
 
 .. _`with composer`: https://getcomposer.org
 .. _`symfony-cmf/content-bundle`: https://packagist.org/packages/symfony-cmf/content-bundle

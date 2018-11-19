@@ -4,6 +4,8 @@
 Multi-Language Support
 ----------------------
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 Setting the option ``add_locale_pattern`` to ``true`` in a
 ``Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page`` document will
 result in prefixing the associated route with ``/{_locale}``. Using the native

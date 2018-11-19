@@ -1,7 +1,7 @@
 Symfony CMF Documentation
 =========================
 
-The Symfony2 Content Management Framework (CMF) project is organized by the Symfony
+The Symfony Content Management Framework (CMF) project is organized by the Symfony
 community and has several sponsoring companies and prominent open source leaders
 implementing the philosophy of the `decoupled CMS`_.
 
@@ -9,7 +9,6 @@ implementing the philosophy of the `decoupled CMS`_.
     :hidden:
 
     quick_tour/index
-    book/index
     bundles/index
     components/index
     contributing/index
@@ -30,22 +29,6 @@ Symfony CMF project.
     quick_tour/the_model
     quick_tour/the_router
     quick_tour/the_third_party_bundles
-
-Book
-----
-
-This is the Symfony CMF bible. It's the reference for any user of the CMF, who
-will typically want to keep this close at hand.
-
-.. toctree::
-    :maxdepth: 1
-
-    book/installation
-    book/simplecms
-    book/routing
-    book/database_layer
-    book/static_content
-    book/structuring_content
 
 Tutorial
 --------
@@ -98,7 +81,7 @@ Do you want to contribute to the Symfony CMF? Start reading these articles!
 :doc:`Browse the contributing guide <contributing/index>`
 
 .. _`decoupled CMS`: http://decoupledcms.org
-.. _`Symfony2`: https://symfony.com
+.. _`Symfony`: https://symfony.com
 .. _`Documentation planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
 .. _`Symfony Content Management Framework`: http://cmf.symfony.com
 .. _`documentation is hosted on github`: https://github.com/symfony-cmf/symfony-cmf-docs

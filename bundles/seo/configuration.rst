@@ -1,8 +1,8 @@
 Configuration Reference
 =======================
 
-The SeoBundle can be configured under the ``cmf_seo`` key in your application
-configuration. When using XML, you can use the
+The SeoBundle is configured under the ``cmf_seo`` key in your application
+configuration. When using XML, use the
 ``http://cmf.symfony.com/schema/dic/seo`` namespace.
 
 Configuration
@@ -42,14 +42,15 @@ Configuration
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_seo', array(
-            'persistence' => array(
-                'phpcr' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_seo', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled' => false,
                     'manager_name' => null,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``enabled``
 ***********
@@ -89,16 +90,13 @@ about the usage.
 ``original_route_pattern``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**type**: ``string`` **default**: ``canonical``
+**type**: ``string`` **default**: ``canonical`` **allowed values**: ``canonical`` | ``redirect``
 
 The original route strategy to use when multiple routes have the same content.
 Can be one of ``canonical`` or ``redirect``.
 
 ``content_listener``
 ~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 1.2
-    The ``content_listener`` configuration key was introduced in SeoBundle 1.2.
 
 ``enabled``
 """""""""""
@@ -118,15 +116,11 @@ RoutingBundle is present, this defaults to ``DynamicRouter::CONTENT_KEY``
 (which evaluates to ``contentDocument``), otherwise you must define this
 manually or disable the content listener.
 
-.. versionadded:: 1.2
-    In versions of the SeoBundle prior to 1.2, the ``content_key`` was
-    configured directly in the ``cmf_seo`` root.
-
 ``sitemap``
 ~~~~~~~~~~~
 
-.. versionadded:: 1.2
-    Support for sitemaps was introduced in version 1.2 of the SeoBundle.
+For details on the meaning of the sitemap configuration, see the
+:doc:`sitemap section <sitemap>`.
 
 .. configuration-block::
 
@@ -139,8 +133,14 @@ manually or disable the content listener.
                 defaults:
                     default_change_frequency: always
                     templates:
-                        html: CmfSeoBundle:Sitemap:index.html.twig
-                        xml: CmfSeoBundle:Sitemap:index.xml.twig
+                        html: :sitemap/index.html.twig
+                        xml: ::sitemap:index.xml.twig
+                    loaders:
+                        - _all
+                    guessers:
+                        - _all
+                    voters:
+                        - _all
                 configurations:
                     sitemap: ~
 
@@ -155,6 +155,9 @@ manually or disable the content listener.
                     <defaults>
                         <template format="html">CmfSeoBundle:Sitemap:index.html.twig</template>
                         <template format="xml">CmfSeoBundle:Sitemap:index.xml.twig</template>
+                        <loader>_all</loader>
+                        <guesser>_all</guesser>
+                        <voter>_all</voter>
                     </defaults>
                     <configuration name="sitemap"/>
                 </sitemap>
@@ -164,20 +167,23 @@ manually or disable the content listener.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_seo', array(
-            'sitemap' => array(
+        $container->loadFromExtension('cmf_seo', [
+            'sitemap' => [
                 'enabled' => true,
-                'defaults' => array(
-                    'templates' => array(
+                'defaults' => [
+                    'templates' => [
                         'html' => 'CmfSeoBundle:Sitemap:index.html.twig',
                         'xml' => 'CmfSeoBundle:Sitemap:index.xml.twig',
-                    ),
-                ),
-                'configurations' => array(
+                    ],
+                    'loaders' => ['_all'],
+                    'guessers' => ['_all'],
+                    'voters' => ['_all'],
+                ],
+                'configurations' => [
                     'sitemap' => null,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``enabled``
 """""""""""
@@ -217,58 +223,44 @@ By default, you have:
 * html: CmfSeoBundle:Sitemap:index.html.twig
 * xml: CmfSeoBundle:Sitemap:index.xml.twig
 
-``sonata_admin_extension``
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+``loaders``
+***********
 
-If set to ``true``, the Sonata Admin Extension provided by the SeoBundle is
-activated.
+**type**: ``array`` **default**: [_all]
 
-``enabled``
-"""""""""""
+Limit which of the loaders should be used for this sitemap.
 
-**type**: ``enum`` **valid values** ``true|false|auto`` **default**: ``auto``
+``guessers``
+************
 
-If ``true``, the Sonata Admin Extension will be activated. If set to ``auto``,
-it is activated only if the SonataPhpcrAdminBundle is present.
+**type**: ``array`` **default**: [_all]
 
-If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to the value
-of ``cmf_core.persistence.phpcr.use_sonata_admin``.
+``voters``
+**********
 
-``form_group``
-""""""""""""""
-
-**type**: ``string`` **default**: ``form.group_seo``
-
-The name of the form group of the group provided by the Sonata Admin
-Extension.
+**type**: ``array`` **default**: [_all]
 
 ``form``
 ~~~~~~~~
 
 ``data_class``
-"""""""""""""""
+""""""""""""""
 
 ``seo_metadata``
 ****************
-
-.. versionadded:: 1.2
-    The ``seo_metadata`` setting was introduced in version 1.2.
 
 **type**: ``string`` **default**: ``Symfony\Cmf\Bundle\SeoBundle\Model\SeoMetadata``
 
 Configures the class to use when creating new ``SeoMetadata`` objects using the
 :ref:`SeoMetadata form type <bundles-seo-metadata-form-type>`.
 
-When the `phpcr`_ persistence layer is enabled, this defaults to
-``Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoMetadata``.
+When the :doc:`PHPCR-ODM <../phpcr_odm/introduction>` persistence layer is enabled,
+this defaults to ``Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoMetadata``.
 
 .. _bundles-seo-config-error:
 
 error
 ~~~~~
-
-.. versionadded:: 1.2
-    The ``error`` settings were introduced in SeoBundle 1.2.
 
 .. seealso::
 
@@ -346,19 +338,16 @@ routes, use:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_seo', array(
-            'error' => array(
-                'exclusion_rules' => array(
-                    array('path' => '^/admin'),
-                ),
-            ),
-        ));
+        $container->loadFromExtension('cmf_seo', [
+            'error' => [
+                'exclusion_rules' => [
+                    ['path' => '^/admin'],
+                ],
+            ],
+        ]);
 
 ``alternate_locale``
 ~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 1.1
-    Support for alternate locales was added in version 1.1 of the SeoBundle.
 
 .. configuration-block::
 
@@ -382,12 +371,13 @@ routes, use:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_seo', array(
-            'alternate_locale' => array (
+        // app/config/config.php
+        $container->loadFromExtension('cmf_seo', [
+            'alternate_locale' => [
                 'enabled' => true,
                 'provider_id' => app.alternate_locale.provider,
-            ),
-        ));
+            ],
+        ]);
 
 ``enabled``
 """""""""""

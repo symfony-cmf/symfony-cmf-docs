@@ -1,11 +1,11 @@
 Cache
 =====
 
-The Symfony2 CMF BlockBundle integrates with the `SonataCacheBundle`_ to
+The CmfBlockBundle integrates with the `SonataCacheBundle`_ to
 provide several caching solutions. Have a look at the available adapters in the
 `SonataCacheBundle`_ to see all options.
 
-The Symfony2 CMF BlockBundle additionally provides its own adapters for:
+The CmfBlockBundle additionally provides its own adapters for:
 
 * `ESI`_ (service: ``cmf.block.cache.varnish``)
 * `SSI`_ (service: ``cmf.block.cache.ssi``)
@@ -15,7 +15,7 @@ The Symfony2 CMF BlockBundle additionally provides its own adapters for:
 .. note::
 
   It is advised to store all settings in the block document when using cache.
-  See also :ref:`bundle-block-cache-rendering`.
+  See also :ref:`bundles-block-cache-rendering`.
 
 Dependencies
 ------------
@@ -119,7 +119,7 @@ CmfBlockBundle and the SonataBlockBundle:
                     ),
                 ),
                 'blocks_by_class' => array(
-                    'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock' => array(
+                    Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock::class => array(
                             'cache' => 'symfony_cmf.block.cache.js_async',
                         ),
                     ),
@@ -133,8 +133,7 @@ When a block having a cache configured is rendered, the following process
 is triggered:
 
 * The document is loaded based on the name;
-* If caching is configured, the cache is checked and content is returned if
-  found.
+* The cache is checked and content is returned if found.
 
   * Cache keys are computed using:
 
@@ -165,7 +164,7 @@ If the cache is checked and the cache adapter returned that no cache was found,
 the workflow proceeds like this:
 
 * The block service is asked to render the block
-  :ref:`as usual <bundle-block-execute>`;
+  :ref:`as usual <bundles-block-execute>`;
 * If the ``Response`` is cacheable, the configured adapter creates a cache
   element containing:
 
@@ -179,7 +178,7 @@ the workflow proceeds like this:
 Cache Keys
 ----------
 
-It is the responsibility of the :ref:`block service <bundle-block-service>` to generate the cache keys in
+It is the responsibility of the :ref:`block service <bundles-block-service>` to generate the cache keys in
 the method ``getCacheKeys``.
 
 The block services shipped with the Symfony CMF BlockBunde use the
@@ -220,7 +219,7 @@ The BlockBundle also has a cache invalidation listener that calls the
 ``flush`` method of a cache adapter automatically when a cached block document
 is updated or removed.
 
-.. _bundle-block-cache-rendering:
+.. _bundles-block-cache-rendering:
 
 Block Rendering
 ---------------
@@ -258,7 +257,7 @@ When using the Esi, Ssi or Js cache adapters, the settings passed here are remem
     .. code-block:: jinja
 
         {{ sonata_block_render({ 'name': 'rssBlock' }, {
-            'title': 'Symfony2 CMF news',
+            'title': 'Symfony CMF news',
             'url': 'http://cmf.symfony.com/news.rss',
             'maxItems': 2
         }) }}
@@ -268,7 +267,7 @@ When using the Esi, Ssi or Js cache adapters, the settings passed here are remem
         <?php echo $view['blocks']->render(array(
             'name' => 'rssBlock',
         ), array(
-            'title'    => 'Symfony2 CMF news',
+            'title'    => 'Symfony CMF news',
             'url'      => 'http://cmf.symfony.com/news.rss',
             'maxItems' => 2,
         )) ?>

@@ -15,21 +15,18 @@ This can be used to evaluate the platform or to see actual code in action,
 helping you understand the tool's internals.
 
 While it can be used as such, this sandbox does not intend to be a development
-platform. If you are looking for installation instructions for a development
-setup, please refer to:
-
-* :doc:`../../book/installation` page for instructions on
-  how to quickly install the CMF (recommended for development)
-* :doc:`cmf_core` for step-by-step installation and
-  configuration details (if you want to know all the details)
+platform. For a development setup, better set up a Symfony project starting
+from the `Symfony CMF Standard Edition`_ and then see `cmf_core` for
+step-by-step installation and configuration details (if you want to know all
+the details).
 
 .. index:: sandbox, install
 
 Requirements
 ------------
 
-As Symfony CMF Sandbox is based on Symfony2, you should make sure you meet the
-`Requirements for running Symfony2`_. `Git 1.6+`_. The ``php-intl`` extension is
+As Symfony CMF Sandbox is based on Symfony, you should make sure you meet the
+`Requirements for running Symfony`_. `Git 1.6+`_. The ``php-intl`` extension is
 also needed to follow the installation steps listed below.
 
 Installation
@@ -115,7 +112,7 @@ run:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:database:create
+    $ php bin/console doctrine:database:create
 
 If you don't have sqlite, you can specify ``pdo_mysql`` or ``pdo_pgsql`` and
 provide the database name and login credentials to use.
@@ -124,14 +121,14 @@ Then you have to set up your database with:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:init:dbal
+    $ php bin/console doctrine:phpcr:init:dbal --force
 
 Once your database is set up, you need to `register the node types`_ for
 phpcr-odm:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:repository:init
+    $ php bin/console doctrine:phpcr:repository:init
 
 Import the Fixtures
 ~~~~~~~~~~~~~~~~~~~
@@ -141,7 +138,7 @@ They are loaded using the fixture loading concept of PHPCR-ODM.
 
 .. code-block:: bash
 
-    $ php app/console -v doctrine:phpcr:fixtures:load
+    $ php bin/console -v doctrine:phpcr:fixtures:load
 
 This command loads fixtures from all bundles that provide them in the
 ``DataFixtures/PHPCR`` folder. The sandbox has fixtures in the
@@ -162,11 +159,12 @@ doctrine proxies and dump the Assetic assets:
 
 .. code-block:: text
 
-    $ php app/console cache:clear --env=prod --no-debug
-    $ php app/console assetic:dump --env=prod --no-debug
+    $ php bin/console cache:clear --env=prod --no-debug
+    $ php bin/console assetic:dump --env=prod --no-debug
 
+.. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/standard-edition/
 .. _`Composer`: https://getcomposer.org
 .. _`CMF sandbox github repository`: https://github.com/symfony-cmf/cmf-sandbox
-.. _`Requirements for running Symfony2`: https://symfony.com/doc/current/reference/requirements.html
+.. _`Requirements for running Symfony`: https://symfony.com/doc/current/reference/requirements.html
 .. _`Git 1.6+`: https://git-scm.com/
 .. _`register the node types`: https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged

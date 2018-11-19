@@ -36,7 +36,7 @@ And clear your cache:
 
 .. code-block:: bash
 
-    $ php app/console cache:clear
+    $ php bin/console cache:clear
 
 Now you can call the method ``getRoutes`` on either ``Page`` or ``Post`` and retrieve all the
 routes which refer to that document ... pretty cool!

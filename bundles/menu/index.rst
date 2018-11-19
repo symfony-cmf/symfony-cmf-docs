@@ -9,5 +9,4 @@ MenuBundle
     menu_factory
     menu_provider
     voters
-    sonata_admin
     configuration

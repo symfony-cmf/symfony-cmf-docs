@@ -62,10 +62,7 @@ following methods::
             $routes = $this->routeRepository->findAll();
 
             $collection = new RouteCollection();
-            if (0 === count($routes)) {
-                return $collection; // an empty collection means no routes found
-            }
-
+            
             foreach ($routes as $route) {
                 $collection->add($route->getName(), $route);
             }

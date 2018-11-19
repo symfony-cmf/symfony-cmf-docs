@@ -15,7 +15,7 @@ Configuration
 .. tip::
 
     You can also configure multiple session. See
-    :doc:`../phpcr_odm/multiple_sessions` for details.
+    :doc:`multiple_sessions` for details.
 
 .. configuration-block::
 
@@ -63,25 +63,25 @@ Configuration
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'backend' => [
                     'type' => 'X',
-                    'parameters' => array(
+                    'parameters' => [
                         'jackalope.factory'                => 'Jackalope\Factory',
                         'jackalope.check_login_on_server'  => false,
                         'jackalope.disable_stream_wrapper' => false,
                         'jackalope.auto_lastmodified'      => true,
-                    ),
-                ),
+                    ],
+                ],
                 'workspace' => 'default',
                 'username'  => 'admin',
                 'password'  => 'admin',
-                'options'   => array(
+                'options'   => [
                     'jackalope.fetch_depth' => 1,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``workspace``
 """""""""""""
@@ -95,7 +95,7 @@ Defines the PHPCR workspace to use for this PHPCR session.
     Every PHPCR implementation should provide the workspace called *default*,
     but you can choose a different one. There is the
     ``doctrine:phpcr:workspace:create`` command to initialize a new workspace.
-    See also :ref:`bundle-phpcr-odm-commands`.
+    See also :ref:`bundles-phpcr-odm-commands`.
 
 ``username and password``
 """""""""""""""""""""""""
@@ -128,18 +128,6 @@ parameters. This section explains the general parameters that are
 available with all Jackalope backends. You can also
 :ref:`activate logging and profiling <reference-configuration-phpcr-odm-logging>`.
 
-.. versionadded:: 1.1
-    Since DoctrinePhpcrBundle 1.1, backend configuration flags are configured
-    in the ``parameters`` section. They are passed as-is to Jackalope. See the
-    ``RepositoryFactory`` for some more documentation on the meaning of those
-    parameters.
-
-    For backwards compatibility reason, the options on ``backend`` for
-    ``check_login_on_server``, ``disable_stream_wrapper`` and
-    ``disable_transactions`` still work, but it is recommended to move them
-    into the parameters section with the ``jackalope.`` part in front of them.
-    Note that only Jackalope Doctrine Dbal supports transactions.
-
 ``jackalope.factory``
 .....................
 
@@ -154,11 +142,6 @@ Use a custom factory class for Jackalope objects.
 
 If set to ``false``, skip initial check whether repository exists. You will
 only notice connectivity problems on the first attempt to use the repository.
-
-.. versionadded:: 1.3.1
-   In version 1.2 and 1.3.0 of the DoctrinePhpcrBundle, the default value depends
-   on ``%kernel.debug%``. We recommend setting the value to false to avoid
-   bootstrapping issues.
 
 ``jackalope.disable_stream_wrapper``
 ....................................
@@ -185,9 +168,6 @@ See `last modified listener cookbook entry`_.
 If you are using one of the Jackalope Jackrabbit backend, you can set
 the curl options which are described in the php-documentation
 `curl-setopt`_.
-
-.. versionadded:: 1.3
-    Since jackalope-jackrabbit 1.3, curl-options can be configured.
 
 PHPCR Session with Jackalope Jackrabbit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -233,18 +213,18 @@ PHPCR Session with Jackalope Jackrabbit
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'backend' => [
                     'type' => 'jackrabbit',
                     'url'  => 'http://localhost:8080/server/',
-                    'parameters' => array(
+                    'parameters' => [
                         'jackalope.default_header'    => 'X-ID: %serverid%',
                         'jackalope.jackrabbit_expect' => true,
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 ``url``
 """""""
@@ -327,24 +307,24 @@ supported by Doctrine.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'backend' => [
                     'type'       => 'doctrinedbal',
                     'connection' => 'default',
-                    'caches' => array(
+                    'caches' => [
                         'meta'  => 'doctrine_cache.providers.phpcr_meta'
                         'nodes' => 'doctrine_cache.providers.phpcr_nodes'
-                    ),
-                    'parameters' => array(
+                    ],
+                    'parameters' => [
                         // ... general parameters and options
 
                         // optional parameters specific to Jackalope Doctrine Dbal
                         'jackalope.disable_transactions' => false,
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 ``connection``
 """"""""""""""
@@ -353,7 +333,7 @@ supported by Doctrine.
 
 Specify the Doctrine DBAL connection name to use if you don't want to use the
 default connection. The name must be one of the names of the ``doctrine.dbal``
-section of your Doctrine configuration, see the `Symfony2 Doctrine documentation`_.
+section of your Doctrine configuration, see the `Symfony Doctrine documentation`_.
 
 ``jackalope.disable_transactions``
 """"""""""""""""""""""""""""""""""
@@ -372,7 +352,7 @@ Logging and Profiling
 ~~~~~~~~~~~~~~~~~~~~~
 
 When using any of the Jackalope PHPCR implementations, you can activate logging
-to log to the symfony log, or profiling to show information in the Symfony2
+to log to the symfony log, or profiling to show information in the Symfony
 debug toolbar:
 
 .. configuration-block::
@@ -408,15 +388,15 @@ debug toolbar:
     .. code-block:: php
 
         // app/config/config.yml
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'backend' => [
                     // ...
                     'logging'   => true,
                     'profiling' => true,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 Doctrine PHPCR-ODM Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -434,7 +414,7 @@ not configure anything here, the ODM services will not be loaded.
 .. tip::
 
     You can also configure multiple document managers. See
-    :doc:`../phpcr_odm/multiple_sessions` for details.
+    :doc:`multiple_sessions` for details.
 
 .. configuration-block::
 
@@ -511,29 +491,29 @@ not configure anything here, the ODM services will not be loaded.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'odm' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'odm' => [
                 'configuration_id'            => null,
                 'auto_mapping'                => true,
                 'auto_generate_proxy_classes' => '%kernel.debug%',
                 'proxy-dir'                   => '%kernel.cache_dir%/doctrine/PHPCRProxies',
                 'proxy_namespace'             => 'PHPCRProxies',
-                'namespaces' => array(
-                    'translation' => array(
+                'namespaces' => [
+                    'translation' => [
                         'alias' => 'phpcr_locale',
-                    ),
-                ),
-                'mappings' => array(
-                    '<name>' => array(
+                    ],
+                ],
+                'mappings' => [
+                    '<name>' => [
                         'mapping'   => true,
                         'type'      => null,
                         'dir'       => null,
                         'alias'     => null,
                         'prefix'    => null,
                         'is-bundle' => null,
-                    ),
-                ),
-                'metadata_cache_driver' => array(
+                    ],
+                ],
+                'metadata_cache_driver' => [
                     'type'           => 'array',
                     'host'           => null,
                     'port'           => null,
@@ -541,9 +521,9 @@ not configure anything here, the ODM services will not be loaded.
                     'class'          => null,
                     'id'             => null,
                     'namespace'      => null,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 ``configuration_id``
 """"""""""""""""""""
@@ -558,8 +538,8 @@ The service to use as base for building the PHPCR-ODM configuration.
 **type**: ``boolean``, **default**: ``true``
 
 When enabled, you can place your mappings in
-``<Bundle>/Resources/config/doctrine/<Document>.phpcr.xml`` resp. ``*.phpcr.yml``
-to configure mappings for documents you provide in the ``<Bundle>/Document``
+``<App|Bundle>/Resources/config/doctrine/<Document>.phpcr.xml`` resp. ``*.phpcr.yml``
+to configure mappings for documents you provide in the ``<App|Bundle>/Document``
 folder. Otherwise you need to manually configure the mappings section.
 
 ``auto_generate_proxy_classes``
@@ -639,10 +619,10 @@ General Settings
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
+        $container->loadFromExtension('doctrine_phpcr', [
             'jackrabbit_jar'       => '/path/to/jackrabbit.jar',
             'dump_max_line_length' => 120,
-        ));
+        ]);
 
 ``jackrabbit_jar``
 """"""""""""""""""
@@ -659,7 +639,7 @@ Absolute path to the jackrabbit jar file. If this is set, you can use the
 
 For tuning the output of the ``doctrine:phpcr:dump`` command.
 
-.. _`Symfony2 Doctrine documentation`: https://symfony.com/doc/current/book/doctrine.html
+.. _`Symfony Doctrine documentation`: https://symfony.com/doc/current/doctrine.html
 .. _`last modified listener cookbook entry`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/cookbook/last-modified.html
 .. _`Doctrine ORM`: https://symfony.com/doc/current/reference/configuration/doctrine.html#caching-drivers
 .. _`curl-setopt`: http://php.net/manual/de/function.curl-setopt.php

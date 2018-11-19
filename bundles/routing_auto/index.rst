@@ -8,4 +8,6 @@ RoutingAutoBundle
     token_providers
     conflict_resolvers
     defunct_route_handlers
-
+    definitions
+    adapter
+    configuration

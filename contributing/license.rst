@@ -1,13 +1,13 @@
 Licensing
 =========
 
-The Symfony2 CMF aims to provide liberal open source licenses for its entire stack.
+The Symfony CMF aims to provide liberal open source licenses for its entire stack.
 
 Code
 ----
 
 The code stack is covered by the `Apache license`_ for Jackalope and PHPCR,
-the rest of the stack, notably the Symfony2 code, PHPCR-ODM, create.js and
+the rest of the stack, notably the Symfony code, PHPCR-ODM, create.js and
 Hallo.js are `MIT licensed`_. Please refer to the relevant LICENSE files in
 the given source packages.
 

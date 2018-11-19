@@ -1,6 +1,8 @@
 LiipImagine
 ===========
 
+.. include:: ../../_partials/unmaintained.rst.inc
+
 For LiipImagine, a data loader is included:
 ``Symfony\Cmf\Bundle\MediaBundle\Adapter\LiipImagine\CmfMediaDoctrineLoader``.
 It will work for all image object implementing

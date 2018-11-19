@@ -6,11 +6,11 @@ Dynamic Router
 
 This implementation of a router is configured to load routes from a
 ``RouteProviderInterface``. This interface can be easily implemented with
-Doctrine for example. See the :ref:`following section <bundle-routing-document>`
+Doctrine for example. See the :ref:`following section <bundles-routing-document>`
 for more details about the default `PHPCR-ODM`_ provider and
-:ref:`further below <bundle-routing-entity>` for the Doctrine ORM
+:ref:`further below <bundles-routing-entity>` for the Doctrine ORM
 based implementation. If those do not match your needs, you can
-:ref:`build your own route provider <bundle-routing-custom_provider>`.
+:ref:`build your own route provider <bundles-routing-custom_provider>`.
 
 You can configure the route enhancers that decide what controller is used to
 handle the request, to avoid hard coding controller names into your route
@@ -68,27 +68,27 @@ routers.
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('cmf_routing', array(
-            'chain' => array(
-                'routers_by_id' => array(
+        $container->loadFromExtension('cmf_routing', [
+            'chain' => [
+                'routers_by_id' => [
                     'router.default' => 200,
                     'cmf_routing.dynamic_router' => 100,
-                ),
-            ),
-            'dynamic' => array(
-                'persistence' => array(
-                    'phpcr' => array(
+                ],
+            ],
+            'dynamic' => [
+                'persistence' => [
+                    'phpcr' => [
                         'enabled' => true,
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
 
 When there is no configuration or ``cmf_routing.dynamic.enabled`` is set to
 ``false``, the dynamic router services will not be loaded at all, allowing
 you to use the ``ChainRouter`` with your own routers.
 
-.. _bundle-routing-dynamic-match:
+.. _bundles-routing-dynamic-match:
 
 Match Process
 -------------
@@ -106,7 +106,8 @@ not need any logic.
 
 A custom controller action can look like this::
 
-    namespace Acme\DemoBundle\Controller;
+    // src/AppBundle/Controller/ContentController.php
+    namespace AppBundle\Controller;
 
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -119,7 +120,7 @@ A custom controller action can look like this::
         /**
          * @param object $contentDocument the name of this parameter is defined
          *      by the RoutingBundle. You can also expect any route parameters
-         *      or $contentTemplate if you configured templates_by_class (see below).
+         *      or $template if you configured templates_by_class (see below).
          *
          * @return Response
          */
@@ -128,10 +129,10 @@ A custom controller action can look like this::
             // ... do things with $contentDocument and gather other information
             $customValue = 42;
 
-            return $this->render('AcmeDemoBundle:Content:demo.html.twig', array(
+            return $this->render('content/demo.html.twig', [
                 'cmfMainContent' => $contentDocument,
                 'custom_parameter' => $customValue,
-            ));
+            ]);
         }
     }
 
@@ -194,10 +195,10 @@ controllers default to the ``ContentController`` provided by that bundle.
 .. tip::
 
     You can also define your own ``RouteEnhancer`` classes for specific use
-    cases. See :ref:`bundle-routing-customize`. Use the priority to insert your
+    cases. See :ref:`bundles-routing-customize`. Use the priority to insert your
     enhancers in the correct order.
 
-.. _bundle-routing-document:
+.. _bundles-routing-document:
 
 Doctrine PHPCR-ODM Integration
 ------------------------------
@@ -240,7 +241,7 @@ All routes are located under a configured root path, for example
     $route->setName('projects');
 
     // set explicit controller (both service and Bundle:Name:action syntax work)
-    $route->setDefault('_controller', 'sandbox_main.controller:specialAction');
+    $route->setDefault('_controller', 'app.controller:specialAction');
 
 The above example should probably be done as a route configured in a Symfony
 configuration file, unless the end user is supposed to change the URL
@@ -288,7 +289,7 @@ a parameter, make them part of the variable pattern::
 .. note::
 
     The ``RouteDefaultsValidator`` validates the route defaults parameters.
-    For more information, see :ref:`bundle-routing-route-defaults-validator`.
+    For more information, see :ref:`bundles-routing-route-defaults-validator`.
 
 With the above example, your controller can expect both the ``$id`` parameter
 as well as the ``$contentDocument`` if you set a content on the route and have
@@ -304,7 +305,7 @@ omit setting a content document on the route document.
     per locale, all referencing the same multilingual content instance. The
     ``ContentAwareGenerator`` respects the ``_locale`` when generating routes
     from content instances. When resolving the route, the ``_locale`` gets
-    into the request and is picked up by the Symfony2 locale system.
+    into the request and is picked up by the Symfony locale system.
 
     Make sure you configure the valid locales in the configuration so that the
     bundle can optimally handle locales. The
@@ -321,80 +322,7 @@ omit setting a content document on the route document.
     create one route per language for the same content. The route generator will
     pick the correct route if available.
 
-Sonata Doctrine PHPCR-ODM Admin classes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If the SonataDoctrinePHPCRAdminBundle_ is loaded in the application kernel,
-route and redirect route documents can be administrated in sonata admin. For
-instructions on how to configure Sonata, see `configuring sonata admin`_.
-
-By default, ``use_sonata_admin`` is automatically set based on whether
-SonataDoctrinePHPCRAdminBundle is available, but you can explicitly
-disable it to not have it even if sonata is enabled, or explicitly enable to
-get an error if Sonata becomes unavailable.
-
-Sonata admin is using the ``content_basepath`` to show the tree of content to
-select the route target.
-
-The root path to add Routes defaults to the first entry in ``route_basepaths``,
-but you can overwrite this with the ``admin_basepath`` if you need a different
-base path.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        cmf_routing:
-            dynamic:
-                persistence:
-                    phpcr:
-                        # use true/false to force using / not using sonata admin
-                        use_sonata_admin: auto
-
-                        # used with Sonata Admin to manage content; defaults to %cmf_core.basepath%/content
-                        content_basepath: ~
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://cmf.symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-            <config xmlns="http://cmf.symfony.com/schema/dic/routing">
-                <dynamic>
-                    <persistence>
-                        <!-- use-sonata-admin: use true/false to force using / not using sonata admin -->
-                        <!-- content-basepath: used with Sonata Admin to manage content;
-                                               defaults to %cmf_core.basepath%/content -->
-                        <phpcr
-                            use-sonata-admin="auto"
-                            content-basepath="null"
-                        />
-                    </persistence>
-                </dynamic>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'persistence' => array(
-                    'phpcr' => array(
-                        // use true/false to force using / not using sonata admin
-                        'use_sonata_admin' => 'auto',
-
-                        // used with Sonata Admin to manage content; defaults to %cmf_core.basepath%/content
-                        'content_basepath' => null,
-                    ),
-                ),
-            ),
-        ));
-
-.. _bundle-routing-entity:
+.. _bundles-routing-entity:
 
 Doctrine ORM integration
 ------------------------
@@ -408,6 +336,152 @@ the name indicates, loads ``Route`` entities from an ORM database.
     You must install the CoreBundle to use this feature if your application
     does not have at least DoctrineBundle 1.3.0.
 
+.. _bundles-routing-route-entity:
+
+The ORM Route entity
+--------------------
+
+The example in this section applies if you use the ORM route provider
+(``Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider``). It uses the
+``staticPrefix`` field of the
+``Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route`` to find route candidates.
+
+Symfony Cmf routing system allows us loading whatever content from a route. That
+means an entity route can reference to different types of entities. But Doctrine
+ORM is not able to establish that kind of mapping associations. To do that, the
+ORM RouteProvider follows the pattern of ``FQN:id``. That is, the full model
+class name, then a colon, then the id. You only need to add it to the defaults
+parameters of the route with the ``RouteObjectInterface::CONTENT_ID`` key.
+``cmf_routing.content_repository`` service can help you to do it easily. A new
+route can be created in PHP code as follows::
+
+    // src/AppBundle/DataFixtures/ORM/LoadPostData.php
+    namespace AppBundle\DataFixtures\ORM;
+
+    use AppBundle\Entity\Post;
+    use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\Persistence\ObjectManager;
+    use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route;
+    use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+    use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+    use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+
+    class LoadPostData implements FixtureInterface, ContainerAwareInterface
+    {
+        use ContainerAwareTrait;
+
+        /**
+         * @param ObjectManager $manager
+         */
+        public function load(ObjectManager $manager)
+        {
+            $post = new Post();
+            $post->setTitle('My Content');
+            $manager->persist($post);
+            $manager->flush(); // flush to be able to use the generated id
+
+            $contentRepository = $this->container->get('cmf_routing.content_repository');
+
+            $route = new Route();
+            $route->setName('my-content');
+            $route->setStaticPrefix('/my-content');
+            $route->setDefault(RouteObjectInterface::CONTENT_ID, $contentRepository->getContentId($post));
+            $route->setContent($post);
+            $post->addRoute($route); // Create the backlink from content to route
+
+            $manager->persist($post);
+            $manager->flush();
+        }
+    }
+
+Now the CMF will be able to handle requests for the URL ``/my-content``.
+
+.. caution::
+
+    Make sure that the content already has an id before you set it on the route.
+    The route to content link only works with single column ids.
+
+The ``Post`` entity content in this example could be like this::
+
+    // src/AppBundle/Entity/Post.php
+    namespace AppBundle\Entity;
+
+    use Doctrine\Common\Collections\ArrayCollection;
+    use Doctrine\ORM\Mapping as ORM;
+    use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+    use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
+
+    /**
+     * @ORM\Table(name="post")
+     * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
+     */
+    class Post implements RouteReferrersInterface
+    {
+        /** .. fields like title and body */
+
+        /**
+         * @var RouteObjectInterface[]|ArrayCollection
+         *
+         * @ORM\ManyToMany(targetEntity="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route", cascade={"persist", "remove"})
+         */
+        private $routes;
+
+        public function __construct()
+        {
+            $this->routes = new ArrayCollection();
+        }
+
+        /**
+         * @return RouteObjectInterface[]|ArrayCollection
+         */
+        public function getRoutes()
+        {
+            return $this->routes;
+        }
+
+        /**
+         * @param RouteObjectInterface[]|ArrayCollection $routes
+         */
+        public function setRoutes($routes)
+        {
+            $this->routes = $routes;
+        }
+
+        /**
+         * @param RouteObjectInterface $route
+         *
+         * @return $this
+         */
+        public function addRoute($route)
+        {
+            $this->routes[] = $route;
+
+            return $this;
+        }
+
+        /**
+         * @param RouteObjectInterface $route
+         *
+         * @return $this
+         */
+        public function removeRoute($route)
+        {
+            $this->routes->removeElement($route);
+
+            return $this;
+        }
+    }
+
+Because you set the ``content_id`` default value on the route, the controller
+can expect the ``$contentDocument`` parameter. You can now configure which
+template or which special controller should handle ``Post`` entities with the
+``templates_by_type`` resp. ``controllers_by_type`` configuration as explained
+in :doc:`configuration`.
+
+The ORM routes support more things, for example route parameters, requirements
+and defaults. This is explained in the
+:ref:`route document section <bundles-routing-document>`.
+
 .. _bundles-routing-dynamic-generator:
 
 URL generation with the DynamicRouter
@@ -416,7 +490,7 @@ URL generation with the DynamicRouter
 Apart from matching an incoming request to a set of parameters, a Router is
 also responsible for generating an URL from a route and its parameters. The
 ``DynamicRouter`` adds more power to the
-`URL generating capabilities of Symfony2`_.
+`URL generating capabilities of Symfony`_.
 
 .. tip::
 
@@ -508,9 +582,9 @@ an empty route name and tries to find a content implementing the
     .. code-block:: html+php
 
         <!-- $myContent implements RouteReferrersInterface -->
-        <a href="<?php echo $view['router']->generate(null, array(
+        <a href="<?php echo $view['router']->generate(null, [
             'content_id' => '/cms/content/my-content',
-        )) ?>">
+        ]) ?>">
             Home
         </a>
 
@@ -573,129 +647,16 @@ documents. You need to configure the route enhancer for this interface:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_routing', array(
-            'dynamic' => array(
-                'controllers_by_class' => array(
-                    'Symfony\Cmf\Bundle\Routing\RedirectRouteInterface' => 'cmf_routing.redirect_controller:redirectAction',
-                ),
-            ),
-        ));
-
-RouteReferrersInterface Sonata Admin Extension
-----------------------------------------------
-
-This bundle provides an extension to edit referring routes for content that
-implements the ``RouteReferrersInterface``.
-
-To enable the extensions in your admin classes, simply define the extension
-configuration in the ``sonata_admin`` section of your project configuration:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        sonata_admin:
-            # ...
-            extensions:
-                cmf_routing.admin_extension.route_referrers:
-                    implements:
-                        - Symfony\Cmf\Component\Routing\RouteReferrersInterface
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <config xmlns="http://sonata-project.org/schema/dic/admin">
-            <!-- ... -->
-            <extension id="cmf_routing.admin_extension.route_referrers">
-                <implement>Symfony\Cmf\Component\Routing\RouteReferrersInterface</implement>
-            </extension>
-        </config>
-
-    .. code-block:: php
-
         // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
-            'extensions' => array(
-                'cmf_routing.admin_extension.route_referrers' => array(
-                    'implements' => array(
-                        'Symfony\Cmf\Component\Routing\RouteReferrersInterface',
-                    ),
-                ),
-            ),
-        ));
+        use Symfony\Cmf\Bundle\Routing\RedirectRouteInterface;
 
-See the `Sonata Admin extension documentation`_ for more information.
-
-FrontendLink Sonata Admin Extension
------------------------------------
-
-This bundle provides an extension to show a button in Sonata Admin, which links on the actual
-frontend representation of a document. Documents which implement the ``RouteReferrersReadInterface``
-and Routes itself (``Symfony\Component\Routing\Route``) are supported.
-
-To enable the extension in your admin classes, simply define the extension
-configuration in the ``sonata_admin`` section of your project configuration:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        sonata_admin:
-            # ...
-            extensions:
-                cmf_routing.admin_extension.frontend_link:
-                    implements:
-                        - Symfony\Cmf\Component\Routing\RouteReferrersReadInterface
-                    extends:
-                        - Symfony\Component\Routing\Route
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <config xmlns="http://sonata-project.org/schema/dic/admin">
-            <!-- ... -->
-            <extension id="cmf_routing.admin_extension.frontend_link">
-                <implement>Symfony\Cmf\Component\Routing\RouteReferrersReadInterface</implement>
-                <extend>Symfony\Component\Routing\Route</extend>
-            </extension>
-        </config>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
-            'extensions' => array(
-                'cmf_routing.admin_extension.frontend_link' => array(
-                    'implements' => array(
-                        'Symfony\Cmf\Component\Routing\RouteReferrersReadInterface',
-                    ),
-                    'extends' => array(
-                        'Symfony\Component\Routing\Route',
-                    ),
-                ),
-            ),
-        ));
-
-See the `Sonata Admin extension documentation`_ for more information.
-
-Styling
-~~~~~~~
-
-Feel free to use your own styles. The frontend link button can be customized
-using the following example CSS rules:
-
-.. code-block:: css
-
-    .sonata-admin-menu-item a.sonata-admin-frontend-link {
-        font-weight: bold;
-    }
-
-    .sonata-admin-menu-item a.sonata-admin-frontend-link:before {
-        font-family: FontAwesome;
-        content: "\f08e";
-    }
+        $container->loadFromExtension('cmf_routing', [
+            'dynamic' => [
+                'controllers_by_class' => [
+                    RedirectRouteInterface::class => 'cmf_routing.redirect_controller:redirectAction',
+                ],
+            ],
+        ]);
 
 Customize the DynamicRouter
 ---------------------------
@@ -706,8 +667,5 @@ Read on in the chapter :doc:`customizing the dynamic router <dynamic_customize>`
 .. _`CMF Routing component`: https://github.com/symfony-cmf/Routing
 .. _`Doctrine ORM`: http://www.doctrine-project.org/projects/orm.html
 .. _`PHPCR-ODM`: http://www.doctrine-project.org/projects/phpcr-odm.html
-.. _`Sonata Admin extension documentation`: https://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
-.. _`URL generating capabilities of Symfony2`: https://symfony.com/doc/current/book/routing.html#generating-urls
-.. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
-.. _`configuring sonata admin`: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/reference/configuration.html
+.. _`URL generating capabilities of Symfony`: https://symfony.com/doc/current/routing.html#generating-urls
 .. _`FOSJsRoutingBundle`: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle

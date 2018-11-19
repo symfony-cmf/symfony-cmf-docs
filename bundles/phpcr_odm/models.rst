@@ -1,29 +1,9 @@
 .. index::
-    single: Database Layer
-    single: PHPCR-ODM
+    single: PHPCR; Bundles
+    single: DoctrinePHPCRBundle
 
-The Database Layer: PHPCR-ODM
-=============================
-
-The Symfony CMF is storage layer agnostic, meaning that it can work with many
-storage layers. By default, the Symfony CMF works with the `Doctrine PHPCR-ODM`_.
-In this chapter, you will learn how to work with the Doctrine PHPCR-ODM.
-
-.. tip::
-
-    Read more about choosing the correct storage layer in
-    :doc:`../cookbook/database/choosing_storage_layer`
-
-.. note::
-
-    This chapter assumes you are using a Symfony setup with PHPCR-ODM already
-    set up, like the :doc:`CMF Standard Edition <installation>`  or the
-    :doc:`CMF sandbox <../cookbook/editions/cmf_sandbox>`. See
-    :doc:`../bundles/phpcr_odm/introduction` for how to set up PHPCR-ODM in
-    your applications.
-
-PHPCR: A Tree Structure
------------------------
+Modeling Data with PHPCR-ODM
+============================
 
 The Doctrine PHPCR-ODM is a doctrine object-mapper on top of the
 `PHP Content Repository`_ (PHPCR), which is a PHP adaption of the
@@ -43,7 +23,7 @@ multi-language support.
 
     In order to let the Doctrine PHPCR-ODM communicate with the PHPCR, a PHPCR
     implementation is needed. See
-    ":doc:`../cookbook/database/choosing_phpcr_implementation`" for an overview
+    ":doc:`../../cookbook/database/choosing_phpcr_implementation`" for an overview
     of the available implementations.
 
 A Simple Example: A Task
@@ -59,8 +39,8 @@ Creating a Document Class
 Without thinking about Doctrine or PHPCR-ODM, you can create a ``Task`` object
 in PHP::
 
-    // src/Acme/TaskBundle/Document/Task.php
-    namespace Acme\TaskBundle\Document;
+    // src/App/Document/Task.php
+    namespace use App\Document;
 
     class Task
     {
@@ -77,8 +57,8 @@ Doctrine PHPCR-ODM yet - it's just a simple PHP class.
 .. note::
 
     A Document is analogous to the term ``Entity`` employed by the Doctrine
-    ORM.  You must add this object to the ``Document`` sub-namespace of you
-    bundle, in order register the mapping data automatically.
+    ORM.  To have the mapping happen automatically, place your documents in the
+    ``Document`` namespace within your application.
 
 Add Mapping Information
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -98,8 +78,8 @@ class via annotations:
 
     .. code-block:: php-annotations
 
-        // src/Acme/TaskBundle/Document/Task.php
-        namespace Acme\TaskBundle\Document;
+        // src/App/Document/Task.php
+        namespace App\Document;
 
         use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
@@ -131,8 +111,8 @@ class via annotations:
 
     .. code-block:: yaml
 
-        # src/Acme/TaskBundle/Resources/config/doctrine/Task.phpcr.yml
-        Acme\TaskBundle\Document\Task:
+        # src/App/Resources/config/doctrine/Task.phpcr.yml
+        App\Document\Task:
             id: id
 
             fields:
@@ -143,7 +123,7 @@ class via annotations:
 
     .. code-block:: xml
 
-        <!-- src/Acme/TaskBundle/Resources/config/doctrine/Task.phpcr.xml -->
+        <!-- src/App/Resources/config/doctrine/Task.phpcr.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping
             xmlns="http://doctrine-project.org/schemas/phpcr-odm/phpcr-mapping"
@@ -152,7 +132,7 @@ class via annotations:
             https://github.com/doctrine/phpcr-odm/raw/master/doctrine-phpcr-odm-mapping.xsd"
             >
 
-            <document name="Acme\TaskBundle\Document\Task">
+            <document name="App\Document\Task">
 
                 <id name="id" />
 
@@ -185,7 +165,7 @@ After this, you have to create getters and setters for the properties.
 
     You may want to implement ``Doctrine\ODM\PHPCR\HierarchyInterface``
     which makes it for example possible to leverage the
-    :ref:`Sonata Admin Child Extension <bundle-core-child-admin-extension>`.
+    :doc:`Sonata Admin Child Extension <../sonata_phpcr_admin_integration/core>`.
 
 .. seealso::
 
@@ -201,21 +181,19 @@ Persisting Documents to PHPCR
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Now that you have a mapped ``Task`` document, complete with getter and setter
-methods, you're ready to persist data to PHPCR. From inside a controller,
-this is pretty easy, add the following method to the ``DefaultController`` of the
-AcmeTaskBundle::
+methods, you are ready to persist data to PHPCR. For a simple example, lets do
+this from inside a controller::
 
-    // src/Acme/TaskBundle/Controller/DefaultController.php
+    // src/App/Controller/DefaultController.php
 
     // ...
-    use Acme\TaskBundle\Document\Task;
+    use App\Document\Task;
+    use Doctrine\ODM\PHPCR\DocumentManagerInterface;
     use Symfony\Component\HttpFoundation\Response;
 
     // ...
-    public function createAction()
+    public function createAction(DocumentManagerInterface $documentManager)
     {
-        $documentManager = $this->get('doctrine_phpcr')->getManager();
-
         $rootTask = $documentManager->find(null, '/tasks');
 
         $task = new Task();
@@ -231,22 +209,21 @@ AcmeTaskBundle::
 
 Take a look at the previous example in more detail:
 
-* **line 10** This line fetches Doctrine's *document manager* object, which is
-  responsible for handling the process of persisting and fetching objects to
-  and from PHPCR.
-* **line 12** This line fetches the root document for the tasks, as each
-  Document needs to have a parent. To create this root document, you can
+* **line 8** We use symfony controller injection with autowiring to get the
+  *document manager*. This service is responsible for storing and fetching
+  objects to and from PHPCR.
+* **line 10** This line loads the root document for the tasks, as each PHPCR
+  document needs to have a parent. To create this root document, you can
   configure a :ref:`Repository Initializer <phpcr-odm-repository-initializers>`,
   which will be executed when running ``doctrine:phpcr:repository:init``.
-* **lines 14-16** In this section, you instantiate and work with the ``$task``
+* **lines 12-14** In this section, you instantiate and work with the ``$task``
   object like any other, normal PHP object.
-* **line 18** The ``persist()`` method tells Doctrine to "manage" the
-  ``$task`` object. This does not actually cause a query to be made to PHPCR
-  (yet).
-* **line 20** When the ``flush()`` method is called, Doctrine looks through
-  all of the objects that it is managing to see if they need to be persisted to
-  PHPCR. In this example, the ``$task`` object has not been persisted yet, so
-  the document manager makes a query to PHPCR, which adds a new document.
+* **line 16** The ``persist()`` method tells Doctrine to "manage" the ``$task``
+  object. This does not actually cause a query to be made to PHPCR (yet).
+* **line 20** When the ``flush()`` method is called, Doctrine looks through all
+  of the objects that it is managing to see if they need to be stored to PHPCR.
+  In this example, the ``$task`` object has not been saved yet, so the document
+  manager makes a query to PHPCR to add it.
 
 When creating or updating objects, the workflow is always the same. In the
 next section, you'll see how Doctrine is smart enough to update documents if
@@ -258,9 +235,12 @@ Fetching Objects from PHPCR
 Fetching an object back out of PHPCR is even easier. For example, suppose
 you've configured a route to display a specific task by name::
 
-    public function showAction($name)
+    use App\Document\Task;
+    use Doctrine\ODM\PHPCR\DocumentManagerInterface;
+
+    public function showAction(DocumentManagerInterface $documentManager, $name)
     {
-        $repository = $this->get('doctrine_phpcr')->getRepository('AcmeTaskBundle:Task');
+        $repository = $documentManager->getRepository(Task::class);
         $task = $repository->find('/tasks/'.$name);
 
         if (!$task) {
@@ -283,12 +263,12 @@ The repository contains all sorts of helpful methods::
     $task = $repository->find($id);
 
     // query for one task matching be name and done
-    $task = $repository->findOneBy(array('name' => 'foo', 'done' => false));
+    $task = $repository->findOneBy(['name' => 'foo', 'done' => false]);
 
     // query for all tasks matching the name, ordered by done
     $tasks = $repository->findBy(
-        array('name' => 'foo'),
-        array('done' => 'ASC')
+        ['name' => 'foo'],
+        ['done' => 'ASC']
     );
 
 .. tip::
@@ -311,10 +291,12 @@ Updating an Object
 Once you've fetched an object from Doctrine, updating it is easy. Suppose you
 have a route that maps a task ID to an update action in a controller::
 
-    public function updateAction($name)
+    use App\Document\Task;
+    use Doctrine\ODM\PHPCR\DocumentManagerInterface;
+
+    public function updateAction(DocumentManagerInterface $documentManager, $name)
     {
-        $documentManager = $this->get('doctrine_phpcr')->getManager();
-        $repository = $documentManager->getRepository('AcmeTaskBundle:Task');
+        $repository = $documentManager->getRepository(Task::class);
         $task = $repository->find('/tasks/'.$name);
 
         if (!$task) {
@@ -365,15 +347,14 @@ table.
 
 And even though Doctrine revolves around a simple concept, it's incredibly
 powerful, allowing you to `create complex queries`_ and
-:doc:`subscribe to events <../bundles/phpcr_odm/events>` that allow you to
-take different actions as objects go through their persistence lifecycle.
+:doc:`subscribe to events <events>` that allow you to take different actions as
+objects go through their persistence lifecycle.
 
-.. _`Doctrine PHPCR-ODM`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/index.html
 .. _`PHP Content Repository`: http://phpcr.github.io/
 .. _`JSR-283 specification`: https://jcp.org/en/jsr/detail?id=283
-.. _`Doctrine ORM`: https://symfony.com/doc/current/book/doctrine.html
+.. _`Doctrine ORM`: https://symfony.com/doc/current/doctrine.html
 .. _`doctrine documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/basic-mapping.html#basicmapping-identifier-generation-strategies
 .. _`Basic Mapping Documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/basic-mapping.html
 .. _`the QueryBuilder documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/query-builder.html
 .. _`create complex queries`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/query-builder.html
-.. _`Custom Repository Classes`: https://symfony.com/doc/current/book/doctrine.html#custom-repository-classes
+.. _`Custom Repository Classes`: https://symfony.com/doc/current/doctrine/repository.html

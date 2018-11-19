@@ -1,6 +1,8 @@
 Configuration Reference
 =======================
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 The CreateBundle can be configured under the ``cmf_create`` key in your
 application configuration. When using XML you should use the
 ``http://cmf.symfony.com/schema/dic/create`` namespace.

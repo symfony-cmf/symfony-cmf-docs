@@ -1,6 +1,8 @@
 Configuration Reference
 =======================
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 The SimpleCmsBundle can be configured under the ``cmf_simple_cms`` key in your
 application configuration. When using XML, you can use the
 ``http://cmf.symfony.com/schema/dic/simplecms`` namespace.
@@ -178,19 +180,5 @@ Configure integration with CmfMenuBundle.
         $container->loadFromExtension('cmf_simple_cms', array(
             'use_menu' => 'auto',
         ));
-
-``routing``
-~~~~~~~~~~~
-
-.. versionadded:: 1.1
-    Since SimpleCmsBundle 1.1, this configuration is done directly on the
-    :ref:`RoutingBundle <reference-config-routing-dynamic>`.
-
-``multilang``
-~~~~~~~~~~~~~
-
-.. versionadded:: 1.1
-    Since SimpleCmsBundle 1.1, this configuration is done directly on the
-    :ref:`RoutingBundle <reference-config-routing-locales>`.
 
 .. include:: ../_partials/ivory_ckeditor.rst.inc

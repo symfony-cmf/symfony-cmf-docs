@@ -10,19 +10,15 @@ incorporating CMF functionality into your application as needed.
 
 This tutorial is aimed at the experienced user who wants to learn more
 about the details of the Symfony CMF. If this is your first encounter with
-the Symfony CMF it would be a good idea to start with:
-
-* :doc:`../../book/installation` page for instructions on
-  how to quickly install the CMF (recommended for development)
-* :doc:`cmf_sandbox` for instructions on how to install
-  a demonstration sandbox.
+the Symfony CMF it would be a good idea to start with :doc:`cmf_sandbox` for
+instructions on how to install a demonstration sandbox.
 
 .. index:: RoutingBundle, CoreBundle, MenuBundle, ContentBundle, SonataBlockBundle, KnpMenuBundle, install
 
 Preconditions
 -------------
 
-* `Installation of Symfony2`_
+* `Installation of Symfony`_
 * :doc:`../../bundles/phpcr_odm/introduction`
 
 Installation
@@ -153,9 +149,9 @@ Next Steps
 ----------
 
 If you want to support multiple languages, have a look at
-:doc:`../../book/handling_multilang`.
+:doc:`../../bundles/phpcr_odm/multilang`.
 
 Then have a look at the individual :doc:`bundles <../../bundles/index>` you are
 interested in.
 
-.. _`Installation of Symfony2`: https://symfony.com/doc/current/book/installation.html
+.. _`Installation of Symfony`: https://symfony.com/doc/current/setup.html

@@ -23,6 +23,7 @@ checkbox
 ckfinder
 CKeditor
 cmf
+CMS
 coffeescript
 config
 configurator
@@ -57,6 +58,7 @@ licensor
 login
 lookup
 lunetics
+Nginx
 metadata
 migrator
 mixin

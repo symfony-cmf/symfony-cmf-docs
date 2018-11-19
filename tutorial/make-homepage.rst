@@ -129,12 +129,6 @@ node::
         }
     }
 
-.. versionadded:: 1.1
-    Since version 1.1, the ``init`` method receives the ``ManagerRegistry``
-    rather than the PHPCR ``SessionInterface``. This allows the creation of
-    documents in initializers. With 1.0, you would need to manually set the
-    ``phpcr:class`` property to the right value.
-
 Now:
 
 1. *Remove* the initializer service that you created in the
@@ -198,14 +192,16 @@ Now empty your repository, reinitialize it and reload your fixtures:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:fixtures:load
+    $ php bin/console doctrine:phpcr:node:remove /cms
+    $ php bin/console doctrine:phpcr:repository:init
+    $ php bin/console doctrine:phpcr:fixtures:load
 
 and verify that the ``cms`` node has been created correctly, using the
 ``doctrine:phpcr:node:dump`` command with the ``props`` flag:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:dump --props
+    $ php bin/console doctrine:phpcr:node:dump --props
     ROOT:
       cms:
         - jcr:primaryType = nt:unstructured

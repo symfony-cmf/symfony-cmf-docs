@@ -13,8 +13,8 @@ Configuration
 
 **type**: ``string`` **default**: ``null``
 
-This defines the template to use when rendering the content if none is
-specified in the route. ``{_format}`` and ``{_locale}`` are replaced with the
+This defines the template to use when rendering the content if the routing does
+not specify the template. ``{_format}`` and ``{_locale}`` are replaced with the
 request format and the current locale.
 
 .. _config-content-persistence:
@@ -25,22 +25,21 @@ request format and the current locale.
 This defines the persistence driver. The default configuration of persistence
 is the following configuration:
 
-
 .. configuration-block::
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         cmf_content:
             persistence:
                 phpcr:
                     enabled:          false
-                    admin_class:      ~
-                    document_class:   ~
                     content_basepath: /cms/content
-                    use_sonata_admin: auto
+                    manager_name: null
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" charset="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services">
 
@@ -48,10 +47,8 @@ is the following configuration:
                 <persistence>
                     <phpcr
                         enabled="false"
-                        admin_class="null"
-                        document-class="null"
                         content-basepath="/cms/content"
-                        use-sonata-admin="auto"
+                        manager-name="null"
                     />
                 </persistence>
             </config>
@@ -60,52 +57,33 @@ is the following configuration:
 
     .. code-block:: php
 
-        $container->loadFromExtension('cmf_content', array(
-            'persistence' => array(
-                'phpcr' => array(
+        // app/config/config.php
+        $container->loadFromExtension('cmf_content', [
+            'persistence' => [
+                'phpcr' => [
                     'enabled'          => false,
-                    'admin_class'      => null,
-                    'document_class'   => null,
                     'content_basepath' => '/cms/content',
-                    'use_sonata_admin' => 'auto',
-        ));
+                    'manager_name'     => null,
+                ],
+            ],
+        ]);
 
 ``enabled``
 ...........
 
 .. include:: ../_partials/persistence_phpcr_enabled.rst.inc
 
-``admin_class``
-...............
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\ContentBundle\Admin\StaticContentAdmin``
-
-The admin class to use when :ref:`Sonata Admin is activated <quick-tour-third-party-sonata>`.
-
-``document_class``
-..................
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent``
-
-The Content class to use.
-
 ``content_basepath``
 ....................
 
 **type**: ``string`` **default**: ``/cms/content``
 
-The basepath for Content documents in the PHPCR tree.
+The basepath for content documents in the PHPCR tree.
 
-``use_sonata_admin``
-....................
+``manager_name``
+................
 
-**type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
+**type**: ``string`` **default**: ``null``
 
-If ``true``, the admin classes for SimpleCmsBundle pages are activated. If set
-to ``auto``, the admin services are activated only if the
-SonataPhpcrAdminBundle is present.
-
-If the :doc:`CoreBundle <../core/introduction>` is registered, this will
-default to the value of ``cmf_core.persistence.phpcr.use_sonata_admin``.
-
-.. include:: ../_partials/ivory_ckeditor.rst.inc
+The document manager that holds StaticContent documents. If not set, the
+default manager is used.
