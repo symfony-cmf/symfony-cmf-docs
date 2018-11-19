@@ -351,9 +351,9 @@ If ``auto_generate_proxy_classes`` is false, you need to run the
 ``cache:warmup`` command in order to have the proxy classes generated after
 you modified a document. This is usually done in production to gain some performance.
 
-For application, it is usually required to define ``mappings``. In a standard
-minimal setup, an ``App`` definition as shown in above example is required
-, which map ``App\Document\`` documents in ``src/Document`` directory.
+For applications, it is usually required to define ``mappings``. In a standard
+minimal setup, an ``App`` definition as shown in above example is required,
+which maps ``App\Document\`` documents in the ``src/Document`` directory.
 
 See :doc:`configuration`, for complete details.
 
