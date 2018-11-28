@@ -105,6 +105,14 @@ content repository.
            odm:
                auto_mapping: true
                auto_generate_proxy_classes: "%kernel.debug%"
+               mappings:
+                   App:
+                       mapping: true
+                       type: annotation
+                       dir: '%kernel.root_dir%/Document'
+                       alias: App
+                       prefix: App\Document\
+                       is_bundle: false
 
     .. code-block:: xml
 
@@ -119,6 +127,15 @@ content repository.
 
                 <odm auto-mapping="true"
                     auto-generate-proxy-classes="%kernel.debug%"
+                />
+
+                <mapping name="App"
+                    mapping="true"
+                    type="annotation"
+                    dir="%kernel.root_dir%/Document"
+                    alias="App"
+                    prefix="App\Document\"
+                    is_bundle="false"
                 />
             </config>
         </container>
@@ -135,6 +152,16 @@ content repository.
             'odm' => array(
                 'auto_mapping' => true,
                 'auto_generate_proxy_classes' => '%kernel.debug%',
+                'mappings' => [
+                    'App' => [
+                        'mapping' => true,
+                        'type' => 'annotation',
+                        'dir' => '%kernel.root_dir%/Document',
+                        'alias' => 'App',
+                        'prefix' => 'App\Document\',
+                        'is-bundle' => false,
+                    ],
+                ],
             ),
         ));
 
