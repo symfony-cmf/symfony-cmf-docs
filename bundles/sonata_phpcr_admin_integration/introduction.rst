@@ -169,7 +169,7 @@ Learn More
 * :doc:`The Sonata Admin chapter of the tutorial <../../tutorial/sonata-admin>`
 
 .. _`with composer`: https://getcomposer.org
-.. _`Packagist`: https://packagist.org/packages/symfony-cmf/sonata-admin-integration-bundle
+.. _`Packagist`: https://packagist.org/packages/symfony-cmf/sonata-phpcr-admin-integration-bundle
 .. _SonataDoctrinePhpcrAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/1-x/doc/index.html
 .. _its official installation guide: https://sonata-project.org/bundles/doctrine-phpcr-admin/1-x/doc/reference/installation.html
 .. _SonataAdminBundle: https://sonata-project.org/bundles/admin/3-x/doc/index.html
