@@ -11,6 +11,7 @@ Bundles
     phpcr_odm/index
     media/index
     menu/index
+    resource/index
     routing_auto/index
     routing/index
     search/index
