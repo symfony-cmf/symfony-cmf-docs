@@ -77,9 +77,9 @@ content repository.
         phpcr_backend:
             type: doctrinedbal
             connection: default
-        phpcr_workspace: default
-        phpcr_user: admin
-        phpcr_pass: admin
+            phpcr_workspace: default
+            phpcr_user: admin
+            phpcr_pass: admin
 
 .. note::
 
