@@ -3,7 +3,7 @@ Symfony CMF Documentation
 
 The Symfony2 Content Management Framework (CMF) project is organized by the Symfony
 community and has several sponsoring companies and prominent open source leaders
-implementing the philosophy of the `decoupled CMS`_.
+implementing the philosophy of the decoupled CMS.
 
 .. toctree::
     :hidden:
@@ -97,7 +97,6 @@ Do you want to contribute to the Symfony CMF? Start reading these articles!
 
 :doc:`Browse the contributing guide <contributing/index>`
 
-.. _`decoupled CMS`: http://decoupledcms.org
 .. _`Symfony2`: https://symfony.com
 .. _`Documentation planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
 .. _`Symfony Content Management Framework`: http://cmf.symfony.com
