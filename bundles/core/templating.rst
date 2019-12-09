@@ -59,7 +59,7 @@ Walking the PHPCR tree
 | ``cmf_next``               | ``getNext``              | ``$current``,            | Get the next sibling document from ``$current`` (a document or a path)    |
 |                            |                          | ``$anchor = null``,      | in PHPCR order. ``$anchor`` and ``$depth`` have the same semantics as in  |
 |                            |                          | ``$depth = null``,       | ``getPrev``.                                                              |
-|                            |                          | ``$ignoreRole = false``  ,                                                                           |
+|                            |                          | ``$ignoreRole = false``  |                                                                           |
 |                            |                          | ``$class = null``        |                                                                           |
 +----------------------------+--------------------------+--------------------------+---------------------------------------------------------------------------+
 | ``cmf_next_linkable``      | ``getNextLinkable``      | ``$current``,            | Get the next document that can be linked to, according to the             |
