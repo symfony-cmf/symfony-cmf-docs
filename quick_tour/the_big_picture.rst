@@ -235,4 +235,4 @@ section: ":doc:`the_model`".
 .. _KnpMenuBundle: http://knpbundles.com/KnpLabs/KnpMenuBundle
 .. _Composer: https://getcomposer.org/
 .. _`Create.js`: http://createjs.org/
-.. _CreatePHP: http://demo.createphp.org/
+.. _CreatePHP: https://github.com/openpsa/createphp

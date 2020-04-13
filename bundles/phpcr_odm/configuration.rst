@@ -446,6 +446,7 @@ not configure anything here, the ODM services will not be loaded.
                 configuration_id: ~
                 auto_mapping: true
                 mappings:
+                    # An array of mapping, which may be a bundle name or an unique name
                     <name>:
                         mapping:   true
                         type:      ~
@@ -486,6 +487,7 @@ not configure anything here, the ODM services will not be loaded.
                         <translation alias="phpcr_locale" />
                     </namespaces>
 
+                    <!-- An array of mapping, which may be a bundle name or an unique name -->
                     <mapping name="<name>">
                         mapping="true"
                         type="null"
@@ -524,6 +526,7 @@ not configure anything here, the ODM services will not be loaded.
                     ),
                 ),
                 'mappings' => array(
+                    // An array of mapping, which may be a bundle name or an unique name
                     '<name>' => array(
                         'mapping'   => true,
                         'type'      => null,
@@ -557,7 +560,8 @@ The service to use as base for building the PHPCR-ODM configuration.
 
 **type**: ``boolean``, **default**: ``true``
 
-When enabled, you can place your mappings in
+When enabled, bundles will be automatically loaded and attempted to resolve
+mappings by convention in
 ``<Bundle>/Resources/config/doctrine/<Document>.phpcr.xml`` resp. ``*.phpcr.yml``
 to configure mappings for documents you provide in the ``<Bundle>/Document``
 folder. Otherwise you need to manually configure the mappings section.
@@ -594,9 +598,62 @@ set the alias used by the translation strategy.
 ``mappings``
 """"""""""""
 
-When ``auto_mapping`` is disabled, you need to explicitly list the bundles
-handled by this document manager. Usually its fine to just list the bundle
-names without any actual configuration.
+Explicitly define document mappings by configuration. For modern Symfony
+applications that do not use a bundle, it is necessary to configure mappings.
+For bundles, if ``auto_mapping`` is enabled, you don't usually need to.
+
+.. tip::
+
+    When ``auto_mapping`` is disabled, you need to explicitly list the
+    bundles handled by this document manager. Usually its fine to just list
+    the bundle names without any actual configuration.
+
+.. tip::
+
+    DoctrinePhpcrBundle is integrated with symfony/doctrine-bridge (in the same
+    way that `Doctrine ORM`_ does), relying on the bridge to process mapping
+    configuration options. Therefore, the mapping options work nearly the same
+    across two bundles.
+
+There are several configuration options that you can control as part of
+a mapping definition:
+
+``mapping``
+    A boolean value and it is usually ``true``. Set it to ``true`` to
+    declare it as a mapping and allow the document manager to pick it
+    up.
+
+``type``
+    One of ``annotation``, ``xml``, ``yml``, ``php`` or ``staticphp``.
+    This specifies which type of metadata type your mapping uses.
+
+``dir``
+    Path to the mapping or document files (depending on the driver). If this path
+    is relative, it is assumed to be relative to the bundle root. This only works
+    if the name of your mapping is a bundle name. If you want to use this option
+    to specify absolute paths, you should prefix the path with the kernel
+    parameters that exist in the DIC (for example ``%kernel.root_dir%``).
+
+``prefix``
+    A common namespace prefix that all documents of this mapping share. This
+    prefix should never conflict with prefixes of other defined mappings
+    otherwise some of your documents cannot be found by Doctrine. This option
+    defaults to the bundle namespace + ``Document``, for example for an
+    application bundle called ``AcmeHelloBundle`` prefix would be
+    ``Acme\HelloBundle\Document``.
+
+``alias``
+    Doctrine offers a way to alias document namespaces to simpler, shorter names
+    to be used in DQL queries or for Repository access. When using a bundle, the
+    alias defaults to the bundle name.
+
+``is_bundle``
+    This option is a derived value from ``dir`` and by default is set to true if
+    dir is relative proved by a ``file_exists()`` check that returns false. It
+    is false if the existence check returns true. In this case, an absolute path
+    was specified and the metadata files are most likely in a directory outside
+    of a bundle.
+
 
 ``metadata_cache_driver``
 """""""""""""""""""""""""
