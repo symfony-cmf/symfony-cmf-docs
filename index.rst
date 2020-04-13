@@ -97,7 +97,7 @@ Do you want to contribute to the Symfony CMF? Start reading these articles!
 
 :doc:`Browse the contributing guide <contributing/index>`
 
-.. _`decoupled CMS`: http://decoupledcms.org
+.. _`decoupled CMS`: http://decoupledcms.github.io/
 .. _`Symfony2`: https://symfony.com
 .. _`Documentation planning`: https://github.com/symfony-cmf/symfony-cmf/wiki/Documentation-Planning
 .. _`Symfony Content Management Framework`: http://cmf.symfony.com
