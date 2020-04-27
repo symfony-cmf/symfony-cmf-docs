@@ -102,7 +102,7 @@ Helper methods
 |                           |                     | ``false``              | translation in that language exists.                                     |
 +---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
 | ``cmf_is_linkable``       | ``isLinkable``      | ``$document``          | Check if the provided object can be used to generate a URL. If this      |
-|                           |                     |                        | check returns true, it should be save to pass it to ``path`` or ``url``. |
+|                           |                     |                        | check returns true, it should be safe to pass it to ``path`` or ``url``. |
 |                           |                     |                        | An object is considered linkable if it either *is* an instance of        |
 |                           |                     |                        | ``Route`` or implements the ``RouteReferrersReadInterface`` *and*        |
 |                           |                     |                        | actually returns a route.                                                |
