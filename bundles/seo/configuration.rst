@@ -133,8 +133,8 @@ For details on the meaning of the sitemap configuration, see the
                 defaults:
                     default_change_frequency: always
                     templates:
-                        html: :sitemap/index.html.twig
-                        xml: ::sitemap:index.xml.twig
+                        html: CmfSeoBundle:Sitemap:index.html.twig
+                        xml: CmfSeoBundle:Sitemap:index.xml.twig
                     loaders:
                         - _all
                     guessers:
@@ -220,8 +220,8 @@ set.
 This hashmap specifies which template to use for the sitemap in each format.
 By default, you have:
 
-* html: CmfSeoBundle:Sitemap:index.html.twig
-* xml: CmfSeoBundle:Sitemap:index.xml.twig
+* html: ``CmfSeoBundle:Sitemap:index.html.twig``
+* xml: ``CmfSeoBundle:Sitemap:index.xml.twig``
 
 ``loaders``
 ***********
