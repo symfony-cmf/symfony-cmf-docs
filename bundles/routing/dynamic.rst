@@ -518,7 +518,7 @@ an empty route name and tries to find a content implementing the
 
     To be precise, it is enough for the content to implement the
     ``RouteReferrersReadInterface`` if writing the routes is not desired. See
-    :ref:`contributing-bundles-interface_naming` for more on the naming scheme.)
+    :ref:`contributing-bundles-interface_naming` for more on the naming scheme.
 
 For the implementation details, please refer to the
 :ref:`component-routing-generator` section in the the cmf routing component
