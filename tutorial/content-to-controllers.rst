@@ -7,7 +7,8 @@ Make your content route aware
 In the :doc:`getting-started` section, you defined your `Post` and `Page` documents as
 implementing the ``RoutesReferrersReadInterface``. This interface enables the routing system
 to retrieve routes which refer to the object implementing this interface, and this enables
-the system to generate a URL (for example when you use ``{{ path(mydocument) }}`` in Twig).
+the system to generate a URL (for example when you use
+``{{ path('cmf_routing_object', {_route_object: mydocument}) }}`` in Twig).
 
 Earlier you did not have the RoutingBundle installed, so you could not add the mapping.
 
@@ -141,7 +142,7 @@ Add a corresponding template (note that this works because you use the
         <h2>Our Blog Posts</h2>
         <ul>
             {% for post in posts %}
-                <li><a href="{{ path(post) }}">{{ post.title }}</a></li>
+                <li><a href="{{ path('cmf_routing_object', {_route_object: post}) }}">{{ post.title }}</a></li>
             {% endfor %}
         </ul>
 
@@ -154,7 +155,10 @@ Add a corresponding template (note that this works because you use the
         <ul>
             <?php foreach($posts as $post) : ?>
                 <li>
-                    <a href="<?php echo $view['router']->generate($post) ?>">
+                    <a href="<?php echo $view['router']->generate(
+                                        RouteObjectInterface::OBJECT_BASED_ROUTE_NAME,
+                                        [RouteObjectInterface::ROUTE_OBJECT => $post]
+                    ) ?>">
                         <?php echo $post->getTitle() ?>
                     </a>
                 </li>
