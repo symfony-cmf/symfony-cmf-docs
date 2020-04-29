@@ -112,6 +112,13 @@ Helper methods
 Code examples
 .............
 
+.. versionadded:: 2.3
+
+    Since `symfony-cmf/routing: 2.3.0`, the route document should be passed in
+    the route parameters as `_route_object`, and the special route name
+    `cmf_routing_object` is to be used. When using older versions of routing,
+    you need to pass the route document as route name.
+
 .. configuration-block::
 
     .. code-block:: html+jinja
@@ -121,16 +128,16 @@ Code examples
         {% if cmf_is_published(page) %}
             {% set prev = cmf_prev_linkable(page) %}
             {% if prev %}
-                <a href="{{ path(prev) }}">prev</a>
+                <a href="{{ path('cmf_routing_object', {_route_object: prev}) }}">prev</a>
             {% endif %}
 
             {% set next = cmf_next_linkable(page) %}
             {% if next %}
-                <span style="float: right; padding-right: 40px;"><a href="{{ path(next) }}">next</a></span>
+                <span style="float: right; padding-right: 40px;"><a href="{{ path('cmf_routing_object', {_route_object: next}) }}">next</a></span>
             {%  endif %}
 
             {% for news in cmf_children(parent=cmfMainContent, class='AppBundle\\Document\\NewsItem')|reverse %}
-                <li><a href="{{ path(news) }}">{{ news.title }}</a> ({{ news.publishStartDate | date('Y-m-d')  }})</li>
+                <li><a href="{{ path('cmf_routing_object', {_route_object: news}) }}">{{ news.title }}</a> ({{ news.publishStartDate | date('Y-m-d')  }})</li>
             {% endfor %}
 
             {% if 'de' in cmf_document_locales(page) %}
@@ -158,19 +165,28 @@ Code examples
         <?php if $view['cmf']->isPublished($page) : ?>
             <?php $prev = $view['cmf']->getPrev($page) ?>
             <?php if ($prev) : ?>
-                <a href="<?php echo $view['router']->generate($prev) ?>">prev</a>
+                <a href="<?php echo $view['router']->generate(
+                                        RouteObjectInterface::OBJECT_BASED_ROUTE_NAME,
+                                        [RouteObjectInterface::ROUTE_OBJECT => $prev]
+                ) ?>">prev</a>
             <?php endif ?>
 
             <?php $next = $view['cmf']->getNext($page) ?>
             <?php if ($next) : ?>
                 <span style="float: right; padding-right: 40px;">
-                    <a href="<?php echo $view['router']->generate($next) ?>">next</a>
+                    <a href="<?php echo $view['router']->generate(
+                                        RouteObjectInterface::OBJECT_BASED_ROUTE_NAME,
+                                        [RouteObjectInterface::ROUTE_OBJECT => $next]
+                    ) ?>">next</a>
                 </span>
             <?php endif ?>
 
             <?php foreach (array_reverse($view['cmf']->getChildren($page)) as $news) : ?>
                 <li>
-                    <a href="<?php echo $view['router']->generate($news) ?>"><?php echo $news->getTitle() ?></a>
+                    <a href="<?php echo $view['router']->generate(
+                                        RouteObjectInterface::OBJECT_BASED_ROUTE_NAME,
+                                        [RouteObjectInterface::ROUTE_OBJECT => $news]
+                    ) ?>"><?php echo $news->getTitle() ?></a>
                     (<?php echo date('Y-m-d', $news->getPublishStartDate()) ?>)
                 </li>
             <?php endforeach ?>

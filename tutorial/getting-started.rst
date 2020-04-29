@@ -212,7 +212,7 @@ be referenceable and in addition will automatically set the date using the
 Both the ``Post`` and ``Page`` classes implement the
 ``RouteReferrersReadInterface``. This interface enables the
 :ref:`DynamicRouter to generate URLs <bundles-routing-dynamic-generator>` from
-instances of these classes. (for example with ``{{ path(content) }}`` in Twig).
+instances of these classes. (for example with ``{{ path('cmf_routing_object', {_route_object: content}) }}`` in Twig).
 
 Repository Initializer
 ~~~~~~~~~~~~~~~~~~~~~~

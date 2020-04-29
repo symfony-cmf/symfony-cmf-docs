@@ -193,38 +193,38 @@ a route.
 
 The generator method looks like this::
 
-    public function generate($name, $parameters = array(), $referenceType = self::ABSOLUTE_PATH);
+    public function generate($name, $parameters = [], $referenceType = self::ABSOLUTE_PATH);
 
 In Symfony core, the ``$name`` has to be a string with the configured name
 of the route to generate. The CMF routing component adds generators that handle
 alternative semantics of ``$name``.
 
+.. versionadded:: 2.3
+
+    Since `symfony-cmf/routing: 2.3.0`, the route document should be passed in
+    the route parameters as `_route_object`, and the special route name
+    `cmf_routing_object` is to be used. When using older versions of routing,
+    you need to pass the route document as route name.
+
 The ``ProviderBasedGenerator`` extends Symfony's default
 :class:`Symfony\\Component\\Routing\\Generator\\UrlGenerator` (which, in turn,
 implements :class:`Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface`)
-and - if the name is not already a ``Route`` object - loads the Route from the
-Route provider. It then lets the core logic generate the URL from that ``Route``.
+and asks the route provider to find a route based on the name and parameters. It
+then lets the core logic generate the URL from that ``Route``.
 
 The CMF component also includes the ``ContentAwareGenerator``, which extends
-the ``ProviderBasedGenerator``, that checks if ``$name`` is an object
+the ``ProviderBasedGenerator``, that checks if ``_route_object`` parameter is an object
 implementing ``RouteReferrersReadInterface``. If it is, it gets the ``Route``
 from that object. Using the ``ContentAwareGenerator``, you can generate URLs
 for your content in three ways:
 
-* Either pass a ``Route`` object as $name
-* Or pass a ``RouteReferrersInterface`` object that is your content as $name
+* Either pass a ``Route`` object as the ``_route_object`` parameter
+* Or pass a ``RouteReferrersInterface`` object that is your content as the ``_route_object`` parameter
 * Or provide an implementation of ``ContentRepositoryInterface`` and pass the id
-  of the content object as parameter ``content_id`` and ``null`` as $name.
+  of the content object as parameter ``content_id`` and ``cmf_routing_object`` as $name.
 
-If you want to implement your own generator for ``$name`` values that are not
-strings, you need to implement the ``ChainedRouterInterface`` and implement the
-``supports($name)`` method to tell the ``ChainRouter`` if your router can
-accept this ``$name`` to generate a URL.
-
-In order to let the DynamicRouter know if it can try to generate a route with an
-object, generators that are able to do so have to implement the
-``VersatileGeneratorInterface`` and return true for the ``supports($route)``
-call  with any object they can handle.
+If you want to implement your own generator, implement the ``VersatileGeneratorInterface``
+to get better debug messages for when a route can not be generated.
 
 .. _`Event Dispatcher`: https://symfony.com/doc/current/components/event_dispatcher/index.html
 .. _`How to create an Event Listener`: https://symfony.com/doc/current/cookbook/event_dispatcher/event_listener.html

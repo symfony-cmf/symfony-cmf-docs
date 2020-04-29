@@ -497,24 +497,33 @@ also responsible for generating an URL from a route and its parameters. The
     All Twig examples below are given with the ``path`` function that generates
     the URL without domain, but will work with the ``url`` function as well.
 
-    Also, you can specify parameters to the generator, which will be used if
-    the route contains a dynamic pattern or otherwise will be appended as
+    Also, you can specify other parameters to the generator, which will be used
+    if the route contains a dynamic pattern or otherwise will be appended as
     query string, just like with the standard routing.
 
-You can use a ``Route`` object as the name parameter of the generating method.
-This will look as follows:
+.. versionadded:: 2.3
+
+    Since `symfony-cmf/routing: 2.3.0`, the route document should be passed in
+    the route parameters as `_route_object`, and the special route name
+    `cmf_routing_object` is to be used. When using older versions of routing,
+    you need to pass the route document as route name.
+
+You can use a ``Route`` object directly with the router:
 
 .. configuration-block::
 
     .. code-block:: html+jinja
 
         {# myRoute is an object of class Symfony\Component\Routing\Route #}
-        <a href="{{ path(myRoute) }}">Read on</a>
+        <a href="{{ path('cmf_routing_object', {_route_object: myRoute}) }}">Read on</a>
 
     .. code-block:: html+php
 
         <!-- $myRoute is an object of class Symfony\Component\Routing\Route -->
-        <a href="<?php echo $view['router']->generate($myRoute) ?>">
+        <a href="<?php echo $view['router']->generate(
+            RouteObjectInterface::OBJECT_BASED_ROUTE_NAME,
+            [RouteObjectInterface::ROUTE_OBJECT => $myRoute])
+        ?>">
             Read on
         </a>
 
@@ -553,12 +562,15 @@ object that implements this interface and provides a route for it:
     .. code-block:: html+jinja
 
         {# myContent implements RouteReferrersInterface #}
-        <a href="{{ path(myContent) }}>Read on</a>
+        <a href="{{ path('cmf_routing_object', {_route_object: myContent}) }}>Read on</a>
 
     .. code-block:: html+php
 
         <!-- $myContent implements RouteReferrersInterface -->
-        <a href="<?php echo $view['router']->generate($myContent) ?>">
+        <a href="<?php echo $view['router']->generate(
+            RouteObjectInterface::OBJECT_BASED_ROUTE_NAME,
+            [RouteObjectInterface::ROUTE_OBJECT => $myContent])
+        ?>">
             Home
         </a>
 
@@ -575,14 +587,14 @@ an empty route name and tries to find a content implementing the
 
     .. code-block:: html+jinja
 
-        <a href="{{ path(null, {'content_id': '/cms/content/my-content'}) }}>
+        <a href="{{ path('cmf_routing_object', {'content_id': '/cms/content/my-content'}) }}>
             Read on
         </a>
 
     .. code-block:: html+php
 
         <!-- $myContent implements RouteReferrersInterface -->
-        <a href="<?php echo $view['router']->generate(null, [
+        <a href="<?php echo $view['router']->generate('cmf_routing_object', [
             'content_id' => '/cms/content/my-content',
         ]) ?>">
             Home
