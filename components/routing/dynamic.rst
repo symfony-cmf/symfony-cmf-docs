@@ -213,7 +213,7 @@ and asks the route provider to find a route based on the name and parameters. It
 then lets the core logic generate the URL from that ``Route``.
 
 The CMF component also includes the ``ContentAwareGenerator``, which extends
-the ``ProviderBasedGenerator``, that checks if ``_route_object`` is an object
+the ``ProviderBasedGenerator``, that checks if ``_route_object`` parameter is an object
 implementing ``RouteReferrersReadInterface``. If it is, it gets the ``Route``
 from that object. Using the ``ContentAwareGenerator``, you can generate URLs
 for your content in three ways:
