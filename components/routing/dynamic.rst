@@ -218,7 +218,7 @@ implementing ``RouteReferrersReadInterface``. If it is, it gets the ``Route``
 from that object. Using the ``ContentAwareGenerator``, you can generate URLs
 for your content in three ways:
 
-* Either pass a ``Route`` object as ``_route_object``
+* Either pass a ``Route`` object as the ``_route_object`` parameter
 * Or pass a ``RouteReferrersInterface`` object that is your content as ``_route_object``
 * Or provide an implementation of ``ContentRepositoryInterface`` and pass the id
   of the content object as parameter ``content_id`` and ``cmf_routing_object`` as $name.
