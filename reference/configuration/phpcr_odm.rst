@@ -478,16 +478,14 @@ not configure anything here, the ODM services will not be loaded.
                     proxy-dir="%kernel.cache_dir%/doctrine/PHPCRProxies"
                     proxy-namespace="PHPCRProxies"
                 >
-                    <mappings>
-                        <"name"
-                            mapping="true"
-                            type="null"
-                            dir="null"
-                            alias="null"
-                            prefix="null"
-                            is-bundle="null"
-                        />
-                    </mappings>
+                    <mapping name="<name>">
+                        mapping="true"
+                        type="null"
+                        dir="null"
+                        alias="null"
+                        prefix="null"
+                        is-bundle="null"
+                    />
 
                     <metadata-cache-driver
                         type="array"
