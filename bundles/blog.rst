@@ -118,7 +118,7 @@ You can include the default in the main configuration file as follows:
         # app/config/config.yml
         imports:
             # ...
-            - { resource: @CmfBlogBundle/Resources/config/routing/autoroute_default.yml }
+            - { resource: '@CmfBlogBundle/Resources/config/routing/autoroute_default.yml' }
         # ...
 
     .. code-block:: xml

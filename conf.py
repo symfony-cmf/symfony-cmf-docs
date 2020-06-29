@@ -18,8 +18,6 @@ import sys, os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
-sys.path.append(os.path.abspath('_exts'))
-
 # adding PhpLexer
 from sphinx.highlighting import lexers
 from pygments.lexers.web import PhpLexer
@@ -32,7 +30,7 @@ from pygments.lexers.web import PhpLexer
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.todo',
-    'sensio.sphinx.refinclude', 'sensio.sphinx.configurationblock', 'sensio.sphinx.phpcode']
+    'sensio.sphinx.codeblock', 'sensio.sphinx.configurationblock', 'sensio.sphinx.phpcode']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -100,10 +98,10 @@ lexers['php'] = PhpLexer(startinline=True)
 lexers['php-annotations'] = PhpLexer(startinline=True)
 
 # use PHP as the primary domain
-primary_domain = 'php'
+primary_domain = None
 
 # set url for API links
-api_url = 'http://api.symfony.com/master/%s'
+api_url = 'https://github.com/symfony/symfony/blob/master/src/%s.php'
 
 
 # -- Options for HTML output ---------------------------------------------------

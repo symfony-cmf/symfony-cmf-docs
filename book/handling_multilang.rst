@@ -259,7 +259,7 @@ Now what is left to do is to update the sonata routes to become locale aware:
             <route id="admin_dashboard" pattern="/{_locale}/admin/">
                 <default key="_controller">FrameworkBundle:Redirect:redirect</default>
                 <default key="route">sonata_admin_dashboard</default>
-                <default "permanent">true</default>
+                <default key="permanent">true</default>
             </route>
 
             <import resource="@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
@@ -272,12 +272,12 @@ Now what is left to do is to update the sonata routes to become locale aware:
             <route id="admin_without_locale" pattern="/admin">
                 <default key="_controller">FrameworkBundle:Redirect:redirect</default>
                 <default key="route">sonata_admin_dashboard</default>
-                <default "permanent">true</default>
+                <default key="permanent">true</default>
             </route>
             <route id="admin_dashboard_without_locale" pattern="/admin/dashboard">
                 <default key="_controller">FrameworkBundle:Redirect:redirect</default>
                 <default key="route">sonata_admin_dashboard</default>
-                <default "permanent">true</default>
+                <default key="permanent">true</default>
             </route>
         </routes>
 
