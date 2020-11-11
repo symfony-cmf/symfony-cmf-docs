@@ -206,8 +206,9 @@ PHPCR Session with Jackalope Jackrabbit
                         # general parameters and options
                         # ...
                         # optional parameters specific to Jackalope Jackrabbit
-                        jackalope.default_header:    "X-ID: %serverid%"
-                        jackalope.jackrabbit_expect: true
+                        jackalope.default_header:     "X-ID: %serverid%"
+                        jackalope.jackrabbit_expect:  true
+                        jackalope.jackrabbit_version: "2.18.3"
 
     .. code-block:: xml
 
@@ -225,6 +226,7 @@ PHPCR Session with Jackalope Jackrabbit
                     >
                         <parameter key="jackalope.default_header">X-ID: %serverid%</parameter>
                         <parameter key="jackalope.jackrabbit_expect">true</parameter>
+                        <parameter key="jackalope.jackrabbit_version">2.18.3</parameter>
                     </backend>
                 </session>
             </config>
@@ -239,8 +241,9 @@ PHPCR Session with Jackalope Jackrabbit
                     'type' => 'jackrabbit',
                     'url'  => 'http://localhost:8080/server/',
                     'parameters' => array(
-                        'jackalope.default_header'    => 'X-ID: %serverid%',
-                        'jackalope.jackrabbit_expect' => true,
+                        'jackalope.default_header'     => 'X-ID: %serverid%',
+                        'jackalope.jackrabbit_expect'  => true,
+                        'jackalope.jackrabbit_version' => '2.18.3',
                     ),
                 ),
             ),
@@ -270,6 +273,14 @@ to identify sessions.
 
 Send the ``Expect: 100-continue`` header on larger PUT and POST requests.
 Disabled by default to avoid issues with proxies and load balancers.
+
+``jackalope.jackrabbit_version``
+""""""""""""""""""""""""""""
+
+**type**: ``string``, **default**: ``null``
+
+Set the version of the jackrabbit server to allow the client to offer better functionality if possible.
+For example, UTF8 support is enabled for versions higher or equal to 2.18.0.
 
 PHPCR Session with Jackalope Doctrine DBAL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
