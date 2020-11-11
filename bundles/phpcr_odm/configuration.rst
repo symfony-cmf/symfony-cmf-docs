@@ -259,7 +259,11 @@ Disabled by default to avoid issues with proxies and load balancers.
 
 **type**: ``string``, **default**: ``null``
 
-Set the version of the jackrabbit server to allow the client to offer better functionality if possible.
+.. versionadded:: 1.4.2
+
+    This configuration has been added in jackalope-jackrabbit version 1.4.2.
+
+Set the version of the Jackrabbit server to allow the client to offer better functionality if possible.
 For example, UTF8 support is enabled for versions higher or equal to 2.18.0.
 
 PHPCR Session with Jackalope Doctrine DBAL
