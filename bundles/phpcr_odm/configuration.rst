@@ -264,7 +264,7 @@ Disabled by default to avoid issues with proxies and load balancers.
     This configuration has been added in jackalope-jackrabbit version 1.4.2.
 
 Set the version of the Jackrabbit server to allow the client to offer better functionality if possible.
-For example, UTF8 support is enabled for versions higher or equal to 2.18.0.
+For example, full UTF8 support including emojis in node and property names is possible when the Jackrabbit version is 2.18.0 or better.
 
 PHPCR Session with Jackalope Doctrine DBAL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
