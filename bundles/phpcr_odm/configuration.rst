@@ -186,8 +186,9 @@ PHPCR Session with Jackalope Jackrabbit
                         # general parameters and options
                         # ...
                         # optional parameters specific to Jackalope Jackrabbit
-                        jackalope.default_header:    "X-ID: %serverid%"
-                        jackalope.jackrabbit_expect: true
+                        jackalope.default_header:     "X-ID: %serverid%"
+                        jackalope.jackrabbit_expect:  true
+                        jackalope.jackrabbit_version: "2.18.3"
 
     .. code-block:: xml
 
@@ -205,6 +206,7 @@ PHPCR Session with Jackalope Jackrabbit
                     >
                         <parameter key="jackalope.default_header">X-ID: %serverid%</parameter>
                         <parameter key="jackalope.jackrabbit_expect">true</parameter>
+                        <parameter key="jackalope.jackrabbit_version">2.18.3</parameter>
                     </backend>
                 </session>
             </config>
@@ -219,8 +221,9 @@ PHPCR Session with Jackalope Jackrabbit
                     'type' => 'jackrabbit',
                     'url'  => 'http://localhost:8080/server/',
                     'parameters' => [
-                        'jackalope.default_header'    => 'X-ID: %serverid%',
-                        'jackalope.jackrabbit_expect' => true,
+                        'jackalope.default_header'     => 'X-ID: %serverid%',
+                        'jackalope.jackrabbit_expect'  => true,
+                        'jackalope.jackrabbit_version' => '2.18.3',
                     ],
                 ],
             ],
@@ -250,6 +253,18 @@ to identify sessions.
 
 Send the ``Expect: 100-continue`` header on larger PUT and POST requests.
 Disabled by default to avoid issues with proxies and load balancers.
+
+``jackalope.jackrabbit_version``
+""""""""""""""""""""""""""""
+
+**type**: ``string``, **default**: ``null``
+
+.. versionadded:: 1.4.2
+
+    This configuration has been added in jackalope-jackrabbit version 1.4.2.
+
+Set the version of the Jackrabbit server to allow the client to offer better functionality if possible.
+For example, full UTF8 support including emojis in node and property names is possible when the Jackrabbit version is 2.18.0 or better.
 
 PHPCR Session with Jackalope Doctrine DBAL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
