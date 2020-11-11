@@ -28,71 +28,8 @@ information.
 Sonata Admin
 ~~~~~~~~~~~~
 
-All block types provided by the Symfony2 CMF BlockBundle come with a admin
-classes for SonataDoctrinePHPCRAdminBundle_. To activate the admin services,
-it is enough to load the SonataDoctrinePHPCRAdminBundle in your application
-kernel and configure the sonata dashboard as desired.
-
-.. _bundles-block-types-admin_extension:
-
-Sonata Admin Extension for Basic Block Settings
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This bundle also provides a sonata admin *extension* that you can activate.
-It adds a tab to edit settings of basic block options like the time to life
-(TTL, for caching purposes).
-
-Assuming your blocks extend the ``BaseBlock`` class (as all blocks provided by
-the CMF BlockBundle do), you can add the following lines to your sonata admin
-configuration.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        sonata_admin:
-            extensions:
-                cmf_block.admin_extension.cache:
-                    extends:
-                        - Symfony\Cmf\Bundle\BlockBundle\Model\AbstractBlock
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-            <config xmlns="http://sonata-project.org/schema/dic/admin">
-                <extension id="cmf_block.admin_extension.cache">
-                    <extend>Symfony\Cmf\Bundle\BlockBundle\Model\AbstractBlock</extend>
-                </extension>
-            </config>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $container->loadFromExtension('sonata_admin', array(
-            'extensions' => array(
-                'cmf.block.admin_extension.cache' => array(
-                    'extends' => array(
-                        'Symfony\Cmf\Bundle\BlockBundle\Model\AbstractBlock',
-                    ),
-                ),
-            ),
-        ));
-
-.. note::
-
-    Admin extensions are a way to configure editing of common features on several
-    ``Admin`` classes without needing them to extend each other. If you want to
-    learn more about them, please read on in `Sonata Admin Extensions`_ for more
-    details.
-
-.. _bundle-block-updated-sonata-defaults:
-
+Each block type provided by the CmfBlockBundle is supported with an admin
+service in :doc:`CmfSonataPhpcrAdminIntegrationBundle <../sonata_phpcr_admin_integration/block>`
 
 StringBlock
 -----------
@@ -137,9 +74,6 @@ something that is not a valid block, the problem is only detected when
 rendering the block.
 
 .. _bundles-block-menu:
-
-.. versionadded:: 1.1
-    The MenuBlock was introduced in CmfBlockBundle 1.1.
 
 MenuBlock
 ---------
@@ -189,13 +123,13 @@ Create a document::
     $myRssBlock = new RssBlock();
     $myRssBlock->setParentDocument($parentPage);
     $myRssBlock->setName('rssBlock');
-    $myRssBlock->setSetting('title', 'Symfony2 CMF news');
+    $myRssBlock->setSetting('title', 'Symfony CMF news');
     $myRssBlock->setSetting('url', 'http://cmf.symfony.com/news.rss');
     $myRssBlock->setSetting('maxItems', 3);
 
     $documentManager->persist($myRssBlock);
 
-.. _bundle-block-rss-settings:
+.. _bundles-block-rss-settings:
 
 The available settings are:
 
@@ -366,65 +300,7 @@ your slideshow code to work, you can override
 ``BlockBundle:Block:block_slideshow.html.twig`` and/or the templates of the
 blocks you use as slideshow items and adapt them to your needs.
 
-Use the Sonata admin class
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The BlockBundle comes with a sonata admin class for managing slideshow blocks.
-All you need to do to administrate slideshows in your project is to add the
-following line to your sonata admin configuration:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        sonata_admin:
-            dashboard:
-                groups:
-                    blocks:
-                        label: Blocks
-                        items:
-                            - cmf_block.imagine.slideshow_admin
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services">
-
-            <config xmlns="http://example.org/schema/dic/sonata_admin">
-                <dashboard>
-                    <group id="blocks"
-                        label="Blocks">
-                        <item>cmf_block.imagine.slideshow_admin</item>
-                    </group>
-                </dashboard>
-            </config>
-
-        </container>
-
-    .. code-block:: php
-
-        $container->loadFromExtension('sonata_admin', array(
-            'dashboard' => array(
-                'groups' => array(
-                    'blocks' => array(
-                        'label' => 'Blocks',
-                        'items' => array(
-                            'cmf_block.imagine.slideshow_admin',
-                        ),
-                    ),
-                ),
-            ),
-        ));
-
-However, you can also embed the slideshow administration directly into
-other admin classes using the ``sonata_type_admin`` form type. The admin
-service to use in that case is ``cmf_block.slideshow_admin``.
-Please refer to the `Sonata Admin documentation`_
-for further information.
-
 .. _`Symfony CMF Sandbox`: https://github.com/symfony-cmf/cmf-sandbox
-.. _`Sonata Admin documentation`: https://sonata-project.org/bundles/admin/master/doc/reference/form_types.html
-.. _`Sonata Admin Extensions`: https://sonata-project.org/bundles/admin/master/doc/reference/extensions.html
 .. _`LiipImagineBundle`: https://github.com/liip/LiipImagineBundle
 .. _`LiipImagineBundle documentation`: https://github.com/liip/LiipImagineBundle/tree/master/Resources/doc
 .. _`sub-request`: https://symfony.com/doc/current/components/http_kernel/introduction.html#http-kernel-sub-requests

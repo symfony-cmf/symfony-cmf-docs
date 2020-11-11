@@ -92,7 +92,7 @@ can be configured as follows:
                     <controller-by-type
                         type="cmf_routing_auto.redirect">
                         cmf_routing_auto.redirect_controller:redirectAction
-                    </controller-by-class>
+                    </controller-by-type>
                 </dynamic>
             </config>
 
@@ -112,11 +112,11 @@ can be configured as follows:
 Creating a Custom Defunct Route Handler
 ---------------------------------------
 
-To create a custom default route handler, you have to implement
-``DefunctRouteHandlerInterface``. This requires a method ``handleDefunctRoutes()``.
+To create your own custom defunct route handler, you implement
+``DefunctRouteHandlerInterface`` which specifies one method called
+``handleDefunctRoutes()``.
 
-They are not all-together trivial - the following handler removes old routes and is
-the default handler::
+To get an idea, lets look at the default handler that removes the old route::
 
     namespace Symfony\Cmf\Component\RoutingAuto\DefunctRouteHandler;
 

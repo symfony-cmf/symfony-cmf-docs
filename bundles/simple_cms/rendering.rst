@@ -4,6 +4,8 @@
 Rendering
 ---------
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 You can configure a mapping of document class to template and/or controller
 by configuring the :ref:`RoutingBundle <reference-config-routing-dynamic>`.
 When you need specific settings for a single page, you can call
@@ -55,4 +57,4 @@ front-end. The most simple form is the following Twig block:
     {% endblock %}
 
 If you want to control more detailed what should be shown with RDFa, see
-chapter :ref:`bundle-create-usage-embed`.
+chapter :ref:`bundles-create-usage-embed`.

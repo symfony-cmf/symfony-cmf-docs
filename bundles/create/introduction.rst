@@ -7,7 +7,9 @@ CreateBundle
 
     The CreateBundle provides modern front-end in-place editing for web
     applications. It integrates create.js and the CreatePHP library into
-    Symfony2.
+    Symfony.
+
+.. include:: ../_partials/unmaintained.rst.inc
 
 The JavaScript library `create.js`_ provides a comprehensive web editing
 interface for Content Management Systems. It is designed to provide a modern,
@@ -80,7 +82,7 @@ bundles in your kernel and properly configure Assetic as described below.
 To upload and display images the :doc:`MediaBundle <../media/introduction>` is
 used. CKEditor uses the :doc:`elfinder adapter <../media/adapters/elfinder>`.
 
-.. _bundle-create-ckeditor:
+.. _bundles-create-ckeditor:
 
 Installation
 ------------
@@ -126,12 +128,6 @@ overwrite them) are:
             "ckeditor-commit": "bba29309f93a1ace1e2e3a3bd086025975abbad0"
         }
     }
-
-.. versionadded:: 1.2
-    The Symfony CMF bundles updated to PSR-4 autoloading with Symfony CMF
-    1.2. Before, the target directories were located in the
-    ``vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundle/CreateBundle/Resources/public/vendor``
-    directory.
 
 Add this bundle (and its dependencies, if they are not already added) to your
 application's kernel::
@@ -233,7 +229,7 @@ found:
 
 .. code-block:: bash
 
-    $ php app/console --env=prod assetic:dump
+    $ php bin/console --env=prod assetic:dump
 
 Routing
 ~~~~~~~
@@ -305,7 +301,7 @@ JavaScript loader check if the current user is granted the configured
 .. tip::
 
     In order to have security in place, you need to configure a
-    "Symfony2 firewall". Read more in the `Symfony2 security chapter`_.
+    "Symfony firewall". Read more in the `Symfony security chapter`_.
     If you do not do that, create.js will not be loaded and editing
     will be disabled.
 
@@ -361,14 +357,13 @@ after those to be able to customize as needed) with:
     Make sure Assetic is rewriting the paths in your CSS files properly or you
     might not see icon images.
 
-In your page bottom area, load the JavaScript files. If you are using Symfony 2.2 or
-higher, the method reads:
+In your page bottom area, load the JavaScript files:
 
 .. configuration-block::
 
     .. code-block:: jinja
 
-        {% render(controller("cmf_create.jsloader.controller:includeJSFilesAction")) %}
+        {{ render(controller("cmf_create.jsloader.controller:includeJSFilesAction")) }}
 
     .. code-block:: php
 
@@ -388,9 +383,9 @@ higher, the method reads:
     use the hallo editor, a plugin is enabled to use the tag editor to edit
     ``skos:related`` collections of attributes. For customization of the editor
     configuration further, you will need to use a
-    :ref:`custom template to load the editor<bundle-create-custom>`.
+    :ref:`custom template to load the editor<bundles-create-custom>`.
 
-.. _bundle-create-usage-embed:
+.. _bundles-create-usage-embed:
 
 Rendering Content
 -----------------
@@ -545,10 +540,6 @@ Mapping Requests to Domain Objects
 One last piece is the mapping between CreatePHP data and the application
 domain objects. Data needs to be stored back into the database.
 
-.. versionadded:: 1.3
-    The chain mapper and ORM configuration was introduced in CreateBundle
-    1.3. Prior, only the PHPCR-ODM mapper was available.
-
 Adding Custom Mappers to the Chain
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -591,9 +582,6 @@ your own mapper in place of the chain mapper.
 
 Workflows
 ---------
-
-.. versionadded:: 1.1
-    Support for workflows was introduced in CreateBundle 1.1.
 
 CreateJS uses a REST api for creating, loading and changing content. To delete content
 the HTTP method DELETE is used. Since deleting might be a more complex operation
@@ -664,4 +652,4 @@ Read On
 .. _`symfony-cmf/create-bundle`: https://packagist.org/packages/symfony-cmf/create-bundle
 .. _`RDF`: https://en.wikipedia.org/wiki/Resource_Description_Framework
 .. _`RDFa`: https://en.wikipedia.org/wiki/RDFa
-.. _`Symfony2 security chapter`: https://symfony.com/doc/current/book/security.html
+.. _`Symfony security chapter`: https://symfony.com/doc/current/security.html

@@ -55,7 +55,7 @@ Enable the Dynamic Router
 
 The RoutingAutoBundle uses the CMF `RoutingBundle`_ which enables routes to
 be provided from a database (in addition to being provided from
-the routing configuration files as in core Symfony 2).
+the routing configuration files as in core Symfony).
 
 Add the following to your application configuration:
 
@@ -67,7 +67,7 @@ Add the following to your application configuration:
         cmf_routing:
             chain:
                 routers_by_id:
-                    cmf_routing.dynamic_router: 20
+                    cmf_routing.dynamic_router: 200
                     router.default: 100
             dynamic:
                 enabled: true
@@ -109,7 +109,7 @@ This will:
    add the dynamic router (which can retrieve routes from the database) and
    the default Symfony router (which retrieves routes from configuration
    files). The number indicates the order of precedence - the router with the
-   lowest number will be called first;
+   highest number will be called first;
 #. Configure the **dynamic** router which you have added to the router chain.
    You specify that it should use the PHPCR backend and that the *root* route
    can be found at ``/cms/routes``.
@@ -163,12 +163,16 @@ You can now proceed to mapping your documents, create the following in your
 
         # src/AppBundle/Resources/config/cmf_routing_auto.yml
         AppBundle\Document\Page:
-            uri_schema: /page/{title}
+            definitions:
+                main:
+                    uri_schema: /page/{title}
             token_providers:
                 title: [content_method, { method: getTitle }]
 
         AppBundle\Document\Post:
-            uri_schema: /post/{date}/{title}
+            definitions:
+                main:
+                    uri_schema: /post/{date}/{title}
             token_providers:
                 date: [content_datetime, { method: getDate }]
                 title: [content_method, { method: getTitle }]
@@ -216,13 +220,13 @@ Now reload the fixtures:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:fixtures:load
+    $ php bin/console doctrine:phpcr:fixtures:load
 
 Have a look at what you have:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:dump
+    $ php bin/console doctrine:phpcr:node:dump
     ROOT:
       cms:
         pages:
@@ -246,6 +250,6 @@ Have a look at what you have:
 
 The routes have been automatically created!
 
-.. _`routingautobundle documentation`: https://symfony.com/doc/current/cmf/bundles/routing_auto.html
+.. _`routingautobundle documentation`: https://symfony.com/doc/master/cmf/bundles/routing_auto.html
 .. _`SonataDoctrinePhpcrAdminBundle`: https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle
 .. _`routingbundle`: https://symfony.com/doc/master/cmf/bundles/routing/index.html

@@ -39,9 +39,6 @@ Basic repository operations
 * **cmf_path|getPath($document)**: Get the path of the provided document.
 * **cmf_parent_path|getParentPath($document)**: Get the path of the parent of the provided document.
 
-.. versionadded:: 1.3.1
-    The cmf_find_translation twig function has been added in version 1.3.1 of the CMF CoreBundle.
-
 Walking the PHPCR tree
 ......................
 
@@ -96,24 +93,31 @@ Walking the PHPCR tree
 Helper methods
 ..............
 
-+---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
-| ``cmf_document_locales``  | ``getLocalesFor``   | ``$document``,         | Get the locales of the provided document. If ``$includeFallbacks`` is    |
-|                           |                     | ``$includeFallbacks``, | ``true``, all fallback locales are provided as well, even if no          |
-|                           |                     | ``false``              | translation in that language exists.                                     |
-+---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
-| ``cmf_is_linkable``       | ``isLinkable``      | ``$document``          | Check if the provided object can be used to generate a URL. If this      |
-|                           |                     |                        | check returns true, it should be save to pass it to ``path`` or ``url``. |
-|                           |                     |                        | An object is considered linkable if it either *is* an instance of        |
-|                           |                     |                        | ``Route`` or implements the ``RouteReferrersReadInterface`` *and*        |
-|                           |                     |                        | actually returns a route.                                                |
-+---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
-| ``cmf_is_published``      | ``isPublished``     | ``$document``          | Check with the publish workflow if the provided object is published. See |
-|                           |                     |                        | also :ref:`cmf_is_published <bundle-core-publish-workflow-twig_function>`|
-|                           |                     |                        | for an example.                                                          |
-+---------------------------+---------------------+------------------------+--------------------------------------------------------------------------+
++---------------------------+---------------------+------------------------+---------------------------------------------------------------------------+
+| ``cmf_document_locales``  | ``getLocalesFor``   | ``$document``,         | Get the locales of the provided document. If ``$includeFallbacks`` is     |
+|                           |                     | ``$includeFallbacks``, | ``true``, all fallback locales are provided as well, even if no           |
+|                           |                     | ``false``              | translation in that language exists.                                      |
++---------------------------+---------------------+------------------------+---------------------------------------------------------------------------+
+| ``cmf_is_linkable``       | ``isLinkable``      | ``$document``          | Check if the provided object can be used to generate a URL. If this       |
+|                           |                     |                        | check returns true, it should be safe to pass it to ``path`` or ``url``.  |
+|                           |                     |                        | An object is considered linkable if it either *is* an instance of         |
+|                           |                     |                        | ``Route`` or implements the ``RouteReferrersReadInterface`` *and*         |
+|                           |                     |                        | actually returns a route.                                                 |
++---------------------------+---------------------+------------------------+---------------------------------------------------------------------------+
+| ``cmf_is_published``      | ``isPublished``     | ``$document``          | Check with the publish workflow if the provided object is published. See  |
+|                           |                     |                        | also :ref:`cmf_is_published <bundles-core-publish-workflow-twig_function>`|
+|                           |                     |                        | for an example.                                                           |
++---------------------------+---------------------+------------------------+---------------------------------------------------------------------------+
 
 Code examples
 .............
+
+.. versionadded:: 2.3
+
+    Since `symfony-cmf/routing: 2.3.0`, the route document should be passed in
+    the route parameters as `_route_object`, and the special route name
+    `cmf_routing_object` is to be used. When using older versions of routing,
+    you need to pass the route document as route name.
 
 .. configuration-block::
 
@@ -124,16 +128,16 @@ Code examples
         {% if cmf_is_published(page) %}
             {% set prev = cmf_prev_linkable(page) %}
             {% if prev %}
-                <a href="{{ path(prev) }}">prev</a>
+                <a href="{{ path('cmf_routing_object', {_route_object: prev}) }}">prev</a>
             {% endif %}
 
             {% set next = cmf_next_linkable(page) %}
             {% if next %}
-                <span style="float: right; padding-right: 40px;"><a href="{{ path(next) }}">next</a></span>
+                <span style="float: right; padding-right: 40px;"><a href="{{ path('cmf_routing_object', {_route_object: next}) }}">next</a></span>
             {%  endif %}
 
-            {% for news in cmf_children(parent=cmfMainContent, class='Acme\\DemoBundle\\Document\\NewsItem')|reverse %}
-                <li><a href="{{ path(news) }}">{{ news.title }}</a> ({{ news.publishStartDate | date('Y-m-d')  }})</li>
+            {% for news in cmf_children(parent=cmfMainContent, class='AppBundle\\Document\\NewsItem')|reverse %}
+                <li><a href="{{ path('cmf_routing_object', {_route_object: news}) }}">{{ news.title }}</a> ({{ news.publishStartDate | date('Y-m-d')  }})</li>
             {% endfor %}
 
             {% if 'de' in cmf_document_locales(page) %}
@@ -161,19 +165,28 @@ Code examples
         <?php if $view['cmf']->isPublished($page) : ?>
             <?php $prev = $view['cmf']->getPrev($page) ?>
             <?php if ($prev) : ?>
-                <a href="<?php echo $view['router']->generate($prev) ?>">prev</a>
+                <a href="<?php echo $view['router']->generate(
+                                        RouteObjectInterface::OBJECT_BASED_ROUTE_NAME,
+                                        [RouteObjectInterface::ROUTE_OBJECT => $prev]
+                ) ?>">prev</a>
             <?php endif ?>
 
             <?php $next = $view['cmf']->getNext($page) ?>
             <?php if ($next) : ?>
                 <span style="float: right; padding-right: 40px;">
-                    <a href="<?php echo $view['router']->generate($next) ?>">next</a>
+                    <a href="<?php echo $view['router']->generate(
+                                        RouteObjectInterface::OBJECT_BASED_ROUTE_NAME,
+                                        [RouteObjectInterface::ROUTE_OBJECT => $next]
+                    ) ?>">next</a>
                 </span>
             <?php endif ?>
 
             <?php foreach (array_reverse($view['cmf']->getChildren($page)) as $news) : ?>
                 <li>
-                    <a href="<?php echo $view['router']->generate($news) ?>"><?php echo $news->getTitle() ?></a>
+                    <a href="<?php echo $view['router']->generate(
+                                        RouteObjectInterface::OBJECT_BASED_ROUTE_NAME,
+                                        [RouteObjectInterface::ROUTE_OBJECT => $news]
+                    ) ?>"><?php echo $news->getTitle() ?></a>
                     (<?php echo date('Y-m-d', $news->getPublishStartDate()) ?>)
                 </li>
             <?php endforeach ?>
@@ -185,7 +198,7 @@ Code examples
                         $app->getRequest()->attributes->get('_route_params'),
                         array_merge(
                             $app->getRequest()->query->all(),
-                            array('_locale' => 'de')
+                            ['_locale' => 'de']
                         )
                     )
                 ?>">DE</a>
@@ -197,7 +210,7 @@ Code examples
                         $app->getRequest()->attributes->get('_route_params'),
                         array_merge(
                             $app->getRequest()->query->all(),
-                            array('_locale' => 'fr')
+                            ['_locale' => 'fr']
                         )
                     )
                 ?>">FR</a>
@@ -208,7 +221,7 @@ Code examples
 
     When you use the ``class`` argument, do not forget that Twig will
     simply *ignore* single backslashes. If you would write
-    ``Acme\DemoBundle\Document\NewsItem``, this will make the cmf look
-    for the class AcmeDemoBundleDocumentNewsItem which will result in an
+    ``AppBundle\Document\NewsItem``, this will make the cmf look
+    for the class ``AppBundleDocumentNewsItem`` which will result in an
     empty list. What you need to write in the template is
-    ``Acme\\DemoBundle\\Document\\NewsItem``.
+    ``AppBundle\\Document\\NewsItem``.

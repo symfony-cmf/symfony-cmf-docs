@@ -4,6 +4,8 @@ Developing the Hallo Wysiwyg Editor
     You can use the CreateBundle as a development testbed for the hallo.js
     editor.
 
+.. include:: ../_partials/unmaintained.rst.inc
+
 A compiled and minimized version of `hallo.js`_ is bundled with create.js. To
 develop the actual code, you will need to checkout the full
 `hallo.js repository`_ first. You can do this by running the following command
@@ -11,7 +13,7 @@ in the symfony console:
 
 .. code-block:: bash
 
-    $ php app/console cmf:create:init-hallo-devel
+    $ php bin/console cmf:create:init-hallo-devel
 
 The CreateBundle provides a special template that loads the coffeescript files.
 To use this template, specify ``hallo-coffee`` as editor in the

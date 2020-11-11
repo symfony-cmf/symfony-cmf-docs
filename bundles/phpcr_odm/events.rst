@@ -30,29 +30,30 @@ use this configuration:
 
     .. code-block:: yaml
 
+        # app/config/services.yml
         services:
-            acme_search.listener.search:
-                class: Acme\SearchBundle\EventListener\SearchIndexer
+            app.phpcr_search_indexer:
+                class: App\EventListener\SearchIndexer
                     tags:
                         - { name: doctrine_phpcr.event_listener, event: postPersist }
 
-            acme_search.subscriber.fancy:
-                class: Acme\SearchBundle\EventSubscriber\MySubscriber
+            app.phpcr_listener:
+                class: App\EventListener\MyListener
                     tags:
                         - { name: doctrine_phpcr.event_subscriber }
 
     .. code-block:: xml
 
-        <!-- src/Acme/SearchBundle/Resources/config/services.xml -->
         <?xml version="1.0" ?>
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services">
             <services>
-                <service id="acme_search.listener.search"
-                         class="Acme\SearchBundle\EventListener\SearchIndexer">
+                <service id="app.phpcr_search_indexer"
+                         class="App\EventListener\SearchIndexer">
                     <tag name="doctrine_phpcr.event_listener" event="postPersist" />
                 </service>
-                <service id="acme_search.subscriber.fancy"
-                         class="Acme\SearchBundle\EventSubscriber\MySubscriber">
+                <service id="app.phpcr_listener"
+                         class="App\EventListener\MyListener">
                     <tag name="doctrine_phpcr.event_subscriber" />
                 </service>
             </services>
@@ -60,31 +61,33 @@ use this configuration:
 
     .. code-block:: php
 
+        // app/config/config.php
+        use App\EventListener\SearchIndexer;
+        use App\EventListener\MyListener;
+
         $container
             ->register(
-                'acme_search.listener.search',
-                'Acme\SearchBundle\EventListener\SearchIndexer'
+                'app.phpcr_search_indexer',
+                SearchIndexer::class
             )
-            ->addTag('doctrine_phpcr.event_listener', array(
+            ->addTag('doctrine_phpcr.event_listener', [
                 'event' => 'postPersist',
-            ))
+            ])
         ;
 
         $container
             ->register(
-                'acme_search.subscriber.fancy',
-                'Acme\SearchBundle\EventSubscriber\FancySubscriber'
+                'app.phpcr_listener',
+                MySubscriber::class
             )
-            ->addTag('doctrine_phpcr.event_subscriber', array(
-                'event' => 'postPersist',
-            ))
+            ->addTag('doctrine_phpcr.event_subscriber')
         ;
 
 .. tip::
 
-    Doctrine event subscribers (both ORM and PHPCR-ODM) can not return a
-    flexible array of methods to call like the `Symfony event subscriber`_ can
-    do. Doctrine event subscribers must return a simple array of the event
+    Doctrine event subscribers (both ORM and PHPCR-ODM) can **not** return a
+    flexible array of methods to call like the `Symfony event subscriber`_.
+    Doctrine event subscribers must return a simple array of the event
     names they subscribe to. Doctrine will then expect methods on the
     subscriber with the names of the subscribed events, just as when using an
     event listener.
@@ -93,6 +96,6 @@ You can find more information and examples of the doctrine event system
 in "`How to Register Event Listeners and Subscribers`_" of the core documentation.
 
 .. _`Doctrine PHPCR-ODM event system documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html
-.. _`Symfony event subscriber`: https://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers
-.. _`Doctrine ORM events`: https://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html
-.. _`How to Register Event Listeners and Subscribers`: https://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html
+.. _`Symfony event subscriber`: https://symfony.com/doc/current/components/event_dispatcher/introduction.html#using-event-subscribers
+.. _`Doctrine ORM events`: https://symfony.com/doc/current/doctrine/event_listeners_subscribers.html
+.. _`How to Register Event Listeners and Subscribers`: https://symfony.com/doc/current/doctrine/event_listeners_subscribers.html

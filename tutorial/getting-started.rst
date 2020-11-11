@@ -43,7 +43,7 @@ you will need to create the database:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:database:create
+    $ php bin/console doctrine:database:create
 
 This will create a new database according to the configuration file
 ``parameters.yml``.
@@ -54,7 +54,7 @@ node content of the PHPCR content repository:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:init:dbal
+    $ php bin/console doctrine:phpcr:init:dbal
 
 .. note::
 
@@ -69,7 +69,7 @@ Now you can generate the bundle in which you will write most of your code:
 
 .. code-block:: bash
 
-    $ php app/console generate:bundle --namespace=AppBundle --dir=src --format=yml --no-interaction
+    $ php bin/console generate:bundle --namespace=AppBundle --dir=src --format=yml --no-interaction
 
 The Documents
 .............
@@ -148,13 +148,6 @@ to reduce code duplication::
         }
     }
 
-.. note::
-
-    Traits are only available as of PHP 5.4. If you are running a lesser
-    version of PHP you may copy the above code into each class to have the
-    same effect. You may not, however, ``extend`` one class from the other, as
-    this will cause unintended behavior in the admin integration later on.
-
 The ``Page`` class is therefore nice and simple::
 
     // src/AppBundle/Document/Page.php
@@ -219,7 +212,7 @@ be referenceable and in addition will automatically set the date using the
 Both the ``Post`` and ``Page`` classes implement the
 ``RouteReferrersReadInterface``. This interface enables the
 :ref:`DynamicRouter to generate URLs <bundles-routing-dynamic-generator>` from
-instances of these classes. (for example with ``{{ path(content) }}`` in Twig).
+instances of these classes. (for example with ``{{ path('cmf_routing_object', {_route_object: content}) }}`` in Twig).
 
 Repository Initializer
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -301,7 +294,7 @@ them manually using the following command:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:repository:init
+    $ php bin/console doctrine:phpcr:repository:init
 
 .. note::
 
@@ -315,7 +308,7 @@ content repository:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:dump
+    $ php bin/console doctrine:phpcr:node:dump
 
 Create Data Fixtures
 ~~~~~~~~~~~~~~~~~~~~
@@ -411,7 +404,7 @@ Then load the fixtures:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:fixtures:load
+    $ php bin/console doctrine:phpcr:fixtures:load
 
 You should now have some data in your content repository.
 

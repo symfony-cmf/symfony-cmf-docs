@@ -5,7 +5,7 @@ ChainRouter
 ===========
 
 At the core of the Symfony CMF Routing component sits the ``ChainRouter``. It
-is used as a replacement for Symfony2's default routing system.
+is used as a replacement for Symfony's default routing system.
 
 The ``ChainRouter`` works by accepting a set of prioritized routing
 strategies, :class:`Symfony\\Component\\Routing\\RouterInterface`
@@ -31,7 +31,7 @@ Adding Routers to the Chain
 ---------------------------
 
 Routers are added using the ``add`` method of the ``ChainRouter``. Use this to
-add the default Symfony2 router::
+add the default Symfony router::
 
     use Symfony\Component\Routing\Router;
     use Symfony\Cmf\Component\Routing\ChainRouter;
@@ -40,12 +40,12 @@ add the default Symfony2 router::
     $chainRouter->add(new Router(...));
     $chainRouter->match('/foo/bar');
 
-Now, when the ``ChainRouter`` matches a request, it will ask the Symfony2
+Now, when the ``ChainRouter`` matches a request, it will ask the Symfony
 ``Router`` to see if the request matches. If there is no match, it will throw a
 :class:`Symfony\\Component\\Routing\\Exception\\ResourceNotFoundException`.
 
 If you add a new router, for instance the ``DynamicRouter``, it will be
-called after the Symfony2 Router (because that was added first). To control the
+called after the Symfony Router (because that was added first). To control the
 order, you can use the second argument of the ``add`` method to set a priority.
 Higher priorities are sorted first.
 
@@ -69,7 +69,7 @@ Register Routers Compiler Pass
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This component provides a ``RegisterRoutersPass``. If you use the
-`Symfony2 Dependency Injection Component`_, you can use this compiler pass to
+`Symfony Dependency Injection Component`_, you can use this compiler pass to
 register all routers with a specific tag::
 
     use Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRoutersPass;
@@ -83,7 +83,7 @@ register all routers with a specific tag::
 
 After adding the passes and configuring the container builder, you continue
 with compiling the container as explained in the
-`Symfony2 DI Component compilation section`_.
+`Symfony DI Component compilation section`_.
 
 You can optionally configure the chain router service name. The compiler pass
 will modify this service definition to register the routers when the chain
@@ -92,7 +92,7 @@ service name is ``cmf_routing.router``.
 
 You can also configure the tag name you want to use with the second argument to
 the compiler pass constructor. If you don't, the default tag is ``router``. If
-you are using the :doc:`Symfony2 CMF RoutingBundle <../../bundles/routing/introduction>`,
+you are using the :doc:`Symfony CMF RoutingBundle <../../bundles/routing/introduction>`,
 this tag is already active with the default name.
 
 Routers
@@ -107,10 +107,10 @@ You can easily create your own routers by implementing
 Routing Component already includes a powerful route matching system that you
 can extend to your needs.
 
-Symfony2 Default Router
-~~~~~~~~~~~~~~~~~~~~~~~
+Symfony Default Router
+~~~~~~~~~~~~~~~~~~~~~~
 
-The Symfony2 routing mechanism is itself a ``RouterInterface`` implementation,
+The Symfony routing mechanism is itself a ``RouterInterface`` implementation,
 which means you can use it as a Router in the ``ChainRouter``. This allows you
 to use the default routing declaration system. Read more about this router in
 the `Routing Component`_ article of the core documentation.
@@ -124,5 +124,5 @@ is faster in taking routing decisions.
 Read on about the dynamic router in the :doc:`next section<dynamic>`.
 
 .. _`Routing Component`: https://symfony.com/doc/current/components/routing/introduction.html
-.. _`Symfony2 Dependency Injection Component`: https://symfony.com/doc/master/components/dependency_injection/index.html
-.. _`Symfony2 DI Component compilation section`: https://symfony.com/doc/current/components/dependency_injection/compilation.html
+.. _`Symfony Dependency Injection Component`: https://symfony.com/doc/current/components/dependency_injection/index.html
+.. _`Symfony DI Component compilation section`: https://symfony.com/doc/current/components/dependency_injection/compilation.html

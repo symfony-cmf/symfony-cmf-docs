@@ -5,6 +5,15 @@
 DoctrinePHPCRBundle
 ===================
 
+The Symfony CMF is storage layer agnostic, meaning that it can work with many
+storage layers. But by default, the Symfony CMF works with the
+`Doctrine PHPCR-ODM`_.
+
+.. tip::
+
+    Read more about choosing the correct storage layer in
+    :doc:`../../cookbook/database/choosing_storage_layer`
+
 The `DoctrinePHPCRBundle`_ provides integration with the PHP content
 repository and optionally with Doctrine PHPCR-ODM to provide the ODM document
 manager in symfony.
@@ -15,7 +24,7 @@ Out of the box, this bundle supports the following PHPCR implementations:
 
 .. tip::
 
-    This reference only explains the Symfony2 integration of PHPCR and
+    This reference only explains the Symfony integration of PHPCR and
     PHPCR-ODM. To learn how to use PHPCR, refer to `the PHPCR website`_ and
     for Doctrine PHPCR-ODM to the `PHPCR-ODM documentation`_.
 
@@ -62,11 +71,11 @@ Besides the ``DoctrinePHPCRBundle`` you also need to instantiate the base
     {
         public function registerBundles()
         {
-            $bundles = array(
+            $bundles = [
                 // ...
                 new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
                 new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            );
+            ];
 
             // ...
         }
@@ -87,7 +96,7 @@ DBAL. The full documentation is in the :doc:`configuration reference <configurat
 
 To use Jackalope Doctrine DBAL, you need to configure a database connection
 with the DoctrineBundle. For detailed information, see the
-`Symfony2 Doctrine documentation`_. A simple example is:
+`Symfony Doctrine documentation`_. A simple example is:
 
 .. code-block:: yaml
 
@@ -139,15 +148,15 @@ with the DoctrineBundle. For detailed information, see the
     .. code-block:: php
 
         // app/config/config.php
-        $configuration->loadFromExtension('doctrine', array(
-            'dbal' => array(
+        $configuration->loadFromExtension('doctrine', [
+            'dbal' => [
                 'driver'   => '%database_driver%',
                 'host'     => '%database_host%',
                 'dbname'   => '%database_name%',
                 'user'     => '%database_user%',
                 'password' => '%database_password%',
-            ),
-        ));
+            ],
+        ]);
 
 Jackalope Doctrine DBAL provides a PHPCR implementation without any
 installation requirements beyond any of the RDBMS supported by Doctrine.
@@ -210,31 +219,31 @@ Once you set up Doctrine DBAL, you can configure Jackalope:
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'backend' => [
                     'type'       => 'doctrinedbal',
                     //'connection': 'default',
                     'logging'    => true,
                     'profiling'  => true,
-                    //'caches' => array(
+                    //'caches' => [
                     //    'meta' => 'doctrine_cache.providers.phpcr_meta'
                     //    'nodes' => 'doctrine_cache.providers.phpcr_nodes'
-                    //),
-                ),
+                    //],
+                ],
                 'workspace' => 'default',
                 'username'  => 'admin',
                 'password'  => 'admin',
-            ),
-        ));
+            ],
+        ]);
 
 Now make sure the database exists and initialize it:
 
 .. code-block:: bash
 
     # without Doctrine ORM
-    php app/console doctrine:database:create
-    php app/console doctrine:phpcr:init:dbal
+    php bin/console doctrine:database:create
+    php bin/console doctrine:phpcr:init:dbal
 
 .. tip::
 
@@ -257,8 +266,8 @@ so that you can create migrations.
 .. code-block:: bash
 
     # Using Doctrine ORM
-    php app/console doctrine:database:create
-    php app/console doctrine:schema:create
+    php bin/console doctrine:database:create
+    php bin/console doctrine:schema:create
 
 .. note::
 
@@ -282,6 +291,14 @@ here, the ODM services will not be loaded.
             odm:
                 auto_mapping: true
                 auto_generate_proxy_classes: "%kernel.debug%"
+                mappings:
+                    App:
+                        mapping: true
+                        type: annotation
+                        dir: '%kernel.root_dir%/Document'
+                        alias: App
+                        prefix: App\Document\
+                        is_bundle: false
 
     .. code-block:: xml
 
@@ -294,28 +311,60 @@ here, the ODM services will not be loaded.
                 <odm
                     auto-mapping="true"
                     auto-generate-proxy-classes="%kernel.debug%"
-                />
+                >
+                    <mapping name="App"
+                        mapping="true"
+                        type="annotation"
+                        dir="%kernel.root_dir%/Document"
+                        alias="App"
+                        prefix="App\Document\"
+                        is_bundle="false"
+                    />
+                </odm>
             </config>
         </container>
 
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'odm' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'odm' => [
                 'auto_mapping' => true,
                 'auto_generate_proxy_classes' => '%kernel.debug%',
-            ),
-        ));
+                'mappings' => [
+                    # Configure document mappings 
+                    'App' => [
+                        'mapping' => true,
+                        'type' => 'annotation',
+                        'dir' => '%kernel.root_dir%/Document',
+                        'alias' => 'App',
+                        'prefix' => 'App\Document\',
+                        'is-bundle' => false,
+                    ],
+                ],
+            ],
+        ]);
 
-Unless you disable ``auto_mapping``, you can place your documents in the
-``Document`` folder inside your bundles and use annotations or name the
-mapping files following this schema:
-``<Bundle>/Resources/config/doctrine/<DocumentClass>.phpcr.xml`` or ``*.phpcr.yml``.
+When ``auto_mapping`` is enabled, bundles will be automatically loaded and
+attempted to resolve mappings
+
+.. tip::
+
+    For bundles, unless you disable ``auto_mapping``, you can place your
+    documents in the ``Document`` folder inside your bundles and use
+    annotations or name the mapping files following this convention:
+    ``<Bundle>/Resources/config/doctrine/<DocumentClass>.phpcr.xml`` or
+    ``*.phpcr.yml``.
 
 If ``auto_generate_proxy_classes`` is false, you need to run the
 ``cache:warmup`` command in order to have the proxy classes generated after
 you modified a document. This is usually done in production to gain some performance.
+
+For applications, it is usually required to define ``mappings``. In a standard
+minimal setup, an ``App`` definition as shown in above example is required,
+which maps ``App\Document\`` documents in the ``src/Document`` directory.
+
+See :doc:`configuration`, for complete details.
 
 
 Registering System Node Types
@@ -328,7 +377,7 @@ bundles:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:repository:init
+    $ php bin/console doctrine:phpcr:repository:init
 
 You only need to run this command once when you created a new repository. (But
 nothing goes wrong if you run it on each deployment for example.)
@@ -337,7 +386,7 @@ Profiling and Performance of Jackalope
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When using any of the Jackalope PHPCR implementations, you can activate logging
-to log to the symfony log, or profiling to show information in the Symfony2
+to log to the symfony log, or profiling to show information in the Symfony
 debug toolbar:
 
 .. configuration-block::
@@ -373,15 +422,15 @@ debug toolbar:
     .. code-block:: php
 
         // app/config/config.yml
-        $container->loadFromExtension('doctrine_phpcr', array(
-            'session' => array(
-                'backend' => array(
+        $container->loadFromExtension('doctrine_phpcr', [
+            'session' => [
+                'backend' => [
                     // ...
                     'logging'   => true,
                     'profiling' => true,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
 Now that you can see the effects of changes, you can try if adjusting the global
 fetch depth reduces the number and duration for queries. Set the option
@@ -404,13 +453,15 @@ Services
 
 There are 3 main services provided by this bundle:
 
-* ``doctrine_phpcr``- The ``ManagerRegistry`` instance with references to all
-  sessions and document manager instances;
-* ``doctrine_phpcr.default_session`` - The PHPCR session instance;
-* ``doctrine_phpcr.odm.default_document_manager`` - The PHPCR-ODM document
-  manager instance.
+* ``Doctrine\Bundle\PHPCRBundle\ManagerRegistry``- The ``ManagerRegistry``
+  instance with references to all sessions and document manager instances;
+* ``PHPCR\SessionInterface`` - the PHPCR session. If you configured
+  multiple sessions, this will be the default session;
+* ``Doctrine\ODM\PHPCR\DocumentManagerInterface`` - the PHPCR-ODM document
+  manager. If you configured multiple managers, this will be the default
+  manager.
 
-.. _bundle-phpcr-odm-commands:
+.. _bundles-phpcr-odm-commands:
 
 Doctrine PHPCR Commands
 -----------------------
@@ -422,7 +473,7 @@ PHPCR sessions.
 Some of these commands are specific to a backend or to the ODM. Those commands
 will only be available if such a backend is configured.
 
-Use ``app/console help <command>`` to see all options each of the commands
+Use ``php bin/console help <command>`` to see all options each of the commands
 has.
 
 * **doctrine:phpcr:document:migrate-class**: Command to migrate document classes;
@@ -462,13 +513,13 @@ Running `SQL2 queries`_ against the repository:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:workspace:query "SELECT title FROM [nt:unstructured] WHERE NAME() = 'home'"
+    $ php bin/console doctrine:phpcr:workspace:query "SELECT title FROM [nt:unstructured] WHERE NAME() = 'home'"
 
 Dumping nodes under ``/cms/simple`` including their properties:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:dump /cms/simple --props
+    $ php bin/console doctrine:phpcr:node:dump /cms/simple --props
 
 .. _phpcr-odm-backup-restore:
 
@@ -479,7 +530,7 @@ To export all repository data into a file, you can use:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:workspace:export --path /cms /path/to/backup.xml
+    $ php bin/console doctrine:phpcr:workspace:export --path /cms /path/to/backup.xml
 
 .. note::
 
@@ -491,7 +542,7 @@ To restore this backup you can run:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:workspace:import /path/to/backup.xml
+    $ php bin/console doctrine:phpcr:workspace:import /path/to/backup.xml
 
 Note that you can also export and import parts of your repository by choosing a
 different path on export and specifying the ``--parentpath`` option to the
@@ -502,11 +553,12 @@ remove the target node first:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:phpcr:node:remove /cms
+    $ php bin/console doctrine:phpcr:node:remove /cms
 
 Read On
 -------
 
+* :doc:`models`
 * :doc:`events`
 * :doc:`forms`
 * :doc:`fixtures_initializers`
@@ -514,26 +566,16 @@ Read On
 * :doc:`multiple_sessions`
 * :doc:`configuration`
 
+.. _`Doctrine PHPCR-ODM`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/index.html
 .. _`DoctrinePHPCRBundle`: https://github.com/doctrine/DoctrinePHPCRBundle
-.. _`Symfony2 Doctrine documentation`: https://symfony.com/doc/current/book/doctrine.html
+.. _`Symfony Doctrine documentation`: https://symfony.com/doc/current/doctrine.html
 .. _`Jackalope`: http://jackalope.github.io/
 .. _`the PHPCR website`: http://phpcr.github.io/
 .. _`PHPCR-ODM documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/
 .. _`bug in libxml`: https://bugs.php.net/bug.php?id=36501
 .. _`with composer`: https://getcomposer.org
 .. _`doctrine/phpcr-bundle`: https://packagist.org/packages/doctrine/phpcr-bundle
-.. _`metadata caching`: https://symfony.com/doc/master/reference/configuration/doctrine.html
-.. _`PHPCR-ODM documentation on Multilanguage`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/multilang.html
 .. _`custom node type`: https://github.com/doctrine/phpcr-odm/wiki/Custom-node-type-phpcr%3Amanaged
-.. _`the PHPCR-ODM documentation`: http://docs.doctrine-project.org/projects/doctrine-phpcr-odm/en/latest/reference/events.html
-.. _`Symfony event subscriber`: https://symfony.com/doc/master/components/event_dispatcher/introduction.html#using-event-subscribers
-.. _`Symfony cookbook entry`: https://symfony.com/doc/current/cookbook/doctrine/event_listeners_subscribers.html
-.. _`Symfony documentation on the entity form type`: https://symfony.com/doc/current/reference/forms/types/entity.html
-.. _SonataDoctrinePHPCRAdminBundle: https://sonata-project.org/bundles/doctrine-phpcr-admin/master/doc/index.html
-.. _`currently broken`: https://github.com/sonata-project/SonataDoctrineORMAdminBundle/issues/145
 .. _`DoctrineMigrationsBundle`: https://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
 .. _`DoctrineFixturesBundle`: https://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
-.. _`Doctrine data-fixtures`: https://github.com/doctrine/data-fixtures
-.. _`documentation of the DoctrineFixturesBundle`: https://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`SQL2 queries`: http://www.h2database.com/jcr/grammar.html
-.. _`BurgovKeyValueFormBundle`: https://github.com/Burgov/KeyValueFormBundle

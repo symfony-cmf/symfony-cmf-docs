@@ -5,7 +5,9 @@ Other Editors
     your own template to load a different editor or customize one of the
     existing editors is configured.
 
-.. _bundle-create-hallo:
+.. include:: ../_partials/unmaintained.rst.inc
+
+.. _bundles-create-hallo:
 
 Using Hallo.js Editor
 ---------------------
@@ -76,7 +78,7 @@ the additional image controller routing file in your main routing configuration:
 
         return $collection;
 
-.. _bundle-create-custom:
+.. _bundles-create-custom:
 
 Custom Editors
 --------------

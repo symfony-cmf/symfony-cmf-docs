@@ -7,7 +7,7 @@ application configuration. When using XML, you can use the
 
 The BlockBundle *automatically* changes some defaults and adds configuration
 to the SonataBlockBundle to make the integration work seamlessly. See the
-:ref:`updated SonataBlockBundle defaults <bundle-block-updated-sonata-defaults>`
+:ref:`updated SonataBlockBundle defaults <bundles-block-updated-sonata-defaults>`
 for more information.
 
 Configuration
@@ -34,21 +34,6 @@ is the following configuration:
                     enabled:                  false
                     block_basepath:           /cms/content
                     manager_name:             ~
-                    string_document_class:    Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\StringBlock
-                    simple_document_class:    Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock
-                    container_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock
-                    reference_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock
-                    action_document_class:    Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock
-                    slideshow_document_class: Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock
-                    imagine_document_class:   Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock
-                    use_sonata_admin:         auto
-                    string_admin_class:       Symfony\Cmf\Bundle\BlockBundle\Admin\StringBlockAdmin
-                    simple_admin_class:       Symfony\Cmf\Bundle\BlockBundle\Admin\SimpleBlockAdmin
-                    container_admin_class:    Symfony\Cmf\Bundle\BlockBundle\Admin\ContainerBlockAdmin
-                    reference_admin_class:    Symfony\Cmf\Bundle\BlockBundle\Admin\ReferenceBlockAdmin
-                    action_admin_class:       Symfony\Cmf\Bundle\BlockBundle\Admin\ActionBlockAdmin
-                    slideshow_admin_class:    Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\SlideshowBlockAdmin
-                    imagine_admin_class:      Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\ImagineBlockAdmin
 
     .. code-block:: xml
 
@@ -59,23 +44,8 @@ is the following configuration:
                 <persistence>
                     <phpcr
                         enabled="false"
-                        manager-name="null"
                         block-basepath="/cms/content"
-                        string-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\StringBlock"
-                        simple-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock"
-                        container-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock"
-                        reference-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock"
-                        action-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock"
-                        slideshow-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock"
-                        imagine-document-class="Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock"
-                        use-sonata-admin="auto"
-                        string-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\StringBlockAdmin"
-                        simple-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\SimpleBlockAdmin"
-                        container-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\ContainerBlockAdmin"
-                        reference-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\ReferenceBlockAdmin"
-                        action-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\ActionBlockAdmin"
-                        slideshow-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\SlideshowBlockAdmin"
-                        imagine-admin-class="Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\ImagineBlockAdmin"
+                        manager-name="null"
                     />
                 </persistence>
             </config>
@@ -90,21 +60,6 @@ is the following configuration:
                     'enabled'                  => false,
                     'block-basepath'           => '/cms/content',
                     'manager_name'             => null,
-                    'string_document_class'    => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\StringBlock',
-                    'simple_document_class'    => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock',
-                    'container_document_class' => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock',
-                    'reference_document_class' => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock',
-                    'action_document_class'    => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock',
-                    'slideshow_document_class' => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock',
-                    'imagine_document_class'   => 'Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock',
-                    'use_sonata_admin'         => 'auto',
-                    'string_admin_class'       => 'Symfony\Cmf\Bundle\BlockBundle\Admin\StringBlockAdmin',
-                    'simple_admin_class'       => 'Symfony\Cmf\Bundle\BlockBundle\Admin\SimpleBlockAdmin',
-                    'container_admin_class'    => 'Symfony\Cmf\Bundle\BlockBundle\Admin\ContainerBlockAdmin',
-                    'reference_admin_class'    => 'Symfony\Cmf\Bundle\BlockBundle\Admin\ReferenceBlockAdmin',
-                    'action_admin_class'       => 'Symfony\Cmf\Bundle\BlockBundle\Admin\ActionBlockAdmin',
-                    'slideshow_admin_class'    => 'Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\SlideshowBlockAdmin',
-                    'imagine_admin_class'      => 'Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\ImagineBlockAdmin',
                 ),
             ),
         ));
@@ -130,123 +85,6 @@ the value of ``%cmf_core.persistence.phpcr.basepath%/content``.
 
 .. include:: ../_partials/persistence_phpcr_manager_name.rst.inc
 
-``string_document_class``
-"""""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\StringBlock``
-
-The string block document class.
-
-``simple_document_class``
-"""""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock``
-
-The simple block document class.
-
-``container_document_class``
-""""""""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock``
-
-The container block document class.
-
-``reference_document_class``
-""""""""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock``
-
-The reference block document class.
-
-``action_document_class``
-"""""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock``
-
-The action block document class.
-
-If phpcr is enabled ``use_sonata_admin`` is enabled, the class value is set in
-``Resources/config/admin.xml``.
-
-``slideshow_document_class``
-""""""""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock``
-
-The slideshow block document class.
-
-``imagine_document_class``
-""""""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock``
-
-The imagine block document class. This document will only work properly if
-you set up the LiipImagineBundle.
-
-``use_sonata_admin``
-""""""""""""""""""""
-
-**type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
-
-If ``true``, the admin classes are activated. If set to ``auto``, they are
-activated only if the SonataPhpcrAdminBundle is present.
-
-If the :doc:`CoreBundle <../core/introduction>` is registered, this will default to the value
-of ``cmf_core.persistence.phpcr.use_sonata_admin``.
-
-``string_admin_class``
-""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Admin\StringBlockAdmin``
-
-The sonata admin class of the string block.
-
-``simple_admin_class``
-""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Admin\SimpleBlockAdmin``
-
-The sonata admin class of the simple block.
-
-``container_admin_class``
-"""""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Admin\ContainerBlockAdmin``
-
-The sonata admin class of the container block.
-
-``reference_admin_class``
-"""""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Admin\ReferenceBlockAdmin``
-
-The sonata admin class of the reference block.
-
-``action_admin_class``
-""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Admin\ActionBlockAdmin``
-
-The sonata admin class of the action block.
-
-``slideshow_admin_class``
-"""""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\SlideshowBlockAdmin``
-
-The sonata admin class of the slideshow block.
-
-This admin will only be loaded if ``use_imagine`` is enabled.
-
-``imagine_admin_class``
-"""""""""""""""""""""""
-
-**type**: ``string`` **default**: ``Symfony\Cmf\Bundle\BlockBundle\Admin\Imagine\ImagineBlockAdmin``
-
-The sonata admin class of the imagine block.
-
-This admin will only be loaded if ``use_imagine`` is enabled.
-
 ``twig``
 ~~~~~~~~
 
@@ -258,7 +96,7 @@ This admin will only be loaded if ``use_imagine`` is enabled.
 The BlockBundle provides a Twig filter ``cmf_embed_blocks`` that
 looks through the content and looks for special tags to render blocks.
 
-See :ref:`embed blocks in content <bundle-block-embed>` for using the
+See :ref:`embed blocks in content <bundles-block-embed>` for using the
 ``cmf_embed_blocks`` filter.
 
 ``prefix``
@@ -274,14 +112,6 @@ The part before the actual path to the block.
 **type**: ``string`` **default**: ``|end%``
 
 The part after the actual path to the block.
-
-``use_imagine``
-~~~~~~~~~~~~~~~
-
-**type**: ``enum`` **valid values**: ``true|false|auto`` **default**: ``auto``
-
-If ``true``, the imagine related block classes and admin classes are activated.
-If set to ``auto``, they are activated only if the LiipImagineBundle is present.
 
 ``caches``
 ~~~~~~~~~~

@@ -177,7 +177,7 @@ only bound to the PHPCR interfaces.
 Please see :doc:`choosing_phpcr_implementation` for more details
 on the available PHPCR implementations and their requirements and
 :doc:`../../bundles/phpcr_odm/introduction` for how to configure a repository
-in Symfony2.
+in Symfony.
 
 PHPCR ODM
 ---------

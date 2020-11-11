@@ -23,13 +23,6 @@ and master becomes aliased to 1.1.x-dev.
 The CMF Standard Edition and symfony-cmf will get point releases whenever one
 of the included bundles does a point release.
 
-.. note::
-
-    The CMF is quite new. As with Symfony 2.0, we don't want to promise BC
-    at all cost yet. If reasonably doable, we will keep the code BC or use
-    deprecations, but there might be exceptions where BC is too cumbersome.
-    The ``UPGRADE.md`` document will help you in those cases.
-
 Development
 -----------
 
@@ -55,15 +48,13 @@ and maintenance contracts.
 Backward Compatibility
 ----------------------
 
-For the next releases, we will maintain BC if possible. If something needs to
-be broken, the UPGRADE.md file will help you to update the project. We will
-switch to a BC-at-all-cost model later, once the CMF has stabilized and
-matured.
+We make an effort to respect semver_. When possible, we will provide backward
+compatible (BC) minor versions. When this would be too cumbersome, we will
+bump to a new major version. Major versions do not necessarily follow the
+Symfony framework major versions.
 
-.. note::
-
-    The work on Symfony CMF 2.0 will start whenever enough major features breaking
-    backward compatibility are waiting on the todo-list.
+The ``UPGRADE.md`` document will help you to both upgrade minor and major
+versions.
 
 Deprecations
 ------------
@@ -80,6 +71,7 @@ Rationale
 This release process was adopted to give more *predictability* and
 *transparency*. It is heavily inspired by the `core Symfony release process`_.
 
+.. _semver: http://semver.org/
 .. _Git repository: https://github.com/symfony/symfony
 .. _SensioLabs: http://sensiolabs.com/
 .. _core Symfony release process: https://symfony.com/doc/current/contributing/community/releases.html

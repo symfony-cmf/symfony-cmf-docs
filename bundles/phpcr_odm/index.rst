@@ -5,6 +5,7 @@ DoctrinePHPCRBundle
     :maxdepth: 2
 
     introduction
+    models
     events
     forms
     fixtures_initializers
