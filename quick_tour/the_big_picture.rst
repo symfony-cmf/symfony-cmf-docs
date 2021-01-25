@@ -26,7 +26,7 @@ the core parts of the CMS.
 The CMF is created to solve this framework versus CMS dilemma. It provides
 bundles, so you can easily add CMS features to your project. But it also
 provides flexibility and in all cases you are using the framework, so you can
-build custom functionality the way you want. This is called a `decoupled CMS`_.
+build custom functionality the way you want.
 
 The bundles provided by the Symfony CMF can work together, but they are also
 able to work standalone. This means that you don't need to add all bundles, you
