@@ -219,7 +219,7 @@ the Symfony CMF tries to make your life as a developer better by providing
 some CMS bundles. If you want to discover more, you can dive into the next
 section: ":doc:`the_model`".
 
-.. _`decoupled CMS`: http://decoupledcms.org
+.. _`decoupled CMS`: http://decoupledcms.github.io/
 .. _`Symfony Framework Quick Tour`: https://symfony.com/doc/current/quick_tour/the_big_picture.html
 .. _`Symfony Standard Edition`: https://github.com/symfony/symfony-standard
 .. _JCR: https://en.wikipedia.org/wiki/Content_repository_API_for_Java
