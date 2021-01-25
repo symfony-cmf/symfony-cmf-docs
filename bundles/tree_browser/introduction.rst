@@ -204,27 +204,31 @@ For example, if your want to open a custom action:
 
     .. code-block:: jinja
 
-        $('#tree').bind("select_node.jstree", function (event, data) {
-            if ((data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Doctrine_Phpcr_MenuNode'
-                && data.rslt.obj.attr("id") != '{{ menuNodeId }}'
-            ) {
-                var routing_defaults = {'locale': '{{ locale }}', '_locale': '{{ _locale }}'};
-                routing_defaults["id"] = data.rslt.obj.attr("url_safe_id");
-                window.location = Routing.generate('presta_cms_page_edit', routing_defaults);
-            }
-        });
+        <script type="text/javascript">
+            $('#tree').bind("select_node.jstree", function (event, data) {
+                if ((data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Doctrine_Phpcr_MenuNode'
+                    && data.rslt.obj.attr("id") != '{{ menuNodeId }}'
+                ) {
+                    var routing_defaults = {'locale': '{{ locale }}', '_locale': '{{ _locale }}'};
+                    routing_defaults["id"] = data.rslt.obj.attr("url_safe_id");
+                    window.location = Routing.generate('presta_cms_page_edit', routing_defaults);
+                }
+            });
+        </script>
 
     .. code-block:: php
-
-        $('#tree').bind("select_node.jstree", function (event, data) {
-            if ((data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Doctrine_Phpcr_MenuNode'
-                && data.rslt.obj.attr("id") != '<?php echo $menuNodeId ?>'
-            ) {
-                var routing_defaults = {'locale': '<?php echo $locale ?>', '_locale': '<?php echo $_locale ?>'};
-                routing_defaults["id"] = data.rslt.obj.attr("url_safe_id");
-                window.location = Routing.generate('presta_cms_page_edit', routing_defaults);
-            }
-        });
+        
+        <script type="text/javascript">
+            $('#tree').bind("select_node.jstree", function (event, data) {
+                if ((data.rslt.obj.attr("rel") == 'Symfony_Cmf_Bundle_MenuBundle_Doctrine_Phpcr_MenuNode'
+                    && data.rslt.obj.attr("id") != '<?php echo $menuNodeId ?>'
+                ) {
+                    var routing_defaults = {'locale': '<?php echo $locale ?>', '_locale': '<?php echo $_locale ?>'};
+                    routing_defaults["id"] = data.rslt.obj.attr("url_safe_id");
+                    window.location = Routing.generate('presta_cms_page_edit', routing_defaults);
+                }
+            });
+        </script>
 
 .. note::
 
