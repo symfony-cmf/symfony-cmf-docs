@@ -288,6 +288,7 @@ supported by Doctrine.
                     caches:
                         meta:  doctrine_cache.providers.phpcr_meta
                         nodes: doctrine_cache.providers.phpcr_nodes
+                        query: doctrine_cache.providers.phpcr_query
                     parameters:
                         # ... general parameters and options
 
@@ -308,6 +309,7 @@ supported by Doctrine.
                         <caches
                             meta="doctrine_cache.providers.phpcr_meta"
                             nodes="doctrine_cache.providers.phpcr_nodes"
+                            query="doctrine_cache.providers.phpcr_query"
                         />
 
                         <!-- ... general parameters and options -->
@@ -328,8 +330,9 @@ supported by Doctrine.
                     'type'       => 'doctrinedbal',
                     'connection' => 'default',
                     'caches' => [
-                        'meta'  => 'doctrine_cache.providers.phpcr_meta'
-                        'nodes' => 'doctrine_cache.providers.phpcr_nodes'
+                        'meta'  => 'doctrine_cache.providers.phpcr_meta',
+                        'nodes' => 'doctrine_cache.providers.phpcr_nodes',
+                        'query' => 'doctrine_cache.providers.phpcr_query',
                     ],
                     'parameters' => [
                         // ... general parameters and options
